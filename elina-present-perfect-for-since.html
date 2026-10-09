@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Present Perfect: for & since — Elina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF6EC; --card:#FFFFFF; --ink:#1B1F4B; --soft:#6B6F8E; --line:#E6DFCF;
+  --sage:#74AE96; --sage-d:#3F7F68; --sage-l:#E4F1EB;
+  --coral:#E8685F; --coral-d:#C4453C; --coral-l:#FCE7E4;
+  --sun:#E9B44C; --sun-d:#9A6A0B; --sun-l:#FBF0D6;
+  --sky:#5B7FD1; --sky-l:#E6ECFA;
+  --ok:#2E8B62; --ok-l:#E2F4EA; --bad:#C4453C; --bad-l:#FCE7E4;
+  --r:16px; --shadow:0 2px 0 rgba(27,31,75,.06), 0 10px 26px -14px rgba(27,31,75,.25);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.5;
+  background-image:radial-gradient(circle at 8% 2%,rgba(116,174,150,.22) 0 120px,transparent 121px),radial-gradient(circle at 96% 6%,rgba(232,104,95,.16) 0 90px,transparent 91px),radial-gradient(circle at 88% 0%,rgba(233,180,76,.22) 0 60px,transparent 61px);background-repeat:no-repeat}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:"Prata",Georgia,serif;font-weight:400;line-height:1.2;margin:0}
+.ru{color:var(--soft);font-family:"Onest",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* header */
+header.top{padding:28px 0 18px}
+.kicker{display:inline-flex;gap:8px;align-items:center;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-d);background:var(--sage-l);padding:6px 12px;border-radius:99px}
+header.top h1{font-size:clamp(30px,7vw,48px);margin:14px 0 6px}
+header.top h1 em{font-style:normal;color:var(--coral)}
+header.top h1 b{font-weight:400;color:var(--sage-d)}
+.sub{font-size:18px;margin:0}
+.sub .ru{display:block;font-size:16px}
+.namebox{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
+.namebox label{font-size:14px;font-weight:600}
+.namebox input{flex:1;min-width:140px;border:2px solid var(--line);border-radius:10px;padding:9px 12px;font-size:16px;background:var(--paper)}
+.howto{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+.howto li{padding-left:26px;position:relative}
+.howto li::before{content:"";position:absolute;left:4px;top:.45em;width:12px;height:12px;border-radius:50%;background:var(--sun)}
+.howto li:nth-child(2)::before{background:var(--sage)}
+.howto li:nth-child(3)::before{background:var(--coral)}
+
+/* sticky nav */
+.bar{position:sticky;top:0;z-index:20;background:rgba(251,246,236,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-height:46px;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:5px 12px;text-align:left;line-height:1.15;font-weight:600;font-size:14px;white-space:nowrap}
+.tab small{display:block;font-weight:500;font-size:11.5px;color:var(--soft)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab[aria-selected="true"] small{color:#C9CCE6}
+.tab .sc{color:var(--ok);font-weight:700}
+.tab[aria-selected="true"] .sc{color:#9FE3C1}
+.prog{display:flex;align-items:center;gap:10px;padding:0 0 9px;font-size:13px;font-weight:600}
+.track{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--sage),var(--sun),var(--coral));border-radius:99px;transition:width .4s}
+
+/* sections */
+section.step{display:none;padding:22px 0 40px}
+section.step.on{display:block}
+.steph{margin:4px 0 16px}
+.steph h2{font-size:clamp(24px,5.4vw,34px)}
+.steph .ru{font-size:17px;margin-top:4px;display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 16px;box-shadow:var(--shadow)}
+.card h3{font-size:21px;margin-bottom:4px}
+.card h3 + .ru{display:block;font-size:15px;margin-bottom:10px}
+.card p{margin:10px 0}
+.rule{border-left:6px solid var(--sage)}
+.rule.coral{border-left-color:var(--coral)}
+.rule.sun{border-left-color:var(--sun)}
+.rule.sky{border-left-color:var(--sky)}
+.eg{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px dashed var(--line)}
+.eg:first-of-type{border-top:0}
+.eg .t{flex:1;min-width:0}
+.eg .en{font-weight:600;font-size:18px}
+.eg .tr{color:var(--soft);font-size:15px}
+.spk{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--paper);font-size:18px;line-height:1}
+.spk:hover{border-color:var(--sage)}
+.aux{color:var(--coral-d);font-weight:700}
+.pp{color:var(--sage-d);font-weight:700}
+.hl{background:var(--sun-l);color:var(--sun-d);font-weight:700;padding:1px 6px;border-radius:6px;white-space:nowrap}
+.neg{color:var(--sky);font-weight:700}
+.note{background:var(--sun-l);border-radius:12px;padding:12px 14px;margin:12px 0 0;font-size:16px}
+.note.sage{background:var(--sage-l)}
+.note.coral{background:var(--coral-l)}
+.formula{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}
+.chipf{padding:7px 11px;border-radius:10px;font-weight:700;font-size:15px;background:var(--paper);border:2px solid var(--line)}
+.chipf.a{background:var(--coral-l);border-color:var(--coral);color:var(--coral-d)}
+.chipf.p{background:var(--sage-l);border-color:var(--sage);color:var(--sage-d)}
+.chipf.h{background:var(--sun-l);border-color:var(--sun);color:var(--sun-d)}
+.chipf.n{background:var(--sky-l);border-color:var(--sky);color:var(--sky)}
+.plus{font-weight:700;color:var(--soft)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{border:2px solid var(--line);border-radius:12px;padding:12px}
+.box b.big{display:block;font-family:"Prata",serif;font-weight:400;font-size:26px}
+.box.for{border-color:var(--sun);background:var(--sun-l)}
+.box.since{border-color:var(--sage);background:var(--sage-l)}
+.box ul{margin:8px 0 0;padding-left:18px;font-size:15.5px}
+.verbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.verb{display:flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:12px;padding:6px 6px 6px 12px;background:var(--paper);min-height:48px;text-align:left;width:100%}
+.verb span{flex:1;font-size:15px;line-height:1.2}
+.verb b{color:var(--sage-d)}
+.verb i{font-style:normal;color:var(--soft);font-size:13px;display:block}
+.mist{display:grid;gap:10px}
+.mist > div{border:2px solid var(--line);border-radius:12px;padding:10px 12px}
+.mist .x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:1.5px}
+.mist .v{color:var(--ok);font-weight:700}
+.mist small{display:block;color:var(--soft);font-size:14.5px;margin-top:3px}
+svg.tl{width:100%;max-width:560px;height:auto;display:block;margin:6px auto 0}
+.tl text{font-family:"Onest",sans-serif;fill:var(--ink)}
+.tl .dim{opacity:.22}
+.tl *{transition:opacity .3s}
+
+/* machine */
+.pick{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+.pick button{min-height:44px;padding:6px 12px;border-radius:99px;border:2px solid var(--line);background:var(--paper);font-weight:600;font-size:15px}
+.pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.slots{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.slot{border-radius:12px;padding:6px 10px 8px;background:var(--paper);border:2px solid var(--line);animation:pop .35s both}
+.slot small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--soft)}
+.slot b{font-size:18px}
+.slot.a{background:var(--coral-l);border-color:var(--coral)} .slot.a b{color:var(--coral-d)}
+.slot.p{background:var(--sage-l);border-color:var(--sage)} .slot.p b{color:var(--sage-d)}
+.slot.h{background:var(--sun-l);border-color:var(--sun)} .slot.h b{color:var(--sun-d)}
+.slot.n{background:var(--sky-l);border-color:var(--sky)} .slot.n b{color:var(--sky)}
+@keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+.out{display:flex;gap:10px;align-items:center;background:var(--ink);color:#fff;border-radius:12px;padding:10px 10px 10px 14px;font-weight:600;font-size:18px}
+.out span{flex:1}
+.out .spk{background:transparent;border-color:rgba(255,255,255,.4)}
+.extra{font-size:15.5px;color:var(--soft);margin:8px 2px 0}
+
+/* exercises */
+.ex{border-top:6px solid var(--ink)}
+.exno{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-d)}
+.ex h3{margin-top:2px}
+.instr{margin:6px 0 4px;font-weight:600}
+.instr .ru{display:block;font-weight:400;font-size:15px}
+.story{background:var(--sage-l);border-radius:12px;padding:10px 14px;margin:10px 0 0;font-size:16px}
+.item{padding:14px 0;border-top:1px dashed var(--line)}
+.item:first-of-type{border-top:0}
+.q{font-weight:600;font-size:18px;margin:0 0 8px}
+.q .num{display:inline-block;min-width:26px;color:var(--soft);font-weight:700}
+.q .ru{font-weight:400;font-size:16px}
+.q mark{background:var(--sun-l);color:var(--sun-d);padding:1px 5px;border-radius:6px;font-weight:700}
+.q .x{color:var(--bad)}
+.opts{display:grid;gap:8px}
+.opt{min-height:48px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--paper);font-size:17px;font-weight:500}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt:disabled{cursor:default;color:inherit;opacity:1}
+.opt.right{background:var(--ok-l);border-color:var(--ok);font-weight:700}
+.opt.wrong{background:var(--bad-l);border-color:var(--bad)}
+.opts.inline{grid-template-columns:repeat(auto-fit,minmax(90px,1fr));max-width:420px}
+.opts.inline .opt{text-align:center;font-weight:700}
+.gap{display:inline-block;border:2px solid var(--line);border-bottom-width:3px;border-radius:10px;padding:6px 9px;font-size:17px;font-weight:600;background:var(--paper);margin:3px 2px;max-width:100%;min-height:44px;vertical-align:middle}
+.gap.block{display:block;width:100%;margin:0}
+.gap.good{border-color:var(--ok);background:var(--ok-l)}
+.gap.no{border-color:var(--bad);background:var(--bad-l)}
+.vb{color:var(--soft);font-weight:500;font-size:15.5px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{min-height:46px;padding:9px 18px;border-radius:12px;border:2px solid var(--ink);background:var(--ink);color:#fff;font-weight:700;font-size:16px}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.sage{background:var(--sage-d);border-color:var(--sage-d)}
+.btn:disabled{opacity:.45;cursor:default}
+.fb{margin-top:10px;border-radius:12px;padding:10px 12px;font-size:16px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-l)} .fb.bad{background:var(--bad-l)} .fb.warn{background:var(--sun-l)}
+.fb b.h{display:block}
+.fb .model{font-weight:700}
+.fb .why{display:block;margin-top:4px}
+.line{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:var(--paper)}
+.line:empty::before{content:"Tap the words · Нажимай на слова";color:var(--soft);font-size:14.5px;padding:10px 8px}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:48px}
+.tile{min-height:44px;padding:7px 12px;border-radius:10px;border:2px solid var(--ink);background:var(--card);font-weight:600;font-size:16.5px;box-shadow:0 2px 0 var(--ink)}
+.tile:disabled{cursor:default;color:inherit}
+textarea.wr{width:100%;min-height:86px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:17px;background:var(--paper);resize:vertical}
+.nextrow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+/* results */
+.big{font-family:"Prata",serif;font-size:clamp(44px,12vw,72px);line-height:1}
+.big small{font-size:.4em;color:var(--soft);font-family:"Onest",sans-serif}
+.msg{font-size:19px;font-weight:600;margin:10px 0 0}
+.brk{display:grid;gap:8px;margin-top:8px}
+.brk div{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:15.5px}
+.brk .mini{grid-column:1/-1;height:6px;background:var(--line);border-radius:9px;overflow:hidden}
+.brk .mini i{display:block;height:100%;background:var(--sage)}
+.mlist{display:grid;gap:10px;margin-top:8px}
+.mlist div{border-left:4px solid var(--coral);padding:2px 0 2px 12px;font-size:15.5px}
+.mlist s{color:var(--bad)} .mlist b{color:var(--ok)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;text-align:center;min-height:50px;border-radius:12px;border:2px solid var(--ink);background:var(--card);color:var(--ink);font-weight:700;font-size:15.5px;text-decoration:none;padding:6px 10px}
+.send .main{background:var(--coral);border-color:var(--coral);color:#fff}
+.mail{user-select:all;font-weight:700}
+pre.rep{white-space:pre-wrap;word-break:break-word;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;font:14px/1.45 ui-monospace,Menlo,Consolas,monospace;max-height:260px;overflow:auto}
+.confirm{display:none;margin-top:10px;background:var(--coral-l);border-radius:12px;padding:12px}
+.confirm.show{display:block}
+footer{padding:10px 0 50px;color:var(--soft);font-size:14px;text-align:center}
+@media (max-width:420px){body{font-size:16.5px}.card{padding:15px}.two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <span class="kicker">🎨 Grammar · Pre-Intermediate</span>
+  <h1>Present Perfect:<br><em>for</em> &amp; <b>since</b></h1>
+  <p class="sub">Homework for <span id="hello">Elina</span> — how long has it been?
+    <span class="ru">Домашнее задание: говорим о том, как долго что-то длится.</span></p>
+  <div class="namebox">
+    <label for="nm">Your name · Твоё имя</label>
+    <input id="nm" type="text" autocomplete="given-name" value="Elina" maxlength="30">
+  </div>
+  <ul class="howto">
+    <li>Go step by step: read the rule, then do the exercises. <span class="ru">Иди по шагам: сначала правило, потом упражнения.</span></li>
+    <li>Tap 🔊 to listen. Your answers are saved automatically. <span class="ru">Нажимай 🔊, чтобы послушать. Ответы сохраняются сами.</span></li>
+    <li>At the end open <b>Results</b> and send them to your teacher. <span class="ru">В конце открой «Результаты» и отправь их учителю.</span></li>
+  </ul>
+</div></header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div><span id="score">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+
+<!-- ===== STEP 1 ===== -->
+<section class="step" id="s1">
+  <div class="steph"><h2>Step 1. What does it mean?</h2><span class="ru">Шаг 1. Что это значит и когда это нужно?</span></div>
+
+  <div class="card rule">
+    <h3>Started in the past — still true now</h3><span class="ru">Началось в прошлом — и продолжается сейчас</span>
+    <p>Когда мы говорим, <b>как долго</b> что-то длится (и оно <b>всё ещё</b> длится), в английском нужен <b>Present Perfect</b> + <span class="hl">for</span> или <span class="hl">since</span>.</p>
+    <div id="tl1"></div>
+    <div class="eg"><button class="spk" data-say="She has been a painter for ten years.">🔊</button><div class="t"><div class="en">She <span class="aux">has</span> <span class="pp">been</span> a painter <span class="hl">for ten years</span>.</div><div class="tr">Она художница (уже) десять лет. — и сейчас тоже!</div></div></div>
+    <div class="eg"><button class="spk" data-say="She has been a painter since 2016.">🔊</button><div class="t"><div class="en">She <span class="aux">has</span> <span class="pp">been</span> a painter <span class="hl">since 2016</span>.</div><div class="tr">Она художница с 2016 года.</div></div></div>
+    <div class="eg"><button class="spk" data-say="Many people have loved her art since her first show.">🔊</button><div class="t"><div class="en">Many people <span class="aux">have</span> <span class="pp">loved</span> her art <span class="hl">since her first show</span>.</div><div class="tr">Многим людям нравится её искусство с её первой выставки.</div></div></div>
+  </div>
+
+  <div class="card rule coral">
+    <h3>English ≠ Russian</h3><span class="ru">Главное отличие от русского</span>
+    <p>По-русски мы говорим в <b>настоящем</b> времени: «Я <u>живу</u> здесь пять лет», «Я <u>знаю</u> её с детства». По-английски настоящее время (Present Simple) здесь <b>нельзя</b>:</p>
+    <div class="mist">
+      <div><span class="x">I live here for five years.</span><br><span class="v">I’ve lived here for five years.</span><small>Я живу здесь пять лет.</small></div>
+      <div><span class="x">I know her since 2019.</span><br><span class="v">I’ve known her since 2019.</span><small>Я знаю её с 2019 года.</small></div>
+    </div>
+    <div class="note"><b>Present Perfect или Past Simple?</b><br>
+      She <b>has lived</b> in Japan for two years. — живёт там уже два года (и сейчас живёт).<br>
+      She <b>lived</b> in Japan for two years. — жила там два года (уже <b>не</b> живёт).</div>
+  </div>
+
+  <div data-host="s1"></div>
+  <div class="nextrow"><span></span><button class="btn" data-go="s2">Step 2 →</button></div>
+</section>
+
+<!-- ===== STEP 2 ===== -->
+<section class="step" id="s2">
+  <div class="steph"><h2>Step 2. How do we build it?</h2><span class="ru">Шаг 2. Как построить предложение?</span></div>
+
+  <div class="card rule">
+    <h3>have / has + past participle</h3><span class="ru">have / has + третья форма глагола (V3)</span>
+    <div class="formula"><span class="chipf">subject</span><span class="plus">+</span><span class="chipf a">have / has</span><span class="plus">+</span><span class="chipf n">(not)</span><span class="plus">+</span><span class="chipf p">past participle</span><span class="plus">+</span><span class="chipf">extra information</span><span class="plus">+</span><span class="chipf h">for / since …</span></div>
+    <div class="two">
+      <div class="box"><b class="big"><span class="aux">have</span></b>I · you · we · they<br><span class="ru">Many people <b>have</b> loved…</span></div>
+      <div class="box"><b class="big"><span class="aux">has</span></b>he · she · it<br><span class="ru">She <b>has</b> been…</span></div>
+    </div>
+    <p style="margin-top:14px"><b>➕ Positive · Утверждение</b></p>
+    <div class="eg"><button class="spk" data-say="She has been a painter for ten years.">🔊</button><div class="t"><div class="en">She <span class="aux">has</span> <span class="pp">been</span> a painter for ten years.</div><div class="tr">Коротко: <b>She’s been</b> a painter… · I’ve · you’ve · we’ve · they’ve · he’s · she’s · it’s</div></div></div>
+    <p><b>➖ Negative · Отрицание</b> — добавляем <span class="neg">not</span> после have / has</p>
+    <div class="eg"><button class="spk" data-say="She has not lived in Japan.">🔊</button><div class="t"><div class="en">She <span class="aux">has</span> <span class="neg">not</span> <span class="pp">lived</span> in Japan.</div><div class="tr">Коротко: She <b>hasn’t</b> lived… · I / you / we / they <b>haven’t</b> lived…</div></div></div>
+    <p><b>❓ Question · Вопрос</b> — have / has ставим <b>перед</b> подлежащим</p>
+    <div class="eg"><button class="spk" data-say="Has she lived in Japan? Yes, she has. No, she hasn't.">🔊</button><div class="t"><div class="en"><span class="aux">Has</span> she <span class="pp">lived</span> in Japan?</div><div class="tr">Yes, she <b>has</b>. / No, she <b>hasn’t</b>.</div></div></div>
+    <div class="eg"><button class="spk" data-say="How long has she been a painter?">🔊</button><div class="t"><div class="en"><span class="hl">How long</span> <span class="aux">has</span> she <span class="pp">been</span> a painter?</div><div class="tr">Как давно она художница? — For ten years. / Since 2016.</div></div></div>
+    <div class="note coral"><b>Осторожно: ’s</b> — это и <b>is</b>, и <b>has</b>! She’s a painter = She <b>is</b> a painter. She’s <span class="pp">been</span> a painter = She <b>has</b> been a painter. После <b>has</b> всегда стоит третья форма.</div>
+  </div>
+
+  <div class="card rule sun">
+    <h3>Past participles</h3><span class="ru">Третья форма глагола — нажми и послушай</span>
+    <p>Правильные глаголы: <b>+ ed</b> (как в Past Simple). Неправильные — нужно запомнить.</p>
+    <div class="verbs" id="verbs"></div>
+  </div>
+
+  <div class="card rule sky">
+    <h3>Sentence builder</h3><span class="ru">Конструктор предложений — выбирай части и смотри, что получится</span>
+    <div class="lbl">Subject · Кто?</div><div class="pick" id="mS"></div>
+    <div class="lbl">Verb · Что?</div><div class="pick" id="mV"></div>
+    <div class="lbl">How long? · Как долго?</div><div class="pick" id="mD"></div>
+    <div class="lbl">Type · Тип</div><div class="pick" id="mM"></div>
+    <div class="slots" id="mSlots" aria-live="polite"></div>
+    <div class="out"><span id="mOut"></span><button class="spk" id="mSpk" aria-label="Listen">🔊</button></div>
+    <p class="extra" id="mExtra"></p>
+  </div>
+
+  <div data-host="s2"></div>
+  <div class="nextrow"><button class="btn ghost" data-go="s1">← Step 1</button><button class="btn" data-go="s3">Step 3 →</button></div>
+</section>
+
+<!-- ===== STEP 3 ===== -->
+<section class="step" id="s3">
+  <div class="steph"><h2>Step 3. <span style="color:var(--sun-d)">for</span> or <span style="color:var(--sage-d)">since</span>?</h2><span class="ru">Шаг 3. for или since?</span></div>
+
+  <div class="card rule sun">
+    <h3>A period or a starting point?</h3><span class="ru">Период времени или момент начала?</span>
+    <div class="pick" id="tlPick" style="margin-top:10px"><button aria-pressed="true" data-t="both">both · оба</button><button aria-pressed="false" data-t="for">for ten years</button><button aria-pressed="false" data-t="since">since 2016</button></div>
+    <div id="tl2"></div>
+    <div class="two" style="margin-top:12px">
+      <div class="box for"><b class="big">for</b><b>+ период</b> — <i>сколько времени?</i>
+        <ul><li>for <b>two years</b></li><li>for <b>six months</b></li><li>for <b>a week</b></li><li>for <b>ten minutes</b></li><li>for <b>a long time</b></li><li>for <b>ages</b> (= очень давно)</li></ul></div>
+      <div class="box since"><b class="big">since</b><b>+ момент начала</b> — <i>с какого момента?</i>
+        <ul><li>since <b>2016</b></li><li>since <b>Monday</b></li><li>since <b>8 o’clock</b></li><li>since <b>last summer</b></li><li>since <b>her first show</b></li><li>since <b>I was a child</b></li></ul></div>
+    </div>
+    <div class="note sage"><b>Подсказка.</b> По-русски: <b>for</b> = «(уже) два года», <b>since</b> = «<b>с</b> 2016 года, <b>с</b> понедельника, <b>с тех пор как</b>…». После <b>since</b> может стоять целое предложение: since <b>I was a child</b>, since <b>they got married</b>.</div>
+    <div class="eg" style="margin-top:8px"><button class="spk" data-say="I've had this phone for two years.">🔊</button><div class="t"><div class="en">I’ve had this phone <span class="hl">for two years</span>.</div><div class="tr">У меня этот телефон (уже) два года.</div></div></div>
+    <div class="eg"><button class="spk" data-say="I've had this phone since 2024.">🔊</button><div class="t"><div class="en">I’ve had this phone <span class="hl">since 2024</span>.</div><div class="tr">У меня этот телефон с 2024 года.</div></div></div>
+    <div class="eg"><button class="spk" data-say="We haven't seen Kate since Friday.">🔊</button><div class="t"><div class="en">We haven’t seen Kate <span class="hl">since Friday</span>.</div><div class="tr">Мы не видели Кейт с пятницы.</div></div></div>
+  </div>
+
+  <div data-host="s3"></div>
+  <div class="nextrow"><button class="btn ghost" data-go="s2">← Step 2</button><button class="btn" data-go="s4">Step 4 →</button></div>
+</section>
+
+<!-- ===== STEP 4 ===== -->
+<section class="step" id="s4">
+  <div class="steph"><h2>Step 4. Common mistakes &amp; “How long…?”</h2><span class="ru">Шаг 4. Частые ошибки и вопрос «Как долго?»</span></div>
+
+  <div class="card rule coral">
+    <h3>Don’t say it like this</h3><span class="ru">Так говорить не нужно — типичные ошибки</span>
+    <div class="mist">
+      <div><span class="x">I work here since May.</span><br><span class="v">I’ve worked here since May.</span><small>Длится до сих пор → Present Perfect, а не Present Simple.</small></div>
+      <div><span class="x">She has been a painter since ten years.</span><br><span class="v">She has been a painter for ten years.</span><small>«Десять лет» — это период → <b>for</b>.</small></div>
+      <div><span class="x">He have had this car for a year.</span><br><span class="v">He has had this car for a year.</span><small>he / she / it → <b>has</b>.</small></div>
+      <div><span class="x">We have know each other for ages.</span><br><span class="v">We have known each other for ages.</span><small>После have / has — третья форма: know → <b>known</b>.</small></div>
+      <div><span class="x">I didn’t see him since Monday.</span><br><span class="v">I haven’t seen him since Monday.</span><small>Со словом <b>since</b> — Present Perfect: haven’t / hasn’t + V3.</small></div>
+      <div><span class="x">How long do you know her?</span><br><span class="v">How long have you known her?</span><small>В вопросе «Как давно…?» тоже Present Perfect.</small></div>
+    </div>
+  </div>
+
+  <div class="card rule">
+    <h3>How long…?</h3><span class="ru">Как давно…? Как долго…?</span>
+    <div class="formula"><span class="chipf h">How long</span><span class="plus">+</span><span class="chipf a">have / has</span><span class="plus">+</span><span class="chipf">subject</span><span class="plus">+</span><span class="chipf p">past participle</span><span class="plus">…?</span></div>
+    <div class="eg"><button class="spk" data-say="How long have you lived here? For five years.">🔊</button><div class="t"><div class="en">How long <span class="aux">have</span> you <span class="pp">lived</span> here? — For five years.</div><div class="tr">Как давно ты здесь живёшь? — Пять лет.</div></div></div>
+    <div class="eg"><button class="spk" data-say="How long has Tom had his dog? Since last summer.">🔊</button><div class="t"><div class="en">How long <span class="aux">has</span> Tom <span class="pp">had</span> his dog? — Since last summer.</div><div class="tr">Как давно у Тома собака? — С прошлого лета.</div></div></div>
+  </div>
+
+  <div data-host="s4"></div>
+  <div class="nextrow"><button class="btn ghost" data-go="s3">← Step 3</button><button class="btn" data-go="s5">Step 5 →</button></div>
+</section>
+
+<!-- ===== STEP 5 ===== -->
+<section class="step" id="s5">
+  <div class="steph"><h2>Step 5. Mixed practice</h2><span class="ru">Шаг 5. Всё вместе</span></div>
+  <div data-host="s5"></div>
+  <div class="nextrow"><button class="btn ghost" data-go="s4">← Step 4</button><button class="btn" data-go="res">Results →</button></div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="step" id="res">
+  <div class="steph"><h2>Results</h2><span class="ru">Результаты</span></div>
+  <div class="card"><div class="big" id="rBig"></div><p class="msg" id="rMsg"></p><p class="ru" id="rDone"></p></div>
+  <div class="card"><h3>By exercise</h3><span class="ru">По упражнениям</span><div class="brk" id="rBrk"></div></div>
+  <div class="card"><h3>Mistakes to look at again</h3><span class="ru">Ошибки, на которые стоит посмотреть ещё раз</span><div class="mlist" id="rMist"></div></div>
+  <div class="card">
+    <h3>Send to your teacher</h3><span class="ru">Отправь результат учителю</span>
+    <div class="send" id="send"></div>
+    <p style="font-size:15px">Teacher’s email · Почта учителя: <span class="mail">ulchik2211@gmail.com</span><br><span class="ru" id="copied"></span></p>
+    <pre class="rep" id="rep"></pre>
+  </div>
+  <div class="card">
+    <button class="btn ghost" id="again">Start again · Начать заново</button>
+    <div class="confirm" id="confirm"><b>Delete all answers? · Удалить все ответы?</b>
+      <div class="row"><button class="btn" id="yes">Yes · Да</button><button class="btn ghost" id="no">No · Нет</button></div></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Present Perfect: for &amp; since · Pre-Intermediate</div></footer>
+
+<script>
+/* ============================================================
+   DATA — everything the teacher may want to edit is here
+   ============================================================ */
+const HW = { key:"elina-present-perfect-for-since-v1", title:"Present Perfect: for & since", level:"Pre-Intermediate", student:"Elina", teacher:"ulchik2211@gmail.com" };
+
+const STEPS = [
+  {id:"s1", en:"1 · Meaning", ru:"Смысл"},
+  {id:"s2", en:"2 · Form", ru:"Форма"},
+  {id:"s3", en:"3 · for / since", ru:"for или since"},
+  {id:"s4", en:"4 · Mistakes", ru:"Ошибки, вопросы"},
+  {id:"s5", en:"5 · Mix", ru:"Всё вместе"},
+  {id:"res", en:"★ Results", ru:"Результаты"}
+];
+
+const VERBS = [
+  ["be","been","быть"],["have","had","иметь"],["know","known","знать"],["see","seen","видеть"],["eat","eaten","есть"],
+  ["live","lived","жить"],["work","worked","работать"],["study","studied","учить(ся)"],["love","loved","любить"]
+];
+
+const MACHINE = {
+  subjects:[{s:"She",q:"she",aux:"has",sh:"she"},{s:"I",q:"you",aux:"have",sh:"I"},{s:"We",q:"you",aux:"have",sh:"we"},{s:"Tom",q:"Tom",aux:"has",sh:"he"},{s:"My parents",q:"your parents",aux:"have",sh:"they"}],
+  verbs:[{pp:"been",x:"in London"},{pp:"lived",x:"in this flat"},{pp:"known",x:"Anna"},{pp:"had",x:"this car"},{pp:"worked",x:"at the gallery"}],
+  durs:["for ten years","since 2016","for a long time","since last summer"],
+  modes:[["pos","➕"],["neg","➖"],["q","❓"],["how","How long?"]]
+};
+
+const EXERCISES = [
+/* ---------- STEP 1 ---------- */
+{id:"e1", step:"s1", type:"choice", title:"Which sentence is right?", ru:"Какое предложение правильное?",
+ instr:"Choose the correct answer.", instrRu:"Выбери правильный вариант.",
+ items:[
+  {q:"Она художница уже десять лет (и сейчас тоже).", opts:["She is a painter for ten years.","She’s been a painter for ten years.","She was a painter for ten years."], a:1,
+   why:"Началось в прошлом и продолжается сейчас → Present Perfect: has been. «She was…» значило бы, что она уже не художница.", say:"She's been a painter for ten years."},
+  {q:"Я знаю Анну с 2019 года.", opts:["I’ve known Anna since 2019.","I know Anna since 2019.","I knew Anna since 2019."], a:0,
+   why:"По-русски «знаю», а по-английски — have known: знакомство началось в 2019 и продолжается.", say:"I've known Anna since 2019."},
+  {q:"Мы живём в этой квартире три года.", opts:["We live in this flat for three years.","We are living in this flat since three years.","We’ve lived in this flat for three years."], a:2,
+   why:"Как долго (и до сих пор) → have lived. «Три года» — период → for.", say:"We've lived in this flat for three years."},
+  {q:"“Tom has worked here since May.” — Что это значит?", opts:["Том больше здесь не работает.","Том начал работать здесь в мае и работает до сих пор.","Том начнёт работать здесь в мае."], a:1,
+   why:"has worked + since May: начал в мае и всё ещё работает."},
+  {q:"У меня эта машина с прошлого года.", opts:["I have this car since last year.","I had this car since last year.","I’ve had this car since last year."], a:2,
+   why:"have → have had. Машина у меня до сих пор → Present Perfect.", say:"I've had this car since last year."},
+  {q:"Какое предложение говорит, что она СЕЙЧАС живёт в Японии?", opts:["She lived in Japan for two years.","She has lived in Japan for two years."], a:1,
+   why:"has lived = живёт там уже два года. lived (Past Simple) = жила, но больше не живёт.", say:"She has lived in Japan for two years."}
+ ]},
+
+/* ---------- STEP 2 ---------- */
+{id:"e2", step:"s2", type:"choice", inline:true, title:"have or has?", ru:"have или has?",
+ instr:"Choose the right word.", instrRu:"Выбери нужное слово.",
+ items:[
+  {q:"She ___ been a painter for ten years.", opts:["have","has"], a:1, why:"she → has"},
+  {q:"Many people ___ loved her art since her first show.", opts:["have","has"], a:0, why:"many people = they → have"},
+  {q:"My brother ___ had this bike since his birthday.", opts:["have","has"], a:1, why:"my brother = he → has"},
+  {q:"We ___ known each other for a long time.", opts:["have","has"], a:0, why:"we → have"},
+  {q:"It ___ been cold since Monday.", opts:["have","has"], a:1, why:"it → has"},
+  {q:"My parents ___ been married for thirty years.", opts:["have","has"], a:0, why:"my parents = they → have"},
+  {q:"I ___ seen him since Friday.", opts:["haven’t","hasn’t"], a:0, why:"I → have not = haven’t"},
+  {q:"He ___ eaten anything since breakfast.", opts:["haven’t","hasn’t"], a:1, why:"he → has not = hasn’t"}
+ ]},
+{id:"e3", step:"s2", type:"gaps", title:"Past participles", ru:"Третья форма глагола",
+ instr:"Write the past participle (V3).", instrRu:"Напиши третью форму глагола.",
+ items:[
+  {parts:"be → {0}", gaps:[{accept:["been"]}], hint:"Неправильный глагол: be – was / were – b…", why:"be – was/were – been"},
+  {parts:"have → {0}", gaps:[{accept:["had"]}], hint:"Неправильный глагол: have – had – h…", why:"have – had – had"},
+  {parts:"know → {0}", gaps:[{accept:["known"]}], hint:"know – knew – know…", why:"know – knew – known"},
+  {parts:"live → {0}", gaps:[{accept:["lived"]}], hint:"Правильный глагол: + d", why:"live + d = lived"},
+  {parts:"work → {0}", gaps:[{accept:["worked"]}], hint:"Правильный глагол: + ed", why:"work + ed = worked"},
+  {parts:"see → {0}", gaps:[{accept:["seen"]}], hint:"see – saw – s…n", why:"see – saw – seen"},
+  {parts:"study → {0}", gaps:[{accept:["studied"]}], hint:"y → ied", why:"study → studied (y меняется на i + ed)"},
+  {parts:"love → {0}", gaps:[{accept:["loved"]}], hint:"Правильный глагол: + d", why:"love + d = loved"}
+ ]},
+{id:"e4", step:"s2", type:"order", title:"Put the words in order", ru:"Расставь слова по порядку",
+ instr:"Tap the words to build the sentence.", instrRu:"Нажимай на слова, чтобы собрать предложение.",
+ items:[
+  {tiles:["She","has","been","a painter","for ten years."], why:"subject + has + past participle + extra information + for…"},
+  {tiles:["She","has","not","lived","in Japan."], why:"not стоит после has и перед третьей формой."},
+  {tiles:["Many people","have","loved","her art","since her first show."], why:"many people → have; «since her first show» — в конце."},
+  {tiles:["We","haven’t","seen","Kate","since Friday."], why:"haven’t + seen (see – saw – seen)."},
+  {tiles:["Has","he","worked","here","for a long time?"], why:"В вопросе has стоит перед подлежащим."},
+  {tiles:["How long","have","you","known","him?"], why:"How long + have + subject + past participle?"}
+ ]},
+
+/* ---------- STEP 3 ---------- */
+{id:"e5", step:"s3", type:"choice", inline:true, title:"for or since?", ru:"for или since?",
+ instr:"Period → for. Starting point → since.", instrRu:"Период → for. Момент начала → since.",
+ items:[
+  {q:"___ two years", opts:["for","since"], a:0, why:"период (сколько времени?) → for"},
+  {q:"___ 2019", opts:["for","since"], a:1, why:"момент начала (с 2019 года) → since"},
+  {q:"___ Monday", opts:["for","since"], a:1, why:"с понедельника → since"},
+  {q:"___ a long time", opts:["for","since"], a:0, why:"долго — это период → for"},
+  {q:"___ last summer", opts:["for","since"], a:1, why:"с прошлого лета → since"},
+  {q:"___ ten minutes", opts:["for","since"], a:0, why:"десять минут — период → for"},
+  {q:"___ I was a child", opts:["for","since"], a:1, why:"с тех пор как я была ребёнком → since"},
+  {q:"___ six months", opts:["for","since"], a:0, why:"шесть месяцев — период → for"},
+  {q:"___ her first show", opts:["for","since"], a:1, why:"с её первой выставки (событие = момент) → since"},
+  {q:"___ ages", opts:["for","since"], a:0, why:"for ages = очень давно (период) → for"},
+  {q:"___ 8 o’clock", opts:["for","since"], a:1, why:"с восьми часов → since"},
+  {q:"___ a week", opts:["for","since"], a:0, why:"неделя — период → for"}
+ ]},
+{id:"e6", step:"s3", type:"choice", inline:true, title:"for or since in sentences", ru:"for или since в предложениях",
+ instr:"Choose for or since.", instrRu:"Выбери for или since.",
+ items:[
+  {q:"I’ve had this phone ___ two years.", opts:["for","since"], a:0, why:"two years — период → for", say:"I've had this phone for two years."},
+  {q:"They’ve been friends ___ they were at school.", opts:["for","since"], a:1, why:"с тех пор как учились в школе — момент начала → since", say:"They've been friends since they were at school."},
+  {q:"He hasn’t called me ___ yesterday.", opts:["for","since"], a:1, why:"со вчерашнего дня → since", say:"He hasn't called me since yesterday."},
+  {q:"We’ve waited ___ a couple of hours.", opts:["for","since"], a:0, why:"a couple of hours (пару часов) — период → for", say:"We've waited for a couple of hours."},
+  {q:"My grandparents have lived in that house ___ 1985.", opts:["for","since"], a:1, why:"с 1985 года → since", say:"My grandparents have lived in that house since 1985."},
+  {q:"She has worked as a teacher ___ the last five years.", opts:["for","since"], a:0, why:"the last five years — это период (последние пять лет) → for", say:"She has worked as a teacher for the last five years."},
+  {q:"I haven’t eaten chocolate ___ Christmas.", opts:["for","since"], a:1, why:"с Рождества — момент → since", say:"I haven't eaten chocolate since Christmas."},
+  {q:"It hasn’t rained ___ three weeks.", opts:["for","since"], a:0, why:"three weeks — период → for", say:"It hasn't rained for three weeks."}
+ ]},
+
+/* ---------- STEP 4 ---------- */
+{id:"e7", step:"s4", type:"gaps", self:true, title:"Find and correct the mistake", ru:"Найди и исправь ошибку",
+ instr:"There is one mistake in each sentence. Write the correct sentence.", instrRu:"В каждом предложении одна ошибка. Напиши предложение правильно.",
+ items:[
+  {q:"<span class='x'>✗</span> I live here since 2020.", accept:["I have lived here since 2020","I have been living here since 2020"], model:"I’ve lived here since 2020.",
+   hint:"Какое время нужно, если я всё ещё здесь живу?", why:"Длится до сих пор → Present Perfect: have lived."},
+  {q:"<span class='x'>✗</span> She has been a painter since ten years.", accept:["She has been a painter for ten years","She has been a painter for 10 years"], model:"She has been a painter for ten years.",
+   hint:"ten years — это период или момент начала?", why:"Период → for ten years."},
+  {q:"<span class='x'>✗</span> He have worked here for two years.", accept:["He has worked here for two years","He has worked here for 2 years","He has been working here for two years"], model:"He has worked here for two years.",
+   hint:"he → have или has?", why:"he / she / it → has."},
+  {q:"<span class='x'>✗</span> We know each other for a long time.", accept:["We have known each other for a long time"], model:"We’ve known each other for a long time.",
+   hint:"Нужен Present Perfect: have + третья форма know.", why:"have known: знакомы давно и до сих пор."},
+  {q:"<span class='x'>✗</span> I haven’t saw him since Monday.", accept:["I have not seen him since Monday"], model:"I haven’t seen him since Monday.",
+   hint:"see – saw – … Какая третья форма?", why:"После have — третья форма: seen (saw — это Past Simple)."},
+  {q:"<span class='x'>✗</span> How long do you have this phone?", isQ:true, accept:["How long have you had this phone"], model:"How long have you had this phone?",
+   hint:"How long + have + you + третья форма have …?", why:"В вопросе «Как давно?» — Present Perfect: have you had."}
+ ]},
+{id:"e8", step:"s4", type:"gaps", self:true, title:"Ask “How long…?”", ru:"Задай вопрос «Как давно…?»",
+ instr:"Write a question about the highlighted part.", instrRu:"Задай вопрос к выделенной части.",
+ items:[
+  {q:"She has been a painter <mark>for ten years</mark>.", isQ:true, accept:["How long has she been a painter"], model:"How long has she been a painter?",
+   hint:"How long + has + she + …?", why:"How long + has + subject + past participle."},
+  {q:"They have lived in Spain <mark>since 2021</mark>.", isQ:true, accept:["How long have they lived in Spain","How long have they been living in Spain"], model:"How long have they lived in Spain?",
+   hint:"How long + have + they + …?", why:"they → have; have ставим перед they."},
+  {q:"Tom has had his dog <mark>for five years</mark>.", isQ:true, accept:["How long has Tom had his dog","How long has he had his dog"], model:"How long has Tom had his dog?",
+   hint:"How long + has + Tom + had …?", why:"has had: первое has — вспомогательный глагол, had — третья форма have."},
+  {q:"The children have been at the gallery <mark>since 9 o’clock</mark>.", isQ:true, accept:["How long have the children been at the gallery","How long have they been at the gallery"], model:"How long have the children been at the gallery?",
+   hint:"How long + have + the children + been …?", why:"the children = they → have."},
+  {q:"He has worked here <mark>for a long time</mark>.", isQ:true, accept:["How long has he worked here","How long has he been working here"], model:"How long has he worked here?",
+   hint:"How long + has + he + …?", why:"he → has; has ставим перед he."}
+ ]},
+
+/* ---------- STEP 5 ---------- */
+{id:"e9", step:"s5", type:"gaps", title:"Mia’s story", ru:"История Мии",
+ instr:"Complete the story: the verb in the Present Perfect + for or since.", instrRu:"Допиши историю: глагол в Present Perfect + for или since.",
+ story:"Meet Mia. She’s a painter and she lives in Lisbon. <span class='ru'>Познакомься с Мией. Она художница и живёт в Лиссабоне.</span>",
+ items:[
+  {parts:"Mia {0} <span class='vb'>(be)</span> a painter {1} ten years.", gaps:[{accept:["has been"],w:10},{accept:["for"],w:6}], hint:"Mia = she → has + третья форма be. ten years — период.", why:"has been + for (период).", say:"Mia has been a painter for ten years."},
+  {parts:"She {0} <span class='vb'>(live)</span> in Lisbon {1} 2018.", gaps:[{accept:["has lived","has been living"],w:10},{accept:["since"],w:6}], hint:"she → has + lived. 2018 — момент начала.", why:"has lived + since (с 2018 года).", say:"She has lived in Lisbon since 2018."},
+  {parts:"She {0} <span class='vb'>(have)</span> her own studio {1} three years.", gaps:[{accept:["has had"],w:10},{accept:["for"],w:6}], hint:"has + третья форма have. three years — период.", why:"has had + for (период).", say:"She has had her own studio for three years."},
+  {parts:"Mia and her best friend Leo {0} <span class='vb'>(know)</span> each other {1} they were children.", gaps:[{accept:["have known"],w:11},{accept:["since"],w:6}], hint:"Mia and Leo = they → have + known. «С тех пор как были детьми» — момент.", why:"have known + since (с детства).", say:"Mia and her best friend Leo have known each other since they were children."},
+  {parts:"Leo {0} <span class='vb'>(work)</span> at an art gallery {1} last spring.", gaps:[{accept:["has worked","has been working"],w:11},{accept:["since"],w:6}], hint:"Leo = he → has + worked. last spring — момент начала.", why:"has worked + since (с прошлой весны).", say:"Leo has worked at an art gallery since last spring."},
+  {parts:"Many people {0} <span class='vb'>(love)</span> Mia’s art {1} her first show.", gaps:[{accept:["have loved"],w:10},{accept:["since"],w:6}], hint:"many people = they → have + loved. her first show — событие, момент.", why:"have loved + since (с первой выставки).", say:"Many people have loved Mia's art since her first show."},
+  {parts:"But Mia {0} <span class='vb'>(not / be)</span> on holiday {1} two years!", gaps:[{accept:["has not been"],w:12},{accept:["for"],w:6}], hint:"has + not + been (или hasn’t been). two years — период.", why:"hasn’t been + for (период).", say:"But Mia hasn't been on holiday for two years!"},
+  {parts:"She {0} <span class='vb'>(not / see)</span> her parents {1} January.", gaps:[{accept:["has not seen"],w:12},{accept:["since"],w:6}], hint:"hasn’t + третья форма see. January — момент начала.", why:"hasn’t seen + since (с января).", say:"She hasn't seen her parents since January."}
+ ]},
+{id:"e10", step:"s5", type:"gaps", self:true, title:"Translate into English", ru:"Переведи на английский",
+ instr:"Write the sentence in English.", instrRu:"Напиши предложение по-английски.",
+ items:[
+  {q:"Я знаю её пять лет.", accept:["I have known her for five years","I have known her for 5 years"], model:"I’ve known her for five years.", hint:"«знаю» → have known. Пять лет — период.", why:"have known + for five years."},
+  {q:"Мы живём здесь с 2020 года.", accept:["We have lived here since 2020","We have been living here since 2020"], model:"We’ve lived here since 2020.", hint:"«живём» → have lived. С 2020 года — момент.", why:"have lived + since 2020."},
+  {q:"Он работает в этой компании с мая.", accept:["He has worked at this company since May","He has worked in this company since May","He has worked for this company since May","He has been working at this company since May","He has been working in this company since May","He has been working for this company since May"], model:"He has worked at this company since May.", hint:"he → has worked. С мая — момент.", why:"has worked + since May."},
+  {q:"У меня эта собака уже три года.", accept:["I have had this dog for three years","I have had this dog for 3 years","I have had this dog for three years already","I have already had this dog for three years"], model:"I’ve had this dog for three years.", hint:"«у меня есть» = have → have had. Три года — период.", why:"have had + for three years. Слово «уже» переводить не обязательно."},
+  {q:"Как давно ты знаешь Тома?", isQ:true, accept:["How long have you known Tom"], model:"How long have you known Tom?", hint:"How long + have + you + …?", why:"How long have you known…?"},
+  {q:"Я не видела его с понедельника.", accept:["I have not seen him since Monday"], model:"I haven’t seen him since Monday.", hint:"haven’t + третья форма see. С понедельника — момент.", why:"haven’t seen + since Monday."}
+ ]},
+{id:"e11", step:"s5", type:"writing", title:"Your turn!", ru:"Теперь о тебе!",
+ instr:"Answer in full sentences. Use for or since. (Your teacher will check this part.)", instrRu:"Отвечай полными предложениями с for или since. (Эту часть проверит учитель.)",
+ items:[
+  {q:"How long have you lived in your town or city?"},
+  {q:"How long have you studied English?"},
+  {q:"How long have you known your best friend?"},
+  {q:"What is your favourite thing (a phone, a bag, a book…)? How long have you had it?"}
+ ]}
+];
+
+const PRAISE = ["Correct! · Верно!","Well done! · Молодец!","Exactly! · Точно!","Great! · Отлично!","Yes! · Да, именно так!"];
+const NOPE   = ["Not quite · Не совсем","Almost · Почти","Let’s look again · Посмотрим ещё раз"];
+
+/* ============================================================
+   ENGINE
+   ============================================================ */
+const $ = (s,r=document)=>r.querySelector(s), $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const strip = h => String(h).replace(/<[^>]+>/g,"").replace(/\s+/g," ").trim();
+const pick = a => a[Math.floor(Math.random()*a.length)];
+
+/* give every item an id */
+EXERCISES.forEach((ex,n)=>{ ex.no=n+1; ex.items.forEach((it,i)=>{ it.id=ex.id+"_"+(i+1); it.ex=ex; it.n=i+1; }); });
+const SCORED = EXERCISES.filter(e=>e.type!=="writing");
+const ALL = SCORED.flatMap(e=>e.items);
+
+/* ---- storage ---- */
+let S = {name:HW.student, tab:"s1", ans:{}, draft:{}, wr:{}};
+function load(){ try{ const r=localStorage.getItem(HW.key); if(r){ const o=JSON.parse(r); if(o&&typeof o==="object") S=Object.assign(S,o); } }catch(e){} }
+function save(){ try{ localStorage.setItem(HW.key, JSON.stringify(S)); }catch(e){} }
+
+/* ---- normalise answers ---- */
+const PARTS = "been|had|known|lived|worked|seen|studied|loved|eaten|rained|waited|called|got|done|gone|played|liked|wanted|owned";
+function norm(s){
+  s = String(s).toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”"]/g,"").replace(/,/g," ");
+  s = s.replace(/\s+/g," ").trim().replace(/[.!?…]+$/,"").trim();
+  s = s.replace(/\bwon't\b/g,"will not").replace(/\bcan't\b/g,"cannot").replace(/n't\b/g," not");
+  s = s.replace(/'ve\b/g," have").replace(/'re\b/g," are").replace(/'m\b/g," am").replace(/'ll\b/g," will");
+  s = s.replace(/^'s\b/,"has");
+  s = s.replace(new RegExp("(\\w)'s(?= (?:not |never |always |already |just )?(?:"+PARTS+")\\b)","g"),"$1 has");
+  s = s.replace(/\b(he|she|it)'s\b/g,"$1 has");
+  return s.replace(/\s+/g," ").trim();
+}
+const matches = (v,list) => list.some(a=>norm(a)===norm(v));
+
+/* ---- audio ---- */
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.addEventListener("voiceschanged",pickVoice); }catch(e){} }
+function say(t){ if(!("speechSynthesis" in window)||!t) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t.replace(/[‘’]/g,"'").replace(/→/g,",")); u.lang="en-GB"; if(VOICE) u.voice=VOICE; u.rate=.88; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b) say(b.dataset.say); });
+
+/* ---- feedback helpers ---- */
+function fb(el,kind,html){ const f=$(".fb",el); f.className="fb show "+kind; f.innerHTML=html; }
+function modelOf(it){
+  if(it.model) return it.model;
+  if(it.ex.type==="choice") return it.ex.inline ? it.q.replace("___",it.opts[it.a]) : it.opts[it.a];
+  if(it.ex.type==="order") return it.tiles.join(" ");
+  return strip(it.parts.replace(/\{(\d)\}/g,(m,i)=>it.gaps[i].accept[0]));
+}
+function questionOf(it){
+  if(it.ex.type==="order") return "["+it.tiles.slice().sort().join(" / ")+"]";
+  if(it.parts) return strip(it.parts.replace(/\{\d\}/g,"___"));
+  return strip(it.q).replace(/^✗\s*/,"");
+}
+function givenOf(it){ const st=S.ans[it.id]; if(!st) return "—";
+  if(it.ex.type==="choice") return it.opts[st.first];
+  const g = st.first||st.given||[]; return Array.isArray(g)?g.join(" / "):String(g); }
+
+/* ============================================================
+   RENDER EXERCISES
+   ============================================================ */
+function renderAll(){
+  $$("[data-host]").forEach(h=>h.innerHTML="");
+  EXERCISES.forEach(ex=>{
+    const host=$(`[data-host="${ex.step}"]`);
+    const card=document.createElement("div"); card.className="card ex"; card.id=ex.id;
+    card.innerHTML=`<div class="exno">Exercise ${ex.no} · Упражнение ${ex.no}</div><h3>${ex.title}</h3><span class="ru">${ex.ru}</span>
+      <p class="instr">${ex.instr}<span class="ru">${ex.instrRu}</span></p>${ex.story?`<p class="story">${ex.story}</p>`:""}`;
+    ex.items.forEach(it=>card.appendChild(({choice:rChoice,gaps:rGaps,order:rOrder,writing:rWriting})[ex.type](ex,it)));
+    host.appendChild(card);
+  });
+}
+function shell(it,inner){ const d=document.createElement("div"); d.className="item"; d.dataset.id=it.id; d.innerHTML=inner+`<div class="fb" aria-live="polite"></div>`; return d; }
+
+/* ---- choice ---- */
+function rChoice(ex,it){
+  const d=shell(it,`<p class="q"><span class="num">${it.n}.</span> ${esc(it.q)}</p><div class="opts ${ex.inline?"inline":""}">${it.opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join("")}</div>`);
+  const paint=()=>{ const st=S.ans[it.id]; if(!st||!st.done) return;
+    $$(".opt",d).forEach((b,i)=>{ b.disabled=true; if(i===it.a) b.classList.add("right"); else if(i===st.first) b.classList.add("wrong"); });
+    fb(d, st.ok?"ok":"bad", `<b class="h">${st.ok?"✓ "+(st.msg||PRAISE[0]):"✗ "+(st.msg||NOPE[0])}</b>${st.ok?"":`<span class="model">${esc(modelOf(it))}</span>`}<span class="why">${it.why}</span>`); };
+  d.addEventListener("click",e=>{ const b=e.target.closest(".opt"); if(!b||b.disabled) return; const i=+b.dataset.i, ok=i===it.a;
+    S.ans[it.id]={done:true,ok,first:i,tries:1,msg:pick(ok?PRAISE:NOPE)}; save(); paint(); refresh(); if(ok&&it.say) say(it.say); });
+  paint(); return d;
+}
+
+/* ---- gaps / typed sentence ---- */
+function rGaps(ex,it){
+  const gaps = it.gaps || [{accept:it.accept, block:true}];
+  const body = it.parts || "{0}";
+  const html = body.replace(/\{(\d)\}/g,(m,i)=>{ const g=gaps[i]; return `<input class="gap ${g.block?"block":""}" data-g="${i}" type="text" autocomplete="off" autocapitalize="${g.block?"sentences":"off"}" autocorrect="off" spellcheck="false" ${g.block?"":`style="width:${(g.w||9)+2}ch"`} aria-label="answer ${+i+1}">`; });
+  const d=shell(it,`<p class="q"><span class="num">${it.n}.</span> ${it.q?it.q:""}${it.parts?html:""}</p>${it.parts?"":html}<div class="row"><button class="btn chk">Check · Проверить</button></div>`);
+  const ins=$$("input",d), btn=$(".chk",d);
+  const dr=S.draft[it.id]; if(dr) ins.forEach((x,i)=>x.value=dr[i]||"");
+  ins.forEach(x=>{ x.addEventListener("input",()=>{ S.draft[it.id]=ins.map(y=>y.value); save(); });
+    x.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); btn.click(); } }); });
+  const lock=()=>{ ins.forEach(x=>x.disabled=true); btn.disabled=true; btn.style.display="none"; };
+  const paint=()=>{ const st=S.ans[it.id]; if(!st) return;
+    if(st.given) ins.forEach((x,i)=>{ x.value=st.given[i]||""; x.classList.toggle("good",matches(x.value,gaps[i].accept)); x.classList.toggle("no",!matches(x.value,gaps[i].accept)); });
+    if(st.done){ lock();
+      const qm = it.isQ && st.ok && !st.self && !/\?\s*$/.test(st.given[0]||"") ? `<span class="why">Не забудь знак вопроса «?» в конце 😉</span>` : "";
+      if(st.ok && !st.self) fb(d,"ok",`<b class="h">✓ ${st.msg||PRAISE[0]}${st.tries>1?" (2nd try · со второй попытки)":""}</b><span class="why">${it.why}</span>${qm}`);
+      else if(st.self) fb(d,"ok",`<b class="h">✓ Marked as correct by you · Отмечено тобой как верное</b>Model · Образец: <span class="model">${esc(modelOf(it))}</span><span class="why">${it.why}</span>`);
+      else fb(d,"bad",`<b class="h">✗ ${st.msg||NOPE[0]}</b>Correct answer · Правильный ответ: <span class="model">${esc(modelOf(it))}</span><span class="why">${it.why}</span>${ex.self?`<div class="row"><button class="btn ghost selfok">My answer is also correct ✓ · Мой ответ тоже верный</button></div>`:""}`);
+    } else if(st.tries===1){ fb(d,"warn",`<b class="h">${st.msg||NOPE[0]} — try again · попробуй ещё раз</b>💡 ${it.hint}`); }
+  };
+  btn.addEventListener("click",()=>{
+    const vals=ins.map(x=>x.value.trim());
+    if(vals.some(v=>!v)){ fb(d,"warn",ins.length>1?"Fill in every gap · Заполни все пропуски":"Write your answer first · Сначала напиши ответ"); return; }
+    const st=S.ans[it.id]||(S.ans[it.id]={tries:0});
+    st.tries++; if(st.tries===1) st.first=vals.slice(); st.given=vals.slice();
+    const ok=vals.every((v,i)=>matches(v,gaps[i].accept));
+    st.msg=pick(ok?PRAISE:NOPE);
+    if(ok){ st.done=true; st.ok=true; } else if(st.tries>=2){ st.done=true; st.ok=false; }
+    save(); paint(); refresh(); if(ok) say(it.say||modelOf(it));
+  });
+  d.addEventListener("click",e=>{ if(e.target.closest(".selfok")){ const st=S.ans[it.id]; st.ok=true; st.self=true; save(); paint(); refresh(); } });
+  paint(); return d;
+}
+
+/* ---- word order ---- */
+function seeded(id,n){ let h=7; for(const c of id) h=(h*31+c.charCodeAt(0))>>>0; const a=[...Array(n).keys()];
+  for(let i=n-1;i>0;i--){ h=(h*1103515245+12345)>>>0; const j=h%(i+1); [a[i],a[j]]=[a[j],a[i]]; }
+  if(a.every((v,i)=>v===i)) a.push(a.shift()); return a; }
+function rOrder(ex,it){
+  const d=shell(it,`<p class="q"><span class="num">${it.n}.</span></p><div class="line"></div><div class="pool"></div><div class="row"><button class="btn chk">Check · Проверить</button><button class="btn ghost clr">Clear · Сбросить</button></div>`);
+  const line=$(".line",d), pool=$(".pool",d), btn=$(".chk",d), clr=$(".clr",d), order=seeded(it.id,it.tiles.length);
+  let sel=(S.draft[it.id]||[]).slice();
+  const draw=()=>{ const st=S.ans[it.id]||{}; const done=!!st.done;
+    const use = done ? (st.ok? it.tiles.map((_,i)=>i) : (st.given||[])) : sel;
+    line.innerHTML=use.map(i=>`<button class="tile" data-i="${i}" ${done?"disabled":""}>${esc(it.tiles[i])}</button>`).join("");
+    pool.innerHTML=done?"":order.filter(i=>!sel.includes(i)).map(i=>`<button class="tile" data-i="${i}">${esc(it.tiles[i])}</button>`).join("");
+    if(done){ btn.style.display="none"; clr.style.display="none";
+      if(st.ok) fb(d,"ok",`<b class="h">✓ ${st.msg||PRAISE[0]}${st.tries>1?" (2nd try · со второй попытки)":""}</b><span class="why">${it.why}</span>`);
+      else fb(d,"bad",`<b class="h">✗ ${st.msg||NOPE[0]}</b>Correct answer · Правильный ответ: <span class="model">${esc(modelOf(it))}</span><span class="why">${it.why}</span>`);
+    } else if(st.tries===1 && !sel.length){ fb(d,"warn",`<b class="h">${st.msg||NOPE[0]} — try again · попробуй ещё раз</b>💡 ${it.why}`); }
+  };
+  pool.addEventListener("click",e=>{ const b=e.target.closest(".tile"); if(!b) return; sel.push(+b.dataset.i); S.draft[it.id]=sel; save(); draw(); });
+  line.addEventListener("click",e=>{ const b=e.target.closest(".tile"); if(!b||b.disabled) return; sel=sel.filter(i=>i!==+b.dataset.i); S.draft[it.id]=sel; save(); draw(); });
+  clr.addEventListener("click",()=>{ sel=[]; S.draft[it.id]=sel; save(); draw(); });
+  btn.addEventListener("click",()=>{
+    if(sel.length<it.tiles.length){ fb(d,"warn","Use all the words · Используй все слова"); return; }
+    const st=S.ans[it.id]||(S.ans[it.id]={tries:0}); st.tries++;
+    const txt=sel.map(i=>it.tiles[i]).join(" "); if(st.tries===1) st.first=[txt]; st.given=sel.slice(); st.givenTxt=txt;
+    const ok=norm(txt)===norm(it.tiles.join(" ")); st.msg=pick(ok?PRAISE:NOPE);
+    if(ok){ st.done=true; st.ok=true; } else if(st.tries>=2){ st.done=true; st.ok=false; } else { sel=[]; S.draft[it.id]=sel; }
+    save(); draw(); refresh(); if(ok) say(it.tiles.join(" "));
+  });
+  draw(); return d;
+}
+
+/* ---- free writing ---- */
+function rWriting(ex,it){
+  const d=shell(it,`<p class="q"><span class="num">${it.n}.</span> ${esc(it.q)}</p><textarea class="wr" placeholder="I have … for / since …" aria-label="your answer"></textarea>`);
+  const t=$("textarea",d); t.value=S.wr[it.id]||""; t.addEventListener("input",()=>{ S.wr[it.id]=t.value; save(); }); return d;
+}
+
+/* ============================================================
+   NAV, PROGRESS, RESULTS
+   ============================================================ */
+function stats(items){ const done=items.filter(i=>S.ans[i.id]&&S.ans[i.id].done); return {n:items.length, done:done.length, ok:done.filter(i=>S.ans[i.id].ok).length}; }
+function drawTabs(){
+  $("#tabs").innerHTML=STEPS.map(s=>{ const its=ALL.filter(i=>i.ex.step===s.id), st=stats(its);
+    const sc = its.length&&st.done===st.n ? ` <span class="sc">✓ ${st.ok}/${st.n}</span>` : "";
+    return `<button class="tab" role="tab" data-go="${s.id}" aria-selected="${S.tab===s.id}">${s.en}${sc}<small>${s.ru}</small></button>`; }).join("");
+}
+function go(id,scroll){ S.tab=id; save(); $$("section.step").forEach(s=>s.classList.toggle("on",s.id===id)); drawTabs();
+  const cur=$(`.tab[aria-selected="true"]`); if(cur&&cur.scrollIntoView) cur.scrollIntoView({block:"nearest",inline:"center"});
+  if(id==="res") results();
+  if(scroll){ const y=$(".bar").getBoundingClientRect().top+window.scrollY; window.scrollTo(0,y); } }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-go]"); if(b) go(b.dataset.go,true); });
+
+function refresh(){ const st=stats(ALL); $("#fill").style.width=(st.done/st.n*100)+"%"; $("#score").textContent=`${st.ok} / ${st.n}`; drawTabs(); if(S.tab==="res") results(); }
+
+function reportText(){
+  const st=stats(ALL), pct=Math.round(st.ok/st.n*100), L=[];
+  L.push(`${HW.title} (${HW.level})`, `Student · Ученица: ${S.name||HW.student}`, `Date · Дата: ${new Date().toLocaleDateString("en-GB")}`,
+    `Score · Результат: ${st.ok}/${st.n} (${pct}%) — done · выполнено ${st.done}/${st.n}`, "", "BY EXERCISE · ПО УПРАЖНЕНИЯМ");
+  SCORED.forEach(ex=>{ const s=stats(ex.items); L.push(`${ex.no}. ${ex.title}: ${s.ok}/${s.n}${s.done<s.n?` (answered ${s.done})`:""}`); });
+  const wrong=ALL.filter(i=>S.ans[i.id]&&S.ans[i.id].done&&!S.ans[i.id].ok);
+  L.push("", `MISTAKES · ОШИБКИ (${wrong.length})`);
+  if(!wrong.length) L.push("—");
+  wrong.forEach(i=>L.push(`Ex ${i.ex.no}.${i.n}  ${questionOf(i)}`, `   answer: ${givenOf(i)}`, `   correct: ${modelOf(i)}`));
+  const second=ALL.filter(i=>S.ans[i.id]&&S.ans[i.id].ok&&S.ans[i.id].tries>1&&!S.ans[i.id].self);
+  if(second.length){ L.push("", "CORRECT ON THE 2ND TRY · СО ВТОРОЙ ПОПЫТКИ"); second.forEach(i=>L.push(`Ex ${i.ex.no}.${i.n}  first: ${givenOf(i)}  →  ${modelOf(i)}`)); }
+  const self=ALL.filter(i=>S.ans[i.id]&&S.ans[i.id].self);
+  if(self.length){ L.push("", "SELF-MARKED AS CORRECT · ОТМЕЧЕНО УЧЕНИЦЕЙ КАК ВЕРНОЕ (please check)"); self.forEach(i=>L.push(`Ex ${i.ex.no}.${i.n}  ${questionOf(i)}`, `   answer: ${(S.ans[i.id].given||[]).join(" / ")}`, `   model: ${modelOf(i)}`)); }
+  L.push("", "WRITING · ПИСЬМЕННАЯ ЧАСТЬ");
+  EXERCISES.filter(e=>e.type==="writing").forEach(ex=>ex.items.forEach(i=>L.push(`${i.n}. ${i.q}`, `   ${(S.wr[i.id]||"").trim()||"—"}`)));
+  return L.join("\n");
+}
+function results(){
+  const st=stats(ALL), pct=st.n?Math.round(st.ok/st.n*100):0;
+  $("#rBig").innerHTML=`${st.ok}<small> / ${st.n} · ${pct}%</small>`;
+  const left=st.n-st.done;
+  $("#rMsg").textContent = left>0 && st.done===0 ? "Let’s start! · Начнём!" :
+    pct>=90?"Brilliant work! 🎨 · Блестящая работа!": pct>=75?"Very good! · Очень хорошо!": pct>=50?"Good start — look at your mistakes below. · Хорошее начало — посмотри ошибки ниже.":"Keep practising — read the rules again. · Продолжай тренироваться — перечитай правила.";
+  $("#rDone").textContent = left>0 ? `Not answered yet · Ещё без ответа: ${left}` : "All exercises are done · Все упражнения выполнены ✓";
+  $("#rBrk").innerHTML=SCORED.map(ex=>{ const s=stats(ex.items); return `<div><span>${ex.no}. ${ex.title} <span class="ru">· ${ex.ru}</span></span><b>${s.ok}/${s.n}</b><span class="mini"><i style="width:${s.ok/s.n*100}%"></i></span></div>`; }).join("");
+  const wrong=ALL.filter(i=>S.ans[i.id]&&S.ans[i.id].done&&!S.ans[i.id].ok);
+  $("#rMist").innerHTML = wrong.length ? wrong.map(i=>`<div><span class="ru">Ex ${i.ex.no}.${i.n}</span> ${esc(questionOf(i))}<br><s>${esc(givenOf(i))}</s> → <b>${esc(modelOf(i))}</b></div>`).join("") : `<p class="ru">${st.done?"No mistakes · Ошибок нет 🎉":"—"}</p>`;
+  const rep=reportText(); $("#rep").textContent=rep;
+  const subj=`${HW.title} — ${S.name||HW.student} — ${st.ok}/${st.n}`;
+  const short = rep.length>1500 ? rep.slice(0,1500)+"\n…\n[Full report: “Copy text” · Полный отчёт — кнопка «Copy text»]" : rep;
+  const E=encodeURIComponent;
+  $("#send").innerHTML =
+    (navigator.share?`<button class="main" id="shr">Share · Поделиться</button>`:"")+
+    `<a ${navigator.share?"":'class="main"'} target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${E(HW.teacher)}&su=${E(subj)}&body=${E(short)}">Send in Gmail</a>
+     <a target="_blank" rel="noopener" href="https://t.me/share/url?url=${E(subj)}&text=${E(short)}">Telegram</a>
+     <a target="_blank" rel="noopener" href="https://wa.me/?text=${E(subj+"\n\n"+short)}">WhatsApp</a>
+     <a href="mailto:${HW.teacher}?subject=${E(subj)}&body=${E(short)}">Email app</a>
+     <button id="cpy">Copy text · Скопировать</button>`;
+  const sh=$("#shr"); if(sh) sh.onclick=()=>{ navigator.share({title:subj,text:subj+"\n\n"+rep}).catch(()=>{}); };
+  $("#cpy").onclick=()=>{ const done=()=>{ $("#copied").textContent="Copied ✓ · Скопировано — вставь текст в сообщение учителю"; };
+    const fall=()=>{ const t=document.createElement("textarea"); t.value=rep; t.style.position="fixed"; t.style.opacity="0"; document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); done(); }catch(e){} t.remove(); };
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(rep).then(done,fall); else fall(); };
+}
+
+/* ============================================================
+   DEMOS
+   ============================================================ */
+function timeline(){ return `<svg class="tl" viewBox="0 0 360 150" role="img" aria-label="Timeline: from 2016 until now — for ten years, since 2016">
+  <line x1="14" y1="84" x2="338" y2="84" stroke="#1B1F4B" stroke-width="2"/><path d="M338 78l10 6-10 6z" fill="#1B1F4B"/>
+  <g class="t-for"><rect x="80" y="76" width="200" height="16" rx="8" fill="#E9B44C"/><path d="M80 56v-8h200v8" fill="none" stroke="#9A6A0B" stroke-width="2"/><text x="180" y="38" text-anchor="middle" font-size="15" font-weight="700" style="fill:#9A6A0B">for ten years</text><text x="180" y="70" text-anchor="middle" font-size="11.5" style="fill:#9A6A0B">период · 10 лет</text></g>
+  <g class="t-since"><circle cx="80" cy="84" r="11" fill="#74AE96" stroke="#3F7F68" stroke-width="3"/><text x="80" y="116" text-anchor="middle" font-size="15" font-weight="700" style="fill:#3F7F68">since 2016</text><text x="80" y="132" text-anchor="middle" font-size="11.5" style="fill:#3F7F68">момент начала</text></g>
+  <circle cx="280" cy="84" r="9" fill="#E8685F" stroke="#C4453C" stroke-width="3"/><text x="280" y="116" text-anchor="middle" font-size="15" font-weight="700" style="fill:#C4453C">NOW</text><text x="280" y="132" text-anchor="middle" font-size="11.5" style="fill:#C4453C">сейчас · 2026</text>
+  <text x="30" y="72" text-anchor="middle" font-size="11.5" style="fill:#6B6F8E">past</text></svg>`; }
+function demos(){
+  $("#tl1").innerHTML=timeline(); $("#tl2").innerHTML=timeline();
+  $("#tlPick").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; $$("#tlPick button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    const t=b.dataset.t; $("#tl2 .t-for").classList.toggle("dim",t==="since"); $("#tl2 .t-since").classList.toggle("dim",t==="for"); if(t!=="both") say("She has been a painter "+(t==="for"?"for ten years.":"since 2016.")); });
+  $("#verbs").innerHTML=VERBS.map(v=>`<button class="verb" data-say="${v[0]}. ${v[1]}."><span>${v[0]} → <b>${v[1]}</b><i>${v[2]}</i></span>🔊</button>`).join("");
+  /* sentence builder */
+  const M={s:0,v:0,d:0,m:"pos"}, D=MACHINE;
+  const chips=(el,arr,key,lab)=>{ el.innerHTML=arr.map((x,i)=>`<button data-i="${i}" aria-pressed="${(key==="m"?M.m===x[0]:M[key]===i)}">${lab(x)}</button>`).join("");
+    el.onclick=e=>{ const b=e.target.closest("button"); if(!b) return; if(key==="m") M.m=arr[+b.dataset.i][0]; else M[key]=+b.dataset.i; build(); }; };
+  function build(){
+    chips($("#mS"),D.subjects,"s",x=>x.s); chips($("#mV"),D.verbs,"v",x=>x.pp+" "+x.x); chips($("#mD"),D.durs,"d",x=>x); chips($("#mM"),D.modes,"m",x=>x[1]);
+    const s=D.subjects[M.s], v=D.verbs[M.v], d=D.durs[M.d], cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
+    let sl=[], extra="";
+    if(M.m==="pos"){ sl=[["subject",s.s,""],["auxiliary",s.aux,"a"],["past participle",v.pp,"p"],["extra",v.x,""],["how long?",d+".","h"]];
+      extra=`Short form · Коротко: <b>${s.s==="I"||s.s==="We"?s.s+"’ve":s.s+(s.aux==="has"?"’s":" have")} ${v.pp}</b>…`; }
+    if(M.m==="neg"){ sl=[["subject",s.s,""],["auxiliary",s.aux,"a"],["not","not","n"],["past participle",v.pp,"p"],["extra",v.x,""],["how long?",d+".","h"]];
+      extra=`Short form · Коротко: ${s.s} <b>${s.aux==="has"?"hasn’t":"haven’t"}</b> ${v.pp}…`; }
+    if(M.m==="q"){ sl=[["auxiliary",cap(s.aux),"a"],["subject",s.q,""],["past participle",v.pp,"p"],["extra",v.x,""],["how long?",d+"?","h"]];
+      extra=`Short answers · Краткие ответы: Yes, ${s.sh} <b>${s.aux}</b>. / No, ${s.sh} <b>${s.aux==="has"?"hasn’t":"haven’t"}</b>.`; }
+    if(M.m==="how"){ sl=[["question","How long","h"],["auxiliary",s.aux,"a"],["subject",s.q,""],["past participle",v.pp,"p"],["extra",v.x+"?",""]];
+      extra=`Answer · Ответ: <b>${cap(d)}.</b>`; }
+    $("#mSlots").innerHTML=sl.map(x=>`<div class="slot ${x[2]}"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("");
+    const text=sl.map(x=>x[1]).join(" "); $("#mOut").textContent=text; $("#mSpk").onclick=()=>say(text); $("#mExtra").innerHTML=extra;
+  }
+  build();
+}
+
+/* ============================================================
+   START
+   ============================================================ */
+load();
+if(!STEPS.some(s=>s.id===S.tab)) S.tab="s1";
+const nm=$("#nm"); nm.value=S.name||HW.student; $("#hello").textContent=nm.value||HW.student;
+nm.addEventListener("input",()=>{ S.name=nm.value.trim(); $("#hello").textContent=S.name||HW.student; save(); });
+demos(); renderAll(); go(S.tab,false); refresh();
+$("#again").onclick=()=>$("#confirm").classList.add("show");
+$("#no").onclick=()=>$("#confirm").classList.remove("show");
+$("#yes").onclick=()=>{ try{ localStorage.removeItem(HW.key); }catch(e){} S={name:nm.value.trim()||HW.student,tab:"s1",ans:{},draft:{},wr:{}}; save(); $("#confirm").classList.remove("show"); renderAll(); go("s1",true); refresh(); };
+</script>
+</body>
+</html>
