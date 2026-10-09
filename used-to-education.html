@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Used To and Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --board:#1f4037; --board2:#16302a; --wood:#a06f3f; --wood2:#7c5229;
+  --chalk:#f6f3e7; --yellow:#f6cf5f; --yellow2:#fbe9ad;
+  --paper:#f6f1e3; --grid:#dfe7f1; --card:#fffdf8; --ink:#22303c; --soft:#6a7482;
+  --line:#d6dde8; --margin:#e4776c; --blue:#2b5fc7; --bluebg:#e6eefc;
+  --ok:#2a8554; --okbg:#e2f4e9; --bad:#c4453a; --badbg:#fbe5e2; --warn:#a96c05; --warnbg:#fdf0d3;
+  --r:16px; --shadow:0 2px 0 rgba(34,48,60,.06),0 10px 24px -14px rgba(34,48,60,.35);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Golos Text",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);font-size:16.5px;line-height:1.5;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px;}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 80px}
+h1,h2,h3,p{margin:0}
+.ru{color:var(--soft)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* ---------- chalkboard header ---------- */
+.board{margin:16px 0 0;background:
+  radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.07),transparent 55%),
+  radial-gradient(ellipse at 80% 75%,rgba(255,255,255,.05),transparent 50%),
+  linear-gradient(160deg,var(--board),var(--board2));
+  color:var(--chalk);border:9px solid var(--wood);border-bottom-width:14px;border-radius:14px;
+  box-shadow:inset 0 0 0 2px var(--wood2),var(--shadow);padding:20px 20px 18px;position:relative}
+.board .kicker{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+.board h1{font-family:"Caveat",cursive;font-weight:700;font-size:clamp(46px,11vw,76px);line-height:.95;margin:6px 0 2px}
+.board h1 s{color:#b9c8c1;text-decoration-thickness:3px;text-decoration-color:var(--margin)}
+.board h1 em{font-style:normal;color:var(--yellow)}
+.board .sub{font-family:"Caveat",cursive;font-size:25px;line-height:1.15;color:var(--chalk)}
+.board .sub small{display:block;font-family:"Golos Text",sans-serif;font-size:14px;opacity:.78;margin-top:2px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-top:14px}
+.chip{border:1.5px dashed rgba(246,243,231,.55);border-radius:999px;padding:4px 12px;font-size:13.5px}
+.namebox{display:flex;align-items:center;gap:8px;font-size:14px;flex:1 1 220px;min-width:0;max-width:100%;white-space:nowrap}
+.namebox input{flex:1;min-width:0;width:0;background:transparent;border:0;border-bottom:2px solid rgba(246,243,231,.6);color:var(--yellow);
+  font-family:"Caveat",cursive;font-size:26px;padding:0 4px;height:44px}
+.namebox input::placeholder{color:rgba(246,243,231,.45)}
+.how{margin-top:14px;font-size:14.5px;border-top:1.5px dashed rgba(246,243,231,.3);padding-top:12px}
+.how span{opacity:.75;display:block}
+
+/* ---------- sticky nav ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(246,241,227,.96);backdrop-filter:blur(6px);margin:12px -16px 0;padding:8px 16px 8px;border-bottom:1.5px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.tabbtn{position:relative;min-height:50px;border:1.5px solid var(--line);background:var(--card);border-radius:12px 12px 6px 6px;padding:5px 2px 4px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15}
+.tabbtn b{font-size:11.5px;font-weight:600}
+.tabbtn i{font-style:normal;font-size:9.5px;color:var(--soft)}
+.tabbtn .badge{font-size:10px;font-weight:700;color:var(--ok);min-height:12px}
+.tabbtn.on{background:var(--board);border-color:var(--board);color:var(--chalk)}
+.tabbtn.on i{color:#c9d6d0}.tabbtn.on .badge{color:var(--yellow)}
+.prog{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:13px;font-weight:600}
+.bar{flex:1;height:9px;background:#e4e0d2;border-radius:99px;overflow:hidden}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--ok),#63b889);border-radius:99px;transition:width .4s}
+@media(min-width:620px){.tabbtn b{font-size:14px}.tabbtn i{font-size:11.5px}.tabbtn .badge{font-size:11.5px}}
+
+/* ---------- cards ---------- */
+.tab{display:none;padding-top:18px}.tab.on{display:block}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 16px;margin:0 0 18px}
+.rule{position:relative;padding-left:30px}
+.rule::before{content:"";position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.75}
+.step{display:inline-block;font-family:"Caveat",cursive;font-size:24px;line-height:1;background:var(--yellow);color:var(--ink);padding:4px 12px 5px;border-radius:8px;transform:rotate(-1.5deg);margin-bottom:8px}
+h2{font-size:21px;line-height:1.25;font-weight:700}
+h2+.ru{font-size:15px;margin-bottom:10px}
+.rule p{margin:10px 0}
+.rule ul{margin:8px 0;padding-left:20px}.rule li{margin:6px 0}
+.hl{background:linear-gradient(transparent 12%,var(--yellow2) 12% 92%,transparent 92%);padding:0 3px;border-radius:3px;font-weight:700}
+.hl2{background:linear-gradient(transparent 12%,#cfe0fb 12% 92%,transparent 92%);padding:0 3px;border-radius:3px;font-weight:700}
+.eg{display:flex;gap:8px;align-items:flex-start;background:#f4f7fc;border-radius:12px;padding:8px 10px;margin:8px 0}
+.eg .t{flex:1}.eg .t .ru{display:block;font-size:14.5px}
+.say{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:18px;line-height:1}
+.say:hover{border-color:var(--blue)}
+.tl{display:grid;grid-template-columns:1.6fr 1fr;gap:0;margin:12px 0;border-radius:12px;overflow:hidden;border:1.5px solid var(--line);text-align:center}
+.tl>div{padding:10px 8px}.tl .p{background:var(--yellow2)}.tl .n{background:#eef1f5;border-left:3px dashed var(--ink)}
+.tl .lab{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tl .ic{font-size:22px;letter-spacing:4px;margin:4px 0}.tl .cap{font-size:14px}
+table.form{width:100%;border-collapse:collapse;margin:10px 0;font-size:15.5px}
+table.form th,table.form td{border:1.5px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+table.form th{width:44px;text-align:center;background:#f4f7fc;font-size:19px}
+.note{background:var(--warnbg);border-radius:12px;padding:10px 12px;margin:10px 0;font-size:15.5px}
+.pair{display:grid;gap:4px;margin:10px 0;padding:10px 12px;border-radius:12px;background:#f8f6ef;border:1.5px solid #ebe6d6}
+.pair .x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:1.5px}
+.pair .v{color:var(--ok);font-weight:600}
+.pair .ru{font-size:14.5px}
+.mach{background:var(--board);color:var(--chalk);border-radius:14px;padding:14px 12px;margin:12px 0}
+.mach .ttl{font-family:"Caveat",cursive;font-size:25px;line-height:1.1}
+.mach .rowb{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.mach button{min-height:44px;min-width:44px;border-radius:10px;border:1.5px solid rgba(246,243,231,.5);background:transparent;color:var(--chalk);padding:4px 12px;font-size:14.5px}
+.mach button.on{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:700}
+.mach .out{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:58px;font-size:19px;font-weight:600;margin:8px 0}
+.mach .out span{background:rgba(246,243,231,.12);border-radius:8px;padding:5px 9px;animation:pop .35s both}
+.mach .out span.a{background:var(--yellow);color:var(--ink)}
+.mach .out span.b{background:#bcd3fb;color:var(--ink)}
+.mach .exp{font-size:14.5px;opacity:.92}
+@keyframes pop{from{transform:translateY(8px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- exercises ---------- */
+.ex{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 14px;margin:0 0 18px}
+.exh{display:flex;gap:10px;align-items:flex-start}
+.exno{flex:none;min-width:44px;height:44px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:700;font-size:15px}
+.exh h3{font-size:18px;line-height:1.25}.exh .ru{font-size:14.5px}
+.exsc{margin-left:auto;font-weight:700;font-size:14px;color:var(--ok);white-space:nowrap;padding-top:4px}
+.instr{font-size:15px;margin:10px 0 4px;padding:8px 10px;background:#f4f7fc;border-radius:10px}
+.item{padding:12px 0;border-top:1.5px dashed var(--line);margin-top:10px}
+.q{display:flex;gap:8px;align-items:flex-start;font-weight:500}
+.q .n{flex:none;font-size:13px;font-weight:700;color:var(--soft);min-width:20px;padding-top:2px}
+.q .tag{display:inline-block;margin-left:6px;font-size:13px;font-weight:700;background:var(--bluebg);color:var(--blue);border-radius:6px;padding:1px 7px;white-space:nowrap}
+.q .rsub{display:block;font-weight:400;font-size:14.5px;color:var(--soft)}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{min-height:46px;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--bluebg)}
+.opt:disabled{cursor:default;opacity:.75}
+.opt.right{border-color:var(--ok);background:var(--okbg);opacity:1;font-weight:600}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);opacity:1;text-decoration:line-through}
+.rowi{display:flex;gap:8px;margin-top:10px}
+.rowi input{flex:1;min-width:0;height:48px;border:1.5px solid #b9c3d1;border-radius:12px;padding:0 12px;font:inherit;background:#fff;color:var(--ink)}
+.item.is-ok .rowi input{border-color:var(--ok);background:var(--okbg)}
+.item.is-bad .rowi input{border-color:var(--bad);background:var(--badbg)}
+.btn{min-height:48px;border:0;border-radius:12px;background:var(--board);color:var(--chalk);font-weight:600;padding:8px 16px;line-height:1.2}
+.rowi .btn{white-space:nowrap;flex:none}
+.btn:hover{background:#28574a}.btn:disabled{opacity:.4;cursor:default}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--blue);background:var(--bluebg)}
+.btn.sm{min-height:44px;font-size:14.5px;padding:6px 12px}
+.fb{margin-top:10px;border-radius:12px;padding:9px 12px;font-size:15.5px}
+.fb.ok{background:var(--okbg);color:#17522f}.fb.bad{background:var(--badbg);color:#7c231b}.fb.warn{background:var(--warnbg);color:#6b4503}
+.fb .model{display:block;font-weight:700;margin-top:3px}
+.fb .why{margin-top:4px;color:var(--ink);font-size:15px}
+.fb .mini{font-size:13px;opacity:.8}
+.selfm{margin-top:8px}
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;margin-top:12px}
+.match .col{display:grid;gap:8px;align-content:start}
+.m{min-height:48px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:6px 8px;font-size:15px;line-height:1.2}
+.m.sel{border-color:var(--blue);background:var(--bluebg);box-shadow:0 0 0 2px var(--blue) inset}
+.m.done{border-color:var(--ok);background:var(--okbg);opacity:.8;cursor:default}
+.m.badf{border-color:var(--bad);background:var(--badbg);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+/* bank */
+.bankw{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.bankw span{background:var(--yellow2);border:1.5px solid #ecd27c;border-radius:8px;padding:3px 10px;font-weight:600;font-size:15px}
+.bankw span.used{opacity:.4;text-decoration:line-through}
+.gtext{line-height:2.5;font-size:16.5px}
+.gtext input{width:9.2ch;height:40px;border:0;border-bottom:2.5px solid #9aa7b8;background:#f4f7fc;border-radius:8px 8px 0 0;font:inherit;font-weight:600;text-align:center;padding:0 4px;color:var(--ink)}
+.gtext input.g-ok{background:var(--okbg);border-color:var(--ok)}
+.gtext input.g-bad{background:var(--badbg);border-color:var(--bad);text-decoration:line-through}
+.gtext input.g-retry{background:var(--warnbg);border-color:var(--warn)}
+.gtext sup{font-size:11px;color:var(--soft);font-weight:700;margin-right:2px}
+.gtext .corr{color:var(--ok);font-weight:700;margin-left:4px}
+/* build */
+.line{min-height:56px;border:2px dashed #b9c3d1;border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;background:#fff}
+.line .endp{font-weight:700;font-size:20px;color:var(--soft);padding:0 4px}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:44px}
+.tile{min-height:44px;min-width:44px;border:1.5px solid #ecd27c;background:var(--yellow2);border-radius:10px;padding:4px 12px;font-weight:600;box-shadow:0 2px 0 #e2c766}
+.tile:disabled{cursor:default}
+.item.is-ok .line{border-color:var(--ok);border-style:solid;background:var(--okbg)}
+.item.is-bad .line{border-color:var(--bad);border-style:solid;background:var(--badbg)}
+.bigsay{width:56px;height:56px;font-size:24px;background:var(--yellow2);border-color:#ecd27c}
+/* words */
+.wgrid{display:grid;gap:8px}
+@media(min-width:700px){.wgrid{grid-template-columns:1fr 1fr}}
+.w{display:grid;grid-template-columns:34px 1fr 44px;gap:8px;align-items:start;border:1.5px solid var(--line);border-radius:12px;padding:8px 8px 8px 10px;background:#fff}
+.w .em{font-size:24px;line-height:1.3}
+.w b{font-size:16.5px}.w .ipa{font-size:13px;color:var(--soft);margin-left:4px}
+.w .pos{display:block;font-size:12.5px;color:var(--blue);font-weight:600}
+.w .tr{display:block;color:var(--ink)}
+.w .exs{display:block;font-size:14px;color:var(--soft);font-style:italic}
+.care li{margin:9px 0}.care{padding-left:20px;margin:8px 0 0}
+.story{font-size:17px;line-height:1.85}
+.gl{border:0;background:none;padding:0 1px;font:inherit;font-weight:600;color:var(--blue);border-bottom:2px dotted var(--blue);cursor:pointer}
+.gl.open::after{content:" (" attr(data-ru) ")";font-weight:500;color:var(--soft);font-size:.9em}
+/* flashcards */
+.fcwrap{max-width:520px;margin:0 auto}
+.fctop{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;margin-bottom:10px}
+.scene{perspective:1200px}
+.fc{position:relative;width:100%;height:290px;border:0;background:none;padding:0;transform-style:preserve-3d;transition:transform .5s;display:block}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.face.f{background:linear-gradient(160deg,var(--board),var(--board2));color:var(--chalk);border:8px solid var(--wood)}
+.face.b{background:#fff;border:1.5px solid var(--line);transform:rotateY(180deg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px}
+.face .em{font-size:44px;line-height:1}
+.face .big{font-size:28px;font-weight:700;line-height:1.15}
+.face.f .big{font-family:"Caveat",cursive;font-size:44px}
+.face .ipa{font-size:14.5px;opacity:.85}
+.face .exs{font-size:15px;font-style:italic;color:var(--soft);max-width:36ch}
+.face .tap{position:absolute;bottom:10px;left:0;right:0;font-size:12px;opacity:.7}
+.face .say{position:absolute;top:10px;right:10px}
+.fcrow{display:flex;gap:8px;margin-top:10px}.fcrow>*{flex:1 1 0;min-width:0;padding-left:8px;padding-right:8px}
+.know{background:var(--ok)}.know:hover{background:#226d45}
+.learn{background:#fff;color:var(--warn);border:1.5px solid #e6c98b}
+.fcopts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:14.5px;align-items:center}
+.fcopts label{display:flex;align-items:center;gap:8px;min-height:44px}
+.fcopts input{width:20px;height:20px}
+/* writing & results */
+textarea{width:100%;min-height:76px;border:1.5px solid #b9c3d1;border-radius:12px;padding:10px 12px;font:inherit;resize:vertical;background:#fff;color:var(--ink);margin-top:6px}
+.wq{margin-top:14px}.wq .mdl{font-size:14.5px;color:var(--soft);font-style:italic}
+.scorebig{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ok) calc(var(--p)*1%),#e4e0d2 0)}
+.ring>div{width:92px;height:92px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-weight:700;font-size:25px}
+.bd{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
+.bd td{padding:7px 4px;border-bottom:1.5px dashed var(--line)}.bd td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.mist{margin:8px 0 0;padding:0;list-style:none}
+.mist li{padding:9px 0;border-bottom:1.5px dashed var(--line);font-size:15px}
+.mist .mine{color:var(--bad)}.mist .rt{color:var(--ok);font-weight:600}
+.send{display:grid;gap:8px;margin-top:12px}
+@media(min-width:620px){.send{grid-template-columns:repeat(2,1fr)}}
+.mailrow{margin-top:10px;font-size:14.5px}.mailrow b{user-select:all;-webkit-user-select:all}
+.send a{display:grid;place-items:center;text-decoration:none;text-align:center}
+.rep{width:100%;min-height:150px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.nextrow{display:flex;justify-content:flex-end;margin:4px 0 0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:99px;padding:10px 18px;font-size:14.5px;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="board">
+  <div class="kicker">Homework · Домашнее задание</div>
+  <h1>I <em>used to</em>…</h1>
+  <p class="sub">Grammar: used to &nbsp;·&nbsp; Words: school &amp; education
+    <small>Грамматика: used to · Слова: школа и учёба</small></p>
+  <div class="meta">
+    <span class="chip">Pre-Intermediate</span>
+    <label class="namebox">Name · Имя: <input id="name" type="text" placeholder="…" autocomplete="off" aria-label="Your name"></label>
+  </div>
+  <p class="how">Work in order: 1 Grammar → 2 Words → 3 Cards → 4 Vocab → 5 Mixed → 6 Results, then send the result to your teacher.
+    <span>Иди по порядку: правила → слова → карточки → упражнения → результат. В конце отправь результат учителю. Ответы сохраняются автоматически.</span></p>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="tabs" id="tabs"></div>
+  <div class="prog"><div class="bar" aria-hidden="true"><div id="pbar"></div></div><span id="ptext">0 / 0</span></div>
+</nav>
+
+<!-- ===================== 1 GRAMMAR ===================== -->
+<section class="tab" id="tab-grammar">
+
+  <div class="card rule">
+    <span class="step">Step 1 · Шаг 1</span>
+    <h2>What does “used to” mean?</h2>
+    <p class="ru">Что значит used to?</p>
+    <p><span class="hl">used to + глагол</span> — так мы говорим о том, что было <b>раньше</b> (много раз или долгое время), а <b>сейчас уже не так</b>.</p>
+    <div class="tl" role="img" aria-label="Timeline: in the past I walked to school many times, now I drive">
+      <div class="p"><div class="lab">Past · раньше</div><div class="ic">🚶🚶🚶🚶</div><div class="cap">I <b>used to walk</b> to school.</div></div>
+      <div class="n"><div class="lab">Now · сейчас</div><div class="ic">🚗</div><div class="cap">I drive.</div></div>
+    </div>
+    <p><b>🔁 Привычки и повторяющиеся действия в прошлом</b></p>
+    <div class="eg"><div class="t">We <span class="hl">used to</span> play football during the break.<span class="ru">Раньше мы играли в футбол на перемене. (Сейчас — нет.)</span></div><button class="say" data-act="say" data-t="We used to play football during the break." aria-label="Listen">🔊</button></div>
+    <p><b>🧍 Состояния в прошлом</b> (be, have, like, love, hate, live, know…)</p>
+    <div class="eg"><div class="t">Our teacher <span class="hl">used to</span> be very strict.<span class="ru">Наш учитель раньше был очень строгим.</span></div><button class="say" data-act="say" data-t="Our teacher used to be very strict." aria-label="Listen">🔊</button></div>
+    <div class="eg"><div class="t">I <span class="hl">used to</span> hate maths, but now I like it.<span class="ru">Раньше я терпеть не мог(ла) математику, а сейчас она мне нравится.</span></div><button class="say" data-act="say" data-t="I used to hate maths, but now I like it." aria-label="Listen">🔊</button></div>
+    <div class="note">🇷🇺 <b>Сравни с русским.</b> В русском нет отдельной формы — мы добавляем слово «раньше» или «бывало». В английском «раньше» уже спрятано внутри <b>used to</b>: <i>I used to play</i> = «раньше я играл(а)». Слова <i>before / earlier</i> добавлять не нужно.</div>
+    <p><b>⛔ Когда used to НЕ подходит</b></p>
+    <ul>
+      <li><b>Один раз</b> → Past Simple: I <b>passed</b> my exam in 2015. <span class="ru">(не <i>used to pass</i>)</span></li>
+      <li><b>Сколько времени / сколько раз</b> → Past Simple: I <b>studied</b> there <b>for five years</b>.</li>
+      <li><b>Привычки сейчас</b> → Present Simple + usually: I <b>usually get up</b> at 7. <span class="ru">(формы <i>I use to</i> для настоящего нет!)</span></li>
+    </ul>
+  </div>
+  <div data-ex="g1"></div>
+
+  <div class="card rule">
+    <span class="step">Step 2 · Шаг 2</span>
+    <h2>Form: + / − / ?</h2>
+    <p class="ru">Как строить: утверждение, отрицание, вопрос</p>
+    <table class="form">
+      <tr><th>+</th><td>I / you / he / she / we / they <span class="hl">used to</span> + verb<br>I <span class="hl">used to</span> walk to school.</td></tr>
+      <tr><th>−</th><td>… <span class="hl2">didn’t</span> <span class="hl">use to</span> + verb<br>I <span class="hl2">didn’t</span> <span class="hl">use to</span> like history.</td></tr>
+      <tr><th>?</th><td><span class="hl2">Did</span> … <span class="hl">use to</span> + verb?<br><span class="hl2">Did</span> you <span class="hl">use to</span> wear a uniform?<br><span class="ru">Yes, I did. / No, I didn’t.</span></td></tr>
+      <tr><th>Wh</th><td>Where <span class="hl2">did</span> you <span class="hl">use to</span> live?<br>What subjects <span class="hl2">did</span> you <span class="hl">use to</span> like?</td></tr>
+    </table>
+    <div class="note">✏️ <b>Главное правило.</b> После <b>did / didn’t</b> пишем <b>use to</b> — без <b>-d</b>. Прошедшее время уже показано в <i>did</i>.<br>Сравни: I went → I didn’t <b>go</b> · I used to → I didn’t <b>use to</b>.</div>
+    <ul>
+      <li>Форма одна для всех: <b>he used to</b>, <b>she used to</b> <span class="ru">(никаких -s)</span>.</li>
+      <li>После used to — простой глагол: used to <b>play</b> <span class="ru">(не playing, не played)</span>.</li>
+      <li>Можно сказать и так: I <b>never used to</b> skip lessons. = I didn’t use to skip lessons.</li>
+      <li>Произношение: <b>/ˈjuːst tə/</b> — «юст-тэ», со звуком <b>с</b>, а не <b>з</b>.</li>
+    </ul>
+    <div class="mach">
+      <div class="ttl">The “used to” machine · Машина used to</div>
+      <div class="exp">Выбери предложение и нажимай + − ? — смотри, что меняется.</div>
+      <div class="rowb" id="machBase"></div>
+      <div class="rowb" id="machMode"></div>
+      <div class="out" id="machOut" aria-live="polite"></div>
+      <div class="exp" id="machExp"></div>
+    </div>
+  </div>
+  <div data-ex="g2"></div>
+  <div data-ex="g3"></div>
+
+  <div class="card rule">
+    <span class="step">Step 3 · Шаг 3</span>
+    <h2>Common mistakes</h2>
+    <p class="ru">Типичные ошибки — проверь себя</p>
+    <div class="pair"><span class="x">I use to play football when I was a child.</span><span class="v">✓ I used to play football when I was a child.</span><span class="ru">О прошлом — всегда used to, с -d.</span></div>
+    <div class="pair"><span class="x">I didn’t used to like maths.</span><span class="v">✓ I didn’t use to like maths.</span><span class="ru">После didn’t — use to без -d.</span></div>
+    <div class="pair"><span class="x">Did you used to wear a uniform?</span><span class="v">✓ Did you use to wear a uniform?</span><span class="ru">После Did — тоже use to без -d.</span></div>
+    <div class="pair"><span class="x">She used to wearing / used to wore a uniform.</span><span class="v">✓ She used to wear a uniform.</span><span class="ru">После used to — простой глагол.</span></div>
+    <div class="pair"><span class="x">I used to go to London in 2019.</span><span class="v">✓ I went to London in 2019.</span><span class="ru">Один раз — Past Simple.</span></div>
+    <div class="pair"><span class="x">Now I use to get up at 7.</span><span class="v">✓ Now I usually get up at 7.</span><span class="ru">О настоящем — usually + Present Simple.</span></div>
+    <div class="pair"><span class="x">Before I used to live in a village earlier.</span><span class="v">✓ I used to live in a village.</span><span class="ru">«Раньше» уже есть в used to.</span></div>
+  </div>
+  <div data-ex="g4"></div>
+  <div class="nextrow"><button class="btn" data-act="tab" data-tab="words">Next: Words → · Дальше: слова</button></div>
+</section>
+
+<!-- ===================== 2 WORDS ===================== -->
+<section class="tab" id="tab-words">
+  <div class="card">
+    <h2>School &amp; education: 24 words</h2>
+    <p class="ru">Школа и учёба: 24 слова и выражения. Нажимай 🔊 и повторяй вслух.</p>
+    <div class="wgrid" id="wlist" style="margin-top:12px"></div>
+  </div>
+  <div class="card rule">
+    <span class="step">Careful! · Осторожно!</span>
+    <h2>Careful with these</h2>
+    <p class="ru">Здесь часто ошибаются</p>
+    <ul class="care">
+      <li><b>take</b> an exam = сдавать (писать) экзамен · <b>pass</b> an exam = сдать успешно. <i>I took the exam, but I didn’t pass.</i> <span class="ru">— Я сдавал(а) экзамен, но не сдал(а).</span></li>
+      <li><b>homework</b> — неисчисляемое: <b>a lot of homework</b> <span class="ru">(не homeworks)</span>, и мы его <b>do</b>: <b>do homework</b> <span class="ru">(не make)</span>.</li>
+      <li><b>do chores</b> <span class="ru">(не make)</span>; слово обычно во множественном числе.</li>
+      <li>good <b>at</b> maths <span class="ru">(не good in)</span>.</li>
+      <li>learn <b>by heart</b> — без артикля.</li>
+      <li><b>subject</b> — школьный предмет. Предмет-вещь — это <i>thing / object</i>.</li>
+      <li><b>break</b> — перемена <span class="ru">(не change)</span>. <b>mark</b> — оценка в британском английском, в американском — <i>grade</i>.</li>
+      <li><b>pupil</b> — ученик в школе; <b>student</b> — студент (и часто старшеклассник).</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Story: Grandad’s school days</h2>
+    <p class="ru">История: школьные годы дедушки. Нажми на синее слово — появится перевод.</p>
+    <p class="story" id="story" style="margin-top:10px"></p>
+    <div style="margin-top:8px"><button class="btn ghost sm" data-act="saystory">🔊 Listen · Слушать</button></div>
+  </div>
+  <div data-ex="s1"></div>
+  <div class="nextrow"><button class="btn" data-act="tab" data-tab="cards">Next: Cards → · Дальше: карточки</button></div>
+</section>
+
+<!-- ===================== 3 CARDS ===================== -->
+<section class="tab" id="tab-cards">
+  <div class="card">
+    <h2>Flashcards</h2>
+    <p class="ru">Карточки: посмотри на слово, вспомни перевод, переверни и проверь себя.</p>
+    <div class="fcwrap" id="fc" style="margin-top:14px"></div>
+  </div>
+  <div class="nextrow"><button class="btn" data-act="tab" data-tab="vocab">Next: Vocab practice → · Дальше: упражнения</button></div>
+</section>
+
+<!-- ===================== 4 VOCAB ===================== -->
+<section class="tab" id="tab-vocab">
+  <div data-ex="v1"></div><div data-ex="v2"></div><div data-ex="v3"></div><div data-ex="v4"></div><div data-ex="v5"></div><div data-ex="v6"></div>
+  <div class="nextrow"><button class="btn" data-act="tab" data-tab="mixed">Next: Mixed → · Дальше: всё вместе</button></div>
+</section>
+
+<!-- ===================== 5 MIXED ===================== -->
+<section class="tab" id="tab-mixed">
+  <div data-ex="m1"></div><div data-ex="m2"></div><div data-ex="m3"></div>
+  <div class="ex" id="writing"></div>
+  <div class="nextrow"><button class="btn" data-act="tab" data-tab="results">See my results → · Мой результат</button></div>
+</section>
+
+<!-- ===================== 6 RESULTS ===================== -->
+<section class="tab" id="tab-results"><div id="results"></div></section>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =====================================================================
+   DATA — edit words, items and answers here
+   ===================================================================== */
+const TEACHER_EMAIL = "ulchik2211@gmail.com";
+const HW_TITLE = "used to + Education vocabulary (Pre-Intermediate)";
+const KEY = "used-to-education-v1";
+
+const WORDS = [
+ {w:"primary school", ipa:"/ˈpraɪməri skuːl/", pos:"noun", ru:"начальная школа", ex:"I went to a small primary school in my village.", em:"🏫"},
+ {w:"secondary school", ipa:"/ˈsekəndri skuːl/", pos:"noun", ru:"средняя школа", ex:"At secondary school we had ten different subjects.", em:"🎒"},
+ {w:"single-gender school", ipa:"/ˌsɪŋɡl ˈdʒendə skuːl/", pos:"noun", ru:"школа только для мальчиков или только для девочек", ex:"My grandmother used to go to a single-gender school – only girls.", em:"🚻"},
+ {w:"pupil", ipa:"/ˈpjuːpl/", pos:"noun", ru:"ученик, школьник", ex:"There were thirty pupils in my class.", em:"🧒"},
+ {w:"classmate", ipa:"/ˈklɑːsmeɪt/", pos:"noun", ru:"одноклассник", ex:"I still meet my old classmates every summer.", em:"🧑‍🤝‍🧑"},
+ {w:"headteacher", ipa:"/ˌhedˈtiːtʃə/", pos:"noun", ru:"директор школы", ex:"Everyone was afraid of the headteacher.", em:"👩‍💼"},
+ {w:"strict", ipa:"/strɪkt/", pos:"adjective", ru:"строгий", ex:"Our maths teacher used to be very strict.", em:"☝️"},
+ {w:"subject", ipa:"/ˈsʌbdʒɪkt/", pos:"noun", ru:"школьный предмет", ex:"History was my favourite subject.", em:"📚"},
+ {w:"timetable", ipa:"/ˈtaɪmteɪbl/", pos:"noun", ru:"расписание", ex:"We had six lessons on Monday in our timetable.", em:"🗓️"},
+ {w:"uniform", ipa:"/ˈjuːnɪfɔːm/", pos:"noun · wear a uniform", ru:"школьная форма", ex:"We didn’t use to wear a uniform at my school.", em:"👔"},
+ {w:"break", ipa:"/breɪk/", pos:"noun", ru:"перемена", ex:"We used to play football during the break.", em:"🔔"},
+ {w:"term", ipa:"/tɜːm/", pos:"noun", ru:"четверть, семестр", ex:"The autumn term starts in September.", em:"🍂"},
+ {w:"mark", ipa:"/mɑːk/", pos:"noun · get a good / bad mark", ru:"оценка", ex:"I used to get good marks in English.", em:"💯"},
+ {w:"homework", ipa:"/ˈhəʊmwɜːk/", pos:"noun, uncountable · do homework", ru:"домашнее задание", ex:"Our teacher used to give us a lot of homework.", em:"📝"},
+ {w:"chores", ipa:"/tʃɔːz/", pos:"noun, plural · do chores", ru:"дела по дому, домашние обязанности", ex:"I used to do chores at home every Saturday.", em:"🧹"},
+ {w:"field", ipa:"/fiːld/", pos:"noun", ru:"поле", ex:"Children used to work in the fields after school.", em:"🌾"},
+ {w:"contain", ipa:"/kənˈteɪn/", pos:"verb", ru:"содержать, включать в себя", ex:"Each class contains about twenty-five pupils.", em:"📦"},
+ {w:"take an exam", ipa:"/teɪk ən ɪɡˈzæm/", pos:"verb phrase", ru:"сдавать (писать) экзамен", ex:"We take our exams in June.", em:"✍️"},
+ {w:"pass an exam", ipa:"/pɑːs ən ɪɡˈzæm/", pos:"verb phrase", ru:"сдать экзамен (успешно)", ex:"She studied hard and passed all her exams.", em:"🎉"},
+ {w:"fail an exam", ipa:"/feɪl ən ɪɡˈzæm/", pos:"verb phrase", ru:"провалить экзамен", ex:"He didn’t study, so he failed the exam.", em:"😞"},
+ {w:"cheat", ipa:"/tʃiːt/", pos:"verb · cheat in a test", ru:"списывать, жульничать", ex:"He used to cheat in tests – he copied my answers.", em:"👀"},
+ {w:"learn by heart", ipa:"/lɜːn baɪ hɑːt/", pos:"verb phrase", ru:"учить наизусть", ex:"We used to learn poems by heart.", em:"❤️"},
+ {w:"be good at", ipa:"/bi ɡʊd æt/", pos:"be good at + noun / -ing", ru:"хорошо уметь, хорошо разбираться в", ex:"I was good at maths, but bad at art.", em:"👍"},
+ {w:"skip a lesson", ipa:"/skɪp ə ˈlesn/", pos:"verb phrase", ru:"прогулять урок", ex:"I never used to skip lessons.", em:"🏃"}
+];
+
+/* [text|перевод] = tap-to-reveal gloss */
+const STORY = "My grandad Viktor went to a small [primary school|начальная школа] in a village. His class [contained|содержал, включал] only twelve [pupils|ученики]. The [headteacher|директор школы] was very [strict|строгий], and the children used to stand up when he came into the room. They didn’t use to wear a [uniform|школьная форма], but they had to wear clean clothes. Grandad’s favourite [subject|предмет] was maths. He was [good at|хорошо разбирался в] it and used to get very good [marks|оценки]. He didn’t like literature, because the pupils used to [learn long poems by heart|учить длинные стихи наизусть]. After school he didn’t use to play with his [classmates|одноклассники]. He used to do [chores|дела по дому] at home and help his parents in the [fields|поля]. He never [skipped a lesson|прогуливал урок] and he never [cheated|списывал] in tests. At fifteen he [passed|сдал] all his exams. “School was hard,” he says, “but I used to love it.”";
+
+const TF = ["True · Верно","False · Неверно"];
+
+const EX = [
+/* ---------- GRAMMAR ---------- */
+{id:"g1", no:"G1", type:"choice", tab:"grammar",
+ title:{en:"Do you understand the meaning?", ru:"Понимаешь ли ты смысл?"},
+ instr:{en:"Choose the correct answer.", ru:"Выбери правильный вариант. Считается первая попытка."},
+ items:[
+  {q:"“I used to live in Batumi.” — What does it mean?", opts:["I live in Batumi now.","I lived in Batumi before, but not now.","I’m going to live in Batumi."], a:1, why:"used to = раньше было так, а сейчас уже нет."},
+  {q:"“She didn’t use to like maths.” — What does it mean?", opts:["In the past she didn’t like maths. Now it’s different.","She doesn’t have maths lessons.","She liked maths at school."], a:0, why:"didn’t use to = раньше не…, а теперь по-другому."},
+  {q:"Which sentence is correct?", opts:["I used to pass my final exam in 2015.","I use to pass my final exam in 2015.","I passed my final exam in 2015."], a:2, why:"Это случилось один раз (in 2015) → Past Simple, а не used to."},
+  {q:"You are talking about NOW. Which sentence is correct?", rsub:"Ты говоришь о привычке сейчас.", opts:["I use to get up at 7 every day.","I usually get up at 7 every day.","I used to get up at 7 every day."], a:1, why:"Привычки сейчас → usually + Present Simple. Формы «I use to» нет, а «I used to» — это о прошлом."},
+  {q:"Which sentence is correct?", opts:["I studied at that school for five years.","I used to study at that school for five years.","I use to study at that school for five years."], a:0, why:"Когда говорим, сколько времени это длилось (for five years) → Past Simple."}
+ ]},
+{id:"g2", no:"G2", type:"choice", tab:"grammar",
+ title:{en:"Choose the correct form", ru:"Выбери правильную форму"},
+ instr:{en:"Which form fits the gap?", ru:"Какая форма подходит?"},
+ items:[
+  {q:"When I was a child, I ___ to school.", opts:["use to walk","used to walking","used to walk"], a:2, why:"+ : used to + простой глагол (walk)."},
+  {q:"We ___ a uniform.", opts:["didn’t use to wear","didn’t used to wear","not used to wear"], a:0, why:"− : didn’t + use to (без -d)."},
+  {q:"___ like history?", opts:["Did you used to","Did you use to","Do you used to"], a:1, why:"? : Did + подлежащее + use to (без -d)."},
+  {q:"My brother ___ bad marks.", opts:["useds to get","was used to get","used to get"], a:2, why:"Форма одна для всех лиц: he used to. Никаких -s и никакого was."},
+  {q:"Where ___ live?", opts:["did you use to","you used to","did you used to"], a:0, why:"Вопросительное слово + did + подлежащее + use to."},
+  {q:"“Did your teachers use to be strict?” — “Yes, ___.”", opts:["they used","they were","they did"], a:2, why:"Краткий ответ строим с did: Yes, they did. / No, they didn’t."}
+ ]},
+{id:"g3", no:"G3", type:"typed", tab:"grammar", sent:true,
+ title:{en:"Make it negative or a question", ru:"Сделай отрицание или вопрос"},
+ instr:{en:"Rewrite the sentence: (−) negative or (?) question.", ru:"Перепиши предложение: (−) отрицание или (?) вопрос. Есть две попытки."},
+ hint:"Вспомни: didn’t / Did + use to (без -d).",
+ items:[
+  {q:"I used to like history.", tag:"(−)", accept:["I didn't use to like history","I never used to like history"], why:"I + didn’t + use to + like."},
+  {q:"They used to wear a uniform.", tag:"(?)", isQ:true, accept:["Did they use to wear a uniform"], why:"Did + they + use to + wear…?"},
+  {q:"She used to be strict.", tag:"(−)", accept:["She didn't use to be strict","She never used to be strict"], why:"She + didn’t + use to + be."},
+  {q:"You used to walk to school.", tag:"(?)", isQ:true, accept:["Did you use to walk to school"], why:"Did + you + use to + walk…?"},
+  {q:"We used to have a lot of homework.", tag:"(−)", accept:["We didn't use to have a lot of homework","We didn't use to have much homework","We never used to have a lot of homework","We didn't use to have lots of homework"], why:"We + didn’t + use to + have."}
+ ]},
+{id:"g4", no:"G4", type:"typed", tab:"grammar", sent:true,
+ title:{en:"Find and correct the mistake", ru:"Найди и исправь ошибку"},
+ instr:{en:"Each sentence has ONE mistake. Write the correct sentence.", ru:"В каждом предложении одна ошибка. Напиши предложение правильно."},
+ hint:"Посмотри на used / use и на глагол после to.",
+ items:[
+  {q:"I use to be afraid of my teachers.", accept:["I used to be afraid of my teachers"], why:"О прошлом — used to (с -d). Формы «I use to» нет."},
+  {q:"We didn’t used to have a long break.", accept:["We didn't use to have a long break"], why:"После didn’t — use to без -d (как didn’t go)."},
+  {q:"Did you used to learn poems by heart?", isQ:true, accept:["Did you use to learn poems by heart"], why:"В вопросе с Did — use to без -d."},
+  {q:"She used to wearing a uniform.", accept:["She used to wear a uniform"], why:"После used to — простой глагол: wear (без -ing)."},
+  {q:"They not used to do chores.", accept:["They didn't use to do chores","They never used to do chores"], why:"Отрицание строим через didn’t: didn’t use to do."}
+ ]},
+
+/* ---------- STORY ---------- */
+{id:"s1", no:"S1", type:"choice", tab:"words",
+ title:{en:"True or false?", ru:"Верно или неверно? (по истории)"},
+ instr:{en:"Read the story again and decide.", ru:"Перечитай историю и реши."},
+ items:[
+  {q:"Viktor’s class contained twelve pupils.", opts:TF, a:0, why:"His class contained only twelve pupils."},
+  {q:"The pupils used to wear a uniform.", opts:TF, a:1, why:"They didn’t use to wear a uniform."},
+  {q:"Viktor used to get good marks in maths.", opts:TF, a:0, why:"He was good at it and used to get very good marks."},
+  {q:"After school he used to play with his classmates.", opts:TF, a:1, why:"He didn’t use to play — he used to do chores and help in the fields."},
+  {q:"He failed his exams at fifteen.", opts:TF, a:1, why:"At fifteen he passed all his exams. (pass = сдать, fail = провалить)"}
+ ]},
+
+/* ---------- VOCAB ---------- */
+{id:"v1", no:"V1", type:"match", tab:"vocab",
+ title:{en:"Match the words", ru:"Соедини слово и перевод"},
+ instr:{en:"Tap an English word, then tap its translation.", ru:"Нажми на английское слово, потом на его перевод."},
+ pairs:[["strict","строгий"],["pupil","ученик"],["subject","школьный предмет"],["timetable","расписание"],["break","перемена"],["mark","оценка"],["chores","дела по дому"],["term","четверть, семестр"]]},
+{id:"v2", no:"V2", type:"choice", tab:"vocab",
+ title:{en:"What’s the word?", ru:"Какое это слово? (по определению)"},
+ instr:{en:"Read the definition and choose the word.", ru:"Прочитай определение и выбери слово."},
+ items:[
+  {q:"only for boys or only for girls, not for both", opts:["strict","single-gender","primary"], a:1},
+  {q:"making people follow the rules and do what you say", opts:["strict","good at","secondary"], a:0},
+  {q:"a small job at home that you have to do regularly", opts:["a term","a break","a chore"], a:2},
+  {q:"to have something inside; to include", opts:["cheat","contain","fail"], a:1},
+  {q:"a piece of land for growing food or keeping animals", opts:["a field","a subject","a timetable"], a:0},
+  {q:"a list of the days and times of your lessons", opts:["a mark","a uniform","a timetable"], a:2}
+ ]},
+{id:"v3", no:"V3", type:"choice", tab:"vocab",
+ title:{en:"Which word fits?", ru:"Какое слово подходит?"},
+ instr:{en:"Choose the word for the gap.", ru:"Выбери слово для пропуска."},
+ items:[
+  {q:"The ___ is the boss of all the teachers in a school.", opts:["pupil","headteacher","classmate"], a:1},
+  {q:"Anna and I were in the same class. She was my ___.", opts:["classmate","headteacher","subject"], a:0},
+  {q:"I didn’t study for the test, so I got a bad ___.", opts:["field","subject","mark"], a:2},
+  {q:"He didn’t go to maths – he went to the park. He ___ the lesson.", opts:["passed","skipped","contained"], a:1},
+  {q:"The autumn ___ starts in September and ends in December.", opts:["term","mark","uniform"], a:0},
+  {q:"After primary school, children go to ___ school.", opts:["strict","single","secondary"], a:2}
+ ]},
+{id:"v4", no:"V4", type:"choice", tab:"vocab",
+ title:{en:"Word partners", ru:"Слова-партнёры: предлоги и глаголы"},
+ instr:{en:"Choose the correct word.", ru:"Выбери правильное слово."},
+ items:[
+  {q:"I’m good ___ maths.", opts:["in","at","on"], a:1, why:"good AT + предмет / занятие."},
+  {q:"Did you ___ your homework yesterday?", opts:["do","make","play"], a:0, why:"do homework (не make)."},
+  {q:"She studied a lot and got 95%. She ___ the exam.", opts:["failed","skipped","passed"], a:2, why:"pass an exam = успешно сдать."},
+  {q:"We used to learn poems ___ heart.", opts:["with","by","on"], a:1, why:"learn BY heart — наизусть."},
+  {q:"I’m ___ my English exam tomorrow at 9. Wish me luck!", opts:["taking","passing","making"], a:0, why:"take an exam = сдавать (писать). Сдам или нет — ещё неизвестно, поэтому не pass."},
+  {q:"I used to ___ chores every Saturday.", opts:["make","play","do"], a:2, why:"do chores (не make)."}
+ ]},
+{id:"v5", no:"V5", type:"listen", tab:"vocab",
+ title:{en:"Listen and write", ru:"Послушай и напиши слово"},
+ instr:{en:"Tap 🔊, listen and type the word.", ru:"Нажми 🔊, послушай и напиши слово. Нет звука? Нажми «Нет звука» — появится перевод."},
+ items:[{w:"timetable",ru:"расписание"},{w:"uniform",ru:"школьная форма"},{w:"pupil",ru:"ученик"},{w:"chores",ru:"дела по дому"},{w:"subject",ru:"школьный предмет"}]},
+{id:"v6", no:"V6", type:"bank", tab:"vocab",
+ title:{en:"My school days", ru:"Мои школьные годы: вставь слова"},
+ instr:{en:"Complete the text with the words from the box.", ru:"Впиши слова из рамки в текст. Каждое слово — один раз. Есть две попытки."},
+ bank:["break","heart","homework","marks","pupils","strict","subject","uniform"],
+ text:"I went to a small school with only two hundred {0}. We had to wear a blue {1} every day. Our teachers were very {2} – we couldn’t talk in class. My favourite {3} was English, and I used to get good {4} in it. During the {5} we used to play football. In the evening I used to do my {6} and learn poems by {7}.",
+ gaps:["pupils","uniform","strict","subject","marks","break","homework","heart"]},
+
+/* ---------- MIXED ---------- */
+{id:"m1", no:"M1", type:"typed", tab:"mixed",
+ title:{en:"Complete the sentences", ru:"Дополни предложения"},
+ instr:{en:"Use used to / didn’t use to / did … use to + the verb in brackets.", ru:"Используй used to / didn’t use to / did … use to и глагол в скобках."},
+ hint:"+ used to · − didn’t use to · ? did … use to. После — простой глагол.",
+ items:[
+  {q:"I ___ (be) in the school football team, but now I never play.", accept:["used to be"], say:"I used to be in the school football team, but now I never play.", why:"Раньше — да, сейчас — нет → used to be."},
+  {q:"We ___ (not / wear) a uniform – we wore jeans and T-shirts.", accept:["didn't use to wear","never used to wear"], say:"We didn't use to wear a uniform.", why:"Отрицание: didn’t use to + wear."},
+  {q:"___ (you / get) good marks at school?", accept:["Did you use to get"], say:"Did you use to get good marks at school?", why:"Вопрос: Did + you + use to + get."},
+  {q:"My mum ___ (walk) to school every day because there were no buses.", accept:["used to walk"], say:"My mum used to walk to school every day.", why:"Привычка в прошлом → used to walk."},
+  {q:"Where ___ (your grandparents / go) to school?", accept:["did your grandparents use to go"], say:"Where did your grandparents use to go to school?", why:"Where + did + подлежащее + use to + go."},
+  {q:"She ___ (not / do) her homework, so she used to get bad marks.", accept:["didn't use to do","never used to do"], say:"She didn't use to do her homework.", why:"Отрицание: didn’t use to + do."}
+ ]},
+{id:"m2", no:"M2", type:"build", tab:"mixed",
+ title:{en:"Put the words in order", ru:"Расставь слова по порядку"},
+ instr:{en:"Tap the words to build the sentence.", ru:"Нажимай на слова, чтобы собрать предложение. Нажми на слово в строке, чтобы убрать его."},
+ items:[
+  {tiles:["I","used","to","sit","at","the","back"], answer:"I used to sit at the back", end:".", ru:"Раньше я сидел(а) на задней парте.", why:"Подлежащее + used to + глагол."},
+  {tiles:["Did","you","use","to","wear","a","uniform"], answer:"Did you use to wear a uniform", end:"?", ru:"Ты раньше носил(а) школьную форму?", why:"Did + подлежащее + use to + глагол."},
+  {tiles:["Where","did","your","parents","use","to","go","to","school"], answer:"Where did your parents use to go to school", end:"?", ru:"В какую школу раньше ходили твои родители?", why:"Where + did + подлежащее + use to + глагол."},
+  {tiles:["My","sister","never","used","to","skip","lessons"], answer:"My sister never used to skip lessons", end:".", ru:"Моя сестра раньше никогда не прогуливала уроки.", why:"never стоит перед used to."}
+ ]},
+{id:"m3", no:"M3", type:"typed", tab:"mixed", sent:true, self:true,
+ title:{en:"Translate into English", ru:"Переведи на английский"},
+ instr:{en:"Use used to / didn’t use to.", ru:"Используй used to / didn’t use to. Если твой вариант тоже правильный, после проверки можно его засчитать — учитель увидит это в отчёте."},
+ hint:"«Раньше» = used to. Слова before / earlier не нужны.",
+ items:[
+  {q:"Раньше я ходил(а) в школу пешком.", accept:["I used to walk to school","I used to go to school on foot"], why:"used to + walk."},
+  {q:"Мы раньше не носили школьную форму.", accept:["We didn't use to wear a uniform","We didn't use to wear a school uniform","We didn't use to wear uniforms","We didn't use to wear school uniforms","We didn't use to wear uniform","We didn't use to wear school uniform","We never used to wear a uniform","We never used to wear a school uniform"], why:"didn’t use to + wear."},
+  {q:"Ты раньше любил(а) историю?", isQ:true, accept:["Did you use to like history","Did you use to love history"], why:"Did you use to + like…?"},
+  {q:"Раньше у нас было много домашних заданий.", accept:["We used to have a lot of homework","We used to have lots of homework","We used to get a lot of homework","We used to get lots of homework"], why:"homework — неисчисляемое: a lot of homework."},
+  {q:"Наш директор раньше был очень строгим.", accept:["Our headteacher used to be very strict","Our head teacher used to be very strict","Our headmaster used to be very strict","Our principal used to be very strict"], why:"Состояние в прошлом: used to + be."}
+ ]}
+];
+
+const WRITING = [
+ {id:"w1", head:{en:"Make these sentences true for you", ru:"Измени предложения так, чтобы они были правдой о тебе"},
+  qs:[
+   {id:"w1a", q:"I used to be in the school football team, but now I never play."},
+   {id:"w1b", q:"At primary school I used to sit at the back of the classroom."},
+   {id:"w1c", q:"I didn’t use to like history at school, but I love it now."},
+   {id:"w1d", q:"My parents didn’t use to drive me to school. I used to walk."}
+  ]},
+ {id:"w2", head:{en:"Answer the questions (1–2 sentences each)", ru:"Ответь на вопросы (1–2 предложения)"},
+  qs:[
+   {id:"w2a", q:"Did your teachers use to be strict? Were you afraid of them?"},
+   {id:"w2b", q:"Which subjects did you use to like? Which subjects didn’t you use to like?"},
+   {id:"w2c", q:"Did you use to do chores when you were a child? What chores?"}
+  ]},
+ {id:"w3", head:{en:"My school days", ru:"Мои школьные годы"},
+  qs:[{id:"w3a", q:"Write 5–6 sentences about your school days. Use used to / didn’t use to and at least five new words.", ru:"Напиши 5–6 предложений о своей школе. Используй used to / didn’t use to и минимум пять новых слов.", big:true}]}
+];
+
+const MACH = [{s:"I",v:"walk to school"},{s:"She",v:"be very shy"},{s:"They",v:"wear a uniform"}];
+const PRAISE = ["Верно! · Correct!","Отлично! · Great!","Точно! · Exactly!","Супер! · Well done!","Так держать! · Keep it up!","Молодец! · Nice one!"];
+const OOPS = ["Не совсем · Not quite","Почти! · Almost!","Ничего страшного · No worries"];
+const TABS = [["grammar","Grammar","Правила"],["words","Words","Слова"],["cards","Cards","Карточки"],["vocab","Vocab","Практика"],["mixed","Mixed","Микс"],["results","Results","Итог"]];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = (s,r)=> (r||document).querySelector(s);
+const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const last = a => (a && a.length) ? a[a.length-1] : "";
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function fresh(){ return {name:"", tab:"grammar", ans:{}, ord:{}, writing:{}, fc:{known:{}, dir:"en", only:false}}; }
+let mem = null;
+function load(){ try{ const r = localStorage.getItem(KEY); if(r){ const o = JSON.parse(r); if(o && o.ans) return Object.assign(fresh(), o); } }catch(e){} return mem || fresh(); }
+function save(){ mem = S; try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+let S = load();
+const UI = {match:{}, fc:{i:0, flip:false, order:WORDS.map((_,i)=>i)}, mach:{b:0, m:"+"}};
+
+function A(id){ return S.ans[id] || (S.ans[id] = {tries:0, done:false, ok:false, given:[]}); }
+function count(ex){ return ex.type==="match" ? ex.pairs.length : ex.type==="bank" ? ex.gaps.length : ex.items.length; }
+const exById = id => EX.find(e=>e.id===id);
+
+function norm(s){
+  s = String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,"").replace(/[–—]/g,"-");
+  s = s.replace(/,/g," ").replace(/\s+/g," ").trim().replace(/[.!?…]+$/,"").trim();
+  const C = [["didn't","did not"],["don't","do not"],["doesn't","does not"],["wasn't","was not"],["weren't","were not"],["couldn't","could not"],["can't","cannot"],["isn't","is not"],["aren't","are not"],["i'm","i am"],["it's","it is"]];
+  C.forEach(c=>{ s = s.split(c[0]).join(c[1]); });
+  return s.replace(/\bcan not\b/g,"cannot").replace(/\s+/g," ").trim();
+}
+
+/* ---------- audio ---------- */
+let VOICE = null;
+function findVoice(){ try{ const v = speechSynthesis.getVoices(); VOICE = v.find(x=>/en[-_]GB/i.test(x.lang)) || v.find(x=>/^en/i.test(x.lang)) || null; }catch(e){} }
+if("speechSynthesis" in window){ findVoice(); try{ speechSynthesis.onvoiceschanged = findVoice; }catch(e){} }
+function speak(t, rate){ try{ if(!("speechSynthesis" in window)) return; const u = new SpeechSynthesisUtterance(t); u.lang = "en-GB"; u.rate = rate || 0.88; if(VOICE) u.voice = VOICE; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
+
+function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(()=>el.classList.remove("on"), 2200); }
+
+/* ---------- exercise shells ---------- */
+function mountAll(){
+  document.querySelectorAll("[data-ex]").forEach(m=>{
+    const ex = exById(m.dataset.ex); if(!ex) return;
+    let h = `<section class="ex" id="ex-${ex.id}"><div class="exh"><span class="exno">${ex.no}</span><div><h3>${ex.title.en}</h3><p class="ru">${ex.title.ru}</p></div><span class="exsc" id="sc-${ex.id}"></span></div><p class="instr">${ex.instr.en}<br><span class="ru">${ex.instr.ru}</span></p>`;
+    if(ex.type==="match" || ex.type==="bank") h += `<div id="body-${ex.id}"></div>`;
+    else h += ex.items.map((_,i)=>`<div class="item" id="it-${ex.id}-${i}"></div>`).join("");
+    m.innerHTML = h + "</section>";
+    drawEx(ex);
+  });
+}
+function drawEx(ex){
+  if(ex.type==="match") drawMatch(ex);
+  else if(ex.type==="bank") drawBank(ex);
+  else ex.items.forEach((_,i)=>drawItem(ex,i));
+}
+function drawItem(ex,i){
+  const el = document.getElementById(`it-${ex.id}-${i}`); if(!el) return;
+  const a = A(`${ex.id}-${i}`);
+  el.className = "item" + (a.done ? (a.ok ? " is-ok" : " is-bad") : "");
+  el.innerHTML = ex.type==="choice" ? hChoice(ex,i,a) : ex.type==="build" ? hBuild(ex,i,a) : hTyped(ex,i,a);
+}
+function fb(a, why, model){
+  let h = `<div class="fb ${a.ok?"ok":"bad"}"><b>${a.msg||""}</b>`;
+  if(a.ok && a.second) h += ` <span class="mini">(со 2-й попытки · 2nd try)</span>`;
+  if(a.self) h += ` <span class="mini">(засчитано тобой · self-marked)</span>`;
+  if(model && (!a.ok || a.self)) h += `<span class="model">✓ ${esc(model)}</span>`;
+  if(a.note==="q") h += `<div class="mini">Не забудь знак вопроса «?» в конце · Don’t forget the “?”</div>`;
+  if(a.note==="cap") h += `<div class="mini">Предложение начинается с большой буквы · Start with a capital letter</div>`;
+  if(why) h += `<div class="why">💡 ${why}</div>`;
+  return h + "</div>";
+}
+function hChoice(ex,i,a){
+  const it = ex.items[i];
+  let h = `<div class="q"><span class="n">${i+1}</span><span>${it.q}${it.rsub?`<span class="rsub">${it.rsub}</span>`:""}</span></div><div class="opts">`;
+  it.opts.forEach((o,k)=>{
+    let c = "opt"; if(a.done){ if(k===it.a) c += " right"; else if(a.pick===k) c += " wrong"; }
+    h += `<button class="${c}" data-act="pick" data-ex="${ex.id}" data-i="${i}" data-k="${k}" ${a.done?"disabled":""}>${o}</button>`;
+  });
+  h += "</div>";
+  if(a.done) h += fb(a, it.why);
+  return h;
+}
+function hTyped(ex,i,a){
+  const it = ex.items[i], id = `${ex.id}-${i}`, listen = ex.type==="listen";
+  let h = "";
+  if(listen){
+    h += `<div class="q"><span class="n">${i+1}</span><button class="say bigsay" data-act="say" data-t="${esc(it.w)}" data-rate="0.75" aria-label="Listen to word ${i+1}">🔊</button>`;
+    h += (a.showRu || a.done) ? `<span class="ru" style="padding-top:14px">${it.ru}</span>` : `<button class="btn ghost sm" style="margin-top:6px" data-act="nosound" data-ex="${ex.id}" data-i="${i}">Нет звука · No sound?</button>`;
+    h += `</div>`;
+  } else {
+    h += `<div class="q"><span class="n">${i+1}</span><span>${it.q}${it.tag?`<span class="tag">${it.tag}</span>`:""}</span></div>`;
+  }
+  h += `<div class="rowi"><input type="text" id="in-${id}" data-draft="${id}" data-enter="${ex.id}|${i}" value="${esc(a.draft||"")}" ${a.done?"disabled":""} autocomplete="off" autocorrect="off" autocapitalize="${ex.sent?"sentences":"off"}" spellcheck="false" aria-label="Your answer ${i+1}" placeholder="${listen?"type the word":"your answer"}"><button class="btn" data-act="check" data-ex="${ex.id}" data-i="${i}" ${a.done?"disabled":""}>Check</button></div>`;
+  if(!a.done && a.tries===1){
+    const hint = listen ? `Перевод: ${it.ru}. Первая буква: <b>${it.w[0]}</b>, букв: ${it.w.length}.` : (it.hint || ex.hint || "");
+    h += `<div class="fb warn"><b>Не совсем — попробуй ещё раз · Try again</b><div class="why">💡 ${hint}</div></div>`;
+  }
+  if(a.done){
+    h += fb(a, it.why, listen ? it.w : it.accept[0] + (it.isQ?"?":(ex.sent?".":"")));
+    if(!a.ok && ex.self) h += `<div class="selfm"><button class="btn ghost sm" data-act="self" data-ex="${ex.id}" data-i="${i}">Мой ответ тоже правильный ✓ · My answer is also correct</button></div>`;
+  }
+  return h;
+}
+function hBuild(ex,i,a){
+  const it = ex.items[i], id = `${ex.id}-${i}`;
+  const ord = S.ord[id] || (S.ord[id] = shuffle(it.tiles.map((_,k)=>k)));
+  const sel = a.sel || (a.sel = []);
+  let h = `<div class="q"><span class="n">${i+1}</span><span class="ru">${it.ru}</span></div><div class="line" aria-label="Your sentence">`;
+  sel.forEach((k,p)=>{ h += `<button class="tile" data-act="untile" data-ex="${ex.id}" data-i="${i}" data-p="${p}" ${a.done?"disabled":""}>${it.tiles[k]}</button>`; });
+  h += `<span class="endp">${it.end}</span></div>`;
+  if(!a.done){
+    h += `<div class="pool">` + ord.filter(k=>sel.indexOf(k)<0).map(k=>`<button class="tile" data-act="tile" data-ex="${ex.id}" data-i="${i}" data-k="${k}">${it.tiles[k]}</button>`).join("") + `</div>`;
+    h += `<div class="rowi"><button class="btn" data-act="checkbuild" data-ex="${ex.id}" data-i="${i}" ${sel.length<it.tiles.length?"disabled":""}>Check</button><button class="btn ghost" data-act="clearbuild" data-ex="${ex.id}" data-i="${i}">↺</button></div>`;
+    if(a.tries===1) h += `<div class="fb warn"><b>Не совсем — попробуй ещё раз · Try again</b><div class="why">💡 ${it.why}</div></div>`;
+  } else h += fb(a, it.why, it.answer + it.end);
+  return h;
+}
+function drawMatch(ex){
+  const ord = S.ord[ex.id] || (S.ord[ex.id] = shuffle(ex.pairs.map((_,i)=>i)));
+  const u = UI.match[ex.id] || (UI.match[ex.id] = {l:null, r:null, bad:null});
+  const cls = (i,side) => "m" + (A(`${ex.id}-${i}`).done ? " done" : "") + (u[side]===i ? " sel" : "") + (u.bad && u.bad[side]===i ? " badf" : "");
+  let h = `<div class="match"><div class="col">`;
+  ex.pairs.forEach((p,i)=>{ h += `<button class="${cls(i,"l")}" data-act="ml" data-ex="${ex.id}" data-i="${i}" ${A(`${ex.id}-${i}`).done?"disabled":""}>${p[0]}</button>`; });
+  h += `</div><div class="col">`;
+  ord.forEach(i=>{ h += `<button class="${cls(i,"r")}" data-act="mr" data-ex="${ex.id}" data-i="${i}" ${A(`${ex.id}-${i}`).done?"disabled":""}>${ex.pairs[i][1]}</button>`; });
+  h += `</div></div>`;
+  const n = ex.pairs.filter((_,i)=>A(`${ex.id}-${i}`).done).length;
+  if(n===ex.pairs.length) h += `<div class="fb ok"><b>Все пары найдены! · All matched!</b></div>`;
+  $("#body-"+ex.id).innerHTML = h;
+}
+function drawBank(ex){
+  const used = {};
+  let t = esc(ex.text).replace(/\{(\d+)\}/g, (_,k)=>{
+    k = +k; const id = `${ex.id}-${k}`, a = A(id);
+    let c = ""; if(a.done){ c = a.ok ? "g-ok" : "g-bad"; if(a.ok) used[ex.gaps[k]] = 1; } else if(a.tries===1) c = "g-retry";
+    return `<sup>${k+1}</sup><input type="text" class="${c}" id="in-${id}" data-draft="${id}" data-enter="${ex.id}|bank" value="${esc(a.draft||"")}" ${a.done?"disabled":""} autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Gap ${k+1}">` + (a.done && !a.ok ? `<span class="corr">${ex.gaps[k]}</span>` : "");
+  });
+  const all = ex.gaps.every((_,k)=>A(`${ex.id}-${k}`).done);
+  const retry = ex.gaps.some((_,k)=>{ const a = A(`${ex.id}-${k}`); return !a.done && a.tries===1; });
+  let h = `<div class="bankw">` + ex.bank.map(w=>`<span class="${used[w]?"used":""}">${w}</span>`).join("") + `</div><p class="gtext">${t}</p>`;
+  if(!all) h += `<div class="rowi"><button class="btn" data-act="checkbank" data-ex="${ex.id}">Check · Проверить</button></div>`;
+  if(retry) h += `<div class="fb warn"><b>Жёлтые пропуски — попробуй ещё раз · Yellow gaps: try again</b></div>`;
+  if(all){ const ok = ex.gaps.filter((_,k)=>A(`${ex.id}-${k}`).ok).length; h += `<div class="fb ${ok===ex.gaps.length?"ok":"bad"}"><b>${ok} / ${ex.gaps.length}</b>${ok===ex.gaps.length?" — Отлично! · Great!":" — правильные слова показаны зелёным · correct words are in green"}</div>`; }
+  $("#body-"+ex.id).innerHTML = h;
+}
+
+/* ---------- checking ---------- */
+function doPick(ex,i,k){
+  const it = ex.items[i], a = A(`${ex.id}-${i}`); if(a.done) return;
+  a.pick = k; a.done = true; a.ok = (k===it.a); a.tries = 1; a.msg = a.ok ? pick(PRAISE) : pick(OOPS);
+  save(); drawItem(ex,i); updateAll();
+}
+function doCheck(ex,i){
+  const it = ex.items[i], id = `${ex.id}-${i}`, a = A(id); if(a.done) return;
+  const el = document.getElementById("in-"+id); const raw = (el.value||"").trim();
+  if(!raw){ toast("Сначала напиши ответ · Type your answer first"); el.focus(); return; }
+  a.draft = raw; a.given.push(raw);
+  const acc = ex.type==="listen" ? [it.w] : it.accept;
+  if(acc.some(x=>norm(x)===norm(raw))){
+    a.done = true; a.ok = true; a.second = a.tries>0; a.msg = pick(PRAISE);
+    if(it.isQ && !/\?\s*$/.test(raw)) a.note = "q";
+    else if(ex.sent && /^[a-zа-я]/.test(raw)) a.note = "cap";
+    speak(it.say || acc[0]);
+  } else { a.tries++; if(a.tries>=2){ a.done = true; a.ok = false; a.msg = pick(OOPS); } }
+  save(); drawItem(ex,i); updateAll();
+  if(!a.done){ const n = document.getElementById("in-"+id); if(n){ n.focus(); n.select(); } }
+}
+function doCheckBuild(ex,i){
+  const it = ex.items[i], a = A(`${ex.id}-${i}`); if(a.done) return;
+  const made = a.sel.map(k=>it.tiles[k]).join(" "); a.given.push(made + it.end);
+  if(norm(made)===norm(it.answer)){ a.done = true; a.ok = true; a.second = a.tries>0; a.msg = pick(PRAISE); speak(it.answer); }
+  else { a.tries++; if(a.tries>=2){ a.done = true; a.ok = false; a.msg = pick(OOPS); } else a.sel = []; }
+  save(); drawItem(ex,i); updateAll();
+}
+function doCheckBank(ex){
+  let any = false;
+  ex.gaps.forEach((g,k)=>{
+    const id = `${ex.id}-${k}`, a = A(id); if(a.done) return;
+    const raw = ((document.getElementById("in-"+id)||{}).value||"").trim(); if(!raw) return;
+    any = true; a.draft = raw; a.given.push(raw);
+    if(norm(raw)===norm(g)){ a.done = true; a.ok = true; a.second = a.tries>0; }
+    else { a.tries++; if(a.tries>=2){ a.done = true; a.ok = false; } }
+  });
+  if(!any){ toast("Сначала впиши слова · Fill in the gaps first"); return; }
+  save(); drawBank(ex); updateAll();
+}
+function doMatch(ex, side, i){
+  const u = UI.match[ex.id]; if(u.bad) return;
+  u[side] = (u[side]===i) ? null : i;
+  if(u.l!==null && u.r!==null){
+    const l = u.l, r = u.r, a = A(`${ex.id}-${l}`);
+    if(l===r){ a.done = true; a.ok = !a.miss; a.tries = (a.tries||0)+1; speak(ex.pairs[l][0]); u.l = u.r = null; save(); }
+    else { a.miss = true; a.tries = (a.tries||0)+1; u.bad = {l:l, r:r}; u.l = u.r = null; save();
+      setTimeout(()=>{ u.bad = null; drawMatch(ex); }, 550); }
+  }
+  drawMatch(ex); updateAll();
+}
+
+/* ---------- progress ---------- */
+function stats(){
+  let tot = 0, done = 0, ok = 0;
+  const per = EX.map(ex=>{ const n = count(ex); let d = 0, o = 0;
+    for(let i=0;i<n;i++){ const a = S.ans[`${ex.id}-${i}`]; if(a && a.done){ d++; if(a.ok) o++; } }
+    tot += n; done += d; ok += o; return {ex:ex, n:n, d:d, o:o}; });
+  return {tot:tot, done:done, ok:ok, per:per};
+}
+function knownCount(){ return WORDS.filter((_,i)=>S.fc.known[i]).length; }
+function updateAll(){
+  const st = stats();
+  $("#pbar").style.width = (st.tot ? Math.round(st.done/st.tot*100) : 0) + "%";
+  $("#ptext").textContent = `✓ ${st.ok}  ·  ${st.done} / ${st.tot}`;
+  st.per.forEach(p=>{ const el = document.getElementById("sc-"+p.ex.id); if(el) el.textContent = p.d ? `${p.o} / ${p.n}${p.d===p.n?" ✓":""}` : ""; });
+  TABS.forEach(t=>{
+    const b = document.getElementById("badge-"+t[0]); if(!b) return;
+    if(t[0]==="cards"){ const k = knownCount(); b.textContent = k ? `${k}/${WORDS.length}` : ""; return; }
+    if(t[0]==="results"){ b.textContent = st.done===st.tot ? "✓" : ""; return; }
+    const ps = st.per.filter(p=>p.ex.tab===t[0]); const n = ps.reduce((s,p)=>s+p.n,0), d = ps.reduce((s,p)=>s+p.d,0), o = ps.reduce((s,p)=>s+p.o,0);
+    b.textContent = d===n ? `${o}/${n} ✓` : (d ? `${d}/${n}…` : "");
+  });
+}
+
+/* ---------- tabs ---------- */
+function drawTabs(){
+  $("#tabs").innerHTML = TABS.map((t,i)=>`<button class="tabbtn" id="tb-${t[0]}" data-act="tab" data-tab="${t[0]}"><b>${i+1} ${t[1]}</b><i>${t[2]}</i><span class="badge" id="badge-${t[0]}"></span></button>`).join("");
+}
+function showTab(id, scroll){
+  if(!TABS.some(t=>t[0]===id)) id = "grammar";
+  S.tab = id; save();
+  document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on", s.id==="tab-"+id));
+  document.querySelectorAll(".tabbtn").forEach(b=>{ const on = b.dataset.tab===id; b.classList.toggle("on", on); b.setAttribute("aria-current", on?"page":"false"); });
+  if(id==="results") drawResults();
+  if(scroll){ const n = $(".nav"); const y = n.getBoundingClientRect().top + window.pageYOffset; window.scrollTo(0, Math.max(0, y-2)); }
+}
+
+/* ---------- words, story, machine ---------- */
+function drawWords(){
+  $("#wlist").innerHTML = WORDS.map(w=>`<div class="w"><span class="em" aria-hidden="true">${w.em}</span><div><b>${w.w}</b><span class="ipa">${w.ipa}</span><span class="pos">${w.pos}</span><span class="tr">${w.ru}</span><span class="exs">${w.ex}</span></div><button class="say" data-act="say" data-t="${esc(w.w)}. ${esc(w.ex)}" aria-label="Listen: ${esc(w.w)}">🔊</button></div>`).join("");
+  $("#story").innerHTML = esc(STORY).replace(/\[([^|\]]+)\|([^\]]+)\]/g, (_,en,ru)=>`<button class="gl" data-act="gloss" data-ru="${ru}">${en}</button>`);
+}
+function drawMach(){
+  const m = UI.mach, b = MACH[m.b];
+  $("#machBase").innerHTML = MACH.map((x,i)=>`<button class="${i===m.b?"on":""}" data-act="machb" data-k="${i}">${x.s} / ${x.v}</button>`).join("");
+  $("#machMode").innerHTML = ["+","-","?"].map(x=>`<button class="${x===m.m?"on":""}" data-act="machm" data-k="${x}" aria-label="${x==="+"?"positive":x==="-"?"negative":"question"}">${x==="-"?"−":x}</button>`).join("");
+  let parts, end, exp;
+  if(m.m==="+"){ parts = [[b.s,""],["used to","a"],[b.v,""]]; end = "."; exp = "<b>+</b> Подлежащее + <b>used to</b> (с -d) + простой глагол."; }
+  else if(m.m==="-"){ parts = [[b.s,""],["didn’t","b"],["use to","a"],[b.v,""]]; end = "."; exp = "<b>−</b> Появился <b>didn’t</b> — и used потерял <b>-d</b>: didn’t <b>use to</b>."; }
+  else { parts = [["Did","b"],[b.s==="I"?"I":b.s.toLowerCase(),""],["use to","a"],[b.v,""]]; end = "?"; exp = "<b>?</b> <b>Did</b> встаёт в начало, а used снова теряет <b>-d</b>: Did … <b>use to</b>?"; }
+  const text = parts.map(p=>p[0]).join(" ") + end;
+  $("#machOut").innerHTML = parts.map((p,i)=>`<span class="${p[1]}" style="animation-delay:${i*70}ms">${p[0]}</span>`).join("") + `<span style="animation-delay:${parts.length*70}ms">${end}</span><button class="say" style="color:#22303c" data-act="say" data-t="${esc(text.replace("’","'"))}" aria-label="Listen">🔊</button>`;
+  $("#machExp").innerHTML = exp;
+}
+
+/* ---------- flashcards ---------- */
+function fcDeck(){ return UI.fc.order.filter(k=>!S.fc.only || !S.fc.known[k]); }
+function drawFC(){
+  const deck = fcDeck(), known = knownCount();
+  let h = `<div class="fctop"><span>✓ ${known} / ${WORDS.length}</span><div class="bar"><div style="width:${Math.round(known/WORDS.length*100)}%"></div></div></div>`;
+  if(!deck.length){
+    h += `<div class="fb ok" style="text-align:center;padding:26px 14px"><b>🎉 Все слова выучены! · You know all the words!</b><div style="margin-top:10px"><button class="btn ghost sm" data-act="fconly">Показать все карточки · Show all cards</button></div></div>`;
+  } else {
+    if(UI.fc.i >= deck.length) UI.fc.i = 0;
+    const k = deck[UI.fc.i], w = WORDS[k], en = S.fc.dir==="en";
+    const frontEN = `<span class="em" aria-hidden="true">${w.em}</span><span class="big">${w.w}</span><span class="ipa">${w.ipa}</span>`;
+    const frontRU = `<span class="em" aria-hidden="true">${w.em}</span><span class="big" style="font-family:inherit;font-size:25px">${w.ru}</span>`;
+    const backEN = `<span class="big">${w.ru}</span><span class="exs">${w.ex}</span>`;
+    const backRU = `<span class="big">${w.w}</span><span class="ipa">${w.ipa}</span><span class="exs">${w.ex}</span>`;
+    h += `<div class="scene"><div class="fc${UI.fc.flip?" flip":""}" data-act="flip" role="button" tabindex="0" aria-label="Flashcard: tap to flip">
+      <div class="face f">${en?frontEN:frontRU}${en?`<button class="say" style="color:#22303c" data-act="say" data-t="${esc(w.w)}" aria-label="Listen">🔊</button>`:""}<span class="tap">tap to flip · нажми, чтобы перевернуть</span></div>
+      <div class="face b">${en?backEN:backRU}<button class="say" data-act="say" data-t="${esc(en?w.ex:w.w+". "+w.ex)}" aria-label="Listen">🔊</button><span class="tap">${UI.fc.i+1} / ${deck.length}${S.fc.known[k]?" · ✓ знаю":""}</span></div>
+    </div></div>
+    <div class="fcrow"><button class="btn learn" data-act="fclearn">Ещё учу · Still learning</button><button class="btn know" data-act="fcknow">Знаю ✓ · I know it</button></div>
+    <div class="fcrow"><button class="btn ghost" data-act="fcprev" aria-label="Previous card">←</button><button class="btn ghost" data-act="fcshuffle">🔀 Shuffle</button><button class="btn ghost" data-act="fcnext" aria-label="Next card">→</button></div>`;
+  }
+  h += `<div class="fcopts"><button class="btn ghost sm" data-act="fcdir">⇄ ${S.fc.dir==="en"?"EN → RU":"RU → EN"}</button><label><input type="checkbox" id="fconly" ${S.fc.only?"checked":""}> Только те, что учу · Only words I’m learning</label></div>`;
+  $("#fc").innerHTML = h;
+}
+function fcMove(d){ const n = fcDeck().length; if(!n) return; UI.fc.i = (UI.fc.i + d + n) % n; UI.fc.flip = false; drawFC(); }
+
+/* ---------- writing ---------- */
+function drawWriting(){
+  let h = `<div class="exh"><span class="exno">✍️</span><div><h3>Your turn: writing</h3><p class="ru">Твоя очередь: письменное задание. Автоматически не проверяется — учитель прочитает ответы в отчёте.</p></div></div>`;
+  WRITING.forEach(g=>{
+    h += `<p class="instr"><b>${g.head.en}</b><br><span class="ru">${g.head.ru}</span></p>`;
+    g.qs.forEach(q=>{ h += `<div class="wq"><label for="${q.id}"><span>${q.q}</span>${q.ru?`<br><span class="ru">${q.ru}</span>`:""}</label><textarea id="${q.id}" data-w="${q.id}" ${q.big?'style="min-height:150px"':""} placeholder="I used to… / I didn’t use to…">${esc(S.writing[q.id]||"")}</textarea></div>`; });
+  });
+  $("#writing").innerHTML = h;
+}
+
+/* ---------- results & report ---------- */
+function desc(ex,i){
+  const a = S.ans[`${ex.id}-${i}`] || {given:[]};
+  if(ex.type==="choice"){ const it = ex.items[i]; return {q:strip(it.q), mine:it.opts[a.pick]||"—", right:it.opts[it.a]}; }
+  if(ex.type==="typed"){ const it = ex.items[i]; return {q:strip(it.q)+(it.tag?" "+it.tag:""), mine:last(a.given)||"—", right:it.accept[0]}; }
+  if(ex.type==="listen"){ const it = ex.items[i]; return {q:"🔊 ("+it.ru+")", mine:last(a.given)||"—", right:it.w}; }
+  if(ex.type==="build"){ const it = ex.items[i]; return {q:it.ru, mine:last(a.given)||"—", right:it.answer+it.end}; }
+  if(ex.type==="match"){ return {q:ex.pairs[i][0], mine:"не с первой попытки / not on the first try", right:ex.pairs[i][1]}; }
+  return {q:"gap "+(i+1), mine:last(a.given)||"—", right:ex.gaps[i]};
+}
+function mistakes(){
+  const out = [];
+  EX.forEach(ex=>{ for(let i=0;i<count(ex);i++){ const a = S.ans[`${ex.id}-${i}`]; if(a && a.done && !a.ok) out.push(Object.assign({no:ex.no+"."+(i+1)}, desc(ex,i))); } });
+  return out;
+}
+function report(){
+  const st = stats(), pct = st.tot ? Math.round(st.ok/st.tot*100) : 0, L = [];
+  L.push("HOMEWORK: " + HW_TITLE);
+  L.push("Student: " + (S.name || "—"));
+  L.push("Date: " + new Date().toLocaleDateString("ru-RU"));
+  L.push(`SCORE: ${st.ok}/${st.tot} (${pct}%)` + (st.done<st.tot ? `  — not finished: ${st.tot-st.done} items left` : ""));
+  L.push(`Flashcards known: ${knownCount()}/${WORDS.length}`);
+  L.push(""); L.push("BY EXERCISE");
+  st.per.forEach(p=>L.push(`${p.ex.no} ${p.ex.title.en}: ${p.o}/${p.n}` + (p.d<p.n ? ` (done ${p.d})` : "")));
+  const ms = mistakes();
+  L.push(""); L.push("MISTAKES (" + ms.length + ")");
+  ms.forEach(m=>L.push(`${m.no} ${m.q} | answer: ${m.mine} | correct: ${m.right}`));
+  const selfs = [], seconds = [];
+  EX.forEach(ex=>{ for(let i=0;i<count(ex);i++){ const a = S.ans[`${ex.id}-${i}`]; if(!a) continue; if(a.self) selfs.push(`${ex.no}.${i+1} "${last(a.given)}" (model: ${desc(ex,i).right})`); else if(a.ok && a.second) seconds.push(`${ex.no}.${i+1}`); } });
+  if(selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT"); selfs.forEach(x=>L.push(x)); }
+  if(seconds.length){ L.push(""); L.push("CORRECT ON THE 2ND TRY: " + seconds.join(", ")); }
+  L.push(""); L.push("WRITING");
+  WRITING.forEach(g=>g.qs.forEach(q=>{ L.push("• " + q.q); L.push("  → " + ((S.writing[q.id]||"").trim() || "—")); }));
+  return {text:L.join("\n"), ok:st.ok, tot:st.tot, pct:pct, st:st, ms:ms};
+}
+function drawResults(){
+  const R = report(), st = R.st;
+  const band = st.done===0 ? ["Пока пусто · Nothing yet","Сделай упражнения — и здесь появится результат."] :
+    R.pct>=90 ? ["Блестяще! · Brilliant!","Отличная работа. used to и школьные слова — в кармане!"] :
+    R.pct>=75 ? ["Очень хорошо! · Very good!","Посмотри ошибки ниже и повтори эти места."] :
+    R.pct>=50 ? ["Хорошая работа · Good work","Перечитай правила (шаги 2 и 3) и ещё раз пройди карточки."] :
+                ["Не страшно! · Don’t worry!","Перечитай правила, полистай карточки и попробуй ещё раз — получится лучше."];
+  const subj = `used to + Education — ${S.name||"student"} — ${R.ok}/${R.tot}`;
+  let body = R.text; const LIM = 1500;
+  if(body.length > LIM) body = body.slice(0, LIM) + "\n…\n(shortened — the full report is under “Copy text”)";
+  const gmail = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(TEACHER_EMAIL) + "&su=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+  const tg = "https://t.me/share/url?url=" + encodeURIComponent(subj) + "&text=" + encodeURIComponent(body);
+  const mailto = "mailto:" + TEACHER_EMAIL + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+  const canShare = !!(navigator.share);
+  const wa = "https://wa.me/?text=" + encodeURIComponent(subj + "\n\n" + body);
+  let h = `<div class="card"><div class="scorebig"><div class="ring" style="--p:${R.pct}"><div>${R.pct}%</div></div><div style="flex:1;min-width:200px"><h2>${band[0]}</h2><p class="ru">${band[1]}</p><p style="margin-top:6px"><b>${R.ok} / ${R.tot}</b> correct · правильно${st.done<st.tot?`<br><span class="ru">Осталось заданий: ${st.tot-st.done} · ${st.tot-st.done} items left</span>`:""}<br>Flashcards · Карточки: <b>${knownCount()} / ${WORDS.length}</b></p></div></div></div>`;
+  h += `<div class="card"><h2>By exercise</h2><p class="ru">По упражнениям</p><table class="bd">` + st.per.map(p=>`<tr><td><b>${p.ex.no}</b> ${p.ex.title.en}<br><span class="ru" style="font-size:13.5px">${p.ex.title.ru}</span></td><td>${p.d?`${p.o} / ${p.n}`:"—"}</td></tr>`).join("") + `</table></div>`;
+  h += `<div class="card"><h2>My mistakes</h2><p class="ru">Мои ошибки</p>`;
+  h += R.ms.length ? `<ul class="mist">` + R.ms.map(m=>`<li><b>${m.no}</b> ${esc(m.q)}<br><span class="mine">✗ ${esc(m.mine)}</span><br><span class="rt">✓ ${esc(m.right)}</span></li>`).join("") + `</ul>` : `<p style="margin-top:8px">${st.done?"Ошибок нет! 🎉 · No mistakes!":"—"}</p>`;
+  h += `</div>`;
+  h += `<div class="card"><h2>Send to your teacher</h2><p class="ru">Отправь результат учителю: выбери удобный способ. Если ничего не открылось или текст получился неполным — нажми «Скопировать» и вставь текст в сообщение учителю.</p>
+    <div class="send">${canShare?`<button class="btn" data-act="share">📤 Share · Поделиться</button>`:""}<a class="btn${canShare?" ghost":""}" href="${esc(gmail)}" target="_blank" rel="noopener">Send in Gmail</a><a class="btn ghost" href="${esc(tg)}" target="_blank" rel="noopener">Telegram</a><a class="btn ghost" href="${esc(wa)}" target="_blank" rel="noopener">WhatsApp</a><a class="btn ghost" href="${esc(mailto)}">Email app · Почта</a><button class="btn ghost" data-act="copy">Copy text · Скопировать</button></div>
+    <p class="mailrow ru">Teacher’s email · Почта учителя: <b>${TEACHER_EMAIL}</b></p>
+    <textarea class="rep" id="rep" readonly aria-label="Report text">${esc(R.text)}</textarea>
+    <div style="margin-top:12px"><button class="btn ghost sm" data-act="reset">↺ Start again · Начать заново</button><span id="resetq" hidden> <span class="ru">Удалить все ответы? · Delete all answers?</span> <button class="btn sm" style="background:var(--bad)" data-act="resetyes">Да, удалить · Yes</button> <button class="btn ghost sm" data-act="resetno">Нет · No</button></span></div></div>`;
+  $("#results").innerHTML = h;
+}
+function copyReport(){
+  const t = report().text;
+  const done = () => toast("Скопировано · Copied ✓");
+  const fallback = () => { const el = $("#rep"); if(!el) return; el.focus(); el.select(); try{ document.execCommand("copy"); done(); }catch(e){ toast("Выдели текст и скопируй · Select and copy the text"); } };
+  try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e=>{
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const d = b.dataset, ex = d.ex ? exById(d.ex) : null, i = +d.i;
+  switch(d.act){
+    case "tab": showTab(d.tab, true); break;
+    case "say": speak(d.t, d.rate ? +d.rate : 0); break;
+    case "saystory": speak(strip($("#story").textContent), 0.85); break;
+    case "gloss": b.classList.toggle("open"); break;
+    case "pick": doPick(ex, i, +d.k); break;
+    case "check": doCheck(ex, i); break;
+    case "self": { const a = A(`${ex.id}-${i}`); a.ok = true; a.self = true; a.msg = "Засчитано · Counted"; save(); drawItem(ex,i); updateAll(); break; }
+    case "nosound": A(`${ex.id}-${i}`).showRu = true; save(); drawItem(ex,i); break;
+    case "tile": { const a = A(`${ex.id}-${i}`); if(a.sel.indexOf(+d.k)<0) a.sel.push(+d.k); save(); drawItem(ex,i); break; }
+    case "untile": { const a = A(`${ex.id}-${i}`); a.sel.splice(+d.p,1); save(); drawItem(ex,i); break; }
+    case "clearbuild": A(`${ex.id}-${i}`).sel = []; save(); drawItem(ex,i); break;
+    case "checkbuild": doCheckBuild(ex, i); break;
+    case "checkbank": doCheckBank(ex); break;
+    case "ml": doMatch(ex, "l", i); break;
+    case "mr": doMatch(ex, "r", i); break;
+    case "machb": UI.mach.b = +d.k; drawMach(); break;
+    case "machm": UI.mach.m = d.k; drawMach(); break;
+    case "flip": UI.fc.flip = !UI.fc.flip; b.classList.toggle("flip", UI.fc.flip); break;
+    case "fcnext": fcMove(1); break;
+    case "fcprev": fcMove(-1); break;
+    case "fcshuffle": UI.fc.order = shuffle(UI.fc.order); UI.fc.i = 0; UI.fc.flip = false; drawFC(); break;
+    case "fcdir": S.fc.dir = S.fc.dir==="en" ? "ru" : "en"; UI.fc.flip = false; save(); drawFC(); break;
+    case "fconly": S.fc.only = false; save(); drawFC(); break;
+    case "fcknow": case "fclearn": {
+      const deck = fcDeck(); if(!deck.length) break; const k = deck[UI.fc.i];
+      S.fc.known[k] = d.act==="fcknow"; save(); UI.fc.flip = false;
+      if(!(S.fc.only && S.fc.known[k])) UI.fc.i++;
+      const n = fcDeck().length; if(UI.fc.i >= n) UI.fc.i = 0;
+      drawFC(); updateAll(); break; }
+    case "copy": copyReport(); break;
+    case "share": { const R = report(); try{ navigator.share({title: "used to + Education — " + (S.name||"student") + " — " + R.ok + "/" + R.tot, text: R.text}).catch(()=>{}); }catch(e){ copyReport(); } break; }
+    case "reset": $("#resetq").hidden = false; break;
+    case "resetno": $("#resetq").hidden = true; break;
+    case "resetyes": { const nm = S.name; S = fresh(); S.name = nm; save(); UI.match = {}; UI.fc.i = 0; UI.fc.flip = false; boot(); window.scrollTo(0,0); toast("Начинаем заново · Starting again"); break; }
+  }
+});
+document.addEventListener("input", e=>{
+  const t = e.target;
+  if(t.dataset.draft){ A(t.dataset.draft).draft = t.value; save(); }
+  else if(t.dataset.w){ S.writing[t.dataset.w] = t.value; save(); }
+  else if(t.id==="name"){ S.name = t.value.trim(); save(); }
+});
+document.addEventListener("change", e=>{ if(e.target.id==="fconly"){ S.fc.only = e.target.checked; UI.fc.i = 0; UI.fc.flip = false; save(); drawFC(); } });
+document.addEventListener("keydown", e=>{
+  const t = e.target;
+  if(e.key==="Enter" && t.dataset && t.dataset.enter){ e.preventDefault(); const p = t.dataset.enter.split("|"), ex = exById(p[0]); if(p[1]==="bank") doCheckBank(ex); else doCheck(ex, +p[1]); }
+  else if((e.key==="Enter" || e.key===" ") && t.classList && t.classList.contains("fc")){ e.preventDefault(); UI.fc.flip = !UI.fc.flip; t.classList.toggle("flip", UI.fc.flip); }
+});
+
+/* ---------- boot ---------- */
+function boot(){
+  drawTabs(); drawWords(); drawMach(); mountAll(); drawFC(); drawWriting();
+  $("#name").value = S.name || "";
+  updateAll(); showTab(S.tab || "grammar", false);
+}
+boot();
+</script>
+</body>
+</html>
