@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anna · Money Vocabulary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1E7; --card:#FFFDF8; --ink:#13342A; --muted:#5B6B63; --line:#DCD6C4; --soft:#EEEADB;
+  --green:#1E7550; --green-bg:#E2F0E8; --gold:#B68A1F; --gold-bg:#FAF0D3; --stamp:#B33A2E; --stamp-bg:#FBE7E3;
+  --ok:#1C8A50; --ok-bg:#E1F3E8; --bad:#C2392E; --bad-bg:#FCE8E5; --hint:#FFF4D6;
+  --r:16px; --shadow:0 1px 0 rgba(19,52,42,.06),0 10px 26px rgba(19,52,42,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:16px/1.55 "Manrope",system-ui,sans-serif;
+  background:var(--paper);
+  background-image:radial-gradient(circle at 0 0,rgba(30,117,80,.05) 0 2px,transparent 2px),radial-gradient(circle at 12px 12px,rgba(182,138,31,.05) 0 2px,transparent 2px);
+  background-size:24px 24px}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:.005em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* banknote header */
+header.top{padding:20px 0 12px}
+.note{position:relative;background:linear-gradient(135deg,#1E7550 0%,#13503A 60%,#0F3D2D 100%);color:#F6F1DF;border-radius:20px;padding:22px 22px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.note::before{content:"";position:absolute;inset:8px;border:1.5px solid rgba(246,241,223,.35);border-radius:14px;pointer-events:none}
+.note::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(246,241,223,.12) 0 2px,transparent 2px 9px);pointer-events:none}
+.note .serial{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;opacity:.85}
+.note h1{font-size:clamp(28px,7vw,44px);margin:10px 0 2px;line-height:1.05}
+.note p{margin:6px 0 0;max-width:560px}
+.note .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.namebox{display:flex;align-items:center;gap:8px;background:rgba(246,241,223,.12);border:1px solid rgba(246,241,223,.35);border-radius:12px;padding:6px 10px}
+.namebox label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.namebox input{background:transparent;border:0;border-bottom:1.5px dashed rgba(246,241,223,.6);width:120px;color:#fff;font-weight:800;padding:2px}
+.seal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font:20px "DM Serif Display",serif;color:#F3D88A;background:rgba(0,0,0,.12)}
+.howto{font-size:14.5px;color:var(--muted);margin:12px 2px 0}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,241,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.progress{display:flex;align-items:center;gap:10px;padding:8px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .4s}
+.score{white-space:nowrap;color:var(--ink);font-family:"IBM Plex Mono",monospace}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:88px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.15;min-height:44px}
+.coin{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:600 15px/1 "IBM Plex Mono",monospace;background:radial-gradient(circle at 35% 30%,#FFF8DF,#E9D18A 60%,#C9A445);color:#5A4410;box-shadow:inset 0 0 0 2px rgba(90,68,16,.25),0 2px 0 rgba(90,68,16,.25);transition:transform .2s}
+.tab b{color:var(--ink);font-weight:800}
+.tab .badge{font-size:11px;font-family:"IBM Plex Mono",monospace}
+.tab.on .coin{transform:translateY(-2px) scale(1.08);box-shadow:inset 0 0 0 2px rgba(90,68,16,.35),0 0 0 3px var(--green)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#F0FFF6,#9FD8B6 60%,#3E9E6C);color:#0E4A2C}
+.tab.done .badge{color:var(--ok)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.card h3{font-size:20px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 6px}
+.kicker{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* word list */
+.wgroup{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start}
+.word .em{font-size:26px;line-height:1.1}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.word .pat{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:6px;padding:1px 7px;margin:3px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);margin-top:4px;font-style:italic}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:17px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:15px}
+.say:active{transform:scale(.94)}
+.careful{background:var(--gold-bg);border:2px dashed var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:8px 0}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:6px 0 2px}
+.mist div{padding:6px 10px;border-radius:9px;font-weight:700;font-size:14.5px}
+.mist .x{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-bg);color:var(--ok)}
+.mist .x::before{content:"✗ "}.mist .v::before{content:"✓ "}
+.colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.colbox{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid var(--line);font-size:14.5px}
+.colbox b.p{font:600 15px "IBM Plex Mono",monospace;color:var(--green)}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fc-scene{perspective:1200px;max-width:460px;margin:0 auto}
+.fc{position:relative;height:290px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;gap:6px}
+.front{background:#fff;border:2px solid var(--line);background-image:repeating-linear-gradient(45deg,rgba(30,117,80,.03) 0 6px,transparent 6px 12px)}
+.back{background:linear-gradient(140deg,#1E7550,#0F3D2D);color:#F6F1DF;transform:rotateY(180deg)}
+.face .big{font-size:48px;line-height:1}
+.face .txt{font:clamp(26px,7vw,34px)/1.15 "DM Serif Display",serif}
+.face .def{font-size:16.5px;font-weight:600;max-width:360px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:360px}
+.face .ipa{font:500 14px "IBM Plex Mono",monospace;color:var(--muted)}
+.face .say{position:absolute;top:12px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#B9D8C6}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--green)}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:800;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--stamp);color:var(--stamp)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px dashed var(--line)}
+.exhead .no{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.exhead h3{margin:6px 0 2px;font-size:22px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font:600 13px "IBM Plex Mono",monospace;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:600 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:700}
+.orig{display:block;font-weight:600;color:var(--muted);font-size:15px;margin-bottom:4px}
+.key{display:inline-block;font:600 13px "IBM Plex Mono",monospace;background:var(--gold-bg);color:#7A5B0E;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok)}
+.gap.filledbad{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;min-width:52px;font-weight:800;font-size:16px;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.opt.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-weight:700;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--green);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.wrongs{font-size:16.5px;font-weight:700;color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(194,57,46,.35)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:800}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-weight:700;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:800;font-size:15.5px}
+.mbtn.sel{border-color:var(--green);background:var(--green-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* text */
+.gtext{font-size:17px;line-height:2.35;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.gtext .gn{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);vertical-align:super;margin-right:2px}
+.gapin{width:100px;border:0;border-bottom:3px solid var(--green);background:var(--green-bg);border-radius:6px 6px 0 0;padding:2px 6px;font-weight:800;font-size:16px;text-align:center}
+.gapin.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.gapin.badv{border-color:var(--bad);background:var(--bad-bg)}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:150px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--green);outline:none}
+.wcount{font:500 12.5px "IBM Plex Mono",monospace;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok)}
+.tick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tick span{font-size:12.5px;font-weight:800;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.tick span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* receipt */
+.receipt{background:#fff;max-width:520px;margin:0 auto 18px;padding:22px 20px 26px;font-family:"IBM Plex Mono",monospace;font-size:14px;box-shadow:var(--shadow);position:relative;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x}
+.receipt h2{font-family:"IBM Plex Mono",monospace;font-size:16px;text-align:center;letter-spacing:.2em;margin:0}
+.receipt .c{text-align:center;color:var(--muted);font-size:12.5px}
+.receipt hr{border:0;border-top:1.5px dashed var(--line);margin:12px 0}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.receipt .ln span:first-child{min-width:0}
+.receipt .tot{font-size:22px;font-weight:600}
+.receipt .msg{text-align:center;font-family:"Manrope",sans-serif;font-weight:700;font-size:16px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:2px 10px;transform:rotate(-6deg);font-weight:600;letter-spacing:.12em;margin-top:8px}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:700}.mlist .cr{color:var(--ok);font-weight:800}
+.sendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.sendgrid .btn{text-decoration:none;color:var(--ink);text-align:center;display:flex;align-items:center;justify-content:center}
+.sendgrid .pri{color:#fff}
+.mail{user-select:all;font-weight:800;background:var(--soft);padding:2px 8px;border-radius:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wgroup,.mist,.colgrid{grid-template-columns:1fr}
+  .opts,.fb,.inrow{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14px}
+  .seal{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="note">
+      <div class="serial">VOCABULARY BANK · MONEY · INTERMEDIATE</div>
+      <h1>Money talks</h1>
+      <p>Verbs, prepositions, nouns and phrasal verbs about money — learn them, then spend them wisely in the exercises.</p>
+      <div class="row2">
+        <div class="namebox"><label for="nm">Pay to</label><input id="nm" autocomplete="off"></div>
+        <div class="seal" aria-hidden="true">£€$</div>
+      </div>
+    </div>
+    <p class="howto">Work through the tabs in order: Words → Flashcards → Verbs → Prepositions → Nouns → Put it together → Results. Your answers save automatically, so you can stop and come back later.</p>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="progress"><span id="pdone">0%</span><div class="bar"><i id="pbar"></i></div><span class="score" id="pscore">0 / 0</span></div>
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- 1 WORDS -->
+<section class="panel" id="p-words">
+  <div class="card">
+    <span class="kicker">Step 1</span>
+    <h2>The words</h2>
+    <p class="lead">Read each definition, listen 🔊 and say the word out loud. Pay attention to the patterns in green — they matter as much as the word itself.</p>
+    <h3>Verbs</h3><div class="wgroup" id="wl-verb"></div>
+    <h3>Nouns</h3><div class="wgroup" id="wl-noun"></div>
+    <h3>Phrasal verbs</h3><div class="wgroup" id="wl-phr"></div>
+  </div>
+  <div class="careful">
+    <h2>⚠️ Careful with these</h2>
+    <ul>
+      <li><b>lend vs borrow.</b> You <b>lend</b> money <b>to</b> someone (you give). You <b>borrow</b> money <b>from</b> someone (you take). Both times the money comes back.
+        <div class="mist"><div class="x">Can you borrow me £10?</div><div class="v">Can you lend me £10?</div></div></li>
+      <li><b>cost vs charge.</b> A thing <b>costs</b> money. A person or company <b>charges</b> you money <b>for</b> something.
+        <div class="mist"><div class="x">The hotel cost us £15 for breakfast.</div><div class="v">The hotel charged us £15 for breakfast.</div></div></li>
+      <li><b>earn vs win.</b> You <b>earn</b> money by working. You <b>win</b> money in a lottery or competition.</li>
+      <li><b>owe</b> has no preposition before the person: <i>I owe <b>my brother</b> £50</i> (or <i>I owe £50 <b>to</b> my brother</i>).
+        <div class="mist"><div class="x">I owe to my brother £50.</div><div class="v">I owe my brother £50.</div></div></li>
+      <li><b>can't afford</b> + noun or <b>to</b> + infinitive: <i>We can't afford a new car / to buy a new car.</i>
+        <div class="mist"><div class="x">We can't afford buying it.</div><div class="v">We can't afford to buy it.</div></div></li>
+      <li><b>be worth</b> is a verb phrase, so it needs <i>be</i>: <i>The house <b>is worth</b> €200,000.</i></li>
+      <li><b>Irregular forms:</b> lend – <b>lent</b> – lent · cost – <b>cost</b> – cost · pay – <b>paid</b> – paid · spend – <b>spent</b> – spent · take out – <b>took</b> out – taken out. <i>Borrow, earn, owe, save</i> are regular.</li>
+      <li><b>live on vs live off.</b> You live <b>on</b> an amount of money (<i>live on £800 a month</i>). You live <b>off</b> a person or source (<i>live off your parents</i>).</li>
+      <li><b>Sounds:</b> <b>mortgage</b> /ˈmɔːɡɪdʒ/ — the <i>t</i> is silent <button class="say sm" type="button" data-say="mortgage" aria-label="listen">🔊</button> · <b>owe</b> /əʊ/ rhymes with <i>go</i> <button class="say sm" type="button" data-say="owe" aria-label="listen">🔊</button> · <b>debt</b> /det/ — silent <i>b</i> <button class="say sm" type="button" data-say="debt" aria-label="listen">🔊</button></li>
+    </ul>
+    <h3 style="margin-top:14px">Verb + preposition</h3>
+    <div class="colgrid">
+      <div class="colbox"><b class="p">pay by</b> credit card<br><b class="p">pay in</b> cash<br><b class="p">pay for</b> the dinner</div>
+      <div class="colbox"><b class="p">spend</b> £50 <b class="p">on</b> books<br><b class="p">waste</b> money <b class="p">on</b> sth<br><b class="p">invest in</b> property</div>
+      <div class="colbox"><b class="p">lend</b> money <b class="p">to</b> sb<br><b class="p">borrow</b> money <b class="p">from</b> sb<br><b class="p">charge</b> sb £60 <b class="p">for</b> sth</div>
+      <div class="colbox"><b class="p">get into</b> debt<br><b class="p">be in</b> debt</div>
+      <div class="colbox"><b class="p">save for</b> a holiday<br><b class="p">raise</b> money <b class="p">for</b> charity</div>
+      <div class="colbox"><b class="p">inherit</b> sth <b class="p">from</b> sb</div>
+    </div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Flashcards →</button></div>
+</section>
+
+<!-- 2 FLASHCARDS -->
+<section class="panel" id="p-cards">
+  <div class="card">
+    <span class="kicker">Step 2</span>
+    <h2>Flashcards</h2>
+    <p class="lead">Tap the card to flip it. Be honest with yourself: “I know it” only if you could use the word in a sentence.</p>
+    <div class="fc-top">
+      <button class="btn" id="fcDir" type="button">Word → meaning</button>
+      <label class="tog"><input type="checkbox" id="fcOnly"> Only words I'm still learning</label>
+    </div>
+    <div style="font-size:14px;font-weight:700">Known: <span id="fcKnown">0</span> / <span id="fcTotal">0</span><span style="float:right;color:var(--muted)" class="mono" id="fcPos"></span></div>
+    <div class="kbar"><i id="fcKbar"></i></div>
+    <div class="fc-scene">
+      <div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card">
+        <div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div>
+      </div>
+    </div>
+    <div class="fc-row">
+      <button class="btn bad" id="fcLearn" type="button">🔁 Still learning</button>
+      <button class="btn ok" id="fcKnow" type="button">✓ I know it</button>
+    </div>
+    <div class="fc-row">
+      <button class="btn" id="fcPrev" type="button">◀ Back</button>
+      <button class="btn" id="fcShuf" type="button">🔀 Shuffle</button>
+      <button class="btn" id="fcNext" type="button">Next ▶</button>
+    </div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Verbs →</button></div>
+</section>
+
+<!-- 3 VERBS -->
+<section class="panel" id="p-verbs">
+  <div class="card"><span class="kicker">Step 3</span><h2>Verbs</h2><p class="lead" style="margin:0">Your first answer counts for the score, so think before you tap.</p></div>
+  <div data-ex="x1"></div><div data-ex="x2"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Prepositions →</button></div>
+</section>
+
+<!-- 4 PREPOSITIONS -->
+<section class="panel" id="p-preps">
+  <div class="card"><span class="kicker">Step 4</span><h2>Prepositions & phrasal verbs</h2><p class="lead" style="margin:0">Small words, big difference. Check the “Verb + preposition” table on the Words tab if you need to.</p></div>
+  <div data-ex="x3"></div><div data-ex="x4"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">Next: Nouns →</button></div>
+</section>
+
+<!-- 5 NOUNS -->
+<section class="panel" id="p-nouns">
+  <div class="card"><span class="kicker">Step 5</span><h2>Nouns & word building</h2><p class="lead" style="margin:0">Definitions, word families and word stress.</p></div>
+  <div data-ex="x5"></div><div data-ex="x6"></div><div data-ex="x7"></div>
+  <div class="next"><button class="btn pri" data-go="5" type="button">Next: Put it together →</button></div>
+</section>
+
+<!-- 6 TOGETHER -->
+<section class="panel" id="p-mix">
+  <div class="card"><span class="kicker">Step 6</span><h2>Put it together</h2><p class="lead" style="margin:0">Listening, error correction, a text — and then your own writing.</p></div>
+  <div data-ex="x8"></div><div data-ex="x9"></div><div data-ex="x10"></div><div data-ex="w1"></div>
+  <div class="next"><button class="btn pri" data-go="6" type="button">See my results →</button></div>
+</section>
+
+<!-- 7 RESULTS -->
+<section class="panel" id="p-results">
+  <div class="receipt" id="receipt"></div>
+  <div class="card">
+    <h2 style="font-size:22px">Send it to your teacher</h2>
+    <p class="lead">When you've finished, send your results. Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Gmail, Telegram, WhatsApp and the email app send a shorter version. “Copy text” always copies the full report, including your writing.</p>
+  </div>
+  <div class="card">
+    <h2 style="font-size:22px">Mistakes to look at again</h2>
+    <ul class="mlist" id="rMist"></ul>
+  </div>
+  <div class="card">
+    <h2 style="font-size:22px">Start again</h2>
+    <button class="btn bad" id="resetBtn" type="button">🗑 Delete all my answers</button>
+    <div class="confirm" id="resetConfirm"><b>Delete all answers? This can't be undone.</b>
+      <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes" type="button">Yes, delete</button><button class="btn" id="resetNo" type="button">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<footer>Made for Anna · Spend your time wisely 💷</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA — edit words, items and answers here
+   ========================================================= */
+const STUDENT = "Anna";
+const TEACHER = "ulchik2211@gmail.com";
+const TITLE = "Vocabulary: Money (verbs, prepositions, nouns, phrasal verbs)";
+const SUBJECT_TOPIC = "Money vocabulary";
+const KEY = "anna-money-v1";
+
+const VOCAB = [
+  // verbs
+  {id:"be-worth", g:"verb", en:"be worth", ipa:"/bi wɜːθ/", em:"💎", pat:"be worth + amount", def:"to have a particular value in money", ex:"My grandmother's ring is worth about £3,000."},
+  {id:"borrow", g:"verb", en:"borrow", ipa:"/ˈbɒrəʊ/", em:"🤲", pat:"borrow sth from sb", def:"to take money from someone and agree to give it back later", ex:"Can I borrow £10 from you until Friday?"},
+  {id:"afford", g:"verb", en:"can't afford", ipa:"/kɑːnt əˈfɔːd/", em:"🚫", pat:"can't afford sth / to do sth", def:"to not have enough money to pay for something", ex:"We can't afford to go on holiday this year."},
+  {id:"charge", g:"verb", en:"charge", ipa:"/tʃɑːdʒ/", em:"🔧", pat:"charge sb £x for sth", def:"to ask someone to pay an amount of money for a service", ex:"The hotel charged us £15 for breakfast."},
+  {id:"cost", g:"verb", en:"cost", ipa:"/kɒst/", em:"🏷️", pat:"cost – cost – cost", def:"to have a particular price", ex:"How much did your new phone cost?"},
+  {id:"earn", g:"verb", en:"earn", ipa:"/ɜːn/", em:"💼", pat:"earn £x a month", def:"to get money for the work you do", ex:"She earns about £30,000 a year."},
+  {id:"inherit", g:"verb", en:"inherit", ipa:"/ɪnˈherɪt/", em:"📜", pat:"inherit sth from sb", def:"to receive money or property from someone after they die", ex:"He inherited a house from his grandfather."},
+  {id:"invest", g:"verb", en:"invest", ipa:"/ɪnˈvest/", em:"📈", pat:"invest (money) in sth", def:"to put money into something, e.g. shares or property, to make a profit", ex:"She invested all her savings in property."},
+  {id:"lend", g:"verb", en:"lend", ipa:"/lend/", em:"🤝", pat:"lend sb sth / lend sth to sb · lent", def:"to give someone money that they will give back later", ex:"Could you lend me £20? I'll give it back tomorrow."},
+  {id:"owe", g:"verb", en:"owe", ipa:"/əʊ/", em:"😬", pat:"owe sb £x", def:"to have to pay back money that you borrowed", ex:"I still owe my brother £50."},
+  {id:"raise", g:"verb", en:"raise", ipa:"/reɪz/", em:"🎗️", pat:"raise money for sth", def:"to collect money from people for a purpose, e.g. a charity", ex:"The school raised £5,000 for a new library."},
+  {id:"save", g:"verb", en:"save", ipa:"/seɪv/", em:"🐷", pat:"save (up) for sth", def:"to keep money so that you can use it later", ex:"I'm saving for a new laptop."},
+  {id:"waste", g:"verb", en:"waste", ipa:"/weɪst/", em:"🗑️", pat:"waste money on sth", def:"to spend money badly, on things you don't need", ex:"Don't waste your money on that rubbish."},
+  // nouns
+  {id:"bill", g:"noun", en:"bill", ipa:"/bɪl/", em:"🧾", pat:"pay the bill", def:"a piece of paper showing how much you must pay for something", ex:"Can we have the bill, please?"},
+  {id:"budget", g:"noun", en:"budget", ipa:"/ˈbʌdʒɪt/", em:"📊", pat:"on a budget · a holiday budget", def:"the money you have for something and your plan for spending it", ex:"Our budget for the holiday is €2,000."},
+  {id:"contactless", g:"noun", en:"contactless payment", ipa:"/ˌkɒntæktləs ˈpeɪmənt/", em:"📲", pat:"pay by contactless", def:"a quick way to pay by holding your card or phone over a reader, without a PIN", ex:"Most shops in the UK accept contactless payment."},
+  {id:"insurance", g:"noun", en:"insurance", ipa:"/ɪnˈʃʊərəns/", em:"🛡️", pat:"travel / car / health insurance", def:"money you pay a company, which then pays you if you are ill or lose or break something", ex:"Don't travel without travel insurance."},
+  {id:"loan", g:"noun", en:"loan", ipa:"/ləʊn/", em:"🏦", pat:"take out / get a loan", def:"money that a person or a bank lends you", ex:"I got a loan from the bank to buy a car."},
+  {id:"mortgage", g:"noun", en:"mortgage", ipa:"/ˈmɔːɡɪdʒ/", em:"🏠", pat:"pay off a mortgage", def:"money you borrow from a bank to buy a house or flat", ex:"We'll finish paying our mortgage in 2040."},
+  {id:"salary", g:"noun", en:"salary", ipa:"/ˈsæləri/", em:"💷", pat:"a monthly / annual salary", def:"the money you get (usually every month) for the work you do", ex:"Her salary went up when she was promoted."},
+  {id:"tax", g:"noun", en:"tax", ipa:"/tæks/", em:"🏛️", pat:"pay tax on sth", def:"money that you have to pay to the government", ex:"Everyone who works has to pay income tax."},
+  // phrasal verbs
+  {id:"take-out", g:"phr", en:"take out (money)", ipa:"", em:"🏧", pat:"take out – took out", def:"to get money from your bank account, e.g. from a cash machine", ex:"I took out €200 from a cash machine."},
+  {id:"pay-back", g:"phr", en:"pay (sb) back", ipa:"", em:"↩️", pat:"pay sb back · paid", def:"to give back money that you borrowed", ex:"Can I pay you back next week?"},
+  {id:"live-off", g:"phr", en:"live off (sb / sth)", ipa:"", em:"👨‍👩‍👧", pat:"live off your parents", def:"to get the money you need to live from someone or something", ex:"I have to live off my parents while I'm at university."},
+  {id:"live-on", g:"phr", en:"live on (an amount)", ipa:"", em:"🍞", pat:"live on £800 a month", def:"to have a certain amount of money to buy the things you need", ex:"It's difficult for us to live on only one salary."}
+];
+
+const EXERCISES = [
+  /* ----- VERBS ----- */
+  {id:"x1", type:"type", title:"Say it another way", ins:"Complete the second sentence so it means the same as the first. Use a verb from the list in the correct form (e.g. -s, past tense).",
+   bank:["be worth","borrow","can't afford","charge","cost","earn","invest","lend","owe","raise","save","waste"],
+   items:[
+    {orig:"I put some money aside every week for a holiday.", q:"I ___ money every week.", accept:["save","save up"], hint:"Starts with s… — you keep the money for later.", why:"save = keep money to use later."},
+    {orig:"Andy has promised to give me €50 until next week.", q:"He has promised to ___ me €50.", accept:["lend"], hint:"Andy gives the money (and gets it back later).", why:"lend = give money that comes back: lend sb sth."},
+    {orig:"I need to ask my mum to give me £20 until Friday.", q:"I need to ___ £20 from my mum.", accept:["borrow"], hint:"You take the money — notice “from”.", why:"borrow sth FROM sb = take money that you'll give back."},
+    {orig:"I often spend money on stupid things.", q:"I often ___ money.", accept:["waste"], hint:"Starts with w…", why:"waste money = spend it badly."},
+    {orig:"I don't have enough money to buy that car.", q:"I ___ to buy that car.", accept:["can't afford","cannot afford","can not afford"], hint:"Two words: a modal + a verb starting with a…", why:"can't afford + to + infinitive."},
+    {orig:"I usually have to pay the mechanic £100 to service my car.", q:"The mechanic ___ me £100.", accept:["charges","usually charges"], hint:"A person or company asks for money for a service… (he/she → -s)", why:"charge sb £x — the mechanic is “he”, so charges."},
+    {orig:"These shoes are quite expensive. They are $200.", q:"They ___ $200.", accept:["cost"], hint:"The price of a thing.", why:"cost = have a price. They cost (no -s)."},
+    {orig:"Jim gave me £100. I haven't paid it back yet.", q:"I ___ Jim £100.", accept:["owe","still owe"], hint:"Three letters, sounds like “oh”.", why:"owe sb £x — no preposition before Jim."},
+    {orig:"I want to buy some shares in a company because I want to make a profit.", q:"I want to ___ some money.", accept:["invest"], hint:"Starts with in…", why:"invest = put money into something to make a profit."},
+    {orig:"I work in a supermarket. They pay me £1,000 a month.", q:"I ___ £1,000 a month.", accept:["earn"], hint:"Money you get for working.", why:"earn = get money for work (win = lottery, competition)."},
+    {orig:"I could sell my house for about €200,000.", q:"My house ___ about €200,000.", accept:["is worth","'s worth"], hint:"Two words: be + …", why:"be worth = have a value. It needs “is”."},
+    {orig:"We need to get people to give money to build a new hospital.", q:"We want to ___ money for the new hospital.", accept:["raise"], hint:"Collect money from people for a cause.", why:"raise money for a cause / charity."}
+   ]},
+  {id:"x2", type:"choice", title:"Easily confused", ins:"Choose the correct word. Read the explanation after each answer — the difference is the point.",
+   items:[
+    {q:"Could you ___ me your car this weekend?", options:["lend","borrow"], answer:"lend", why:"lend = give for a time (lend ME your car). borrow = take (Can I borrow your car?)."},
+    {q:"Can I ___ your pen for a second?", options:["lend","borrow"], answer:"borrow", why:"I take your pen, so borrow. (Can you lend me your pen? is also correct.)"},
+    {q:"How much did the taxi driver ___ you?", options:["cost","charge"], answer:"charge", why:"People and companies charge you. Things cost."},
+    {q:"How much did your new phone ___?", options:["cost","charge"], answer:"cost", why:"The phone is a thing, so it costs."},
+    {q:"She ___ €2 million on the lottery!", options:["earned","won"], answer:"won", why:"win money in a lottery or competition; earn money by working."},
+    {q:"Doctors ___ a lot of money in the USA.", options:["earn","win"], answer:"earn", why:"Money for work = earn."},
+    {q:"We can't ___ to eat out every week.", options:["afford","pay"], answer:"afford", why:"can't afford to do sth = not have enough money for it."},
+    {q:"This old painting is ___ a fortune.", options:["worth","cost"], answer:"worth", why:"be worth + amount. (It costs a fortune — without “is”.)"}
+   ]},
+  /* ----- PREPOSITIONS & PHRASAL VERBS ----- */
+  {id:"x3", type:"choice", title:"Which preposition?", ins:"Choose the preposition that goes with the verb or phrase in bold.",
+   options:["by","for","from","in","into","on","to"],
+   items:[
+    {q:"Would you like to <b>pay</b> cash or ___ credit card?", answer:"by", why:"pay by credit card / by card (but pay in cash)."},
+    {q:"I <b>paid</b> ___ the dinner last night. It was my birthday.", answer:"for", why:"pay for sth = give money for it. (But: pay the bill — no preposition.)"},
+    {q:"I <b>spent</b> £50 ___ books yesterday.", answer:"on", why:"spend money on sth."},
+    {q:"My uncle <b>invested</b> all his money ___ property.", answer:"in", why:"invest (money) in sth."},
+    {q:"I don't like <b>lending</b> money ___ friends.", answer:"to", why:"lend money to sb — it goes TO them."},
+    {q:"I <b>borrowed</b> a lot of money ___ the bank.", answer:"from", why:"borrow money from sb — it comes FROM them."},
+    {q:"They <b>charged</b> us €60 ___ a bottle of wine.", answer:"for", why:"charge sb £x for sth."},
+    {q:"I never <b>get</b> ___ debt. I hate owing people money.", answer:"into", why:"get into debt = start to owe money (movement → into)."},
+    {q:"She's <b>been</b> ___ debt since she lost her job.", answer:"in", why:"be in debt = owe money (a state → in)."}
+   ]},
+  {id:"x4", type:"choice", title:"Phrasal verbs", ins:"Complete the phrasal verb with back, off, on or out.",
+   options:["back","off","on","out"],
+   items:[
+    {q:"I took ___ €200 from a cash machine.", answer:"out", why:"take out money = get it from your account."},
+    {q:"Can I pay you ___ the money you lent me next week?", answer:"back", why:"pay sb back = return money you borrowed."},
+    {q:"I have to live ___ my parents while I'm at university.", answer:"off", why:"live off sb = they give you the money you need."},
+    {q:"It's difficult for me and my wife to live ___ only one salary.", answer:"on", why:"live on an amount of money."},
+    {q:"You can't live ___ £500 a month in London — it's impossible!", answer:"on", why:"live on + an amount (£500 a month)."},
+    {q:"I need to take ___ some cash before we go to the market.", answer:"out", why:"take out cash."}
+   ]},
+  /* ----- NOUNS ----- */
+  {id:"x5", type:"match", title:"Nouns and definitions", ins:"Tap a noun, then tap its definition.",
+   items:[
+    {en:"bill", def:"a piece of paper that shows how much you must pay for something"},
+    {en:"salary", def:"the money you get for the work you do"},
+    {en:"tax", def:"money that you pay to the government"},
+    {en:"loan", def:"money that somebody (or a bank) lends you"},
+    {en:"budget", def:"the money you have available and a plan for spending it"},
+    {en:"mortgage", def:"money that you borrow from a bank to buy a house"},
+    {en:"contactless payment", def:"paying by holding your card or phone over a reader, without a PIN"},
+    {en:"insurance", def:"money you pay a company, and they pay if you're ill or lose or break something"}
+   ]},
+  {id:"x6", type:"type", title:"Word building", ins:"Use the word in CAPITALS to make a word that fits the gap.",
+   items:[
+    {q:"We keep all our ___ in a bank account.", key:"SAVE", accept:["savings"], hint:"A plural noun: the money you have saved.", why:"save → savings (plural noun)."},
+    {q:"Buying that flat was the best ___ we ever made.", key:"INVEST", accept:["investment"], hint:"A noun ending in -ment.", why:"invest → investment (an investor is a person)."},
+    {q:"Flats in the city centre aren't very ___ for young people.", key:"AFFORD", accept:["affordable"], hint:"An adjective ending in -able.", why:"afford → affordable (≠ unaffordable)."},
+    {q:"Contactless ___ is now more popular than cash.", key:"PAY", accept:["payment"], hint:"A noun ending in -ment.", why:"pay → payment."},
+    {q:"The bank is the ___ and you are the borrower.", key:"LEND", accept:["lender"], hint:"A person or organisation: -er.", why:"lend → lender, borrow → borrower."},
+    {q:"Don't buy that ring — it's a copy and it's completely ___.", key:"WORTH", accept:["worthless"], hint:"An adjective meaning “with no value”.", why:"worth → worthless (has no value). Careful: priceless = extremely valuable!"}
+   ]},
+  {id:"x7", type:"choice", mono:true, title:"Word stress", ins:"Listen 🔊 and choose the stressed syllable (in CAPITALS).",
+   items:[
+    {q:"borrow", say:"borrow", options:["BOR·row","bor·ROW"], answer:"BOR·row", why:"/ˈbɒrəʊ/ — stress on the first syllable."},
+    {q:"afford", say:"afford", options:["AF·ford","af·FORD"], answer:"af·FORD", why:"/əˈfɔːd/ — the first syllable is a weak /ə/."},
+    {q:"insurance", say:"insurance", options:["IN·sur·ance","in·SUR·ance","in·sur·ANCE"], answer:"in·SUR·ance", why:"/ɪnˈʃʊərəns/ — stress in the middle."},
+    {q:"salary", say:"salary", options:["SAL·a·ry","sal·A·ry","sal·a·RY"], answer:"SAL·a·ry", why:"/ˈsæləri/ — stress on the first syllable."}
+   ]},
+  /* ----- PUT IT TOGETHER ----- */
+  {id:"x8", type:"type", listen:true, title:"Listen and write", ins:"Press 🔊 and type the word you hear. Watch the spelling!",
+   items:[
+    {say:"mortgage", accept:["mortgage"], hint:"8 letters, starts with m — there's a silent letter.", why:"/ˈmɔːɡɪdʒ/ — silent t."},
+    {say:"insurance", accept:["insurance"], hint:"9 letters, starts with ins…", why:"in-sur-ance: -ance, not -ence."},
+    {say:"salary", accept:["salary"], hint:"6 letters, starts with s…", why:"s-a-l-a-r-y."},
+    {say:"borrow", accept:["borrow"], hint:"6 letters, double r.", why:"double r: bo-rr-ow."}
+   ]},
+  {id:"x9", type:"type", sentence:true, title:"Find the mistake", ins:"Each sentence has ONE mistake. Write the correct sentence.",
+   items:[
+    {wrong:"Can you borrow me £10 until Friday?", accept:["Can you lend me £10 until Friday"], end:"?", hint:"Who gives the money here?", why:"lend sb sth = give. borrow = take."},
+    {wrong:"I spent a lot of money for clothes last month.", accept:["I spent a lot of money on clothes last month"], hint:"Check the preposition after spend money.", why:"spend money ON sth."},
+    {wrong:"How much costs this jacket?", accept:["How much does this jacket cost"], end:"?", hint:"Present simple question: you need an auxiliary verb.", why:"How much does it cost? — do/does + subject + verb."},
+    {wrong:"We can't afford buying a new car.", accept:["We can't afford to buy a new car","We cannot afford to buy a new car","We can't afford a new car","We cannot afford a new car"], hint:"afford + to …", why:"can't afford + to-infinitive (or + noun)."},
+    {wrong:"My sister earned €500 in a competition.", accept:["My sister won €500 in a competition"], hint:"Competitions and lotteries…", why:"win money in a competition; earn money by working."},
+    {wrong:"I owe to my brother £50.", accept:["I owe my brother £50","I owe £50 to my brother"], hint:"owe + person + amount — no preposition.", why:"owe sb £x (or owe £x to sb)."}
+   ]},
+  {id:"x10", type:"textgap", title:"Living on a student budget", ins:"Read the text and write ONE word in each gap. Some gaps need a word from the box in the correct form; others need a preposition or particle.",
+   bank:["afford","bill","cost","earn","owe","save","waste"],
+   text:"When Sam started university, he had to learn to live [[on]] a very small budget. His parents couldn't [[afford]] to give him much, and he didn't want to live [[off]] them anyway. So he found a part-time job in a café, where he [[earns|makes|gets]] about £600 a month. The rent for his room [[costs|is]] £400, and then there are the [[bills]] — electricity, internet and phone. In his first term he [[wasted|spent]] a lot of money [[on]] takeaways, and by Christmas he [[owed]] his best friend £150. Now he's more careful. He takes [[out]] cash at the start of every week, and when it's gone, it's gone. He has even started to [[save]] for a trip to Spain in the summer. “I'll never be rich,” he says, “but at least I'm not getting [[into]] debt any more.”",
+   whys:["live on + an amount of money","couldn't afford to do sth","live off sb","earn money for work — he → earns","the rent costs £400 (a thing has a price)","bills = papers showing what you must pay","wasted money on takeaways (past)","waste / spend money on sth","owed — past; owe sb £x","take out cash","save for sth","get into debt"]},
+  {id:"w1", type:"writing", title:"Your turn: writing", ins:"Write your answers. Try to use at least six words or phrases from this unit — the chips light up when you use them.",
+   items:[
+    {q:"Are you a saver or a spender? Write about your money habits (80–150 words).", eg:"Think about: what you spend most money on, whether you save regularly and what for, something you once wasted money on, whether you use cash or contactless payment…", min:80},
+    {q:"Would you lend money to a friend? Have you ever borrowed money from someone? What happened? (40–80 words)", eg:"I think it's fine to lend money to a friend if…", min:40}
+   ]}
+];
+const WRITE_WORDS = [["worth"],["borrow"],["afford"],["charge"],["cost"],["earn"],["inherit"],["invest"],["lend","lent"],["owe"],["raise"],["save","saving"],["waste"],["bill"],["budget"],["contactless"],["insurance"],["loan"],["mortgage"],["salary"],["tax"],["take out","took out","taken out","take (?:\\w+ ){1,2}out","took (?:\\w+ ){1,2}out"],["pay back","paid back","pay (?:\\w+ ){1,3}back","paid (?:\\w+ ){1,3}back"],["live off","lived off"],["live on","lived on"],["debt"]];
+
+const TABS = [
+  {id:"words", icon:"1", en:"Words", ex:[]},
+  {id:"cards", icon:"2", en:"Flashcards", ex:[]},
+  {id:"verbs", icon:"3", en:"Verbs", ex:["x1","x2"]},
+  {id:"preps", icon:"4", en:"Prepositions", ex:["x3","x4"]},
+  {id:"nouns", icon:"5", en:"Nouns", ex:["x5","x6","x7"]},
+  {id:"mix", icon:"6", en:"Together", ex:["x8","x9","x10","w1"]},
+  {id:"results", icon:"£", en:"Results", ex:[]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+
+const store = (()=>{ let mem=null; return {
+  get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
+  set(v){ mem=v; try{ localStorage.setItem(KEY,v); }catch(e){} },
+  del(){ mem=null; try{ localStorage.removeItem(KEY); }catch(e){} } };})();
+function fresh(){ return {name:STUDENT, ans:{}, known:[], writing:{}, tab:0, fcDir:"word"}; }
+let state=fresh();
+try{ const raw=store.get(); if(raw) state=Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(state)); }catch(e){} updateProgress(); }
+function rec(id,i){ return (state.ans[id]||{})[i]; }
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","isn't":"is not","aren't":"are not","haven't":"have not","hasn't":"has not","won't":"will not","i'll":"i will","what's":"what is","let's":"let us","i've":"i have","wasn't":"was not"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/,(\d{3})/g,"$1").replace(/,/g," ")
+    .replace(/\s+/g," ").trim().replace(/[.!?]+$/,"").trim();
+  s=s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot").replace(/^'s /,"is ").replace(/ 's /g," is ");
+  return s;
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
+function speak(t){ if(!("speechSynthesis" in window)||!t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/\(sb[^)]*\)|\(an amount\)|\(money\)/g,"").replace(/·/g,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(t)}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!","Great!"];
+const OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${ex.title}</h3><div class="ins">${ex.ins}</div></div><div class="exbody"></div>`;
+  return box;
+}
+// q may contain <b> tags (trusted data); gap marker ___
+function gapHtml(q,fill,cls){ return q.replace("___",`<span class="gap ${cls||""}">${fill?esc(fill):"&nbsp;"}</span>`); }
+function fillSentence(q,a){ return strip(q).replace("___",a).replace(/\s+/g," ").trim(); }
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+function bankHtml(b){ return `<div class="bank"><b>Word box</b>${b.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`; }
+
+/* choice */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const hasGap=it.q.includes("___");
+    const qh = it.say ? `<span class="row">${sayBtn(it.say)} <span>${esc(it.q)}</span></span>` : `<span class="qt">${gapHtml(it.q)}</span>`;
+    const opts=it.options||ex.options;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="opts">${opts.map(o=>`<button class="opt${ex.mono?" mono":""}" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return;
+      const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.answer,done:true}); paintChoice(ex,it,i,row,true); }));
+    row.dataset.gap=hasGap?"1":"";
+    body.appendChild(row);
+    if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===it.answer) b.classList.add("ghost"); });
+  const hasGap=it.q.includes("___");
+  if(hasGap){ const qt=$(".qt",row); qt.innerHTML=gapHtml(it.q,it.answer,r.correct?"filled":"filledbad"); }
+  const sent=hasGap?fillSentence(it.q,it.answer):(it.say||it.answer);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.answer)}</b>${hasGap?`<span class="row">${sayBtn(sent,true)} <span>${esc(sent)}</span></span>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* typed */
+function renderType(ex,body){
+  if(ex.bank) body.insertAdjacentHTML("beforeend",bankHtml(ex.bank));
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.listen) qh=`<span class="row">${sayBtn(it.say)} <span style="color:var(--muted);font-weight:600">Listen and type</span></span>`;
+    else if(it.wrong) qh=`<span class="wrongs">${esc(it.wrong)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}</span>`:""}<span class="qt">${gapHtml(it.q)}</span>${it.key?`<span class="key">${esc(it.key)}</span>`:""}`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="inrow"><input type="text" autocomplete="off" autocapitalize="${it.wrong?"sentences":"off"}" spellcheck="false" aria-label="answer" placeholder="${it.wrong?"Write the correct sentence":"Type your answer"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    body.appendChild(row);
+    const r=rec(ex.id,i); if(r&&r.done) paintTyped(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); paintTyped(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function modelOf(ex,it){ if(ex.listen) return it.say; if(it.wrong) return it.accept[0]+(it.end||"."); return fillSentence(it.q,it.accept[0]); }
+function paintTyped(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.listen&&!it.wrong){ $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad"); }
+  const full=modelOf(ex,it); let notes="";
+  if(r.correct&&it.wrong&&r.given[0]!==r.given[0].toUpperCase()) notes+=`<div>✏️ Remember the capital letter at the start.</div>`;
+  if(r.correct&&it.end==="?"&&!/\?\s*$/.test(r.given)) notes+=`<div>❓ Don't forget the question mark.</div>`;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):"✗ The answer is:"}</b><span class="row">${sayBtn(full,true)} <span>${esc(full)}</span></span>${notes}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* match */
+function renderMatch(ex,body){
+  const order=seeded(ex.items.map((p,k)=>k),hash(ex.id)+5);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb" style="margin-left:0"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  ex.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p.en)}</button>`));
+  order.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(ex.items[k].def)}</button>`));
+  const allDone=()=>ex.items.every((p,k)=>rec(ex.id,k)&&rec(ex.id,k).done);
+  function refresh(){ ex.items.forEach((p,k)=>{ const r=rec(ex.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    if(allDone()){ const fb=$(".fb",body); fb.className="fb show good"; fb.innerHTML=`<b class="t">All matched!</b>${exGot(ex)}/${ex.items.length} on the first try. Yellow ones had a mistake — look at them again.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(ex.id,k)||{tries:0};
+    if(sl===sr){ setRec(ex.id,k,{given:prev.tries>0?prev.given:ex.items[k].def,correct:!(prev.tries>0),done:true,tries:prev.tries||0}); speak(ex.items[k].en); }
+    else{ setRec(ex.id,k,{given:ex.items[sr].def,correct:false,done:false,tries:(prev.tries||0)+1});
+      const bl=$(`[data-k="${sl}"]`,L), br=$(`[data-k="${sr}"]`,R); [bl,br].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updateExScore(ex); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh();
+}
+
+/* text with gaps */
+function parseText(ex){ if(ex._p) return; ex._p=true; const g=[]; ex.text.replace(/\[\[(.+?)\]\]/g,(m,a)=>{ g.push(a.split("|")); return m; }); ex.items=g.map((a,k)=>({accept:a,why:ex.whys[k]})); }
+function renderTextGap(ex,body){
+  parseText(ex); let k=0;
+  const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1");
+  const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; });
+  body.insertAdjacentHTML("beforeend",`${bankHtml(ex.bank)}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check my answers</button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the whole text</button></div><ul class="whylist"></ul>`);
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
+  $(".chk",body).addEventListener("click",()=>checkText(ex,body));
+  paintText(ex,body);
+}
+function checkText(ex,body){
+  let any=false, wrong=0;
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(ex.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+    const ok=matches(v,ex.items[n].accept), tries=(prev.tries||0)+1;
+    if(ok||tries>=2) setRec(ex.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(ex.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+  if(!any){ toast("Fill in some gaps first."); return; }
+  paintText(ex,body);
+  if(wrong) toast(`${wrong} gap${wrong>1?"s are":" is"} not right yet (in red) — you have one more try.`);
+}
+function paintText(ex,body){
+  const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(ex.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(ex.items[n].why)}</li>`); }
+    else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
+  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  updateExScore(ex);
+}
+
+/* writing */
+function usedWords(t){ const s=" "+t.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z' ]+/g," ").replace(/\s+/g," ")+" ";
+  return WRITE_WORDS.map(forms=>forms.some(f=>new RegExp("\\b"+f.replace(/ /g,"\\s+")).test(s))); }
+function renderWriting(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.q)}</div></div>
+      <div style="margin-top:8px"><textarea aria-label="your answer" placeholder="${esc(it.eg)}"></textarea><div class="wcount"></div><div class="tick"></div></div>`;
+    const ta=$("textarea",row), wc=$(".wcount",row), tk=$(".tick",row), key=ex.id+"-"+i;
+    ta.value=state.writing[key]||"";
+    const upd=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=`${n} words (aim: ${it.min}+)`; wc.classList.toggle("ok",n>=it.min);
+      const u=usedWords(ta.value); tk.innerHTML=WRITE_WORDS.map((f,k)=>u[k]?`<span class="used">${esc(f[0].replace(/ \(.*$/,""))}</span>`:"").join("") || `<span>Unit words you use will appear here</span>`; };
+    let tm; ta.addEventListener("input",()=>{ upd(); clearTimeout(tm); tm=setTimeout(()=>{ state.writing[key]=ta.value; save(); },400); });
+    ta.addEventListener("blur",()=>{ state.writing[key]=ta.value; save(); });
+    upd(); body.appendChild(row);
+  });
+  body.insertAdjacentHTML("beforeend",`<p style="font-size:14px;color:var(--muted);margin:6px 0 0">This isn't marked automatically — your teacher will read it. It's included in the report you send.</p>`);
+}
+
+/* scoring */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="textgap") parseText(ex); return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function totals(){ let got=0,tot=0,done=0; EXERCISES.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=totals(); $("#pscore").textContent=`★ ${t.got} / ${t.tot}`;
+  const pct=t.tot?Math.round(t.done/t.tot*100):0; $("#pbar").style.width=pct+"%"; $("#pdone").textContent=pct+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const badge=$(".badge",b); const exs=tab.ex.map(id=>EX[id]).filter(scored);
+    if(exs.length){ const d=exs.reduce((n,e)=>n+exDone(e),0), tt=exs.reduce((n,e)=>n+exTotal(e),0), g=exs.reduce((n,e)=>n+exGot(e),0);
+      badge.textContent=d===tt?`✓ ${g}/${tt}`:`${d}/${tt}`; b.classList.toggle("done",d===tt); }
+    else if(tab.id==="cards"){ badge.textContent=`${state.known.length}/${VOCAB.length}`; b.classList.toggle("done",state.known.length===VOCAB.length); }
+    else badge.textContent=""; });
+}
+
+/* tabs */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}"><span class="coin">${t.icon}</span><b>${t.en}</b><span class="badge"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  const cur=$(`#tabs [data-t="${k}"]`); try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* words */
+function buildWords(){
+  const card=w=>`<div class="word"><span class="em" aria-hidden="true">${w.em}</span><div><b>${esc(w.en)}</b> ${w.ipa?`<span class="ipa">${esc(w.ipa)}</span>`:""}<br><span class="pat">${esc(w.pat)}</span>
+    <div class="def">${esc(w.def)}</div><div class="exl">${sayBtn(w.ex,true)} ${esc(w.ex)}</div></div>${sayBtn(w.en)}</div>`;
+  $("#wl-verb").innerHTML=VOCAB.filter(w=>w.g==="verb").map(card).join("");
+  $("#wl-noun").innerHTML=VOCAB.filter(w=>w.g==="noun").map(card).join("");
+  $("#wl-phr").innerHTML=VOCAB.filter(w=>w.g==="phr").map(card).join("");
+}
+
+/* flashcards */
+let fcOrder=VOCAB.map((w,k)=>k), fcIdx=0;
+function fcDeck(){ const only=$("#fcOnly").checked; return fcOrder.filter(k=>!only||!state.known.includes(VOCAB[k].id)); }
+function renderCard(){
+  const deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=VOCAB.length; $("#fcKnown").textContent=state.known.length; $("#fcKbar").style.width=(state.known.length/VOCAB.length*100)+"%";
+  $("#fcDir").textContent=state.fcDir==="word"?"Word → meaning":"Meaning → word";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="big">🎉</div><div class="txt">All known!</div><div class="sub">Untick the filter to review everything.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const w=VOCAB[deck[fcIdx]], known=state.known.includes(w.id);
+  const wordSide=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div>${w.ipa?`<div class="ipa">${esc(w.ipa)}</div>`:""}`;
+  const meaning=`<div class="def">${esc(w.def)}</div>`;
+  if(state.fcDir==="word"){
+    $("#fcFront").innerHTML=wordSide+sayBtn(w.en)+`<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="txt" style="font-size:22px">${esc(w.en)}</div>${meaning}<div class="sub">“${esc(w.ex)}”</div>`+sayBtn(w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  } else {
+    $("#fcFront").innerHTML=`<div class="big">❓</div>${meaning}<div class="ipa">${esc(w.pat.replace(new RegExp(w.en.split(" ")[0],"ig"),"___"))}</div><span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div><div class="sub">“${esc(w.ex)}”</div>`+sayBtn(w.en+". "+w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  }
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcDir").addEventListener("click",()=>{ state.fcDir=state.fcDir==="word"?"meaning":"word"; save(); renderCard(); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=k=>{ const deck=fcDeck(); if(!deck.length) return; const w=VOCAB[deck[fcIdx]];
+    state.known=state.known.filter(x=>x!==w.id); if(k) state.known.push(w.id); save();
+    if(!(k&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* results */
+const studentName=()=>((state.name||STUDENT).trim()||STUDENT);
+function questionText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
+  if(ex.type==="choice"&&it.say) return it.q+" (stress)"; return strip(it.q)+(it.key?" ("+it.key+")":""); }
+function correctText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
+  return modelOf(ex,it); }
+function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
+function band(p){ if(p>=90) return `Outstanding, ${studentName()}! You're rich in vocabulary. 💎`; if(p>=75) return "Great work — a very healthy balance! 💷"; if(p>=50) return "Good effort. Review the mistakes below and you'll be in profit. 📈"; return "A solid start — go back to the Words tab and try again. 🐷"; }
+function renderResults(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date();
+  const lines=EXERCISES.filter(scored).map(ex=>`<div class="ln"><span>${ex.no}. ${esc(ex.title)}</span><span>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</span></div>`).join("");
+  $("#receipt").innerHTML=`<h2>RECEIPT</h2><div class="c">Money vocabulary · ${esc(studentName())}<br>${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</div><hr>${lines}
+    <div class="ln"><span>Flashcards known</span><span>${state.known.length}/${VOCAB.length}</span></div><hr>
+    <div class="ln tot"><span>TOTAL</span><span>${t.got}/${t.tot}</span></div><div class="ln"><span>Score</span><span>${pct}%</span></div>
+    ${t.done<t.tot?`<div class="c" style="margin-top:6px">* not finished — ${t.tot-t.done} answers still to do</div>`:`<div style="text-align:center"><span class="stamp">PAID IN FULL</span></div>`}
+    <div class="msg">${t.done?band(pct):"Start with the Words tab!"}</div>`;
+  const m=mistakes();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>No mistakes so far 🎉</li>`;
+  buildSend();
+}
+function reportText(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date(), L=[];
+  L.push(`HOMEWORK: ${TITLE}`); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`);
+  L.push(`SCORE: ${t.got}/${t.tot} (${pct}%) · answered ${t.done}/${t.tot}`); L.push(`Flashcards known: ${state.known.length}/${VOCAB.length}`); L.push("");
+  L.push("BY EXERCISE:"); EXERCISES.filter(scored).forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=mistakes(); L.push(`MISTAKES (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → wrote: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none"); L.push("");
+  L.push("WRITING:"); EX.w1.items.forEach((it,i)=>{ const txt=(state.writing["w1-"+i]||"").trim(); L.push(`${i+1}. ${it.q}`); L.push(`   (${(txt.match(/\S+/g)||[]).length} words) ${txt||"—"}`); }); L.push("");
+  L.push("ALL ANSWERS:"); EXERCISES.filter(scored).forEach(ex=>{ L.push(`${ex.no}. ${ex.title}`); for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); L.push(`   ${i+1}) ${questionText(ex,i)} → ${r?r.given:"—"} ${r&&r.done?(r.correct?"✓":"✗"):"(not done)"}`); } });
+  return L.join("\n");
+}
+function shortReport(){ const f=reportText(); if(f.length<=1500) return f; return f.slice(0,1450).replace(/\n[^\n]*$/,"")+"\n…\n(Full report with writing: use “Copy text” in the app.)"; }
+const subject=()=>{ const t=totals(); return `${SUBJECT_TOPIC} — ${studentName()} — ${t.got}/${t.tot}`; };
+function buildSend(){
+  const sub=encodeURIComponent(subject()), body=encodeURIComponent(shortReport()); let h="";
+  if(navigator.share) h+=`<button class="btn pri" type="button" id="shareBtn">📤 Share</button>`;
+  h+=`<a class="btn${navigator.share?"":" pri"}" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${sub}&body=${body}">✉️ Send in Gmail</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${sub}&text=${body}">✈️ Telegram</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${body}">💬 WhatsApp</a>`;
+  h+=`<a class="btn" href="mailto:${TEACHER}?subject=${sub}&body=${body}">📧 Email app</a>`;
+  h+=`<button class="btn" type="button" id="copyBtn">📋 Copy text</button>`;
+  $("#sendgrid").innerHTML=h;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",async()=>{ try{ await navigator.share({title:subject(),text:reportText()}); }catch(e){} });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+}
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied! Paste it into a message to your teacher.":"Couldn't copy — please select the text manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied! Paste it into a message to your teacher."),fb); else fb();
+}
+
+/* init */
+function init(){
+  buildTabs(); buildWords(); buildCards();
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ store.del(); state=fresh(); location.reload(); });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+</script>
+</body>
+</html>

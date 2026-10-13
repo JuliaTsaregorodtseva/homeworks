@@ -1068,7 +1068,7 @@ function showTab(k){
   const cur=$(`#tabs [data-t="${k}"]`); if (cur && cur.scrollIntoView) { try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){} }
   if (TABS[k].id==="results") renderResults();
   if (TABS[k].id==="cards") renderCard();
-  const top = $(".sticky").getBoundingClientRect().top + window.scrollY;
+  const top = $("header.top").getBoundingClientRect().bottom + window.scrollY;
   if (window.scrollY > top) window.scrollTo({top: top, behavior:"auto"});
 }
 
