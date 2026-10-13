@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yaroslav · The Last Bridge · Vocabulary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1E7; --card:#FFFDF8; --ink:#13342A; --muted:#5B6B63; --line:#DCD6C4; --soft:#EEEADB;
+  --green:#1E7550; --green-bg:#E2F0E8; --gold:#B68A1F; --gold-bg:#FAF0D3; --stamp:#B33A2E; --stamp-bg:#FBE7E3;
+  --ok:#1C8A50; --ok-bg:#E1F3E8; --bad:#C2392E; --bad-bg:#FCE8E5; --hint:#FFF4D6;
+  --r:16px; --shadow:0 1px 0 rgba(19,52,42,.06),0 10px 26px rgba(19,52,42,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:16px/1.55 "Manrope",system-ui,sans-serif;
+  background:var(--paper);
+  background-image:radial-gradient(circle at 0 0,rgba(30,117,80,.05) 0 2px,transparent 2px),radial-gradient(circle at 12px 12px,rgba(182,138,31,.05) 0 2px,transparent 2px);
+  background-size:24px 24px}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:.005em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* banknote header */
+header.top{padding:20px 0 12px}
+.note{position:relative;background:linear-gradient(135deg,#1E7550 0%,#13503A 60%,#0F3D2D 100%);color:#F6F1DF;border-radius:20px;padding:22px 22px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.note::before{content:"";position:absolute;inset:8px;border:1.5px solid rgba(246,241,223,.35);border-radius:14px;pointer-events:none}
+.note::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(246,241,223,.12) 0 2px,transparent 2px 9px);pointer-events:none}
+.note .serial{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;opacity:.85}
+.note h1{font-size:clamp(28px,7vw,44px);margin:10px 0 2px;line-height:1.05}
+.note p{margin:6px 0 0;max-width:560px}
+.note .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.namebox{display:flex;align-items:center;gap:8px;background:rgba(246,241,223,.12);border:1px solid rgba(246,241,223,.35);border-radius:12px;padding:6px 10px}
+.namebox label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.namebox input{background:transparent;border:0;border-bottom:1.5px dashed rgba(246,241,223,.6);width:120px;color:#fff;font-weight:800;padding:2px}
+.seal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font:20px "DM Serif Display",serif;color:#F3D88A;background:rgba(0,0,0,.12)}
+.howto{font-size:14.5px;color:var(--muted);margin:12px 2px 0}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,241,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.progress{display:flex;align-items:center;gap:10px;padding:8px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .4s}
+.score{white-space:nowrap;color:var(--ink);font-family:"IBM Plex Mono",monospace}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:88px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.15;min-height:44px}
+.coin{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:600 15px/1 "IBM Plex Mono",monospace;background:radial-gradient(circle at 35% 30%,#FFF8DF,#E9D18A 60%,#C9A445);color:#5A4410;box-shadow:inset 0 0 0 2px rgba(90,68,16,.25),0 2px 0 rgba(90,68,16,.25);transition:transform .2s}
+.tab b{color:var(--ink);font-weight:800}
+.tab .badge{font-size:11px;font-family:"IBM Plex Mono",monospace}
+.tab.on .coin{transform:translateY(-2px) scale(1.08);box-shadow:inset 0 0 0 2px rgba(90,68,16,.35),0 0 0 3px var(--green)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#F0FFF6,#9FD8B6 60%,#3E9E6C);color:#0E4A2C}
+.tab.done .badge{color:var(--ok)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.card h3{font-size:20px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 6px}
+.kicker{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* word list */
+.wgroup{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start}
+.word .em{font-size:26px;line-height:1.1}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.word .pat{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:6px;padding:1px 7px;margin:3px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);margin-top:4px;font-style:italic}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:17px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:15px}
+.say:active{transform:scale(.94)}
+.careful{background:var(--gold-bg);border:2px dashed var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:8px 0}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:6px 0 2px}
+.mist div{padding:6px 10px;border-radius:9px;font-weight:700;font-size:14.5px}
+.mist .x{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-bg);color:var(--ok)}
+.mist .x::before{content:"✗ "}.mist .v::before{content:"✓ "}
+.colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.colbox{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid var(--line);font-size:14.5px}
+.colbox b.p{font:600 15px "IBM Plex Mono",monospace;color:var(--green)}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fc-scene{perspective:1200px;max-width:460px;margin:0 auto}
+.fc{position:relative;height:290px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;gap:6px}
+.front{background:#fff;border:2px solid var(--line);background-image:repeating-linear-gradient(45deg,rgba(30,117,80,.03) 0 6px,transparent 6px 12px)}
+.back{background:linear-gradient(140deg,#1E7550,#0F3D2D);color:#F6F1DF;transform:rotateY(180deg)}
+.face .big{font-size:48px;line-height:1}
+.face .txt{font:clamp(26px,7vw,34px)/1.15 "DM Serif Display",serif}
+.face .def{font-size:16.5px;font-weight:600;max-width:360px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:360px}
+.face .ipa{font:500 14px "IBM Plex Mono",monospace;color:var(--muted)}
+.face .say{position:absolute;top:12px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#B9D8C6}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--green)}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:800;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--stamp);color:var(--stamp)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px dashed var(--line)}
+.exhead .no{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.exhead h3{margin:6px 0 2px;font-size:22px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font:600 13px "IBM Plex Mono",monospace;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:600 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:700}
+.orig{display:block;font-weight:600;color:var(--muted);font-size:15px;margin-bottom:4px}
+.key{display:inline-block;font:600 13px "IBM Plex Mono",monospace;background:var(--gold-bg);color:#7A5B0E;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok)}
+.gap.filledbad{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;min-width:52px;font-weight:800;font-size:16px;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.opt.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-weight:700;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--green);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.wrongs{font-size:16.5px;font-weight:700;color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(194,57,46,.35)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:800}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-weight:700;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:800;font-size:15.5px}
+.mbtn.sel{border-color:var(--green);background:var(--green-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* text */
+.gtext{font-size:17px;line-height:2.35;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.gtext .gn{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);vertical-align:super;margin-right:2px}
+.gapin{width:100px;border:0;border-bottom:3px solid var(--green);background:var(--green-bg);border-radius:6px 6px 0 0;padding:2px 6px;font-weight:800;font-size:16px;text-align:center}
+.gapin.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.gapin.badv{border-color:var(--bad);background:var(--bad-bg)}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:150px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--green);outline:none}
+.wcount{font:500 12.5px "IBM Plex Mono",monospace;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok)}
+.tick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tick span{font-size:12.5px;font-weight:800;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.tick span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* receipt */
+.receipt{background:#fff;max-width:520px;margin:0 auto 18px;padding:22px 20px 26px;font-family:"IBM Plex Mono",monospace;font-size:14px;box-shadow:var(--shadow);position:relative;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x}
+.receipt h2{font-family:"IBM Plex Mono",monospace;font-size:16px;text-align:center;letter-spacing:.2em;margin:0}
+.receipt .c{text-align:center;color:var(--muted);font-size:12.5px}
+.receipt hr{border:0;border-top:1.5px dashed var(--line);margin:12px 0}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.receipt .ln span:first-child{min-width:0}
+.receipt .tot{font-size:22px;font-weight:600}
+.receipt .msg{text-align:center;font-family:"Manrope",sans-serif;font-weight:700;font-size:16px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:2px 10px;transform:rotate(-6deg);font-weight:600;letter-spacing:.12em;margin-top:8px}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:700}.mlist .cr{color:var(--ok);font-weight:800}
+.sendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.sendgrid .btn{text-decoration:none;color:var(--ink);text-align:center;display:flex;align-items:center;justify-content:center}
+.sendgrid .pri{color:#fff}
+.mail{user-select:all;font-weight:800;background:var(--soft);padding:2px 8px;border-radius:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wgroup,.mist,.colgrid{grid-template-columns:1fr}
+  .opts,.fb,.inrow{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14px}
+  .seal{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root{
+  --paper:#F2ECE0; --card:#FBF8F2; --ink:#2A2118; --muted:#6A5E50; --line:#DDD2BF; --soft:#EDE4D3;
+  --green:#2F4A5C; --green-bg:#E1E8EC; --gold:#8C2F2B; --gold-bg:#F6E3DF; --stamp:#8C2F2B;
+}
+body{font-family:"Manrope",system-ui,sans-serif;background-image:none}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:700}
+.note{background:linear-gradient(160deg,#3A2E22 0%,#2A2118 70%);color:#F2ECE0}
+.note::after{background:repeating-linear-gradient(0deg,rgba(242,236,224,.06) 0 1px,transparent 1px 7px);border-radius:0;right:0;top:0;width:100%;height:100%}
+.note .serial{color:#D9B98A}
+.seal{border-color:#B0503F;color:#F0C9A8;background:radial-gradient(circle at 40% 35%,#B0503F,#7A2621);font-size:26px}
+.coin{background:radial-gradient(circle at 35% 30%,#FFF6E8,#E6CFA8 60%,#B99566);color:#4A3418}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#EEF4F7,#A9C1CF 60%,#5E7F94);color:#1E3442}
+.back{background:linear-gradient(140deg,#2F4A5C,#1E3442)}
+.kicker{color:var(--gold)}
+.word .pat{color:var(--green);background:var(--green-bg)}
+.rubtn{border:1px dashed var(--line);background:transparent;border-radius:8px;padding:4px 10px;font-size:13px;font-weight:700;color:var(--muted);margin-top:8px;min-height:32px}
+.rutxt{display:block;margin-top:6px;font-size:14.5px;font-weight:700;color:var(--green)}
+.rutxt[hidden]{display:none}
+.back .rubtn{color:#D7E3EA;border-color:rgba(255,255,255,.35);position:relative;z-index:2}
+.back .rutxt{color:#F2E1C2}
+.story{font-family:"Playfair Display",Georgia,serif;font-size:18.5px;line-height:1.75;background:#FFFDF8;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.story p{margin:0 0 12px}.story p:last-child{margin:0}
+.gl{border:0;background:none;padding:0 1px;font:inherit;color:#8C2F2B;font-weight:700;border-bottom:2px dotted #8C2F2B;cursor:pointer;min-height:0}
+.gl.on{background:#F6E3DF;border-bottom-style:solid}
+.gloss{display:none;margin-top:10px;background:var(--green-bg);border-left:5px solid var(--green);border-radius:10px;padding:10px 14px;font-size:15.5px}
+.gloss.show{display:block}
+.gloss .ruline{margin-top:4px;color:var(--green);font-weight:700}
+.receipt h2{font-family:"IBM Plex Mono",monospace}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="note">
+      <div class="serial">UPPER-INTERMEDIATE · VOCABULARY · FOR YAROSLAV</div>
+      <h1>The Last Bridge</h1>
+      <p>Sixteen words for talking about courage, conflict and remembrance: from <i>stern</i> and <i>defiant</i> to <i>pay homage</i> and <i>burst into tears</i>.</p>
+      <div class="row2">
+        <div class="namebox"><label for="nm">Name</label><input id="nm" autocomplete="off"></div>
+        <div class="seal" aria-hidden="true">✦</div>
+      </div>
+    </div>
+    <p class="howto">Work through the tabs in order: Words (read the story first) → Cards → Meanings → Form → Use it → Results. Your answers save automatically, so you can stop and come back later.</p>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="progress"><span id="pdone">0%</span><div class="bar"><i id="pbar"></i></div><span class="score" id="pscore">0 / 0</span></div>
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="panel" id="p-words">
+  <div class="card">
+    <span class="kicker">Step 1 · The story</span>
+    <h2>The Last Bridge</h2>
+    <p class="lead">Read the story. All sixteen words are underlined — tap one to see what it means.</p>
+    <div class="story" id="story"></div>
+    <div class="gloss" id="gloss" aria-live="polite"></div>
+    <div class="row" style="margin-top:10px"><button class="btn" id="storySay" type="button" data-say="">🔊 Listen to the story</button></div>
+  </div>
+  <div class="card">
+    <span class="kicker">Step 1 · The words</span>
+    <h2>The words</h2>
+    <p class="lead">Read the definition and the pattern, listen 🔊 and say each word out loud. If you need it, the Russian translation is one tap away.</p>
+    <div class="row" style="margin-bottom:12px"><button class="btn" id="ruAll" type="button">Show all Russian translations</button></div>
+    <div class="wgroup" id="wl-all"></div>
+  </div>
+  <div class="careful">
+    <h2>⚠️ Careful with these</h2>
+    <ul>
+      <li><b>momentous ≠ momentary.</b> <i>Momentous</i> = hugely important; <i>momentary</i> = lasting only a moment.
+        <div class="mist"><div class="x">a momentary decision for the country</div><div class="v">a momentous decision for the country</div></div></li>
+      <li><b>be attributed to</b> — always <b>to</b>, and usually passive: <i>The quote is attributed <b>to</b> Wilde.</i> It can also mean “caused by”: <i>His success can be attributed to hard work.</i></li>
+      <li><b>wage</b> war / a campaign <b>on</b> or <b>against</b> sb. In the passive: <i>A campaign <b>was waged</b> against corruption.</i></li>
+      <li><b>pay homage to</b> sb — not <s>make</s> or <s>give</s> homage. British English pronounces the h: /ˈhɒmɪdʒ/. <button class="say sm" type="button" data-say="homage" aria-label="listen">🔊</button></li>
+      <li><b>take pains to do sth</b> — <i>pains</i> is always plural here and often comes with <i>great</i>: <i>She took great pains to be fair.</i>
+        <div class="mist"><div class="x">He took a pain to explain.</div><div class="v">He took pains to explain.</div></div></li>
+      <li><b>burst – burst – burst</b>: no <s>bursted</s>. <i>She burst into tears.</i> Also: <i>burst out laughing</i>.</li>
+      <li><b>defy</b> (verb) → <b>defiant</b> (adj) → <b>defiance</b> (noun). <b>peril</b> (noun) → <b>perilous</b> (adj): <i>in peril</i>, <i>at your peril</i>.</li>
+      <li><b>reassure sb (that)…</b> takes a person directly: <i>She reassured <b>me</b> that…</i> (not <s>reassured to me</s>). Don't confuse it with <i>ensure</i> or <i>insure</i>.</li>
+      <li><b>throughout</b> = all through a place or time, one word: <i>throughout the country</i>, <i>throughout the war</i>.</li>
+    </ul>
+  </div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Flashcards →</button></div>
+</section>
+
+<section class="panel" id="p-cards">
+  <div class="card">
+    <span class="kicker">Step 2</span>
+    <h2>Flashcards</h2>
+    <p class="lead">Tap the card to flip it. Be honest with yourself: “I know it” only if you could use the word in a sentence. The Russian translation is on the back, hidden behind a button.</p>
+    <div class="fc-top">
+      <button class="btn" id="fcDir" type="button">Word → meaning</button>
+      <label class="tog"><input type="checkbox" id="fcOnly"> Only words I'm still learning</label>
+    </div>
+    <div style="font-size:14px;font-weight:700">Known: <span id="fcKnown">0</span> / <span id="fcTotal">0</span><span style="float:right;color:var(--muted)" class="mono" id="fcPos"></span></div>
+    <div class="kbar"><i id="fcKbar"></i></div>
+    <div class="fc-scene">
+      <div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card">
+        <div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div>
+      </div>
+    </div>
+    <div class="fc-row">
+      <button class="btn bad" id="fcLearn" type="button">🔁 Still learning</button>
+      <button class="btn ok" id="fcKnow" type="button">✓ I know it</button>
+    </div>
+    <div class="fc-row">
+      <button class="btn" id="fcPrev" type="button">◀ Back</button>
+      <button class="btn" id="fcShuf" type="button">🔀 Shuffle</button>
+      <button class="btn" id="fcNext" type="button">Next ▶</button>
+    </div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Meanings →</button></div>
+</section>
+
+<section class="panel" id="p-p1">
+  <div class="card"><span class="kicker">Step 3</span><h2>Meanings</h2><p class="lead" style="margin:0">Recognise the words. Your first answer counts for the score.</p></div>
+  <div data-ex="x1"></div><div data-ex="x2"></div><div data-ex="x3"></div><div data-ex="x4"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Form →</button></div>
+</section>
+
+<section class="panel" id="p-p2">
+  <div class="card"><span class="kicker">Step 4</span><h2>Form</h2><p class="lead" style="margin:0">Prepositions, word families and spelling.</p></div>
+  <div data-ex="x5"></div><div data-ex="x6"></div><div data-ex="x7"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">Next: Use it →</button></div>
+</section>
+
+<section class="panel" id="p-p3">
+  <div class="card"><span class="kicker">Step 5</span><h2>Use it</h2><p class="lead" style="margin:0">A text, sentence transformations and your own writing.</p></div>
+  <div data-ex="x8"></div><div data-ex="x9"></div><div data-ex="w1"></div>
+  <div class="next"><button class="btn pri" data-go="5" type="button">See my results →</button></div>
+</section>
+
+<section class="panel" id="p-results">
+  <div class="receipt" id="receipt"></div>
+  <div class="card">
+    <h2 style="font-size:22px">Send it to your teacher</h2>
+    <p class="lead">When you've finished, send your results. Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Gmail, Telegram, WhatsApp and the email app send a shorter version. “Copy text” always copies the full report, including your writing.</p>
+  </div>
+  <div class="card">
+    <h2 style="font-size:22px">Mistakes to look at again</h2>
+    <ul class="mlist" id="rMist"></ul>
+  </div>
+  <div class="card">
+    <h2 style="font-size:22px">Start again</h2>
+    <button class="btn bad" id="resetBtn" type="button">🗑 Delete all my answers</button>
+    <div class="confirm" id="resetConfirm"><b>Delete all answers? This can't be undone.</b>
+      <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes" type="button">Yes, delete</button><button class="btn" id="resetNo" type="button">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<footer>Made for Yaroslav · Good luck!</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA — edit words, items and answers here
+   ========================================================= */
+const STUDENT = "Yaroslav";
+const TEACHER = "ulchik2211@gmail.com";
+const TITLE = "Vocabulary: courage, conflict and remembrance (upper-intermediate)";
+const SUBJECT_TOPIC = "Vocabulary — The Last Bridge";
+const KEY = "yaroslav-vocab-bridge-v1";
+
+/* ru = the Russian translation (hidden behind "Show Russian" buttons) */
+const VOCAB = [
+  {id:"stern", en:"stern", ipa:"/stɜːn/", em:"🧐", pat:"adj · a stern look / warning / voice", def:"serious and strict, often showing disapproval", ru:"строгий, суровый", ex:"The judge gave him a stern warning."},
+  {id:"attributed", en:"be attributed to", ipa:"/əˈtrɪbjuːtɪd/", em:"✍️", pat:"passive · sth is attributed to sb / sth", def:"to be said to have been written, said or caused by someone or something", ru:"приписываться (кому-л.); объясняться (чем-л.)", ex:"The quote is often attributed to Churchill."},
+  {id:"defy", en:"defy", ipa:"/dɪˈfaɪ/", em:"✊", pat:"verb · defy an order / the law / the odds", def:"to refuse to obey a person, rule or law openly", ru:"бросать вызов, открыто не подчиняться", ex:"The workers defied the ban and went on strike."},
+  {id:"defiant", en:"defiant", ipa:"/dɪˈfaɪənt/", em:"😤", pat:"adj · noun: defiance", def:"openly refusing to obey, sometimes in an aggressive way", ru:"непокорный, вызывающий", ex:"He remained defiant even after his arrest."},
+  {id:"peril", en:"peril", ipa:"/ˈperəl/", em:"⚠️", pat:"noun · in peril · at your peril", def:"serious and immediate danger", ru:"(серьёзная) опасность, угроза", ex:"The ship and its crew were in great peril."},
+  {id:"perilous", en:"perilous", ipa:"/ˈperələs/", em:"🧗", pat:"adj · a perilous journey / situation", def:"extremely dangerous", ru:"опасный, рискованный", ex:"They made the perilous journey across the mountains."},
+  {id:"waged", en:"be waged", ipa:"/weɪdʒd/", em:"⚔️", pat:"passive · wage war on / against sb", def:"(of a war or campaign) to be fought or carried out", ru:"вестись (о войне, кампании)", ex:"The war was waged for almost ten years."},
+  {id:"homage", en:"pay homage to", ipa:"/ˈhɒmɪdʒ/", em:"🎖️", pat:"phrase · pay homage to sb / sth", def:"to show great respect for someone, especially in public", ru:"отдавать дань уважения", ex:"Thousands came to pay homage to the fallen soldiers."},
+  {id:"overabove", en:"over and above", ipa:"", em:"➕", pat:"phrase · over and above sth", def:"in addition to; more than", ru:"сверх, помимо", ex:"Over and above his salary, he gets a company car."},
+  {id:"momentous", en:"momentous", ipa:"/məˈmentəs/", em:"🏛️", pat:"adj · a momentous event / decision", def:"very important because of its effect on the future", ru:"важнейший, судьбоносный, исторический", ex:"Landing on the Moon was a momentous event."},
+  {id:"just", en:"just", ipa:"/dʒʌst/", em:"⚖️", pat:"adj · a just cause / society / punishment", def:"fair and morally right", ru:"справедливый", ex:"They believed they were fighting for a just cause."},
+  {id:"unjust", en:"unjust", ipa:"/ʌnˈdʒʌst/", em:"🚫", pat:"adj · noun: injustice", def:"not fair or morally right", ru:"несправедливый", ex:"Many people protested against the unjust law."},
+  {id:"throughout", en:"throughout", ipa:"/θruːˈaʊt/", em:"🌍", pat:"prep / adv · throughout the country / the war", def:"in every part of a place; during the whole of a period", ru:"по всему; на протяжении всего", ex:"The song became famous throughout the world."},
+  {id:"takepains", en:"take pains to", ipa:"", em:"🛠️", pat:"phrase · take (great) pains to do sth", def:"to make a special effort to do something carefully", ru:"очень стараться, прилагать все усилия", ex:"She took great pains to explain every detail."},
+  {id:"reassure", en:"reassure", ipa:"/ˌriːəˈʃʊə/", em:"🤝", pat:"verb · reassure sb (that) · reassuring, reassurance", def:"to make someone feel less worried about something", ru:"успокаивать, заверять", ex:"The doctor reassured her that it was nothing serious."},
+  {id:"burst", en:"burst into tears", ipa:"/bɜːst/", em:"😭", pat:"phrase · burst – burst – burst", def:"to suddenly start crying", ru:"расплакаться, разрыдаться", ex:"When she heard the news, she burst into tears."}
+];
+
+/* Story: {id|text} = a word from the list (tap to see the meaning) */
+const STORY = [
+  "{throughout|Throughout} the long winter, a bitter war {waged|was being waged} along the river. The town of Elsmere was in great {peril|peril}: the enemy was only a day's march away, and the only road to safety crossed a narrow, {perilous|perilous} bridge over the ice.",
+  "Captain Holt was a {stern|stern} man who rarely smiled. When he ordered the townspeople to leave, many of them {defy|defied} him and refused to go. 'This is our home,' said old Mrs Wren, {defiant|defiant} to the end. 'We stay.'",
+  "The captain {takepains|took great pains to} explain the danger. He spoke quietly to the children and {reassure|reassured} their parents that his soldiers would protect them on the crossing. {overabove|Over and above} what his orders required, he gave the families his own horses and food.",
+  "At dawn, the whole town crossed the bridge. When the last child reached the far bank, Mrs Wren {burst|burst into tears} and thanked him.",
+  "Historians call that night a {momentous|momentous} turning point in the town's history, and the rescue {attributed|is attributed to} Captain Holt's courage. Every year, the people of Elsmere {homage|pay homage to} him at a small memorial by the river. For them, it was a {just|just} act in an {unjust|unjust} war."
+];
+
+const EXERCISES = [
+  /* ---------- PRACTICE 1 ---------- */
+  {id:"x1", type:"match", title:"Match the meanings (1)", ins:"Tap a word, then its meaning.",
+   items:[
+    {en:"stern", def:"strict and serious, showing disapproval"},
+    {en:"defy", def:"openly refuse to obey"},
+    {en:"defiant", def:"showing an open refusal to obey"},
+    {en:"peril", def:"serious danger"},
+    {en:"perilous", def:"extremely dangerous"},
+    {en:"be waged", def:"(of a war or campaign) be carried out"},
+    {en:"pay homage to", def:"publicly honour someone"},
+    {en:"over and above", def:"in addition to; more than"}
+   ]},
+  {id:"x2", type:"match", title:"Match the meanings (2)", ins:"Same again, second round.",
+   items:[
+    {en:"momentous", def:"hugely important for the future"},
+    {en:"just", def:"fair and morally right"},
+    {en:"unjust", def:"unfair"},
+    {en:"throughout", def:"in every part of; from start to finish"},
+    {en:"take pains to", def:"make a great effort to"},
+    {en:"reassure", def:"make someone feel less worried"},
+    {en:"burst into tears", def:"suddenly start crying"},
+    {en:"be attributed to", def:"be said to be created or caused by"}
+   ]},
+  {id:"x3", type:"choice", title:"Which word fits?", ins:"Choose the word or phrase that completes the sentence.",
+   items:[
+    {q:"The headteacher gave the boys a ___ look, and they immediately stopped talking.", answer:"stern", options:["stern","momentous","just"], why:"stern = strict and disapproving — a look that makes people stop."},
+    {q:"The protesters ___ the curfew and stayed on the streets all night.", answer:"defied", options:["reassured","defied","attributed"], why:"defy a curfew / an order / the law = openly refuse to obey it."},
+    {q:"Crossing the mountains in winter was a ___ journey.", answer:"perilous", options:["just","stern","perilous"], why:"perilous = extremely dangerous (a perilous journey)."},
+    {q:"The saying “Knowledge is power” is often ___ Francis Bacon.", answer:"attributed to", options:["attributed to","paid homage to","reassured"], why:"be attributed to sb = said to have been said or written by them."},
+    {q:"The fall of the Berlin Wall was a ___ event in European history.", answer:"momentous", options:["momentary","perilous","momentous"], why:"momentous = hugely important. Careful: momentary = lasting a moment."},
+    {q:"The nurse ___ the frightened child that the injection wouldn't hurt.", answer:"reassured", options:["defied","reassured","attributed"], why:"reassure sb (that) … = make them feel less worried."},
+    {q:"When she heard the news, she ___ and couldn't stop crying.", answer:"burst into tears", options:["burst into tears","took pains","paid homage"], why:"burst into tears = suddenly start crying."},
+    {q:"It rained ___ the festival — there wasn't a single dry day.", answer:"throughout", options:["over and above","throughout","in peril"], why:"throughout = during the whole of a period."},
+    {q:"A fierce campaign against corruption is being ___ by the new government.", answer:"waged", options:["waged","defied","reassured"], why:"wage a campaign / a war; passive: a campaign is being waged."},
+    {q:"Thousands of fans gathered to ___ the late singer.", answer:"pay homage to", options:["defy","reassure","pay homage to"], why:"pay homage to sb = publicly show great respect."}
+   ]},
+  {id:"x4", type:"choice", title:"Close and opposite meanings", ins:"Choose the best answer.",
+   items:[
+    {q:"Closest in meaning to <b>stern</b>:", answer:"strict", options:["strict","cheerful","nervous"], why:"stern ≈ strict, severe."},
+    {q:"Closest in meaning to <b>perilous</b>:", answer:"hazardous", options:["harmless","hazardous","tedious"], why:"perilous ≈ hazardous, very dangerous."},
+    {q:"Opposite of <b>just</b>:", answer:"unjust", options:["fair","rightful","unjust"], why:"just ↔ unjust (fair ↔ unfair)."},
+    {q:"Opposite of <b>defiant</b>:", answer:"obedient", options:["obedient","rebellious","stubborn"], why:"defiant ↔ obedient. Rebellious and stubborn are close in meaning to defiant."},
+    {q:"Opposite of <b>momentous</b>:", answer:"trivial", options:["historic","trivial","significant"], why:"momentous ↔ trivial (unimportant)."},
+    {q:"Opposite of <b>reassure</b>:", answer:"alarm", options:["comfort","soothe","alarm"], why:"reassure ↔ alarm / worry. Comfort and soothe are close in meaning."}
+   ]},
+  /* ---------- PRACTICE 2 ---------- */
+  {id:"x5", type:"type", title:"Word partners", ins:"Type the ONE missing word.",
+   items:[
+    {q:"Thousands came to pay homage ___ the fallen soldiers.", accept:["to"], hint:"pay homage ? sb", why:"pay homage TO someone."},
+    {q:"She burst ___ tears when she saw the results.", accept:["into"], hint:"burst ? tears", why:"burst INTO tears."},
+    {q:"The painting is now attributed ___ a pupil of Rembrandt.", accept:["to"], hint:"attributed ? sb", why:"be attributed TO someone or something."},
+    {q:"The editor took great ___ to check every fact.", accept:["pains"], hint:"take (great) ? to do sth", why:"take (great) pains to do something."},
+    {q:"The government promised to wage war ___ poverty.", accept:["on","against"], hint:"wage war ? sth", why:"wage war on / against something."},
+    {q:"The climbers knew their lives were ___ peril.", accept:["in"], hint:"? peril = in danger", why:"in peril = in serious danger."},
+    {q:"They were sure they were fighting for a ___ cause.", accept:["just"], hint:"fair and morally right", why:"a just cause = a morally right reason to fight."},
+    {q:"Ignore this warning at your ___!", accept:["peril","own peril"], hint:"at your … = and you will be in danger", why:"do sth at your (own) peril = it will be dangerous for you."}
+   ]},
+  {id:"x6", type:"type", title:"Word building", ins:"Use the word in CAPITALS to make a word that fits the gap.",
+   items:[
+    {q:"Climbing without ropes is extremely ___ .", key:"PERIL", accept:["perilous"], hint:"An adjective ending in -ous.", why:"peril → perilous."},
+    {q:"The prisoner remained ___ to the very end.", key:"DEFY", accept:["defiant"], hint:"An adjective ending in -ant.", why:"defy → defiant."},
+    {q:"Her open ___ of the ban made headlines.", key:"DEFY", accept:["defiance"], hint:"A noun ending in -ance.", why:"defy → defiance (noun)."},
+    {q:"The doctor's words were very ___ .", key:"REASSURE", accept:["reassuring"], hint:"An adjective ending in -ing.", why:"reassure → reassuring (making you feel less worried)."},
+    {q:"After the fire, the family needed comfort and ___ .", key:"REASSURE", accept:["reassurance"], hint:"A noun ending in -ance.", why:"reassure → reassurance."},
+    {q:"Many people felt the new law was deeply ___ .", key:"JUST", accept:["unjust"], hint:"A negative prefix.", why:"just → unjust."},
+    {q:"The teacher looked at us ___ and we fell silent.", key:"STERN", accept:["sternly"], hint:"An adverb ending in -ly.", why:"stern → sternly (adverb)."},
+    {q:"Signing the peace treaty was a ___ decision.", key:"MOMENT", accept:["momentous"], hint:"Not “momentary”!", why:"moment → momentous (hugely important). momentary = very short."}
+   ]},
+  {id:"x7", type:"type", listen:true, title:"Listen and spell", ins:"Press 🔊 and type the word you hear. Watch the spelling!",
+   items:[
+    {say:"perilous", accept:["perilous"], hint:"8 letters, one r, one l.", why:"p-e-r-i-l-o-u-s."},
+    {say:"momentous", accept:["momentous"], hint:"9 letters, ends in -ous.", why:"m-o-m-e-n-t-o-u-s."},
+    {say:"homage", accept:["homage"], hint:"6 letters; the h is pronounced in British English.", why:"h-o-m-a-g-e."},
+    {say:"defiant", accept:["defiant"], hint:"7 letters, starts with de-.", why:"d-e-f-i-a-n-t."},
+    {say:"reassure", accept:["reassure"], hint:"re + assure (double s).", why:"re-a-ss-ure."}
+   ]},
+  /* ---------- USE IT ---------- */
+  {id:"x8", type:"textgap", title:"At the memorial", ins:"Complete the text with the words in the box. Use each one once.",
+   bank:["burst into tears","defied","momentous","over and above","pay homage","perilous","reassure","take pains","throughout","waged"],
+   text:"Every year, people from [[throughout]] the region gather at the old memorial to [[pay homage]] to the soldiers who fought there. The war that was [[waged]] here two hundred years ago changed the country for ever — it was a truly [[momentous]] time. The guides [[take pains|take great pains]] to tell the story accurately, and they [[reassure]] nervous visitors that the old bridge, once so [[perilous]], is now completely safe. One guide told us about a young officer who [[defied]] his commanders to save a village. Many say his courage went [[over and above]] what anyone could expect. At the end of the tour, an elderly visitor [[burst into tears]] — her great-grandfather had been one of the villagers he saved.",
+   whys:["throughout the region = in every part of it","pay homage to the soldiers = honour them","a war is waged","momentous = hugely important","take pains to do sth","reassure sb that…","perilous = very dangerous","defy your commanders = refuse to obey","over and above = more than","burst into tears = suddenly start crying"]},
+  {id:"x9", type:"type", selfmark:true, title:"Say it another way", ins:"Complete the second sentence so it means the same as the first. Use the word in CAPITALS (2–5 words).",
+   items:[
+    {orig:"People say this poem was written by Pushkin, but nobody is sure.", key:"ATTRIBUTED", q:"The poem ___ Pushkin.", accept:["is attributed to","is often attributed to","has been attributed to","is usually attributed to"], hint:"be + attributed + preposition", why:"be attributed to sb."},
+    {orig:"She made a great effort to be polite to everyone.", key:"PAINS", q:"She ___ be polite to everyone.", accept:["took pains to","took great pains to"], hint:"took (great) … to", why:"take (great) pains to do sth."},
+    {orig:"He suddenly started crying.", key:"BURST", q:"He suddenly ___ .", accept:["burst into tears","burst out crying"], hint:"burst … tears", why:"burst into tears (or burst out crying)."},
+    {orig:"They fought the war for ten years.", key:"WAGED", q:"The war ___ for ten years.", accept:["was waged"], hint:"Passive.", why:"wage a war → passive: the war was waged."},
+    {orig:"In addition to his salary, he gets a car.", key:"ABOVE", q:"___ his salary, he gets a car.", accept:["over and above"], hint:"over … …", why:"over and above = in addition to."},
+    {orig:"The general told us there was nothing to worry about.", key:"REASSURED", q:"The general ___ there was nothing to worry about.", accept:["reassured us that","reassured us"], hint:"reassured + person (+ that)", why:"reassure sb (that) …"},
+    {orig:"The soldiers refused to obey the order.", key:"DEFIED", q:"The soldiers ___ .", accept:["defied the order","openly defied the order"], hint:"defied + the …", why:"defy an order = refuse to obey it."},
+    {orig:"We went to the memorial to honour the soldiers.", key:"HOMAGE", q:"We went to the memorial to ___ the soldiers.", accept:["pay homage to"], hint:"pay … to", why:"pay homage to sb."}
+   ]},
+  {id:"w1", type:"writing", title:"Your turn: a momentous event", ins:"Write 100–150 words. Use at least six of the new words — they light up as you use them. This part isn't marked.",
+   items:[
+    {q:"Describe a momentous event — in history, in your country or in your own life. What happened, how did people react, and why does it still matter?", eg:"One of the most momentous events in my country's history was…", min:100}
+   ]}
+];
+
+const WRITE_WORDS = [["stern","sternly"],["attributed"],["defy","defied","defies","defying"],["defiant","defiance"],["peril"],["perilous"],["wage","waged","waging"],["homage"],["over and above"],["momentous"],["just cause","just society","just war","just act","just decision","just punishment","just and fair"],["unjust","injustice"],["throughout"],["take pains","took pains","taking pains","takes pains","take great pains","took great pains"],["reassure","reassured","reassuring","reassurance"],["burst into tears","bursts into tears","bursting into tears"]];
+
+const TABS = [
+  {id:"words", icon:"1", en:"Words", ex:[]},
+  {id:"cards", icon:"2", en:"Cards", ex:[]},
+  {id:"p1", icon:"3", en:"Meanings", ex:["x1","x2","x3","x4"]},
+  {id:"p2", icon:"4", en:"Form", ex:["x5","x6","x7"]},
+  {id:"p3", icon:"5", en:"Use it", ex:["x8","x9","w1"]},
+  {id:"results", icon:"★", en:"Results", ex:[]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+
+const store = (()=>{ let mem=null; return {
+  get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
+  set(v){ mem=v; try{ localStorage.setItem(KEY,v); }catch(e){} },
+  del(){ mem=null; try{ localStorage.removeItem(KEY); }catch(e){} } };})();
+function fresh(){ return {name:STUDENT, ans:{}, known:[], writing:{}, tab:0, fcDir:"word"}; }
+let state=fresh();
+try{ const raw=store.get(); if(raw) state=Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(state)); }catch(e){} updateProgress(); }
+function rec(id,i){ return (state.ans[id]||{})[i]; }
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","isn't":"is not","aren't":"are not","haven't":"have not","hasn't":"has not","won't":"will not","i'll":"i will","what's":"what is","let's":"let us","i've":"i have","wasn't":"was not"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/,(\d{3})/g,"$1").replace(/,/g," ")
+    .replace(/\s+/g," ").trim().replace(/[.!?]+$/,"").trim();
+  s=s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot").replace(/^'s /,"is ").replace(/ 's /g," is ");
+  return s;
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
+function speak(t){ if(!("speechSynthesis" in window)||!t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/\(sb[^)]*\)|\(an amount\)|\(money\)/g,"").replace(/·/g,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(t)}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!","Great!"];
+const OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${ex.title}</h3><div class="ins">${ex.ins}</div></div><div class="exbody"></div>`;
+  return box;
+}
+// q may contain <b> tags (trusted data); gap marker ___
+function gapHtml(q,fill,cls){ return q.replace("___",`<span class="gap ${cls||""}">${fill?esc(fill):"&nbsp;"}</span>`); }
+function fillSentence(q,a){ return strip(q).replace("___",a).replace(/\s+/g," ").trim(); }
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+function bankHtml(b){ return `<div class="bank"><b>Word box</b>${b.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`; }
+
+/* choice */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const hasGap=it.q.includes("___");
+    const qh = it.say ? `<span class="row">${sayBtn(it.say)} <span>${esc(it.q)}</span></span>` : `<span class="qt">${gapHtml(it.q)}</span>`;
+    const opts=it.options||ex.options;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="opts">${opts.map(o=>`<button class="opt${ex.mono?" mono":""}" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return;
+      const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.answer,done:true}); paintChoice(ex,it,i,row,true); }));
+    row.dataset.gap=hasGap?"1":"";
+    body.appendChild(row);
+    if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===it.answer) b.classList.add("ghost"); });
+  const hasGap=it.q.includes("___");
+  if(hasGap){ const qt=$(".qt",row); qt.innerHTML=gapHtml(it.q,it.answer,r.correct?"filled":"filledbad"); }
+  const sent=hasGap?fillSentence(it.q,it.answer):(it.say||it.answer);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.answer)}</b>${hasGap?`<span class="row">${sayBtn(sent,true)} <span>${esc(sent)}</span></span>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* typed */
+function renderType(ex,body){
+  if(ex.bank) body.insertAdjacentHTML("beforeend",bankHtml(ex.bank));
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.listen) qh=`<span class="row">${sayBtn(it.say)} <span style="color:var(--muted);font-weight:600">Listen and type</span></span>`;
+    else if(it.wrong) qh=`<span class="wrongs">${esc(it.wrong)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}</span>`:""}<span class="qt">${gapHtml(it.q)}</span>${it.key?`<span class="key">${esc(it.key)}</span>`:""}`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="inrow"><input type="text" autocomplete="off" autocapitalize="${it.wrong?"sentences":"off"}" spellcheck="false" aria-label="answer" placeholder="${it.wrong?"Write the correct sentence":"Type your answer"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    body.appendChild(row);
+    const r=rec(ex.id,i); if(r&&r.done) paintTyped(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); paintTyped(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function modelOf(ex,it){ if(ex.listen) return it.say; if(it.wrong) return it.accept[0]+(it.end||"."); return fillSentence(it.q,it.accept[0]); }
+function paintTyped(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.listen&&!it.wrong){ $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad"); }
+  const full=modelOf(ex,it); let notes="";
+  if(r.correct&&it.wrong&&r.given[0]!==r.given[0].toUpperCase()) notes+=`<div>✏️ Remember the capital letter at the start.</div>`;
+  if(r.correct&&it.end==="?"&&!/\?\s*$/.test(r.given)) notes+=`<div>❓ Don't forget the question mark.</div>`;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(r.self?"✓ Marked as correct by you":(live?pick(PRAISE):"✓ Correct")):"✗ The answer is:"}</b><span class="row">${sayBtn(full,true)} <span>${esc(full)}</span></span>${notes}${whyHtml(it.why)}${ex.selfmark&&!r.correct?`<button class="btn ok selfok" type="button">My answer is also correct ✓</button>`:""}`;
+  const sb=$(".selfok",fb); if(sb) sb.addEventListener("click",()=>{ r.correct=true; r.self=true; setRec(ex.id,i,r); paintTyped(ex,it,i,row,false); });
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* match */
+function renderMatch(ex,body){
+  const order=seeded(ex.items.map((p,k)=>k),hash(ex.id)+5);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb" style="margin-left:0"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  ex.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p.en)}</button>`));
+  order.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(ex.items[k].def)}</button>`));
+  const allDone=()=>ex.items.every((p,k)=>rec(ex.id,k)&&rec(ex.id,k).done);
+  function refresh(){ ex.items.forEach((p,k)=>{ const r=rec(ex.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    if(allDone()){ const fb=$(".fb",body); fb.className="fb show good"; fb.innerHTML=`<b class="t">All matched!</b>${exGot(ex)}/${ex.items.length} on the first try. Yellow ones had a mistake — look at them again.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(ex.id,k)||{tries:0};
+    if(sl===sr){ setRec(ex.id,k,{given:prev.tries>0?prev.given:ex.items[k].def,correct:!(prev.tries>0),done:true,tries:prev.tries||0}); speak(ex.items[k].en); }
+    else{ setRec(ex.id,k,{given:ex.items[sr].def,correct:false,done:false,tries:(prev.tries||0)+1});
+      const bl=$(`[data-k="${sl}"]`,L), br=$(`[data-k="${sr}"]`,R); [bl,br].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updateExScore(ex); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh();
+}
+
+/* text with gaps */
+function parseText(ex){ if(ex._p) return; ex._p=true; const g=[]; ex.text.replace(/\[\[(.+?)\]\]/g,(m,a)=>{ g.push(a.split("|")); return m; }); ex.items=g.map((a,k)=>({accept:a,why:ex.whys[k]})); }
+function renderTextGap(ex,body){
+  parseText(ex); let k=0;
+  const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1");
+  const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; });
+  body.insertAdjacentHTML("beforeend",`${bankHtml(ex.bank)}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check my answers</button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the whole text</button></div><ul class="whylist"></ul>`);
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
+  $(".chk",body).addEventListener("click",()=>checkText(ex,body));
+  paintText(ex,body);
+}
+function checkText(ex,body){
+  let any=false, wrong=0;
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(ex.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+    const ok=matches(v,ex.items[n].accept), tries=(prev.tries||0)+1;
+    if(ok||tries>=2) setRec(ex.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(ex.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+  if(!any){ toast("Fill in some gaps first."); return; }
+  paintText(ex,body);
+  if(wrong) toast(`${wrong} gap${wrong>1?"s are":" is"} not right yet (in red) — you have one more try.`);
+}
+function paintText(ex,body){
+  const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(ex.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(ex.items[n].why)}</li>`); }
+    else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
+  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  updateExScore(ex);
+}
+
+/* writing */
+function usedWords(t){ const s=" "+t.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z' ]+/g," ").replace(/\s+/g," ")+" ";
+  return WRITE_WORDS.map(forms=>forms.some(f=>new RegExp("\\b"+f.replace(/ /g,"\\s+")).test(s))); }
+function renderWriting(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.q)}</div></div>
+      <div style="margin-top:8px"><textarea aria-label="your answer" placeholder="${esc(it.eg)}"></textarea><div class="wcount"></div><div class="tick"></div></div>`;
+    const ta=$("textarea",row), wc=$(".wcount",row), tk=$(".tick",row), key=ex.id+"-"+i;
+    ta.value=state.writing[key]||"";
+    const upd=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=`${n} words (aim: ${it.min}+)`; wc.classList.toggle("ok",n>=it.min);
+      const u=usedWords(ta.value); tk.innerHTML=WRITE_WORDS.map((f,k)=>u[k]?`<span class="used">${esc(f[0].replace(/ \(.*$/,""))}</span>`:"").join("") || `<span>Unit words you use will appear here</span>`; };
+    let tm; ta.addEventListener("input",()=>{ upd(); clearTimeout(tm); tm=setTimeout(()=>{ state.writing[key]=ta.value; save(); },400); });
+    ta.addEventListener("blur",()=>{ state.writing[key]=ta.value; save(); });
+    upd(); body.appendChild(row);
+  });
+  body.insertAdjacentHTML("beforeend",`<p style="font-size:14px;color:var(--muted);margin:6px 0 0">This isn't marked automatically — your teacher will read it. It's included in the report you send.</p>`);
+}
+
+/* scoring */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="textgap") parseText(ex); return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function totals(){ let got=0,tot=0,done=0; EXERCISES.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=totals(); $("#pscore").textContent=`★ ${t.got} / ${t.tot}`;
+  const pct=t.tot?Math.round(t.done/t.tot*100):0; $("#pbar").style.width=pct+"%"; $("#pdone").textContent=pct+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const badge=$(".badge",b); const exs=tab.ex.map(id=>EX[id]).filter(scored);
+    if(exs.length){ const d=exs.reduce((n,e)=>n+exDone(e),0), tt=exs.reduce((n,e)=>n+exTotal(e),0), g=exs.reduce((n,e)=>n+exGot(e),0);
+      badge.textContent=d===tt?`✓ ${g}/${tt}`:`${d}/${tt}`; b.classList.toggle("done",d===tt); }
+    else if(tab.id==="cards"){ badge.textContent=`${state.known.length}/${VOCAB.length}`; b.classList.toggle("done",state.known.length===VOCAB.length); }
+    else badge.textContent=""; });
+}
+
+/* tabs */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}"><span class="coin">${t.icon}</span><b>${t.en}</b><span class="badge"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  const cur=$(`#tabs [data-t="${k}"]`); try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* words */
+function buildWords(){
+  const card=w=>`<div class="word"><span class="em" aria-hidden="true">${w.em}</span><div><b>${esc(w.en)}</b> ${w.ipa?`<span class="ipa">${esc(w.ipa)}</span>`:""}<br><span class="pat">${esc(w.pat)}</span>
+    <div class="def">${esc(w.def)}</div><div class="exl">${sayBtn(w.ex,true)} ${esc(w.ex)}</div>
+    <button class="rubtn" type="button" data-ru="${w.id}">Show Russian</button><span class="rutxt" id="ru-${w.id}" hidden>🇷🇺 ${esc(w.ru)}</span></div>${sayBtn(w.en)}</div>`;
+  $("#wl-all").innerHTML=VOCAB.map(card).join("");
+  $$("#wl-all .rubtn").forEach(b=>b.addEventListener("click",()=>{ const t=$("#ru-"+b.dataset.ru); t.hidden=!t.hidden; b.textContent=t.hidden?"Show Russian":"Hide Russian"; }));
+  let allOn=false;
+  $("#ruAll").addEventListener("click",()=>{ allOn=!allOn; $$("#wl-all .rutxt").forEach(t=>t.hidden=!allOn); $$("#wl-all .rubtn").forEach(b=>b.textContent=allOn?"Hide Russian":"Show Russian"); $("#ruAll").textContent=allOn?"Hide all Russian translations":"Show all Russian translations"; });
+}
+function buildStory(){
+  const byId={}; VOCAB.forEach(w=>byId[w.id]=w);
+  $("#story").innerHTML=STORY.map(p=>"<p>"+esc(p).replace(/\{(\w+)\|([^}]+)\}/g,(m,id,txt)=>`<button class="gl" type="button" data-w="${id}">${txt}</button>`)+"</p>").join("");
+  const box=$("#gloss");
+  $$("#story .gl").forEach(b=>b.addEventListener("click",()=>{ const w=byId[b.dataset.w]; $$("#story .gl").forEach(x=>x.classList.toggle("on",x===b));
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><b style="font-size:18px">${esc(w.en)}</b>${sayBtn(w.en,true)}</div><div>${esc(w.def)}</div><div class="ruline">🇷🇺 ${esc(w.ru)}</div>`; box.classList.add("show"); }));
+  const plain=STORY.map(p=>p.replace(/\{\w+\|([^}]+)\}/g,"$1")).join(" ");
+  $("#storySay").dataset.say=plain;
+}
+
+/* flashcards */
+let fcOrder=VOCAB.map((w,k)=>k), fcIdx=0;
+function fcDeck(){ const only=$("#fcOnly").checked; return fcOrder.filter(k=>!only||!state.known.includes(VOCAB[k].id)); }
+const ruBit=w=>`<button class="rubtn rubtn-card" type="button">Show Russian</button><span class="rutxt rutxt-card" hidden>🇷🇺 ${esc(w.ru)}</span>`;
+function renderCard(){
+  const deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=VOCAB.length; $("#fcKnown").textContent=state.known.length; $("#fcKbar").style.width=(state.known.length/VOCAB.length*100)+"%";
+  $("#fcDir").textContent=state.fcDir==="word"?"Word → meaning":"Meaning → word";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="big">🎉</div><div class="txt">All known!</div><div class="sub">Untick the filter to review everything.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const w=VOCAB[deck[fcIdx]], known=state.known.includes(w.id);
+  const wordSide=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div>${w.ipa?`<div class="ipa">${esc(w.ipa)}</div>`:""}`;
+  const meaning=`<div class="def">${esc(w.def)}</div>`;
+  if(state.fcDir==="word"){
+    $("#fcFront").innerHTML=wordSide+sayBtn(w.en)+`<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="txt" style="font-size:22px">${esc(w.en)}</div>${meaning}<div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  } else {
+    $("#fcFront").innerHTML=`<div class="big">❓</div>${meaning}<div class="ipa">${esc(w.pat.replace(new RegExp(w.en.split(" ")[0],"ig"),"___"))}</div><span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div><div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.en+". "+w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  }
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; const rb=e.target.closest(".rubtn-card"); if(rb){ const t=rb.nextElementSibling; t.hidden=!t.hidden; rb.textContent=t.hidden?"Show Russian":"Hide Russian"; return; } flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcDir").addEventListener("click",()=>{ state.fcDir=state.fcDir==="word"?"meaning":"word"; save(); renderCard(); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=k=>{ const deck=fcDeck(); if(!deck.length) return; const w=VOCAB[deck[fcIdx]];
+    state.known=state.known.filter(x=>x!==w.id); if(k) state.known.push(w.id); save();
+    if(!(k&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* results */
+const studentName=()=>((state.name||STUDENT).trim()||STUDENT);
+function questionText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
+  if(ex.type==="choice"&&it.say) return it.q+" (stress)"; return strip(it.q)+(it.key?" ("+it.key+")":""); }
+function correctText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
+  return modelOf(ex,it); }
+function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
+function band(p){ if(p>=90) return `Outstanding, ${studentName()} — a momentous result! 🎖️`; if(p>=75) return "Great work. Look at the few mistakes below and you're there."; if(p>=50) return "Good effort — review the mistakes below and flip the cards again."; return "A solid start. Re-read the story on the Words tab and try again."; }
+function renderResults(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date();
+  const lines=EXERCISES.filter(scored).map(ex=>`<div class="ln"><span>${ex.no}. ${esc(ex.title)}</span><span>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</span></div>`).join("");
+  $("#receipt").innerHTML=`<h2>SERVICE RECORD</h2><div class="c">Vocabulary · ${esc(studentName())}<br>${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</div><hr>${lines}
+    <div class="ln"><span>Flashcards known</span><span>${state.known.length}/${VOCAB.length}</span></div><hr>
+    <div class="ln tot"><span>TOTAL</span><span>${t.got}/${t.tot}</span></div><div class="ln"><span>Score</span><span>${pct}%</span></div>
+    ${t.done<t.tot?`<div class="c" style="margin-top:6px">* not finished — ${t.tot-t.done} answers still to do</div>`:`<div style="text-align:center"><span class="stamp">MISSION COMPLETE</span></div>`}
+    <div class="msg">${t.done?band(pct):"Start with the Words tab!"}</div>`;
+  const m=mistakes();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>No mistakes so far 🎉</li>`;
+  buildSend();
+}
+function reportText(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date(), L=[];
+  L.push(`HOMEWORK: ${TITLE}`); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`);
+  L.push(`SCORE: ${t.got}/${t.tot} (${pct}%) · answered ${t.done}/${t.tot}`); L.push(`Flashcards known: ${state.known.length}/${VOCAB.length}`); L.push("");
+  L.push("BY EXERCISE:"); EXERCISES.filter(scored).forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=mistakes(); L.push(`MISTAKES (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → wrote: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none"); L.push("");
+  const selfs=[]; EXERCISES.filter(x=>x.selfmark).forEach(x=>x.items.forEach((it,i)=>{ const r=rec(x.id,i); if(r&&r.self) selfs.push(`- [${x.no}] ${it.orig} → "${r.given}" (model: ${it.accept[0]})`); }));
+  if(selfs.length){ L.push("SELF-MARKED AS CORRECT (please check):"); selfs.forEach(s=>L.push(s)); L.push(""); }
+  L.push("WRITING:"); EX.w1.items.forEach((it,i)=>{ const txt=(state.writing["w1-"+i]||"").trim(); L.push(`${i+1}. ${it.q}`); L.push(`   (${(txt.match(/\S+/g)||[]).length} words) ${txt||"—"}`); }); L.push("");
+  L.push("ALL ANSWERS:"); EXERCISES.filter(scored).forEach(ex=>{ L.push(`${ex.no}. ${ex.title}`); for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); L.push(`   ${i+1}) ${questionText(ex,i)} → ${r?r.given:"—"} ${r&&r.done?(r.correct?"✓":"✗"):"(not done)"}`); } });
+  return L.join("\n");
+}
+function shortReport(){ const f=reportText(); if(f.length<=1500) return f; return f.slice(0,1450).replace(/\n[^\n]*$/,"")+"\n…\n(Full report with writing: use “Copy text” in the app.)"; }
+const subject=()=>{ const t=totals(); return `${SUBJECT_TOPIC} — ${studentName()} — ${t.got}/${t.tot}`; };
+function buildSend(){
+  const sub=encodeURIComponent(subject()), body=encodeURIComponent(shortReport()); let h="";
+  if(navigator.share) h+=`<button class="btn pri" type="button" id="shareBtn">📤 Share</button>`;
+  h+=`<a class="btn${navigator.share?"":" pri"}" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${sub}&body=${body}">✉️ Send in Gmail</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${sub}&text=${body}">✈️ Telegram</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${body}">💬 WhatsApp</a>`;
+  h+=`<a class="btn" href="mailto:${TEACHER}?subject=${sub}&body=${body}">📧 Email app</a>`;
+  h+=`<button class="btn" type="button" id="copyBtn">📋 Copy text</button>`;
+  $("#sendgrid").innerHTML=h;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",async()=>{ try{ await navigator.share({title:subject(),text:reportText()}); }catch(e){} });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+}
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied! Paste it into a message to your teacher.":"Couldn't copy — please select the text manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied! Paste it into a message to your teacher."),fb); else fb();
+}
+
+/* init */
+function init(){
+  buildTabs(); buildWords(); buildStory(); buildCards();
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ store.del(); state=fresh(); location.reload(); });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+</script>
+</body>
+</html>
