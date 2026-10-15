@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Natural, not fancy · Julia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F2EA; --card:#FFFFFF; --ink:#24202A; --muted:#625B66; --line:#E6DDCF; --soft:#F1EADF;
+  --red:#8A2D3E; --red-bg:#F6E5E8; --teal:#2F6B5A; --teal-bg:#E2EFE9; --amber:#B8862F; --amber-bg:#F8EFDC;
+  --ok:#1E8A55; --ok-bg:#E2F4EA; --bad:#C63A33; --bad-bg:#FCE7E5; --hint:#FFF4DA;
+  --r:16px; --shadow:0 1px 0 rgba(30,35,48,.05),0 10px 26px rgba(30,35,48,.07);
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif; --sans:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans)}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.01em}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.nospeech .say,.nospeech .playbtn{display:none!important}
+
+/* header */
+header.top{padding:26px 0 14px;position:relative}
+.kick{font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-size:clamp(34px,9vw,58px);line-height:1.05;font-style:italic;margin:10px 0 0}
+.redline{position:relative;height:7px;border-top:2px solid var(--amber);border-bottom:1px solid var(--amber);margin:16px 0 26px;max-width:640px}
+.redline::after{content:"✦ the exam · the tasting menu ✦";position:absolute;left:0;top:10px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.hero p{margin:0;color:var(--muted);max-width:620px}
+.namebox{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 12px}
+.namebox label{font-size:13px;color:var(--muted)}
+.namebox input{border:0;border-bottom:2px dashed var(--line);width:120px;font-weight:700;padding:2px;background:transparent}
+.order{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding:0;list-style:none;font-size:13px}
+.order li{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px 10px;color:var(--muted)}
+.order b{color:var(--ink)}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(247,242,234,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 0 4px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;border:0;background:none;border-radius:10px;padding:8px 12px;font-weight:600;font-size:14.5px;color:var(--muted);min-height:44px;white-space:nowrap;position:relative}
+.tab.on{background:var(--ink);color:#fff}
+.tab .bdg{display:inline-block;margin-left:6px;font-size:11.5px;font-weight:700;background:var(--ok-bg);color:var(--ok);border-radius:99px;padding:1px 7px}
+.tab.on .bdg{background:rgba(255,255,255,.18);color:#fff}
+.progress{display:flex;align-items:center;gap:10px;padding:4px 0 10px;font-size:13px;color:var(--muted)}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--amber),var(--red));transition:width .4s}
+.ptext{white-space:nowrap;font-weight:600;color:var(--ink)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.lead{color:var(--muted);margin:0 0 8px}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+
+/* words */
+.search{width:100%;border:2px solid var(--line);border-radius:12px;padding:10px 14px;min-height:46px;background:#fff;margin:6px 0 12px}
+.search:focus{outline:none;border-color:var(--teal)}
+.wlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;display:grid;grid-template-columns:1fr auto;gap:8px}
+.word b{font-family:var(--serif);font-size:19px}
+.word .pos{display:inline-block;font-size:12px;font-weight:600;color:var(--teal);background:var(--teal-bg);border-radius:6px;padding:1px 7px;margin:4px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);font-style:italic;margin-top:4px}
+.empty{color:var(--muted);padding:10px}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:16px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:14px}
+.careful{background:var(--amber-bg);border:2px dashed var(--amber);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:7px 0}
+
+/* cards */
+.decks{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.pill{border:2px solid var(--line);background:#fff;border-radius:99px;padding:7px 14px;font-weight:600;min-height:44px}
+.pill.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--teal)}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.fc-scene{perspective:1200px;max-width:480px;margin:0 auto}
+.fc{position:relative;height:300px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 22px;gap:8px;overflow:auto}
+.front{background:#fff;border:2px solid var(--line)}
+.front::before{content:"";position:absolute;left:24px;right:24px;top:18px;height:4px;background:var(--red);border-radius:2px;opacity:.85}
+.back{background:linear-gradient(150deg,#3A2633,#24202A);color:#F4F1EA;transform:rotateY(180deg)}
+.face .txt{font:700 clamp(24px,6.5vw,32px)/1.15 var(--serif)}
+.face .sent{font:500 clamp(17px,4.6vw,20px)/1.4 var(--serif)}
+.face .def{font-size:16px;font-weight:500;max-width:380px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:380px}
+.face .lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.back .lab{color:#A9B2C4}
+.face .say{position:absolute;top:30px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#A9B2C4}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+s.ch{color:var(--bad);text-decoration-thickness:2px}
+mark.ch{background:var(--ok-bg);color:var(--ok);font-weight:700;border-radius:4px;padding:0 2px}
+.back mark.ch{background:rgba(110,220,160,.18);color:#9EE8BE}
+.back s.ch{color:#FF9C95}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:700;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--red);color:var(--red)}
+.btn.ghost{border-color:var(--line)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px solid var(--line)}
+.exhead .no{font:600 11.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.exhead h3{margin:6px 0 2px;font-size:21px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font-weight:700;font-size:13px;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:500}
+.orig{display:block;color:var(--muted);font-size:15.5px;margin-bottom:6px}
+.key{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.06em;background:var(--red-bg);color:var(--red);border-radius:6px;padding:1px 8px;margin-left:6px}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok);font-weight:700}
+.gap.filledbad{color:var(--bad);border-color:var(--bad);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0 0 36px}
+.opts.row{flex-direction:row;flex-wrap:wrap}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:46px;font-weight:500;font-size:16px;text-align:left;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.rowx{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--teal);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.clue{margin:8px 0 0 36px;font-size:14.5px;color:var(--muted);display:none}
+.clue.show{display:block}
+.wrongs{font-size:16.5px;color:var(--bad)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:700;font-family:var(--serif);font-size:16px}
+.mbtn.sel{border-color:var(--teal);background:var(--teal-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* cloze */
+.ctext{font-size:17px;line-height:2.4;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.ctext .gn{font-size:11px;font-weight:700;color:var(--muted);vertical-align:super;margin-right:2px}
+.ctext select{border:2px solid var(--teal);background:var(--teal-bg);border-radius:8px;padding:4px 6px;font-size:15px;max-width:100%;min-height:36px}
+.ctext select.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700}
+.ctext select.badv{border-color:var(--bad);background:var(--bad-bg)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:600}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:170px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--teal);outline:none}
+.wcount{font-size:13px;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips span{font-size:12.5px;font-weight:600;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.chips span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* mistakes */
+.cathead{font-family:var(--serif);font-size:21px;margin:22px 0 4px}
+.catdesc{color:var(--muted);margin:0 0 10px;font-size:14.5px}
+.mcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;border-left:5px solid var(--red)}
+.mcard .you{color:var(--muted)}
+.mcard .you::before{content:"✕ ";color:var(--bad);font-weight:700}
+.mcard .nat{font-size:17px;margin-top:6px;display:flex;gap:8px;align-items:flex-start}
+.mcard .nat > span::before{content:"✓ ";color:var(--ok);font-weight:700}
+.mcard .why{font-size:14.5px;margin-top:6px;color:var(--ink);background:var(--soft);border-radius:10px;padding:6px 10px}
+.mcard .reveal{margin-top:8px}
+.hidden{display:none!important}
+/* results */
+.ringwrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.ring{width:150px;height:150px;flex:0 0 150px}
+.ring .val{font:700 30px var(--serif)}
+.rtable{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
+.rtable td{padding:8px 4px;border-bottom:1px solid var(--line)}
+.rtable td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:600}.mlist .cr{color:var(--ok);font-weight:700}
+.writing-out{white-space:pre-wrap;background:var(--soft);border-radius:12px;padding:10px 12px;font-size:15px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wlist{grid-template-columns:1fr}
+  .opts,.fb,.inrow,.clue{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14.5px}
+  .fc{height:320px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap hero">
+    <div class="kick">Useful corrections · class with Jay</div>
+    <h1>Natural, not fancy</h1>
+    <div class="redline" aria-hidden="true"></div>
+    <p>Forty-two things you said in class about your speaking exam and a memorable dinner — and how to say them naturally. Study them, flip them, then use the same patterns in new sentences.</p>
+    <div class="namebox"><label for="nm">Name</label><input id="nm" autocomplete="off"></div>
+    <ol class="order" aria-label="suggested order">
+      <li><b>1</b> Study your mistakes</li><li><b>2</b> Flip the cards</li><li><b>3</b> Fix them</li><li><b>4</b> Check your results</li>
+    </ol>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+    <div class="progress"><div class="bar"><i id="pbar"></i></div><span class="ptext" id="ptext">0 of 0 answered · 0 correct</span></div>
+  </div>
+</div>
+
+<main class="wrap">
+<section class="panel" id="p-mistakes">
+  <div class="card">
+    <h2>Your mistakes</h2>
+    <p class="lead">Everything Jay corrected in class, grouped by type, with the reason. Read the natural versions aloud.</p>
+    <label class="tog"><input type="checkbox" id="selftest"> Self-test: hide the natural versions</label>
+  </div>
+  <div id="mistakes-list"></div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Cards →</button></div>
+</section>
+
+<section class="panel" id="p-cards">
+  <div class="card">
+    <h2>Cards</h2>
+    <p class="lead">Front: what you said. Back: the natural version and why. Tap (or press Space) to flip; ← and → move between cards. Only press “I know it” if you'd say it right without thinking.</p>
+    <div class="fc-top">
+      <label class="tog"><input type="checkbox" id="fcOnly"> Only the ones I'm still learning</label>
+    </div>
+    <div style="font-size:14px;font-weight:600">Known: <span id="fcKnown">0</span> / <span id="fcTotal">0</span><span style="float:right;color:var(--muted)" id="fcPos"></span></div>
+    <div class="kbar"><i id="fcKbar"></i></div>
+    <div class="fc-scene"><div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card"><div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div></div></div>
+    <div class="fc-row"><button class="btn bad" id="fcLearn" type="button">Still learning</button><button class="btn ok" id="fcKnow" type="button">✓ I know it</button></div>
+    <div class="fc-row"><button class="btn ghost" id="fcPrev" type="button">← Back</button><button class="btn ghost" id="fcShuf" type="button">Shuffle</button><button class="btn ghost" id="fcNext" type="button">Next →</button></div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Fix it →</button></div>
+</section>
+
+<section class="panel" id="p-fix">
+  <div class="card"><h2>Fix it</h2><p class="lead" style="margin:0">New sentences with the same patterns as your mistakes — so you learn the rule, not just the example.</p></div>
+  <div id="fix-list"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Results →</button></div>
+</section>
+
+<section class="panel" id="p-results">
+  <div class="card">
+    <div class="ringwrap">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="var(--line)" stroke-width="12"/><circle id="ringArc" cx="60" cy="60" r="50" fill="none" stroke="var(--teal)" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 314.16" transform="rotate(-90 60 60)"/><text id="ringTxt" class="val" x="60" y="68" text-anchor="middle" fill="var(--ink)">0%</text></svg>
+      <div><h2 id="rHead">Your results</h2><p class="lead" id="rSub"></p><p id="rMsg" style="margin:0;font-weight:600"></p></div>
+    </div>
+    <table class="rtable" id="rTable"></table>
+  </div>
+  <div class="card"><h2 style="font-size:22px">Look at these again</h2><ul class="mlist" id="rMist"></ul></div>
+  <div class="card">
+    <h2 style="font-size:22px">Share or start over</h2>
+    <div class="rowx">
+      <button class="btn pri" id="copyBtn" type="button">Copy my report</button>
+      <a class="btn" id="mailBtn" href="#" style="text-decoration:none;display:inline-flex;align-items:center">Email my report</a>
+      <button class="btn bad" id="resetBtn" type="button">Start again</button>
+    </div>
+  </div>
+</section>
+</main>
+<footer>Built from Jay's Useful Corrections · progress is saved in this browser</footer>
+<div class="toast" id="toast" role="status"></div>
+<script>
+/* =========================================================
+   CONTENT — edit here
+   ========================================================= */
+const STUDENT = "Julia";
+const KEY = "julia-exam-dining-corrections-v1";
+const TITLE = "Useful corrections: the speaking exam & a memorable dinner (class with Jay)";
+
+const CATS = [
+  {id:"english", name:"Say it the English way", desc:"The word English speakers actually use here — collocations, fixed phrases and false friends."},
+  {id:"less", name:"Less is more", desc:"Cut the extra or over-fancy word. The simpler version sounds more natural, not less clever."},
+  {id:"little", name:"Little words: articles, number & who's who", desc:"a / the / no article, singular vs plural, twice — and making clear who did what."},
+  {id:"gram", name:"Grammar & sentence structure", desc:"Verb forms, tenses and the shape of the sentence."}
+];
+
+/* Jay's rows word for word; the changed part is between *asterisks*.
+   The row “Out of the top of my head → Off the top of my head” is left out on purpose. */
+const FIXES = [
+  {cat:"gram", you:"I guess *the way to go*.", nat:"I guess *that's the way to go*.", why:"After “I guess” you need a full clause with a subject and a verb: that's the way to go (= that's the best option)."},
+  {cat:"english", you:"schedule two classes *following each other*", nat:"schedule two *back-to-back classes*", why:"back-to-back = one straight after the other, with no break. Alternative: two classes in a row."},
+  {cat:"english", you:"explain to me *how we deal with the writing part*", nat:"explain *how to approach the writing part*", why:"approach a task / a part of an exam = decide how to tackle it. “how to + verb” is the natural way to ask about a method."},
+  {cat:"little", you:"slight animosity *towards me with my exam*", nat:"slight animosity *toward me from my examiner*", why:"Say who it came from: animosity from someone toward(s) you. Your examiner is the person; your exam is the test. (Towards is more common in British English.)"},
+  {cat:"english", you:"Can I *call myself this way*?", nat:"Can I *describe myself this way*?", why:"call yourself + a noun (I call myself a foodie). To talk about the way you present yourself, use describe yourself."},
+  {cat:"english", you:"I tend to *feel how other people feel*.", nat:"I tend to *sense how other people feel*.", why:"sense = notice something without being told. It also avoids repeating “feel” twice in one sentence."},
+  {cat:"little", you:"ask to repeat the question *two times*", nat:"ask the examiner to repeat the question *twice*", why:"Say once, twice, then three times, four times… Also: ask SOMEONE to repeat something."},
+  {cat:"little", you:"*They* might have been marked down.", nat:"*I* might have been marked down.", why:"You were the one being marked, so the subject is I. Make sure the subject is the person the action happens to."},
+  {cat:"little", you:"I might have *asked to repeat the question*.", nat:"I might have *asked her to repeat the question*.", why:"ask to do something = ask permission to do it yourself (I asked to leave early). ask someone to do something = request that THEY do it."},
+  {cat:"less", you:"*elevate* my score", nat:"*raise* my score", why:"Scores, marks and grades are raised or improved. Elevate is formal and used for position, status or mood."},
+  {cat:"english", you:"work *better* on my English", nat:"work *more* on my English", why:"work more on something = spend more time on it. work better = do your work at a higher quality. Also possible: work harder on my English."},
+  {cat:"little", you:"prepare for *the experiences like this*", nat:"prepare for *experiences like this*", why:"Plural nouns used in a general sense take no article: experiences like this, people like that."},
+  {cat:"english", you:"I *can't but notice* that...", nat:"I *can't help but notice* that...", why:"The everyday phrase is can't help but + verb, or can't help + -ing (I can't help noticing). “Cannot but” is very formal and old-fashioned."},
+  {cat:"little", you:"*the top quality* Japanese cuisine", nat:"*top-quality* Japanese cuisine", why:"No “the” when you speak about something in general. Before a noun, a two-word adjective takes a hyphen: top-quality, five-course, world-class."},
+  {cat:"english", you:"a *Michelin five-star restaurant*", nat:"a *Michelin-starred restaurant*", why:"The Michelin Guide gives restaurants one to three stars, so they are Michelin-starred. Five-star is a rating for hotels."},
+  {cat:"little", you:"we had *five-course meal*", nat:"we had *a five-course meal*", why:"meal is a singular countable noun, so it needs an article: a five-course meal."},
+  {cat:"less", you:"the *main course dish*", nat:"the *main course*", why:"The main course already means the main dish, so “dish” is extra."},
+  {cat:"english", you:"a mixture of different *elements and products*", nat:"a mixture of different *ingredients*", why:"The foods that go into a dish are its ingredients."},
+  {cat:"gram", you:"it still *stays with me*", nat:"it *has stayed with me*", why:"Present perfect for something from the past that is still true now: it has stayed with me (ever since)."},
+  {cat:"english", you:"the service, which I had never *witnessed* before", nat:"the service, which I had never *experienced* before", why:"witness = see something happen as an onlooker (often an accident or a crime). You were receiving the service, so you experienced it."},
+  {cat:"english", you:"the *detail-orientedness of this stuff*", nat:"the *staff's attention to detail*", why:"staff /stɑːf/ = the people who work somewhere; stuff /stʌf/ = things. attention to detail is the natural noun phrase."},
+  {cat:"less", you:"everything being so *immaculately perfect*", nat:"everything being *absolutely immaculate*", why:"immaculate already means perfect, so “immaculately perfect” says it twice. Strong adjectives go with absolutely, not very."},
+  {cat:"gram", you:"I'm *do* my best to fix that.", nat:"I'll *do* my best to fix that.", why:"For a promise or a decision made now: I'll + base form. “I'm do” mixes two verb forms."},
+  {cat:"english", you:"Should I *make any introduction*?", nat:"Should I *give an introduction*?", why:"You give an introduction (like give a talk, give a presentation). Or simply: Should I introduce myself?"},
+  {cat:"less", you:"That's a great question *to reflect on*.", nat:"That's a great question.", why:"“That's a great question” is a complete fixed phrase. Adding “to reflect on” makes it sound heavy — just stop."},
+  {cat:"less", you:"*intensify the experience*", nat:"*make the occasion feel more special*", why:"intensify goes with feelings, pain, effort or fighting. For a celebration or event, make it (feel) more special."},
+  {cat:"english", you:"*going outside* and visiting some places", nat:"*going out* and visiting some places", why:"go out = go to restaurants, bars or events for fun. go outside = leave the building."},
+  {cat:"english", you:"make these events *brighter*", nat:"make these events *more special*", why:"bright is about light and colour (or a clever person). It isn't used for making an event more memorable."},
+  {cat:"less", you:"something to *keep in mind forever*", nat:"something to *remember*", why:"keep in mind = remember to consider something when you decide (Keep in mind that it closes at six). For memories: remember, never forget."},
+  {cat:"less", you:"*traditional-style restaurants*", nat:"*traditional restaurants*", why:"-style means an imitation of something (a Japanese-style garden in London). If the restaurants really are traditional, just say traditional."},
+  {cat:"gram", you:"people around me, *they do value*...", nat:"people around me *really value*...", why:"Don't repeat the subject with a pronoun (people…they). For emphasis, use really."},
+  {cat:"english", you:"their *ties to tradition, to their cuisine*", nat:"their *connection to tradition and national cuisine*", why:"connection to something is the natural phrase here, and two nouns are joined with and."},
+  {cat:"english", you:"*food places*", nat:"*places to eat*", why:"“Food places” isn't a natural phrase. Say places to eat (or restaurants and cafés)."},
+  {cat:"english", you:"*democratic prices*", nat:"*affordable prices*", why:"In English, democratic is about politics and equality. Prices are affordable or reasonable."},
+  {cat:"less", you:"could *boast high-quality food*", nat:"could *offer high-quality food*", why:"boast = proudly have an impressive feature — it sounds like an advertisement. In conversation the neutral verb is offer (or serve)."},
+  {cat:"english", you:"if I were to *extrapolate on this*", nat:"if I were to *elaborate on this*", why:"elaborate on something = give more details. extrapolate = make a guess about the future from facts you already have."},
+  {cat:"gram", you:"a place *being a new one*", nat:"a restaurant *having recently opened*", why:"Describe what happened instead: having recently opened (or that had just opened)."},
+  {cat:"english", you:"not having *plenty of clients*", nat:"not having *many customers*", why:"Restaurants and shops have customers; lawyers and hair salons have clients. In negatives use many or a lot of, not plenty of."},
+  {cat:"english", you:"this *cheap price*", nat:"this *low price*", why:"Prices are low or high; things are cheap or expensive."},
+  {cat:"little", you:"marked down for *false start*", nat:"marked down for *a false start*", why:"false start is a countable noun, so it needs an article: a false start."},
+  {cat:"little", you:"that was *a different words*", nat:"that was *a different word*", why:"a + singular noun: a different word (or different words)."},
+  {cat:"gram", you:"I have *a period in my life when I was working as a waiter, waitress*.", nat:"There was *a period in my life when I worked as a waitress*.", why:"Use “There was a period / a time when…” to introduce part of your past, with the past simple for the finished period. A woman is a waitress."}
+];
+
+/* -------- FIX IT (new sentences, same patterns) -------- */
+/* choice items: correct option FIRST; shown in a stable shuffled order */
+const FIXIT = [
+  {id:"f1", type:"choice", title:"Which sounds natural?", ins:"Choose the natural sentence. Your first choice is the one that counts.",
+   items:[
+    {q:"", options:["I have two meetings back to back this morning.","I have two meetings following each other this morning."], why:"back to back = one straight after the other."},
+    {q:"", options:["The staff were incredibly friendly.","The stuff were incredibly friendly."], why:"staff = the people who work there; stuff = things."},
+    {q:"", options:["Could you elaborate on that point?","Could you extrapolate on that point?"], why:"elaborate on = give more details."},
+    {q:"", options:["The market has really affordable prices.","The market has really democratic prices."], why:"Prices are affordable or reasonable, not democratic."},
+    {q:"", options:["We love going out at the weekend — cinemas, bars, new restaurants.","We love going outside at the weekend — cinemas, bars, new restaurants."], why:"go out = go somewhere for fun; go outside = leave the building."},
+    {q:"", options:["I couldn't help but smile when the dessert arrived.","I couldn't help but smiled when the dessert arrived.","I couldn't help smile when the dessert arrived."], why:"can't help but + base form, or can't help + -ing (I couldn't help smiling)."},
+    {q:"", options:["The table setting was absolutely immaculate.","The table setting was very immaculate.","The table setting was immaculately perfect."], why:"immaculate is already extreme: use absolutely, and don't add perfect."},
+    {q:"", options:["It's a Michelin-starred restaurant in the old town.","It's a Michelin five-star restaurant in the old town."], why:"Michelin gives stars → Michelin-starred. Five-star is for hotels."},
+    {q:"", options:["I asked the waiter to bring the bill.","I asked to bring the bill."], why:"ask someone to do something — otherwise it sounds as if YOU wanted to bring the bill."},
+    {q:"", options:["The price was surprisingly low.","The price was surprisingly cheap."], why:"Prices are low or high; things are cheap or expensive."},
+    {q:"", options:["I'll do my best to finish it by Friday.","I'm do my best to finish it by Friday.","I'm going do my best to finish it by Friday."], why:"A promise: I'll + base form (or I'm going TO do)."},
+    {q:"", options:["That trip has stayed with me ever since.","That trip still stays with me ever since."], why:"ever since → present perfect: has stayed with me."}]},
+  {id:"f2", type:"gap", missing:true, title:"One word is missing", ins:"Each sentence is missing ONE word. Type only the missing word.",
+   items:[
+    {q:"Last night we had delicious seven-course meal.", accept:["a"], hint:"meal is a singular countable noun.", why:"a delicious seven-course meal — singular countable nouns need an article.", full:"Last night we had a delicious seven-course meal."},
+    {q:"The runner was disqualified for false start.", accept:["a"], hint:"Think of the article.", why:"a false start — countable noun, singular.", full:"The runner was disqualified for a false start."},
+    {q:"Could you ask him repeat the address?", accept:["to"], hint:"ask someone ? do something", why:"ask someone TO do something.", full:"Could you ask him to repeat the address?"},
+    {q:"I couldn't hear the waiter, so I asked to repeat the specials.", accept:["him","her","them"], hint:"Who did you ask? Add a pronoun.", why:"ask someone to do something — you wanted the waiter to repeat them.", full:"I couldn't hear the waiter, so I asked him to repeat the specials."},
+    {q:"I can't help notice how calm she is.", accept:["but"], hint:"can't help ? + base form", why:"can't help but notice (or: can't help noticing).", full:"I can't help but notice how calm she is."},
+    {q:"I guess this the safest option.", accept:["is","was"], hint:"The clause after “I guess” needs a verb.", why:"I guess + a full clause: this is the safest option.", full:"I guess this is the safest option."},
+    {q:"There a time when I lived in Spain.", accept:["was"], hint:"There ? a time / a period when…", why:"There was a time when… introduces part of your past.", full:"There was a time when I lived in Spain."},
+    {q:"That concert has stayed me for years.", accept:["with"], hint:"stay ? someone", why:"something stays with you = you keep remembering it.", full:"That concert has stayed with me for years."},
+    {q:"Could you elaborate that a little?", accept:["on","upon"], hint:"elaborate + preposition", why:"elaborate ON something.", full:"Could you elaborate on that a little?"},
+    {q:"I'll do best to be on time.", accept:["my"], hint:"do ? best", why:"do your best: I'll do my best.", full:"I'll do my best to be on time."}]},
+  {id:"f3", type:"sentence", title:"Correct the sentence", ins:"Write the whole sentence correctly. If your version is also natural, you can mark it yourself.",
+   items:[
+    {wrong:"How would you call yourself in three words?", accept:["How would you describe yourself in three words"], model:"How would you describe yourself in three words?", hint:"Not call — another verb.", why:"describe yourself = say what kind of person you are."},
+    {wrong:"I want to elevate my IELTS score by one band.", accept:["I want to raise my IELTS score by one band","I want to improve my IELTS score by one band","I want to increase my IELTS score by one band","I want to boost my IELTS score by one band"], model:"I want to raise my IELTS score by one band.", hint:"A simpler verb for scores.", why:"raise / improve a score; elevate is for status or mood."},
+    {wrong:"The waiter forgot to bring the main course dish.", accept:["The waiter forgot to bring the main course","The waiter forgot to bring the main dish","The waiter forgot to bring our main course","The waiter forgot to bring my main course"], model:"The waiter forgot to bring the main course.", hint:"One word is extra.", why:"main course already means the main dish."},
+    {wrong:"The chef used a mixture of local elements and products.", accept:["The chef used a mixture of local ingredients","The chef used a mix of local ingredients"], model:"The chef used a mixture of local ingredients.", hint:"The food that goes into a dish.", why:"ingredients = the foods a dish is made from."},
+    {wrong:"The canteen has democratic prices and big portions.", accept:["The canteen has affordable prices and big portions","The canteen has reasonable prices and big portions","The canteen has low prices and big portions"], model:"The canteen has affordable prices and big portions.", hint:"A false friend.", why:"Prices are affordable or reasonable."},
+    {wrong:"Can you extrapolate on your answer?", accept:["Can you elaborate on your answer","Could you elaborate on your answer","Can you expand on your answer","Could you expand on your answer"], model:"Can you elaborate on your answer?", hint:"You want more details.", why:"elaborate on = give more details."},
+    {wrong:"There are a lot of food places near the station.", accept:["There are a lot of places to eat near the station","There are lots of places to eat near the station","There are plenty of places to eat near the station","There are many places to eat near the station"], model:"There are a lot of places to eat near the station.", hint:"places to …", why:"places to eat is the natural phrase."},
+    {wrong:"I have a period when I was living in London.", accept:["There was a period when I lived in London","There was a period when I was living in London","There was a period in my life when I lived in London","There was a period in my life when I was living in London","There was a time when I lived in London","There was a time when I was living in London"], model:"There was a period when I lived in London.", hint:"Start with “There…”.", why:"There was a period / a time when… + past simple for a finished part of your life."},
+    {wrong:"My grandparents, they do value family dinners.", accept:["My grandparents really value family dinners","My grandparents value family dinners","My grandparents do value family dinners","My grandparents truly value family dinners"], model:"My grandparents really value family dinners.", hint:"Don't repeat the subject.", why:"No extra pronoun after the subject; use really for emphasis."},
+    {wrong:"The café had only just opened and didn't have plenty of clients.", accept:["The café had only just opened and didn't have many customers","The cafe had only just opened and didn't have many customers","The café had only just opened and didn't have a lot of customers","The cafe had only just opened and didn't have a lot of customers"], model:"The café had only just opened and didn't have many customers.", hint:"Two words to change: the quantity word and the people.", why:"Cafés have customers; in negatives use many or a lot of, not plenty of."}]}
+];
+
+const TABS = [
+  {id:"mistakes", name:"Mistakes"},{id:"cards", name:"Cards"},{id:"fix", name:"Fix it", group:FIXIT},{id:"results", name:"Results"}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip=s=>String(s).replace(/<[^>]+>/g,"").replace(/\*/g,"");
+const HAS_SPEECH=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+if(!HAS_SPEECH) document.body.classList.add("nospeech");
+const ALL_EX=[...FIXIT]; const EX={}; ALL_EX.forEach((e,i)=>{EX[e.id]=e; e.no=i+1;});
+
+const store=(()=>{let mem=null; return {get(){try{const v=localStorage.getItem(KEY); return v!==null?v:mem;}catch(e){return mem;}}, set(v){mem=v; try{localStorage.setItem(KEY,v);}catch(e){}}, del(){mem=null; try{localStorage.removeItem(KEY);}catch(e){}}};})();
+const fresh=()=>({name:STUDENT, ans:{}, known:{c:[]}, tab:0, selftest:false});
+let state=fresh();
+try{const raw=store.get(); if(raw){ const s=JSON.parse(raw); state=Object.assign(fresh(),s); state.known=Object.assign({c:[]},s.known||{}); }}catch(e){}
+function save(){ try{store.set(JSON.stringify(state));}catch(e){} updateProgress(); }
+const rec=(id,i)=>(state.ans[id]||{})[i];
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","that's":"that is","there's":"there is","what's":"what is","everybody's":"everybody is","everyone's":"everyone is","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","won't":"will not","wouldn't":"would not","isn't":"is not","aren't":"are not","wasn't":"was not","weren't":"were not","haven't":"have not","hasn't":"has not","i've":"i have","you've":"you have","we've":"we have","they've":"they have","i'll":"i will","you'll":"you will","we'll":"we will","i'd":"i would","you'd":"you would","he'd":"he would","she'd":"she would","we'd":"we would","they'd":"they would","let's":"let us"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,"").replace(/[.,!?;:()…]/g," ").replace(/\s+/g," ").trim();
+  return s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot");
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){} }
+if(HAS_SPEECH){ pickVoice(); try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){} }
+function speak(t){ if(!HAS_SPEECH||!t) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t)); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u);}catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(strip(t))}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct.","Spot on.","Exactly right.","Nicely done.","Perfect.","That's it."];
+const OOPS=["Not quite.","Close, but no.","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const marked=(s,mode)=>esc(s).replace(/\*(.+?)\*/g,(m,a)=>mode==="wrong"?`<s class="ch">${a}</s>`:`<mark class="ch">${a}</mark>`);
+const gapHtml=(q,fill,cls)=>q.replace("___",`<span class="gap ${cls||""}">${fill?esc(fill):"&nbsp;&nbsp;&nbsp;"}</span>`);
+const fillQ=(q,a)=>strip(q).replace("___",a);
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${esc(ex.title)}</h3><div class="ins">${esc(ex.ins)}</div></div><div class="exbody"></div>`;
+  return box;
+}
+
+/* --- choice --- */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const shown=seeded(it.options,hash(ex.id+":"+i)+17);
+    const qh=it.q?`<span class="qt">${gapHtml(it.q)}</span>`:`<span style="color:var(--muted)">Which one sounds natural?</span>`;
+    const isShort=it.options.every(o=>o.length<26);
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div><div class="opts${isShort?" row":""}">${shown.map(o=>`<button class="opt" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return; const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.options[0],done:true}); paintChoice(ex,it,i,row,true); }));
+    body.appendChild(row); if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function choiceSentence(it){ return it.q&&it.q.includes("___")?fillQ(it.q,it.options[0]):it.options[0]; }
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i), ans=it.options[0];
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===ans) b.classList.add("ghost"); });
+  if(it.q&&it.q.includes("___")) $(".qt",row).innerHTML=gapHtml(it.q,ans,r.correct?"filled":"filledbad");
+  const sent=choiceSentence(it), fullSent=it.q&&it.q.includes("___")||!it.q;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):`${live?pick(OOPS):"✗"} The answer: ${esc(ans)}`}</b>${fullSent?`<div class="rowx">${sayBtn(sent,true)}<span>${esc(sent)}</span></div>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* --- gap (one word / key word / missing word) --- */
+function renderGap(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.missing) qh=`<span class="qt">${esc(it.q)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}<span class="key">${esc(it.kw)}</span></span>`:""}<span class="qt">${gapHtml(it.q)}</span>`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div><div class="inrow"><input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer" placeholder="${ex.missing?"The missing word":ex.key?"Your words":"One word"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value,paintGap);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{if(e.key==="Enter") go();});
+    body.appendChild(row); const r=rec(ex.id,i); if(r&&r.done) paintGap(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v,painter){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); painter(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} One more try.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function gapModel(ex,it){ if(ex.missing) return it.full; return fillQ(it.q,it.accept[0]); }
+function paintGap(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.missing) $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad");
+  const full=gapModel(ex,it), fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):`✗ The answer: ${esc(it.accept[0])}`}</b><div class="rowx">${sayBtn(full,true)}<span>${esc(full)}</span></div>${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* --- whole sentence (with self-mark) --- */
+/* --- whole sentence (with self-mark) --- */
+function renderSentence(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q"><span class="wrongs">✕ ${esc(it.wrong)}</span></div></div><div class="inrow"><input type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="correct sentence" placeholder="Write the correct sentence"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value,paintSentence);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{if(e.key==="Enter") go();});
+    body.appendChild(row); const r=rec(ex.id,i); if(r&&r.done) paintSentence(ex,it,i,row,false);
+  });
+}
+function paintSentence(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(r.self?"✓ Marked as correct by you":(live?pick(PRAISE):"✓ Correct")):"A natural version:"}</b><div class="rowx">${sayBtn(it.model,true)}<span>${esc(it.model)}</span></div>${whyHtml(it.why)}${!r.correct?`<button class="btn ok selfok" type="button">My answer is also correct ✓</button>`:""}`;
+  const sb=$(".selfok",fb); if(sb) sb.addEventListener("click",()=>{ r.correct=true; r.self=true; setRec(ex.id,i,r); paintSentence(ex,it,i,row,false); });
+  if(live&&r.correct) speak(it.model);
+  updateExScore(ex);
+}
+
+/* --- scoring --- */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="cloze") return ex.answers.length; return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function groupTot(list){ let got=0,tot=0,done=0; list.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=groupTot(ALL_EX); $("#ptext").textContent=`${t.done} of ${t.tot} answered · ${t.got} correct`;
+  $("#pbar").style.width=(t.tot?t.done/t.tot*100:0)+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const bd=$(".bdg",b); if(!tab.group){ bd.textContent=""; bd.style.display="none"; return; }
+    const g=groupTot(tab.group); if(g.done===g.tot){ bd.textContent=`${g.got}/${g.tot}`; bd.style.display=""; } else { bd.textContent=""; bd.style.display="none"; } });
+}
+
+/* --- tabs --- */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}">${k+1} ${t.name}<span class="bdg" style="display:none"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  try{ $(`#tabs [data-t="${k}"]`).scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* --- cards (corrections deck only) --- */
+let fcOrder=FIXES.map((x,k)=>k), fcIdx=0;
+const cardId=k=>"c"+k;
+function fcDeck(){ const only=$("#fcOnly").checked, kn=state.known.c; return fcOrder.filter(k=>!only||!kn.includes(cardId(k))); }
+function renderCard(){
+  const kn=state.known.c, deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=FIXES.length; $("#fcKnown").textContent=kn.length; $("#fcKbar").style.width=(kn.length/FIXES.length*100)+"%";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="txt">All known 🎉</div><div class="sub">Untick the filter to go through them again.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const k=deck[fcIdx], known=kn.includes(cardId(k)), f=FIXES[k];
+  $("#fcFront").innerHTML=`<div class="lab">You said…</div><div class="sent">${marked(f.you,"wrong")}</div><div class="sub">How would you say it naturally?</div><span class="tap">tap to flip</span>`;
+  $("#fcBack").innerHTML=`<div class="lab">Natural English</div><div class="sent">${marked(f.nat,"right")}</div><div class="sub" style="font-style:normal">${esc(f.why)}</div>${sayBtn(f.nat)}<span class="tap">${known?"✓ known":""}</span>`;
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  document.addEventListener("keydown",e=>{ if(TABS[state.tab].id!=="cards"||/input|textarea|select/i.test(document.activeElement.tagName)) return;
+    if(e.key==="ArrowRight"){ fcIdx++; renderCard(); } else if(e.key==="ArrowLeft"){ fcIdx--; renderCard(); } else if(e.key===" "&&(document.activeElement===document.body||!document.activeElement)){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=v=>{ const deck=fcDeck(); if(!deck.length) return; const id=cardId(deck[fcIdx]);
+    state.known.c=state.known.c.filter(x=>x!==id); if(v) state.known.c.push(id); save(); if(!(v&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* --- results --- */
+function band(p){ if(p>=90) return "Outstanding — natural, not fancy. Exam-ready phrasing."; if(p>=75) return "Very solid. Look at the few items below and you're there."; if(p>=50) return "Good progress — go back to the Mistakes tab before trying the review items again."; return "A start. Flip the cards again and come back to the exercises."; }
+function renderResults(){
+  const t=groupTot(ALL_EX), pct=t.tot?Math.round(t.got/t.tot*100):0;
+  $("#ringArc").setAttribute("stroke-dasharray",`${(t.done?t.got/t.tot:0)*314.16} 314.16`); $("#ringTxt").textContent=pct+"%";
+  $("#rHead").textContent=`${studentName()}'s results`;
+  $("#rSub").textContent=`${t.got} correct out of ${t.tot} · ${t.done} answered`+(t.done<t.tot?` · ${t.tot-t.done} still to do`:"");
+  $("#rMsg").textContent=t.done?band(pct):"Start with the Mistakes tab, then the cards.";
+  $("#rTable").innerHTML=`<tr><td><b>Fix it</b></td><td>${t.got}/${t.tot}</td></tr>`+FIXIT.map(ex=>`<tr><td>&nbsp;&nbsp;${ex.no}. ${esc(ex.title)}</td><td>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</td></tr>`).join("")+
+    `<tr><td>Correction cards known</td><td>${state.known.c.length}/${FIXES.length}</td></tr>`;
+  const m=reviewList();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>Nothing to review yet.</li>`;
+  $("#mailBtn").setAttribute("href","mailto:?subject="+encodeURIComponent(`My English practice — ${studentName()} — ${t.got}/${t.tot}`)+"&body="+encodeURIComponent(shortReport()));
+}
+function reportText(){
+  const t=groupTot(ALL_EX), d=new Date(), L=[];
+  L.push(TITLE); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")}`);
+  L.push(`Score: ${t.got}/${t.tot} (${t.tot?Math.round(t.got/t.tot*100):0}%) · answered ${t.done}/${t.tot}`);
+  L.push(`Correction cards known: ${state.known.c.length}/${FIXES.length}`); L.push("");
+  ALL_EX.forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=reviewList(); L.push(`TO LOOK AT AGAIN (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → my answer: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none");
+  const selfs=[]; FIXIT.filter(e=>e.type==="sentence").forEach(ex=>ex.items.forEach((it,i)=>{ const r=rec(ex.id,i); if(r&&r.self) selfs.push(`- ${it.wrong} → "${r.given}" (model: ${it.model})`); }));
+  if(selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT (worth checking with Jay):"); selfs.forEach(s=>L.push(s)); }
+  return L.join("\n");
+}
+
+/* --- mistakes tab --- */
+/* --- mistakes tab --- */
+function buildMistakes(){
+  const box=$("#mistakes-list");
+  box.innerHTML=CATS.map(c=>`<h3 class="cathead">${esc(c.name)}</h3><p class="catdesc">${esc(c.desc)}</p>`+
+    FIXES.map((f,i)=>({f,i})).filter(x=>x.f.cat===c.id).map(({f,i})=>`<div class="mcard"><div class="you">${marked(f.you,"wrong")}</div>
+      <button class="btn ghost reveal hidden" type="button" data-r="${i}">Show the natural version</button>
+      <div class="ans" data-a="${i}"><div class="nat"><span>${marked(f.nat,"right")}</span>${sayBtn(f.nat,true)}</div><div class="why">💡 ${esc(f.why)}</div></div></div>`).join("")).join("");
+  const st=$("#selftest"); st.checked=!!state.selftest;
+  const apply=()=>{ $$(".mcard",box).forEach(m=>{ $(".reveal",m).classList.toggle("hidden",!st.checked); $(".ans",m).classList.toggle("hidden",st.checked); }); };
+  st.addEventListener("change",()=>{ state.selftest=st.checked; save(); apply(); });
+  $$(".reveal",box).forEach(b=>b.addEventListener("click",()=>{ const m=b.closest(".mcard"); $(".ans",m).classList.remove("hidden"); b.classList.add("hidden"); }));
+  apply();
+}
+
+/* --- results --- */
+const studentName=()=>((state.name||STUDENT).trim()||STUDENT);
+function qText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.w; if(ex.type==="cloze") return "Gap "+(i+1); if(ex.type==="listen") return "Listen and spell #"+(i+1);
+  if(ex.type==="sentence") return it.wrong; if(ex.type==="choice") return it.q?strip(it.q):"Which sounds natural? #"+(i+1);
+  if(ex.missing) return it.q; return (it.orig?it.orig+" ("+it.kw+") → ":"")+strip(it.q); }
+function cText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.w+" = "+it.m; if(ex.type==="cloze") return ex.answers[i]; if(ex.type==="listen") return it.say;
+  if(ex.type==="sentence") return it.model; if(ex.type==="choice") return choiceSentence(it); return gapModel(ex,it); }
+function reviewList(){ const out=[]; ALL_EX.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:qText(ex,i),a:r.given,c:cText(ex,i)}); } }); return out; }
+
+function shortReport(){ const f=reportText(); return f.length<=1800?f:f.slice(0,1750).replace(/\n[^\n]*$/,"")+"\n…\n(Full report: use “Copy my report”.)"; }
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ok=document.execCommand("copy");}catch(e){} ta.remove(); toast(ok?"Report copied.":"Couldn't copy — please select it manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Report copied."),fb); else fb();
+}
+
+/* --- init --- */
+function init(){
+  buildTabs(); buildCards(); buildMistakes();
+  const R={choice:renderChoice,gap:renderGap,sentence:renderSentence};
+  const host=$("#fix-list"); FIXIT.forEach(ex=>{ const b=exShell(ex); R[ex.type](ex,$(".exbody",b)); host.appendChild(b); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+  $("#mailBtn").addEventListener("click",()=>renderResults());
+  $("#resetBtn").addEventListener("click",()=>{ if(confirm("Start again? This deletes all your answers and card progress.")){ store.del(); state=fresh(); location.reload(); } });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+</script>
+</body>
+</html>
