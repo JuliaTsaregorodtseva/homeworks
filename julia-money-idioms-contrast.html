@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Julia · Money idioms &amp; showing contrast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#F4F1E7; --card:#FFFDF8; --ink:#13342A; --muted:#5B6B63; --line:#DCD6C4; --soft:#EEEADB;
+  --green:#1E7550; --green-bg:#E2F0E8; --gold:#B68A1F; --gold-bg:#FAF0D3; --stamp:#B33A2E; --stamp-bg:#FBE7E3;
+  --ok:#1C8A50; --ok-bg:#E1F3E8; --bad:#C2392E; --bad-bg:#FCE8E5; --hint:#FFF4D6;
+  --r:16px; --shadow:0 1px 0 rgba(19,52,42,.06),0 10px 26px rgba(19,52,42,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:16px/1.55 "Manrope",system-ui,sans-serif;
+  background:var(--paper);
+  background-image:radial-gradient(circle at 0 0,rgba(30,117,80,.05) 0 2px,transparent 2px),radial-gradient(circle at 12px 12px,rgba(182,138,31,.05) 0 2px,transparent 2px);
+  background-size:24px 24px}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:.005em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* banknote header */
+header.top{padding:20px 0 12px}
+.note{position:relative;background:linear-gradient(135deg,#1E7550 0%,#13503A 60%,#0F3D2D 100%);color:#F6F1DF;border-radius:20px;padding:22px 22px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.note::before{content:"";position:absolute;inset:8px;border:1.5px solid rgba(246,241,223,.35);border-radius:14px;pointer-events:none}
+.note::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(246,241,223,.12) 0 2px,transparent 2px 9px);pointer-events:none}
+.note .serial{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;opacity:.85}
+.note h1{font-size:clamp(28px,7vw,44px);margin:10px 0 2px;line-height:1.05}
+.note p{margin:6px 0 0;max-width:560px}
+.note .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.namebox{display:flex;align-items:center;gap:8px;background:rgba(246,241,223,.12);border:1px solid rgba(246,241,223,.35);border-radius:12px;padding:6px 10px}
+.namebox label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.namebox input{background:transparent;border:0;border-bottom:1.5px dashed rgba(246,241,223,.6);width:120px;color:#fff;font-weight:800;padding:2px}
+.seal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font:20px "DM Serif Display",serif;color:#F3D88A;background:rgba(0,0,0,.12)}
+.howto{font-size:14.5px;color:var(--muted);margin:12px 2px 0}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,241,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.progress{display:flex;align-items:center;gap:10px;padding:8px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .4s}
+.score{white-space:nowrap;color:var(--ink);font-family:"IBM Plex Mono",monospace}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:88px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.15;min-height:44px}
+.coin{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:600 15px/1 "IBM Plex Mono",monospace;background:radial-gradient(circle at 35% 30%,#FFF8DF,#E9D18A 60%,#C9A445);color:#5A4410;box-shadow:inset 0 0 0 2px rgba(90,68,16,.25),0 2px 0 rgba(90,68,16,.25);transition:transform .2s}
+.tab b{color:var(--ink);font-weight:800}
+.tab .badge{font-size:11px;font-family:"IBM Plex Mono",monospace}
+.tab.on .coin{transform:translateY(-2px) scale(1.08);box-shadow:inset 0 0 0 2px rgba(90,68,16,.35),0 0 0 3px var(--green)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#F0FFF6,#9FD8B6 60%,#3E9E6C);color:#0E4A2C}
+.tab.done .badge{color:var(--ok)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.card h3{font-size:20px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 6px}
+.kicker{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* word list */
+.wgroup{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start}
+.word .em{font-size:26px;line-height:1.1}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.word .pat{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:6px;padding:1px 7px;margin:3px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);margin-top:4px;font-style:italic}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:17px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:15px}
+.say:active{transform:scale(.94)}
+.careful{background:var(--gold-bg);border:2px dashed var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:8px 0}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:6px 0 2px}
+.mist div{padding:6px 10px;border-radius:9px;font-weight:700;font-size:14.5px}
+.mist .x{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-bg);color:var(--ok)}
+.mist .x::before{content:"✗ "}.mist .v::before{content:"✓ "}
+.colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.colbox{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid var(--line);font-size:14.5px}
+.colbox b.p{font:600 15px "IBM Plex Mono",monospace;color:var(--green)}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fc-scene{perspective:1200px;max-width:460px;margin:0 auto}
+.fc{position:relative;height:290px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;gap:6px}
+.front{background:#fff;border:2px solid var(--line);background-image:repeating-linear-gradient(45deg,rgba(30,117,80,.03) 0 6px,transparent 6px 12px)}
+.back{background:linear-gradient(140deg,#1E7550,#0F3D2D);color:#F6F1DF;transform:rotateY(180deg)}
+.face .big{font-size:48px;line-height:1}
+.face .txt{font:clamp(26px,7vw,34px)/1.15 "DM Serif Display",serif}
+.face .def{font-size:16.5px;font-weight:600;max-width:360px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:360px}
+.face .ipa{font:500 14px "IBM Plex Mono",monospace;color:var(--muted)}
+.face .say{position:absolute;top:12px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#B9D8C6}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--green)}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:800;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--stamp);color:var(--stamp)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px dashed var(--line)}
+.exhead .no{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.exhead h3{margin:6px 0 2px;font-size:22px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font:600 13px "IBM Plex Mono",monospace;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:600 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:700}
+.orig{display:block;font-weight:600;color:var(--muted);font-size:15px;margin-bottom:4px}
+.key{display:inline-block;font:600 13px "IBM Plex Mono",monospace;background:var(--gold-bg);color:#7A5B0E;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok)}
+.gap.filledbad{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;min-width:52px;font-weight:800;font-size:16px;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.opt.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-weight:700;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--green);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.wrongs{font-size:16.5px;font-weight:700;color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(194,57,46,.35)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:800}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-weight:700;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:800;font-size:15.5px}
+.mbtn.sel{border-color:var(--green);background:var(--green-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* text */
+.gtext{font-size:17px;line-height:2.35;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.gtext .gn{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);vertical-align:super;margin-right:2px}
+.gapin{width:100px;border:0;border-bottom:3px solid var(--green);background:var(--green-bg);border-radius:6px 6px 0 0;padding:2px 6px;font-weight:800;font-size:16px;text-align:center}
+.gapin.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.gapin.badv{border-color:var(--bad);background:var(--bad-bg)}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:150px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--green);outline:none}
+.wcount{font:500 12.5px "IBM Plex Mono",monospace;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok)}
+.tick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tick span{font-size:12.5px;font-weight:800;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.tick span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* receipt */
+.receipt{background:#fff;max-width:520px;margin:0 auto 18px;padding:22px 20px 26px;font-family:"IBM Plex Mono",monospace;font-size:14px;box-shadow:var(--shadow);position:relative;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x}
+.receipt h2{font-family:"IBM Plex Mono",monospace;font-size:16px;text-align:center;letter-spacing:.2em;margin:0}
+.receipt .c{text-align:center;color:var(--muted);font-size:12.5px}
+.receipt hr{border:0;border-top:1.5px dashed var(--line);margin:12px 0}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.receipt .ln span:first-child{min-width:0}
+.receipt .tot{font-size:22px;font-weight:600}
+.receipt .msg{text-align:center;font-family:"Manrope",sans-serif;font-weight:700;font-size:16px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:2px 10px;transform:rotate(-6deg);font-weight:600;letter-spacing:.12em;margin-top:8px}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:700}.mlist .cr{color:var(--ok);font-weight:800}
+.sendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.sendgrid .btn{text-decoration:none;color:var(--ink);text-align:center;display:flex;align-items:center;justify-content:center}
+.sendgrid .pri{color:#fff}
+.mail{user-select:all;font-weight:800;background:var(--soft);padding:2px 8px;border-radius:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wgroup,.mist,.colgrid{grid-template-columns:1fr}
+  .opts,.fb,.inrow{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14px}
+  .seal{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root{
+  --paper:#F5F3EF; --card:#FFFFFF; --ink:#17171C; --muted:#5C5C66; --line:#E3DFD8; --soft:#EEEAE3;
+  --green:#1F7A5A; --green-bg:#E0F1EA; --gold:#C8352B; --gold-bg:#FBE4E1; --stamp:#C8352B; --stamp-bg:#FBE4E1;
+  --red:#C8352B; --blk:#17171C;
+}
+body{font-family:"Archivo",system-ui,sans-serif;background-image:none;font-size:16.5px}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em}
+.card h3{font-size:20px;margin:22px 0 6px}
+.note{background:#17171C;color:#F5F3EF}
+.note::before{border-color:rgba(245,243,239,.18)}
+.note::after{background:repeating-linear-gradient(135deg,rgba(200,53,43,.18) 0 2px,transparent 2px 10px);right:-60px;top:-60px;width:240px;height:240px}
+.note>*{position:relative;z-index:1}
+.note .serial{color:#F2A49C}
+.note h1{font-size:clamp(32px,8vw,54px);line-height:1;font-weight:900;margin-top:12px}
+.note h1 .r{color:#fff;background:var(--red);padding:0 8px;border-radius:4px}
+.note h1 .k{color:#17171C;background:#F5F3EF;padding:0 8px;border-radius:4px}
+.note p{color:#D8D6DE}
+.note i{color:#fff}
+.hrow{display:flex;gap:18px;align-items:center}
+.htext{flex:1;min-width:0}
+.stmt{flex:none;width:250px;background:#FFFDF8;color:#17171C;border-radius:10px;padding:12px 14px;font:500 12.5px "IBM Plex Mono",monospace;transform:rotate(2deg);box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.sh{font-weight:600;letter-spacing:.14em;border-bottom:1.5px dashed #CFC9BE;padding-bottom:6px;margin-bottom:4px;text-align:center}
+.sl{display:flex;justify-content:space-between;gap:8px;padding:3px 0}
+.sl b{font-weight:600}
+.sl .pos{color:#17171C}.sl .neg{color:var(--red)}
+.sl.tot{border-top:1.5px solid #17171C;margin-top:4px;padding-top:6px;font-weight:600}
+.seal{border-color:#F2A49C;background:rgba(200,53,43,.2);color:#fff;font:700 26px "Archivo",sans-serif}
+.coin{background:radial-gradient(circle at 35% 30%,#FFFFFF,#E7E3DC 60%,#B9B2A6);color:#17171C}
+.tab.on .coin{box-shadow:inset 0 0 0 2px rgba(0,0,0,.2),0 0 0 3px var(--red)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#5A5A66,#2A2A33 60%,#17171C);color:#fff}
+.kicker{color:var(--red)}
+.exlist{margin:4px 0 0;padding-left:20px}.exlist li{margin:7px 0}
+.exlist b,.ruleboxes u{color:var(--red)}
+.ruleboxes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.rb{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;display:flex;flex-direction:column;gap:4px;font-size:15.5px}
+.kinds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.kd{border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;background:#fff;border:2px solid}
+.kd .tag{align-self:flex-start;font:600 12px "IBM Plex Mono",monospace;border-radius:6px;padding:2px 8px;color:#fff}
+.kd b{font-size:19px}
+.kd span:not(.tag){font-size:14.5px;font-weight:600;color:var(--muted)}
+.kd i{font-size:15px}
+.kd u{text-decoration-thickness:2px;text-underline-offset:3px}
+.k1{border-color:#C8352B}.k1 .tag{background:#C8352B}.k1 u{text-decoration-color:#C8352B}
+.k2{border-color:#2F5DA8}.k2 .tag{background:#2F5DA8}.k2 u{text-decoration-color:#2F5DA8}
+.k3{border-color:#17171C}.k3 .tag{background:#17171C}.k3 u{text-decoration-color:#17171C}
+.k4{border-color:#1F7A5A}.k4 .tag{background:#1F7A5A}.k4 u{text-decoration-color:#1F7A5A}
+/* linker switch */
+.dial{background:#17171C;color:#F5F3EF;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.dreq,.dlv{display:flex;flex-wrap:wrap;gap:8px}
+.dreq button,.dlv button{min-height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#F5F3EF;padding:8px 12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;text-align:left}
+.dlv button span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.15);font-size:13px;flex:none}
+.dreq button.on{background:#F5F3EF;color:#17171C;border-color:#F5F3EF}
+.dlv button.on{background:var(--red);border-color:var(--red)}
+.dlv button.on span{background:#fff;color:var(--red)}
+.dout{background:#fff;color:var(--ink);border-radius:12px;padding:14px}
+.dsent{font-size:20px;line-height:1.4;font-weight:600}
+.dsent b{color:var(--red)}
+.dnote{font-size:14.5px;color:var(--muted);margin-top:8px}
+.gtext{line-height:2.1}
+@media (max-width:640px){ .kinds,.ruleboxes{grid-template-columns:1fr} .dsent{font-size:18px} .stmt{display:none} }
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="note">
+      <div class="serial">UPPER-INTERMEDIATE · VOCABULARY &amp; GRAMMAR · FOR JULIA</div>
+      <div class="hrow">
+        <div class="htext">
+          <h1>In the <span class="r">red</span>,<br>in the <span class="k">black</span></h1>
+          <p>Money expressions from the lesson (<i>splash out, pay through the nose, dip into your savings, cut back on…</i>) and how to show contrast: <i>although, even though, despite, in spite of, nevertheless, whereas, while</i>.</p>
+        </div>
+        <div class="stmt" aria-hidden="true">
+          <div class="sh">STATEMENT · NOV</div>
+          <div class="sl"><span>Salary</span><b class="pos">+2,400.00</b></div>
+          <div class="sl"><span>Black Friday spree</span><b class="neg">−2,150.00</b></div>
+          <div class="sl"><span>"Best deal" coat</span><b class="neg">−420.00</b></div>
+          <div class="sl tot"><span>Balance</span><b class="neg">−170.00</b></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="namebox"><label for="nm">Name</label><input id="nm" autocomplete="off"></div>
+        <div class="seal" aria-hidden="true">€</div>
+      </div>
+    </div>
+    <p class="howto">Work through the tabs in order: Words → Cards → Meaning → In use → Contrast → Practice → Results. Your answers save automatically, so you can stop and come back later.</p>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="progress"><span id="pdone">0%</span><div class="bar"><i id="pbar"></i></div><span class="score" id="pscore">0 / 0</span></div>
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="panel" id="p-words">
+  <div class="card">
+    <span class="kicker">Step 1 · The words</span>
+    <h2>Ten money expressions</h2>
+    <p class="lead">Read the meaning and the pattern, listen 🔊 and say each one out loud, as one chunk.</p>
+    <h3>🏦 Your balance</h3><div class="wgroup" data-wl="bal"></div>
+    <h3>🛍️ Spending</h3><div class="wgroup" data-wl="spend"></div>
+  </div>
+  <div class="careful">
+    <h2>⚠️ Careful with these</h2>
+    <ul>
+      <li><b>in THE red / in THE black</b>, always with <i>the</i>. Movement: <i>go <b>into</b> the red</i>; back to normal: <i>get <b>out of</b> the red</i>.</li>
+      <li><b>rip sb off</b> is separable. With a pronoun it goes in the middle: <i>they ripped <u>us</u> off</i>, not <s>ripped off us</s>. Passive: <i>I've been / got ripped off.</i> Noun: <i>What a rip-off!</i></li>
+      <li><b>splash out ON</b> sth · <b>cut back ON</b> sth · <b>dip INTO</b> your savings · <b>pay THROUGH the nose FOR</b> sth.</li>
+      <li><b>cut back on</b> (verb) → <b>cutbacks</b> (noun): <i>The company announced cutbacks.</i></li>
+      <li><b>live beyond your means</b> ↔ <b>live within your means</b>. <i>Means</i> here = the money you have; it always ends in -s.</li>
+      <li><b>savvy</b> is an adjective: <i>a savvy shopper</i>, <i>money-savvy</i>, <i>tech-savvy</i>. Informal but very common.</li>
+      <li><b>go on</b> a shopping spree (not <s>make a shopping spree</s>).</li>
+    </ul>
+  </div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Flashcards →</button></div>
+</section>
+<section class="panel" id="p-cards">
+  <div class="card">
+    <span class="kicker">Step 2</span>
+    <h2>Flashcards</h2>
+    <p class="lead">Tap the card to flip it. Be honest with yourself: “I know it” only if you could use the expression in a sentence about your own life.</p>
+    <div class="fc-top">
+      <button class="btn" id="fcDir" type="button">Word → meaning</button>
+      <label class="tog"><input type="checkbox" id="fcOnly"> Only expressions I'm still learning</label>
+    </div>
+    <div style="font-size:14px;font-weight:700">Known: <span id="fcKnown">0</span> / <span id="fcTotal">0</span><span style="float:right;color:var(--muted)" class="mono" id="fcPos"></span></div>
+    <div class="kbar"><i id="fcKbar"></i></div>
+    <div class="fc-scene">
+      <div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card">
+        <div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div>
+      </div>
+    </div>
+    <div class="fc-row">
+      <button class="btn bad" id="fcLearn" type="button">🔁 Still learning</button>
+      <button class="btn ok" id="fcKnow" type="button">✓ I know it</button>
+    </div>
+    <div class="fc-row">
+      <button class="btn" id="fcPrev" type="button">◀ Back</button>
+      <button class="btn" id="fcShuf" type="button">🔀 Shuffle</button>
+      <button class="btn" id="fcNext" type="button">Next ▶</button>
+    </div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Meaning →</button></div>
+</section>
+
+<section class="panel" id="p-voc1">
+  <div class="card"><span class="kicker">Step 3</span><h2>Meaning</h2><p class="lead" style="margin:0">Recognise the expressions and the small words inside them. Your first answer counts for the score.</p></div>
+  <div data-ex="v1"></div><div data-ex="v2"></div><div data-ex="v3"></div><div data-ex="v4"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: In use →</button></div>
+</section>
+
+<section class="panel" id="p-voc2">
+  <div class="card"><span class="kicker">Step 4</span><h2>In use</h2><p class="lead" style="margin:0">A story with the expressions, then key-word transformations.</p></div>
+  <div data-ex="v5"></div><div data-ex="v6"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">Next: Contrast →</button></div>
+</section>
+
+<section class="panel" id="p-dist">
+  <div class="card">
+    <span class="kicker">Step 5 · Grammar</span>
+    <h2>Showing contrast</h2>
+    <p class="lead">Two ideas that don't seem to fit together: <i>I didn't have any money</i> + <i>I went shopping</i>. English has several ways to join them, and each one is followed by a different <b>kind</b> of grammar.</p>
+
+    <div class="kinds">
+      <div class="kd k1"><span class="tag">+ clause</span><b>although · even though</b><span>subject + verb</span><i>Although <u>I didn't have</u> any money, …</i></div>
+      <div class="kd k2"><span class="tag">+ noun / -ing</span><b>despite · in spite of</b><span>noun, -ing, or <i>the fact that</i> + clause</span><i>Despite <u>the lack of money</u> / <u>not having</u> any money, …</i></div>
+      <div class="kd k3"><span class="tag">new sentence</span><b>nevertheless</b><span>full stop (or ;) + Nevertheless,</span><i>I had no money. <u>Nevertheless</u>, I went.</i></div>
+      <div class="kd k4"><span class="tag">two sides</span><b>whereas · while</b><span>clause + , whereas + clause</span><i>I went shopping, <u>whereas</u> my friend saved.</i></div>
+    </div>
+
+    <h3>Try the linker switch</h3>
+    <p style="margin:0 0 8px">Pick two ideas, then a linker. Watch what has to change after it.</p>
+    <div class="dial">
+      <div class="dreq" id="dialReq"></div>
+      <div class="dlv" id="dialLv"></div>
+      <div class="dout" id="dialOut" aria-live="polite"></div>
+    </div>
+
+    <h3>Concession or comparison?</h3>
+    <div class="ruleboxes">
+      <div class="rb"><b>although / despite / nevertheless: a surprise</b><span>The second idea is unexpected after the first. <i>Even though she earns a lot, she's always in the red.</i></span></div>
+      <div class="rb"><b>whereas / while: a difference</b><span>Two people or things side by side, nothing surprising. <i>I splash out, whereas my sister saves every penny.</i></span></div>
+    </div>
+
+    <h3>Examples</h3>
+    <ul class="exlist">
+      <li><b>Although / Even though</b> I didn't have any money, I went on a Black Friday shopping spree. <button class="say sm" type="button" data-say="Even though I didn't have any money, I went on a Black Friday shopping spree." aria-label="listen">🔊</button></li>
+      <li>I went on a shopping spree <b>in spite of / despite</b> not having any money. <button class="say sm" type="button" data-say="I went on a shopping spree despite not having any money." aria-label="listen">🔊</button></li>
+      <li>I went on a shopping spree <b>despite the fact that</b> I didn't have any money. <button class="say sm" type="button" data-say="I went on a shopping spree despite the fact that I didn't have any money." aria-label="listen">🔊</button></li>
+      <li>I went on a shopping spree <b>despite</b> the lack of money. <button class="say sm" type="button" data-say="I went on a shopping spree despite the lack of money." aria-label="listen">🔊</button></li>
+      <li>I didn't have any money. <b>Nevertheless</b>, I went on a shopping spree. <button class="say sm" type="button" data-say="I didn't have any money. Nevertheless, I went on a shopping spree." aria-label="listen">🔊</button></li>
+      <li>I went on a shopping spree, <b>whereas / while</b> my friend saved some money and skipped Black Friday. <button class="say sm" type="button" data-say="I went on a shopping spree, whereas my friend saved some money and skipped Black Friday." aria-label="listen">🔊</button></li>
+    </ul>
+
+    <h3>Typical mistakes</h3>
+    <div class="mist">
+      <div class="x">Despite of the price, …</div><div class="v">Despite the price, … / In spite of the price, …</div>
+      <div class="x">Although I had no money, but I went.</div><div class="v">Although I had no money, I went.</div>
+      <div class="x">Despite I was tired, …</div><div class="v">Despite being tired, … / Despite the fact that I was tired, …</div>
+      <div class="x">Even I didn't need it, I bought it.</div><div class="v">Even though I didn't need it, I bought it.</div>
+      <div class="x">I had no money, nevertheless I went.</div><div class="v">I had no money. Nevertheless, I went.</div>
+    </div>
+  </div>
+  <div data-ex="g1"></div>
+  <div class="next"><button class="btn pri" data-go="5" type="button">Next: Practice →</button></div>
+</section>
+
+<section class="panel" id="p-gram">
+  <div class="card"><span class="kicker">Step 6</span><h2>Practice</h2><p class="lead" style="margin:0">Fix the mistakes, join the ideas, then complete the text.</p></div>
+  <div data-ex="g2"></div><div data-ex="g3"></div><div data-ex="g4"></div>
+  <div class="next"><button class="btn pri" data-go="6" type="button">See my results →</button></div>
+</section>
+
+<section class="panel" id="p-results">
+  <div class="receipt" id="receipt"></div>
+  <div class="card">
+    <h2 style="font-size:22px">Send it to your teacher</h2>
+    <p class="lead">When you've finished, send your results. Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Gmail, Telegram, WhatsApp and the email app send a shorter version. “Copy text” always copies the full report.</p>
+  </div>
+  <div class="card"><h2 style="font-size:22px">Mistakes to look at again</h2><ul class="mlist" id="rMist"></ul></div>
+  <div class="card">
+    <h2 style="font-size:22px">Start again</h2>
+    <button class="btn bad" id="resetBtn" type="button">🗑 Delete all my answers</button>
+    <div class="confirm" id="resetConfirm"><b>Delete all answers? This can't be undone.</b>
+      <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes" type="button">Yes, delete</button><button class="btn" id="resetNo" type="button">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<footer>Made for Julia · Stay in the black!</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA — edit words, items and answers here
+   ========================================================= */
+const STUDENT = "Julia";
+const TEACHER = "ulchik2211@gmail.com";
+const TITLE = "Money idioms (in the red, splash out, pay through the nose…) + showing contrast (although, despite, nevertheless, whereas)";
+const SUBJECT_TOPIC = "Money idioms & contrast";
+const REPORT_HEAD = "MONTHLY STATEMENT";
+const KEY = "julia-money-contrast-v1";
+const STORY = [];
+
+const VOCAB = [
+  {id:"red", g:"bal", en:"be in the red", em:"🟥", ipa:"/ɪn ðə ˈred/", pat:"be in the red · go into the red", def:"to owe money, or to have spent more than you have in your account", ex:"This is the first time the company has been in the red."},
+  {id:"black", g:"bal", en:"be in the black", em:"⬛", ipa:"/ɪn ðə ˈblæk/", pat:"be (back) in the black", def:"to have money in your account and not owe anything; for a company, to make a profit", ex:"They once came close to bankruptcy, but they are now in the black."},
+  {id:"beyond", g:"bal", en:"live beyond your means", em:"🎈", ipa:"/biˈjɒnd jə miːnz/", pat:"live beyond / within your means", def:"to spend more money than you earn", ex:"If you go into the red every month, you must be living beyond your means."},
+  {id:"dip", g:"bal", en:"dip into your savings", em:"🐷", ipa:"/dɪp ˈɪntə/", pat:"dip into your / our savings", def:"to take some money from an amount you have saved, especially when you shouldn't", ex:"Medical bills forced us to dip into our savings."},
+  {id:"cut", g:"bal", en:"cut back on sth", em:"✂️", ipa:"/kʌt ˈbæk ɒn/", pat:"cut back on sth · cutbacks (noun)", def:"to spend less, do less or use less of something", ex:"Let's cut back on travel costs and have more online meetings."},
+  {id:"splash", g:"spend", en:"splash out (on sth)", em:"🛍️", ipa:"/splæʃ ˈaʊt/", pat:"splash out on sth", def:"to spend a lot of money, often in an extravagant way", ex:"You probably splashed out on too many treats and clothes."},
+  {id:"spree", g:"spend", en:"a shopping spree", em:"🛒", ipa:"/ˈʃɒpɪŋ spriː/", pat:"go on a shopping spree", def:"a short period when you buy a lot of things", ex:"I went on a Black Friday shopping spree."},
+  {id:"rip", g:"spend", en:"rip sb off", em:"🎭", ipa:"/rɪp ˈɒf/", pat:"rip sb off · get / be ripped off · a rip-off (noun)", def:"to cheat somebody, especially by charging them too much money", ex:"Jane's tickets cost much less than mine. I think I've been ripped off."},
+  {id:"nose", g:"spend", en:"pay through the nose (for sth)", em:"👃", ipa:"/θruː ðə ˈnəʊz/", pat:"pay through the nose for sth", def:"to pay far too much for something", ex:"People are willing to pay through the nose just to live in the city."},
+  {id:"savvy", g:"spend", en:"savvy", em:"🧠", ipa:"/ˈsævi/", pat:"a savvy shopper · money-savvy · tech-savvy", def:"having or showing practical knowledge and experience", ex:"This Black Friday, I need to be a savvy shopper."}
+];
+
+/* linker switch on the grammar page (reuses the dial engine) */
+const DIAL_LEVELS = [
+  {name:"Although", note:"although + subject + verb. The clause can come first or second. No but in the other half."},
+  {name:"Even though", note:"even though = although, but stronger: it stresses how surprising the contrast is."},
+  {name:"In spite of + -ing", note:"in spite of / despite + -ing form. Only when both halves have the same subject."},
+  {name:"Despite the fact that", note:"despite / in spite of the fact that + subject + verb. Use it when you want a full clause after despite."},
+  {name:"Despite + noun", note:"despite / in spite of + a noun phrase. The shortest and most formal option."},
+  {name:"Nevertheless", note:"Two separate sentences. Nevertheless starts the second one, followed by a comma. Formal; like however, but stronger."}
+];
+const DIAL = [
+  {label:"💸 no money → shopping spree", lv:[
+    "<b>Although</b> I didn't have any money, I went on a shopping spree.",
+    "<b>Even though</b> I didn't have any money, I went on a shopping spree.",
+    "<b>In spite of</b> not having any money, I went on a shopping spree.",
+    "<b>Despite the fact that</b> I didn't have any money, I went on a shopping spree.",
+    "<b>Despite</b> the lack of money, I went on a shopping spree.",
+    "I didn't have any money. <b>Nevertheless</b>, I went on a shopping spree."]},
+  {label:"🟥 in the red → booked a holiday", lv:[
+    "<b>Although</b> we were in the red, we booked a holiday.",
+    "<b>Even though</b> we were in the red, we booked a holiday.",
+    "<b>In spite of</b> being in the red, we booked a holiday.",
+    "<b>Despite the fact that</b> we were in the red, we booked a holiday.",
+    "<b>Despite</b> our debts, we booked a holiday.",
+    "We were in the red. <b>Nevertheless</b>, we booked a holiday."]},
+  {label:"✂️ cutbacks → still lost money", lv:[
+    "<b>Although</b> the company cut back on costs, it went into the red.",
+    "<b>Even though</b> the company cut back on costs, it went into the red.",
+    "<b>In spite of</b> cutting back on costs, the company went into the red.",
+    "<b>Despite the fact that</b> the company cut back on costs, it went into the red.",
+    "<b>Despite</b> the cutbacks, the company went into the red.",
+    "The company cut back on costs. <b>Nevertheless</b>, it went into the red."]}
+];
+
+const R = {
+  although:"although / even though + subject + verb (a full clause). Never with but in the other half.",
+  evenThough:"even though is two words and is stronger than although. Even on its own can't join two clauses.",
+  despite:"despite / in spite of + noun or -ing (not a full clause). Despite has no of.",
+  fact:"despite / in spite of the fact that + subject + verb: the way to put a full clause after despite.",
+  nev:"Nevertheless joins two separate sentences: … . Nevertheless, … It isn't a conjunction like although.",
+  whereas:"whereas / while compares two different people or things side by side. It's a difference, not a surprise."
+};
+
+const EXERCISES = [
+  /* ---------- VOCABULARY ---------- */
+  {id:"v1", type:"match", title:"Match the expression and the meaning", ins:"Tap an expression, then its meaning. Your first try counts.",
+   items:[
+    {en:"be in the red", def:"owe money; have spent more than you have"},
+    {en:"be in the black", def:"have money and not owe anything"},
+    {en:"live beyond your means", def:"spend more than you earn"},
+    {en:"dip into your savings", def:"take some of the money you've saved"},
+    {en:"cut back on sth", def:"spend, do or use less of something"},
+    {en:"splash out", def:"spend a lot, often extravagantly"},
+    {en:"a shopping spree", def:"a short period of buying a lot"},
+    {en:"rip sb off", def:"cheat sb by charging too much"},
+    {en:"pay through the nose", def:"pay far too much"},
+    {en:"savvy", def:"with practical knowledge and experience"}
+   ]},
+  {id:"v2", type:"choice", title:"Which expression fits?", ins:"Choose the expression that completes the sentence.",
+   items:[
+    {q:"For our anniversary we ___ on a five-star hotel.", answer:"splashed out", options:["cut back","splashed out","dipped"], why:"splash out on sth = spend a lot of money, often extravagantly."},
+    {q:"Tourists often get ___ by taxi drivers at the airport.", answer:"ripped off", options:["ripped off","cut back","splashed out"], why:"get ripped off = be cheated, charged too much."},
+    {q:"Rents here are crazy: people ___ for tiny flats.", answer:"pay through the nose", options:["are in the black","cut back","pay through the nose"], why:"pay through the nose for sth = pay far too much."},
+    {q:"The roof needed fixing, so we had to ___ our savings.", answer:"dip into", options:["dip into","splash out","pay through"], why:"dip into your savings = take money from what you've saved."},
+    {q:"Prices have gone up, so we're ___ eating out.", answer:"cutting back on", options:["dipping into","cutting back on","ripping off"], why:"cut back on sth = spend less on it."},
+    {q:"My grandmother is a ___ shopper: she always knows where the real bargains are.", answer:"savvy", options:["savvy","ripped-off","red"], why:"savvy = having practical knowledge and experience."}
+   ]},
+  {id:"v3", type:"choice", title:"Red or black?", ins:"Choose the right phrase.",
+   options:["in the red","in the black","into the red"],
+   items:[
+    {q:"This is the first time the company has been ___, after always being profitable.", answer:"in the red", why:"be in the red = be losing money / owe money."},
+    {q:"They once came close to bankruptcy, but they are now ___.", answer:"in the black", why:"be in the black = make a profit, not owe money."},
+    {q:"If you keep using your credit card like that, you'll go ___.", answer:"into the red", why:"go INTO the red = start to owe money (movement)."},
+    {q:"Until his finances are ___, I don't want to get married.", answer:"in the black", why:"in the black = financially healthy, not in debt."},
+    {q:"We spent more than we earned again this month. We're ___.", answer:"in the red", why:"Spending more than you earn puts you in the red."},
+    {q:"Three bad years in a row pushed the café ___.", answer:"into the red", why:"push / go INTO the red: movement from black to red."}
+   ]},
+  {id:"v4", type:"choice", title:"The small words", ins:"Choose the word that completes the expression.",
+   items:[
+    {q:"She splashed out ___ a designer bag.", answer:"on", options:["on","for","with"], why:"splash out ON sth."},
+    {q:"We need to cut back ___ sugar.", answer:"on", options:["from","on","of"], why:"cut back ON sth."},
+    {q:"I don't want to dip ___ my savings again.", answer:"into", options:["into","in","from"], why:"dip INTO your savings."},
+    {q:"We paid ___ the nose for those concert tickets.", answer:"through", options:["across","by","through"], why:"pay THROUGH the nose (for sth)."},
+    {q:"That shop rips tourists ___.", answer:"off", options:["out","off","down"], why:"rip sb OFF. Noun: a rip-off."},
+    {q:"Too many people live ___ their means.", answer:"beyond", options:["over","above","beyond"], why:"live BEYOND your means; the opposite is live WITHIN your means."}
+   ]},
+  {id:"v5", type:"textgap", title:"Anna's Black Friday", ins:"Complete the story with the expressions from the box. You may need to change the form. Then press Check.",
+   bank:["savvy","cut back on","ripped off","shopping spree","dip into","red","means","splashed out"],
+   text:"Last November Anna went on a Black Friday [[shopping spree]]. She [[splashed out]] on a new phone, a coat and three pairs of boots. The problem was that she was already living beyond her [[means]]: by the end of the month she was €400 in the [[red]] and had to [[dip into]] her savings. Worse, she later found out that she had been [[ripped off]]: the 'best deal' coat was cheaper in a shop round the corner. This year she's trying to be a more [[savvy]] shopper. She has decided to [[cut back on]] clothes and only buy what she really needs.",
+   whys:["go on a shopping spree.","splash out on sth = spend a lot.","live beyond your means = spend more than you earn.","be (an amount) in the red.","dip into your savings.","be / get ripped off = be cheated.","a savvy shopper.","cut back on sth = spend less on it."]},
+  {id:"v6", type:"type", title:"Say it with the key word", ins:"Complete the second sentence so it means the same as the first. Use the word in the box.",
+   items:[
+    {orig:"We need to spend less on eating out.", q:"We need to ___ eating out.", key:"CUT", accept:["cut back on"], hint:"cut + 2 small words", why:"cut back on sth."},
+    {orig:"That taxi driver charged us three times the normal price!", q:"That taxi driver ___!", key:"RIPPED", accept:["ripped us off"], hint:"With a pronoun, it goes in the middle.", why:"rip sb off: ripped us off (not ripped off us)."},
+    {orig:"They paid far too much for that flat.", q:"They paid ___ for that flat.", key:"NOSE", accept:["through the nose"], hint:"through + …", why:"pay through the nose for sth."},
+    {orig:"I had to use some of the money I'd saved to pay the bill.", q:"I had to ___ to pay the bill.", key:"DIP", accept:["dip into my savings"], hint:"dip + preposition + my …", why:"dip into your savings."},
+    {orig:"For her birthday we spent a lot of money on a fancy dinner.", q:"For her birthday we ___ a fancy dinner.", key:"SPLASHED", accept:["splashed out on"], hint:"splashed + 2 small words", why:"splash out on sth."},
+    {orig:"My account is overdrawn again.", q:"I'm ___ again.", key:"RED", accept:["in the red"], hint:"in + the + …", why:"be in the red."},
+    {orig:"Her husband spends more money than he earns.", q:"Her husband lives ___.", key:"MEANS", accept:["beyond his means"], hint:"beyond + his …", why:"live beyond your means."}
+   ]},
+  /* ---------- GRAMMAR ---------- */
+  {id:"g1", type:"choice", title:"Choose the linker", ins:"Choose the word or phrase that is correct in the sentence.",
+   items:[
+    {q:"___ the rain, we went to the market.", answer:"Despite", options:["Although","Despite","Nevertheless"], why:R.despite},
+    {q:"___ it was raining, we went to the market.", answer:"Although", options:["Despite","In spite of","Although"], why:R.although},
+    {q:"She bought the dress in spite of ___ it.", answer:"not needing", options:["not needing","she didn't need","not need"], why:R.despite},
+    {q:"He splashed out on a new car, ___ his brother saved every penny.", answer:"whereas", options:["whereas","despite","nevertheless"], why:R.whereas},
+    {q:"We were in the red. ___, we booked a holiday.", answer:"Nevertheless", options:["Although","Nevertheless","Despite"], why:R.nev},
+    {q:"Despite ___ the shop was expensive, they bought everything there.", answer:"the fact that", options:["the fact that","of","that"], why:R.fact},
+    {q:"___ I'd promised to cut back, I went on another shopping spree.", answer:"Even though", options:["In spite of","Whereas","Even though"], why:R.evenThough},
+    {q:"In spite ___ the price, she bought it.", answer:"of", options:["of","that","the fact"], why:"in spite OF + noun; despite has no of."}
+   ]},
+  {id:"g2", type:"type", title:"Find the mistake", ins:"Each sentence has ONE mistake. Write the whole correct sentence.",
+   items:[
+    {wrong:"Despite of the price, she bought it.", accept:["Despite the price, she bought it","In spite of the price, she bought it"], hint:"despite never takes of.", why:R.despite},
+    {wrong:"Although I didn't have any money, but I went shopping.", accept:["Although I didn't have any money, I went shopping","Even though I didn't have any money, I went shopping","I didn't have any money, but I went shopping"], hint:"although and but don't go together.", why:R.although},
+    {wrong:"In spite of I was tired, I went out.", accept:["In spite of being tired, I went out","In spite of the fact that I was tired, I went out","Although I was tired, I went out","Even though I was tired, I went out","Despite being tired, I went out","Despite the fact that I was tired, I went out"], hint:"in spite of + -ing, or + the fact that…", why:R.despite},
+    {wrong:"Even I didn't need it, I bought it.", accept:["Even though I didn't need it, I bought it","Although I didn't need it, I bought it"], hint:"even alone can't join two clauses.", why:R.evenThough},
+    {wrong:"Despite she earns a lot, she's always in the red.", accept:["Despite earning a lot, she's always in the red","Despite the fact that she earns a lot, she's always in the red","Although she earns a lot, she's always in the red","Even though she earns a lot, she's always in the red","In spite of earning a lot, she's always in the red","In spite of the fact that she earns a lot, she's always in the red"], hint:"despite + -ing, or despite the fact that…", why:R.fact},
+    {wrong:"She saves every penny, nevertheless her husband splashes out on everything.", accept:["She saves every penny, whereas her husband splashes out on everything","She saves every penny, while her husband splashes out on everything","She saves every penny, whilst her husband splashes out on everything"], hint:"Two different people compared side by side.", why:R.whereas}
+   ]},
+  {id:"g3", type:"type", selfmark:true, title:"Join the ideas", ins:"Join the two sentences using the beginning given. If your answer is different from the model but also correct, mark it yourself.",
+   items:[
+    {orig:"I didn't have any money. I went on a shopping spree.", q:"Despite ___.", accept:["not having any money, I went on a shopping spree","having no money, I went on a shopping spree","the fact that I didn't have any money, I went on a shopping spree","the fact that I had no money, I went on a shopping spree","the lack of money, I went on a shopping spree"], hint:"despite + -ing, or + the fact that", why:R.despite},
+    {orig:"The flat was ridiculously expensive. They rented it.", q:"Although ___.", accept:["the flat was ridiculously expensive, they rented it","it was ridiculously expensive, they rented the flat"], hint:"although + subject + verb", why:R.although},
+    {orig:"We cut back on costs. We still went into the red.", q:"In spite of ___.", accept:["cutting back on costs, we still went into the red","cutting back on costs, we went into the red","the fact that we cut back on costs, we still went into the red","the fact that we cut back on costs, we went into the red","the cutbacks, we still went into the red","the cutbacks, we went into the red"], hint:"in spite of + -ing", why:R.despite},
+    {orig:"Tom splashes out on gadgets. His sister saves every penny.", q:"Tom splashes out on gadgets, ___.", accept:["whereas his sister saves every penny","while his sister saves every penny","whilst his sister saves every penny"], hint:"Compare the two people.", why:R.whereas},
+    {orig:"The tickets were ridiculously expensive. We bought them.", q:"The tickets were ridiculously expensive. ___.", accept:["Nevertheless, we bought them","Nevertheless, we bought them anyway","Nevertheless we bought them","Nevertheless, we still bought them"], hint:"A new sentence starting with a formal linker + comma.", why:R.nev},
+    {orig:"She's a very savvy shopper. She got ripped off.", q:"Even though ___.", accept:["she's a very savvy shopper, she got ripped off","she is a very savvy shopper, she got ripped off","she's a very savvy shopper, she still got ripped off","she is a very savvy shopper, she still got ripped off"], hint:"even though + subject + verb", why:R.evenThough}
+   ]},
+  {id:"g4", type:"textgap", title:"Two sisters, two wallets", ins:"Complete the text with the words from the box. Then press Check.",
+   bank:["despite","even","nevertheless","of","the fact","although","whereas"],
+   text:"My sister and I are completely different with money. She's a savvy shopper, [[whereas|while|whilst]] I'm the one who always gets ripped off. [[Although|Even though|Though]] I promise myself every year that I'll cut back, I always end up on a shopping spree on Black Friday. Last year I spent €600 in spite [[of]] having almost nothing in my account. I knew I was going into the red. [[Nevertheless|However]], I kept buying. And despite [[the fact]] that half of the 'deals' weren't even cheap, I was proud of myself. My sister earns less than I do. [[Even]] though her salary is smaller, she's always in the black, and she has never had to dip into her savings, [[despite|in spite of]] all her travelling.",
+   whys:[R.whereas, R.although, "in spite OF + -ing.", R.nev, R.fact, R.evenThough, R.despite]}
+];
+
+const TABS = [
+  {id:"words", icon:"1", en:"Words", ex:[]},
+  {id:"cards", icon:"2", en:"Cards", ex:[]},
+  {id:"voc1", icon:"3", en:"Meaning", ex:["v1","v2","v3","v4"]},
+  {id:"voc2", icon:"4", en:"In use", ex:["v5","v6"]},
+  {id:"dist", icon:"5", en:"Contrast", ex:["g1"]},
+  {id:"gram", icon:"6", en:"Practice", ex:["g2","g3","g4"]},
+  {id:"results", icon:"€", en:"Results", ex:[]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+
+const store = (()=>{ let mem=null; return {
+  get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
+  set(v){ mem=v; try{ localStorage.setItem(KEY,v); }catch(e){} },
+  del(){ mem=null; try{ localStorage.removeItem(KEY); }catch(e){} } };})();
+function fresh(){ return {name:STUDENT, ans:{}, known:[], writing:{}, tab:0, fcDir:"word"}; }
+let state=fresh();
+try{ const raw=store.get(); if(raw) state=Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(state)); }catch(e){} updateProgress(); }
+function rec(id,i){ return (state.ans[id]||{})[i]; }
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","isn't":"is not","aren't":"are not","haven't":"have not","hasn't":"has not","won't":"will not","i'll":"i will","what's":"what is","let's":"let us","i've":"i have","wasn't":"was not","weren't":"were not","i'd":"i would","you'd":"you would","we'd":"we would","they'd":"they would","it'll":"it will","you'll":"you will","we'll":"we will","they'll":"they will","that's":"that is","there's":"there is","wouldn't":"would not","shouldn't":"should not","you're":"you are"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/,(\d{3})/g,"$1").replace(/,/g," ")
+    .replace(/\s+/g," ").trim().replace(/[.!?]+$/,"").trim();
+  s=s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot").replace(/^'s /,"is ").replace(/ 's /g," is ");
+  return s;
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
+function speak(t){ if(!("speechSynthesis" in window)||!t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/\(sb[^)]*\)|\(an amount\)|\(money\)/g,"").replace(/·/g,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(t)}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!","Great!"];
+const OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${ex.title}</h3><div class="ins">${ex.ins}</div></div><div class="exbody"></div>`;
+  return box;
+}
+// q may contain <b> tags (trusted data); gap marker ___
+function gapHtml(q,fill,cls){ return q.replace("___",`<span class="gap ${cls||""}">${fill?esc(fill):"&nbsp;"}</span>`); }
+function fillSentence(q,a){ return strip(q).replace("___",a==="—"?"":a).replace(/\s+/g," ").trim(); }
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+function bankHtml(b){ return `<div class="bank"><b>Word box</b>${b.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`; }
+
+/* choice */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const hasGap=it.q.includes("___");
+    const qh = it.say ? `<span class="row">${sayBtn(it.say)} <span>${esc(it.q)}</span></span>` : `<span class="qt">${gapHtml(it.q)}</span>`;
+    const opts=it.options||ex.options;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="opts">${opts.map(o=>`<button class="opt${ex.mono?" mono":""}" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return;
+      const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.answer,done:true}); paintChoice(ex,it,i,row,true); }));
+    row.dataset.gap=hasGap?"1":"";
+    body.appendChild(row);
+    if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===it.answer) b.classList.add("ghost"); });
+  const hasGap=it.q.includes("___");
+  if(hasGap){ const qt=$(".qt",row); qt.innerHTML=gapHtml(it.q,it.answer,r.correct?"filled":"filledbad"); }
+  const sent=hasGap?fillSentence(it.q,it.answer):(it.say||it.answer);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.answer)}</b>${hasGap?`<span class="row">${sayBtn(sent,true)} <span>${esc(sent)}</span></span>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* typed */
+function renderType(ex,body){
+  if(ex.bank) body.insertAdjacentHTML("beforeend",bankHtml(ex.bank));
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.listen) qh=`<span class="row">${sayBtn(it.say)} <span style="color:var(--muted);font-weight:600">Listen and type</span></span>`;
+    else if(it.wrong) qh=`<span class="wrongs">${esc(it.wrong)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}</span>`:""}<span class="qt">${gapHtml(it.q)}</span>${it.key?`<span class="key">${esc(it.key)}</span>`:""}`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="inrow"><input type="text" autocomplete="off" autocapitalize="${it.wrong?"sentences":"off"}" spellcheck="false" aria-label="answer" placeholder="${it.wrong?"Write the correct sentence":"Type your answer"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    body.appendChild(row);
+    const r=rec(ex.id,i); if(r&&r.done) paintTyped(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); paintTyped(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function modelOf(ex,it){ if(ex.listen) return it.say; if(it.wrong) return it.accept[0]+(it.end||"."); return fillSentence(it.q,it.accept[0]); }
+function paintTyped(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.listen&&!it.wrong){ $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad"); }
+  const full=modelOf(ex,it); let notes="";
+  if(r.correct&&it.wrong&&r.given[0]!==r.given[0].toUpperCase()) notes+=`<div>✏️ Remember the capital letter at the start.</div>`;
+  if(r.correct&&it.end==="?"&&!/\?\s*$/.test(r.given)) notes+=`<div>❓ Don't forget the question mark.</div>`;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(r.self?"✓ Marked as correct by you":(live?pick(PRAISE):"✓ Correct")):"✗ The answer is:"}</b><span class="row">${sayBtn(full,true)} <span>${esc(full)}</span></span>${notes}${whyHtml(it.why)}${ex.selfmark&&!r.correct?`<button class="btn ok selfok" type="button">My answer is also correct ✓</button>`:""}`;
+  const sb=$(".selfok",fb); if(sb) sb.addEventListener("click",()=>{ r.correct=true; r.self=true; setRec(ex.id,i,r); paintTyped(ex,it,i,row,false); });
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* match */
+function renderMatch(ex,body){
+  const order=seeded(ex.items.map((p,k)=>k),hash(ex.id)+5);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb" style="margin-left:0"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  ex.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p.en)}</button>`));
+  order.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(ex.items[k].def)}</button>`));
+  const allDone=()=>ex.items.every((p,k)=>rec(ex.id,k)&&rec(ex.id,k).done);
+  function refresh(){ ex.items.forEach((p,k)=>{ const r=rec(ex.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    if(allDone()){ const fb=$(".fb",body); fb.className="fb show good"; fb.innerHTML=`<b class="t">All matched!</b>${exGot(ex)}/${ex.items.length} on the first try. Yellow ones had a mistake — look at them again.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(ex.id,k)||{tries:0};
+    if(sl===sr){ setRec(ex.id,k,{given:prev.tries>0?prev.given:ex.items[k].def,correct:!(prev.tries>0),done:true,tries:prev.tries||0}); speak(ex.items[k].en); }
+    else{ setRec(ex.id,k,{given:ex.items[sr].def,correct:false,done:false,tries:(prev.tries||0)+1});
+      const bl=$(`[data-k="${sl}"]`,L), br=$(`[data-k="${sr}"]`,R); [bl,br].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updateExScore(ex); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh();
+}
+
+/* text with gaps */
+function parseText(ex){ if(ex._p) return; ex._p=true; const g=[]; ex.text.replace(/\[\[(.+?)\]\]/g,(m,a)=>{ g.push(a.split("|")); return m; }); ex.items=g.map((a,k)=>({accept:a,why:ex.whys[k]})); }
+function renderTextGap(ex,body){
+  parseText(ex); let k=0;
+  const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1").replace(/\n/g," ");
+  const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; }).replace(/\n/g,"<br>");
+  body.insertAdjacentHTML("beforeend",`${ex.bank?bankHtml(ex.bank):""}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check my answers</button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the whole text</button></div><ul class="whylist"></ul>`);
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
+  $(".chk",body).addEventListener("click",()=>checkText(ex,body));
+  paintText(ex,body);
+}
+function checkText(ex,body){
+  let any=false, wrong=0;
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(ex.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+    const ok=matches(v,ex.items[n].accept), tries=(prev.tries||0)+1;
+    if(ok||tries>=2) setRec(ex.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(ex.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+  if(!any){ toast("Fill in some gaps first."); return; }
+  paintText(ex,body);
+  if(wrong) toast(`${wrong} gap${wrong>1?"s are":" is"} not right yet (in red) — you have one more try.`);
+}
+function paintText(ex,body){
+  const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(ex.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(ex.items[n].why)}</li>`); }
+    else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
+  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  updateExScore(ex);
+}
+
+/* writing */
+function usedWords(t){ const s=" "+t.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z' ]+/g," ").replace(/\s+/g," ")+" ";
+  return WRITE_WORDS.map(forms=>forms.some(f=>new RegExp("\\b"+f.replace(/ /g,"\\s+")).test(s))); }
+function renderWriting(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.q)}</div></div>
+      <div style="margin-top:8px"><textarea aria-label="your answer" placeholder="${esc(it.eg)}"></textarea><div class="wcount"></div><div class="tick"></div></div>`;
+    const ta=$("textarea",row), wc=$(".wcount",row), tk=$(".tick",row), key=ex.id+"-"+i;
+    ta.value=state.writing[key]||"";
+    const upd=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=`${n} words (aim: ${it.min}+)`; wc.classList.toggle("ok",n>=it.min);
+      const u=usedWords(ta.value); tk.innerHTML=WRITE_WORDS.map((f,k)=>u[k]?`<span class="used">${esc(f[0].replace(/ \(.*$/,""))}</span>`:"").join("") || `<span>Unit words you use will appear here</span>`; };
+    let tm; ta.addEventListener("input",()=>{ upd(); clearTimeout(tm); tm=setTimeout(()=>{ state.writing[key]=ta.value; save(); },400); });
+    ta.addEventListener("blur",()=>{ state.writing[key]=ta.value; save(); });
+    upd(); body.appendChild(row);
+  });
+  body.insertAdjacentHTML("beforeend",`<p style="font-size:14px;color:var(--muted);margin:6px 0 0">This isn't marked automatically — your teacher will read it. It's included in the report you send.</p>`);
+}
+
+/* scoring */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="textgap") parseText(ex); return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function totals(){ let got=0,tot=0,done=0; EXERCISES.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=totals(); $("#pscore").textContent=`★ ${t.got} / ${t.tot}`;
+  const pct=t.tot?Math.round(t.done/t.tot*100):0; $("#pbar").style.width=pct+"%"; $("#pdone").textContent=pct+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const badge=$(".badge",b); const exs=tab.ex.map(id=>EX[id]).filter(scored);
+    if(exs.length){ const d=exs.reduce((n,e)=>n+exDone(e),0), tt=exs.reduce((n,e)=>n+exTotal(e),0), g=exs.reduce((n,e)=>n+exGot(e),0);
+      badge.textContent=d===tt?`✓ ${g}/${tt}`:`${d}/${tt}`; b.classList.toggle("done",d===tt); }
+    else if(tab.id==="cards"){ badge.textContent=`${state.known.length}/${VOCAB.length}`; b.classList.toggle("done",state.known.length===VOCAB.length); }
+    else badge.textContent=""; });
+}
+
+/* tabs */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}"><span class="coin">${t.icon}</span><b>${t.en}</b><span class="badge"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  const cur=$(`#tabs [data-t="${k}"]`); try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* words */
+function buildWords(){
+  const card=w=>`<div class="word"><span class="em" aria-hidden="true">${w.em}</span><div><b>${esc(w.en)}</b><br><span class="pat">${esc(w.pat)}</span>
+    <div class="def">${esc(w.def)}</div><div class="exl">${sayBtn(w.ex,true)} ${esc(w.ex)}</div></div>${sayBtn(w.en)}</div>`;
+  $$("[data-wl]").forEach(el=>{ el.innerHTML=VOCAB.filter(w=>w.g===el.dataset.wl).map(card).join(""); });
+}
+function buildStory(){
+  const byId={}; VOCAB.forEach(w=>byId[w.id]=w);
+  $("#story").innerHTML=STORY.map(p=>"<p>"+esc(p).replace(/\{(\w+)\|([^}]+)\}/g,(m,id,txt)=>`<button class="gl" type="button" data-w="${id}">${txt}</button>`)+"</p>").join("");
+  const box=$("#gloss");
+  $$("#story .gl").forEach(b=>b.addEventListener("click",()=>{ const w=byId[b.dataset.w]; $$("#story .gl").forEach(x=>x.classList.toggle("on",x===b));
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><b style="font-size:18px">${esc(w.en)}</b>${sayBtn(w.en,true)}</div><div>${esc(w.def)}</div><div class="ruline">🇷🇺 ${esc(w.ru)}</div>`; box.classList.add("show"); }));
+  const plain=STORY.map(p=>p.replace(/\{\w+\|([^}]+)\}/g,"$1")).join(" ");
+  $("#storySay").dataset.say=plain;
+}
+
+/* flashcards */
+let fcOrder=VOCAB.map((w,k)=>k), fcIdx=0;
+function fcDeck(){ const only=$("#fcOnly").checked; return fcOrder.filter(k=>!only||!state.known.includes(VOCAB[k].id)); }
+const ruBit=w=>!w.ru?"":`<button class="rubtn rubtn-card" type="button">Show Russian</button><span class="rutxt rutxt-card" hidden>🇷🇺 ${esc(w.ru)}</span>`;
+function renderCard(){
+  const deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=VOCAB.length; $("#fcKnown").textContent=state.known.length; $("#fcKbar").style.width=(state.known.length/VOCAB.length*100)+"%";
+  $("#fcDir").textContent=state.fcDir==="word"?"Word → meaning":"Meaning → word";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="big">🎉</div><div class="txt">All known!</div><div class="sub">Untick the filter to review everything.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const w=VOCAB[deck[fcIdx]], known=state.known.includes(w.id);
+  const wordSide=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div>${w.ipa?`<div class="ipa">${esc(w.ipa)}</div>`:""}`;
+  const meaning=`<div class="def">${esc(w.def)}</div>`;
+  if(state.fcDir==="word"){
+    $("#fcFront").innerHTML=wordSide+sayBtn(w.en)+`<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="txt" style="font-size:22px">${esc(w.en)}</div>${meaning}<div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  } else {
+    $("#fcFront").innerHTML=`<div class="big">❓</div>${meaning}<div class="ipa">${esc(w.pat.replace(new RegExp(w.en.split(" ")[0],"ig"),"___"))}</div><span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div><div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.en+". "+w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  }
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; const rb=e.target.closest(".rubtn-card"); if(rb){ const t=rb.nextElementSibling; t.hidden=!t.hidden; rb.textContent=t.hidden?"Show Russian":"Hide Russian"; return; } flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcDir").addEventListener("click",()=>{ state.fcDir=state.fcDir==="word"?"meaning":"word"; save(); renderCard(); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=k=>{ const deck=fcDeck(); if(!deck.length) return; const w=VOCAB[deck[fcIdx]];
+    state.known=state.known.filter(x=>x!==w.id); if(k) state.known.push(w.id); save();
+    if(!(k&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* results */
+const studentName=()=>((state.name||STUDENT).trim()||STUDENT);
+function questionText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
+  if(ex.type==="choice"&&it.say) return it.q+" (stress)"; return strip(it.q)+(it.key?" ("+it.key+")":""); }
+function correctText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
+  return modelOf(ex,it); }
+function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
+function band(p){ if(p>=90) return `Excellent, ${studentName()}. Complaint resolved in full. ✓`; if(p>=75) return "Great work. You'd get a result with that."; if(p>=50) return "Good effort. Re-read the rules and look at the mistakes below."; return "A start. Go back to the Words and Distance pages and try again."; }
+function renderResults(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date();
+  const lines=EXERCISES.filter(scored).map(ex=>`<div class="ln"><span>${ex.no}. ${esc(ex.title)}</span><span>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</span></div>`).join("");
+  $("#receipt").innerHTML=`<h2>${REPORT_HEAD}</h2><div class="c">${esc(SUBJECT_TOPIC)} · ${esc(studentName())}<br>${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</div><hr>${lines}
+    ${VOCAB.length?`<div class="ln"><span>Flashcards known</span><span>${state.known.length}/${VOCAB.length}</span></div>`:""}<hr>
+    <div class="ln tot"><span>TOTAL</span><span>${t.got}/${t.tot}</span></div><div class="ln"><span>Score</span><span>${pct}%</span></div>
+    ${t.done<t.tot?`<div class="c" style="margin-top:6px">* not finished — ${t.tot-t.done} answers still to do</div>`:`<div style="text-align:center"><span class="stamp">ALL DONE</span></div>`}
+    <div class="msg">${t.done?band(pct):"Start with the Words tab!"}</div>`;
+  const m=mistakes();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>No mistakes so far 🎉</li>`;
+  buildSend();
+}
+function reportText(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date(), L=[];
+  L.push(`HOMEWORK: ${TITLE}`); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`);
+  L.push(`SCORE: ${t.got}/${t.tot} (${pct}%) · answered ${t.done}/${t.tot}`); if(VOCAB.length) L.push(`Flashcards known: ${state.known.length}/${VOCAB.length}`); L.push("");
+  L.push("BY EXERCISE:"); EXERCISES.filter(scored).forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=mistakes(); L.push(`MISTAKES (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → wrote: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none"); L.push("");
+  const selfs=[]; EXERCISES.filter(x=>x.selfmark).forEach(x=>x.items.forEach((it,i)=>{ const r=rec(x.id,i); if(r&&r.self) selfs.push(`- [${x.no}] ${it.orig} → "${r.given}" (model: ${it.accept[0]})`); }));
+  if(selfs.length){ L.push("SELF-MARKED AS CORRECT (please check):"); selfs.forEach(s=>L.push(s)); L.push(""); }
+  if(EX.w1){ L.push("WRITING:"); EX.w1.items.forEach((it,i)=>{ const txt=(state.writing["w1-"+i]||"").trim(); L.push(`${i+1}. ${it.q}`); L.push(`   ${txt||"—"}`); }); L.push(""); }
+  L.push("ALL ANSWERS:"); EXERCISES.filter(scored).forEach(ex=>{ L.push(`${ex.no}. ${ex.title}`); for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); L.push(`   ${i+1}) ${questionText(ex,i)} → ${r?r.given:"—"} ${r&&r.done?(r.correct?"✓":"✗"):"(not done)"}`); } });
+  return L.join("\n");
+}
+function shortReport(){ const f=reportText(); if(f.length<=1500) return f; return f.slice(0,1450).replace(/\n[^\n]*$/,"")+"\n…\n(Full report with writing: use “Copy text” in the app.)"; }
+const subject=()=>{ const t=totals(); return `${SUBJECT_TOPIC} — ${studentName()} — ${t.got}/${t.tot}`; };
+function buildSend(){
+  const sub=encodeURIComponent(subject()), body=encodeURIComponent(shortReport()); let h="";
+  if(navigator.share) h+=`<button class="btn pri" type="button" id="shareBtn">📤 Share</button>`;
+  h+=`<a class="btn${navigator.share?"":" pri"}" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${sub}&body=${body}">✉️ Send in Gmail</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${sub}&text=${body}">✈️ Telegram</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${body}">💬 WhatsApp</a>`;
+  h+=`<a class="btn" href="mailto:${TEACHER}?subject=${sub}&body=${body}">📧 Email app</a>`;
+  h+=`<button class="btn" type="button" id="copyBtn">📋 Copy text</button>`;
+  $("#sendgrid").innerHTML=h;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",async()=>{ try{ await navigator.share({title:subject(),text:reportText()}); }catch(e){} });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+}
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied! Paste it into a message to your teacher.":"Couldn't copy — please select the text manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied! Paste it into a message to your teacher."),fb); else fb();
+}
+
+/* init */
+/* distance dial */
+function buildDial(){
+  const box=$("#dialReq"); if(!box||typeof DIAL==="undefined") return; let r=0, lv=0;
+  box.innerHTML=DIAL.map((d,k)=>`<button type="button" data-r="${k}">${esc(d.label)}</button>`).join("");
+  $("#dialLv").innerHTML=DIAL_LEVELS.map((l,k)=>`<button type="button" data-l="${k}"><span>${k+1}</span>${esc(l.name)}</button>`).join("");
+  const draw=()=>{ $$("#dialReq button").forEach(b=>b.classList.toggle("on",+b.dataset.r===r)); $$("#dialLv button").forEach(b=>b.classList.toggle("on",+b.dataset.l===lv));
+    const t=DIAL[r].lv[lv]; $("#dialOut").innerHTML=`<div class="row" style="justify-content:space-between;gap:10px"><span class="dsent">${t}</span>${sayBtn(strip(t))}</div><div class="dnote">💡 ${esc(DIAL_LEVELS[lv].note)}</div>`;
+    const dm=$("#dialMeter i"); if(dm) dm.style.width=((lv+1)/DIAL_LEVELS.length*100)+"%"; };
+  $$("#dialReq button").forEach(b=>b.addEventListener("click",()=>{ r=+b.dataset.r; draw(); }));
+  $$("#dialLv button").forEach(b=>b.addEventListener("click",()=>{ lv=+b.dataset.l; draw(); }));
+  draw();
+}
+/* frequency scale */
+function buildScale(){
+  const box=$("#scale"); if(!box) return;
+  box.innerHTML=SCALE.map((s,k)=>`<button type="button" class="sc" data-k="${k}"><span class="scw">${esc(s.w)}</span><span class="scb"><i style="width:${s.p}%"></i></span><span class="scp">${s.p}%</span></button>`).join("");
+  const out=$("#scaleOut");
+  const show=k=>{ const s=SCALE[k]; $$("#scale .sc").forEach(b=>b.classList.toggle("on",+b.dataset.k===k));
+    out.innerHTML=`<div class="row" style="justify-content:space-between"><span>With <b>be</b>: ${s.be}</span>${sayBtn(s.be,true)}</div><div class="row" style="justify-content:space-between;margin-top:6px"><span>With another verb: ${s.verb}</span>${sayBtn(s.verb,true)}</div>`; };
+  $$("#scale .sc").forEach(b=>b.addEventListener("click",()=>show(+b.dataset.k))); show(1);
+}
+
+function init(){
+  buildTabs(); if($("[data-wl]")) buildWords(); if($("#fc")) buildCards(); buildDial();
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ store.del(); state=fresh(); location.reload(); });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+
+</script>
+</body>
+</html>
