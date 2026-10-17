@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The trip that went wrong · word warm-up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F4EE; --ink:#1F2A44; --muted:#5B6478; --terra:#B4503F; --terra-bg:#F1DDD6; --line:#E7DED3; --card:#FFFFFF;
+  --ok:#2E7D5B; --ok-bg:#DFF1E7; --bad:#C0392B; --bad-bg:#F8E1DD;
+  --board:#1A1F2B; --amber:#FFC94A; --flap:#262C3A;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 18px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--terra);outline-offset:2px}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{padding:22px 0 8px}
+.kick{display:inline-block;background:var(--terra);color:#fff;font:700 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;border-radius:99px}
+h1{font:800 clamp(30px,6.5vw,52px)/1.05 var(--serif);margin:12px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0}
+nav{position:sticky;top:0;z-index:20;background:rgba(248,244,238,.94);backdrop-filter:blur(6px);padding:10px 0;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:700;font-size:16px;white-space:nowrap}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+main{padding:18px 0 40px}
+.panel{display:none}
+.panel.show{display:block;animation:in .25s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font:800 28px/1.15 var(--serif);margin:4px 0 4px}
+.lead{color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border-radius:18px;box-shadow:0 2px 10px rgba(31,42,68,.07);padding:18px}
+.btn{border:0;background:var(--ink);color:#fff;border-radius:12px;padding:10px 18px;min-height:46px;font-weight:700}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.terra{background:var(--terra)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.say{border:0;background:var(--terra-bg);color:var(--terra);width:40px;height:40px;border-radius:50%;font-size:17px;flex:none}
+.nospeech .say{display:none}
+.score{font-weight:700;color:var(--terra)}
+
+/* ---------- departures board ---------- */
+.board{background:var(--board);border-radius:18px;padding:16px;color:#E8EAF0;box-shadow:0 12px 30px rgba(26,31,43,.25)}
+.bhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.bhead b{font:700 20px var(--mono);letter-spacing:.2em;color:var(--amber)}
+.clock{font:700 18px var(--mono);color:var(--amber)}
+.brow{display:grid;grid-template-columns:110px 1fr 220px;gap:10px;align-items:center;padding:10px 0;border-top:1px solid #303747}
+.flight{font:700 17px var(--mono);color:#fff}
+.flight small{display:block;font:500 13px var(--mono);color:#9AA3B5;letter-spacing:.04em}
+.clue{font-size:16px;color:#C9CEDA;font-style:italic}
+.status{display:flex;gap:3px;justify-content:flex-end;flex-wrap:wrap;border:0;background:none;padding:0;min-height:44px;align-items:center}
+.flapc{display:inline-grid;place-items:center;width:20px;height:30px;background:var(--flap);border-radius:3px;font:700 17px var(--mono);color:var(--amber);position:relative;overflow:hidden}
+.flapc::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#11141B}
+.flapc.sp{background:transparent}
+.flapc.spin{animation:flap .09s linear infinite}
+@keyframes flap{50%{transform:scaleY(.2)}}
+.reveal{font-size:16px;color:#E8EAF0;margin-top:4px;grid-column:2/4;display:none}
+.reveal.show{display:flex;align-items:center;gap:8px}
+.reveal i{color:var(--amber)}
+.tapme{font:700 13px var(--mono);color:#9AA3B5;letter-spacing:.08em}
+
+/* ---------- flashcards ---------- */
+.fc-scene{perspective:1200px;margin:6px 0 12px}
+.fc{position:relative;height:260px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .5s;transform-style:preserve-3d}
+.fc.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;box-shadow:0 6px 20px rgba(31,42,68,.1)}
+.front{background:#fff}
+.front .w{font:800 clamp(28px,6vw,44px)/1.1 var(--serif);color:var(--terra)}
+.front .hint{color:var(--muted);margin-top:10px;font-size:15px}
+.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.back .m{font-size:24px;font-weight:700}
+.back .e{font-style:italic;color:#D9DEEA;margin-top:12px;font-size:19px}
+.fc-ctrl{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dirt{font-weight:600;color:var(--muted)}
+
+/* ---------- match ---------- */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mb{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:52px;text-align:left;font-weight:600;font-size:16px;line-height:1.25;transition:all .15s}
+.mb.w{font-weight:700;color:var(--terra)}
+.mb.sel{border-color:var(--ink);background:#EEF0F6}
+.mb.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);opacity:.75;cursor:default}
+.mb.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.timer{font:700 20px var(--mono);color:var(--ink)}
+
+/* ---------- gaps ---------- */
+.q{background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 8px rgba(31,42,68,.06)}
+.qt{font-size:19px;margin-bottom:10px}
+.qt .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;font-weight:700;margin-right:8px;vertical-align:2px}
+.gap{display:inline-block;min-width:110px;border-bottom:2px solid var(--terra);text-align:center;font-weight:700;color:var(--terra);padding:0 4px}
+.gap.ok{color:var(--ok);border-color:var(--ok)}
+.gap.no{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{border:2px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;min-height:44px;font-weight:700}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default}
+
+/* ---------- speed ---------- */
+.speed{text-align:center}
+.bigtimer{font:700 54px var(--mono);color:var(--terra);line-height:1}
+.def{font:800 clamp(24px,5vw,34px)/1.2 var(--serif);margin:16px 0 18px;min-height:2.4em;display:flex;align-items:center;justify-content:center}
+.sopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto}
+.sopts .opt{font-size:18px;min-height:56px}
+.flash-ok{animation:fok .4s}
+@keyframes fok{50%{background:var(--ok-bg)}}
+
+/* ---------- speak ---------- */
+.deal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.dc{background:#fff;border-radius:16px;padding:16px 12px;text-align:center;box-shadow:0 4px 14px rgba(31,42,68,.08);border-top:6px solid var(--terra);min-height:110px;display:flex;flex-direction:column;justify-content:center}
+.dc b{font:800 22px/1.15 var(--serif);color:var(--terra)}
+.dc span{color:var(--muted);font-size:14px;margin-top:6px}
+.dc.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.85) rotate(-3deg);opacity:0}100%{transform:none;opacity:1}}
+.qs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qcard{background:#fff;border-radius:14px;padding:14px 16px;font-size:17px;box-shadow:0 2px 8px rgba(31,42,68,.06)}
+.qcard b{color:var(--terra)}
+.done-box{margin-top:14px;padding:14px 16px;border-radius:14px;background:var(--terra-bg);font-weight:600;display:none}
+.done-box.show{display:block}
+
+@media (max-width:640px){
+  body{font-size:17px}
+  .brow{grid-template-columns:86px 1fr;row-gap:6px}
+  .status{grid-column:1/3;justify-content:flex-start}
+  .reveal{grid-column:1/3}
+  .flapc{width:17px;height:26px;font-size:15px}
+  .match{gap:8px}.mb{font-size:15px;padding:8px 10px}
+  .qs,.sopts{grid-template-columns:1fr}
+  .deal{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <span class="kick">Warm-up · 11 phrases</span>
+  <h1>The trip that went wrong</h1>
+  <p class="sub">Quick revision of last lesson's travel words. Start with the board, then pick any game.</p>
+</header>
+<nav><div class="wrap"><div class="tabs" id="tabs"></div></div></nav>
+<main class="wrap">
+
+<section class="panel" id="p-board">
+  <h2>Departures</h2>
+  <p class="lead">Read what happened to each flight. Say the status first, then tap the board to check.</p>
+  <div class="board">
+    <div class="bhead"><b>DEPARTURES</b><span class="clock" id="clock">--:--</span></div>
+    <div id="boardRows"></div>
+  </div>
+  <div class="row" style="margin-top:12px"><button class="btn ghost" id="resetBoard" type="button">↺ Hide all again</button></div>
+</section>
+
+<section class="panel" id="p-cards">
+  <h2>Flashcards</h2>
+  <p class="lead">Say the meaning (or the phrase), then tap the card to flip it.</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:6px">
+    <button class="btn ghost" id="fcDir" type="button">Phrase → meaning</button>
+    <span class="dirt" id="fcPos"></span>
+  </div>
+  <div class="fc-scene"><div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card"><div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div></div></div>
+  <div class="fc-ctrl"><button class="btn ghost" id="fcPrev" type="button">◀ Back</button><button class="btn ghost" id="fcShuf" type="button">🔀 Shuffle</button><button class="btn" id="fcNext" type="button">Next ▶</button></div>
+</section>
+
+<section class="panel" id="p-match">
+  <h2>Match them</h2>
+  <p class="lead">Tap a phrase, then its meaning. How fast can you do all 11?</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="timer" id="mTimer">00:00</span><span class="score" id="mScore"></span><button class="btn ghost" id="mReset" type="button">↺ New round</button></div>
+  <div class="match"><div class="mcol" id="mL"></div><div class="mcol" id="mR"></div></div>
+  <div class="done-box" id="mDone"></div>
+</section>
+
+<section class="panel" id="p-gaps">
+  <h2>Fill the gap</h2>
+  <p class="lead">New sentences, same phrases. Choose the word that completes each one.</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="score" id="gScore"></span><button class="btn ghost" id="gReset" type="button">↺ Start again</button></div>
+  <div id="gaps"></div>
+</section>
+
+<section class="panel" id="p-speed">
+  <h2>Beat the clock</h2>
+  <p class="lead">60 seconds. Read the meaning and choose the phrase as fast as you can.</p>
+  <div class="card speed">
+    <div class="bigtimer" id="sTime">60</div>
+    <div class="def" id="sDef">Ready?</div>
+    <div class="sopts" id="sOpts"></div>
+    <div class="row" style="justify-content:center;margin-top:16px"><button class="btn terra" id="sStart" type="button">▶ Start</button><span class="score" id="sScore"></span></div>
+  </div>
+</section>
+
+<section class="panel" id="p-speak">
+  <h2>Tell the story</h2>
+  <p class="lead">Deal three cards and tell the story of a trip that went wrong. Use all three phrases.</p>
+  <div class="row"><button class="btn terra" id="deal" type="button">🃏 Deal 3 cards</button></div>
+  <div class="deal" id="dealt"></div>
+  <h2 style="font-size:22px;margin-top:22px">Your turn</h2>
+  <p class="lead">Answer with a real story if you have one.</p>
+  <div class="qs" id="qs"></div>
+</section>
+
+</main>
+<script>
+/* =================== DATA =================== */
+const WORDS = [
+  {w:"cancelled", m:"it doesn't happen at all", e:"My flight got cancelled that morning."},
+  {w:"delayed", m:"it leaves later than planned", e:"We were delayed by three hours."},
+  {w:"diverted", m:"it lands at a different airport", e:"We got diverted to Ankara because of fog."},
+  {w:"bumped off a flight", m:"you lose your seat (overbooked)", e:"I was bumped off the 9 a.m. flight."},
+  {w:"miss a connection", m:"too late for your next flight", e:"I missed my connection in Istanbul."},
+  {w:"to be stranded", m:"stuck, with no way to leave", e:"We were stranded at the airport overnight."},
+  {w:"to lose your bearings", m:"to not know where you are", e:"I lost my bearings in the old town."},
+  {w:"to get ripped off", m:"to pay far too much", e:"We got ripped off by a taxi driver."},
+  {w:"a nightmare journey", m:"awful from start to finish", e:"It was a nightmare journey home."},
+  {w:"in the middle of nowhere", m:"far from any town", e:"The bus broke down in the middle of nowhere."},
+  {w:"to make a run for it", m:"to run fast to catch something", e:"The doors were closing, so we made a run for it."}
+];
+const FLIGHTS = [
+  {no:"LH 301", to:"MUNICH", clue:"Storm warning. This flight isn't going anywhere today.", st:"CANCELLED", ex:"The flight got cancelled because of the storm."},
+  {no:"BA 412", to:"LONDON", clue:"Was 15:40. Now leaves at 18:40.", st:"DELAYED", ex:"The flight was delayed by three hours."},
+  {no:"TK 1987", to:"IZMIR", clue:"Thick fog in Izmir. Landed in Ankara instead.", st:"DIVERTED", ex:"We got diverted to Ankara because of fog."},
+  {no:"U2 805", to:"PARIS", clue:"Too many tickets sold. No seat left for you.", st:"BUMPED OFF", ex:"I was bumped off the flight because it was overbooked."},
+  {no:"PC 112", to:"TBILISI", clue:"Your first flight landed late. This one left without you.", st:"MISSED", ex:"I missed my connection in Istanbul."}
+];
+const GAPS = [
+  {q:"Our train was ___ for forty minutes because of snow.", a:"delayed", o:["delayed","cancelled","diverted"]},
+  {q:"The storm was so bad that they ___ the flight completely, and everyone got their money back.", a:"cancelled", o:["delayed","cancelled","diverted"]},
+  {q:"The plane couldn't land in Rome, so it was ___ to Naples.", a:"diverted", o:["diverted","delayed","stranded"]},
+  {q:"The airline sold too many tickets, and I got ___ the flight.", a:"bumped off", o:["ripped off","bumped off","diverted"]},
+  {q:"Our first flight was late, so we ___ our connection in Frankfurt.", a:"missed", o:["lost","missed","bumped"]},
+  {q:"The last ferry had gone, and we were ___ on the island for the night.", a:"stranded", o:["stranded","diverted","delayed"]},
+  {q:"My phone died and I completely lost my ___ in the narrow streets of Venice.", a:"bearings", o:["bearings","connection","way out"]},
+  {q:"€80 for a five-minute taxi ride? You got ___!", a:"ripped off", o:["bumped off","ripped off","stranded"]},
+  {q:"Two delays, a lost suitcase and a broken-down bus: what a ___ journey!", a:"nightmare", o:["nightmare","nowhere","connection"]},
+  {q:"The car broke down in the middle of ___: no signal and no houses for miles.", a:"nowhere", o:["nightmare","nowhere","bearings"]},
+  {q:"The gate was closing, so we grabbed our bags and made a ___ for it.", a:"run", o:["run","rush","race"]}
+];
+const QUESTIONS = [
+  "Have you ever been <b>stranded</b> somewhere? Where, and how did you get home?",
+  "Tell me about a <b>nightmare journey</b> you've had.",
+  "Have you ever <b>got ripped off</b> on holiday? What happened?",
+  "When did you last <b>lose your bearings</b>? What did you do?",
+  "Has a flight of yours ever been <b>cancelled</b> or <b>diverted</b>?",
+  "What would you do if you were <b>bumped off a flight</b>?",
+  "Have you ever <b>made a run for it</b> to catch a train, bus or plane?",
+  "Would you enjoy a holiday <b>in the middle of nowhere</b>? Why / why not?"
+];
+
+/* =================== HELPERS =================== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const HAS_SPEECH=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+if(!HAS_SPEECH) document.documentElement.classList.add("nospeech");
+let VOICE=null; function pickVoice(){try{const v=speechSynthesis.getVoices();VOICE=v.find(x=>/en[-_]GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;}catch(e){}}
+if(HAS_SPEECH){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+function speak(t){ if(!HAS_SPEECH) return; try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.rate=.9;if(VOICE)u.voice=VOICE;speechSynthesis.speak(u);}catch(e){} }
+const sayBtn=t=>`<button class="say" type="button" data-say="${esc(t)}" aria-label="listen">🔊</button>`;
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } });
+
+/* =================== TABS =================== */
+const TABS=[["board","✈️ Departures"],["cards","🃏 Flashcards"],["match","🔗 Match"],["gaps","✏️ Fill the gap"],["speed","⏱️ Beat the clock"],["speak","🗣️ Tell the story"]];
+$("#tabs").innerHTML=TABS.map(([id,l])=>`<button class="tab" type="button" data-t="${id}">${l}</button>`).join("");
+function show(id){ $$(".panel").forEach(p=>p.classList.toggle("show",p.id==="p-"+id)); $$(".tab").forEach(t=>t.classList.toggle("on",t.dataset.t===id)); if(id!=="speed") stopSpeed(); if(id==="match"&&!mStart) mStart=Date.now(); try{localStorage.setItem("vlada-warmup-tab",id);}catch(e){} }
+$$(".tab").forEach(t=>t.addEventListener("click",()=>show(t.dataset.t)));
+
+/* =================== BOARD =================== */
+function tick(){ const d=new Date(); $("#clock").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+tick(); setInterval(tick,15000);
+const FLAPCH="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+function flaps(str){ return str.split("").map(c=>`<span class="flapc${c===" "?" sp":""}">${c===" "?"":esc(c)}</span>`).join(""); }
+function buildBoard(){
+  $("#boardRows").innerHTML=FLIGHTS.map((f,i)=>`<div class="brow"><div class="flight">${f.no}<small>${f.to}</small></div><div class="clue">${esc(f.clue)}</div>
+    <button class="status" type="button" data-f="${i}" aria-label="reveal status">${flaps("?".padEnd(1))}<span class="tapme">&nbsp;TAP</span></button>
+    <div class="reveal" id="rv${i}"><i>»</i> <span>${esc(f.ex)}</span> ${sayBtn(f.ex)}</div></div>`).join("");
+  $$("#boardRows .status").forEach(b=>b.addEventListener("click",()=>flip(b)));
+}
+function flip(b){
+  const f=FLIGHTS[+b.dataset.f]; if(b.dataset.done) return; b.dataset.done="1";
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  b.innerHTML=flaps(f.st.replace(/[A-Z]/g,"A")); const cells=$$(".flapc",b);
+  if(reduce){ b.innerHTML=flaps(f.st); $("#rv"+b.dataset.f).classList.add("show"); speak(f.ex); return; }
+  cells.forEach(c=>{ if(!c.classList.contains("sp")) c.classList.add("spin"); });
+  let k=0; const iv=setInterval(()=>{ k++;
+    cells.forEach((c,ci)=>{ if(c.classList.contains("sp")) return; const target=f.st[ci];
+      if(k>6+ci*2){ c.textContent=target; c.classList.remove("spin"); } else c.textContent=FLAPCH[Math.floor(Math.random()*26)]; });
+    if(k>8+cells.length*2){ clearInterval(iv); $("#rv"+b.dataset.f).classList.add("show"); speak(f.ex); }
+  },55);
+}
+$("#resetBoard").addEventListener("click",buildBoard);
+buildBoard();
+
+/* =================== FLASHCARDS =================== */
+let fcOrder=WORDS.map((_,i)=>i), fcI=0, fcDir="w";
+function renderCard(){ const w=WORDS[fcOrder[fcI]]; $("#fc").classList.remove("flip");
+  const front=fcDir==="w"?`<div class="w">${esc(w.w)}</div><div class="hint">What does it mean?</div>`:`<div class="w" style="color:var(--ink);font-size:clamp(24px,5vw,36px)">${esc(w.m)}</div><div class="hint">Which phrase is it?</div>`;
+  const back=fcDir==="w"?`<div class="m">${esc(w.m)}</div><div class="e">${esc(w.e)}</div>`:`<div class="m" style="font-size:30px;color:var(--amber)">${esc(w.w)}</div><div class="e">${esc(w.e)}</div>`;
+  setTimeout(()=>{ $("#fcFront").innerHTML=front+`<div style="margin-top:12px">${sayBtn(fcDir==="w"?w.w:w.m)}</div>`; $("#fcBack").innerHTML=back+`<div style="margin-top:12px">${sayBtn(w.e)}</div>`; },fcFlipped?250:0);
+  fcFlipped=false; $("#fcPos").textContent=(fcI+1)+" / "+WORDS.length; }
+let fcFlipped=false;
+$("#fc").addEventListener("click",()=>{ $("#fc").classList.toggle("flip"); fcFlipped=$("#fc").classList.contains("flip"); });
+$("#fc").addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); $("#fc").click(); } if(e.key==="ArrowRight") $("#fcNext").click(); if(e.key==="ArrowLeft") $("#fcPrev").click(); });
+$("#fcNext").addEventListener("click",()=>{ fcI=(fcI+1)%WORDS.length; renderCard(); });
+$("#fcPrev").addEventListener("click",()=>{ fcI=(fcI-1+WORDS.length)%WORDS.length; renderCard(); });
+$("#fcShuf").addEventListener("click",()=>{ fcOrder=shuffle(fcOrder); fcI=0; renderCard(); });
+$("#fcDir").addEventListener("click",()=>{ fcDir=fcDir==="w"?"m":"w"; $("#fcDir").textContent=fcDir==="w"?"Phrase → meaning":"Meaning → phrase"; renderCard(); });
+renderCard();
+
+/* =================== MATCH =================== */
+let mSel=null, mDone=0, mMiss=0, mStart=0, mIv=null;
+function fmt(ms){ const s=Math.floor(ms/1000); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+function buildMatch(){
+  mSel=null; mDone=0; mMiss=0; mStart=$("#p-match").classList.contains("show")?Date.now():0; $("#mDone").classList.remove("show");
+  $("#mL").innerHTML=shuffle(WORDS.map((w,i)=>`<button class="mb w" type="button" data-k="${i}" data-s="L">${esc(w.w)}</button>`)).join("");
+  $("#mR").innerHTML=shuffle(WORDS.map((w,i)=>`<button class="mb" type="button" data-k="${i}" data-s="R">${esc(w.m)}</button>`)).join("");
+  $$(".mb").forEach(b=>b.addEventListener("click",()=>pick(b))); upd();
+  clearInterval(mIv); mIv=setInterval(()=>{ if(mStart&&mDone<WORDS.length) $("#mTimer").textContent=fmt(Date.now()-mStart); },250); $("#mTimer").textContent="00:00";
+}
+function upd(){ $("#mScore").textContent=`${mDone} / ${WORDS.length} · mistakes: ${mMiss}`; }
+function pick(b){ if(b.classList.contains("done")) return; if(!mStart) mStart=Date.now();
+  if(!mSel||mSel.dataset.s===b.dataset.s){ if(mSel) mSel.classList.remove("sel"); mSel=b; b.classList.add("sel"); return; }
+  const a=mSel; mSel=null; a.classList.remove("sel");
+  if(a.dataset.k===b.dataset.k){ [a,b].forEach(x=>{x.classList.add("done");x.disabled=true;}); mDone++; speak(WORDS[+a.dataset.k].w); upd();
+    if(mDone===WORDS.length){ const t=fmt(Date.now()-mStart); $("#mDone").innerHTML=`🏁 All matched in <b>${t}</b> with ${mMiss} mistake${mMiss===1?"":"s"}. Try again and beat your time!`; $("#mDone").classList.add("show"); } }
+  else { mMiss++; upd(); [a,b].forEach(x=>{x.classList.add("shake");setTimeout(()=>x.classList.remove("shake"),400);}); } }
+$("#mReset").addEventListener("click",buildMatch);
+buildMatch();
+
+/* =================== GAPS =================== */
+let gRight=0, gDone=0;
+function buildGaps(){ gRight=0; gDone=0;
+  $("#gaps").innerHTML=GAPS.map((g,i)=>`<div class="q" id="q${i}"><div class="qt"><span class="n">${i+1}</span>${esc(g.q).replace("___",`<span class="gap" id="gp${i}">&nbsp;</span>`)}</div>
+    <div class="opts">${shuffle(g.o).map(o=>`<button class="opt" type="button" data-i="${i}" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`).join("");
+  $$("#gaps .opt").forEach(b=>b.addEventListener("click",()=>answer(b))); updG(); }
+function updG(){ $("#gScore").textContent=`${gRight} correct · ${gDone} / ${GAPS.length} done`; }
+function answer(b){ const i=+b.dataset.i, g=GAPS[i]; const ok=b.dataset.o===g.a;
+  $$(`#q${i} .opt`).forEach(x=>{ x.disabled=true; if(x.dataset.o===g.a) x.classList.add("right"); });
+  if(!ok) b.classList.add("wrong");
+  const gp=$("#gp"+i); gp.textContent=g.a; gp.classList.add(ok?"ok":"no");
+  if(ok) gRight++; gDone++; updG(); speak(g.q.replace("___",g.a));
+  if(gDone===GAPS.length){ const box=document.createElement("div"); box.className="done-box show"; box.innerHTML=`🎯 ${gRight} / ${GAPS.length}. ${gRight>=10?"Excellent!":gRight>=7?"Nice work!":"Look at the red ones again."}`; $("#gaps").appendChild(box); } }
+$("#gReset").addEventListener("click",buildGaps);
+buildGaps();
+
+/* =================== SPEED =================== */
+let sIv=null, sLeft=60, sScore=0, sTotal=0, sCur=null, sLast=-1;
+function nextQ(){ let k; do{ k=Math.floor(Math.random()*WORDS.length);}while(k===sLast); sLast=k; sCur=k;
+  $("#sDef").textContent=WORDS[k].m;
+  const opts=shuffle([k,...shuffle(WORDS.map((_,i)=>i).filter(i=>i!==k)).slice(0,3)]);
+  $("#sOpts").innerHTML=opts.map(i=>`<button class="opt" type="button" data-k="${i}">${esc(WORDS[i].w)}</button>`).join("");
+  $$("#sOpts .opt").forEach(b=>b.addEventListener("click",()=>{ sTotal++;
+    if(+b.dataset.k===sCur){ sScore++; b.classList.add("right"); $(".speed").classList.remove("flash-ok"); void $(".speed").offsetWidth; $(".speed").classList.add("flash-ok"); setTimeout(nextQ,250); }
+    else { b.classList.add("wrong"); b.disabled=true; }
+    $("#sScore").textContent=`Score: ${sScore}`; })); }
+function startSpeed(){ stopSpeed(); sLeft=60; sScore=0; sTotal=0; $("#sTime").textContent=sLeft; $("#sScore").textContent="Score: 0"; $("#sStart").textContent="↺ Restart"; nextQ();
+  sIv=setInterval(()=>{ sLeft--; $("#sTime").textContent=sLeft; if(sLeft<=0){ stopSpeed(); $("#sDef").innerHTML=`⏰ Time! You got <span style="color:var(--terra)">&nbsp;${sScore}&nbsp;</span> right.`; $("#sOpts").innerHTML=""; $("#sStart").textContent="▶ Play again"; } },1000); }
+function stopSpeed(){ clearInterval(sIv); sIv=null; }
+$("#sStart").addEventListener("click",startSpeed);
+
+/* =================== SPEAK =================== */
+$("#deal").addEventListener("click",()=>{ const pick=shuffle(WORDS).slice(0,3);
+  $("#dealt").innerHTML=pick.map(w=>`<div class="dc pop"><b>${esc(w.w)}</b><span>${esc(w.m)}</span></div>`).join(""); });
+$("#qs").innerHTML=QUESTIONS.map(q=>`<div class="qcard">${q}</div>`).join("");
+
+/* start tab */
+let start="board"; try{ const t=localStorage.getItem("vlada-warmup-tab"); if(t&&TABS.some(x=>x[0]===t)) start=t; }catch(e){}
+show(start);
+</script>
+</body>
+</html>
