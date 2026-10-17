@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Julia · Who said what? · Reporting verbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#F4F1E7; --card:#FFFDF8; --ink:#13342A; --muted:#5B6B63; --line:#DCD6C4; --soft:#EEEADB;
+  --green:#1E7550; --green-bg:#E2F0E8; --gold:#B68A1F; --gold-bg:#FAF0D3; --stamp:#B33A2E; --stamp-bg:#FBE7E3;
+  --ok:#1C8A50; --ok-bg:#E1F3E8; --bad:#C2392E; --bad-bg:#FCE8E5; --hint:#FFF4D6;
+  --r:16px; --shadow:0 1px 0 rgba(19,52,42,.06),0 10px 26px rgba(19,52,42,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:16px/1.55 "Manrope",system-ui,sans-serif;
+  background:var(--paper);
+  background-image:radial-gradient(circle at 0 0,rgba(30,117,80,.05) 0 2px,transparent 2px),radial-gradient(circle at 12px 12px,rgba(182,138,31,.05) 0 2px,transparent 2px);
+  background-size:24px 24px}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:.005em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* banknote header */
+header.top{padding:20px 0 12px}
+.note{position:relative;background:linear-gradient(135deg,#1E7550 0%,#13503A 60%,#0F3D2D 100%);color:#F6F1DF;border-radius:20px;padding:22px 22px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.note::before{content:"";position:absolute;inset:8px;border:1.5px solid rgba(246,241,223,.35);border-radius:14px;pointer-events:none}
+.note::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(246,241,223,.12) 0 2px,transparent 2px 9px);pointer-events:none}
+.note .serial{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;opacity:.85}
+.note h1{font-size:clamp(28px,7vw,44px);margin:10px 0 2px;line-height:1.05}
+.note p{margin:6px 0 0;max-width:560px}
+.note .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.namebox{display:flex;align-items:center;gap:8px;background:rgba(246,241,223,.12);border:1px solid rgba(246,241,223,.35);border-radius:12px;padding:6px 10px}
+.namebox label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.namebox input{background:transparent;border:0;border-bottom:1.5px dashed rgba(246,241,223,.6);width:120px;color:#fff;font-weight:800;padding:2px}
+.seal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font:20px "DM Serif Display",serif;color:#F3D88A;background:rgba(0,0,0,.12)}
+.howto{font-size:14.5px;color:var(--muted);margin:12px 2px 0}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,241,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.progress{display:flex;align-items:center;gap:10px;padding:8px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .4s}
+.score{white-space:nowrap;color:var(--ink);font-family:"IBM Plex Mono",monospace}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:88px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.15;min-height:44px}
+.coin{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:600 15px/1 "IBM Plex Mono",monospace;background:radial-gradient(circle at 35% 30%,#FFF8DF,#E9D18A 60%,#C9A445);color:#5A4410;box-shadow:inset 0 0 0 2px rgba(90,68,16,.25),0 2px 0 rgba(90,68,16,.25);transition:transform .2s}
+.tab b{color:var(--ink);font-weight:800}
+.tab .badge{font-size:11px;font-family:"IBM Plex Mono",monospace}
+.tab.on .coin{transform:translateY(-2px) scale(1.08);box-shadow:inset 0 0 0 2px rgba(90,68,16,.35),0 0 0 3px var(--green)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#F0FFF6,#9FD8B6 60%,#3E9E6C);color:#0E4A2C}
+.tab.done .badge{color:var(--ok)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.card h3{font-size:20px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 6px}
+.kicker{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* word list */
+.wgroup{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start}
+.word .em{font-size:26px;line-height:1.1}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.word .pat{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:6px;padding:1px 7px;margin:3px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);margin-top:4px;font-style:italic}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:17px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:15px}
+.say:active{transform:scale(.94)}
+.careful{background:var(--gold-bg);border:2px dashed var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:8px 0}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:6px 0 2px}
+.mist div{padding:6px 10px;border-radius:9px;font-weight:700;font-size:14.5px}
+.mist .x{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-bg);color:var(--ok)}
+.mist .x::before{content:"✗ "}.mist .v::before{content:"✓ "}
+.colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.colbox{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid var(--line);font-size:14.5px}
+.colbox b.p{font:600 15px "IBM Plex Mono",monospace;color:var(--green)}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fc-scene{perspective:1200px;max-width:460px;margin:0 auto}
+.fc{position:relative;height:290px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;gap:6px}
+.front{background:#fff;border:2px solid var(--line);background-image:repeating-linear-gradient(45deg,rgba(30,117,80,.03) 0 6px,transparent 6px 12px)}
+.back{background:linear-gradient(140deg,#1E7550,#0F3D2D);color:#F6F1DF;transform:rotateY(180deg)}
+.face .big{font-size:48px;line-height:1}
+.face .txt{font:clamp(26px,7vw,34px)/1.15 "DM Serif Display",serif}
+.face .def{font-size:16.5px;font-weight:600;max-width:360px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:360px}
+.face .ipa{font:500 14px "IBM Plex Mono",monospace;color:var(--muted)}
+.face .say{position:absolute;top:12px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#B9D8C6}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--green)}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:800;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--stamp);color:var(--stamp)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px dashed var(--line)}
+.exhead .no{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.exhead h3{margin:6px 0 2px;font-size:22px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font:600 13px "IBM Plex Mono",monospace;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:600 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:700}
+.orig{display:block;font-weight:600;color:var(--muted);font-size:15px;margin-bottom:4px}
+.key{display:inline-block;font:600 13px "IBM Plex Mono",monospace;background:var(--gold-bg);color:#7A5B0E;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok)}
+.gap.filledbad{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;min-width:52px;font-weight:800;font-size:16px;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.opt.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-weight:700;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--green);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.wrongs{font-size:16.5px;font-weight:700;color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(194,57,46,.35)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:800}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-weight:700;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:800;font-size:15.5px}
+.mbtn.sel{border-color:var(--green);background:var(--green-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* text */
+.gtext{font-size:17px;line-height:2.35;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.gtext .gn{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);vertical-align:super;margin-right:2px}
+.gapin{width:100px;border:0;border-bottom:3px solid var(--green);background:var(--green-bg);border-radius:6px 6px 0 0;padding:2px 6px;font-weight:800;font-size:16px;text-align:center}
+.gapin.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.gapin.badv{border-color:var(--bad);background:var(--bad-bg)}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:150px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--green);outline:none}
+.wcount{font:500 12.5px "IBM Plex Mono",monospace;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok)}
+.tick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tick span{font-size:12.5px;font-weight:800;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.tick span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* receipt */
+.receipt{background:#fff;max-width:520px;margin:0 auto 18px;padding:22px 20px 26px;font-family:"IBM Plex Mono",monospace;font-size:14px;box-shadow:var(--shadow);position:relative;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x}
+.receipt h2{font-family:"IBM Plex Mono",monospace;font-size:16px;text-align:center;letter-spacing:.2em;margin:0}
+.receipt .c{text-align:center;color:var(--muted);font-size:12.5px}
+.receipt hr{border:0;border-top:1.5px dashed var(--line);margin:12px 0}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.receipt .ln span:first-child{min-width:0}
+.receipt .tot{font-size:22px;font-weight:600}
+.receipt .msg{text-align:center;font-family:"Manrope",sans-serif;font-weight:700;font-size:16px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:2px 10px;transform:rotate(-6deg);font-weight:600;letter-spacing:.12em;margin-top:8px}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:700}.mlist .cr{color:var(--ok);font-weight:800}
+.sendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.sendgrid .btn{text-decoration:none;color:var(--ink);text-align:center;display:flex;align-items:center;justify-content:center}
+.sendgrid .pri{color:#fff}
+.mail{user-select:all;font-weight:800;background:var(--soft);padding:2px 8px;border-radius:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wgroup,.mist,.colgrid{grid-template-columns:1fr}
+  .opts,.fb,.inrow{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14px}
+  .seal{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root{
+  --paper:#F2F5FB; --card:#FFFFFF; --ink:#111A2E; --muted:#56607A; --line:#DCE3F0; --soft:#EAF0FA;
+  --green:#2F6BFF; --green-bg:#E3ECFF; --gold:#FF6B57; --gold-bg:#FFE8E4; --stamp:#16A37A; --stamp-bg:#DDF5EC;
+  --blue:#2F6BFF; --mint:#16A37A; --coral:#FF6B57; --violet:#7A5CFA;
+}
+body{font-family:"Manrope",system-ui,sans-serif;background-image:radial-gradient(circle at 10% -10%,rgba(47,107,255,.10),transparent 40%),radial-gradient(circle at 100% 0,rgba(255,107,87,.08),transparent 35%);background-size:auto;font-size:16.5px}
+h1,h2,h3,h4{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;letter-spacing:-.015em}
+.card h3{font-size:20px;margin:22px 0 6px}
+:focus-visible{outline-color:var(--blue)}
+.note{background:linear-gradient(135deg,#111A2E 0%,#1B2A52 60%,#26306B 100%);color:#EEF2FF}
+.note::before{border-color:rgba(238,242,255,.14)}
+.note::after{background:radial-gradient(circle,rgba(47,107,255,.45),transparent 65%);right:-70px;top:-70px;width:260px;height:260px}
+.note>*{position:relative;z-index:1}
+.note .serial{color:#9DB8FF}
+.note h1{font-size:clamp(34px,8.4vw,56px);line-height:1;margin-top:12px}
+.note h1 .r{background:var(--blue);color:#fff;padding:0 10px;border-radius:14px 14px 14px 4px;display:inline-block}
+.note p{color:#CDD5EE}
+.note i{color:#fff}
+.hrow{display:flex;gap:18px;align-items:center}
+.htext{flex:1;min-width:0}
+.phone{flex:none;width:260px;background:#0B1222;border:2px solid #2C3A66;border-radius:22px;padding:10px 10px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:0 14px 30px rgba(0,0,0,.35);transform:rotate(2deg)}
+.ph-top{font:700 12px "Space Grotesk",sans-serif;color:#9DB8FF;display:flex;align-items:center;gap:6px;padding:2px 4px 6px;border-bottom:1px solid #1E2A4A;margin-bottom:2px}
+.ph-top .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(22,163,122,.25)}
+.msg{max-width:86%;font-size:13px;line-height:1.35;padding:7px 10px;border-radius:14px}
+.msg.in{background:#1F2B4D;color:#E3E9FF;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.out{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg b{color:#FFE27A}
+.seal{border-color:#9DB8FF;background:rgba(47,107,255,.2);font-size:26px}
+.coin{background:radial-gradient(circle at 35% 30%,#FFFFFF,#E3ECFF 60%,#A9C0FF);color:#1B2A52;font-family:"Space Grotesk",sans-serif}
+.tab.on .coin{box-shadow:inset 0 0 0 2px rgba(27,42,82,.2),0 0 0 3px var(--blue)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#E9FFF6,#8FE0C3 60%,#16A37A);color:#05402D}
+.kicker{color:var(--coral)}
+.word .pat{color:var(--blue);background:var(--green-bg)}
+.careful{border-color:var(--coral)}
+/* grammar */
+.grp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.gcol{border-radius:16px;padding:14px;border:2px solid}
+.gcol h4{margin:0 0 10px;font-size:17px}
+.gcol.soc{border-color:var(--violet);background:#F4F1FF}.gcol.soc h4{color:var(--violet)}
+.gcol.nat{border-color:var(--coral);background:#FFF4F2}.gcol.nat h4{color:#D9493A}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:#fff;border-radius:10px;padding:5px 10px;font-weight:800;font-size:14.5px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.gcol .small{font-size:14px;margin:10px 0 0;color:var(--muted)}
+.rules3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.r3{background:var(--ink);color:#EEF2FF;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.r3 .tag{align-self:flex-start;font:700 11px "Space Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#FFE27A}
+.r3 b{font-size:16px}
+.r3 b u{text-decoration-color:#FFE27A;text-decoration-thickness:2px;text-underline-offset:3px}
+.r3 s{color:#FF9C8F}
+.r3 i{font-size:13.5px;color:#C4CCE6}
+.exlist{margin:4px 0 0;padding-left:20px}.exlist li{margin:7px 0}
+.exlist b{color:var(--violet)}
+/* group builder (dial engine) */
+.dial{background:var(--ink);color:#EEF2FF;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.dreq,.dlv{display:flex;flex-wrap:wrap;gap:8px}
+.dreq button,.dlv button{min-height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#EEF2FF;padding:8px 12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;text-align:left}
+.dlv button span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.15);font-size:13px;flex:none}
+.dreq button.on{background:#fff;color:var(--ink);border-color:#fff}
+.dlv button.on{background:var(--blue);border-color:var(--blue)}
+.dlv button.on span{background:#fff;color:var(--blue)}
+.dout{background:#fff;color:var(--ink);border-radius:12px;padding:14px}
+.dsent{font-size:20px;line-height:1.4;font-weight:600}
+.dsent b{color:var(--violet)}
+.dnote{font-size:14.5px;color:var(--muted);margin-top:8px}
+.gtext{line-height:2.1}
+.receipt h2{letter-spacing:.14em}
+@media (max-width:700px){ .phone{display:none} }
+@media (max-width:640px){ .grp,.rules3{grid-template-columns:1fr} .dsent{font-size:18px} }
+.sticky{background:rgba(242,245,251,.95)}
+
+/* ===== Julia · newspaper / case theme ===== */
+:root{
+  --paper:#F3F2EE; --ink:#16181E; --muted:#5E6470; --line:#DFDDD6; --soft:#ECEAE3;
+  --green:#178A78; --green-bg:#DDF2EE; --gold:#D7263D; --gold-bg:#FBE3E6; --stamp:#178A78; --stamp-bg:#DDF2EE;
+  --blue:#7350D0; --mint:#178A78; --coral:#D7263D; --violet:#7350D0;
+  --p1:#F2B134; --p1t:#8A5A00; --p1bg:#FFF3D6; --p2:#178A78; --p2bg:#DDF2EE; --p3:#7350D0; --p3bg:#ECE6FB;
+}
+body{font-family:"Manrope",system-ui,sans-serif;background:var(--paper);background-image:radial-gradient(#E3E1DA 1px,transparent 1.2px);background-size:18px 18px}
+h1,h2,h3,h4{font-family:"Newsreader",Georgia,serif;font-weight:700;letter-spacing:-.01em}
+.note{background:linear-gradient(135deg,#16181E 0%,#23262F 70%,#2E2230 100%);color:#F1EFEA}
+.note::after{background:radial-gradient(circle,rgba(215,38,61,.35),transparent 65%)}
+.note .serial{color:#F2B134}
+.note h1{font-size:clamp(36px,8.6vw,60px)}
+.note h1 .r{background:#D7263D;color:#fff;border-radius:6px;padding:0 12px;font-style:italic}
+.note p{color:#D8D5CE}
+.seal{border-color:#F2B134;background:rgba(242,177,52,.15)}
+.paper{flex:none;width:250px;background:#FBF9F4;color:#16181E;border-radius:6px;padding:12px 14px 16px;transform:rotate(3deg);box-shadow:0 14px 30px rgba(0,0,0,.4);position:relative}
+.paper .mast{font:800 17px "Newsreader",Georgia,serif;text-align:center;border-bottom:3px double #16181E;padding-bottom:3px;letter-spacing:.04em}
+.paper .ed{font:700 9px "IBM Plex Mono",monospace;text-align:center;color:#5E6470;letter-spacing:.2em;margin:3px 0 8px}
+.paper .hl{font:700 19px/1.15 "Newsreader",Georgia,serif;margin-bottom:8px}
+.paper .hl u{text-decoration-color:#7350D0;text-decoration-thickness:3px}
+.paper .ln{height:6px;border-radius:3px;background:#E1DED6;margin:6px 0}.paper .ln.short{width:60%}
+.paper .stamp{position:absolute;right:-12px;bottom:10px;transform:rotate(-12deg);border:3px solid #D7263D;color:#D7263D;font:800 14px "Manrope",sans-serif;padding:3px 8px;border-radius:6px;background:rgba(251,249,244,.9);letter-spacing:.08em}
+@media (max-width:700px){ .paper{display:none} }
+.sticky{background:rgba(243,242,238,.95)}
+.kicker{background:#16181E;color:#F2B134}
+.coin{background:radial-gradient(circle at 35% 30%,#fff,#F3F2EE 60%,#D9D5CA);color:#16181E;font-family:"Newsreader",serif}
+.tab.on .coin{box-shadow:0 0 0 3px #D7263D}
+/* compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmp{border-radius:14px;padding:12px 14px;font-size:15.5px;background:#fff;border:1px solid var(--line)}
+.cmp .tag{display:inline-block;font:700 11px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.cmp.sharp{background:var(--p1bg);border-color:#F2D58F}.cmp.sharp b{color:var(--p1t)}
+/* patterns */
+.pats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pt{border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;position:relative;background:#fff;border:2px solid var(--line)}
+.pt .pn{position:absolute;top:-12px;right:12px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:800 15px "Manrope",sans-serif;color:#fff}
+.pt b{font:700 18px/1.2 "Newsreader",serif}
+.pt .vv{font-weight:700;font-size:14.5px}
+.pt i{font-size:15px}.pt i u{text-decoration-thickness:2px;text-underline-offset:3px}
+.pt small{color:var(--muted);font-size:13px}
+.pt.p1{border-color:var(--p1);background:var(--p1bg)}.pt.p1 .pn{background:var(--p1);color:#16181E}.pt.p1 .vv,.pt.p1 b{color:var(--p1t)}.pt.p1 u{text-decoration-color:var(--p1)}
+.pt.p2{border-color:var(--p2);background:var(--p2bg)}.pt.p2 .pn{background:var(--p2)}.pt.p2 .vv,.pt.p2 b{color:var(--p2)}.pt.p2 u{text-decoration-color:var(--p2)}
+.pt.p3{border-color:var(--p3);background:var(--p3bg)}.pt.p3 .pn{background:var(--p3)}.pt.p3 .vv,.pt.p3 b{color:var(--p3)}.pt.p3 u{text-decoration-color:var(--p3)}
+.pt s{color:var(--bad)}
+/* notebook demo */
+.machine2{background:#16181E;border-radius:18px;padding:12px;display:grid;grid-template-columns:1fr 1.1fr;gap:12px}
+.qlist{display:flex;flex-direction:column;gap:6px;max-height:430px;overflow:auto}
+.qlist button{border:1.5px solid #343844;background:#20232C;color:#E9E7E1;border-radius:12px;padding:8px 10px;text-align:left;font-size:14px;min-height:44px;font-style:italic}
+.qlist button .qwho{display:block;font-style:normal;font:700 11px "IBM Plex Mono",monospace;color:#F2B134;letter-spacing:.06em;margin-bottom:2px}
+.qlist button.on{background:#FBF9F4;color:#16181E;border-color:#F2B134}
+.qout{background:#FBF9F4;color:#16181E;border-radius:14px;padding:14px;align-self:start;position:sticky;top:110px}
+.qout .qpat{display:inline-block;font:700 12px "Manrope",sans-serif;border-radius:99px;padding:4px 10px;margin-bottom:8px}
+.qout.p1 .qpat{background:var(--p1);color:#16181E}.qout.p2 .qpat{background:var(--p2);color:#fff}.qout.p3 .qpat{background:var(--p3);color:#fff}
+.qverb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.qrep{font:600 20px/1.3 "Newsreader",serif}
+.qout.p1 .qrep b{color:var(--p1t)}.qout.p2 .qrep b{color:var(--p2)}.qout.p3 .qrep b{color:var(--p3)}
+.qout.anim .qrep{animation:typein .45s ease-out}
+@keyframes typein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rules3.two{grid-template-columns:1fr 1fr}
+.r3{background:#16181E}
+.r3 .tag{background:#F2B134;color:#16181E}
+.exlist b{color:var(--p3)}
+.vlist{margin-top:14px;background:#fff;border-radius:16px;padding:12px 14px;border:1px solid var(--line)}
+.vlist summary{font-weight:800;cursor:pointer;min-height:36px;display:flex;align-items:center}
+.vlist h3{font-size:18px;margin:14px 0 8px}
+.p1h{color:var(--p1t)}.p2h{color:var(--p2)}.p3h{color:var(--p3)}
+.key{background:#16181E;color:#F2B134}
+@media (max-width:760px){ .pats,.compare,.rules3.two{grid-template-columns:1fr} .machine2{grid-template-columns:1fr} .qout{position:static} .qlist{max-height:none} }
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="note">
+      <div class="serial">UPPER-INTERMEDIATE · GRAMMAR · FOR JULIA</div>
+      <div class="hrow">
+        <div class="htext">
+          <h1>Who said <span class="r">what?</span></h1>
+          <p>Reporting verbs: <i>offered to pay, warned them not to leave, denied taking, accused him of lying…</i> Back to the case of the Blue Lady.</p>
+        </div>
+        <div class="paper" aria-hidden="true">
+          <div class="mast">THE DAILY HEADLINE</div>
+          <div class="ed">LATE EDITION</div>
+          <div class="hl">Gallery director <u>admits faking</u> theft</div>
+          <div class="ln"></div><div class="ln"></div><div class="ln short"></div>
+          <div class="stamp">CASE CLOSED</div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="namebox"><label for="nm">Name</label><input id="nm" autocomplete="off"></div>
+        <div class="seal" aria-hidden="true">🗞️</div>
+      </div>
+    </div>
+    <p class="howto">Work through the tabs in order: Rules → Verb cards → Patterns → Reporting → Editor's desk → Results. Your answers save automatically, so you can stop and come back later.</p>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="progress"><span id="pdone">0%</span><div class="bar"><i id="pbar"></i></div><span class="score" id="pscore">0 / 0</span></div>
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="panel" id="p-rules">
+  <div class="card">
+    <span class="kicker">Step 1 · The rules</span>
+    <h2>Why not just say <i>said</i>?</h2>
+    <p class="lead">A reporting verb does two jobs at once: it reports the words AND tells us what the speaker was doing (offering, warning, denying…). That's why news reports are full of them.</p>
+    <div class="compare">
+      <div class="cmp plain"><span class="tag">with say</span>“I'll pay £1 million to anyone who finds it.”<br>→ Max <b>said</b> that he would pay £1 million to anyone who found it.</div>
+      <div class="cmp sharp"><span class="tag">with a reporting verb</span>→ Max <b>offered to pay</b> £1 million to anyone who found it.</div>
+    </div>
+    <p class="lead" style="margin-top:14px">The difficult part is what comes <b>after</b> the verb. There are three patterns:</p>
+    <div class="pats">
+      <div class="pt p1"><span class="pn">1</span><b>verb + to + infinitive</b><span class="vv">agree · offer · refuse · promise · threaten</span><i>Max <u>offered to pay</u> a reward.</i><small>No person after these verbs: <s>offered me to help</s> → offered to help me.</small></div>
+      <div class="pt p2"><span class="pn">2</span><b>verb + person + to + infinitive</b><span class="vv">advise · ask · convince · encourage · invite · persuade · remind · tell · warn</span><i>She <u>asked Lena to show</u> her notebook.</i><small>You are getting SOMEONE ELSE to act, so the person is needed.</small></div>
+      <div class="pt p3"><span class="pn">3</span><b>verb (+ preposition) + -ing</b><span class="vv">admit · deny · recommend · regret · suggest · insist on · apologize for · accuse sb of · blame sb for</span><i>Sam <u>denied leaving</u> his post.</i><small>After a preposition (on, for, of) the verb is ALWAYS -ing.</small></div>
+    </div>
+
+    <h3>🗒️ The reporter's notebook</h3>
+    <p style="margin:0 0 8px">Tap a statement from the case and see how a reporter writes it.</p>
+    <div class="machine2"><div class="qlist" id="qList"></div><div class="qout" id="qOut" aria-live="polite"></div></div>
+
+    <h3>Negatives</h3>
+    <div class="rules3">
+      <div class="r3"><span class="tag">pattern 1 &amp; 2</span><b>warned them <u>not to</u> leave</b><i>not goes BEFORE to: not <s>to not leave</s>, not <s>don't leave</s>.</i></div>
+      <div class="r3"><span class="tag">pattern 3</span><b>regretted <u>not telling</u> the truth</b><i>not goes before the -ing: apologized for <u>not calling</u> sooner.</i></div>
+      <div class="r3"><span class="tag">deny</span><b>denied <u>taking</u> it</b><i>The negative is inside deny, so no not: <s>denied not taking</s> means the opposite!</i></div>
+    </div>
+
+    <h3>Two more ways to say it</h3>
+    <div class="rules3 two">
+      <div class="r3"><span class="tag">that-clause</span><b>Lena admitted <u>that she had been</u> in the room.</b><i>With agree, admit, deny, promise, regret, suggest, recommend, insist you can also use (that) + clause. With suggest / recommend / insist: <u>suggested that we (should) wait</u>.</i></div>
+      <div class="r3"><span class="tag">perfect gerund</span><b>He admitted <u>having stolen</u> the money.</b><i>having + past participle after pattern-3 verbs: almost the same as admitted stealing, but it stresses that the action happened earlier.</i></div>
+    </div>
+    <div class="rules3 two">
+      <div class="r3"><span class="tag">passive</span><b>Sam <u>was accused of stealing</u> it.</b><i>accuse sb of → be accused of; blame sb for → be blamed for. The preposition + -ing stay.</i></div>
+      <div class="r3"><span class="tag">admit to</span><b>She admitted <u>(to) being</u> there.</b><i>admit + -ing and admit to + -ing are both correct. Never <s>admitted to be</s>.</i></div>
+    </div>
+
+    <h3>Examples from the case</h3>
+    <ul class="exlist">
+      <li>Max <b>threatened to sue</b> the paper if they printed his name. <button class="say sm" type="button" data-say="Max threatened to sue the paper if they printed his name." aria-label="listen">🔊</button></li>
+      <li>The inspector <b>warned Victor not to leave</b> the country. <button class="say sm" type="button" data-say="The inspector warned Victor not to leave the country." aria-label="listen">🔊</button></li>
+      <li>Victor <b>apologized to Sam for accusing</b> him. <button class="say sm" type="button" data-say="Victor apologized to Sam for accusing him." aria-label="listen">🔊</button></li>
+      <li>Sam <b>suggested checking</b> the back door. <button class="say sm" type="button" data-say="Sam suggested checking the back door." aria-label="listen">🔊</button></li>
+      <li>The guard <b>insisted on calling</b> the police himself. <button class="say sm" type="button" data-say="The guard insisted on calling the police himself." aria-label="listen">🔊</button></li>
+    </ul>
+
+    <h3>Typical mistakes</h3>
+    <div class="mist">
+      <div class="x">She suggested me to check the CCTV.</div><div class="v">She suggested checking the CCTV.</div>
+      <div class="x">He insisted to pay.</div><div class="v">He insisted on paying.</div>
+      <div class="x">They accused him for lying.</div><div class="v">They accused him of lying.</div>
+      <div class="x">He denied to know her.</div><div class="v">He denied knowing her.</div>
+      <div class="x">She reminded me don't forget.</div><div class="v">She reminded me not to forget.</div>
+      <div class="x">He recommended me to try it.</div><div class="v">He recommended trying it.</div>
+      <div class="x">He offered me to help.</div><div class="v">He offered to help me.</div>
+    </div>
+    <p class="dnote">✏️ Spelling: stress on the 2nd syllable doubles the consonant: regre<b>tt</b>ed, admi<b>tt</b>ed. Stress on the 1st: no doubling: offered, threatened. (apologize / apologise: both spellings are fine.)</p>
+  </div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Verb cards →</button></div>
+</section>
+
+<section class="panel" id="p-cards">
+  <div class="card">
+    <span class="kicker">Step 2 · Verb cards</span>
+    <h2>23 verbs, three patterns</h2>
+    <p class="lead">Front: the verb. Back: its pattern and an example from the case. Turn the direction round to test yourself: see the pattern with a gap, say the verb. “I know it” only if you know the pattern without looking.</p>
+    <div class="fc-top">
+      <button class="btn" id="fcDir" type="button">Word → meaning</button>
+      <label class="tog"><input type="checkbox" id="fcOnly"> Only verbs I'm still learning</label>
+    </div>
+    <div style="font-size:14px;font-weight:700">Known: <span id="fcKnown">0</span> / <span id="fcTotal">0</span><span style="float:right;color:var(--muted)" class="mono" id="fcPos"></span></div>
+    <div class="kbar"><i id="fcKbar"></i></div>
+    <div class="fc-scene">
+      <div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card">
+        <div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div>
+      </div>
+    </div>
+    <div class="fc-row">
+      <button class="btn bad" id="fcLearn" type="button">🔁 Still learning</button>
+      <button class="btn ok" id="fcKnow" type="button">✓ I know it</button>
+    </div>
+    <div class="fc-row">
+      <button class="btn" id="fcPrev" type="button">◀ Back</button>
+      <button class="btn" id="fcShuf" type="button">🔀 Shuffle</button>
+      <button class="btn" id="fcNext" type="button">Next ▶</button>
+    </div>
+  </div>
+  <details class="vlist"><summary>📋 See all 23 verbs with their patterns</summary>
+    <h3 class="p1h">Pattern 1 · + to + infinitive</h3><div class="wgroup" data-wl="p1"></div>
+    <h3 class="p2h">Pattern 2 · + person + to + infinitive</h3><div class="wgroup" data-wl="p2"></div>
+    <h3 class="p3h">Pattern 3 · (+ preposition) + -ing</h3><div class="wgroup" data-wl="p3"></div>
+  </details>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Patterns →</button></div>
+</section>
+
+<section class="panel" id="p-pat">
+  <div class="card"><span class="kicker">Step 3</span><h2>Patterns</h2><p class="lead" style="margin:0">Recognise the pattern after each verb. Your first answer counts for the score.</p></div>
+  <div data-ex="e1"></div><div data-ex="e2"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Reporting →</button></div>
+</section>
+
+<section class="panel" id="p-rep">
+  <div class="card"><span class="kicker">Step 4</span><h2>Reporting the interviews</h2><p class="lead" style="margin:0">Turn direct speech from the case into reported speech. Watch the pronouns, the person after pattern-2 verbs and the prepositions.</p></div>
+  <div data-ex="e3"></div><div data-ex="e4"></div><div data-ex="e5"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">Next: Editor's desk →</button></div>
+</section>
+
+<section class="panel" id="p-edit">
+  <div class="card"><span class="kicker">Step 5</span><h2>The editor's desk</h2><p class="lead" style="margin:0">Correct the reporter's mistakes, complete the front page and finish with key-word transformations.</p></div>
+  <div data-ex="e6"></div><div data-ex="e7"></div><div data-ex="e8"></div>
+  <div class="next"><button class="btn pri" data-go="5" type="button">See my results →</button></div>
+</section>
+
+<section class="panel" id="p-results">
+  <div class="receipt" id="receipt"></div>
+  <div class="card">
+    <h2 style="font-size:22px">Send it to your teacher</h2>
+    <p class="lead">When you've finished, send your results. Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Gmail, Telegram, WhatsApp and the email app send a shorter version. “Copy text” always copies the full report.</p>
+  </div>
+  <div class="card"><h2 style="font-size:22px">Mistakes to look at again</h2><ul class="mlist" id="rMist"></ul></div>
+  <div class="card">
+    <h2 style="font-size:22px">Start again</h2>
+    <button class="btn bad" id="resetBtn" type="button">🗑 Delete all my answers</button>
+    <div class="confirm" id="resetConfirm"><b>Delete all answers? This can't be undone.</b>
+      <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes" type="button">Yes, delete</button><button class="btn" id="resetNo" type="button">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<footer>Made for Julia · The Daily Headline · Case closed 🗞️</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA — edit verbs, items and answers here
+   ========================================================= */
+const STUDENT = "Julia";
+const TEACHER = "ulchik2211@gmail.com";
+const TITLE = "Reporting verbs: Who said what? The case of the Blue Lady (Upper-Intermediate)";
+const SUBJECT_TOPIC = "Reporting verbs — the Blue Lady case";
+const REPORT_HEAD = "CASE REPORT";
+const KEY = "julia-reporting-verbs-v1";
+const STORY = [];
+
+/* the 23 verbs; g = pattern group (p1 / p2 / p3) */
+const VOCAB = [
+  {id:"agree", g:"p1", en:"agree", em:"🤝", ipa:"/əˈɡriː/", pat:"agree to do sth · agree (that)…", def:"say you will do something somebody wants", ex:"Sam agreed to take a lie-detector test."},
+  {id:"offer", g:"p1", en:"offer", em:"🎁", ipa:"/ˈɒfə/", pat:"offer to do sth", def:"say you are willing to do something for somebody", ex:"Max offered to pay a reward."},
+  {id:"refuse", g:"p1", en:"refuse", em:"✋", ipa:"/rɪˈfjuːz/", pat:"refuse to do sth", def:"say you will not do something", ex:"Lena refused to answer any more questions."},
+  {id:"promise", g:"p1", en:"promise", em:"🤞", ipa:"/ˈprɒmɪs/", pat:"promise to do sth · promise (that)…", def:"say that you will definitely do something", ex:"The inspector promised to find the painting by Friday."},
+  {id:"threaten", g:"p1", en:"threaten", em:"⚠️", ipa:"/ˈθretn/", pat:"threaten to do sth", def:"say you will do something bad if somebody doesn't do what you want", ex:"Max threatened to sue the gallery."},
+  {id:"advise", g:"p2", en:"advise", em:"🧭", ipa:"/ədˈvaɪz/", pat:"advise sb (not) to do sth", def:"tell somebody what you think they should do", ex:"His lawyer advised him not to say anything."},
+  {id:"ask", g:"p2", en:"ask", em:"🙋", ipa:"/ɑːsk/", pat:"ask sb to do sth", def:"request that somebody does something", ex:"The inspector asked Lena to show her notebook."},
+  {id:"convince", g:"p2", en:"convince", em:"🧠", ipa:"/kənˈvɪns/", pat:"convince sb to do sth · convince sb that…", def:"make somebody believe something or decide to do it", ex:"She convinced the director to call the police."},
+  {id:"encourage", g:"p2", en:"encourage", em:"👏", ipa:"/ɪnˈkʌrɪdʒ/", pat:"encourage sb to do sth", def:"give somebody support and confidence to do something", ex:"The inspector encouraged Sam to tell her everything."},
+  {id:"invite", g:"p2", en:"invite", em:"✉️", ipa:"/ɪnˈvaɪt/", pat:"invite sb to do sth", def:"ask somebody to come somewhere or do something nice", ex:"Victor invited the guests to stay for dinner."},
+  {id:"persuade", g:"p2", en:"persuade", em:"🗣️", ipa:"/pəˈsweɪd/", pat:"persuade sb to do sth", def:"make somebody agree to do something by giving good reasons", ex:"Victor persuaded the guests to stay calm."},
+  {id:"remind", g:"p2", en:"remind", em:"📌", ipa:"/rɪˈmaɪnd/", pat:"remind sb to do sth", def:"help somebody remember to do something", ex:"The inspector reminded Lena to bring her notebook."},
+  {id:"tell", g:"p2", en:"tell", em:"📣", ipa:"/tel/", pat:"tell sb (not) to do sth", def:"order or instruct somebody to do something", ex:"The police told everyone to stay in the building."},
+  {id:"warn", g:"p2", en:"warn", em:"🚨", ipa:"/wɔːn/", pat:"warn sb (not) to do sth", def:"tell somebody about a danger so they avoid it", ex:"The inspector warned them not to leave the city."},
+  {id:"admit", g:"p3", en:"admit", em:"😳", ipa:"/ədˈmɪt/", pat:"admit (to) doing sth · admit (that)…", def:"agree that something bad is true, often unwillingly", ex:"Lena admitted being in the room at ten."},
+  {id:"deny", g:"p3", en:"deny", em:"🙅", ipa:"/dɪˈnaɪ/", pat:"deny doing sth · deny (that)…", def:"say that something is not true / that you didn't do it", ex:"Sam denied leaving his post."},
+  {id:"recommend", g:"p3", en:"recommend", em:"⭐", ipa:"/ˌrekəˈmend/", pat:"recommend doing sth · recommend (that) sb do…", def:"say that something is good or that somebody should do it", ex:"The critic recommended seeing the exhibition early in the morning."},
+  {id:"regret", g:"p3", en:"regret", em:"😔", ipa:"/rɪˈɡret/", pat:"regret (not) doing sth · regret (that)…", def:"feel sorry about something you did or didn't do", ex:"Lena regretted not telling the truth earlier."},
+  {id:"suggest", g:"p3", en:"suggest", em:"💡", ipa:"/səˈdʒest/", pat:"suggest doing sth · suggest (that) sb (should) do…", def:"put forward an idea or plan for others to consider", ex:"Sam suggested checking the back door."},
+  {id:"insist", g:"p3", en:"insist on", em:"☝️", ipa:"/ɪnˈsɪst ɒn/", pat:"insist on doing sth", def:"say firmly that you will do something / that it must happen", ex:"The guard insisted on calling the police himself."},
+  {id:"apologize", g:"p3", en:"apologize (to sb) for", em:"🙏", ipa:"/əˈpɒlədʒaɪz/", pat:"apologize (to sb) for doing sth", def:"say you are sorry for something", ex:"Victor apologized to Sam for shouting at him."},
+  {id:"accuse", g:"p3", en:"accuse sb of", em:"👉", ipa:"/əˈkjuːz/", pat:"accuse sb of doing sth · be accused of", def:"say that somebody has done something wrong", ex:"Victor accused Sam of stealing the painting."},
+  {id:"blame", g:"p3", en:"blame sb for", em:"🎯", ipa:"/bleɪm/", pat:"blame sb for doing sth · be blamed for", def:"say that somebody is responsible for something bad", ex:"The director blamed the guard for switching off the alarm."}
+];
+
+/* interactive demo: the reporter's notebook */
+const QUOTES = [
+  {who:"🛡️ Sam", said:"I didn't leave my post. Not for a second!", verb:"deny", p:3, rep:"Sam <b>denied leaving</b> his post.", note:"deny + -ing. The negative idea is already in deny, so no not."},
+  {who:"🖋️ Lena", said:"OK, I was in the room with the painting at ten.", verb:"admit", p:3, rep:"Lena <b>admitted being</b> in the room at ten.", note:"admit + -ing. Also: admitted that she had been… / admitted to being…"},
+  {who:"💎 Max", said:"I'll pay £1 million to anyone who finds it.", verb:"offer", p:1, rep:"Max <b>offered to pay</b> £1 million to anyone who found it.", note:"offer + to + infinitive. No person after offer."},
+  {who:"👔 Victor", said:"You stole it, Sam!", verb:"accuse", p:3, rep:"Victor <b>accused Sam of stealing</b> it.", note:"accuse sb OF + -ing. After a preposition: always -ing."},
+  {who:"🕵️ Inspector", said:"Don't leave the city, any of you.", verb:"warn", p:2, rep:"The inspector <b>warned them not to leave</b> the city.", note:"warn sb NOT to do sth. not goes before to."},
+  {who:"👔 Victor", said:"I'm sorry I shouted at you.", verb:"apologize", p:3, rep:"Victor <b>apologized to Sam for shouting</b> at him.", note:"apologize (to sb) FOR + -ing."},
+  {who:"💎 Max", said:"If you print my name, I'll sue your paper.", verb:"threaten", p:1, rep:"Max <b>threatened to sue</b> the paper if they printed his name.", note:"threaten + to + infinitive. Tenses move back in the if-clause: print → printed."},
+  {who:"🛡️ Sam", said:"Why don't we check the back door?", verb:"suggest", p:3, rep:"Sam <b>suggested checking</b> the back door. / Sam suggested (that) they check the back door.", note:"suggest + -ing OR suggest that sb (should) do. Never suggest sb to do."},
+  {who:"🕵️ Inspector", said:"Remember to bring your notebook, Lena.", verb:"remind", p:2, rep:"The inspector <b>reminded Lena to bring</b> her notebook.", note:"remind sb to do sth: the person is needed."}
+];
+const PAT = {1:"Pattern 1 · verb + to + infinitive", 2:"Pattern 2 · verb + person + to + infinitive", 3:"Pattern 3 · verb (+ preposition) + -ing"};
+
+/* short rules for the "why" lines */
+const R = {
+  p1:"Pattern 1: agree / offer / refuse / promise / threaten + to + infinitive (no person).",
+  p2:"Pattern 2: advise / ask / convince / encourage / invite / persuade / remind / tell / warn + person + to + infinitive.",
+  p3:"Pattern 3: admit / deny / recommend / regret / suggest + -ing.",
+  prep:"After a preposition (insist ON, apologize FOR, accuse sb OF, blame sb FOR) the verb is always -ing.",
+  neg:"Negatives: not goes before to (warned them not to leave) or before the -ing (regretted not telling).",
+  sugg:"suggest / recommend: + -ing or + that-clause (suggested that we wait). Never + person + to.",
+  pass:"Passive: accuse sb of → be accused of; blame sb for → be blamed for. The preposition and -ing stay.",
+  perf:"Perfect gerund (having + past participle) is also possible after deny, admit, regret, apologize for, accuse sb of: it stresses that the action happened earlier."
+};
+
+const EXERCISES = [
+  /* ---------- PATTERNS ---------- */
+  {id:"e1", type:"choice", title:"Which pattern?", ins:"What normally follows each verb? Your first answer counts.",
+   options:["+ to + infinitive","+ person + to + infinitive","+ -ing"],
+   items:[
+    {q:"refuse", answer:"+ to + infinitive", why:R.p1},
+    {q:"persuade", answer:"+ person + to + infinitive", why:R.p2},
+    {q:"deny", answer:"+ -ing", why:R.p3},
+    {q:"warn", answer:"+ person + to + infinitive", why:R.p2},
+    {q:"insist on", answer:"+ -ing", why:R.prep},
+    {q:"threaten", answer:"+ to + infinitive", why:R.p1},
+    {q:"remind", answer:"+ person + to + infinitive", why:R.p2},
+    {q:"admit", answer:"+ -ing", why:R.p3},
+    {q:"offer", answer:"+ to + infinitive", why:R.p1},
+    {q:"accuse sb of", answer:"+ -ing", why:R.prep}
+   ]},
+  {id:"e2", type:"choice", title:"Choose the correct form", ins:"Choose the option that is correct in the sentence.",
+   items:[
+    {q:"The minister denied ___ about the payments.", answer:"knowing", options:["to know","knowing"], why:R.p3},
+    {q:"The editor persuaded the journalist ___ the story.", answer:"to drop", options:["to drop","dropping"], why:R.p2},
+    {q:"The collector threatened ___ the gallery.", answer:"to sue", options:["suing","to sue"], why:R.p1},
+    {q:"The critic was accused ___ another writer's review.", answer:"of copying", options:["of copying","for copying","to copy"], why:R.pass},
+    {q:"Max refused ___ on the rumours.", answer:"to comment", options:["commenting","to comment"], why:R.p1},
+    {q:"The lawyer advised her client ___ anything.", answer:"not to say", options:["not to say","to not saying","don't say"], why:R.neg},
+    {q:"The guard insisted ___ the police himself.", answer:"on calling", options:["to call","on calling","on call"], why:R.prep},
+    {q:"Lena regretted ___ the truth earlier.", answer:"not telling", options:["not telling","not to tell","to not tell"], why:R.neg},
+    {q:"The inspector suggested ___ for the lab results.", answer:"that we wait", options:["us to wait","that we wait","to wait"], why:R.sugg},
+    {q:"In the end, the director admitted ___ the painting.", answer:"having taken", options:["to have taken","having taken"], why:R.perf}
+   ]},
+
+  /* ---------- REPORTING ---------- */
+  {id:"e3", type:"type", title:"Report the interviews", ins:"Report what each person said using the verb in the box. Type only the missing words.",
+   items:[
+    {orig:"Sam: “I'll help you find the thief.”", q:"Sam ___ the police find the thief.", key:"OFFER", accept:["offered to help"], hint:"offered + to + …", why:R.p1},
+    {orig:"Inspector to Lena: “Don't forget to bring your notebook.”", q:"The inspector ___ her notebook.", key:"REMIND", accept:["reminded Lena to bring","reminded her to bring","reminded Lena to take","reminded her to take"], hint:"reminded + Lena + to …", why:R.p2},
+    {orig:"Max: “I won't speak to journalists.”", q:"Max ___ to journalists.", key:"REFUSE", accept:["refused to speak","refused to talk"], hint:"refused + to …", why:R.p1},
+    {orig:"Victor: “I'm sorry I shouted at you, Sam.”", q:"Victor ___ at him.", key:"APOLOGIZE", accept:["apologized to Sam for shouting","apologised to Sam for shouting","apologized for shouting","apologised for shouting","apologized to Sam for having shouted","apologised to Sam for having shouted","apologized to him for shouting","apologised to him for shouting"], hint:"apologized to Sam + for + …", why:R.prep},
+    {orig:"Lena: “Yes, I touched the frame.”", q:"Lena ___ the frame.", key:"ADMIT", accept:["admitted touching","admitted having touched","admitted to touching","admitted to having touched","admitted that she had touched","admitted she had touched","admitted that she touched","admitted she touched"], hint:"admitted + -ing", why:R.p3},
+    {orig:"Inspector to the reporter: “You should wait for the official statement.”", q:"The inspector ___ for the official statement.", key:"ADVISE", accept:["advised the reporter to wait","advised her to wait","advised him to wait","advised me to wait"], hint:"advised + the reporter + to …", why:R.p2},
+    {orig:"Max: “I'll buy the whole gallery if you don't find it!”", q:"Max ___ the whole gallery if they didn't find it.", key:"THREATEN", accept:["threatened to buy"], hint:"threatened + to …", why:R.p1},
+    {orig:"Sam: “You took the painting yourself, Victor!”", q:"Sam ___ the painting himself.", key:"ACCUSE", accept:["accused Victor of taking","accused him of taking","accused Victor of having taken","accused him of having taken","accused Victor of stealing","accused him of stealing"], hint:"accused + Victor + of + …", why:R.prep}
+   ]},
+  {id:"e4", type:"type", title:"Choose the verb yourself", ins:"Report each sentence with a verb from the box. Use each verb once. Type only the missing words.",
+   bank:["agree","apologize","deny","encourage","invite","promise","recommend","warn"],
+   items:[
+    {orig:"Inspector to journalists: “Don't publish any names.”", q:"The inspector ___ any names.", accept:["warned journalists not to publish","warned them not to publish","warned the journalists not to publish"], hint:"Which verb is about a danger? + them + not to …", why:R.neg},
+    {orig:"Victor: “I didn't touch the alarm!”", q:"Victor ___ the alarm.", accept:["denied touching","denied having touched"], hint:"He says it isn't true. + -ing", why:R.p3},
+    {orig:"Inspector: “I'll find the painting by Friday.”", q:"The inspector ___ the painting by Friday.", accept:["promised to find"], hint:"She says she'll definitely do it.", why:R.p1},
+    {orig:"Lena to Max: “Would you like to come to my exhibition opening?”", q:"Lena ___ to her exhibition opening.", accept:["invited Max to come","invited him to come"], hint:"invited + Max + to …", why:R.p2},
+    {orig:"Sam: “OK, I'll take a lie-detector test.”", q:"Sam ___ a lie-detector test.", accept:["agreed to take","agreed to do"], hint:"He says yes to a request.", why:R.p1},
+    {orig:"Max: “You really should see the new exhibition — it's brilliant.”", q:"Max ___ the new exhibition.", accept:["recommended seeing","recommended visiting","recommended going to"], hint:"recommended + -ing", why:R.sugg},
+    {orig:"Victor to Sam: “I'm sorry I accused you.”", q:"Victor ___ him.", accept:["apologized to Sam for accusing","apologised to Sam for accusing","apologized for accusing","apologised for accusing","apologized for having accused","apologised for having accused"], hint:"apologized + for + -ing", why:R.prep},
+    {orig:"Inspector to Sam: “Go on, you can tell us everything you saw.”", q:"The inspector ___ everything he saw.", accept:["encouraged Sam to tell","encouraged him to tell"], hint:"She gives him confidence. + Sam + to …", why:R.p2}
+   ]},
+  {id:"e5", type:"type", title:"Prepositions + -ing", ins:"Write the preposition (on, of or for) and the -ing form of the verb in brackets.",
+   items:[
+    {q:"Victor insisted ___ the newspapers himself. (call)", accept:["on calling"], hint:"insist + ?", why:R.prep},
+    {q:"The police accused the cleaner ___ the keys. (hide)", accept:["of hiding","of having hidden"], hint:"accuse sb + ?", why:R.prep},
+    {q:"The guard was blamed ___ asleep. (fall)", accept:["for falling","for having fallen"], hint:"be blamed + ?", why:R.pass},
+    {q:"Max apologized ___ at the inspector. (shout)", accept:["for shouting","for having shouted"], hint:"apologize + ?", why:R.prep},
+    {q:"Lena was accused ___ the photos to the press. (leak)", accept:["of leaking","of having leaked"], hint:"be accused + ?", why:R.pass},
+    {q:"The director apologized ___ the truth. (not tell)", accept:["for not telling","for not having told"], hint:"for + not + -ing", why:R.neg}
+   ]},
+
+  /* ---------- EDITOR ---------- */
+  {id:"e6", type:"type", title:"Fix the reporter's draft", ins:"Each sentence has ONE mistake with a reporting verb. Write the whole correct sentence.",
+   items:[
+    {wrong:"She suggested me to check the CCTV.", accept:["She suggested checking the CCTV","She suggested that I check the CCTV","She suggested that I should check the CCTV","She suggested I check the CCTV","She suggested I should check the CCTV","She suggested that I checked the CCTV","She suggested I checked the CCTV"], hint:"suggest never takes person + to.", why:R.sugg},
+    {wrong:"He insisted to pay for the lawyer.", accept:["He insisted on paying for the lawyer"], hint:"insist + preposition.", why:R.prep},
+    {wrong:"They accused the guard for lying.", accept:["They accused the guard of lying"], hint:"Check the preposition.", why:R.prep},
+    {wrong:"The director denied to know her.", accept:["The director denied knowing her","The director denied having known her","The director denied that he knew her","The director denied that he had known her","The director denied he knew her"], hint:"deny + ?", why:R.p3},
+    {wrong:"The inspector reminded us don't touch anything.", accept:["The inspector reminded us not to touch anything"], hint:"Negative with pattern 2.", why:R.neg},
+    {wrong:"Max recommended us to visit the gallery.", accept:["Max recommended visiting the gallery","Max recommended that we visit the gallery","Max recommended that we should visit the gallery","Max recommended we visit the gallery","Max recommended that we visited the gallery"], hint:"Like suggest.", why:R.sugg},
+    {wrong:"Lena apologized for be late.", accept:["Lena apologized for being late","Lena apologised for being late"], hint:"After for …", why:R.prep},
+    {wrong:"The critic regretted to not tell the truth.", accept:["The critic regretted not telling the truth","The critic regretted not having told the truth"], hint:"regret + not + …", why:R.neg}
+   ]},
+  {id:"e7", type:"textgap", title:"Case closed: the front page", ins:"Put the verb in brackets into the correct form. Some gaps need not. Then press Check.",
+   text:"Yesterday, gallery director Victor Crane finally admitted [[taking|having taken]] (take) the Blue Lady. Police say he had insured the painting for £40 million and planned to claim the money. Crane apologized to the night guard for [[accusing|having accused]] (accuse) him and promised [[to return]] (return) the painting within a week. However, he refused [[to say]] (say) where it was hidden, and his lawyer advised him [[not to answer]] (not answer) any more questions. Inspector Fenn thanked the public for [[helping|having helped]] (help) and warned collectors [[not to buy]] (not buy) art from unknown sellers online. Art critic Lena Moss, who had been accused of [[being|having been]] (be) involved, said she regretted [[not speaking|not having spoken|not talking]] (not speak) to the police sooner.",
+   whys:[R.perf, R.prep, R.p1, R.p1, R.neg, R.prep, R.neg, R.pass, R.neg]},
+  {id:"e8", type:"type", selfmark:true, title:"Key-word transformations", ins:"Complete the second sentence so it means the same as the first. Use the word in the box. If your answer is different but also correct, you can mark it yourself.",
+   items:[
+    {orig:"“I'll definitely be there on time,” said Max.", q:"Max ___ there on time.", key:"PROMISED", accept:["promised to be","promised that he would be","promised he would be"], hint:"promised + to …", why:R.p1},
+    {orig:"“You took the money!” Lena said to the cleaner.", q:"Lena ___ the money.", key:"ACCUSED", accept:["accused the cleaner of taking","accused the cleaner of having taken","accused him of taking","accused her of taking","accused him of having taken","accused her of having taken","accused the cleaner of stealing","accused him of stealing","accused her of stealing"], hint:"accused + sb + of …", why:R.prep},
+    {orig:"“Let's have a break,” said the inspector.", q:"The inspector ___ a break.", key:"SUGGESTED", accept:["suggested having","suggested taking","suggested that they have","suggested that we have","suggested that they should have","suggested that we should have","suggested they have","suggested we have","suggested that they take","suggested that we take","suggested they take","suggested we take"], hint:"suggested + -ing", why:R.sugg},
+    {orig:"“It wasn't me who opened the window,” said Sam.", q:"Sam ___ the window.", key:"DENIED", accept:["denied opening","denied having opened","denied that he had opened","denied that he opened","denied he had opened","denied he opened"], hint:"denied + -ing", why:R.p3},
+    {orig:"“Don't leave the building,” the inspector told the guests.", q:"The inspector ___ the building.", key:"WARNED", accept:["warned the guests not to leave","warned them not to leave"], hint:"warned + the guests + not to …", why:R.neg},
+    {orig:"“I wish I hadn't sold the painting to the gallery,” said Max.", q:"Max ___ the painting to the gallery.", key:"REGRETTED", accept:["regretted selling","regretted having sold","regretted that he had sold","regretted that he sold","regretted he had sold"], hint:"regretted + -ing", why:R.p3},
+    {orig:"“Come on, you can do it — enter the competition!” her teacher said to Lena.", q:"Lena's teacher ___ the competition.", key:"ENCOURAGED", accept:["encouraged her to enter","encouraged Lena to enter"], hint:"encouraged + her + to …", why:R.p2},
+    {orig:"“Yes, I forgot to switch on the alarm,” said Victor.", q:"Victor ___ the alarm.", key:"ADMITTED", accept:["admitted forgetting to switch on","admitted having forgotten to switch on","admitted that he had forgotten to switch on","admitted that he forgot to switch on","admitted he had forgotten to switch on","admitted he forgot to switch on","admitted to forgetting to switch on","admitted to having forgotten to switch on","admitted forgetting to turn on","admitted that he had forgotten to turn on"], hint:"admitted + -ing + to switch on", why:R.p3}
+   ]}
+];
+
+const TABS = [
+  {id:"rules", icon:"1", en:"Rules", ex:[]},
+  {id:"cards", icon:"2", en:"Verb cards", ex:[]},
+  {id:"pat", icon:"3", en:"Patterns", ex:["e1","e2"]},
+  {id:"rep", icon:"4", en:"Reporting", ex:["e3","e4","e5"]},
+  {id:"edit", icon:"5", en:"Editor's desk", ex:["e6","e7","e8"]},
+  {id:"results", icon:"✓", en:"Results", ex:[]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+
+const store = (()=>{ let mem=null; return {
+  get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
+  set(v){ mem=v; try{ localStorage.setItem(KEY,v); }catch(e){} },
+  del(){ mem=null; try{ localStorage.removeItem(KEY); }catch(e){} } };})();
+function fresh(){ return {name:STUDENT, ans:{}, known:[], writing:{}, tab:0, fcDir:"word"}; }
+let state=fresh();
+try{ const raw=store.get(); if(raw) state=Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(state)); }catch(e){} updateProgress(); }
+function rec(id,i){ return (state.ans[id]||{})[i]; }
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","isn't":"is not","aren't":"are not","haven't":"have not","hasn't":"has not","won't":"will not","i'll":"i will","what's":"what is","let's":"let us","i've":"i have","wasn't":"was not","weren't":"were not","i'd":"i would","you'd":"you would","we'd":"we would","they'd":"they would","it'll":"it will","you'll":"you will","we'll":"we will","they'll":"they will","that's":"that is","there's":"there is","wouldn't":"would not","shouldn't":"should not","you're":"you are"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/,(\d{3})/g,"$1").replace(/,/g," ")
+    .replace(/\s+/g," ").trim().replace(/[.!?]+$/,"").trim();
+  s=s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot").replace(/^'s /,"is ").replace(/ 's /g," is ");
+  return s;
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
+function speak(t){ if(!("speechSynthesis" in window)||!t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/\(sb[^)]*\)|\(an amount\)|\(money\)/g,"").replace(/·/g,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(t)}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!","Great!"];
+const OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${ex.title}</h3><div class="ins">${ex.ins}</div></div><div class="exbody"></div>`;
+  return box;
+}
+// q may contain <b> tags (trusted data); gap marker ___
+const capF=(q,f)=>q.startsWith("___")&&f?f.charAt(0).toUpperCase()+f.slice(1):f;
+function gapHtml(q,fill,cls){ return q.replace("___",`<span class="gap ${cls||""}">${fill?esc(capF(q,fill)):"&nbsp;"}</span>`); }
+function fillSentence(q,a){ const s=strip(q).replace("___",a==="—"?"":capF(q,a)).replace(/\s+/g," ").trim(); return s; }
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+function bankHtml(b){ return `<div class="bank"><b>Word box</b>${b.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`; }
+
+/* choice */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const hasGap=it.q.includes("___");
+    const qh = it.say ? `<span class="row">${sayBtn(it.say)} <span>${esc(it.q)}</span></span>` : `<span class="qt">${gapHtml(it.q)}</span>`;
+    const opts=it.options||ex.options;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="opts">${opts.map(o=>`<button class="opt${ex.mono?" mono":""}" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return;
+      const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.answer,done:true}); paintChoice(ex,it,i,row,true); }));
+    row.dataset.gap=hasGap?"1":"";
+    body.appendChild(row);
+    if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===it.answer) b.classList.add("ghost"); });
+  const hasGap=it.q.includes("___");
+  if(hasGap){ const qt=$(".qt",row); qt.innerHTML=gapHtml(it.q,it.answer,r.correct?"filled":"filledbad"); }
+  const sent=hasGap?fillSentence(it.q,it.answer):(it.say||it.answer);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.answer)}</b>${hasGap?`<span class="row">${sayBtn(sent,true)} <span>${esc(sent)}</span></span>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* typed */
+function renderType(ex,body){
+  if(ex.bank) body.insertAdjacentHTML("beforeend",bankHtml(ex.bank));
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.listen) qh=`<span class="row">${sayBtn(it.say)} <span style="color:var(--muted);font-weight:600">Listen and type</span></span>`;
+    else if(it.wrong) qh=`<span class="wrongs">${esc(it.wrong)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}</span>`:""}<span class="qt">${gapHtml(it.q)}</span>${it.key?`<span class="key">${esc(it.key)}</span>`:""}`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="inrow"><input type="text" autocomplete="off" autocapitalize="${it.wrong?"sentences":"off"}" spellcheck="false" aria-label="answer" placeholder="${it.wrong?"Write the correct sentence":"Type your answer"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    body.appendChild(row);
+    const r=rec(ex.id,i); if(r&&r.done) paintTyped(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); paintTyped(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function modelOf(ex,it){ if(ex.listen) return it.say; if(it.wrong) return it.accept[0]+(it.end||"."); return fillSentence(it.q,it.accept[0]); }
+function paintTyped(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.listen&&!it.wrong){ $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad"); }
+  const full=modelOf(ex,it); let notes="";
+  if(r.correct&&it.wrong&&r.given[0]!==r.given[0].toUpperCase()) notes+=`<div>✏️ Remember the capital letter at the start.</div>`;
+  if(r.correct&&it.end==="?"&&!/\?\s*$/.test(r.given)) notes+=`<div>❓ Don't forget the question mark.</div>`;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(r.self?"✓ Marked as correct by you":(live?pick(PRAISE):"✓ Correct")):"✗ The answer is:"}</b><span class="row">${sayBtn(full,true)} <span>${esc(full)}</span></span>${notes}${whyHtml(it.why)}${ex.selfmark&&!r.correct?`<button class="btn ok selfok" type="button">My answer is also correct ✓</button>`:""}`;
+  const sb=$(".selfok",fb); if(sb) sb.addEventListener("click",()=>{ r.correct=true; r.self=true; setRec(ex.id,i,r); paintTyped(ex,it,i,row,false); });
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* match */
+function renderMatch(ex,body){
+  const order=seeded(ex.items.map((p,k)=>k),hash(ex.id)+5);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb" style="margin-left:0"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  ex.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p.en)}</button>`));
+  order.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(ex.items[k].def)}</button>`));
+  const allDone=()=>ex.items.every((p,k)=>rec(ex.id,k)&&rec(ex.id,k).done);
+  function refresh(){ ex.items.forEach((p,k)=>{ const r=rec(ex.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    if(allDone()){ const fb=$(".fb",body); fb.className="fb show good"; fb.innerHTML=`<b class="t">All matched!</b>${exGot(ex)}/${ex.items.length} on the first try. Yellow ones had a mistake — look at them again.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(ex.id,k)||{tries:0};
+    if(sl===sr){ setRec(ex.id,k,{given:prev.tries>0?prev.given:ex.items[k].def,correct:!(prev.tries>0),done:true,tries:prev.tries||0}); speak(ex.items[k].en); }
+    else{ setRec(ex.id,k,{given:ex.items[sr].def,correct:false,done:false,tries:(prev.tries||0)+1});
+      const bl=$(`[data-k="${sl}"]`,L), br=$(`[data-k="${sr}"]`,R); [bl,br].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updateExScore(ex); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh();
+}
+
+/* text with gaps */
+function parseText(ex){ if(ex._p) return; ex._p=true; const g=[]; ex.text.replace(/\[\[(.+?)\]\]/g,(m,a)=>{ g.push(a.split("|")); return m; }); ex.items=g.map((a,k)=>({accept:a,why:ex.whys[k]})); }
+function renderTextGap(ex,body){
+  parseText(ex); let k=0;
+  const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1").replace(/\n/g," ");
+  const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; }).replace(/\n/g,"<br>");
+  body.insertAdjacentHTML("beforeend",`${ex.bank?bankHtml(ex.bank):""}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check my answers</button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the whole text</button></div><ul class="whylist"></ul>`);
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
+  $(".chk",body).addEventListener("click",()=>checkText(ex,body));
+  paintText(ex,body);
+}
+function checkText(ex,body){
+  let any=false, wrong=0;
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(ex.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+    const ok=matches(v,ex.items[n].accept), tries=(prev.tries||0)+1;
+    if(ok||tries>=2) setRec(ex.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(ex.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+  if(!any){ toast("Fill in some gaps first."); return; }
+  paintText(ex,body);
+  if(wrong) toast(`${wrong} gap${wrong>1?"s are":" is"} not right yet (in red) — you have one more try.`);
+}
+function paintText(ex,body){
+  const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(ex.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(ex.items[n].why)}</li>`); }
+    else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
+  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  updateExScore(ex);
+}
+
+/* writing */
+function usedWords(t){ const s=" "+t.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z' ]+/g," ").replace(/\s+/g," ")+" ";
+  return WRITE_WORDS.map(forms=>forms.some(f=>new RegExp("\\b"+f.replace(/ /g,"\\s+")).test(s))); }
+function renderWriting(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.q)}</div></div>
+      <div style="margin-top:8px"><textarea aria-label="your answer" placeholder="${esc(it.eg)}"></textarea><div class="wcount"></div><div class="tick"></div></div>`;
+    const ta=$("textarea",row), wc=$(".wcount",row), tk=$(".tick",row), key=ex.id+"-"+i;
+    ta.value=state.writing[key]||"";
+    const upd=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=`${n} words (aim: ${it.min}+)`; wc.classList.toggle("ok",n>=it.min);
+      const u=usedWords(ta.value); tk.innerHTML=WRITE_WORDS.map((f,k)=>u[k]?`<span class="used">${esc(f[0].replace(/ \(.*$/,""))}</span>`:"").join("") || `<span>Unit words you use will appear here</span>`; };
+    let tm; ta.addEventListener("input",()=>{ upd(); clearTimeout(tm); tm=setTimeout(()=>{ state.writing[key]=ta.value; save(); },400); });
+    ta.addEventListener("blur",()=>{ state.writing[key]=ta.value; save(); });
+    upd(); body.appendChild(row);
+  });
+  body.insertAdjacentHTML("beforeend",`<p style="font-size:14px;color:var(--muted);margin:6px 0 0">This isn't marked automatically — your teacher will read it. It's included in the report you send.</p>`);
+}
+
+/* scoring */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="textgap") parseText(ex); return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function totals(){ let got=0,tot=0,done=0; EXERCISES.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=totals(); $("#pscore").textContent=`★ ${t.got} / ${t.tot}`;
+  const pct=t.tot?Math.round(t.done/t.tot*100):0; $("#pbar").style.width=pct+"%"; $("#pdone").textContent=pct+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const badge=$(".badge",b); const exs=tab.ex.map(id=>EX[id]).filter(scored);
+    if(exs.length){ const d=exs.reduce((n,e)=>n+exDone(e),0), tt=exs.reduce((n,e)=>n+exTotal(e),0), g=exs.reduce((n,e)=>n+exGot(e),0);
+      badge.textContent=d===tt?`✓ ${g}/${tt}`:`${d}/${tt}`; b.classList.toggle("done",d===tt); }
+    else if(tab.id==="cards"){ badge.textContent=`${state.known.length}/${VOCAB.length}`; b.classList.toggle("done",state.known.length===VOCAB.length); }
+    else badge.textContent=""; });
+}
+
+/* tabs */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}"><span class="coin">${t.icon}</span><b>${t.en}</b><span class="badge"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  const cur=$(`#tabs [data-t="${k}"]`); try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* words */
+function buildWords(){
+  const card=w=>`<div class="word"><span class="em" aria-hidden="true">${w.em}</span><div><b>${esc(w.en)}</b><br><span class="pat">${esc(w.pat)}</span>
+    <div class="def">${esc(w.def)}</div><div class="exl">${sayBtn(w.ex,true)} ${esc(w.ex)}</div></div>${sayBtn(w.en)}</div>`;
+  $$("[data-wl]").forEach(el=>{ el.innerHTML=VOCAB.filter(w=>w.g===el.dataset.wl).map(card).join(""); });
+}
+function buildStory(){
+  const byId={}; VOCAB.forEach(w=>byId[w.id]=w);
+  $("#story").innerHTML=STORY.map(p=>"<p>"+esc(p).replace(/\{(\w+)\|([^}]+)\}/g,(m,id,txt)=>`<button class="gl" type="button" data-w="${id}">${txt}</button>`)+"</p>").join("");
+  const box=$("#gloss");
+  $$("#story .gl").forEach(b=>b.addEventListener("click",()=>{ const w=byId[b.dataset.w]; $$("#story .gl").forEach(x=>x.classList.toggle("on",x===b));
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><b style="font-size:18px">${esc(w.en)}</b>${sayBtn(w.en,true)}</div><div>${esc(w.def)}</div>`; box.classList.add("show"); }));
+  const plain=STORY.map(p=>p.replace(/\{\w+\|([^}]+)\}/g,"$1")).join(" ");
+  $("#storySay").dataset.say=plain;
+}
+
+/* flashcards */
+let fcOrder=VOCAB.map((w,k)=>k), fcIdx=0;
+function fcDeck(){ const only=$("#fcOnly").checked; return fcOrder.filter(k=>!only||!state.known.includes(VOCAB[k].id)); }
+const ruBit=w=>"";
+function renderCard(){
+  const deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=VOCAB.length; $("#fcKnown").textContent=state.known.length; $("#fcKbar").style.width=(state.known.length/VOCAB.length*100)+"%";
+  $("#fcDir").textContent=state.fcDir==="word"?"Word → meaning":"Meaning → word";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="big">🎉</div><div class="txt">All known!</div><div class="sub">Untick the filter to review everything.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const w=VOCAB[deck[fcIdx]], known=state.known.includes(w.id);
+  const wordSide=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div>${w.ipa?`<div class="ipa">${esc(w.ipa)}</div>`:""}`;
+  const meaning=`<div class="def">${esc(w.def)}</div>`;
+  if(state.fcDir==="word"){
+    $("#fcFront").innerHTML=wordSide+sayBtn(w.en)+`<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="txt" style="font-size:22px">${esc(w.en)}</div>${meaning}<div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  } else {
+    $("#fcFront").innerHTML=`<div class="big">❓</div>${meaning}<div class="ipa">${esc(w.pat.replace(new RegExp(w.en.split(" ")[0],"ig"),"___"))}</div><span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div><div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.en+". "+w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  }
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; const rb=e.target.closest(".rubtn-card"); if(rb){ const t=rb.nextElementSibling; t.hidden=!t.hidden; rb.textContent=t.hidden?"Show Russian":"Hide Russian"; return; } flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcDir").addEventListener("click",()=>{ state.fcDir=state.fcDir==="word"?"meaning":"word"; save(); renderCard(); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=k=>{ const deck=fcDeck(); if(!deck.length) return; const w=VOCAB[deck[fcIdx]];
+    state.known=state.known.filter(x=>x!==w.id); if(k) state.known.push(w.id); save();
+    if(!(k&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* results */
+const studentName=()=>((state.name||STUDENT).trim()||STUDENT);
+function questionText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
+   return strip(it.q)+(it.key?" ("+it.key+")":""); }
+function correctText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
+  return modelOf(ex,it); }
+function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
+function band(p){ if(p>=90) return `Excellent, ${studentName()}. Case closed: you reported like a pro. ✓`; if(p>=75) return "Great work: a couple of things to look at again below."; if(p>=50) return "Good effort. Re-read the rule and look at the mistakes below."; return "A start. Go back to the Rules and Verb cards tabs, then try again."; }
+function renderResults(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date();
+  const lines=EXERCISES.filter(scored).map(ex=>`<div class="ln"><span>${ex.no}. ${esc(ex.title)}</span><span>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</span></div>`).join("");
+  $("#receipt").innerHTML=`<h2>${REPORT_HEAD}</h2><div class="c">${esc(SUBJECT_TOPIC)} · ${esc(studentName())}<br>${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</div><hr>${lines}
+    ${VOCAB.length?`<div class="ln"><span>Flashcards known</span><span>${state.known.length}/${VOCAB.length}</span></div>`:""}<hr>
+    <div class="ln tot"><span>TOTAL</span><span>${t.got}/${t.tot}</span></div><div class="ln"><span>Score</span><span>${pct}%</span></div>
+    ${t.done<t.tot?`<div class="c" style="margin-top:6px">* not finished — ${t.tot-t.done} answers still to do</div>`:`<div style="text-align:center"><span class="stamp">ALL DONE</span></div>`}
+    <div class="msg">${t.done?band(pct):"Start with the Words tab!"}</div>`;
+  const m=mistakes();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>No mistakes so far 🎉</li>`;
+  buildSend();
+}
+function reportText(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date(), L=[];
+  L.push(`HOMEWORK: ${TITLE}`); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`);
+  L.push(`SCORE: ${t.got}/${t.tot} (${pct}%) · answered ${t.done}/${t.tot}`); if(VOCAB.length) L.push(`Flashcards known: ${state.known.length}/${VOCAB.length}`); L.push("");
+  L.push("BY EXERCISE:"); EXERCISES.filter(scored).forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=mistakes(); L.push(`MISTAKES (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → wrote: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none"); L.push("");
+  const selfs=[]; EXERCISES.filter(x=>x.selfmark).forEach(x=>x.items.forEach((it,i)=>{ const r=rec(x.id,i); if(r&&r.self) selfs.push(`- [${x.no}] ${it.orig} → "${r.given}" (model: ${it.accept[0]})`); }));
+  if(selfs.length){ L.push("SELF-MARKED AS CORRECT (please check):"); selfs.forEach(s=>L.push(s)); L.push(""); }
+  if(EX.w1){ L.push("WRITING:"); EX.w1.items.forEach((it,i)=>{ const txt=(state.writing["w1-"+i]||"").trim(); L.push(`${i+1}. ${it.q}`); L.push(`   ${txt||"—"}`); }); L.push(""); }
+  L.push("ALL ANSWERS:"); EXERCISES.filter(scored).forEach(ex=>{ L.push(`${ex.no}. ${ex.title}`); for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); L.push(`   ${i+1}) ${questionText(ex,i)} → ${r?r.given:"—"} ${r&&r.done?(r.correct?"✓":"✗"):"(not done)"}`); } });
+  return L.join("\n");
+}
+function shortReport(){ const f=reportText(); if(f.length<=1500) return f; return f.slice(0,1450).replace(/\n[^\n]*$/,"")+"\n…\n(Full report: use “Copy text” in the app.)"; }
+const subject=()=>{ const t=totals(); return `${SUBJECT_TOPIC} — ${studentName()} — ${t.got}/${t.tot}`; };
+function buildSend(){
+  const sub=encodeURIComponent(subject()), body=encodeURIComponent(shortReport()); let h="";
+  if(navigator.share) h+=`<button class="btn pri" type="button" id="shareBtn">📤 Share</button>`;
+  h+=`<a class="btn${navigator.share?"":" pri"}" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${sub}&body=${body}">✉️ Send in Gmail</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${sub}&text=${body}">✈️ Telegram</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${body}">💬 WhatsApp</a>`;
+  h+=`<a class="btn" href="mailto:${TEACHER}?subject=${sub}&body=${body}">📧 Email app</a>`;
+  h+=`<button class="btn" type="button" id="copyBtn">📋 Copy text</button>`;
+  $("#sendgrid").innerHTML=h;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",async()=>{ try{ await navigator.share({title:subject(),text:reportText()}); }catch(e){} });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+}
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied! Paste it into a message to your teacher.":"Couldn't copy — please select the text manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied! Paste it into a message to your teacher."),fb); else fb();
+}
+
+/* init */
+/* reporter's notebook demo */
+function buildMachine(){
+  const box=$("#qList"); if(!box) return; let k=0;
+  box.innerHTML=QUOTES.map((q,n)=>`<button type="button" data-k="${n}"><span class="qwho">${esc(q.who)}</span>“${esc(q.said)}”</button>`).join("");
+  const draw=go=>{ const q=QUOTES[k]; $$("#qList button").forEach(b=>b.classList.toggle("on",+b.dataset.k===k));
+    const o=$("#qOut"); o.className="qout p"+q.p+(go?" anim":"");
+    o.innerHTML=`<div class="qpat">${esc(PAT[q.p])}</div><div class="qverb">reporting verb: <b>${esc(q.verb)}</b></div><div class="row" style="justify-content:space-between;gap:10px;flex-wrap:nowrap"><span class="qrep">${q.rep}</span>${sayBtn(strip(q.rep.split(" / ")[0]))}</div><div class="dnote">💡 ${esc(q.note)}</div>`; };
+  $$("#qList button").forEach(b=>b.addEventListener("click",()=>{ k=+b.dataset.k; draw(true); speak(strip(QUOTES[k].rep.split(" / ")[0])); }));
+  draw(false);
+}
+
+function init(){
+  buildTabs(); if($("[data-wl]")) buildWords(); if($("#fc")) buildCards(); buildMachine();
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ store.del(); state=fresh(); location.reload(); });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+
+</script>
+</body>
+</html>
