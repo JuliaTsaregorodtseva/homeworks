@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Vocabulary Bank · Intermediate</title>
+<meta name="theme-color" content="#2B5D8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:opsz,wght@7..72,600;7..72,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F5EF; --card:#FFFFFF; --ink:#1D2433; --muted:#646B7A; --line:#E4E0D6; --soft:#EFECE3;
+  --brand:#2B5D8C; --brand-2:#E5EEF7; --accent:#F2B84B;
+  --ok:#1E8A55; --ok-bg:#E3F4EA; --bad:#C9453B; --bad-bg:#FBE7E4; --hint:#FFF5DA;
+  --r:16px; --shadow:0 1px 0 rgba(29,36,51,.04),0 8px 24px rgba(29,36,51,.06);
+  --serif:"Literata",Georgia,serif; --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--sans)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:940px;margin:0 auto;padding:0 16px}
+[hidden]{display:none!important}
+/* header */
+.hdr{position:sticky;top:0;z-index:30;background:var(--brand);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.hdr .wrap{display:flex;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;flex:1 1 220px}
+.logo{width:40px;height:40px;border-radius:10px;background:#fff;color:var(--brand);display:grid;place-items:center;font:700 19px var(--serif)}
+.brand h1{font:700 20px/1.1 var(--serif);margin:0}
+.brand p{margin:2px 0 0;font-size:12.5px;opacity:.8}
+.search{flex:2 1 320px;position:relative;display:flex;align-items:center}
+.search .mag{position:absolute;left:12px;font-size:15px;opacity:.6}
+.search input{width:100%;height:46px;border-radius:12px;border:0;padding:0 42px 0 38px;background:#fff;color:var(--ink);font-size:16px}
+.search input::-webkit-search-cancel-button{display:none}
+#qx{position:absolute;right:6px;width:36px;height:36px;border:0;border-radius:9px;background:var(--soft);color:var(--muted)}
+.nav{background:#234D75}
+.navin{display:flex;gap:4px;padding-top:0!important;padding-bottom:0!important}
+.navb{flex:1;border:0;background:none;color:rgba(255,255,255,.75);padding:10px 8px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:7px;border-bottom:3px solid transparent;min-height:48px}
+.navb.on{color:#fff;border-bottom-color:var(--accent)}
+@media (max-width:700px){
+  .hdr .wrap{gap:10px;padding-top:10px;padding-bottom:10px}
+  .brand h1{font-size:18px} .logo{width:34px;height:34px;font-size:16px}
+  .nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.06);padding-bottom:env(safe-area-inset-bottom)}
+  .navb{flex-direction:column;gap:2px;color:var(--muted);font-size:12px;border-bottom:0;border-top:3px solid transparent;min-height:58px}
+  .navb span{font-size:20px}
+  .navb.on{color:var(--brand);border-top-color:var(--brand)}
+  body{padding-bottom:76px}
+}
+main{padding-top:16px;padding-bottom:24px}
+/* chips & toolbar */
+#dictTop{scroll-margin-top:200px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:thin}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:8px 14px;font-weight:600;font-size:14px;min-height:42px;white-space:nowrap}
+.chip small{color:var(--muted);font-weight:600;margin-left:3px}
+.chip.on{background:var(--tc,var(--brand));border-color:var(--tc,var(--brand));color:#fff}
+.chip.on small{color:rgba(255,255,255,.85)}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 14px}
+.seg{display:inline-flex;background:var(--soft);border-radius:12px;padding:3px}
+.seg button{border:0;background:none;border-radius:9px;padding:8px 14px;font-weight:700;font-size:14px;min-height:38px;color:var(--muted)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.tog{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:8px 12px;font-weight:700;font-size:14px;min-height:42px;color:var(--muted)}
+.tog.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.count{margin-left:auto;font-size:13.5px;color:var(--muted)}
+@media (max-width:520px){ .count{margin-left:0;width:100%} }
+/* topic sections */
+.tsec{margin-bottom:26px}
+.thead{display:flex;align-items:center;gap:10px;font:700 24px/1.2 var(--serif);margin:8px 0 6px;padding-bottom:8px;border-bottom:3px solid var(--tc)}
+.thead small{font:600 13px var(--sans);color:var(--muted);margin-left:auto}
+.ticon{width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,var(--tc) 14%,white);display:grid;place-items:center;font-size:22px;flex:none}
+.shead{font:600 13px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--tc);margin:16px 0 8px}
+.egrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:700px){ .egrid{grid-template-columns:1fr} }
+.letter{font:700 30px var(--serif);color:var(--brand);margin:18px 0 6px;border-bottom:1px solid var(--line);scroll-margin-top:200px}
+.az{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.az a{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:var(--card);border:1px solid var(--line);color:var(--brand);font-weight:700;text-decoration:none}
+/* entry card */
+.entry{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--tc);border-radius:12px;padding:12px 12px 10px 14px;box-shadow:var(--shadow);margin-bottom:10px}
+.egrid .entry{margin-bottom:0}
+.ehead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px}
+.hw{font:700 19px/1.25 var(--serif);margin:0}
+.ipa{font-family:"Inter",sans-serif;color:var(--muted);font-size:14px}
+.pos{font-size:11.5px;font-weight:700;color:var(--tc);background:color-mix(in srgb,var(--tc) 12%,white);border-radius:6px;padding:1px 7px;font-style:italic}
+.hard{font-size:13px}
+.eact{margin-left:auto;display:flex;gap:4px;align-self:center}
+.def{margin:6px 0 4px;font-size:15.5px}
+.ex{margin:0;display:flex;gap:6px;align-items:flex-start;font-style:italic;color:#3F4656;font-size:14.5px}
+.ex span{padding-top:4px}
+.ttag{display:inline-block;margin-top:6px;font-size:12px;color:var(--muted);font-weight:600}
+mark{background:#FFE58A;color:inherit;border-radius:3px;padding:0 1px}
+.say{border:0;background:var(--soft);border-radius:10px;width:40px;height:40px;font-size:16px;flex:none;display:inline-grid;place-items:center}
+.say.sm{width:30px;height:30px;font-size:13px;border-radius:8px}
+.nospeech .say{display:none!important}
+.star{border:0;background:var(--soft);border-radius:10px;width:40px;height:40px;font-size:19px;color:#B9B3A3}
+.star.on{color:#E0A200;background:#FFF4CF}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--r);padding:28px 18px;text-align:center;color:var(--muted)}
+/* panels & buttons */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.panel h2{font:700 24px/1.2 var(--serif);margin:0 0 6px}
+.btn{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px 16px;font-weight:700;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:var(--ink)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.ok{background:var(--ok-bg);border-color:#B5DFC6;color:var(--ok)}
+.btn.bad{background:var(--bad-bg);border-color:#F2C2BC;color:var(--bad)}
+.btn[disabled]{opacity:.4;cursor:default}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--muted)}
+.kbar{flex:1;height:10px;border-radius:10px;background:var(--soft);overflow:hidden}
+.kbar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),#4C9BD6);border-radius:10px;transition:width .3s}
+/* flashcards */
+.fcbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.deckl{display:flex;align-items:center;gap:8px;font-weight:700;flex:1 1 260px}
+.deckl select{flex:1;min-height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);padding:0 10px;font-weight:600;max-width:100%}
+.chk{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;min-height:44px}
+.chk input{width:20px;height:20px;accent-color:var(--brand)}
+.kprog{display:flex;align-items:center;gap:10px;margin:12px 0 6px;font-weight:700;font-size:14px}
+.scene{perspective:1200px;margin:10px 0}
+.fc{position:relative;height:300px;cursor:pointer;outline:none}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.fc.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;border:2px solid var(--tc,var(--brand))}
+.front{background:var(--card)}
+.back{background:color-mix(in srgb,var(--tc,var(--brand)) 9%,white);transform:rotateY(180deg)}
+.fctop{position:absolute;top:12px;left:16px;font-size:12.5px;font-weight:700;color:var(--tc)}
+.fcw{font:700 clamp(28px,7vw,40px)/1.15 var(--serif)}
+.fcipa{color:var(--muted)}
+.fcpos{font-size:13px;font-style:italic;color:var(--tc);font-weight:700}
+.fcd{font-size:clamp(18px,4.6vw,22px);line-height:1.4;max-width:520px}
+.fcex{font-style:italic;color:#3F4656;max-width:520px}
+.fcmsg{font-size:18px;font-weight:600}
+.fcmsg small{font-weight:500;color:var(--muted);font-size:14px}
+.tap{position:absolute;bottom:12px;font-size:12px;color:var(--muted)}
+.fcrow{display:flex;gap:10px;margin-top:10px}
+.fcrow .btn{flex:1}
+.tip{font-size:13.5px;color:var(--muted);margin:12px 0 0}
+/* practice */
+.pintro p{margin:0 0 10px;color:var(--muted)}
+.ptot{display:flex;align-items:center;gap:10px;margin:6px 0 14px;font-size:14px;color:var(--muted)}
+.ptot b{color:var(--ink);font-size:18px}
+.setchips{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.schip{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:8px 10px;text-align:left;min-height:50px}
+.schip .si{font-size:20px}.schip .st{flex:1;font-weight:700;font-size:14px;line-height:1.2}
+.schip .sb{font-size:12px;font-weight:700;color:var(--muted);background:var(--soft);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.schip.on{border-color:var(--tc);box-shadow:0 0 0 2px var(--tc) inset}
+.schip.fin .sb{background:var(--ok-bg);color:var(--ok)}
+.setbox{scroll-margin-top:190px;border-top:5px solid var(--tc)}
+.sethead{position:relative;margin-bottom:6px}
+.tbadge{font-size:12.5px;font-weight:700;color:var(--tc)}
+.sethead p{margin:0;color:var(--muted)}
+.sscore{position:absolute;top:0;right:0;font-weight:800;font-size:14px;background:var(--soft);border-radius:99px;padding:3px 10px}
+.item{padding:14px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:13px;font-weight:800;color:var(--muted)}
+.q{font-size:16.5px;padding-top:1px}
+.gap{display:inline-block;min-width:70px;border-bottom:2px solid var(--ink);text-align:center;font-weight:700;padding:0 4px}
+.gap.ok{color:var(--ok);border-color:var(--ok)}.gap.bad{color:var(--bad);border-color:var(--bad)}
+.key{display:inline-block;background:var(--ink);color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:1px 8px;margin-left:4px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:9px 16px;min-height:44px;font-weight:600}
+.opt:hover:not([disabled]){border-color:var(--tc)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.opt.ghost{opacity:.45}
+.opt[disabled]{cursor:default}
+.fb{display:none;margin:10px 0 0 36px;padding:10px 12px;border-radius:12px;font-size:14.5px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b{margin-right:4px}
+.why{margin-top:4px;color:#3F4656}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px}
+.inrow input{flex:1;min-width:0;height:46px;border-radius:12px;border:1.5px solid var(--line);padding:0 12px;font-size:16px}
+.inrow input:focus{border-color:var(--brand);outline:none}
+.okv{border-color:var(--ok)!important;background:var(--ok-bg)}.badv{border-color:var(--bad)!important;background:var(--bad-bg)}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px;min-height:48px;font-weight:600;font-size:14.5px;text-align:left}
+.L .mbtn{font-family:var(--serif);font-weight:700;font-size:16px}
+.mbtn.sel{border-color:var(--tc);box-shadow:0 0 0 2px var(--tc) inset}
+.mbtn.done{background:var(--ok-bg);border-color:#B5DFC6;color:var(--ok)}
+.mbtn.done.miss{background:var(--hint);border-color:#F0D58A;color:#8A6400}
+.mbtn.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.mfb{margin-left:0}
+.bank{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--soft);border-radius:12px;padding:10px;margin:8px 0}
+.bank b{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.bank span{background:var(--card);border-radius:8px;padding:3px 9px;font-weight:600;font-size:14px}
+.gtext{font-size:16.5px;line-height:2.4}
+.gn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:800;margin-right:3px;vertical-align:2px}
+.gapin{width:130px;height:36px;border-radius:9px;border:1.5px solid var(--line);padding:0 8px;font-size:15.5px;max-width:60vw}
+.gtext+.inrow{margin-left:0}
+.whylist{padding-left:18px;font-size:14px}
+.whylist li{margin:4px 0}.whylist li.g b{color:var(--ok)}.whylist li.b b{color:var(--bad)}
+.setnav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+/* results */
+.results h3{font:700 18px var(--serif);margin:18px 0 8px}
+.rtable{width:100%;border-collapse:collapse;font-size:14.5px;margin:8px 0}
+.rtable td{padding:7px 4px;border-bottom:1px solid var(--line)}
+.rtable td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+details.mist summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center}
+#rMist{padding-left:18px;font-size:14px}#rMist li{margin:6px 0}#rMist s{color:var(--bad)}#rMist b{color:var(--ok)}#rMist .none{list-style:none;margin-left:-18px}
+.namebox{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.namebox label{font-weight:700}
+.namebox input{flex:1;max-width:280px;height:44px;border-radius:12px;border:1.5px solid var(--line);padding:0 12px;font-size:16px}
+.sendgrid{display:flex;flex-wrap:wrap;gap:8px}
+.small{font-size:13px;color:var(--muted)}
+.mail{user-select:all;font-weight:700;color:var(--ink)}
+.reset{margin-top:14px}
+.confirm{display:none;margin-top:10px;background:var(--bad-bg);border-radius:12px;padding:12px}
+.confirm.show{display:block}
+.confirm .row{display:flex;gap:8px;margin-top:8px}
+.foot{text-align:center;color:var(--muted);font-size:12.5px;padding:10px 16px 24px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;opacity:0;visibility:hidden;transition:all .25s;z-index:60;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%)}
+@media (max-width:520px){
+  .opts,.fb,.inrow{margin-left:0}
+  .match{gap:6px}.mbtn{font-size:13.5px;padding:8px}.L .mbtn{font-size:15px}
+  .fc{height:330px}
+  .panel{padding:14px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+.deckl{min-width:0;flex-wrap:nowrap}
+.deckl select{min-width:0;width:100%;text-overflow:ellipsis}
+.fcbar>*{min-width:0}
+@media (max-width:520px){ .fcbar .btn{flex:1} .fcrow .btn{padding:10px 8px;font-size:14.5px} }
+@media (min-width:701px){ .chips{flex-wrap:wrap;overflow:visible} }
+.deckl{flex:1 1 100%}
+@media (max-width:520px){
+  .setchips{grid-template-columns:1fr 1fr;gap:6px}
+  .schip{flex-direction:column;align-items:flex-start;gap:2px;padding:8px}
+  .schip .si{font-size:18px}.schip .st{font-size:13px}
+  .brand p{display:none}
+}
+
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">Aa</div>
+      <div><h1>My Vocabulary Bank</h1><p id="hdrCount"></p></div>
+    </div>
+    <div class="search">
+      <span class="mag" aria-hidden="true">🔍</span>
+      <input id="q" type="search" placeholder="Search a word, meaning or example…" autocomplete="off" spellcheck="false" aria-label="search the dictionary">
+      <button id="qx" type="button" hidden aria-label="clear search">✕</button>
+    </div>
+  </div>
+  <nav class="nav" aria-label="pages">
+    <div class="wrap navin">
+      <button class="navb" type="button" data-p="dict"><span>📖</span>Dictionary</button>
+      <button class="navb" type="button" data-p="cards"><span>🃏</span>Flashcards</button>
+      <button class="navb" type="button" data-p="practice"><span>✏️</span>Practice</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<!-- ================= DICTIONARY ================= -->
+<section id="pg-dict" class="page" hidden>
+  <div id="dictTop"></div>
+  <div class="chips" id="chips"></div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="view"><button type="button" id="vTopic">By topic</button><button type="button" id="vAZ">A–Z</button></div>
+    <button type="button" class="tog" id="fStar">★ Starred</button>
+    <button type="button" class="tog" id="fHard">🔥 Difficult</button>
+    <span class="count" id="count"></span>
+  </div>
+  <div id="list"></div>
+</section>
+
+<!-- ================= FLASHCARDS ================= -->
+<section id="pg-cards" class="page" hidden>
+  <div class="panel">
+    <div class="fcbar">
+      <label class="deckl">Deck <select id="deck" aria-label="choose a deck"></select></label>
+      <button class="btn" type="button" id="fcDir">Word → meaning</button>
+      <label class="chk"><input type="checkbox" id="fcOnly"> Only cards I'm still learning</label>
+    </div>
+    <div class="kprog"><span id="fcKnown"></span><div class="kbar"><i id="fcBar"></i></div><span class="mono" id="fcPos"></span></div>
+    <div class="scene"><div class="fc" id="fc" tabindex="0" role="button" aria-label="flip the card"><div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div></div></div>
+    <div class="fcrow"><button class="btn bad" type="button" id="fcLearn">🔁 Still learning</button><button class="btn ok" type="button" id="fcKnow">✓ I know it</button></div>
+    <div class="fcrow"><button class="btn" type="button" id="fcPrev">◀ Back</button><button class="btn" type="button" id="fcShuf">🔀 Shuffle</button><button class="btn" type="button" id="fcNext">Next ▶</button></div>
+    <p class="tip">Tip: build your own deck — star ☆ words in the Dictionary, then choose “My starred words”. On a computer use ← → and the space bar.</p>
+  </div>
+</section>
+
+<!-- ================= PRACTICE ================= -->
+<section id="pg-practice" class="page" hidden>
+  <div class="panel pintro">
+    <h2>Practise the tricky ones</h2>
+    <p>17 short sets with the words that are easiest to mix up. Your first answer counts. Choose a set:</p>
+    <div class="ptot"><b id="pTot"></b><div class="kbar"><i id="pBar"></i></div><span id="pDone"></span></div>
+    <div class="setchips" id="setChips"></div>
+  </div>
+  <div class="panel setbox" id="setBox"></div>
+
+  <div class="panel results">
+    <h2>My results</h2>
+    <p id="rSum"></p>
+    <table class="rtable" id="rTable"></table>
+    <details class="mist"><summary>Mistakes to look at again</summary><ul id="rMist"></ul></details>
+    <h3>Send your results to your teacher</h3>
+    <div class="namebox"><label for="nm">Your name</label><input id="nm" autocomplete="off" placeholder="Your name"></div>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p class="small">Teacher's email: <span class="mail">ulchik2211@gmail.com</span>. Gmail, Telegram, WhatsApp and the email app send a shorter version; “Copy text” always copies the full report.</p>
+    <div class="reset"><button class="btn bad" type="button" id="resetBtn">🗑 Delete my practice answers</button>
+      <div class="confirm" id="resetConfirm"><b>Delete all practice answers? Your stars and flashcards stay.</b><div class="row"><button class="btn bad" type="button" id="resetYes">Yes, delete</button><button class="btn" type="button" id="resetNo">No, keep them</button></div></div></div>
+  </div>
+</section>
+
+</main>
+<footer class="foot">My Vocabulary Bank · Intermediate · progress is saved in this browser</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   VOCABULARY BANK (INTERMEDIATE) — DATA
+   Each entry: [word, IPA, part of speech, definition, example, difficult? (1/0)]
+   ========================================================= */
+const TOPICS = [
+{id:"food", name:"Food and cooking", icon:"🍳", color:"#D9822B", sections:[
+ {name:"Fish and seafood", words:[
+  ["crab","/kræb/","n","a sea animal with a hard shell and ten legs that walks sideways","We had fresh crab by the sea.",0],
+  ["lobster","/ˈlɒbstə/","n","a large sea animal with a hard shell and two big claws; expensive to eat","Lobster is my favourite seafood.",0],
+  ["mussels","/ˈmʌslz/","n pl","small sea animals with black shells","Mussels with garlic and white wine are delicious.",1],
+  ["prawns","/prɔːnz/","n pl","small pink sea animals (AmE shrimp)","a prawn salad",1],
+  ["salmon","/ˈsæmən/","n","a large fish with pink flesh (the l is silent)","grilled salmon with lemon",1],
+  ["squid","/skwɪd/","n","a sea animal with a long soft body and ten arms","fried squid rings",1],
+  ["tuna","/ˈtjuːnə/","n","a large sea fish, often sold in tins","a tuna sandwich",0]]},
+ {name:"Meat", words:[
+  ["beef","/biːf/","n","meat from a cow","roast beef",0],
+  ["chicken","/ˈtʃɪkɪn/","n","meat from a chicken","chicken curry",0],
+  ["duck","/dʌk/","n","meat from a duck","duck with orange sauce",0],
+  ["lamb","/læm/","n","meat from a young sheep (the b is silent)","lamb chops",1],
+  ["pork","/pɔːk/","n","meat from a pig","pork sausages",0]]},
+ {name:"Fruit and vegetables", words:[
+  ["aubergine","/ˈəʊbəʒiːn/","n","a large vegetable with a shiny dark purple skin (AmE eggplant)","aubergine stuffed with cheese",1],
+  ["avocado","/ˌævəˈkɑːdəʊ/","n","a pear-shaped green fruit with a big stone","avocado on toast",0],
+  ["beetroot","/ˈbiːtruːt/","n","a round dark red root vegetable","beetroot soup",1],
+  ["cabbage","/ˈkæbɪdʒ/","n","a large round vegetable with green or purple leaves","cabbage salad",0],
+  ["cherries","/ˈtʃeriz/","n pl","small round red fruit with a stone","a bowl of cherries",0],
+  ["courgette","/kɔːˈʒet/","n","a long green vegetable (AmE zucchini)","grilled courgettes",1],
+  ["cucumber","/ˈkjuːkʌmbə/","n","a long green vegetable that you eat raw in salads","cucumber and tomato salad",0],
+  ["grapes","/ɡreɪps/","n pl","small round green or purple fruit that grow in bunches","a bunch of grapes",0],
+  ["green beans","/ˌɡriːn ˈbiːnz/","n pl","long thin green vegetables","steamed green beans",0],
+  ["lemon","/ˈlemən/","n","a sour yellow fruit","fish with a slice of lemon",0],
+  ["mango","/ˈmæŋɡəʊ/","n","a sweet tropical fruit with yellow flesh","a mango smoothie",0],
+  ["melon","/ˈmelən/","n","a large round fruit with a hard skin and a lot of juice","a slice of melon",0],
+  ["peach","/piːtʃ/","n","a round soft fruit with a furry skin and a stone","a ripe peach",0],
+  ["pear","/peə/","n","a green or yellow fruit, narrow at the top","pear and chocolate cake",0],
+  ["raspberries","/ˈrɑːzbəriz/","n pl","small soft red fruit (the p is silent)","raspberries and cream",1],
+  ["red pepper","/ˌred ˈpepə/","n","a red vegetable, hollow inside, eaten raw or cooked","stuffed red peppers",0]]},
+ {name:"Cooking", words:[
+  ["baked","/beɪkt/","adj","cooked in an oven, without oil (potatoes, cakes, bread)","a baked potato",0],
+  ["boiled","/bɔɪld/","adj","cooked in very hot water","a boiled egg",0],
+  ["fried","/fraɪd/","adj","cooked in hot oil in a pan","a fried egg",0],
+  ["grilled","/ɡrɪld/","adj","cooked directly over or under strong heat","grilled steak",0],
+  ["roast","/rəʊst/","adj","cooked in an oven with some oil (meat, potatoes)","roast chicken",1],
+  ["steamed","/stiːmd/","adj","cooked using the steam from boiling water","steamed vegetables",1]]},
+ {name:"Phrasal verbs", words:[
+  ["eat out","/ˌiːt ˈaʊt/","phr v","eat in a restaurant, not at home","I eat out a lot because I don't have time to cook.",0],
+  ["cut down (on)","/ˌkʌt ˈdaʊn/","phr v","eat, drink or do less of something","I'm trying to cut down on coffee.",1],
+  ["cut out","/ˌkʌt ˈaʊt/","phr v","stop eating or doing something completely","The doctor told me to cut out cheese completely.",1]]}
+]},
+
+{id:"personality", name:"Personality", icon:"🙂", color:"#C2508F", sections:[
+ {name:"What are they like?", words:[
+  ["affectionate","/əˈfekʃənət/","adj","showing that you love or like people very much","She's very affectionate – always hugging people.",1],
+  ["ambitious","/æmˈbɪʃəs/","adj","wanting to be very successful in life","He's ambitious – he wants to be a director by 30.",0],
+  ["anxious","/ˈæŋkʃəs/","adj","often worried or stressed","She gets anxious before exams.",1],
+  ["bossy","/ˈbɒsi/","adj","always telling other people what to do","My sister is so bossy!",0],
+  ["charming","/ˈtʃɑːmɪŋ/","adj","having an attractive personality that people like","He's a charming man – everybody likes him.",0],
+  ["competitive","/kəmˈpetətɪv/","adj","always wanting to win","He's very competitive – he hates losing at cards.",0],
+  ["honest","/ˈɒnɪst/","adj","always telling the truth; never stealing or cheating (the h is silent)","Be honest – do you like my dress?",0],
+  ["imaginative","/ɪˈmædʒɪnətɪv/","adj","having a good imagination","Children are very imaginative.",0],
+  ["independent","/ˌɪndɪˈpendənt/","adj","liking to do things on your own, without help","She's very independent – she left home at 18.",0],
+  ["insecure","/ˌɪnsɪˈkjʊə/","adj","not confident about yourself","He's quite insecure about his looks.",1],
+  ["mature","/məˈtʃʊə/","adj","behaving like an adult","She's very mature for her age.",1],
+  ["moody","/ˈmuːdi/","adj","with moods that change quickly and often","Teenagers can be very moody.",0],
+  ["patient","/ˈpeɪʃnt/","adj","able to wait or accept difficulties without getting angry","Teachers need to be patient.",0],
+  ["rebellious","/rɪˈbeljəs/","adj","not liking to obey rules","He was a rebellious teenager.",1],
+  ["reliable","/rɪˈlaɪəbl/","adj","that you can trust or depend on (= responsible)","She's very reliable – she's never late.",1],
+  ["self-confident","/ˌself ˈkɒnfɪdənt/","adj","sure of yourself and your abilities","You need to be self-confident to be an actor.",0],
+  ["selfish","/ˈselfɪʃ/","adj","thinking about yourself and not about other people","Don't be so selfish – share your sweets!",0],
+  ["sensible","/ˈsensəbl/","adj","having common sense; practical (false friend!)","It was sensible to take an umbrella.",1],
+  ["sensitive","/ˈsensətɪv/","adj","easily hurt or offended (false friend!)","Be careful what you say – he's very sensitive.",1],
+  ["sociable","/ˈsəʊʃəbl/","adj","friendly and enjoying being with other people (= outgoing)","She's very sociable – she loves parties.",0],
+  ["spoilt","/spɔɪlt/","adj","rude and badly behaved because they're given everything they want","a spoilt child",1],
+  ["stubborn","/ˈstʌbən/","adj","never changing your opinion or attitude","He's too stubborn to say sorry.",1],
+  ["sympathetic","/ˌsɪmpəˈθetɪk/","adj","kind to somebody who is hurt or sad (false friend – NOT nice!)","My boss was very sympathetic when my dad was ill.",1]]},
+ {name:"Negative prefixes", words:[
+  ["unambitious","/ˌʌnæmˈbɪʃəs/","adj","not wanting to be successful","He's happy and quite unambitious.",0],
+  ["unfriendly","/ʌnˈfrendli/","adj","not friendly","The waiter was rude and unfriendly.",0],
+  ["dishonest","/dɪsˈɒnɪst/","adj","not honest","It was dishonest to keep the money.",1],
+  ["unimaginative","/ˌʌnɪˈmædʒɪnətɪv/","adj","without imagination","an unimaginative menu",0],
+  ["unkind","/ʌnˈkaɪnd/","adj","not kind","That was an unkind thing to say.",0],
+  ["immature","/ˌɪməˈtʃʊə/","adj","behaving like a child","He's 30, but very immature.",1],
+  ["disorganised","/dɪsˈɔːɡənaɪzd/","adj","not organised","I'm so disorganised – I always lose my keys.",1],
+  ["impatient","/ɪmˈpeɪʃnt/","adj","not patient","Don't be so impatient – the bus will come.",1],
+  ["unreliable","/ˌʌnrɪˈlaɪəbl/","adj","that you can't trust or depend on","He's so unreliable – he never calls back.",1],
+  ["irresponsible","/ˌɪrɪˈspɒnsəbl/","adj","not responsible","It was irresponsible to leave the children alone.",1],
+  ["unselfish","/ʌnˈselfɪʃ/","adj","thinking about other people (a positive word!)","She's kind and unselfish.",1],
+  ["insensitive","/ɪnˈsensətɪv/","adj","not noticing or caring about other people's feelings","an insensitive comment",1],
+  ["unsociable","/ʌnˈsəʊʃəbl/","adj","not liking to be with other people","I'm a bit unsociable in the mornings.",0],
+  ["untidy","/ʌnˈtaɪdi/","adj","not tidy","His room is always untidy.",0]]}
+]},
+
+{id:"money", name:"Money", icon:"💷", color:"#2F8F5B", sections:[
+ {name:"Verbs", words:[
+  ["inherit","/ɪnˈherɪt/","v","get money or property from somebody when they die","I'm going to inherit £2,000 from my uncle.",1],
+  ["save","/seɪv/","v","keep money so that you can use it later","I save money every week for a holiday.",0],
+  ["lend","/lend/","v","give money to somebody that they will give back (lend sb sth)","He promised to lend me €50.",1],
+  ["borrow","/ˈbɒrəʊ/","v","take money from somebody that you'll give back (borrow sth from sb)","I need to borrow £20 from my mum.",1],
+  ["waste","/weɪst/","v","use money badly, on things you don't need","I often waste money on stupid things.",0],
+  ["can't afford","/kɑːnt əˈfɔːd/","v","not have enough money for something","I can't afford to buy that car.",1],
+  ["charge","/tʃɑːdʒ/","v","ask somebody to pay a price for a service","The mechanic charges me £100.",1],
+  ["cost","/kɒst/","v","have a price (cost – cost – cost)","These shoes cost $200.",0],
+  ["owe","/əʊ/","v","have to pay back money that somebody lent you","I owe Jim £100.",1],
+  ["invest","/ɪnˈvest/","v","put money into something to make a profit","I want to invest some money in shares.",1],
+  ["earn","/ɜːn/","v","get money for the work you do","I earn £1,000 a month.",0],
+  ["be worth","/bi ˈwɜːθ/","v","have a value of","My house is worth about €200,000.",1],
+  ["raise (money)","/reɪz/","v","collect money for a cause","We want to raise money for the new hospital.",1]]},
+ {name:"Prepositions", words:[
+  ["pay by (credit card)","","phr","pay using a card","Would you like to pay cash or by credit card?",1],
+  ["pay for (sth)","","phr","give money for something","I paid for the dinner last night.",0],
+  ["spend (money) on","","phr","use money to buy something","I spent £50 on books yesterday.",1],
+  ["invest (money) in","","phr","put money into something","My uncle invested all his money in property.",1],
+  ["lend (money) to","","phr","give money to sb for a while","I don't like lending money to friends.",1],
+  ["borrow (money) from","","phr","take money from sb for a while","I borrowed a lot of money from the bank.",1],
+  ["charge (sb) for","","phr","ask for money for something","They charged us €60 for a bottle of wine.",1],
+  ["get into debt","/det/","phr","start to owe money (the b in debt is silent)","I never get into debt.",1]]},
+ {name:"Nouns", words:[
+  ["a bill","/bɪl/","n","a piece of paper that shows how much you have to pay","Can we have the bill, please?",0],
+  ["a salary","/ˈsæləri/","n","the money you get for the work you do (usually per year or month)","She earns a good salary.",0],
+  ["tax","/tæks/","n","money that you pay to the government","We pay a lot of tax.",0],
+  ["a loan","/ləʊn/","n","money that somebody (or a bank) lends you","I got a loan to buy a car.",0],
+  ["a budget","/ˈbʌdʒɪt/","n","money you have available and a plan of how to spend it","We have a holiday budget of £1,000.",1],
+  ["a mortgage","/ˈmɔːɡɪdʒ/","n","money you borrow from a bank to buy a house (the t is silent)","We have a 25-year mortgage.",1],
+  ["contactless payment","/ˌkɒntæktləs ˈpeɪmənt/","n","paying by holding your card or phone over a reader, without a PIN","Most shops accept contactless payment.",0],
+  ["insurance","/ɪnˈʃʊərəns/","n","money you pay a company; they pay you if you're ill or lose or break something","Have you got travel insurance?",1]]},
+ {name:"Phrasal verbs", words:[
+  ["take out","/ˌteɪk ˈaʊt/","phr v","get money from a bank or a cash machine","I took out €200 from a cash machine.",0],
+  ["pay back","/ˌpeɪ ˈbæk/","phr v","give back money that you borrowed","Can I pay you back next week?",0],
+  ["live off","/ˈlɪv ɒf/","phr v","get the money you need from somebody or something","I live off my parents while I'm at university.",1],
+  ["live on","/ˈlɪv ɒn/","phr v","have a certain amount of money to buy what you need","It's difficult to live on only one salary.",1]]}
+]},
+
+{id:"transport", name:"Transport", icon:"🚇", color:"#2F80C9", sections:[
+ {name:"Public transport and vehicles", words:[
+  ["a coach","/kəʊtʃ/","n","a comfortable bus for long journeys (also part of a train)","We went to London by coach.",1],
+  ["a ferry","/ˈferi/","n","a boat that carries people and cars across water","We took the ferry to France.",0],
+  ["a lorry","/ˈlɒri/","n","a large vehicle for carrying goods (AmE truck)","The road was blocked by a lorry.",1],
+  ["a motorbike","/ˈməʊtəbaɪk/","n","a heavy two-wheeled vehicle with an engine","He rides a motorbike to work.",0],
+  ["a motorway","/ˈməʊtəweɪ/","n","a wide road for fast traffic (AmE freeway)","The motorway was very busy.",0],
+  ["a scooter","/ˈskuːtə/","n","a light motorbike with small wheels","She goes to work by scooter.",0],
+  ["a tram","/træm/","n","a vehicle that runs on rails in the streets of a city","Take the number 3 tram.",0],
+  ["the Underground","/ˈʌndəɡraʊnd/","n","the train system under the city (AmE subway)","It's quicker to go on the Underground.",0],
+  ["a van","/væn/","n","a small vehicle for carrying goods","a delivery van",0]]},
+ {name:"On the road", words:[
+  ["a car crash","/ˈkɑː kræʃ/","n","an accident in which a car hits something","He was injured in a car crash.",0],
+  ["a cycle lane","/ˈsaɪkl leɪn/","n","a part of the road only for bicycles","Ride in the cycle lane.",0],
+  ["a parking fine","/ˈpɑːkɪŋ faɪn/","n","money you must pay for parking in the wrong place","I got a £60 parking fine.",1],
+  ["a pedestrian zone","/pəˈdestriən zəʊn/","n","an area where cars are not allowed","The old town is a pedestrian zone.",1],
+  ["a petrol station","/ˈpetrəl steɪʃn/","n","a place where you buy petrol for your car","Let's stop at the next petrol station.",0],
+  ["roadworks","/ˈrəʊdwɜːks/","n pl","work to repair a road","There are roadworks on the motorway.",1],
+  ["the rush hour","/ˈrʌʃ aʊə/","n","the time when lots of people travel to or from work","Don't drive in the rush hour.",0],
+  ["a seat belt","/ˈsiːt belt/","n","a belt that holds you in your seat","Put your seat belt on.",0],
+  ["a speed camera","/ˈspiːd kæmərə/","n","a camera that photographs cars going too fast","There's a speed camera on this road.",0],
+  ["a speed limit","/ˈspiːd lɪmɪt/","n","the fastest speed you are allowed to drive","The speed limit here is 50.",0],
+  ["a taxi rank","/ˈtæksi ræŋk/","n","a place where taxis wait for passengers","There's a taxi rank outside the station.",1],
+  ["traffic lights","/ˈtræfɪk laɪts/","n pl","red, yellow and green lights that control traffic","Turn left at the traffic lights.",0],
+  ["a traffic jam","/ˈtræfɪk dʒæm/","n","a long line of cars that can't move","We were stuck in a traffic jam.",0],
+  ["a zebra crossing","/ˌzebrə ˈkrɒsɪŋ/","n","black and white lines on the road where people can cross","Cross at the zebra crossing.",1]]},
+ {name:"How long does it take?", words:[
+  ["it takes (me) … to get to","","phr","we use take + time to talk about the length of a journey","It takes about an hour to get from London to Oxford by train.",1]]},
+ {name:"Phrasal verbs", words:[
+  ["set off","/ˌset ˈɒf/","phr v","start a journey","We set off at 7.00 to avoid the traffic.",0],
+  ["pick up","/ˌpɪk ˈʌp/","phr v","collect somebody in a car (opposite drop off)","Could you pick me up at the station?",0],
+  ["end up","/ˌend ˈʌp/","phr v","finally be in a place or situation you didn't plan","Check the address or you may end up in the wrong place.",1],
+  ["run out of","/ˌrʌn ˈaʊt əv/","phr v","have no more of something","We're going to run out of petrol soon.",1],
+  ["look out","/ˌlʊk ˈaʊt/","phr v","be careful! (= watch out)","Look out! You're going to crash!",0]]}
+]},
+{id:"prepositions", name:"Dependent prepositions", icon:"🔗", color:"#7A5AC8", sections:[
+ {name:"After verbs", words:[
+  ["apologise to sb for sth","","v + prep","say sorry to somebody for something","He apologised to the police officer for driving fast.",1],
+  ["argue with sb about sth","","v + prep","speak angrily to somebody because you disagree","I never argue with my husband about money.",1],
+  ["arrive in (a city / country)","","v + prep","get to a town, city or country","We're arriving in Milan on Sunday.",1],
+  ["arrive at (a building / place)","","v + prep","get to a building or smaller place","We're arriving at Malpensa airport at 3.45.",1],
+  ["ask (sb) for sth","","v + prep","say that you want something","Could you ask the waiter for the bill?",1],
+  ["believe in","","v + prep","think that something exists or is true","Do you believe in stereotypes?",1],
+  ["belong to","","v + prep","be owned by","Who does this book belong to?",0],
+  ["choose between","","v + prep","decide which of two things you want","I can't choose between these two bags.",1],
+  ["depend on","","v + prep","be decided by","We might go out. It depends on the weather.",1],
+  ["dream about","","v + prep","see things in your mind while you're asleep","I dreamt about my childhood last night.",1],
+  ["laugh at","","v + prep","laugh because you think sb or sth is funny or stupid","Don't laugh at me! I'm doing my best!",0],
+  ["look forward to","","v + prep","feel happy about something that's going to happen (+ noun / -ing)","I'm really looking forward to the party.",1],
+  ["pay for","","v + prep","give money for something","If I pay for the meal, can you get the drinks?",0],
+  ["remind sb of","","v + prep","make somebody think of something","This music reminds me of our honeymoon.",1],
+  ["spend (money) on","","v + prep","use money to buy something","I don't spend a lot of money on clothes.",1],
+  ["talk to sb about sth","","v + prep","speak to somebody on a subject","We need to talk to Anita about her school report.",0]]},
+ {name:"After adjectives", words:[
+  ["afraid of (scared / frightened of)","","adj + prep","feeling fear","My brother is afraid of bats.",0],
+  ["angry with sb about sth","","adj + prep","very annoyed","She's really angry with her boyfriend about last night.",1],
+  ["close to","/kləʊs/","adj + prep","having a strong relationship with","I'm very close to my elder sister.",1],
+  ["different from","","adj + prep","not the same as","This exercise isn't very different from the last one.",1],
+  ["excited about","","adj + prep","happy and enthusiastic about","We're really excited about going to Brazil.",0],
+  ["famous for","","adj + prep","known by a lot of people because of","Krakow is famous for its main square.",0],
+  ["fed up with","","adj + prep","bored and annoyed with","I'm fed up with sitting in this traffic jam.",1],
+  ["fond of","","adj + prep","liking somebody or something very much","I'm very fond of my little nephew.",1],
+  ["good at","","adj + prep","able to do something well","I've never been good at sport.",0],
+  ["good for","","adj + prep","healthy for","Eat your vegetables. They're good for you.",1],
+  ["interested in","","adj + prep","wanting to know more about","My sister is very interested in astrology.",0],
+  ["keen on","","adj + prep","liking something very much","She's very keen on cycling.",1],
+  ["kind to","","adj + prep","friendly and caring towards","I don't like people who aren't kind to animals.",1],
+  ["married to","","adj + prep","being the husband or wife of","She used to be married to a pop star.",1],
+  ["pleased with","","adj + prep","happy with","I'm really pleased with my new scooter.",1],
+  ["proud of","","adj + prep","pleased about something you or somebody did","My dad was very proud of learning to ski.",1],
+  ["rude to","","adj + prep","not polite to","Why are you always rude to waiters?",1],
+  ["worried about","","adj + prep","anxious about","Rachel is worried about losing her job.",0],
+  ["tired of","","adj + prep","bored with; not wanting to continue","I'm tired of walking. Let's stop and have a rest.",1]]}
+]},
+
+{id:"sport", name:"Sport", icon:"⚽", color:"#1E9A6A", sections:[
+ {name:"People and places", words:[
+  ["a captain","/ˈkæptɪn/","n","the leader of a team","She's the captain of the hockey team.",0],
+  ["a coach","/kəʊtʃ/","n","a person who trains a player or team","The coach was angry at half-time.",0],
+  ["fans","/fænz/","n pl","people who support a team or player","Thousands of fans celebrated in the streets.",0],
+  ["players","/ˈpleɪəz/","n pl","people who play a sport","The players walked onto the pitch.",0],
+  ["a referee / an umpire","/ˌrefəˈriː/ /ˈʌmpaɪə/","n","the person who controls a match (umpire: tennis, cricket)","The referee gave a penalty.",1],
+  ["spectators / the crowd","/spekˈteɪtəz/ /kraʊd/","n","the people who watch a match","The crowd cheered.",1],
+  ["a sports hall","/ˈspɔːts hɔːl/","n","a big building for indoor sports","We play basketball in the sports hall.",0],
+  ["a stadium","/ˈsteɪdiəm/","n","a large place with seats where you watch sport","The stadium holds 60,000 people.",0],
+  ["a team","/tiːm/","n","a group of people who play together","Which team do you support?",0],
+  ["a court","/kɔːt/","n","the place for tennis or basketball","a tennis court",1],
+  ["a pitch","/pɪtʃ/","n","the place for football, rugby or hockey","a football pitch",1],
+  ["a pool","/puːl/","n","the place for swimming or diving","a swimming pool",0],
+  ["a track","/træk/","n","the place for athletics (running)","She ran three times round the track.",1],
+  ["a circuit","/ˈsɜːkɪt/","n","the place for Formula 1 or motorcycling","the Monaco circuit",1],
+  ["a course","/kɔːs/","n","the place for golf","a golf course",1],
+  ["a slope","/sləʊp/","n","the place where you ski","We spent all day on the slopes.",1]]},
+ {name:"Verbs", words:[
+  ["win (won, won)","/wɪn/","v","be successful in a match, competition, medal or trophy","Milan won the match 3–0.",1],
+  ["beat (beat, beaten)","/biːt/","v","defeat another team or person","Milan beat Chelsea 3–0.",1],
+  ["lose (lost, lost)","/luːz/","v","not win","The Bulls lost 78–91 to the Celtics.",0],
+  ["draw (drew, drawn)","/drɔː/","v","finish with the same score","Spain drew with Brazil 2–2.",1],
+  ["train","/treɪn/","v","practise a sport to get ready","Professional sportspeople have to train every day.",0],
+  ["get injured","/ˈɪndʒəd/","v","hurt yourself","Don't play on a wet court. You might get injured.",0],
+  ["kick","/kɪk/","v","hit something with your foot","A footballer tries to kick the ball into the goal.",0],
+  ["get fit","/fɪt/","v","become healthy and strong","I've started going to the gym because I want to get fit.",0],
+  ["score","/skɔː/","v","get a goal or a point","Our new striker is going to score a lot of goals.",0],
+  ["go (swimming)","","v","go + -ing for sports","Would you like to go swimming?",1],
+  ["do (yoga)","","v","do + some sports and activities","My brothers do yoga.",1],
+  ["throw","/θrəʊ/","v","send something through the air with your hand","In basketball, players throw the ball to each other.",0]]},
+ {name:"Phrasal verbs", words:[
+  ["warm up","/ˌwɔːm ˈʌp/","phr v","do light exercise to get ready for a match","It's important to warm up before you do exercise.",0],
+  ["work out","/ˌwɜːk ˈaʊt/","phr v","do exercise, usually at a gym","My daughter works out every afternoon.",1],
+  ["be sent off","/sent ˈɒf/","phr v","be told to leave the pitch or court","The player got a red card and was sent off.",1],
+  ["be knocked out","/nɒkt ˈaʊt/","phr v","be eliminated from a competition","My team was knocked out in the semi-finals.",1]]}
+]},
+
+{id:"relationships", name:"Relationships", icon:"💞", color:"#D3486B", sections:[
+ {name:"People", words:[
+  ["a couple","/ˈkʌpl/","n","two people who are married or in a romantic relationship","They're a lovely couple.",0],
+  ["a partner","/ˈpɑːtnə/","n","your husband, wife, boyfriend or girlfriend","Can I bring my partner to the party?",0],
+  ["a fiancé / fiancée","/fiˈɒnseɪ/","n","the man / woman you are engaged to","This is my fiancée, Kate.",1],
+  ["a flatmate","/ˈflætmeɪt/","n","a person that you share a flat with","My flatmate never washes up.",0],
+  ["a colleague","/ˈkɒliːɡ/","n","a person that you work with","I had lunch with a colleague.",1],
+  ["an ex","/eks/","n","(colloquial) a person you used to have a relationship with","I saw my ex at the party.",0],
+  ["a close friend","/kləʊs ˈfrend/","n","a very good friend you can talk to about anything","She's my closest friend.",0],
+  ["a classmate","/ˈklɑːsmeɪt/","n","a person in the same class as you at school or college","We were classmates at school.",0]]},
+ {name:"Verb phrases", words:[
+  ["meet","/miːt/","v","see somebody for the first time (meet – met – met)","I met Mark when I was at university.",0],
+  ["get to know","","phr","learn more about somebody","We got to know each other quickly.",1],
+  ["become friends","","phr","start being friends","We soon became friends.",0],
+  ["have (sth) in common","/ˈkɒmən/","phr","have the same interests or opinions","We have a lot in common – we both like art and music.",1],
+  ["go out together","","phr","have a romantic relationship","We went out together for two years.",1],
+  ["be together","","phr","be in a relationship","We were together for two years.",0],
+  ["break up","/ˌbreɪk ˈʌp/","phr v","end a relationship (= split up)","We broke up in our last term.",0],
+  ["lose touch","/ˌluːz ˈtʌtʃ/","phr","stop being in contact with somebody","After university we lost touch.",1],
+  ["get in touch","/ˌɡet ɪn ˈtʌtʃ/","phr","contact somebody","Five years later, we got in touch again on Facebook.",1],
+  ["get on (well)","/ˌɡet ˈɒn/","phr v","have a good relationship","This time we got on better than before.",1],
+  ["propose","/prəˈpəʊz/","v","ask somebody to marry you","After two months, Mark proposed and I accepted.",1],
+  ["get married","/ˌɡet ˈmærid/","phr","become husband and wife","We got married last summer.",0]]}
+]},
+
+{id:"cinema", name:"Cinema", icon:"🎬", color:"#B5563A", sections:[
+ {name:"Kinds of film", words:[
+  ["an action film","/ˈækʃn fɪlm/","n","a film with a lot of fights, chases and explosions","a James Bond action film",0],
+  ["an animation","/ˌænɪˈmeɪʃn/","n","a film made with drawings or computer images","Shrek is a famous animation.",0],
+  ["a comedy","/ˈkɒmədi/","n","a funny film","a romantic comedy",0],
+  ["a drama","/ˈdrɑːmə/","n","a serious film about people's lives","a family drama",0],
+  ["a historical film","/hɪˈstɒrɪkl/","n","a film about real events or people in the past","a historical film about Elizabeth I",0],
+  ["a horror film","/ˈhɒrə fɪlm/","n","a film that makes you scared","I can't watch horror films alone.",0],
+  ["a musical","/ˈmjuːzɪkl/","n","a film in which the characters sing","The Sound of Music is a musical.",0],
+  ["a rom-com","/ˈrɒm kɒm/","n","a romantic comedy","a Christmas rom-com",0],
+  ["a science fiction film","/ˌsaɪəns ˈfɪkʃn/","n","a film about the future, space or science","Star Wars is a science fiction film.",0],
+  ["a thriller","/ˈθrɪlə/","n","an exciting film, often about a crime","a psychological thriller",0],
+  ["a war film","/ˈwɔː fɪlm/","n","a film about a war","a Second World War film",0],
+  ["a western","/ˈwestən/","n","a film about cowboys in the American West","a classic western",0]]},
+ {name:"People and things", words:[
+  ["the cast","/kɑːst/","n","all the people who act in a film","The film has a great cast.",1],
+  ["a star","/stɑː/","n, v","the most important actor in a film; to be the main actor","It stars Meryl Streep.",0],
+  ["the soundtrack","/ˈsaʊndtræk/","n","the music of a film","I love the soundtrack.",0],
+  ["the plot","/plɒt/","n","the story of a film","The plot was too complicated.",1],
+  ["a scene","/siːn/","n","a part of a film which happens in one place (the c is silent)","The final scene made me cry.",1],
+  ["the audience","/ˈɔːdiəns/","n","the people who watch a film in a cinema","The audience laughed.",1],
+  ["a sequel","/ˈsiːkwəl/","n","a film which continues the story of an earlier film","The sequel wasn't as good.",1],
+  ["special effects","/ˌspeʃl ɪˈfekts/","n pl","images, often created by a computer","amazing special effects",0],
+  ["a trailer","/ˈtreɪlə/","n","short scenes from a film shown to advertise it","Have you seen the trailer?",1],
+  ["the script","/skrɪpt/","n","the words of a film","She wrote the script.",0],
+  ["an extra","/ˈekstrə/","n","a person who plays a very small part, usually in a crowd","He was an extra in Harry Potter.",1],
+  ["subtitles","/ˈsʌbtaɪtlz/","n pl","the translation of the dialogue on the screen","I watch films with subtitles.",0],
+  ["a review","/rɪˈvjuː/","n","an article which gives an opinion about a film","The film got great reviews.",0],
+  ["a set","/set/","n","the place where a film is shot; the scenery","They built the set in the studio.",1],
+  ["a critic","/ˈkrɪtɪk/","n","a person who writes film reviews for the press","The critics hated it.",1]]},
+ {name:"Verbs and verb phrases", words:[
+  ["be based on","","phr","be an adaptation of (a true story, a book)","The film is based on a true story.",1],
+  ["be set in","","phr","happen in a particular place and time","It's set in New York in the 1940s.",1],
+  ["be directed by","","phr","have somebody as the director","It's directed by Stephen Frears.",0],
+  ["play the part of","","phr","act a role in a film","Hugh Grant plays the part of her husband.",1],
+  ["be shot / filmed on location","","phr","be filmed outside the studio","It was shot on location in Liverpool.",1],
+  ["be dubbed","/dʌbd/","v","have the words spoken in a different language by other actors","It's dubbed into other languages.",1]]}
+]},
+{id:"body", name:"The body", icon:"🖐️", color:"#C95A3F", sections:[
+ {name:"Parts of the body", words:[
+  ["arms","/ɑːmz/","n pl","the long parts of your body between your shoulders and hands","She held the baby in her arms.",0],
+  ["back","/bæk/","n","the part of your body between your neck and your bottom, behind you","I've hurt my back.",0],
+  ["chin","/tʃɪn/","n","the part of your face below your mouth","He has a beard on his chin.",0],
+  ["ears","/ɪəz/","n pl","the parts of your body you hear with","She's got small ears.",0],
+  ["eyes","/aɪz/","n pl","the parts of your body you see with","She has blue eyes.",0],
+  ["face","/feɪs/","n","the front part of your head","Wash your face.",0],
+  ["feet (sing foot)","/fiːt/ /fʊt/","n pl","the parts at the end of your legs that you stand on","My feet hurt.",1],
+  ["fingers","/ˈfɪŋɡəz/","n pl","the five long parts at the end of your hand","Don't eat with your fingers!",0],
+  ["hands","/hændz/","n pl","the parts at the end of your arms","Wash your hands before dinner.",0],
+  ["head","/hed/","n","the top part of your body with your eyes, mouth and brain","Use your head!",0],
+  ["knees","/niːz/","n pl","the joints in the middle of your legs (the k is silent)","I fell and hurt my knees.",1],
+  ["legs","/leɡz/","n pl","the long parts of your body that you walk on","My legs ache after the run.",0],
+  ["lips","/lɪps/","n pl","the soft edges of your mouth","She's wearing red lipstick on her lips.",0],
+  ["mouth","/maʊθ/","n","the part of your face you eat and speak with","Don't talk with your mouth full.",0],
+  ["neck","/nek/","n","the part between your head and your shoulders","a long neck",0],
+  ["nose","/nəʊz/","n","the part of your face you smell with","Blow your nose.",0],
+  ["shoulders","/ˈʃəʊldəz/","n pl","the parts at the top of your arms, either side of your neck","He carried his son on his shoulders.",0],
+  ["stomach","/ˈstʌmək/","n","the part of your body where food goes; your tummy","I've got a pain in my stomach.",1],
+  ["teeth (sing tooth)","/tiːθ/ /tuːθ/","n pl","the hard white things in your mouth that you bite with","Brush your teeth.",1],
+  ["thumb","/θʌm/","n","the short thick finger (the b is silent)","Thumbs up!",1],
+  ["toes","/təʊz/","n pl","the five small parts at the end of your foot","I hurt my toe on the door.",0],
+  ["tongue","/tʌŋ/","n","the soft part in your mouth that you taste with","Don't stick your tongue out!",1]]},
+ {name:"Verbs related to the body", words:[
+  ["bite","/baɪt/","v","use your teeth to cut into something (bite – bit – bitten)","Don't worry. The dog won't bite.",0],
+  ["clap","/klæp/","v","hit your hands together to show you liked something","The audience clapped when I finished.",0],
+  ["kick","/kɪk/","v","hit something with your foot","Jason kicked the ball too hard.",0],
+  ["nod","/nɒd/","v","move your head up and down to say yes","Everybody nodded in agreement.",1],
+  ["point","/pɔɪnt/","v","show something with your finger","The teacher pointed at me.",0],
+  ["smell","/smel/","v","have a smell; use your nose","Something smells delicious!",0],
+  ["smile","/smaɪl/","v","make a happy face","He's very serious – he never smiles.",0],
+  ["stare","/steə/","v","look at somebody for a long time","The stranger stared at me for a long time.",1],
+  ["taste","/teɪst/","v","try food to see what it's like","Can you taste the sauce?",0],
+  ["touch","/tʌtʃ/","v","put your hand on something","Don't touch the oven door! It's really hot.",0],
+  ["whistle","/ˈwɪsl/","v","make a high sound by blowing through your lips (the t is silent)","My dog comes back when I whistle.",1],
+  ["your (hand), not the (hand)","","grammar","we use possessive pronouns (my, your…) with parts of the body","Give me your hand. NOT Give me the hand.",1]]}
+]},
+
+{id:"education", name:"Education", icon:"🎓", color:"#2D6F9E", sections:[
+ {name:"The school system in the UK", words:[
+  ["primary school","/ˈpraɪməri/","n","the school for children from 5 to 11","Children start primary school when they're five.",0],
+  ["nursery school","/ˈnɜːsəri/","n","a school for children aged 2–4 (not compulsory)","My son goes to nursery school.",1],
+  ["secondary school","/ˈsekəndri/","n","the school for children from 11 to 18","She's in her first year at secondary school.",0],
+  ["a state school","/steɪt/","n","a school paid for by the government; education is free","About 90% of schools are state schools.",1],
+  ["a private school","/ˈpraɪvət/","n","a school where parents have to pay","He went to a private school.",0],
+  ["a boarding school","/ˈbɔːdɪŋ/","n","a school where children study, eat and sleep","Harry Potter goes to a boarding school.",1],
+  ["pupils","/ˈpjuːplz/","n pl","children at (primary) school","There are 30 pupils in the class.",1],
+  ["students","/ˈstjuːdnts/","n pl","children at secondary school or people at university","University students",0],
+  ["the head teacher","/ˌhed ˈtiːtʃə/","n","the person in charge of a school","The head teacher wants to see you.",0],
+  ["terms","/tɜːmz/","n pl","the three parts of the school year in the UK","The summer term ends in July.",1],
+  ["a degree","/dɪˈɡriː/","n","what you get when you finish university","She's got a degree in Biology.",0]]},
+ {name:"The school system in the US", words:[
+  ["elementary school","/ˌelɪˈmentri/","n","(US) primary school","He's in elementary school.",1],
+  ["high school","/haɪ/","n","(US) the last level of school","She graduated from high school last year.",0],
+  ["grades","/ɡreɪdz/","n pl","(US) the age groups that school children are divided into","My son is in third grade.",1],
+  ["kindergarten","/ˈkɪndəɡɑːtn/","n","(US) the first year of school, before first grade","She starts kindergarten in September.",0],
+  ["twelfth grade","/ˌtwelfθ ˈɡreɪd/","n","(US) the final year of high school","He's in twelfth grade.",1],
+  ["semesters","/sɪˈmestəz/","n pl","(US) the two parts of the school year","The spring semester starts in January.",1],
+  ["college","/ˈkɒlɪdʒ/","n","(US) higher education; university","She's in college now.",1]]},
+ {name:"Discipline and exams", words:[
+  ["not be allowed to","/əˈlaʊd/","phr","not have permission to do something","We aren't allowed to take our phones to school.",1],
+  ["let","/let/","v","give permission (let sb do sth – no to!)","They don't let us bring fizzy drinks.",1],
+  ["make","/meɪk/","v","force somebody to do something (make sb do sth – no to!)","The teacher made me stay behind after class.",1],
+  ["misbehave","/ˌmɪsbɪˈheɪv/","v","behave badly","If you misbehave, you'll be punished.",1],
+  ["be punished","/ˈpʌnɪʃt/","v","be made to suffer because you did something wrong","He was punished for talking in class.",0],
+  ["cheat","/tʃiːt/","v","act dishonestly, e.g. in an exam","He cheated in the exam.",0],
+  ["be expelled","/ɪkˈspeld/","v","be told to leave a school permanently","If you cheat, you might be expelled.",1],
+  ["take (or do) an exam","","phr","sit an exam","Marc has to take an important exam next week.",1],
+  ["pass","/pɑːs/","v","be successful in an exam","He hopes he'll pass.",1],
+  ["revise","/rɪˈvaɪz/","v","study again what you've learnt before an exam","He hasn't had much time to revise.",1],
+  ["fail","/feɪl/","v","not pass an exam","He's worried that he might fail.",0],
+  ["the result","/rɪˈzʌlt/","n","the mark or grade you get","He won't get the result until July.",0]]}
+]},
+
+{id:"houses", name:"Houses", icon:"🏡", color:"#8A6D1E", sections:[
+ {name:"Where people live", words:[
+  ["in the country","","phr","in the countryside, not in a town","I live in the country, surrounded by fields.",1],
+  ["on the outskirts (of)","/ˈaʊtskɜːts/","phr","in the parts of a town far from the centre","I live on the outskirts of Oxford.",1],
+  ["in a village / town / city","","phr","in a place where people live","I live in a small village.",0],
+  ["on the (east) coast","/kəʊst/","phr","near the sea","Cromer is a small town on the east coast.",1],
+  ["on the (second) floor","/flɔː/","phr","on a level of a building","I live on the second floor of a block of flats.",1],
+  ["a suburb","/ˈsʌbɜːb/","n","an area where people live outside the centre of a city (live in a suburb)","I live in Croydon, a suburb of London.",1]]},
+ {name:"Parts of a house", words:[
+  ["an attic","/ˈætɪk/","n","a room at the top of a house, under the roof","We keep old toys in the attic.",0],
+  ["a balcony","/ˈbælkəni/","n","a small area outside an upstairs window","We have breakfast on the balcony.",0],
+  ["a basement","/ˈbeɪsmənt/","n","a room or floor below the ground","The basement is cold and dark.",0],
+  ["a chimney","/ˈtʃɪmni/","n","the structure on the roof where smoke goes out (NOT a fireplace!)","Smoke was coming out of the chimney.",1],
+  ["the entrance","/ˈentrəns/","n","the place where you go in","The entrance is round the back.",0],
+  ["a gate","/ɡeɪt/","n","a door in a wall or fence","Close the gate or the dog will get out.",0],
+  ["the ground floor","/ˌɡraʊnd ˈflɔː/","n","the floor at street level (AmE first floor)","The kitchen is on the ground floor.",1],
+  ["a path","/pɑːθ/","n","a narrow way to walk on to the door","a path through the garden",0],
+  ["a roof","/ruːf/","n","the top part of a house","The roof needs repairing.",0],
+  ["steps","/steps/","n pl","stairs outside a building","She sat on the front steps.",0],
+  ["a terrace / patio","/ˈterəs/ /ˈpætiəʊ/","n","a flat area outside a house where you can sit","We had lunch on the terrace.",0],
+  ["the top floor","/ˌtɒp ˈflɔː/","n","the highest floor","They live on the top floor.",0],
+  ["a wall","/wɔːl/","n","the side of a building or a room","There's a picture on the wall.",0]]},
+ {name:"Describing a house or flat", words:[
+  ["a cottage","/ˈkɒtɪdʒ/","n","a small, often old, house in the country","a cottage in the country",0],
+  ["made of stone","/stəʊn/","phr","built with stone","It's old and made of stone.",0],
+  ["a ceiling","/ˈsiːlɪŋ/","n","the top part of a room (roof = the top part of a house)","The rooms have very low ceilings.",1],
+  ["an open fire / a fireplace","/ˈfaɪəpleɪs/","n","a place in a room where you burn wood or coal","There's an open fire in the living room.",1],
+  ["cosy","/ˈkəʊzi/","adj","warm and comfortable","It's very cosy in the winter.",1],
+  ["modern","/ˈmɒdn/","adj","new and in the latest style","a modern flat in the city centre",0],
+  ["spacious","/ˈspeɪʃəs/","adj","with a lot of space","It's spacious and very light.",1],
+  ["light","/laɪt/","adj","with a lot of natural light","a light, sunny room",0],
+  ["wooden floors","/ˈwʊdn/","n pl","floors made of wood","wooden floors and big windows",0]]}
+]},
+
+{id:"work", name:"Work", icon:"💼", color:"#4A5A78", sections:[
+ {name:"Verb phrases", words:[
+  ["do overtime","/ˈəʊvətaɪm/","phr","work extra hours","Dan has to do overtime.",1],
+  ["get promoted","/prəˈməʊtɪd/","phr","be given a more important job","Matt got promoted last week.",1],
+  ["work shifts","/ʃɪfts/","phr","sometimes work during the day and sometimes at night","Most nurses have to work shifts.",1],
+  ["be sacked / be fired","/sækt/","phr","be told by your boss to leave","A man in our department was sacked yesterday.",1],
+  ["be made redundant","/rɪˈdʌndənt/","phr","lose your job because the company doesn't need you any more","Colin was made redundant.",1],
+  ["resign","/rɪˈzaɪn/","v","decide to leave your job (AmE quit; the g is silent)","The director is going to resign.",1],
+  ["retire","/rɪˈtaɪə/","v","stop working because of your age","She's 65 and she's going to retire.",0],
+  ["set up (a business)","/ˌset ˈʌp/","phr v","start a new business","She has set up a business selling clothes online.",0],
+  ["do (a training course)","","phr","take part in a course","Everyone has to do a training course.",0],
+  ["apply for (a job)","/əˈplaɪ/","phr","write or send a CV to ask for a job","Mandy applied for a job online.",1],
+  ["run (a business)","/rʌn/","v","manage a business","My parents run a language school.",1]]},
+ {name:"Saying what you do", words:[
+  ["unemployed","/ˌʌnɪmˈplɔɪd/","adj","without a job","He's been unemployed for a year.",0],
+  ["self-employed","/ˌself ɪmˈplɔɪd/","adj","working for yourself","My dad is self-employed.",0],
+  ["freelance","/ˈfriːlɑːns/","adj","working for different companies","He's a freelance designer.",1],
+  ["temporary","/ˈtemprəri/","adj","only for a short time (opposite permanent)","It's a temporary job – just six months.",1],
+  ["part-time","/ˌpɑːt ˈtaɪm/","adj","only a few hours a day (opposite full-time)","She has a part-time job in a café.",0],
+  ["work for (in)","","phr","be employed by a company","I work for a multinational company.",1],
+  ["be in charge of","/tʃɑːdʒ/","phr","be the boss of; control","I'm in charge of the Marketing Department.",1],
+  ["be responsible for","/rɪˈspɒnsəbl/","phr","have the job of looking after something","I'm responsible for customer loans.",1],
+  ["be at school / university","","phr","be a student","I'm at university.",0],
+  ["be in (my third year)","","phr","be studying in a particular year","I'm in my third year at university.",1]]},
+ {name:"Word-building", words:[
+  ["promotion","/prəˈməʊʃn/","n","← promote: a move to a more important job","She got a promotion.",0],
+  ["application","/ˌæplɪˈkeɪʃn/","n","← apply: a written request for a job","I sent in my application.",1],
+  ["retirement","/rɪˈtaɪəmənt/","n","← retire: the time after you stop working","He's enjoying his retirement.",0],
+  ["employment","/ɪmˈplɔɪmənt/","n","← employ: having a paid job","Employment has grown.",0],
+  ["qualification","/ˌkwɒlɪfɪˈkeɪʃn/","n","← qualify: an exam you've passed, a degree, etc.","You need a teaching qualification.",1],
+  ["resignation","/ˌrezɪɡˈneɪʃn/","n","← resign: the act of leaving your job","She handed in her resignation.",1],
+  ["a scientist","/ˈsaɪəntɪst/","n","← science","She's a famous scientist.",0],
+  ["a lawyer","/ˈlɔːjə/","n","← law","He's a lawyer in a big firm.",1],
+  ["a musician","/mjuˈzɪʃn/","n","← music","a talented musician",0],
+  ["a pharmacist","/ˈfɑːməsɪst/","n","← pharmacy","Ask the pharmacist.",1],
+  ["a farmer","/ˈfɑːmə/","n","← farm","My grandfather was a farmer.",0],
+  ["a translator","/trænzˈleɪtə/","n","← translate","She works as a translator.",0]]}
+]},
+
+{id:"wordbuilding", name:"Word-building", icon:"🧩", color:"#3D7D4F", sections:[
+ {name:"Making nouns from verbs", words:[
+  ["achievement","/əˈtʃiːvmənt/","n","← achieve: something you did successfully","Winning the prize was a great achievement.",0],
+  ["agreement","/əˈɡriːmənt/","n","← agree","We finally reached an agreement.",0],
+  ["argument","/ˈɑːɡjumənt/","n","← argue (no e!)","We had an argument about money.",1],
+  ["attachment","/əˈtætʃmənt/","n","← attach: a file sent with an email","Don't open an email attachment from a stranger.",0],
+  ["choice","/tʃɔɪs/","n","← choose","You have no choice.",1],
+  ["compensation","/ˌkɒmpenˈseɪʃn/","n","← compensate: money you get for loss or damage","We got compensation for the delayed flight.",1],
+  ["complaint","/kəmˈpleɪnt/","n","← complain","I made a complaint to the manager.",1],
+  ["consideration","/kənˌsɪdəˈreɪʃn/","n","← consider: careful thought","after careful consideration",1],
+  ["delivery","/dɪˈlɪvəri/","n","← deliver","Delivery is free.",0],
+  ["demonstration","/ˌdemənˈstreɪʃn/","n","← demonstrate: a protest march","Have you ever been on a demonstration?",0],
+  ["explanation","/ˌekspləˈneɪʃn/","n","← explain (no i!)","grammar explanations",1],
+  ["failure","/ˈfeɪljə/","n","← fail","The plan was a complete failure.",1],
+  ["improvement","/ɪmˈpruːvmənt/","n","← improve","a big improvement",0],
+  ["loss","/lɒs/","n","← lose","a loss of money",1],
+  ["management","/ˈmænɪdʒmənt/","n","← manage","the management of the company",0],
+  ["payment","/ˈpeɪmənt/","n","← pay","contactless payment",0],
+  ["response","/rɪˈspɒns/","n","← respond: an answer","I made a complaint and got a quick response.",1],
+  ["sale","/seɪl/","n","← sell","The house is for sale.",1],
+  ["service","/ˈsɜːvɪs/","n","← serve","The food was good but the service was slow.",0],
+  ["success","/səkˈses/","n","← succeed","The party was a great success.",1],
+  ["temptation","/tempˈteɪʃn/","n","← tempt: wanting something you shouldn't have","There's too much temptation when you're shopping.",1],
+  ["treatment","/ˈtriːtmənt/","n","← treat","medical treatment",0],
+  ["value","/ˈvæljuː/","n","the same word as the verb","good value for money",1]]},
+ {name:"Making adjectives and adverbs", words:[
+  ["lucky / unlucky","/ˈlʌki/","adj","having good / bad luck","We were really unlucky – we missed the flight by five minutes.",0],
+  ["luckily / unluckily","/ˈlʌkɪli/","adv","by good / bad luck","It was a bad accident, but luckily nobody was hurt.",1],
+  ["fortunate / unfortunate","/ˈfɔːtʃənət/","adj","lucky / unlucky","We were fortunate to get tickets.",1],
+  ["fortunately / unfortunately","/ˈfɔːtʃənətli/","adv","luckily / unluckily","The beach was beautiful, but unfortunately it rained.",1],
+  ["comfortable / uncomfortable","/ˈkʌmftəbl/","adj","pleasant to wear or sit in / not","My new shoes are very comfortable.",1],
+  ["comfortably / uncomfortably","/ˈkʌmftəbli/","adv","in a comfortable / uncomfortable way","The bed was incredibly uncomfortable.",1],
+  ["patient / impatient","/ˈpeɪʃnt/","adj","able to wait calmly / not","Jack is a very impatient driver!",1],
+  ["patiently / impatiently","/ˈpeɪʃntli/","adv","in a patient / impatient way","Fans waited patiently in the queue.",1],
+  ["careful / careless","/ˈkeəfl/ /ˈkeələs/","adj","paying attention / not paying attention","He did the exam quickly and carelessly.",1],
+  ["carefully / carelessly","/ˈkeəfəli/","adv","in a careful / careless way","The roads will be icy, so drive carefully.",1]]}
+]}
+];
+
+/* =========================================================
+   PRACTICE SETS — the most difficult words (Intermediate)
+   ========================================================= */
+const SETS = [
+ {id:"prepv", topic:"prepositions", title:"Prepositions after verbs", type:"choice", ins:"Choose the correct preposition.", items:[
+  {q:"She apologised ___ being late.", a:"for", o:["for","of","about"], why:"apologise to sb FOR sth"},
+  {q:"We arrived ___ London at midnight.", a:"in", o:["in","at","to"], why:"arrive IN a city or country (never 'arrive to')"},
+  {q:"We arrived ___ the hotel at midnight.", a:"at", o:["at","in","to"], why:"arrive AT a building or place"},
+  {q:"It depends ___ the price.", a:"on", o:["on","of","from"], why:"depend ON"},
+  {q:"Who does this phone belong ___?", a:"to", o:["to","at","of"], why:"belong TO"},
+  {q:"I'm looking forward ___ seeing you.", a:"to", o:["to","for","at"], why:"look forward TO + noun / -ing"},
+  {q:"This song reminds me ___ my first holiday.", a:"of", o:["of","about","to"], why:"remind sb OF sth"},
+  {q:"Do you believe ___ ghosts?", a:"in", o:["in","on","at"], why:"believe IN"},
+  {q:"I can't choose ___ the blue one and the red one.", a:"between", o:["between","from","of"], why:"choose BETWEEN two things"},
+  {q:"Let's ask the waiter ___ the menu.", a:"for", o:["for","about","—"], why:"ask (sb) FOR sth = say you want it"}]},
+
+ {id:"prepa", topic:"prepositions", title:"Prepositions after adjectives", type:"type", ins:"Write the missing preposition.", items:[
+  {q:"I'm very keen ___ tennis.", a:["on"], hint:"keen …", why:"keen ON"},
+  {q:"Are you interested ___ art?", a:["in"], hint:"interested …", why:"interested IN"},
+  {q:"I'm fed up ___ this rain!", a:["with"], hint:"fed up …", why:"fed up WITH"},
+  {q:"She's married ___ a doctor.", a:["to"], hint:"not with!", why:"married TO (not with)"},
+  {q:"My town is famous ___ its cheese.", a:["for"], hint:"famous …", why:"famous FOR"},
+  {q:"He was very rude ___ the waiter.", a:["to"], hint:"rude …", why:"rude TO somebody"},
+  {q:"Your life is very different ___ mine.", a:["from"], hint:"different …", why:"different FROM"},
+  {q:"I'm really proud ___ you!", a:["of"], hint:"proud …", why:"proud OF"},
+  {q:"She's good ___ maths.", a:["at"], hint:"good … (= able to do well)", why:"good AT = able to do well; good FOR = healthy"},
+  {q:"I'm very fond ___ my grandmother.", a:["of"], hint:"fond …", why:"fond OF"}]},
+
+ {id:"money", topic:"money", title:"Money verbs", type:"choice", ins:"Choose the correct verb.", items:[
+  {q:"Can you ___ me €10 until tomorrow?", a:"lend", o:["lend","borrow","owe"], why:"lend sb sth = give it for a while"},
+  {q:"I had to ___ money from the bank to buy a car.", a:"borrow", o:["borrow","lend","charge"], why:"borrow sth FROM sb"},
+  {q:"I still ___ my brother £50.", a:"owe", o:["owe","borrow","cost"], why:"owe sb money = you have to pay it back"},
+  {q:"I'd love a new laptop, but I can't ___ it.", a:"afford", o:["afford","cost","worth"], why:"can't afford = not have enough money"},
+  {q:"The hotel ___ us €20 for parking.", a:"charged", o:["charged","cost","paid"], why:"charge sb (money) for sth"},
+  {q:"This painting is ___ a lot of money.", a:"worth", o:["worth","cost","charged"], why:"be worth = have a value of"},
+  {q:"My grandfather ___ his house from his parents.", a:"inherited", o:["inherited","earned","invested"], why:"inherit = get money or property when sb dies"},
+  {q:"She ___ £3,000 a month as a nurse.", a:"earns", o:["earns","wins","raises"], why:"earn money for the work you do"},
+  {q:"We're running a marathon to ___ money for charity.", a:"raise", o:["raise","rise","save"], why:"raise money = collect it for a cause"}]},
+
+ {id:"moneyn", topic:"money", title:"Money nouns", type:"match", ins:"Match the nouns to their meanings.", items:[
+  ["a bill","a paper showing how much you must pay"],["a salary","money you get for your work"],["tax","money you pay to the government"],["a loan","money a bank lends you"],
+  ["a budget","money available and a plan to spend it"],["a mortgage","money borrowed to buy a house"],["insurance","pay a company; they pay if you lose something"]]},
+
+ {id:"pers", topic:"personality", title:"Personality", type:"choice", ins:"Choose the adjective.", items:[
+  {q:"He never changes his mind. He's so ___!", a:"stubborn", o:["stubborn","sensitive","sociable"], why:"stubborn = never changing your opinion"},
+  {q:"She cried when I said her hair looked funny. She's very ___.", a:"sensitive", o:["sensitive","sensible","sympathetic"], why:"sensitive = easily hurt (false friend!)"},
+  {q:"It was ___ to take an umbrella – it rained all day.", a:"sensible", o:["sensible","sensitive","sympathetic"], why:"sensible = practical, with common sense (false friend!)"},
+  {q:"My boss was very ___ when my cat died.", a:"sympathetic", o:["sympathetic","sensible","charming"], why:"sympathetic = kind to sb who is sad (NOT 'nice')"},
+  {q:"He always tells everybody what to do. He's very ___.", a:"bossy", o:["bossy","moody","mature"], why:"bossy = telling people what to do"},
+  {q:"You can always trust Anna – she's very ___.", a:"reliable", o:["reliable","rebellious","anxious"], why:"reliable = you can depend on her"},
+  {q:"He's happy one minute and angry the next. He's so ___.", a:"moody", o:["moody","patient","honest"], why:"moody = moods change quickly"},
+  {q:"She gets everything she wants – she's completely ___.", a:"spoilt", o:["spoilt","selfish","insecure"], why:"spoilt = rude because given everything"}]},
+
+ {id:"prefix", topic:"personality", title:"Negative prefixes", type:"type", ins:"Make the opposite with un-, dis-, in-, im- or ir-.", items:[
+  {q:"honest → ___", a:["dishonest"], hint:"dis-", why:"dishonest"},
+  {q:"patient → ___", a:["impatient"], hint:"im- (before p)", why:"impatient: im- before p, b, m"},
+  {q:"responsible → ___", a:["irresponsible"], hint:"ir- (before r)", why:"irresponsible: ir- before r"},
+  {q:"mature → ___", a:["immature"], hint:"im- (before m)", why:"immature: im- before m"},
+  {q:"reliable → ___", a:["unreliable"], hint:"un-", why:"unreliable"},
+  {q:"organised → ___", a:["disorganised","disorganized"], hint:"dis-", why:"disorganised"},
+  {q:"sensitive → ___", a:["insensitive"], hint:"in-", why:"insensitive"},
+  {q:"selfish → ___", a:["unselfish"], hint:"un- (and it's positive!)", why:"unselfish – a negative prefix with a positive meaning"}]},
+
+ {id:"roads", topic:"transport", title:"On the road", type:"type", ins:"Complete the compound noun.", items:[
+  {q:"We were stuck in a traffic ___ for an hour.", a:["jam"], hint:"j…", why:"a traffic jam"},
+  {q:"I got a parking ___ – €80!", a:["fine"], hint:"money you must pay", why:"a parking fine"},
+  {q:"Turn right at the traffic ___.", a:["lights"], hint:"red, yellow, green", why:"traffic lights"},
+  {q:"Slow down! The speed ___ here is 30.", a:["limit"], hint:"l…", why:"a speed limit"},
+  {q:"Cross the road at the zebra ___.", a:["crossing"], hint:"c…", why:"a zebra crossing"},
+  {q:"There's a taxi ___ outside the station.", a:["rank"], hint:"where taxis wait", why:"a taxi rank"},
+  {q:"Don't drive into town in the rush ___.", a:["hour"], hint:"h…", why:"the rush hour"},
+  {q:"The road is closed because of road ___.", a:["works"], hint:"w…", why:"roadworks"}]},
+
+ {id:"tphr", topic:"transport", title:"Transport phrasal verbs", type:"choice", ins:"Choose the correct phrasal verb.", items:[
+  {q:"We ___ at 6 a.m. to avoid the traffic.", a:"set off", o:["set off","ran out","ended up"], why:"set off = start a journey"},
+  {q:"Can you ___ the kids from school at 4?", a:"pick up", o:["pick up","look out","set off"], why:"pick sb up = collect them by car (pick me up, not pick up me)"},
+  {q:"We got lost and ___ in a tiny village.", a:"ended up", o:["ended up","set off","picked up"], why:"end up = finally be somewhere you didn't plan"},
+  {q:"The car stopped – we'd ___ petrol!", a:"run out of", o:["run out of","looked out","picked up"], why:"run out of = have no more"},
+  {q:"___! There's a bike coming!", a:"Look out", o:["Look out","Set off","End up"], why:"look out = be careful"}]},
+
+ {id:"sport", topic:"sport", title:"Sport", type:"choice", ins:"Choose the correct word.", items:[
+  {q:"Real Madrid ___ Barcelona 2–1.", a:"beat", o:["beat","won","drew"], why:"beat a team or a person"},
+  {q:"Real Madrid ___ the match 2–1.", a:"won", o:["won","beat","scored"], why:"win a match, a trophy, a medal"},
+  {q:"It was 1–1. The teams ___.", a:"drew", o:["drew","lost","beat"], why:"draw (drew, drawn) = same score"},
+  {q:"Let's play tennis – I've booked a ___.", a:"court", o:["court","pitch","track"], why:"a tennis court"},
+  {q:"The players ran onto the football ___.", a:"pitch", o:["pitch","court","course"], why:"a football pitch"},
+  {q:"He plays 18 holes on the golf ___ every Sunday.", a:"course", o:["course","circuit","slope"], why:"a golf course"},
+  {q:"The player hit the referee and was ___.", a:"sent off", o:["sent off","knocked out","warmed up"], why:"be sent off = told to leave the pitch"},
+  {q:"Our team was ___ in the quarter-finals.", a:"knocked out", o:["knocked out","sent off","worked out"], why:"be knocked out = eliminated"},
+  {q:"I ___ yoga twice a week.", a:"do", o:["do","play","go"], why:"do yoga / do exercise"}]},
+
+ {id:"rel", topic:"relationships", title:"A love story", type:"gap", ins:"Complete the story with the words in the box. Use each word once.",
+  bank:["met","know","common","out","broke","lost","touch","got","proposed","married"],
+  text:"I [[met]] Tom at university. We got to [[know]] each other in our first week and discovered that we had a lot in [[common]]. Soon we started going [[out]] together. But in our last year we argued a lot and finally we [[broke]] up. After university we [[lost]] touch. Then, ten years later, Tom got in [[touch]] on Facebook. This time we [[got]] on much better. Six months later he [[proposed]], and last summer we got [[married]]!",
+  whys:["meet – met","get to know sb","have sth in common","go out together","break up","lose touch","get in touch","get on (well)","propose","get married"]},
+
+ {id:"cinema", topic:"cinema", title:"Cinema", type:"match", ins:"Match the words to their meanings.", items:[
+  ["the plot","the story of a film"],["the cast","all the actors in a film"],["a sequel","a film that continues an earlier story"],["a trailer","short scenes shown to advertise a film"],
+  ["subtitles","the translation of the dialogue on screen"],["an extra","a person with a very small part in a crowd"],["the soundtrack","the music of a film"],["dubbed","with the words spoken in another language"]]},
+
+ {id:"edu", topic:"education", title:"School and exams", type:"choice", ins:"Choose the correct word.", items:[
+  {q:"I didn't study, so I ___ the exam.", a:"failed", o:["failed","passed","revised"], why:"fail = not pass"},
+  {q:"I need to ___ for my exam on Monday.", a:"revise", o:["revise","review","repeat"], why:"revise = study again before an exam"},
+  {q:"Our teacher ___ us do extra homework.", a:"made", o:["made","let","allowed"], why:"make sb do sth (no 'to')"},
+  {q:"My parents ___ me stay up late on Saturdays.", a:"let", o:["let","allow","make"], why:"let sb do sth (no 'to')"},
+  {q:"We aren't ___ to use phones in class.", a:"allowed", o:["allowed","let","made"], why:"be allowed TO do sth (passive: NOT 'we're let')"},
+  {q:"He was ___ from school for cheating.", a:"expelled", o:["expelled","punished","failed"], why:"be expelled = told to leave the school"},
+  {q:"Children at primary school are often called ___.", a:"pupils", o:["pupils","students","grades"], why:"pupils = children at (primary) school"},
+  {q:"Harry Potter goes to a ___ school – he sleeps there.", a:"boarding", o:["boarding","state","nursery"], why:"a boarding school"}]},
+
+ {id:"houses", topic:"houses", title:"in or on?", type:"choice", o:["in","on"], ins:"Choose in or on.", items:[
+  {q:"I live ___ the country.", a:"in", why:"in the country"},
+  {q:"We live ___ the outskirts of Madrid.", a:"on", why:"on the outskirts"},
+  {q:"She lives ___ a small village.", a:"in", why:"in a village / town / city"},
+  {q:"Brighton is ___ the south coast.", a:"on", why:"on the coast"},
+  {q:"Our flat is ___ the fifth floor.", a:"on", why:"on the … floor"},
+  {q:"They live ___ a suburb of London.", a:"in", why:"in a suburb"}]},
+
+ {id:"work", topic:"work", title:"Work", type:"choice", ins:"Choose the best phrase.", items:[
+  {q:"The company doesn't need him any more. He's been ___.", a:"made redundant", o:["made redundant","promoted","retired"], why:"be made redundant"},
+  {q:"She's got a more important job now – she ___ last month.", a:"got promoted", o:["got promoted","resigned","was sacked"], why:"get promoted"},
+  {q:"He decided to leave his job – he ___ yesterday.", a:"resigned", o:["resigned","retired","was fired"], why:"resign = decide to leave your job"},
+  {q:"Nurses often have to work ___.", a:"shifts", o:["shifts","overtime","part-time"], why:"work shifts = day and night"},
+  {q:"I'm ___ of the sales team – there are ten people in it.", a:"in charge", o:["in charge","responsible","employed"], why:"be in charge OF"},
+  {q:"She works for different companies – she's ___.", a:"freelance", o:["freelance","unemployed","temporary"], why:"freelance = working for different companies"},
+  {q:"I ___ a job in a bank, and they called me for an interview.", a:"applied for", o:["applied for","set up","ran"], why:"apply for a job"}]},
+
+ {id:"wordb", topic:"wordbuilding", title:"Word-building", type:"type", ins:"Write the correct form of the word in the box.", items:[
+  {q:"The beach was lovely, but ___ it rained.", key:"FORTUNE", a:["unfortunately"], hint:"negative adverb", why:"fortune → unfortunately"},
+  {q:"My new sofa is very ___.", key:"COMFORT", a:["comfortable"], hint:"adjective: -able", why:"comfort → comfortable"},
+  {q:"Drive ___ – the roads are icy.", key:"CARE", a:["carefully"], hint:"adverb", why:"care → careful → carefully"},
+  {q:"It was a bad accident, but ___ nobody was hurt.", key:"LUCK", a:["luckily","fortunately"], hint:"adverb: y → i + ly", why:"luck → lucky → luckily"},
+  {q:"Don't be so ___! The bus will come soon.", key:"PATIENCE", a:["impatient"], hint:"negative adjective", why:"patience → patient → impatient"},
+  {q:"We had a big ___ about money.", key:"ARGUE", a:["argument"], hint:"-ment (and no e!)", why:"argue → argument"},
+  {q:"I wasn't happy, so I made a ___ to the manager.", key:"COMPLAIN", a:["complaint"], hint:"add one letter", why:"complain → complaint"},
+  {q:"Can you give me an ___ of this rule?", key:"EXPLAIN", a:["explanation"], hint:"-ation (no i!)", why:"explain → explanation"},
+  {q:"Too much choice is a ___ when you go shopping.", key:"TEMPT", a:["temptation"], hint:"-ation", why:"tempt → temptation"},
+  {q:"It was a difficult ___ – red or blue?", key:"CHOOSE", a:["choice"], hint:"a different word", why:"choose → choice"}]},
+
+ {id:"body", topic:"body", title:"Body verbs", type:"choice", ins:"Choose the correct verb.", items:[
+  {q:"Everybody ___ when I finished my speech.", a:"clapped", o:["clapped","nodded","kicked"], why:"clap your hands to show you liked something"},
+  {q:"She ___ to say yes.", a:"nodded", o:["nodded","pointed","stared"], why:"nod = move your head up and down"},
+  {q:"Mmm! Something ___ delicious!", a:"smells", o:["smells","tastes","touches"], why:"smell = with your nose"},
+  {q:"Can you ___ the soup? Does it need salt?", a:"taste", o:["taste","smell","bite"], why:"taste = try food"},
+  {q:"It's rude to ___ at people.", a:"stare", o:["stare","smile","clap"], why:"stare = look for a long time"},
+  {q:"He ___ to call his dog.", a:"whistled", o:["whistled","nodded","clapped"], why:"whistle = make a high sound with your lips"}]},
+
+ {id:"food", topic:"food", title:"Food and cooking", type:"choice", ins:"Choose the correct word.", items:[
+  {q:"I'd like my eggs ___ in a pan with a little oil.", a:"fried", o:["fried","boiled","baked"], why:"fried = cooked in hot oil"},
+  {q:"A ___ potato is cooked in the oven in its skin.", a:"baked", o:["baked","steamed","fried"], why:"a baked potato"},
+  {q:"___ vegetables are cooked over boiling water.", a:"Steamed", o:["Steamed","Roast","Grilled"], why:"steamed = cooked in steam"},
+  {q:"I'm trying to cut ___ on sugar – just one spoon a day.", a:"down", o:["down","out","off"], why:"cut down (on) = have less"},
+  {q:"The doctor told me to cut ___ salt completely.", a:"out", o:["out","down","up"], why:"cut out = stop completely"},
+  {q:"Lamb is meat from a young ___.", a:"sheep", o:["sheep","cow","pig"], why:"lamb ← sheep, beef ← cow, pork ← pig"}]}
+];
+
+/* =========================================================
+   APP ENGINE
+   ========================================================= */
+const TEACHER = "ulchik2211@gmail.com";
+const KEY = "vocab-bank-int-v1";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* ---- flatten words ---- */
+const WORDS=[]; const TOPIC={};
+TOPICS.forEach(t=>{ TOPIC[t.id]=t; t.count=0; t.sections.forEach((s,si)=>s.words.forEach(w=>{
+  WORDS.push({id:t.id+":"+w[0], w:w[0], ipa:w[1], pos:w[2], def:w[3], ex:w[4], hard:!!w[5], t:t.id, s:si}); t.count++; })); });
+const BYID={}; WORDS.forEach(x=>BYID[x.id]=x);
+const sortKey=w=>w.toLowerCase().replace(/^(a|an|the|be|-)\s*/,"").replace(/^\(|^-/,"").replace(/[^a-z]/g,"");
+
+/* ---- storage ---- */
+const store=(()=>{ let mem=null; return {
+  get(){ try{ return localStorage.getItem(KEY); }catch(e){ return mem; } },
+  set(v){ try{ localStorage.setItem(KEY,v); }catch(e){ mem=v; } },
+  del(){ try{ localStorage.removeItem(KEY); }catch(e){ mem=null; } } }; })();
+const fresh=()=>({star:[], known:[], ans:{}, name:"", page:"dict", topic:"all", view:"topic", deck:"all", dir:"w", set:SETS[0].id});
+let S=fresh(); try{ const raw=store.get(); if(raw) S=Object.assign(fresh(),JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(S)); }catch(e){} }
+
+/* ---- speech ---- */
+const HAS_SPEECH=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+let VOICE=null; function pickVoice(){ try{ const v=speechSynthesis.getVoices(); VOICE=v.find(x=>/en[-_]GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null; }catch(e){} }
+if(HAS_SPEECH){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} } else document.documentElement.classList.add("nospeech");
+function speak(t){ if(!HAS_SPEECH||!t) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"").replace(/\(.*?\)/g,"").replace(/\s\/\s/g,", ").replace(/[‘’]/g,"'")); u.lang="en-GB"; u.rate=.9; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+const sayBtn=(t,cls)=>`<button class="say ${cls||""}" type="button" data-say="${esc(t)}" aria-label="listen">🔊</button>`;
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2200); }
+
+/* ---- navigation ---- */
+const PAGES=["dict","cards","practice"];
+function go(p){ S.page=p; save(); PAGES.forEach(x=>{ $("#pg-"+x).hidden=x!==p; }); $$(".navb").forEach(b=>b.classList.toggle("on",b.dataset.p===p));
+  if(p==="cards") renderCard(); if(p==="practice") renderPractice(); window.scrollTo(0,0); }
+$$(".navb").forEach(b=>b.addEventListener("click",()=>go(b.dataset.p)));
+
+/* =========================================================
+   DICTIONARY
+   ========================================================= */
+let Q="";
+const normQ=s=>String(s||"").toLowerCase().replace(/[’‘]/g,"'").trim();
+function hl(text,q){ const e=esc(text); if(!q) return e; const i=e.toLowerCase().indexOf(esc(q).toLowerCase()); if(i<0) return e; return e.slice(0,i)+"<mark>"+e.slice(i,i+esc(q).length)+"</mark>"+e.slice(i+esc(q).length); }
+function matchQ(x,q){ if(!q) return true; return normQ(x.w).includes(q)||normQ(x.def).includes(q)||normQ(x.ex).includes(q); }
+function entryHtml(x,q,showTopic){ const t=TOPIC[x.t], st=S.star.includes(x.id);
+  return `<article class="entry" style="--tc:${t.color}">
+    <div class="ehead"><h3 class="hw">${hl(x.w,q)}</h3>${x.ipa?`<span class="ipa">${esc(x.ipa)}</span>`:""}<span class="pos">${esc(x.pos)}</span>${x.hard?`<span class="hard" title="difficult word">🔥</span>`:""}
+      <span class="eact">${sayBtn(x.w)}<button class="star ${st?"on":""}" type="button" data-star="${esc(x.id)}" aria-label="star this word" aria-pressed="${st}">${st?"★":"☆"}</button></span></div>
+    <p class="def">${hl(x.def,q)}</p>
+    <p class="ex">${sayBtn(x.ex,"sm")}<span>${hl(x.ex,q)}</span></p>
+    ${showTopic?`<span class="ttag">${t.icon} ${esc(t.name)}</span>`:""}
+  </article>`; }
+function filtered(){ const q=normQ(Q);
+  return WORDS.filter(x=>(q||S.topic==="all"||x.t===S.topic)&&(!S.onlyStar||S.star.includes(x.id))&&(!S.onlyHard||x.hard)&&matchQ(x,q)); }
+function renderChips(){
+  $("#chips").innerHTML=`<button type="button" class="chip ${S.topic==="all"?"on":""}" data-t="all">📚 All <small>${WORDS.length}</small></button>`+
+    TOPICS.map(t=>`<button type="button" class="chip ${S.topic===t.id?"on":""}" data-t="${t.id}" style="--tc:${t.color}">${t.icon} ${esc(t.name)} <small>${t.count}</small></button>`).join("");
+  $$("#chips .chip").forEach(b=>b.addEventListener("click",()=>{ S.topic=b.dataset.t; save(); if(Q){ Q=""; $("#q").value=""; syncClear(); } renderChips(); renderList(); $("#dictTop").scrollIntoView({block:"start"}); }));
+}
+function renderList(){
+  const q=normQ(Q), list=filtered(), box=$("#list");
+  $("#vTopic").classList.toggle("on",S.view==="topic"); $("#vAZ").classList.toggle("on",S.view==="az");
+  $("#fStar").classList.toggle("on",!!S.onlyStar); $("#fHard").classList.toggle("on",!!S.onlyHard);
+  $("#fStar").textContent=`★ Starred (${S.star.length})`;
+  let info=`${list.length} ${list.length===1?"entry":"entries"}`;
+  if(q) info+=` for “${esc(Q.trim())}” in all topics`; else if(S.topic!=="all") info+=` · ${esc(TOPIC[S.topic].name)}`;
+  $("#count").innerHTML=info;
+  if(!list.length){ box.innerHTML=`<div class="empty">${q?`No words found for “${esc(Q.trim())}”. Try a shorter word or check the spelling.`:S.onlyStar?"You haven't starred any words yet. Tap ☆ next to a word to save it here.":"No words here."}</div>`; return; }
+  let html="";
+  if(S.view==="az"||q){
+    const sorted=list.slice().sort((a,b)=>sortKey(a.w).localeCompare(sortKey(b.w)));
+    let cur="";
+    sorted.forEach(x=>{ const L=(sortKey(x.w)[0]||"#").toUpperCase(); if(L!==cur){ cur=L; html+=`<h2 class="letter" id="L-${L}">${L}</h2>`; } html+=entryHtml(x,q,true); });
+    if(!q){ const letters=[...new Set(sorted.map(x=>(sortKey(x.w)[0]||"#").toUpperCase()))]; html=`<nav class="az">${letters.map(l=>`<a href="#L-${l}">${l}</a>`).join("")}</nav>`+html; }
+  } else {
+    TOPICS.filter(t=>S.topic==="all"||t.id===S.topic).forEach(t=>{
+      const tw=list.filter(x=>x.t===t.id); if(!tw.length) return;
+      html+=`<section class="tsec" style="--tc:${t.color}"><h2 class="thead"><span class="ticon">${t.icon}</span>${esc(t.name)}<small>${tw.length}</small></h2>`;
+      t.sections.forEach((s,si)=>{ const sw=tw.filter(x=>x.s===si); if(!sw.length) return; html+=`<h3 class="shead">${esc(s.name)}</h3><div class="egrid">${sw.map(x=>entryHtml(x,"",false)).join("")}</div>`; });
+      html+=`</section>`;
+    });
+  }
+  box.innerHTML=html;
+  $$("#list .az a").forEach(a=>a.addEventListener("click",e=>{ e.preventDefault(); const el=document.getElementById(a.getAttribute("href").slice(1)); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }));
+}
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-star]"); if(!b) return; const id=b.dataset.star, on=!S.star.includes(id);
+  S.star=on?S.star.concat(id):S.star.filter(x=>x!==id); save();
+  $$(`[data-star="${CSS.escape(id)}"]`).forEach(x=>{ x.classList.toggle("on",on); x.textContent=on?"★":"☆"; x.setAttribute("aria-pressed",on); });
+  $("#fStar").textContent=`★ Starred (${S.star.length})`; toast(on?"Added to your starred words ★":"Removed from starred"); if(S.onlyStar&&S.page==="dict") renderList(); });
+function syncClear(){ $("#qx").hidden=!Q; }
+let qT; $("#q").addEventListener("input",e=>{ Q=e.target.value; syncClear(); if(S.page!=="dict") go("dict"); clearTimeout(qT); qT=setTimeout(renderList,120); });
+$("#q").addEventListener("keydown",e=>{ if(e.key==="Escape"){ Q=""; e.target.value=""; syncClear(); renderList(); } });
+$("#qx").addEventListener("click",()=>{ Q=""; $("#q").value=""; syncClear(); renderList(); $("#q").focus(); });
+$("#vTopic").addEventListener("click",()=>{ S.view="topic"; save(); renderList(); });
+$("#vAZ").addEventListener("click",()=>{ S.view="az"; save(); renderList(); });
+$("#fStar").addEventListener("click",()=>{ S.onlyStar=!S.onlyStar; save(); renderList(); });
+$("#fHard").addEventListener("click",()=>{ S.onlyHard=!S.onlyHard; save(); renderList(); });
+
+/* =========================================================
+   FLASHCARDS
+   ========================================================= */
+let fcOrder=null, fcIdx=0;
+function deckWords(){ const d=S.deck; if(d==="all") return WORDS; if(d==="hard") return WORDS.filter(x=>x.hard); if(d==="star") return WORDS.filter(x=>S.star.includes(x.id)); return WORDS.filter(x=>x.t===d); }
+function deckList(){ let base=deckWords(); if(fcOrder) base=fcOrder.map(id=>BYID[id]).filter(x=>base.includes(x)); if($("#fcOnly").checked) base=base.filter(x=>!S.known.includes(x.id)); return base; }
+function buildDeckSelect(){
+  $("#deck").innerHTML=`<option value="all">📚 All words (${WORDS.length})</option><option value="hard">🔥 Difficult words (${WORDS.filter(x=>x.hard).length})</option><option value="star">★ My starred words (${S.star.length})</option>`+
+    TOPICS.map(t=>`<option value="${t.id}">${t.icon} ${esc(t.name)} (${t.count})</option>`).join("");
+  $("#deck").value=S.deck;
+}
+function renderCard(){
+  buildDeckSelect();
+  const all=deckWords(), list=deckList(), known=all.filter(x=>S.known.includes(x.id)).length;
+  $("#fcKnown").textContent=`${known} / ${all.length} known`; $("#fcBar").style.width=(all.length?known/all.length*100:0)+"%";
+  $("#fcDir").textContent=S.dir==="w"?"Word → meaning":"Meaning → word";
+  const fc=$("#fc"); fc.classList.remove("flip");
+  if(!list.length){ $("#fcFront").innerHTML=`<div class="fcmsg">${S.deck==="star"&&!S.star.length?"No starred words yet.<br><small>Star words in the Dictionary (☆) to build your own deck.</small>":"🎉 You know every card in this deck!<br><small>Untick “Only cards I'm still learning” to see them all again.</small>"}</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=list.length) fcIdx=0; if(fcIdx<0) fcIdx=list.length-1;
+  const x=list[fcIdx], t=TOPIC[x.t], k=S.known.includes(x.id);
+  fc.style.setProperty("--tc",t.color);
+  const wordSide=`<div class="fctop">${t.icon} ${esc(t.name)}</div><div class="fcw">${esc(x.w)}</div>${x.ipa?`<div class="fcipa">${esc(x.ipa)}</div>`:""}<div class="fcpos">${esc(x.pos)}</div>`;
+  const defSide=`<div class="fctop">${t.icon} ${esc(t.name)}</div><div class="fcd">${esc(x.def)}</div>`;
+  if(S.dir==="w"){ $("#fcFront").innerHTML=wordSide+sayBtn(x.w)+`<div class="tap">tap to flip</div>`;
+    $("#fcBack").innerHTML=defSide+`<div class="fcex">“${esc(x.ex)}”</div>`+sayBtn(x.ex)+`<div class="tap">${k?"✓ known":""}</div>`; }
+  else { $("#fcFront").innerHTML=defSide+`<div class="tap">tap to flip</div>`;
+    $("#fcBack").innerHTML=wordSide+`<div class="fcex">“${esc(x.ex)}”</div>`+sayBtn(x.w+". "+x.ex)+`<div class="tap">${k?"✓ known":""}</div>`; }
+  $("#fcPos").textContent=`${fcIdx+1} / ${list.length}`;
+}
+function flip(){ const fc=$("#fc"); if(!deckList().length) return; fc.classList.toggle("flip"); }
+$("#fc").addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; flip(); });
+$("#fc").addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+$("#deck").addEventListener("change",e=>{ S.deck=e.target.value; fcOrder=null; fcIdx=0; save(); renderCard(); });
+$("#fcDir").addEventListener("click",()=>{ S.dir=S.dir==="w"?"d":"w"; save(); renderCard(); });
+$("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+$("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+$("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+$("#fcShuf").addEventListener("click",()=>{ const ids=deckWords().map(x=>x.id); for(let i=ids.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [ids[i],ids[j]]=[ids[j],ids[i]]; } fcOrder=ids; fcIdx=0; renderCard(); toast("Shuffled 🔀"); });
+function mark(k){ const list=deckList(); if(!list.length) return; const x=list[fcIdx]; S.known=S.known.filter(i=>i!==x.id); if(k) S.known.push(x.id); save();
+  if(!($("#fcOnly").checked&&k)) fcIdx++; renderCard(); }
+$("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+document.addEventListener("keydown",e=>{ if(S.page!=="cards"||e.target.matches("input,select,textarea")) return;
+  if(e.key==="ArrowRight"){ fcIdx++; renderCard(); } if(e.key==="ArrowLeft"){ fcIdx--; renderCard(); } });
+
+/* =========================================================
+   PRACTICE
+   ========================================================= */
+const SET={}; SETS.forEach(s=>{ SET[s.id]=s; if(s.type==="gap"){ s.gaps=[...s.text.matchAll(/\[\[(.*?)\]\]/g)].map((m,k)=>({a:m[1].split("|"),why:s.whys[k]})); } });
+const total=s=>s.type==="gap"?s.gaps.length:s.items.length;
+const rec=(sid,i)=>(S.ans[sid]||{})[i];
+function setRec(sid,i,r){ S.ans[sid]=S.ans[sid]||{}; S.ans[sid][i]=r; save(); }
+function setScore(s){ let got=0,done=0; for(let i=0;i<total(s);i++){ const r=rec(s.id,i); if(r&&r.done){ done++; if(r.correct) got++; } } return {got,done,tot:total(s)}; }
+function allScore(){ let got=0,done=0,tot=0; SETS.forEach(s=>{ const r=setScore(s); got+=r.got; done+=r.done; tot+=r.tot; }); return {got,done,tot}; }
+const CONTR={"i'm":"i am","you're":"you are","it's":"it is","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","isn't":"is not"};
+function norm(s){ s=String(s||"").toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ").trim().replace(/[.!?,]+$/,"").trim(); return s.split(" ").map(w=>CONTR[w]||w).join(" "); }
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!"], OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function hash(str){ let h=7; for(const c of str) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+const fill=(q,a)=>q.replace("___",q.startsWith("___")?a.charAt(0).toUpperCase()+a.slice(1):a);
+const gap=(q,a,cls)=>esc(q).replace("___",`<span class="gap ${cls||""}">${a?esc(q.startsWith("___")?a.charAt(0).toUpperCase()+a.slice(1):a):"&nbsp;"}</span>`);
+
+function renderSetChips(){
+  $("#setChips").innerHTML=SETS.map(s=>{ const t=TOPIC[s.topic], r=setScore(s), fin=r.done===r.tot;
+    return `<button type="button" class="schip ${S.set===s.id?"on":""} ${fin?"fin":""}" data-s="${s.id}" style="--tc:${t.color}"><span class="si">${t.icon}</span><span class="st">${esc(s.title)}</span><span class="sb">${fin?"✓ ":""}${r.got}/${r.tot}</span></button>`; }).join("");
+  $$("#setChips .schip").forEach(b=>b.addEventListener("click",()=>{ S.set=b.dataset.s; save(); renderPractice(); $("#setBox").scrollIntoView({behavior:"smooth",block:"start"}); }));
+}
+function renderPractice(){
+  renderSetChips(); const s=SET[S.set]||SETS[0], t=TOPIC[s.topic];
+  const box=$("#setBox"); box.style.setProperty("--tc",t.color);
+  box.innerHTML=`<div class="sethead"><span class="tbadge">${t.icon} ${esc(t.name)}</span><h2>${esc(s.title)}</h2><p>${esc(s.ins)}</p><span class="sscore" id="sscore"></span></div><div class="setbody"></div>
+    <div class="setnav"><button class="btn" type="button" id="prevSet">← Previous set</button><button class="btn pri" type="button" id="nextSet">Next set →</button></div>`;
+  const body=$(".setbody",box);
+  ({choice:rChoice,type:rType,match:rMatch,gap:rGap})[s.type](s,body);
+  const i=SETS.indexOf(s); $("#prevSet").disabled=i===0; $("#nextSet").disabled=i===SETS.length-1;
+  $("#prevSet").addEventListener("click",()=>{ S.set=SETS[i-1].id; save(); renderPractice(); $("#setBox").scrollIntoView({block:"start"}); });
+  $("#nextSet").addEventListener("click",()=>{ S.set=SETS[i+1].id; save(); renderPractice(); $("#setBox").scrollIntoView({block:"start"}); });
+  updScores();
+}
+function updScores(){ const s=SET[S.set]; if(s&&$("#sscore")){ const r=setScore(s); $("#sscore").textContent=`${r.got} / ${r.tot}${r.done===r.tot?" ✓":""}`; }
+  const a=allScore(); $("#pTot").textContent=`${a.got} / ${a.tot}`; $("#pBar").style.width=(a.tot?a.done/a.tot*100:0)+"%"; $("#pDone").textContent=`${a.done} of ${a.tot} answered`;
+  renderSetChipsLite(); renderResults(); }
+function renderSetChipsLite(){ $$("#setChips .schip").forEach(b=>{ const s=SET[b.dataset.s], r=setScore(s), fin=r.done===r.tot; b.classList.toggle("fin",fin); $(".sb",b).textContent=(fin?"✓ ":"")+r.got+"/"+r.tot; }); }
+
+/* choice */
+function rChoice(s,body){ s.items.forEach((it,i)=>{ const row=document.createElement("div"); row.className="item";
+  const opts=seeded(it.o||s.o,hash(s.id+i)+3);
+  row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${gap(it.q)}</div></div><div class="opts">${opts.map(o=>`<button class="opt" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+  $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(s.id,i)) return; setRec(s.id,i,{given:b.dataset.o,correct:b.dataset.o===it.a,done:true}); pChoice(s,it,i,row,true); updScores(); }));
+  body.appendChild(row); if(rec(s.id,i)) pChoice(s,it,i,row,false); }); }
+function pChoice(s,it,i,row,live){ const r=rec(s.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; if(b.dataset.o===it.a) b.classList.add("right"); else if(b.dataset.o===r.given) b.classList.add("wrong"); else b.classList.add("ghost"); });
+  $(".q",row).innerHTML=gap(it.q,it.a,r.correct?"ok":"bad"); const sent=fill(it.q,it.a);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b>${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.a)}</b> ${sayBtn(sent,"sm")}<div class="why">💡 ${esc(it.why)}</div>`;
+  if(live&&r.correct) speak(sent); }
+/* typed */
+function rType(s,body){ s.items.forEach((it,i)=>{ const row=document.createElement("div"); row.className="item";
+  row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${gap(it.q)}${it.key?` <span class="key">${esc(it.key)}</span>`:""}</div></div>
+    <div class="inrow"><input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer" placeholder="Type your answer"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+  const inp=$("input",row), go=()=>{ const v=inp.value; if(!v.trim()) return; const prev=rec(s.id,i)||{tries:0}; if(prev.done) return;
+    const ok=it.a.some(a=>norm(a)===norm(v)), tries=(prev.tries||0)+1;
+    if(ok||tries>=2){ setRec(s.id,i,{given:v.trim(),correct:ok,done:true,tries}); pType(s,it,i,row,true); updScores(); }
+    else { setRec(s.id,i,{given:v.trim(),correct:false,done:false,tries}); inp.classList.add("badv"); const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b>${pick(OOPS)} Try again.</b> 💡 ${esc(it.hint)}`; inp.focus(); } };
+  $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+  body.appendChild(row); const r=rec(s.id,i); if(r&&r.done) pType(s,it,i,row,false); }); }
+function pType(s,it,i,row,live){ const r=rec(s.id,i), inp=$("input",row); inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  $(".q",row).innerHTML=gap(it.q,it.a[0],r.correct?"ok":"bad")+(it.key?` <span class="key">${esc(it.key)}</span>`:"");
+  const sent=fill(it.q,it.a[0]).replace(/ → /," → "); const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b>${r.correct?(live?pick(PRAISE):"✓ Correct"):"✗ The answer is: "+esc(it.a[0])}</b> ${sayBtn(it.q.includes("→")?it.a[0]:sent,"sm")}<div class="why">💡 ${esc(it.why)}</div>`;
+  if(live&&r.correct) speak(it.q.includes("→")?it.a[0]:sent); }
+/* match */
+function rMatch(s,body){ const right=seeded(s.items.map((p,k)=>k),hash(s.id)+11);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb mfb"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  s.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p[0])}</button>`));
+  right.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(s.items[k][1])}</button>`));
+  function refresh(){ s.items.forEach((p,k)=>{ const r=rec(s.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    const sc=setScore(s); if(sc.done===sc.tot){ const fb=$(".mfb",body); fb.className="fb mfb show good"; fb.innerHTML=`<b>All matched!</b> ${sc.got}/${sc.tot} right first time. Yellow pairs = you needed another try.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(s.id,k)||{tries:0};
+    if(sl===sr){ setRec(s.id,k,{given:prev.tries?prev.given:s.items[k][1],correct:!prev.tries,done:true,tries:prev.tries}); speak(s.items[k][0]); }
+    else { setRec(s.id,k,{given:s.items[sr][1],correct:false,done:false,tries:(prev.tries||0)+1}); [$(`[data-k="${sl}"]`,L),$(`[data-k="${sr}"]`,R)].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updScores(); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh(); }
+/* gap text */
+function rGap(s,body){ let k=0;
+  const html=esc(s.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; });
+  body.insertAdjacentHTML("beforeend",`<div class="bank"><b>Word box</b>${s.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div><div class="gtext">${html}</div><div class="inrow"><button class="btn pri chk" type="button">Check my answers</button></div><ul class="whylist"></ul>`);
+  $(".chk",body).addEventListener("click",()=>{ let any=false,wrong=0;
+    $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(s.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+      const ok=s.gaps[n].a.some(a=>norm(a)===norm(v)), tries=(prev.tries||0)+1;
+      if(ok||tries>=2) setRec(s.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(s.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+    if(!any){ toast("Fill in some gaps first"); return; } pGap(s,body); updScores(); if(wrong) toast(`${wrong} not right yet — try again (red)`); });
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") $(".chk",body).click(); }));
+  pGap(s,body); }
+function pGap(s,body){ const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(s.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:s.gaps[n].a[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(s.gaps[n].a[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(s.gaps[n].why)}</li>`); }
+    else { inp.value=r.given; inp.classList.add("badv"); } }); }
+
+/* ---- results & report ---- */
+const studentName=()=>(S.name||"").trim()||"Student";
+function mistakes(){ const out=[]; SETS.forEach(s=>{ for(let i=0;i<total(s);i++){ const r=rec(s.id,i); if(!(r&&r.done&&!r.correct)) continue;
+  let q,c; if(s.type==="gap"){ q="Gap "+(i+1); c=s.gaps[i].a[0]; } else if(s.type==="match"){ q=s.items[i][0]; c=s.items[i][1]; } else { q=s.items[i].q+(s.items[i].key?" ("+s.items[i].key+")":""); c=s.type==="choice"?s.items[i].a:s.items[i].a[0]; }
+  out.push({set:s.title,q,a:r.given,c}); } }); return out; }
+function renderResults(){ const a=allScore(), m=mistakes();
+  $("#rTable").innerHTML=SETS.map(s=>{ const r=setScore(s); return `<tr><td>${TOPIC[s.topic].icon} ${esc(s.title)}</td><td>${r.done?`${r.got}/${r.tot}`:"—"}${r.done&&r.done<r.tot?` <small>(${r.done} done)</small>`:""}</td></tr>`; }).join("");
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><small>${esc(x.set)}</small><br>${esc(x.q)} → <s>${esc(x.a)}</s> <b>${esc(x.c)}</b></li>`).join(""):`<li class="none">No mistakes so far 🎉</li>`;
+  $("#rSum").textContent=a.done?`${a.got} correct out of ${a.done} answered (${Math.round(a.got/a.done*100)}%)`:"Start a practice set to see your results here."; }
+function reportText(){ const a=allScore(), d=new Date(), L=[];
+  L.push("VOCABULARY BANK (INTERMEDIATE) — PRACTICE REPORT"); L.push("Student: "+studentName()); L.push("Date: "+d.toLocaleDateString("en-GB")+" "+d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));
+  L.push(`SCORE: ${a.got}/${a.tot} · answered ${a.done}/${a.tot}`); L.push(`Flashcards known: ${S.known.length}/${WORDS.length} · Starred words: ${S.star.length}`); L.push("");
+  L.push("BY SET:"); SETS.forEach(s=>{ const r=setScore(s); L.push(`- ${s.title}: ${r.got}/${r.tot}${r.done<r.tot?` (${r.done} answered)`:""}`); }); L.push("");
+  const m=mistakes(); L.push("MISTAKES:"); if(!m.length) L.push("none 🎉"); m.forEach(x=>L.push(`- [${x.set}] ${x.q} → "${x.a}" (correct: ${x.c})`));
+  if(S.star.length){ L.push(""); L.push("STARRED WORDS: "+S.star.map(id=>BYID[id]?BYID[id].w:"").filter(Boolean).join(", ")); }
+  return L.join("\n"); }
+function shortText(){ const t=reportText(); return t.length>1500?t.slice(0,1500)+"\n…\n(Full report: use “Copy text”.)":t; }
+function copyText(t){ const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied!":"Please copy the text manually"); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied!"),fb); else fb(); }
+function buildSend(){ const g=$("#sendgrid"); const subj=()=>`Vocabulary Bank (Intermediate) — ${studentName()} — ${allScore().got}/${allScore().tot}`;
+  g.innerHTML=(navigator.share?`<button class="btn pri" type="button" id="sShare">📤 Share</button>`:"")+
+    `<a class="btn" id="sGmail" target="_blank" rel="noopener">✉️ Gmail</a><a class="btn" id="sTg" target="_blank" rel="noopener">✈️ Telegram</a><a class="btn" id="sWa" target="_blank" rel="noopener">💬 WhatsApp</a><a class="btn" id="sMail">📧 Email app</a><button class="btn" type="button" id="sCopy">📋 Copy text</button>`;
+  const upd=()=>{ const b=encodeURIComponent(shortText()), s=encodeURIComponent(subj());
+    $("#sGmail").href=`https://mail.google.com/mail/?view=cm&fs=1&to=${TEACHER}&su=${s}&body=${b}`; $("#sTg").href=`https://t.me/share/url?url=${s}&text=${b}`; $("#sWa").href=`https://wa.me/?text=${b}`; $("#sMail").href=`mailto:${TEACHER}?subject=${s}&body=${b}`; };
+  ["sGmail","sTg","sWa","sMail"].forEach(id=>$("#"+id).addEventListener("click",upd)); upd();
+  $("#sCopy").addEventListener("click",()=>copyText(reportText()));
+  if($("#sShare")) $("#sShare").addEventListener("click",()=>{ navigator.share({title:subj(),text:reportText()}).catch(()=>{}); }); }
+
+/* ---- init ---- */
+function init(){
+  $("#nm").value=S.name||""; $("#nm").addEventListener("input",e=>{ S.name=e.target.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ S.ans={}; save(); $("#resetConfirm").classList.remove("show"); renderPractice(); toast("Practice answers deleted"); });
+  $("#hdrCount").textContent=`Intermediate · ${WORDS.length} words · ${TOPICS.length} topics`;
+  renderChips(); renderList(); buildSend(); go(PAGES.includes(S.page)?S.page:"dict"); updScores();
+}
+init();
+
+</script>
+</body>
+</html>
