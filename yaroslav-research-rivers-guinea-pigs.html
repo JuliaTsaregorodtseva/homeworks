@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yaroslav · Research, rivers &amp; guinea pigs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Caveat:wght@700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#F4F1E7; --card:#FFFDF8; --ink:#13342A; --muted:#5B6B63; --line:#DCD6C4; --soft:#EEEADB;
+  --green:#1E7550; --green-bg:#E2F0E8; --gold:#B68A1F; --gold-bg:#FAF0D3; --stamp:#B33A2E; --stamp-bg:#FBE7E3;
+  --ok:#1C8A50; --ok-bg:#E1F3E8; --bad:#C2392E; --bad-bg:#FCE8E5; --hint:#FFF4D6;
+  --r:16px; --shadow:0 1px 0 rgba(19,52,42,.06),0 10px 26px rgba(19,52,42,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:16px/1.55 "Manrope",system-ui,sans-serif;
+  background:var(--paper);
+  background-image:radial-gradient(circle at 0 0,rgba(30,117,80,.05) 0 2px,transparent 2px),radial-gradient(circle at 12px 12px,rgba(182,138,31,.05) 0 2px,transparent 2px);
+  background-size:24px 24px}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:.005em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* banknote header */
+header.top{padding:20px 0 12px}
+.note{position:relative;background:linear-gradient(135deg,#1E7550 0%,#13503A 60%,#0F3D2D 100%);color:#F6F1DF;border-radius:20px;padding:22px 22px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.note::before{content:"";position:absolute;inset:8px;border:1.5px solid rgba(246,241,223,.35);border-radius:14px;pointer-events:none}
+.note::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(246,241,223,.12) 0 2px,transparent 2px 9px);pointer-events:none}
+.note .serial{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;opacity:.85}
+.note h1{font-size:clamp(28px,7vw,44px);margin:10px 0 2px;line-height:1.05}
+.note p{margin:6px 0 0;max-width:560px}
+.note .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.namebox{display:flex;align-items:center;gap:8px;background:rgba(246,241,223,.12);border:1px solid rgba(246,241,223,.35);border-radius:12px;padding:6px 10px}
+.namebox label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.namebox input{background:transparent;border:0;border-bottom:1.5px dashed rgba(246,241,223,.6);width:120px;color:#fff;font-weight:800;padding:2px}
+.seal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font:20px "DM Serif Display",serif;color:#F3D88A;background:rgba(0,0,0,.12)}
+.howto{font-size:14.5px;color:var(--muted);margin:12px 2px 0}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,241,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.progress{display:flex;align-items:center;gap:10px;padding:8px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .4s}
+.score{white-space:nowrap;color:var(--ink);font-family:"IBM Plex Mono",monospace}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:88px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.15;min-height:44px}
+.coin{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:600 15px/1 "IBM Plex Mono",monospace;background:radial-gradient(circle at 35% 30%,#FFF8DF,#E9D18A 60%,#C9A445);color:#5A4410;box-shadow:inset 0 0 0 2px rgba(90,68,16,.25),0 2px 0 rgba(90,68,16,.25);transition:transform .2s}
+.tab b{color:var(--ink);font-weight:800}
+.tab .badge{font-size:11px;font-family:"IBM Plex Mono",monospace}
+.tab.on .coin{transform:translateY(-2px) scale(1.08);box-shadow:inset 0 0 0 2px rgba(90,68,16,.35),0 0 0 3px var(--green)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#F0FFF6,#9FD8B6 60%,#3E9E6C);color:#0E4A2C}
+.tab.done .badge{color:var(--ok)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.card h3{font-size:20px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 6px}
+.kicker{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* word list */
+.wgroup{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start}
+.word .em{font-size:26px;line-height:1.1}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.word .pat{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:6px;padding:1px 7px;margin:3px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);margin-top:4px;font-style:italic}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:17px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:15px}
+.say:active{transform:scale(.94)}
+.careful{background:var(--gold-bg);border:2px dashed var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:8px 0}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:6px 0 2px}
+.mist div{padding:6px 10px;border-radius:9px;font-weight:700;font-size:14.5px}
+.mist .x{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-bg);color:var(--ok)}
+.mist .x::before{content:"✗ "}.mist .v::before{content:"✓ "}
+.colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.colbox{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid var(--line);font-size:14.5px}
+.colbox b.p{font:600 15px "IBM Plex Mono",monospace;color:var(--green)}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fc-scene{perspective:1200px;max-width:460px;margin:0 auto}
+.fc{position:relative;height:290px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;gap:6px}
+.front{background:#fff;border:2px solid var(--line);background-image:repeating-linear-gradient(45deg,rgba(30,117,80,.03) 0 6px,transparent 6px 12px)}
+.back{background:linear-gradient(140deg,#1E7550,#0F3D2D);color:#F6F1DF;transform:rotateY(180deg)}
+.face .big{font-size:48px;line-height:1}
+.face .txt{font:clamp(26px,7vw,34px)/1.15 "DM Serif Display",serif}
+.face .def{font-size:16.5px;font-weight:600;max-width:360px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:360px}
+.face .ipa{font:500 14px "IBM Plex Mono",monospace;color:var(--muted)}
+.face .say{position:absolute;top:12px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#B9D8C6}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--green)}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:800;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--stamp);color:var(--stamp)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px dashed var(--line)}
+.exhead .no{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.exhead h3{margin:6px 0 2px;font-size:22px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font:600 13px "IBM Plex Mono",monospace;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:600 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:700}
+.orig{display:block;font-weight:600;color:var(--muted);font-size:15px;margin-bottom:4px}
+.key{display:inline-block;font:600 13px "IBM Plex Mono",monospace;background:var(--gold-bg);color:#7A5B0E;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok)}
+.gap.filledbad{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;min-width:52px;font-weight:800;font-size:16px;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.opt.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-weight:700;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--green);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.wrongs{font-size:16.5px;font-weight:700;color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(194,57,46,.35)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:800}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-weight:700;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:800;font-size:15.5px}
+.mbtn.sel{border-color:var(--green);background:var(--green-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* text */
+.gtext{font-size:17px;line-height:2.35;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.gtext .gn{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);vertical-align:super;margin-right:2px}
+.gapin{width:100px;border:0;border-bottom:3px solid var(--green);background:var(--green-bg);border-radius:6px 6px 0 0;padding:2px 6px;font-weight:800;font-size:16px;text-align:center}
+.gapin.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.gapin.badv{border-color:var(--bad);background:var(--bad-bg)}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:150px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--green);outline:none}
+.wcount{font:500 12.5px "IBM Plex Mono",monospace;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok)}
+.tick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tick span{font-size:12.5px;font-weight:800;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.tick span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* receipt */
+.receipt{background:#fff;max-width:520px;margin:0 auto 18px;padding:22px 20px 26px;font-family:"IBM Plex Mono",monospace;font-size:14px;box-shadow:var(--shadow);position:relative;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x}
+.receipt h2{font-family:"IBM Plex Mono",monospace;font-size:16px;text-align:center;letter-spacing:.2em;margin:0}
+.receipt .c{text-align:center;color:var(--muted);font-size:12.5px}
+.receipt hr{border:0;border-top:1.5px dashed var(--line);margin:12px 0}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.receipt .ln span:first-child{min-width:0}
+.receipt .tot{font-size:22px;font-weight:600}
+.receipt .msg{text-align:center;font-family:"Manrope",sans-serif;font-weight:700;font-size:16px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:2px 10px;transform:rotate(-6deg);font-weight:600;letter-spacing:.12em;margin-top:8px}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:700}.mlist .cr{color:var(--ok);font-weight:800}
+.sendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.sendgrid .btn{text-decoration:none;color:var(--ink);text-align:center;display:flex;align-items:center;justify-content:center}
+.sendgrid .pri{color:#fff}
+.mail{user-select:all;font-weight:800;background:var(--soft);padding:2px 8px;border-radius:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wgroup,.mist,.colgrid{grid-template-columns:1fr}
+  .opts,.fb,.inrow{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14px}
+  .seal{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root{
+  --paper:#F2F5FB; --card:#FFFFFF; --ink:#111A2E; --muted:#56607A; --line:#DCE3F0; --soft:#EAF0FA;
+  --green:#2F6BFF; --green-bg:#E3ECFF; --gold:#FF6B57; --gold-bg:#FFE8E4; --stamp:#16A37A; --stamp-bg:#DDF5EC;
+  --blue:#2F6BFF; --mint:#16A37A; --coral:#FF6B57; --violet:#7A5CFA;
+}
+body{font-family:"Manrope",system-ui,sans-serif;background-image:radial-gradient(circle at 10% -10%,rgba(47,107,255,.10),transparent 40%),radial-gradient(circle at 100% 0,rgba(255,107,87,.08),transparent 35%);background-size:auto;font-size:16.5px}
+h1,h2,h3,h4{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;letter-spacing:-.015em}
+.card h3{font-size:20px;margin:22px 0 6px}
+:focus-visible{outline-color:var(--blue)}
+.note{background:linear-gradient(135deg,#111A2E 0%,#1B2A52 60%,#26306B 100%);color:#EEF2FF}
+.note::before{border-color:rgba(238,242,255,.14)}
+.note::after{background:radial-gradient(circle,rgba(47,107,255,.45),transparent 65%);right:-70px;top:-70px;width:260px;height:260px}
+.note>*{position:relative;z-index:1}
+.note .serial{color:#9DB8FF}
+.note h1{font-size:clamp(34px,8.4vw,56px);line-height:1;margin-top:12px}
+.note h1 .r{background:var(--blue);color:#fff;padding:0 10px;border-radius:14px 14px 14px 4px;display:inline-block}
+.note p{color:#CDD5EE}
+.note i{color:#fff}
+.hrow{display:flex;gap:18px;align-items:center}
+.htext{flex:1;min-width:0}
+.phone{flex:none;width:260px;background:#0B1222;border:2px solid #2C3A66;border-radius:22px;padding:10px 10px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:0 14px 30px rgba(0,0,0,.35);transform:rotate(2deg)}
+.ph-top{font:700 12px "Space Grotesk",sans-serif;color:#9DB8FF;display:flex;align-items:center;gap:6px;padding:2px 4px 6px;border-bottom:1px solid #1E2A4A;margin-bottom:2px}
+.ph-top .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(22,163,122,.25)}
+.msg{max-width:86%;font-size:13px;line-height:1.35;padding:7px 10px;border-radius:14px}
+.msg.in{background:#1F2B4D;color:#E3E9FF;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.out{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg b{color:#FFE27A}
+.seal{border-color:#9DB8FF;background:rgba(47,107,255,.2);font-size:26px}
+.coin{background:radial-gradient(circle at 35% 30%,#FFFFFF,#E3ECFF 60%,#A9C0FF);color:#1B2A52;font-family:"Space Grotesk",sans-serif}
+.tab.on .coin{box-shadow:inset 0 0 0 2px rgba(27,42,82,.2),0 0 0 3px var(--blue)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#E9FFF6,#8FE0C3 60%,#16A37A);color:#05402D}
+.kicker{color:var(--coral)}
+.word .pat{color:var(--blue);background:var(--green-bg)}
+.careful{border-color:var(--coral)}
+/* grammar */
+.grp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.gcol{border-radius:16px;padding:14px;border:2px solid}
+.gcol h4{margin:0 0 10px;font-size:17px}
+.gcol.soc{border-color:var(--violet);background:#F4F1FF}.gcol.soc h4{color:var(--violet)}
+.gcol.nat{border-color:var(--coral);background:#FFF4F2}.gcol.nat h4{color:#D9493A}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:#fff;border-radius:10px;padding:5px 10px;font-weight:800;font-size:14.5px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.gcol .small{font-size:14px;margin:10px 0 0;color:var(--muted)}
+.rules3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.r3{background:var(--ink);color:#EEF2FF;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.r3 .tag{align-self:flex-start;font:700 11px "Space Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#FFE27A}
+.r3 b{font-size:16px}
+.r3 b u{text-decoration-color:#FFE27A;text-decoration-thickness:2px;text-underline-offset:3px}
+.r3 s{color:#FF9C8F}
+.r3 i{font-size:13.5px;color:#C4CCE6}
+.exlist{margin:4px 0 0;padding-left:20px}.exlist li{margin:7px 0}
+.exlist b{color:var(--violet)}
+/* group builder (dial engine) */
+.dial{background:var(--ink);color:#EEF2FF;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.dreq,.dlv{display:flex;flex-wrap:wrap;gap:8px}
+.dreq button,.dlv button{min-height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#EEF2FF;padding:8px 12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;text-align:left}
+.dlv button span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.15);font-size:13px;flex:none}
+.dreq button.on{background:#fff;color:var(--ink);border-color:#fff}
+.dlv button.on{background:var(--blue);border-color:var(--blue)}
+.dlv button.on span{background:#fff;color:var(--blue)}
+.dout{background:#fff;color:var(--ink);border-radius:12px;padding:14px}
+.dsent{font-size:20px;line-height:1.4;font-weight:600}
+.dsent b{color:var(--violet)}
+.dnote{font-size:14.5px;color:var(--muted);margin-top:8px}
+.gtext{line-height:2.1}
+.receipt h2{letter-spacing:.14em}
+@media (max-width:700px){ .phone{display:none} }
+@media (max-width:640px){ .grp,.rules3{grid-template-columns:1fr} .dsent{font-size:18px} }
+.sticky{background:rgba(242,245,251,.95)}
+
+
+/* ===== Lab notebook theme: graph paper, navy ink, highlighter, test-tube green, red pen ===== */
+:root{
+  --paper:#F6F7F2; --ink:#14213D; --muted:#5A6378; --line:#DDE2E8; --soft:#EEF1EA;
+  --blue:#1D4ED8; --mint:#0F9D74; --coral:#E0483E; --violet:#1D4ED8; --hl:#FFE45C;
+  --green:#0F9D74; --green-bg:#DCF3EA; --gold:#E0483E; --gold-bg:#FCE4E1;
+}
+body{background-color:var(--paper);background-image:linear-gradient(rgba(29,78,216,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(29,78,216,.06) 1px,transparent 1px);background-size:22px 22px}
+.note.lab{background:#FFFEF7;color:var(--ink);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);background-image:linear-gradient(rgba(29,78,216,.10) 1px,transparent 1px);background-size:100% 28px}
+.note.lab::before,.note.lab::after{display:none}
+.note.lab .serial{color:var(--coral);font-family:"IBM Plex Mono",monospace}
+.note.lab h1{color:var(--ink);font-size:clamp(30px,7.4vw,50px);line-height:1.05}
+.note.lab h1 .r{background:var(--hl);color:var(--ink);border-radius:4px;padding:0 8px;transform:rotate(-4deg)}
+.note.lab p{color:#2F3A55}.note.lab i{color:var(--blue);font-style:normal;font-weight:700}
+.note.lab .namebox{background:#fff;border:2px dashed var(--ink)}
+.note.lab .namebox label{color:var(--muted)}
+.note.lab .namebox input{color:var(--ink)}
+.hand{font:700 26px "Caveat",cursive;color:var(--coral);transform:rotate(-5deg)}
+.flask{flex:none;width:120px;height:150px;position:relative;margin-right:10px}
+.flask .neck{position:absolute;left:44px;top:0;width:32px;height:50px;border:3px solid var(--ink);border-bottom:0;border-radius:4px 4px 0 0;background:#fff}
+.flask .body{position:absolute;left:0;top:46px;width:120px;height:100px;border:3px solid var(--ink);border-radius:20px 20px 30px 30px;clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);background:linear-gradient(180deg,#fff 0 40%,#7FE0B8 40% 100%);overflow:hidden}
+.flask .body i{position:absolute;bottom:10px;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.8);animation:bub 2.4s ease-in infinite}
+.flask .body i:nth-child(1){left:45px}.flask .body i:nth-child(2){left:62px;animation-delay:.8s;width:8px;height:8px}.flask .body i:nth-child(3){left:54px;animation-delay:1.6s}
+@keyframes bub{from{transform:translateY(0);opacity:1}to{transform:translateY(-55px);opacity:0}}
+@media (max-width:640px){ .flask{display:none} .hand{font-size:22px} }
+.kicker{background:var(--ink);color:var(--hl);font-family:"IBM Plex Mono",monospace}
+.coin{background:#fff;border:2px solid var(--ink);color:var(--ink)}
+.tab.on .coin{background:var(--hl)}
+.card{border:1.5px solid var(--ink);box-shadow:4px 4px 0 rgba(20,33,61,.9)}
+.r3{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.r3 .tag{background:var(--hl);color:var(--ink);padding:2px 8px;border-radius:4px}
+.r3 b{font-size:18px;color:var(--blue)}
+.r3 i{font-size:14.5px;color:var(--ink);font-style:normal}
+.r3 i u{text-decoration:none;background:linear-gradient(transparent 55%,var(--hl) 55%);font-weight:800}
+.r3 small{color:var(--muted);font-size:13px}
+.dial{background:var(--ink)}
+.dlv.lk{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
+.dlv.lk button{justify-content:center}
+.dlv button.on{background:var(--hl);border-color:var(--hl);color:var(--ink)}
+.ldout{background:#fff;color:var(--ink);border-radius:12px;padding:14px;min-height:88px}
+.ldout.no{background:#FCE4E1}
+.ldsent{font:600 19px/1.4 "Space Grotesk",sans-serif}
+.ldsent b{background:linear-gradient(transparent 55%,var(--hl) 55%)}
+.ldout.anim .ldsent{animation:pop .35s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.dnote{margin-top:6px;font-size:14px;color:var(--muted)}
+.ptab{width:100%;border-collapse:separate;border-spacing:0;border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin:10px 0;font-size:15px}
+.ptab th,.ptab td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.ptab th{background:var(--ink);color:#fff;font:600 13px "IBM Plex Mono",monospace}
+.ptab td:first-child{font-weight:800;color:var(--blue);white-space:nowrap}
+.ptab tr:last-child td{border-bottom:0}
+.ptab u{text-decoration:none;background:linear-gradient(transparent 55%,var(--hl) 55%);font-weight:800}
+.ptab .muted{color:var(--muted);font-size:13.5px}
+.note2{background:#FFFBE0;border-left:5px solid var(--hl);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:15px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.gcard{border:2px solid var(--ink);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:2px}
+.gcard>b{font:700 26px "Space Grotesk",sans-serif;margin-bottom:4px}
+.gcard span{font:600 12px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:6px}
+.gcard i{font-style:normal;font-weight:700}
+.gcard.yes{background:#E3F0FF}.gcard.yes>b{color:var(--blue)}
+.gcard.no{background:#FFF1E8}.gcard.no>b{color:var(--coral)}
+@media (max-width:640px){ .geo{grid-template-columns:1fr} .ptab{font-size:14px} .ptab td,.ptab th{padding:7px} }
+.readcard{background:#FFFEF7}
+.reading p{font-size:17px;line-height:1.7;margin:0 0 12px;position:relative;padding-left:30px}
+.reading .pn{position:absolute;left:0;top:3px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font:700 12px "IBM Plex Mono",monospace;display:grid;place-items:center}
+.reading u{text-decoration:none;background:linear-gradient(transparent 55%,var(--hl) 55%);font-weight:700}
+.reading b{color:var(--blue)}
+.lstn{margin-top:4px}
+.src{font-size:12.5px;color:var(--muted);margin:10px 0 0;font-family:"IBM Plex Mono",monospace}
+.exscore{font-family:"IBM Plex Mono",monospace}
+@media (prefers-reduced-motion: reduce){ .flask .body i{animation:none} }
+.toast{visibility:hidden}.toast.show{visibility:visible}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="note lab">
+      <div class="serial">LAB NOTEBOOK · EXPERIMENT Nº 7 · UPPER-INTERMEDIATE</div>
+      <div class="hrow">
+        <div class="htext">
+          <h1>Research, rivers <span class="r">&amp;</span> guinea pigs</h1>
+          <p><i>although · despite · nevertheless</i> · <i>in order to · so as not to</i> · <i>the Thames vs Lake Baikal</i> · and the business of research.</p>
+        </div>
+        <div class="flask" aria-hidden="true"><div class="neck"></div><div class="body"><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="row2">
+        <div class="namebox"><label for="nm">Researcher</label><input id="nm" autocomplete="off" placeholder="Your name"></div>
+        <div class="hand">“Let's experiment!”</div>
+      </div>
+    </div>
+    <p class="howto">Work through the tabs in order: Rules → Words → Cards → Business → Contrast → Purpose → the Thames → Guinea pigs → Results. Your answers save automatically.</p>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="progress"><span id="pdone">0%</span><div class="bar"><i id="pbar"></i></div><span class="score" id="pscore">0 / 0</span></div>
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="panel" id="p-rules">
+  <div class="card">
+    <span class="kicker">Rule A · Contrast</span>
+    <h2>although, despite, nevertheless…</h2>
+    <p class="lead">All five show contrast: the second idea is surprising after the first. What changes is <b>what comes after them</b>.</p>
+    <div class="rules3">
+      <div class="r3"><span class="tag">+ clause</span><b>although · even though</b><i><u>Although</u> the shop made a loss, it stayed open.</i><i>She kept working <u>even though</u> she was exhausted.</i><small>even though = stronger, more emphatic</small></div>
+      <div class="r3"><span class="tag">+ noun / -ing / the fact that</span><b>despite · in spite of</b><i><u>Despite</u> the crisis, they made a profit.</i><i><u>In spite of</u> having no money, he set up a business.</i><small>despite ✗ of · in spite ✓ of</small></div>
+      <div class="r3"><span class="tag">new sentence</span><b>nevertheless</b><i>The research was expensive. <u>Nevertheless</u>, it continued.</i><small>formal · after a full stop or ; · comma after it</small></div>
+    </div>
+    <h3>🔀 The linker switcher</h3>
+    <p style="margin:0 0 8px">Choose two ideas, then a linker. Watch how the sentence has to change.</p>
+    <div class="dial">
+      <div class="dreq" id="ldPairs"></div>
+      <div class="dlv lk" id="ldLinks"></div>
+      <div class="ldout" id="ldOut" aria-live="polite"></div>
+    </div>
+    <h3>Typical mistakes</h3>
+    <div class="mist">
+      <div class="x">Despite of the risks…</div><div class="v">Despite the risks… / In spite of the risks…</div>
+      <div class="x">Although it was late, but they worked.</div><div class="v">Although it was late, they worked.</div>
+      <div class="x">Despite it was late…</div><div class="v">Despite it being late… / Despite the fact that it was late…</div>
+      <div class="x">It was late, nevertheless they worked.</div><div class="v">It was late. Nevertheless, they worked.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="kicker">Rule B · Purpose</span>
+    <h2>in order to, so as to…</h2>
+    <p class="lead">To say <b>why</b> someone does something, use an infinitive of purpose. <i>in order to</i> and <i>so as to</i> are a little more formal than plain <i>to</i>.</p>
+    <table class="ptab">
+      <tr><th></th><th>positive</th><th>negative</th></tr>
+      <tr><td>to</td><td>She works hard <u>to</u> make a profit.</td><td><span class="muted">— (avoid plain <i>not to</i>)</span></td></tr>
+      <tr><td>in order</td><td>They did research <u>in order to</u> understand the market.</td><td>I wrote it down <u>in order not to</u> forget it.</td></tr>
+      <tr><td>so as</td><td>He moved <u>so as to</u> be nearer the office.</td><td>She whispered <u>so as not to</u> wake the baby.</td></tr>
+    </table>
+    <div class="note2">🧩 <b>not</b> goes <b>before to</b>: in order <b>not</b> to, so as <b>not</b> to. <br>🔁 When the subject changes, use <b>so that</b> + clause: <i>I'm saving money <u>so that</u> my son can study abroad.</i></div>
+    <div class="mist">
+      <div class="x">I went to the shop for buying milk.</div><div class="v">I went to the shop to buy milk.</div>
+      <div class="x">I went there for to see her.</div><div class="v">I went there (in order) to see her.</div>
+      <div class="x">She left early so as to not miss the train.</div><div class="v">She left early so as not to miss the train.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="kicker">Rule C · the + geography</span>
+    <h2>the Thames, but Lake Baikal</h2>
+    <div class="geo">
+      <div class="gcard yes"><b>the</b><span>oceans</span><i>the Pacific (Ocean), the Atlantic</i><span>seas</span><i>the Black Sea, the Caspian Sea</i><span>rivers</span><i>the Thames, the Volga, the Nile</i></div>
+      <div class="gcard no"><b>— no article</b><span>lakes</span><i>Lake Baikal, Lake Geneva, Lake Titicaca</i><span>single mountains</span><i>Mount Everest, Elbrus</i><span>continents, most countries, cities</span><i>Europe, Russia, Tbilisi</i></div>
+    </div>
+    <div class="note2">💡 A trick: water that <b>flows or moves</b> (rivers, seas, oceans) takes <b>the</b>; a lake usually has the word <b>Lake</b> first and no article. Watch out: <i>the Great Lakes</i> (a group) and <i>the Lake District</i> (a region) do take <b>the</b>. Also <b>the</b> with deserts and mountain ranges: <i>the Sahara, the Alps</i>.</div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Words →</button></div>
+</section>
+
+<section class="panel" id="p-words">
+  <div class="card">
+    <span class="kicker">Step 2 · Words</span>
+    <h2>Business &amp; research</h2>
+    <p class="lead">Listen 🔊 and read the examples. Learn the whole phrase, not just the word.</p>
+    <h3>💼 Running a business</h3><div class="wgroup" data-wl="biz"></div>
+    <h3>🔬 Research</h3><div class="wgroup" data-wl="res"></div>
+  </div>
+  <div class="careful">
+    <h2>⚠️ Careful with these</h2>
+    <ul>
+      <li><b>research</b> is uncountable: <i>some research, a piece of research</i> — not <s>a research</s>, <s>researches</s>.</li>
+      <li><b>do / carry out / conduct</b> research — never <s>make research</s>. Research <b>into</b> or <b>on</b> something.</li>
+      <li><b>make</b> a profit / <b>make</b> a loss — not <s>do a profit</s>, <s>have a loss</s>.</li>
+      <li><b>set up</b> (verb, two words) → a <b>set-up</b> (noun): <i>They set up the company in 2020.</i></li>
+      <li><b>branch</b>: of a tree, of a company (<i>our London branch</i>) or of science / business (<i>a branch of medicine</i>).</li>
+      <li><b>conduct</b>: verb /kənˈdʌkt/, noun /ˈkɒndʌkt/ (= behaviour). <button class="say sm" type="button" data-say="to conduct research. good conduct." aria-label="listen">🔊</button></li>
+    </ul>
+  </div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Cards →</button></div>
+</section>
+
+<section class="panel" id="p-cards">
+  <div class="card">
+    <span class="kicker">Step 3 · Cards</span>
+    <h2>Flashcards</h2>
+    <p class="lead">Business and research phrases. Flip the card; turn the direction round to test yourself. “I know it” only if you could use it in a sentence of your own.</p>
+    <div class="fc-top">
+      <button class="btn" id="fcDir" type="button">Word → meaning</button>
+      <label class="tog"><input type="checkbox" id="fcOnly"> Only cards I'm still learning</label>
+    </div>
+    <div style="font-size:14px;font-weight:700">Known: <span id="fcKnown">0</span> / <span id="fcTotal">0</span><span style="float:right;color:var(--muted)" class="mono" id="fcPos"></span></div>
+    <div class="kbar"><i id="fcKbar"></i></div>
+    <div class="fc-scene">
+      <div class="fc" id="fc" tabindex="0" role="button" aria-label="flip card">
+        <div class="inner"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div>
+      </div>
+    </div>
+    <div class="fc-row">
+      <button class="btn bad" id="fcLearn" type="button">🔁 Still learning</button>
+      <button class="btn ok" id="fcKnow" type="button">✓ I know it</button>
+    </div>
+    <div class="fc-row">
+      <button class="btn" id="fcPrev" type="button">◀ Back</button>
+      <button class="btn" id="fcShuf" type="button">🔀 Shuffle</button>
+      <button class="btn" id="fcNext" type="button">Next ▶</button>
+    </div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Business →</button></div>
+</section>
+
+<section class="panel" id="p-biz">
+  <div class="card"><span class="kicker">Step 4</span><h2>Business words</h2><p class="lead" style="margin:0">Match, choose and complete. Your first answer counts.</p></div>
+  <div data-ex="v1"></div><div data-ex="v2"></div><div data-ex="v3"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">Next: Contrast →</button></div>
+</section>
+
+<section class="panel" id="p-contrast">
+  <div class="card"><span class="kicker">Step 5</span><h2>Contrast</h2><p class="lead" style="margin:0">although · even though · despite · in spite of · nevertheless. Check Rule A if you need to.</p></div>
+  <div data-ex="c1"></div><div data-ex="c2"></div><div data-ex="c3"></div>
+  <div class="next"><button class="btn pri" data-go="5" type="button">Next: Purpose →</button></div>
+</section>
+
+<section class="panel" id="p-purpose">
+  <div class="card"><span class="kicker">Step 6</span><h2>Purpose</h2><p class="lead" style="margin:0">in order (not) to · so as (not) to · so that.</p></div>
+  <div data-ex="p1"></div><div data-ex="p2"></div>
+  <div class="next"><button class="btn pri" data-go="6" type="button">Next: the Thames →</button></div>
+</section>
+
+<section class="panel" id="p-geo">
+  <div class="card"><span class="kicker">Step 7</span><h2>the Thames, Lake Baikal</h2><p class="lead" style="margin:0">Oceans, seas and rivers take <b>the</b>; lakes don't.</p></div>
+  <div data-ex="a1"></div><div data-ex="a2"></div>
+  <div class="next"><button class="btn pri" data-go="7" type="button">Next: Guinea pigs →</button></div>
+</section>
+
+<section class="panel" id="p-read">
+  <div class="card readcard">
+    <span class="kicker">Step 8 · Reading</span>
+    <h2>Why do we say “guinea pig”?</h2>
+    <p class="lead">Read the text. The <u>underlined</u> words are this week's grammar — spot them as you read.</p>
+    <div id="reading" class="reading"></div>
+    <button class="btn lstn" id="readSay" type="button" data-say="">🔊 Listen to the text</button>
+    <p class="src">Sources: etymonline.com · phrases.org.uk</p>
+  </div>
+  <div data-ex="r1"></div><div data-ex="r2"></div>
+  <div class="next"><button class="btn pri" data-go="8" type="button">See my results →</button></div>
+</section>
+
+<section class="panel" id="p-results">
+  <div class="receipt" id="receipt"></div>
+  <div class="card">
+    <h2 style="font-size:22px">Send it to your teacher</h2>
+    <p class="lead">When you've finished, send your results. Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Gmail, Telegram, WhatsApp and the email app send a shorter version. “Copy text” always copies the full report.</p>
+  </div>
+  <div class="card"><h2 style="font-size:22px">Mistakes to look at again</h2><ul class="mlist" id="rMist"></ul></div>
+  <div class="card">
+    <h2 style="font-size:22px">Start again</h2>
+    <button class="btn bad" id="resetBtn" type="button">🗑 Delete all my answers</button>
+    <div class="confirm" id="resetConfirm"><b>Delete all answers? This can't be undone.</b>
+      <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes" type="button">Yes, delete</button><button class="btn" id="resetNo" type="button">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<footer>Research, rivers &amp; guinea pigs 🧪</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA — Yaroslav · Upper-Intermediate
+   contrast linkers · purpose · the + rivers / oceans · business & research words · "guinea pig"
+   ========================================================= */
+const STUDENT = "Yaroslav";
+const TEACHER = "ulchik2211@gmail.com";
+const TITLE = "Research, rivers & guinea pigs — contrast and purpose linkers, the with geography, business words (Upper-Intermediate)";
+const SUBJECT_TOPIC = "Research, rivers & guinea pigs";
+const REPORT_HEAD = "LAB REPORT";
+const KEY = "yaroslav-research-v1";
+const STORY = [];
+
+const VOCAB = [
+  {id:"setup", g:"biz", en:"set up a business", em:"🚀", ipa:"/ˌset ˈʌp/", pat:"set up (v) · a set-up (n)", def:"start a new company or organisation", ex:"She set up her own business when she was 23."},
+  {id:"run", g:"biz", en:"run a business", em:"🧭", ipa:"/rʌn/", pat:"run – ran – run", def:"manage a company and be in charge of it", ex:"My parents run a small hotel by the sea."},
+  {id:"branchof", g:"biz", en:"a branch of business", em:"🌳", ipa:"/brɑːntʃ/", pat:"a branch of business / science / medicine", def:"one area or type of business or activity", ex:"Tourism is the fastest-growing branch of business in the region."},
+  {id:"smbranch", g:"biz", en:"a supermarket branch", em:"🏪", ipa:"/ˈsuːpəmɑːkɪt brɑːntʃ/", pat:"open / close a branch", def:"one of the shops that belongs to a supermarket company", ex:"They're opening a new supermarket branch near the station."},
+  {id:"chain", g:"biz", en:"a chain (of supermarkets)", em:"🔗", ipa:"/tʃeɪn/", pat:"a supermarket / hotel / restaurant chain", def:"a group of shops or hotels owned by one company", ex:"Tesco is the biggest supermarket chain in the UK."},
+  {id:"profit", g:"biz", en:"make a profit", em:"📈", ipa:"/ˈprɒfɪt/", pat:"make a profit of £10,000", def:"earn more money than you spend", ex:"The café made a profit in its second year."},
+  {id:"loss", g:"biz", en:"make a loss", em:"📉", ipa:"/lɒs/", pat:"make a loss of £5,000", def:"spend more money than you earn", ex:"The company made a loss because of high rents."},
+  {id:"breakeven", g:"biz", en:"break even", em:"⚖️", ipa:"/ˌbreɪk ˈiːvn/", pat:"break – broke – broken", def:"make neither a profit nor a loss", ex:"We expect to break even next year."},
+  {id:"profitable", g:"biz", en:"profitable", em:"💰", ipa:"/ˈprɒfɪtəbl/", pat:"profit (n) → profitable (adj)", def:"making money", ex:"Online sales are more profitable than shops."},
+  {id:"carryout", g:"res", en:"carry out research", em:"🔬", ipa:"/ˌkæri ˈaʊt/", pat:"carry out research into / on sth", def:"do research (neutral to formal)", ex:"The university carried out research into sleep."},
+  {id:"doresearch", g:"res", en:"do research", em:"📚", ipa:"/rɪˈsɜːtʃ/", pat:"do some research", def:"study a subject to find new facts (neutral, everyday)", ex:"I did some research before I bought my car."},
+  {id:"conduct", g:"res", en:"conduct research", em:"🧪", ipa:"/kənˈdʌkt/", pat:"conduct (v) /kənˈdʌkt/ · conduct (n) /ˈkɒndʌkt/", def:"do research (formal, scientific)", ex:"The team conducted research on 2,000 volunteers."},
+  {id:"guineapig", g:"res", en:"be a guinea pig", em:"🧫", ipa:"/ˈɡɪni pɪɡ/", pat:"be / act as a guinea pig for sth", def:"be the person used to test something new", ex:"I was the guinea pig for my sister's first attempt at sushi."}
+];
+
+/* linker switcher (rules tab) */
+const LDEMO = {
+  pairs:[
+    {label:"📉 the shop made a loss ↔ it opened a new branch"},
+    {label:"💸 not much money ↔ they set up a business"},
+    {label:"😴 the scientists were tired ↔ they carried on with the research"}
+  ],
+  linkers:["although","even though","despite","in spite of","nevertheless"],
+  out:[
+    ["<b>Although</b> the shop made a loss, it opened a new branch.","<b>Even though</b> the shop made a loss, it opened a new branch.","<b>Despite</b> making a loss, the shop opened a new branch. / <b>Despite the fact that</b> it made a loss, …","<b>In spite of</b> making a loss, the shop opened a new branch.","The shop made a loss. <b>Nevertheless</b>, it opened a new branch."],
+    ["<b>Although</b> they didn't have much money, they set up a business.","<b>Even though</b> they didn't have much money, they set up a business.","<b>Despite</b> the lack of money, they set up a business.","<b>In spite of</b> the lack of money, they set up a business.","They didn't have much money. <b>Nevertheless</b>, they set up a business."],
+    ["<b>Although</b> the scientists were tired, they carried on with the research.","<b>Even though</b> they were exhausted, the scientists carried on.","<b>Despite</b> being tired, the scientists carried on with the research.","<b>In spite of</b> their tiredness, the scientists carried on with the research.","The scientists were tired. <b>Nevertheless</b>, they carried on with the research."]
+  ],
+  notes:[
+    ["+ clause (subject + verb). Comma when although starts the sentence.","+ clause. Stronger and more emphatic than although.","+ -ing / noun / the fact that + clause. Never despite of.","+ -ing / noun / the fact that + clause. Don't forget of.","Starts a new sentence (or comes after ;) + comma. Formal."],
+    ["+ clause: they didn't have…","+ clause, more emphatic.","+ noun: the lack of money.","+ noun: the lack of money.","New sentence + comma."],
+    ["+ clause: the scientists were…","+ clause.","+ -ing: being tired.","+ noun: their tiredness.","New sentence + comma."]
+  ]
+};
+
+const R = {
+  clause:"although / even though + a CLAUSE (subject + verb).",
+  noun:"despite / in spite of + NOUN, -ING or 'the fact that' + clause.",
+  of:"in spite OF, but despite WITHOUT of.",
+  nev:"Nevertheless starts a new sentence (or follows ;) and is followed by a comma.",
+  but:"Don't use but after although: one linker is enough.",
+  even:"even though = a stronger although (+ clause).",
+  purp:"in order to / so as to + infinitive = purpose (more formal than plain to).",
+  purpneg:"Negative purpose: in order NOT to / so as NOT to + infinitive.",
+  for:"Purpose with a verb: to / in order to + infinitive, NOT for + -ing.",
+  sothat:"so that + clause (often with can / could / would) when the subject changes.",
+  the:"the + oceans, seas and rivers: the Pacific, the Black Sea, the Thames.",
+  lake:"No article with lakes: Lake Baikal, Lake Geneva.",
+  mount:"No article with single mountains: Mount Everest, Elbrus."
+};
+const NA = ["-","–","—","x","0","ø","no article","nothing","no"];
+
+const EXERCISES = [
+  /* ---------- BUSINESS & RESEARCH WORDS ---------- */
+  {id:"v1", type:"match", title:"Match the phrases", ins:"Tap a phrase, then its meaning.",
+   items:[
+    {en:"set up a business", def:"start a new company"},
+    {en:"make a profit", def:"earn more than you spend"},
+    {en:"make a loss", def:"spend more than you earn"},
+    {en:"break even", def:"neither win nor lose money"},
+    {en:"a supermarket branch", def:"one shop of a supermarket company"},
+    {en:"a branch of business", def:"one area or type of business"},
+    {en:"conduct research", def:"do research (formal)"},
+    {en:"be a guinea pig", def:"be the first person to test something"}
+   ]},
+  {id:"v2", type:"choice", title:"Choose the right word", ins:"Only one option is natural English.",
+   items:[
+    {q:"Scientists ___ research into the effects of sugar on the brain.", answer:"carried out", options:["carried out","made","set up"], why:"carry out / do / conduct research — never make research."},
+    {q:"Last year the shop ___ a loss of £20,000.", answer:"made", options:["made","did","got"], why:"make a profit / make a loss."},
+    {q:"My uncle ___ a small company that sells bikes.", answer:"set up", options:["set up","carried out","conducted"], why:"set up a business = start it."},
+    {q:"Tourism is the most important ___ of business on the island.", answer:"branch", options:["branch","chain","research"], why:"a branch of business = an area of business."},
+    {q:"We need to do more ___ before we decide.", answer:"research", options:["research","researches","a research"], why:"research is uncountable: some research, a piece of research."},
+    {q:"The new café didn't make a profit or a loss: it ___ even.", answer:"broke", options:["broke","made","did"], why:"break even = make neither a profit nor a loss."}
+   ]},
+  {id:"v3", type:"textgap", title:"Anna's bakery", ins:"Complete the text with the words from the box. Use each word once.",
+   bank:["set","made","broke","carried","branch","profit","research"],
+   text:"Ten years ago, Anna [[set]] up a small bakery. In the first year she [[made]] a loss, but in the second year she [[broke]] even. Before opening a second shop, she [[carried]] out some market research. It showed that people wanted healthy bread, so she opened a new [[branch]] next to a big supermarket. Today the business makes a good [[profit]], and Anna is doing [[research]] into gluten-free recipes.",
+   whys:["set up a business","make a loss","break even","carry out research","open a new branch","make a profit","do research into sth"]},
+
+  /* ---------- CONTRAST ---------- */
+  {id:"c1", type:"choice", title:"Which linker fits?", ins:"Look at what comes after the gap: a clause, a noun / -ing, or a new sentence?",
+   items:[
+    {q:"___ making a loss in its first year, the company didn't give up.", answer:"Despite", options:["Despite","Although","Nevertheless"], why:R.noun},
+    {q:"___ the research was very expensive, the company decided to continue.", answer:"Although", options:["Although","Despite","In spite of"], why:R.clause},
+    {q:"The branch was in a great location. ___, it closed after a year.", answer:"Nevertheless", options:["Nevertheless","Although","Despite"], why:R.nev},
+    {q:"In spite ___ the risks, he set up his own business.", answer:"of", options:["of","to","for"], why:R.of},
+    {q:"She kept working ___ she was exhausted.", answer:"even though", options:["even though","despite","nevertheless"], why:R.even},
+    {q:"Despite ___ the shop made a profit, the owners sold it.", answer:"the fact that", options:["the fact that","of the fact that","that"], why:R.noun},
+    {q:"___ having no experience, he carried out the research on his own.", answer:"In spite of", options:["In spite of","Although","Even though"], why:R.noun}
+   ]},
+  {id:"c2", type:"type", title:"Rewrite with the word given", ins:"Complete the second sentence so it means the same. Use the word in the box. Type only the missing words.",
+   items:[
+    {orig:"The supermarket made a loss, but it opened a new branch.", q:"___, the supermarket opened a new branch.", key:"DESPITE", accept:["despite making a loss","despite having made a loss","despite the fact that it made a loss","despite the loss","despite the fact that it had made a loss"], hint:"Despite + -ing", why:R.noun},
+    {orig:"It was raining, but the team carried out the research outdoors.", q:"___, the team carried out the research outdoors.", key:"IN SPITE OF", accept:["in spite of the rain","in spite of the fact that it was raining","in spite of it raining","in spite of the rainy weather"], hint:"In spite of + noun", why:R.noun},
+    {orig:"He had no money. He still set up a business.", q:"___, he set up a business.", key:"ALTHOUGH", accept:["although he had no money","although he did not have any money","although he didn't have any money","although he had no money at all"], hint:"Although + he had…", why:R.clause},
+    {orig:"The results were surprising, but nobody believed them.", q:"The results were surprising. ___ believed them.", key:"NEVERTHELESS", accept:["nevertheless nobody","nevertheless no one","nevertheless no-one"], hint:"Nevertheless, + nobody…", why:R.nev},
+    {orig:"She's very rich, but she does her own shopping.", q:"___ very rich, she does her own shopping.", key:"EVEN", accept:["even though she is","even though she's"], hint:"Even though + she…", why:R.even},
+    {orig:"Although the branch was busy, it didn't make a profit.", q:"Despite ___, the branch didn't make a profit.", key:"BEING", accept:["being busy","the branch being busy","it being busy"], hint:"Despite + being…", why:R.noun}
+   ]},
+  {id:"c3", type:"type", selfmark:true, title:"Find and correct the mistake", ins:"Each sentence has ONE mistake. Write the whole correct sentence. If your correction is different but also correct, you can mark it yourself.",
+   items:[
+    {wrong:"Despite of the crisis, they made a profit.", accept:["Despite the crisis, they made a profit","In spite of the crisis, they made a profit"], hint:"despite never takes of.", why:R.of},
+    {wrong:"Although the shop was small, but it made a lot of money.", accept:["Although the shop was small, it made a lot of money","The shop was small, but it made a lot of money"], hint:"Two linkers in one sentence.", why:R.but},
+    {wrong:"In spite the bad weather, we went out.", accept:["In spite of the bad weather, we went out","Despite the bad weather, we went out"], hint:"Something is missing after spite.", why:R.of},
+    {wrong:"Despite it was late, they carried on working.", accept:["Although it was late, they carried on working","Even though it was late, they carried on working","Despite the fact that it was late, they carried on working","In spite of the fact that it was late, they carried on working","Despite it being late, they carried on working","Despite the late hour, they carried on working"], hint:"despite can't be followed by a clause.", why:R.noun},
+    {wrong:"The shop made a loss, nevertheless it stayed open.", accept:["The shop made a loss. Nevertheless, it stayed open","The shop made a loss; nevertheless, it stayed open","Although the shop made a loss, it stayed open","Even though the shop made a loss, it stayed open","The shop made a loss but it stayed open","Despite making a loss, the shop stayed open"], hint:"nevertheless can't join two clauses with a comma.", why:R.nev}
+   ]},
+
+  /* ---------- PURPOSE ---------- */
+  {id:"p1", type:"choice", title:"Why did they do it?", ins:"Choose the correct way to express purpose.",
+   items:[
+    {q:"She left the party early ___ miss the last train.", answer:"so as not to", options:["so as not to","so as to","in order to"], why:R.purpneg},
+    {q:"They carried out a survey ___ find out what customers wanted.", answer:"in order to", options:["in order to","in order not to","for"], why:R.purp},
+    {q:"I went to the supermarket ___ some milk.", answer:"to buy", options:["to buy","for buy","for buying"], why:R.for},
+    {q:"Write the password down ___ forget it.", answer:"in order not to", options:["in order not to","in order to","so as to"], why:R.purpneg},
+    {q:"They opened a branch in the city centre ___ attract more customers.", answer:"so as to", options:["so as to","so as not to","despite"], why:R.purp},
+    {q:"He whispered ___ wake the baby.", answer:"so as not to", options:["so as not to","in order to","so as"], why:R.purpneg},
+    {q:"I'm saving money ___ I can set up my own business.", answer:"so that", options:["so that","in order to","so as to"], why:R.sothat}
+   ]},
+  {id:"p2", type:"type", title:"Join the sentences", ins:"Complete the sentence with the word in the box. Type only the missing words.",
+   items:[
+    {orig:"They did a lot of research. They wanted to understand the market.", q:"They did a lot of research ___ the market.", key:"ORDER", accept:["in order to understand"], hint:"in order to + verb", why:R.purp},
+    {orig:"I set an alarm. I didn't want to oversleep.", q:"I set an alarm ___.", key:"AS", accept:["so as not to oversleep"], hint:"so as not to + verb", why:R.purpneg},
+    {orig:"We left at six because we didn't want to get stuck in traffic.", q:"We left at six ___ in traffic.", key:"ORDER", accept:["in order not to get stuck"], hint:"in order not to + verb", why:R.purpneg},
+    {orig:"She opened a second branch. Her aim was to increase profits.", q:"She opened a second branch ___ profits.", key:"AS", accept:["so as to increase","so as to raise","so as to boost"], hint:"so as to + verb", why:R.purp},
+    {orig:"He spoke slowly because he wanted everyone to understand.", q:"He spoke slowly ___ understand.", key:"THAT", accept:["so that everyone could","so that everyone would","so that everybody could","so that everybody would","so that everyone can","so that everybody can"], hint:"so that + everyone + could…", why:R.sothat},
+    {orig:"The scientists wore masks. They didn't want to breathe in the gas.", q:"The scientists wore masks ___ in the gas.", key:"AS", accept:["so as not to breathe"], hint:"so as not to + verb", why:R.purpneg}
+   ]},
+
+  /* ---------- THE + GEOGRAPHY ---------- */
+  {id:"a1", type:"choice", options:["the","—"], title:"the or no article?", ins:"Choose the or — (no article).",
+   items:[
+    {q:"___ Pacific is the largest ocean in the world.", answer:"the", why:R.the},
+    {q:"___ Lake Baikal is the deepest lake on Earth.", answer:"—", why:R.lake},
+    {q:"London is on ___ Thames.", answer:"the", why:R.the},
+    {q:"We went sailing on ___ Lake Geneva.", answer:"—", why:R.lake},
+    {q:"The Volga flows into ___ Caspian Sea.", answer:"the", why:R.the},
+    {q:"Have you ever swum in ___ Black Sea?", answer:"the", why:R.the},
+    {q:"___ Lake Titicaca lies between Peru and Bolivia.", answer:"—", why:R.lake},
+    {q:"Ships cross ___ Atlantic every day.", answer:"the", why:R.the},
+    {q:"___ Mount Elbrus is the highest mountain in Europe.", answer:"—", why:R.mount}
+   ]},
+  {id:"a2", type:"textgap", title:"A research trip", ins:"Write the or – (a dash) if there is no article.",
+   text:"Last year our company carried out research into water quality in Russia. We started at [[-|–|—|x|0|no article]] Lake Baikal and then took samples from [[the]] Yenisei and [[the]] Ob. In spring we sailed down [[the]] Volga all the way to [[the]] Caspian Sea. Our partners from Finland checked [[-|–|—|x|0|no article]] Lake Ladoga, and a team from Georgia worked on [[the]] Black Sea coast. Next year we hope to study [[the]] Arctic Ocean and [[-|–|—|x|0|no article]] Lake Onega.",
+   whys:[R.lake,R.the,R.the,R.the,R.the,R.lake,R.the,R.the,R.lake]},
+
+  /* ---------- READING ---------- */
+  {id:"r1", type:"choice", options:["True","False"], title:"True or false?", ins:"Read the text about guinea pigs. Are the sentences true or false?",
+   items:[
+    {q:"Guinea pigs originally come from West Africa.", answer:"False", why:"Paragraph 2: they come from the Andes in South America."},
+    {q:"People in the Andes first kept guinea pigs as pets.", answer:"False", why:"Paragraph 2: they kept them in order to eat them, not as pets."},
+    {q:"Roast guinea pig is still eaten in parts of Peru.", answer:"True", why:"Paragraph 2: around Lake Titicaca it is still a traditional dish."},
+    {q:"Experts agree that the animals were named after the price they were sold for.", answer:"False", why:"Paragraph 3: it's a nice story, but most experts reject it."},
+    {q:"The word 'pig' may come from the sounds the animals make.", answer:"True", why:"Paragraph 3: they squeal and grunt like piglets."},
+    {q:"Lavoisier used a guinea pig in an experiment on breathing and body heat.", answer:"True", why:"Paragraph 4: in 1780."},
+    {q:"Guinea pigs, like humans, can't produce their own vitamin C.", answer:"True", why:"Paragraph 4: the 1907 discovery by two Norwegian doctors."},
+    {q:"'Guinea pig' meaning a person in an experiment was first recorded in the 1600s.", answer:"False", why:"Paragraph 5: it is first recorded in 1920."},
+    {q:"In the 18th century, young inexperienced sailors could be called guinea pigs.", answer:"True", why:"Paragraph 5: the older, forgotten meaning."}
+   ]},
+  {id:"r2", type:"match", title:"Words from the text", ins:"Match the words from the text to their meanings.",
+   items:[
+    {en:"domesticate", def:"keep wild animals so they live with and work for people"},
+    {en:"fashionable", def:"popular at a particular time"},
+    {en:"squeal", def:"make a long, high, loud sound"},
+    {en:"scurvy", def:"an illness caused by too little vitamin C"},
+    {en:"figurative", def:"not used in its basic, literal meaning"},
+    {en:"inexperienced", def:"without much knowledge or practice"}
+   ]}
+];
+
+/* reading text — my own text, based on etymonline.com and phrases.org.uk */
+const READING = [
+  "If your company asks you to <b>be a guinea pig</b> for its new app, it wants you to try it before anyone else, so that the designers can see if it works. Today the expression simply means 'a person who is used to test something new'. But where does it come from? <u>Despite</u> its name, the guinea pig is neither from Guinea nor a pig.",
+  "The animal comes from the Andes in South America, where people domesticated it thousands of years ago — not as a pet, but <u>in order to</u> eat it. In parts of Peru, around <u>Lake Titicaca</u>, roast guinea pig is still a traditional dish. In the sixteenth century, European traders crossed <u>the Atlantic</u> and brought the little animals back to Europe, where they soon became fashionable pets.",
+  "Nobody knows for sure where the name comes from. 'Guinea' may refer to the 'Guineamen', ships that sailed between England, West Africa and South America, or it may simply have meant any far-away place across the sea. A popular story says the animals were sold for a guinea, an old British coin, but <u>although</u> it's a nice story, most experts reject it. The 'pig' part is easier to explain: the animals squeal and grunt like piglets, and even their Latin name, <i>Cavia porcellus</i>, means 'little pig'.",
+  "Scientists have used guinea pigs for centuries. In 1780 the French chemist Antoine Lavoisier used one in an experiment on breathing and body heat. By the late nineteenth century, guinea pigs were common in laboratories, partly because they are calm and easy to keep. In 1907 two Norwegian doctors who were studying scurvy discovered that guinea pigs, like humans, cannot make their own vitamin C — an important step for research into nutrition.",
+  "The figurative meaning, 'a person used in an experiment', is first recorded in 1920. <u>Even though</u> it comes from science, we now use it in everyday life: 'I was the guinea pig for my sister's first attempt at sushi.' <u>Nevertheless</u>, the phrase has an older, forgotten meaning: in the eighteenth century, sailors called young, inexperienced midshipmen 'guinea pigs'."
+];
+
+const TABS = [
+  {id:"rules", icon:"1", en:"Rules", ex:[]},
+  {id:"words", icon:"2", en:"Words", ex:[]},
+  {id:"cards", icon:"3", en:"Cards", ex:[]},
+  {id:"biz", icon:"4", en:"Business", ex:["v1","v2","v3"]},
+  {id:"contrast", icon:"5", en:"Contrast", ex:["c1","c2","c3"]},
+  {id:"purpose", icon:"6", en:"Purpose", ex:["p1","p2"]},
+  {id:"geo", icon:"7", en:"the Thames", ex:["a1","a2"]},
+  {id:"read", icon:"8", en:"Guinea pigs", ex:["r1","r2"]},
+  {id:"results", icon:"✓", en:"Results", ex:[]}
+];
+const WRITE_WORDS = [];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+
+const store = (()=>{ let mem=null; return {
+  get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
+  set(v){ mem=v; try{ localStorage.setItem(KEY,v); }catch(e){} },
+  del(){ mem=null; try{ localStorage.removeItem(KEY); }catch(e){} } };})();
+function fresh(){ return {name:STUDENT, ans:{}, known:[], writing:{}, tab:0, fcDir:"word"}; }
+let state=fresh();
+try{ const raw=store.get(); if(raw) state=Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(state)); }catch(e){} updateProgress(); }
+function rec(id,i){ return (state.ans[id]||{})[i]; }
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","isn't":"is not","aren't":"are not","haven't":"have not","hasn't":"has not","won't":"will not","i'll":"i will","what's":"what is","let's":"let us","i've":"i have","wasn't":"was not","weren't":"were not","i'd":"i would","you'd":"you would","we'd":"we would","they'd":"they would","it'll":"it will","you'll":"you will","we'll":"we will","they'll":"they will","that's":"that is","there's":"there is","wouldn't":"would not","shouldn't":"should not","you're":"you are"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/,(\d{3})/g,"$1").replace(/,/g," ")
+    .replace(/\s+/g," ").trim().replace(/[.!?]+$/,"").trim();
+  s=s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot").replace(/^'s /,"is ").replace(/ 's /g," is ");
+  return s;
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
+function speak(t){ if(!("speechSynthesis" in window)||!t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/\(sb[^)]*\)|\(an amount\)|\(money\)/g,"").replace(/·/g,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(t)}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!","Great!"];
+const OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${ex.title}</h3><div class="ins">${ex.ins}</div></div><div class="exbody"></div>`;
+  return box;
+}
+// q may contain <b> tags (trusted data); gap marker ___
+const capF=(q,f)=>q.startsWith("___")&&f?f.charAt(0).toUpperCase()+f.slice(1):f;
+function gapHtml(q,fill,cls){ return q.replace("___",`<span class="gap ${cls||""}">${fill?esc(capF(q,fill)):"&nbsp;"}</span>`); }
+function fillSentence(q,a){ const s=strip(q).replace("___",a==="—"?"":capF(q,a)).replace(/\s+/g," ").trim(); return s; }
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+function bankHtml(b){ return `<div class="bank"><b>Word box</b>${b.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`; }
+
+/* choice */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const hasGap=it.q.includes("___");
+    const qh = it.say ? `<span class="row">${sayBtn(it.say)} <span>${esc(it.q)}</span></span>` : `<span class="qt">${gapHtml(it.q)}</span>`;
+    const opts=it.options||ex.options;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="opts">${opts.map(o=>`<button class="opt${ex.mono?" mono":""}" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return;
+      const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.answer,done:true}); paintChoice(ex,it,i,row,true); }));
+    row.dataset.gap=hasGap?"1":"";
+    body.appendChild(row);
+    if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===it.answer) b.classList.add("ghost"); });
+  const hasGap=it.q.includes("___");
+  if(hasGap){ const qt=$(".qt",row); qt.innerHTML=gapHtml(it.q,it.answer,r.correct?"filled":"filledbad"); }
+  const sent=hasGap?fillSentence(it.q,it.answer):(it.say||it.answer);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.answer)}</b>${hasGap?`<span class="row">${sayBtn(sent,true)} <span>${esc(sent)}</span></span>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* typed */
+function renderType(ex,body){
+  if(ex.bank) body.insertAdjacentHTML("beforeend",bankHtml(ex.bank));
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.listen) qh=`<span class="row">${sayBtn(it.say)} <span style="color:var(--muted);font-weight:600">Listen and type</span></span>`;
+    else if(it.wrong) qh=`<span class="wrongs">${esc(it.wrong)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}</span>`:""}<span class="qt">${gapHtml(it.q)}</span>${it.key?`<span class="key">${esc(it.key)}</span>`:""}`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="inrow"><input type="text" autocomplete="off" autocapitalize="${it.wrong?"sentences":"off"}" spellcheck="false" aria-label="answer" placeholder="${it.wrong?"Write the correct sentence":"Type your answer"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    body.appendChild(row);
+    const r=rec(ex.id,i); if(r&&r.done) paintTyped(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); paintTyped(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function modelOf(ex,it){ if(ex.listen) return it.say; if(it.wrong) return it.accept[0]+(it.end||"."); return fillSentence(it.q,it.accept[0]); }
+function paintTyped(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.listen&&!it.wrong){ $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad"); }
+  const full=modelOf(ex,it); let notes="";
+  if(r.correct&&it.wrong&&r.given[0]!==r.given[0].toUpperCase()) notes+=`<div>✏️ Remember the capital letter at the start.</div>`;
+  if(r.correct&&it.end==="?"&&!/\?\s*$/.test(r.given)) notes+=`<div>❓ Don't forget the question mark.</div>`;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(r.self?"✓ Marked as correct by you":(live?pick(PRAISE):"✓ Correct")):"✗ The answer is:"}</b><span class="row">${sayBtn(full,true)} <span>${esc(full)}</span></span>${notes}${whyHtml(it.why)}${ex.selfmark&&!r.correct?`<button class="btn ok selfok" type="button">My answer is also correct ✓</button>`:""}`;
+  const sb=$(".selfok",fb); if(sb) sb.addEventListener("click",()=>{ r.correct=true; r.self=true; setRec(ex.id,i,r); paintTyped(ex,it,i,row,false); });
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* match */
+function renderMatch(ex,body){
+  const order=seeded(ex.items.map((p,k)=>k),hash(ex.id)+5);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb" style="margin-left:0"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  ex.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p.en)}</button>`));
+  order.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(ex.items[k].def)}</button>`));
+  const allDone=()=>ex.items.every((p,k)=>rec(ex.id,k)&&rec(ex.id,k).done);
+  function refresh(){ ex.items.forEach((p,k)=>{ const r=rec(ex.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    if(allDone()){ const fb=$(".fb",body); fb.className="fb show good"; fb.innerHTML=`<b class="t">All matched!</b>${exGot(ex)}/${ex.items.length} on the first try. Yellow ones had a mistake — look at them again.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(ex.id,k)||{tries:0};
+    if(sl===sr){ setRec(ex.id,k,{given:prev.tries>0?prev.given:ex.items[k].def,correct:!(prev.tries>0),done:true,tries:prev.tries||0}); speak(ex.items[k].en); }
+    else{ setRec(ex.id,k,{given:ex.items[sr].def,correct:false,done:false,tries:(prev.tries||0)+1});
+      const bl=$(`[data-k="${sl}"]`,L), br=$(`[data-k="${sr}"]`,R); [bl,br].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updateExScore(ex); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh();
+}
+
+/* text with gaps */
+function parseText(ex){ if(ex._p) return; ex._p=true; const g=[]; ex.text.replace(/\[\[(.+?)\]\]/g,(m,a)=>{ g.push(a.split("|")); return m; }); ex.items=g.map((a,k)=>({accept:a,why:ex.whys[k]})); }
+function renderTextGap(ex,body){
+  parseText(ex); let k=0;
+  const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1").replace(/\n/g," ");
+  const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; }).replace(/\n/g,"<br>");
+  body.insertAdjacentHTML("beforeend",`${ex.bank?bankHtml(ex.bank):""}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check my answers</button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the whole text</button></div><ul class="whylist"></ul>`);
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
+  $(".chk",body).addEventListener("click",()=>checkText(ex,body));
+  paintText(ex,body);
+}
+function checkText(ex,body){
+  let any=false, wrong=0;
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(ex.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+    const ok=matches(v,ex.items[n].accept), tries=(prev.tries||0)+1;
+    if(ok||tries>=2) setRec(ex.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(ex.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+  if(!any){ toast("Fill in some gaps first."); return; }
+  paintText(ex,body);
+  if(wrong) toast(`${wrong} gap${wrong>1?"s are":" is"} not right yet (in red) — you have one more try.`);
+}
+function paintText(ex,body){
+  const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(ex.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(ex.items[n].why)}</li>`); }
+    else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
+  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  updateExScore(ex);
+}
+
+/* writing */
+function usedWords(t){ const s=" "+t.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z' ]+/g," ").replace(/\s+/g," ")+" ";
+  return WRITE_WORDS.map(forms=>forms.some(f=>new RegExp("\\b"+f.replace(/ /g,"\\s+")).test(s))); }
+function renderWriting(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.q)}${it.try?`<span class="trychip">try: ${esc(it.try)}</span>`:""}</div></div>
+      <div style="margin-top:8px"><textarea aria-label="your answer" placeholder="${esc(it.eg)}"></textarea><div class="wcount"></div><div class="tick"></div>${it.model?`<details class="model"><summary>See a model answer</summary><p>${esc(it.model)}</p>${sayBtn(it.model,true)}</details>`:""}</div>`;
+    const ta=$("textarea",row), wc=$(".wcount",row), tk=$(".tick",row), key=ex.id+"-"+i;
+    ta.value=state.writing[key]||"";
+    const upd=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=`${n} words (aim: ${it.min}+)`; wc.classList.toggle("ok",n>=it.min);
+      const u=usedWords(ta.value); tk.innerHTML=WRITE_WORDS.map((f,k)=>u[k]?`<span class="used">${esc(f[0].replace(/ \(.*$/,""))}</span>`:"").join("") || `<span>The linkers you use will appear here</span>`; updAll(); };
+    let tm; ta.addEventListener("input",()=>{ upd(); clearTimeout(tm); tm=setTimeout(()=>{ state.writing[key]=ta.value; save(); },400); });
+    ta.addEventListener("blur",()=>{ state.writing[key]=ta.value; save(); });
+    upd(); body.appendChild(row);
+  });
+  body.insertAdjacentHTML("afterbegin",`<div class="alllinks" id="allLinks"></div>`); ALLBOX=body.firstElementChild; updAll();
+  body.insertAdjacentHTML("beforeend",`<p style="font-size:14px;color:var(--muted);margin:6px 0 0">This isn't marked automatically — your teacher will read it. It's included in the report you send.</p>`);
+}
+
+let ALLBOX=null;
+function updAll(){ const box=ALLBOX; if(!box) return;
+  const all=Object.keys(state.writing).filter(k=>k.startsWith("w1-")).map(k=>state.writing[k]).join(" ")+" "+$$("#ex-w1 textarea").map(t=>t.value).join(" ");
+  const u=usedWords(all), n=u.filter(Boolean).length;
+  box.innerHTML=`<b>Linkers used in all your answers: ${n} / ${WRITE_WORDS.length}</b><div>${WRITE_WORDS.map((f,k)=>`<span class="${u[k]?"used":"todo"}">${esc(f[0])}</span>`).join("")}</div>`; }
+/* scoring */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="textgap") parseText(ex); return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function totals(){ let got=0,tot=0,done=0; EXERCISES.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=totals(); $("#pscore").textContent=`★ ${t.got} / ${t.tot}`;
+  const pct=t.tot?Math.round(t.done/t.tot*100):0; $("#pbar").style.width=pct+"%"; $("#pdone").textContent=pct+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const badge=$(".badge",b); const exs=tab.ex.map(id=>EX[id]).filter(scored);
+    if(exs.length){ const d=exs.reduce((n,e)=>n+exDone(e),0), tt=exs.reduce((n,e)=>n+exTotal(e),0), g=exs.reduce((n,e)=>n+exGot(e),0);
+      badge.textContent=d===tt?`✓ ${g}/${tt}`:`${d}/${tt}`; b.classList.toggle("done",d===tt); }
+    else if(tab.id==="cards"){ badge.textContent=`${state.known.length}/${VOCAB.length}`; b.classList.toggle("done",state.known.length===VOCAB.length); }
+    else badge.textContent=""; });
+}
+
+/* tabs */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}"><span class="coin">${t.icon}</span><b>${t.en}</b><span class="badge"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  const cur=$(`#tabs [data-t="${k}"]`); try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* words */
+function buildWords(){
+  const card=w=>`<div class="word"><span class="em" aria-hidden="true">${w.em}</span><div><b>${esc(w.en)}</b><br><span class="pat">${esc(w.pat)}</span>
+    <div class="def">${esc(w.def)}</div><div class="exl">${sayBtn(w.ex,true)} ${esc(w.ex)}</div></div>${sayBtn(w.en)}</div>`;
+  $$("[data-wl]").forEach(el=>{ el.innerHTML=VOCAB.filter(w=>w.g===el.dataset.wl).map(card).join(""); });
+}
+function buildStory(){
+  const byId={}; VOCAB.forEach(w=>byId[w.id]=w);
+  $("#story").innerHTML=STORY.map(p=>"<p>"+esc(p).replace(/\{(\w+)\|([^}]+)\}/g,(m,id,txt)=>`<button class="gl" type="button" data-w="${id}">${txt}</button>`)+"</p>").join("");
+  const box=$("#gloss");
+  $$("#story .gl").forEach(b=>b.addEventListener("click",()=>{ const w=byId[b.dataset.w]; $$("#story .gl").forEach(x=>x.classList.toggle("on",x===b));
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><b style="font-size:18px">${esc(w.en)}</b>${sayBtn(w.en,true)}</div><div>${esc(w.def)}</div>`; box.classList.add("show"); }));
+  const plain=STORY.map(p=>p.replace(/\{\w+\|([^}]+)\}/g,"$1")).join(" ");
+  $("#storySay").dataset.say=plain;
+}
+
+function buildReading(){
+  const box=$("#reading"); if(!box||typeof READING==="undefined") return;
+  box.innerHTML=READING.map((p,k)=>`<p><span class="pn">${k+1}</span>${p}</p>`).join("");
+  const b=$("#readSay"); if(b) b.dataset.say=READING.map(strip).join(" ");
+}
+
+/* flashcards */
+let fcOrder=VOCAB.map((w,k)=>k), fcIdx=0;
+function fcDeck(){ const only=$("#fcOnly").checked; return fcOrder.filter(k=>!only||!state.known.includes(VOCAB[k].id)); }
+const ruBit=w=>"";
+function renderCard(){
+  const deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=VOCAB.length; $("#fcKnown").textContent=state.known.length; $("#fcKbar").style.width=(state.known.length/VOCAB.length*100)+"%";
+  $("#fcDir").textContent=state.fcDir==="word"?"Word → meaning":"Meaning → word";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="big">🎉</div><div class="txt">All known!</div><div class="sub">Untick the filter to review everything.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const w=VOCAB[deck[fcIdx]], known=state.known.includes(w.id);
+  const wordSide=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div>${w.ipa?`<div class="ipa">${esc(w.ipa)}</div>`:""}`;
+  const meaning=`<div class="def">${esc(w.def)}</div>`;
+  if(state.fcDir==="word"){
+    $("#fcFront").innerHTML=wordSide+sayBtn(w.en)+`<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="txt" style="font-size:22px">${esc(w.en)}</div>${meaning}<div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  } else {
+    $("#fcFront").innerHTML=`<div class="big">❓</div>${meaning}<div class="ipa">${esc(w.pat.replace(new RegExp(w.en.split(" ")[0],"ig"),"___"))}</div><span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div><div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.en+". "+w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  }
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; const rb=e.target.closest(".rubtn-card"); if(rb){ const t=rb.nextElementSibling; t.hidden=!t.hidden; rb.textContent=t.hidden?"Show Russian":"Hide Russian"; return; } flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcDir").addEventListener("click",()=>{ state.fcDir=state.fcDir==="word"?"meaning":"word"; save(); renderCard(); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=k=>{ const deck=fcDeck(); if(!deck.length) return; const w=VOCAB[deck[fcIdx]];
+    state.known=state.known.filter(x=>x!==w.id); if(k) state.known.push(w.id); save();
+    if(!(k&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* results */
+const studentName=()=>((state.name||STUDENT).trim()||"Student");
+function questionText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
+   return strip(it.q)+(it.key?" ("+it.key+")":""); }
+function correctText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
+  return modelOf(ex,it); }
+function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
+function band(p){ if(p>=90) return `Excellent, ${studentName()}. Top marks — well done! ✓`; if(p>=75) return "Great work: a couple of things to look at again below."; if(p>=50) return "Good effort. Re-read the rules and look at the mistakes below."; return "A start. Go back to the Rules tab, then try again."; }
+function renderResults(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date();
+  const lines=EXERCISES.filter(scored).map(ex=>`<div class="ln"><span>${ex.no}. ${esc(ex.title)}</span><span>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</span></div>`).join("");
+  $("#receipt").innerHTML=`<h2>${REPORT_HEAD}</h2><div class="c">${esc(SUBJECT_TOPIC)} · ${esc(studentName())}<br>${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</div><hr>${lines}
+    ${VOCAB.length?`<div class="ln"><span>Flashcards known</span><span>${state.known.length}/${VOCAB.length}</span></div>`:""}<hr>
+    <div class="ln tot"><span>TOTAL</span><span>${t.got}/${t.tot}</span></div><div class="ln"><span>Score</span><span>${pct}%</span></div>
+    ${t.done<t.tot?`<div class="c" style="margin-top:6px">* not finished — ${t.tot-t.done} answers still to do</div>`:`<div style="text-align:center"><span class="stamp">ALL DONE</span></div>`}
+    <div class="msg">${t.done?band(pct):"Start with the Words tab!"}</div>`;
+  const m=mistakes();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>No mistakes so far 🎉</li>`;
+  buildSend();
+}
+function reportText(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date(), L=[];
+  L.push(`HOMEWORK: ${TITLE}`); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`);
+  L.push(`SCORE: ${t.got}/${t.tot} (${pct}%) · answered ${t.done}/${t.tot}`); if(VOCAB.length) L.push(`Flashcards known: ${state.known.length}/${VOCAB.length}`); L.push("");
+  L.push("BY EXERCISE:"); EXERCISES.filter(scored).forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=mistakes(); L.push(`MISTAKES (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → wrote: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none"); L.push("");
+  const selfs=[]; EXERCISES.filter(x=>x.selfmark).forEach(x=>x.items.forEach((it,i)=>{ const r=rec(x.id,i); if(r&&r.self) selfs.push(`- [${x.no}] ${it.orig} → "${r.given}" (model: ${it.accept[0]})`); }));
+  if(selfs.length){ L.push("SELF-MARKED AS CORRECT (please check):"); selfs.forEach(s=>L.push(s)); L.push(""); }
+  if(EX.w1){ L.push("WRITING:"); EX.w1.items.forEach((it,i)=>{ const txt=(state.writing["w1-"+i]||"").trim(); L.push(`${i+1}. ${it.q}`); L.push(`   ${txt||"—"}`); }); L.push(""); }
+  L.push("ALL ANSWERS:"); EXERCISES.filter(scored).forEach(ex=>{ L.push(`${ex.no}. ${ex.title}`); for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); L.push(`   ${i+1}) ${questionText(ex,i)} → ${r?r.given:"—"} ${r&&r.done?(r.correct?"✓":"✗"):"(not done)"}`); } });
+  return L.join("\n");
+}
+function shortReport(){ const f=reportText(); if(f.length<=1500) return f; return f.slice(0,1450).replace(/\n[^\n]*$/,"")+"\n…\n(Full report: use “Copy text” in the app.)"; }
+const subject=()=>{ const t=totals(); return `${SUBJECT_TOPIC} — ${studentName()} — ${t.got}/${t.tot}`; };
+function buildSend(){
+  const sub=encodeURIComponent(subject()), body=encodeURIComponent(shortReport()); let h="";
+  if(navigator.share) h+=`<button class="btn pri" type="button" id="shareBtn">📤 Share</button>`;
+  h+=`<a class="btn${navigator.share?"":" pri"}" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${sub}&body=${body}">✉️ Send in Gmail</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${sub}&text=${body}">✈️ Telegram</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${body}">💬 WhatsApp</a>`;
+  h+=`<a class="btn" href="mailto:${TEACHER}?subject=${sub}&body=${body}">📧 Email app</a>`;
+  h+=`<button class="btn" type="button" id="copyBtn">📋 Copy text</button>`;
+  $("#sendgrid").innerHTML=h;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",async()=>{ try{ await navigator.share({title:subject(),text:reportText()}); }catch(e){} });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+}
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied! Paste it into a message to your teacher.":"Couldn't copy — please select the text manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied! Paste it into a message to your teacher."),fb); else fb();
+}
+
+/* init */
+/* linker switcher */
+function buildMachine(){
+  const pb=$("#ldPairs"); if(!pb) return; let p=0, l=0;
+  pb.innerHTML=LDEMO.pairs.map((x,k)=>`<button type="button" data-p="${k}">${esc(x.label)}</button>`).join("");
+  $("#ldLinks").innerHTML=LDEMO.linkers.map((x,k)=>`<button type="button" data-l="${k}">${esc(x)}</button>`).join("");
+  const draw=go=>{ $$("#ldPairs button").forEach(b=>b.classList.toggle("on",+b.dataset.p===p)); $$("#ldLinks button").forEach(b=>b.classList.toggle("on",+b.dataset.l===l));
+    const t=LDEMO.out[p][l], note=LDEMO.notes[p][l], o=$("#ldOut");
+    o.className="ldout"+(t?"":" no")+(go?" anim":"");
+    o.innerHTML=t?`<div class="row" style="justify-content:space-between;gap:10px;flex-wrap:nowrap"><span class="ldsent">${t}</span>${sayBtn(strip(t.split(" / ")[0].replace(/\(.*\)/,"")))}</div><div class="dnote">💡 ${esc(note)}</div>`:`<div class="ldsent">✗ Doesn't work here</div><div class="dnote">${esc(note)}</div>`; };
+  $$("#ldPairs button").forEach(b=>b.addEventListener("click",()=>{ p=+b.dataset.p; draw(true); }));
+  $$("#ldLinks button").forEach(b=>b.addEventListener("click",()=>{ l=+b.dataset.l; draw(true); const t=LDEMO.out[p][l]; if(t) speak(strip(t.split(" / ")[0].replace(/\(.*\)/,""))); }));
+  draw(false);
+}
+
+function init(){
+  buildTabs(); if($("[data-wl]")) buildWords(); if($("#fc")) buildCards(); buildMachine(); buildReading();
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ store.del(); state=fresh(); location.reload(); });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+
+</script>
+</body>
+</html>
