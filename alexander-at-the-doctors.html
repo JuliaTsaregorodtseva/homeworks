@@ -404,7 +404,7 @@ svg.body{display:block;width:100%;height:100%}
   <div class="card">
     <span class="kicker">Step 1 · Шаг 1</span>
     <h2>Where does it hurt? <span class="ru">Где болит?</span></h2>
-    <p class="lead">Tap a part of the body (or a button) and say the sentences aloud.<span class="ru">Нажми на часть тела (или на кнопку) и проговори предложения вслух.</span></p>
+    <p class="lead">Tap a part of the body (or a button) and read the sentences.<span class="ru">Нажми на часть тела (или на кнопку) и прочитай предложения.</span></p>
     <div class="bodymap">
       <div class="bmfig" id="bodyMap"></div>
       <div class="bmside">
@@ -435,7 +435,7 @@ svg.body{display:block;width:100%;height:100%}
   <div class="card">
     <span class="kicker">Step 2 · Шаг 2</span>
     <h2>Symptoms <span class="ru">Симптомы</span></h2>
-    <p class="lead">Read each card and say the sentence aloud.<span class="ru">Прочитай каждую карточку и скажи предложение вслух.</span></p>
+    <p class="lead">Read each card: the word, the translation and the example.<span class="ru">Прочитай каждую карточку: слово, перевод и пример.</span></p>
     <div class="wcards" id="symCards"></div>
   </div>
   <div class="card">
@@ -734,9 +734,7 @@ function norm(s){
 const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
 
 let VOICE=null;
-function pickVoice(){ try{const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){} }
-if(HAS_SPEECH){ pickVoice(); try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){} }
-function speak(t){ if(!HAS_SPEECH||!t) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/[“”]/g,"").replace(/→/g,", ").replace(/\p{Extended_Pictographic}/gu,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u);}catch(e){} }
+function speak(){} /* no audio in this app */
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
 const sayBtn=()=>"";
 
@@ -1019,7 +1017,7 @@ function buildWords(){
 }
 function buildNum(){}
 
-/* --- interactive body map: point and say --- */
+/* --- interactive body map: body map --- */
 function buildMachine(){
   const box=$("#bodyMap"); if(!box) return;
   let sel="head";
@@ -1033,7 +1031,7 @@ function buildMachine(){
       <div class="barrow">↓ = </div>
       <div class="bline big">${sayBtn(p.have,true)} <span>${esc(p.have)}</span></div>
       <div class="ru">${esc(p.ruh)}</div>
-      <div class="bpoint">👉 Point and say: <b>It hurts here.</b><span class="ru">Покажи и скажи: «Болит здесь».</span></div>`;
+      <div class="bpoint">💬 Useful phrase: <b>It hurts here.</b><span class="ru">Полезная фраза: «Болит здесь».</span></div>`;
     $$(".hot",box).forEach(g=>{ const f=()=>{ sel=g.dataset.p; draw(true); speak(PARTS.find(x=>x.id===sel).hurts); };
       g.addEventListener("click",f); g.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); f(); } }); });
   };
