@@ -365,6 +365,7 @@ svg.body{display:block;width:100%;height:100%}
 .toast{visibility:hidden;transition:transform .3s,visibility .3s}
 .toast.show{visibility:visible}
 @media (prefers-reduced-motion: reduce){ .bodyout.go{animation:none} }
+.wcard{cursor:default}.wcard:hover{border-color:var(--line)}.wtxt{padding-right:0}
 
 </style>
 </head>
@@ -403,7 +404,7 @@ svg.body{display:block;width:100%;height:100%}
   <div class="card">
     <span class="kicker">Step 1 · Шаг 1</span>
     <h2>Where does it hurt? <span class="ru">Где болит?</span></h2>
-    <p class="lead">Tap a part of the body (or a button) and listen.<span class="ru">Нажми на часть тела (или на кнопку) и послушай.</span></p>
+    <p class="lead">Tap a part of the body (or a button) and say the sentences aloud.<span class="ru">Нажми на часть тела (или на кнопку) и проговори предложения вслух.</span></p>
     <div class="bodymap">
       <div class="bmfig" id="bodyMap"></div>
       <div class="bmside">
@@ -419,12 +420,12 @@ svg.body{display:block;width:100%;height:100%}
   <div class="careful">
     <h2>⚠️ Careful with these <span class="ru">Будь внимателен!</span></h2>
     <ul>
-      <li><b>-ache</b> = a pain that goes on: head<b>ache</b>, stomach<b>ache</b>, ear<b>ache</b>, back<b>ache</b>, tooth<b>ache</b><span class="ru">-ache — долгая, ноющая боль. Читается «эйк» /eɪk/.</span> <button class="say sm" type="button" data-say="headache, stomachache, earache, backache, toothache" aria-label="listen">🔊</button></li>
+      <li><b>-ache</b> = a pain that goes on: head<b>ache</b>, stomach<b>ache</b>, ear<b>ache</b>, back<b>ache</b>, tooth<b>ache</b><span class="ru">-ache — долгая, ноющая боль. Читается «эйк» /eɪk/.</span></li>
       <li><b>sore</b> throat, not <s>throatache</s><span class="ru">sore — красное и болезненное. Горло — только sore throat.</span></li>
       <li>a headache · <b>an</b> earache<span class="ru">Перед гласным звуком — an.</span></li>
       <li>I have <b>backache</b> / <b>toothache</b><span class="ru">Часто без a (в британском английском). С a тоже можно: a toothache.</span></li>
       <li>My head hurt<b>s</b>.<span class="ru">head — это «он/она/оно», поэтому hurts с -s. А вот «My teeth hurt» — без -s (зубы — много).</span></li>
-      <li><b>stomach</b> /ˈstʌmək/ <button class="say sm" type="button" data-say="stomach" aria-label="listen">🔊</button><span class="ru">ch читается как «к»: «стамак».</span></li>
+      <li><b>stomach</b> /ˈstʌmək/<span class="ru">ch читается как «к»: «стамак».</span></li>
     </ul>
   </div>
   <div class="next"><button class="btn pri" data-go="1" type="button">Next: Symptoms →<small>Дальше: симптомы</small></button></div>
@@ -434,7 +435,7 @@ svg.body{display:block;width:100%;height:100%}
   <div class="card">
     <span class="kicker">Step 2 · Шаг 2</span>
     <h2>Symptoms <span class="ru">Симптомы</span></h2>
-    <p class="lead">Tap a card and listen to the sentence. Repeat it.<span class="ru">Нажми на карточку и послушай предложение. Повтори.</span></p>
+    <p class="lead">Read each card and say the sentence aloud.<span class="ru">Прочитай каждую карточку и скажи предложение вслух.</span></p>
     <div class="wcards" id="symCards"></div>
   </div>
   <div class="card">
@@ -449,8 +450,8 @@ svg.body{display:block;width:100%;height:100%}
     <ul>
       <li>I <b>feel</b> sick ≠ I <b>was</b> sick<span class="ru">I feel sick — меня тошнит. I was sick — меня вырвало (= vomited).</span></li>
       <li>I have <b>a</b> high temperature<span class="ru">Не забудь артикль: a (high) temperature, a cough, a runny nose.</span></li>
-      <li><b>diarrhoea</b> /ˌdaɪəˈrɪə/ <button class="say sm" type="button" data-say="diarrhoea" aria-label="listen">🔊</button><span class="ru">Британское написание. Без a: I have diarrhoea.</span></li>
-      <li><b>cough</b> /kɒf/ <button class="say sm" type="button" data-say="cough" aria-label="listen">🔊</button><span class="ru">gh читается как «ф»: «коф».</span></li>
+      <li><b>diarrhoea</b> /ˌdaɪəˈrɪə/<span class="ru">Британское написание. Без a: I have diarrhoea.</span></li>
+      <li><b>cough</b> /kɒf/<span class="ru">gh читается как «ф»: «коф».</span></li>
     </ul>
   </div>
   <div class="next"><button class="btn pri" data-go="2" type="button">Next: Cards →<small>Дальше: карточки</small></button></div>
@@ -486,8 +487,8 @@ svg.body{display:block;width:100%;height:100%}
 
 <section class="panel" id="p-symex">
   <div class="card"><span class="kicker">Step 5 · Шаг 5</span><h2>Symptoms practice <span class="ru">Практика: симптомы</span></h2>
-    <p class="lead" style="margin:0">Match, look, read and listen.<span class="ru">Соединяй, смотри, читай и слушай.</span></p></div>
-  <div data-ex="b1"></div><div data-ex="b2"></div><div data-ex="b3"></div><div data-ex="b4"></div><div data-ex="b5"></div><div data-ex="b6"></div>
+    <p class="lead" style="margin:0">Match, look, read and choose.<span class="ru">Соединяй, смотри, читай и выбирай.</span></p></div>
+  <div data-ex="b1"></div><div data-ex="b2"></div><div data-ex="b3"></div><div data-ex="b4"></div><div data-ex="b5"></div>
   <div class="next"><button class="btn pri" data-go="5" type="button">Next: At the doctor's →<small>Дальше: у врача</small></button></div>
 </section>
 
@@ -666,15 +667,6 @@ const EXERCISES = [
     {q:"I ___ an allergy.", answer:"have", why:W.have},
     {q:"Yesterday I ___ sick. (= I vomited)", answer:"was", options:["feel","have","was"], why:{en:"I was sick = I vomited (in the past).", ru:"I was sick — меня вырвало (прошедшее время)."}}
    ]},
-  {id:"b6", type:"choice", mode:"listen", title:{en:"Listen and choose", ru:"Послушай и выбери"},
-   ins:{en:"Press 🔊 and choose what you hear.", ru:"Нажми 🔊 и выбери, что слышишь."},
-   items:[
-    {say:"I feel dizzy.", answer:"dizzy", options:["weak","dizzy","sick"]},
-    {say:"I have a cough.", answer:"a cough", options:["a cough","a runny nose","an allergy"]},
-    {say:"diarrhoea", answer:"diarrhoea", options:["allergy","temperature","diarrhoea"]},
-    {say:"I have a sore throat.", answer:"a sore throat", options:["toothache","a sore throat","an earache"]},
-    {say:"I feel shivery.", answer:"shivery", options:["shivery","sick","weak"]}
-   ]},
 
   /* ---------- AT THE DOCTOR'S ---------- */
   {id:"c1", type:"tiles", title:{en:"Build the sentence", ru:"Собери предложение"},
@@ -707,7 +699,7 @@ const TABS = [
   {id:"symptoms", icon:"🤒", en:"Symptoms", ru:"Симптомы", ex:[]},
   {id:"cards", icon:"🃏", en:"Cards", ru:"Карточки", ex:[]},
   {id:"hurts", icon:"🤕", en:"It hurts", ru:"Болит", ex:["a1","a2","a3","a4"]},
-  {id:"symex", icon:"🌡️", en:"Symptoms practice", ru:"Практика", ex:["b1","b2","b3","b4","b5","b6"]},
+  {id:"symex", icon:"🌡️", en:"Symptoms practice", ru:"Практика", ex:["b1","b2","b3","b4","b5"]},
   {id:"doctor", icon:"🩺", en:"At the doctor's", ru:"У врача", ex:["c1","c2"]},
   {id:"results", icon:"🏆", en:"Results", ru:"Результат", ex:[]}
 ];
@@ -718,7 +710,7 @@ const TABS = [
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const strip=s=>String(s).replace(/<[^>]+>/g,"");
-const HAS_SPEECH=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+const HAS_SPEECH=false; /* sound switched off for this app */
 if(!HAS_SPEECH) document.documentElement.classList.add("nospeech");
 const EX={}; EXERCISES.forEach(e=>{EX[e.id]=e;});
 let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
@@ -746,7 +738,7 @@ function pickVoice(){ try{const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=
 if(HAS_SPEECH){ pickVoice(); try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){} }
 function speak(t){ if(!HAS_SPEECH||!t) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/[“”]/g,"").replace(/→/g,", ").replace(/\p{Extended_Pictographic}/gu,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u);}catch(e){} }
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
-const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(strip(t))}" aria-label="listen" type="button">🔊</button>`;
+const sayBtn=()=>"";
 
 const PRAISE=["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Молодец! · Well done!","Да! · Yes!","Здорово! · Brilliant!"];
 const OOPS=["Не совсем · Not quite","Почти! · Almost!","Посмотри ещё раз · Have a look"];
@@ -923,7 +915,7 @@ function renderTextGap(ex,body){
   parseText(ex); let k=0;
   const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1").replace(/\s*\([^)]*\)/g,"");
   const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; }).replace(/\(([^)]+)\)/g,"<i>($1)</i>").replace(/\n/g,"<br>");
-  body.insertAdjacentHTML("beforeend",`${ex.bank?`<div class="bank"><b>Word box · Слова:</b>${ex.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`:""}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check · Проверить<small>можно проверять по частям</small></button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the text<small>Послушать текст</small></button></div><ul class="whylist"></ul>`);
+  body.insertAdjacentHTML("beforeend",`${ex.bank?`<div class="bank"><b>Word box · Слова:</b>${ex.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`:""}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check · Проверить<small>можно проверять по частям</small></button></div><ul class="whylist"></ul>`);
   $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
   $(".chk",body).addEventListener("click",()=>checkText(ex,body));
   paintText(ex,body);
@@ -943,7 +935,7 @@ function paintText(ex,body){
     if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
       const w=ex.items[n].why; ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (твой ответ: ${esc(r.given)})`} — ${esc(w.en)}<span class="ru">${esc(w.ru)}</span></li>`); }
     else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
-  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  
   updateExScore(ex);
 }
 
@@ -1020,10 +1012,10 @@ function buildWords(){
     <div class="hcell"><span>${esc(p.have).replace(p.pain.replace(/^an? /,""),m=>`<em>${m}</em>`)}</span> ${sayBtn(p.have,true)}<span class="ru">${esc(p.ruh)}</span></div>
   </div>`).join("");
   const c=$("#symCards");
-  if(c) c.innerHTML=SYMS.map(s=>`<div class="wcard" role="button" tabindex="0" data-say="${esc(s.pat)}">
+  if(c) c.innerHTML=SYMS.map(s=>`<div class="wcard">
     <span class="circ" style="--c:${s.c}" aria-hidden="true">${s.em}</span>
     <div class="wtxt"><b>${esc(s.en)}</b>${s.ipa?`<span class="ipa">${esc(s.ipa)}</span>`:""}<span class="ru">${esc(s.ru)}</span><span class="pat">💬 ${esc(s.pat)}</span></div>
-    <span class="say sm" aria-hidden="true">🔊</span></div>`).join("");
+    </div>`).join("");
 }
 function buildNum(){}
 
