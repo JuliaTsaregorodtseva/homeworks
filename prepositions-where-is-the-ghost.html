@@ -351,7 +351,7 @@ svg.scene{display:block;width:100%;height:auto;border-radius:12px}
       </div>
       <div class="floaty" aria-hidden="true">👻</div>
     </div>
-    <p class="order">Go tab by tab: place → movement → cards → practice → write &amp; listen → results. Your answers save automatically.<span class="ru">Иди по вкладкам по порядку: место → движение → карточки → практика → пиши и слушай → результат. Ответы сохраняются сами.</span></p>
+    <p class="order">Go tab by tab: place → movement → cards → practice → write &amp; build → results. Your answers save automatically.<span class="ru">Иди по вкладкам по порядку: место → движение → карточки → практика → пиши и собирай → результат. Ответы сохраняются сами.</span></p>
   </div>
 </header>
 
@@ -445,13 +445,13 @@ svg.scene{display:block;width:100%;height:auto;border-radius:12px}
   <div class="card"><span class="kicker">Step 5 · Шаг 5</span><h2>Practice: movement <span class="ru">Практика: движение</span></h2>
     <p class="lead" style="margin:0">Is the ghost moving or not? Look carefully.<span class="ru">Призрак двигается или нет? Смотри внимательно.</span></p></div>
   <div data-ex="m1"></div><div data-ex="m2"></div><div data-ex="m3"></div><div data-ex="m4"></div>
-  <div class="next"><button class="btn pri" data-go="5" type="button">Next: Write &amp; listen →<small>Дальше: пиши и слушай</small></button></div>
+  <div class="next"><button class="btn pri" data-go="5" type="button">Next: Write &amp; build →<small>Дальше: пиши и собирай</small></button></div>
 </section>
 
 <section class="panel" id="p-mix">
-  <div class="card"><span class="kicker">Step 6 · Шаг 6</span><h2>Write and listen <span class="ru">Пиши и слушай</span></h2>
-    <p class="lead" style="margin:0">Write the prepositions, build sentences and listen.<span class="ru">Пиши предлоги, собирай предложения и слушай.</span></p></div>
-  <div data-ex="w1"></div><div data-ex="t1"></div><div data-ex="l1"></div>
+  <div class="card"><span class="kicker">Step 6 · Шаг 6</span><h2>Write and build <span class="ru">Пиши и собирай</span></h2>
+    <p class="lead" style="margin:0">Write the prepositions and build sentences.<span class="ru">Пиши предлоги и собирай предложения.</span></p></div>
+  <div data-ex="w1"></div><div data-ex="t1"></div>
   <div class="next"><button class="btn pri" data-go="6" type="button">See my results →<small>Мой результат</small></button></div>
 </section>
 
@@ -659,15 +659,6 @@ const EXERCISES = [
     {ru:"Куда идёт призрак?", tiles:["Where's","the","ghost","going"], accept:["Where's the ghost going","Where is the ghost going"], end:"?"},
     {ru:"Он поднимается по лестнице.", tiles:["He's","going","up","the","stairs"], accept:["He's going up the stairs","He is going up the stairs"]},
     {ru:"Она стоит перед столом.", tiles:["She's","in","front","of","the","table"], accept:["She's in front of the table","She is in front of the table"]}
-   ]},
-  {id:"l1", type:"choice", mode:"listen", title:{en:"Listen and choose", ru:"Послушай и выбери"},
-   ins:{en:"Press 🔊 and choose the preposition you hear.", ru:"Нажми 🔊 и выбери предлог, который слышишь."},
-   items:[
-    {say:"The ghost is behind the sofa.", answer:"behind", options:["between","behind","below"]},
-    {say:"He's going through the window.", answer:"through", options:["through","into","to"]},
-    {say:"The ghost is opposite the woman.", answer:"opposite", options:["over","above","opposite"]},
-    {say:"She's going down the stairs.", answer:"down", options:["down","up","under"]},
-    {say:"The ghost is above the clock.", answer:"above", options:["about","above","below"]}
    ]}
 ];
 
@@ -677,7 +668,7 @@ const TABS = [
   {id:"cards", icon:"🃏", en:"Cards", ru:"Карточки", ex:[]},
   {id:"pp", icon:"👻", en:"Practice: place", ru:"Практика: место", ex:["p1","p2","p3"]},
   {id:"mp", icon:"➡️", en:"Practice: movement", ru:"Практика: движение", ex:["m1","m2","m3","m4"]},
-  {id:"mix", icon:"✍️", en:"Write & listen", ru:"Пиши и слушай", ex:["w1","t1","l1"]},
+  {id:"mix", icon:"✍️", en:"Write & build", ru:"Пиши и собирай", ex:["w1","t1"]},
   {id:"results", icon:"🏆", en:"Results", ru:"Результат", ex:[]}
 ];
 
@@ -687,7 +678,7 @@ const TABS = [
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const strip=s=>String(s).replace(/<[^>]+>/g,"");
-const HAS_SPEECH=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+const HAS_SPEECH=false; /* sound switched off for this app */
 if(!HAS_SPEECH) document.documentElement.classList.add("nospeech");
 const EX={}; EXERCISES.forEach(e=>{EX[e.id]=e;});
 let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
@@ -711,11 +702,9 @@ function norm(s){
 const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
 
 let VOICE=null;
-function pickVoice(){ try{const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}catch(e){} }
-if(HAS_SPEECH){ pickVoice(); try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){} }
-function speak(t){ if(!HAS_SPEECH||!t) return; try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/[“”]/g,"").replace(/→/g,", ").replace(/\p{Extended_Pictographic}/gu,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u);}catch(e){} }
+function speak(){} /* no audio in this app */
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
-const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(strip(t))}" aria-label="listen" type="button">🔊</button>`;
+const sayBtn=()=>"";
 
 const PRAISE=["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Молодец! · Well done!","Да! · Yes!","Здорово! · Brilliant!"];
 const OOPS=["Не совсем · Not quite","Почти! · Almost!","Посмотри ещё раз · Have a look"];
