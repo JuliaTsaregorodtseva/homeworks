@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misha · Articles: a, an, the or nothing?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#F4F1E7; --card:#FFFDF8; --ink:#13342A; --muted:#5B6B63; --line:#DCD6C4; --soft:#EEEADB;
+  --green:#1E7550; --green-bg:#E2F0E8; --gold:#B68A1F; --gold-bg:#FAF0D3; --stamp:#B33A2E; --stamp-bg:#FBE7E3;
+  --ok:#1C8A50; --ok-bg:#E1F3E8; --bad:#C2392E; --bad-bg:#FCE8E5; --hint:#FFF4D6;
+  --r:16px; --shadow:0 1px 0 rgba(19,52,42,.06),0 10px 26px rgba(19,52,42,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:16px/1.55 "Manrope",system-ui,sans-serif;
+  background:var(--paper);
+  background-image:radial-gradient(circle at 0 0,rgba(30,117,80,.05) 0 2px,transparent 2px),radial-gradient(circle at 12px 12px,rgba(182,138,31,.05) 0 2px,transparent 2px);
+  background-size:24px 24px}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:.005em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* banknote header */
+header.top{padding:20px 0 12px}
+.note{position:relative;background:linear-gradient(135deg,#1E7550 0%,#13503A 60%,#0F3D2D 100%);color:#F6F1DF;border-radius:20px;padding:22px 22px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.note::before{content:"";position:absolute;inset:8px;border:1.5px solid rgba(246,241,223,.35);border-radius:14px;pointer-events:none}
+.note::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(246,241,223,.12) 0 2px,transparent 2px 9px);pointer-events:none}
+.note .serial{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;opacity:.85}
+.note h1{font-size:clamp(28px,7vw,44px);margin:10px 0 2px;line-height:1.05}
+.note p{margin:6px 0 0;max-width:560px}
+.note .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+.namebox{display:flex;align-items:center;gap:8px;background:rgba(246,241,223,.12);border:1px solid rgba(246,241,223,.35);border-radius:12px;padding:6px 10px}
+.namebox label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.namebox input{background:transparent;border:0;border-bottom:1.5px dashed rgba(246,241,223,.6);width:120px;color:#fff;font-weight:800;padding:2px}
+.seal{width:62px;height:62px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font:20px "DM Serif Display",serif;color:#F3D88A;background:rgba(0,0,0,.12)}
+.howto{font-size:14.5px;color:var(--muted);margin:12px 2px 0}
+
+/* sticky */
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,241,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.progress{display:flex;align-items:center;gap:10px;padding:8px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .4s}
+.score{white-space:nowrap;color:var(--ink);font-family:"IBM Plex Mono",monospace}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:88px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 4px;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.15;min-height:44px}
+.coin{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:600 15px/1 "IBM Plex Mono",monospace;background:radial-gradient(circle at 35% 30%,#FFF8DF,#E9D18A 60%,#C9A445);color:#5A4410;box-shadow:inset 0 0 0 2px rgba(90,68,16,.25),0 2px 0 rgba(90,68,16,.25);transition:transform .2s}
+.tab b{color:var(--ink);font-weight:800}
+.tab .badge{font-size:11px;font-family:"IBM Plex Mono",monospace}
+.tab.on .coin{transform:translateY(-2px) scale(1.08);box-shadow:inset 0 0 0 2px rgba(90,68,16,.35),0 0 0 3px var(--green)}
+.tab.done .coin{background:radial-gradient(circle at 35% 30%,#F0FFF6,#9FD8B6 60%,#3E9E6C);color:#0E4A2C}
+.tab.done .badge{color:var(--ok)}
+
+main{padding:18px 0 80px}
+.panel{display:none}
+.panel.show{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(22px,5vw,28px);margin:0 0 4px;line-height:1.15}
+.card h3{font-size:20px;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 6px}
+.kicker{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* word list */
+.wgroup{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.word{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start}
+.word .em{font-size:26px;line-height:1.1}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font:500 13px "IBM Plex Mono",monospace}
+.word .pat{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:6px;padding:1px 7px;margin:3px 0}
+.word .def{font-size:14.5px}
+.word .exl{font-size:14px;color:var(--muted);margin-top:4px;font-style:italic}
+.say{border:0;background:var(--soft);border-radius:12px;width:40px;height:40px;min-width:40px;display:inline-grid;place-items:center;font-size:17px}
+.say.sm{width:34px;height:34px;min-width:34px;font-size:15px}
+.say:active{transform:scale(.94)}
+.careful{background:var(--gold-bg);border:2px dashed var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
+.careful h2{font-size:24px;margin:0 0 6px}
+.careful ul{margin:0;padding-left:20px}
+.careful li{margin:8px 0}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin:6px 0 2px}
+.mist div{padding:6px 10px;border-radius:9px;font-weight:700;font-size:14.5px}
+.mist .x{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-bg);color:var(--ok)}
+.mist .x::before{content:"✗ "}.mist .v::before{content:"✓ "}
+.colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.colbox{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid var(--line);font-size:14.5px}
+.colbox b.p{font:600 15px "IBM Plex Mono",monospace;color:var(--green)}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fc-scene{perspective:1200px;max-width:460px;margin:0 auto}
+.fc{position:relative;height:290px;cursor:pointer}
+.fc .inner{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.fc.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 20px;gap:6px}
+.front{background:#fff;border:2px solid var(--line);background-image:repeating-linear-gradient(45deg,rgba(30,117,80,.03) 0 6px,transparent 6px 12px)}
+.back{background:linear-gradient(140deg,#1E7550,#0F3D2D);color:#F6F1DF;transform:rotateY(180deg)}
+.face .big{font-size:48px;line-height:1}
+.face .txt{font:clamp(26px,7vw,34px)/1.15 "DM Serif Display",serif}
+.face .def{font-size:16.5px;font-weight:600;max-width:360px}
+.face .sub{font-size:14.5px;opacity:.85;font-style:italic;max-width:360px}
+.face .ipa{font:500 14px "IBM Plex Mono",monospace;color:var(--muted)}
+.face .say{position:absolute;top:12px;right:12px}
+.back .say{background:rgba(255,255,255,.14);color:#fff}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.back .tap{color:#B9D8C6}
+.fc-row{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.fc-row .btn{flex:1 1 130px;max-width:210px}
+.kbar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.kbar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;min-height:44px}
+.tog input{width:20px;height:20px;accent-color:var(--green)}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px 14px;font-weight:800;min-height:46px;line-height:1.15}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.bad{border-color:var(--stamp);color:var(--stamp)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 18px;box-shadow:var(--shadow);overflow:hidden}
+.exhead{padding:14px 18px 12px;border-bottom:1px dashed var(--line)}
+.exhead .no{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.exhead h3{margin:6px 0 2px;font-size:22px}
+.exhead .ins{font-size:14.5px;color:var(--muted)}
+.exscore{float:right;font:600 13px "IBM Plex Mono",monospace;background:var(--soft);border-radius:99px;padding:4px 10px;margin-left:8px}
+.exbody{padding:4px 18px 14px}
+.item{padding:13px 0;border-bottom:1px dashed var(--line)}
+.item:last-child{border-bottom:0}
+.qline{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:600 12px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
+.q{flex:1;font-size:17px;font-weight:700}
+.orig{display:block;font-weight:600;color:var(--muted);font-size:15px;margin-bottom:4px}
+.key{display:inline-block;font:600 13px "IBM Plex Mono",monospace;background:var(--gold-bg);color:#7A5B0E;border-radius:6px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--line);text-align:center;color:var(--muted);padding:0 4px;margin:0 2px}
+.gap.filled{color:var(--ok);border-color:var(--ok)}
+.gap.filledbad{color:var(--bad);border-color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 36px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;min-width:52px;font-weight:800;font-size:16px;transition:background .15s,border-color .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.ghost{border-color:var(--ok);border-style:dashed;color:var(--ok)}
+.opt.mono{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.fb{margin:8px 0 0 36px;font-size:14.5px;display:none;border-radius:12px;padding:8px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--ok-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint)}
+.fb b.t{display:block}
+.fb .why{margin-top:4px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inrow{display:flex;gap:8px;margin:10px 0 0 36px;flex-wrap:wrap}
+.inrow input{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;font-weight:700;font-size:16px;background:#fff}
+.inrow input:focus{border-color:var(--green);outline:none}
+.inrow input.okv{border-color:var(--ok);background:var(--ok-bg)}
+.inrow input.badv{border-color:var(--bad);background:var(--bad-bg)}
+.wrongs{font-size:16.5px;font-weight:700;color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(194,57,46,.35)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;border-radius:12px;background:var(--soft)}
+.bank span{background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:800}
+.bank b{width:100%;font-size:13px;color:var(--muted)}
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:8px;margin-top:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;min-height:52px;font-weight:700;font-size:14.5px;text-align:left;line-height:1.3;transition:all .15s}
+.L .mbtn{font-weight:800;font-size:15.5px}
+.mbtn.sel{border-color:var(--green);background:var(--green-bg)}
+.mbtn.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default}
+.mbtn.done.miss{border-color:#D8AE3F;background:var(--hint);color:#7A5B0E}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-bg)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* text */
+.gtext{font-size:17px;line-height:2.35;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+.gtext .gn{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);vertical-align:super;margin-right:2px}
+.gapin{width:100px;border:0;border-bottom:3px solid var(--green);background:var(--green-bg);border-radius:6px 6px 0 0;padding:2px 6px;font-weight:800;font-size:16px;text-align:center}
+.gapin.okv{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.gapin.badv{border-color:var(--bad);background:var(--bad-bg)}
+.whylist{margin:10px 0 0;padding:0;list-style:none;font-size:14.5px}
+.whylist li{padding:6px 10px;border-radius:10px;margin-bottom:6px}
+.whylist li.g{background:var(--ok-bg)}.whylist li.b{background:var(--bad-bg)}
+textarea{width:100%;min-height:150px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;resize:vertical;background:#fff}
+textarea:focus{border-color:var(--green);outline:none}
+.wcount{font:500 12.5px "IBM Plex Mono",monospace;color:var(--muted);text-align:right}
+.wcount.ok{color:var(--ok)}
+.tick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tick span{font-size:12.5px;font-weight:800;border-radius:99px;padding:2px 9px;background:var(--soft);color:var(--muted)}
+.tick span.used{background:var(--ok-bg);color:var(--ok)}
+.selfok{margin-top:8px}
+/* receipt */
+.receipt{background:#fff;max-width:520px;margin:0 auto 18px;padding:22px 20px 26px;font-family:"IBM Plex Mono",monospace;font-size:14px;box-shadow:var(--shadow);position:relative;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/16px 10px repeat-x}
+.receipt h2{font-family:"IBM Plex Mono",monospace;font-size:16px;text-align:center;letter-spacing:.2em;margin:0}
+.receipt .c{text-align:center;color:var(--muted);font-size:12.5px}
+.receipt hr{border:0;border-top:1.5px dashed var(--line);margin:12px 0}
+.receipt .ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.receipt .ln span:first-child{min-width:0}
+.receipt .tot{font-size:22px;font-weight:600}
+.receipt .msg{text-align:center;font-family:"Manrope",sans-serif;font-weight:700;font-size:16px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:2px 10px;transform:rotate(-6deg);font-weight:600;letter-spacing:.12em;margin-top:8px}
+.mlist{list-style:none;padding:0;margin:0}
+.mlist li{padding:8px 10px;border-radius:10px;background:var(--soft);margin-bottom:6px;font-size:14.5px}
+.mlist .yr{color:var(--bad);font-weight:700}.mlist .cr{color:var(--ok);font-weight:800}
+.sendgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.sendgrid .btn{text-decoration:none;color:var(--ink);text-align:center;display:flex;align-items:center;justify-content:center}
+.sendgrid .pri{color:#fff}
+.mail{user-select:all;font-weight:800;background:var(--soft);padding:2px 8px;border-radius:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .3s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+
+@media (max-width:640px){
+  .wgroup,.mist,.colgrid{grid-template-columns:1fr}
+  .opts,.fb,.inrow{margin-left:0}
+  .card,.exbody{padding-left:14px;padding-right:14px}
+  .exhead{padding:12px 14px 10px}
+  .match{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .mbtn{font-size:13.5px;padding:8px}
+  .L .mbtn{font-size:14px}
+  .seal{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Misha · Articles — editorial theme ===== */
+:root{
+  --paper:#F4F2EE; --card:#FFFFFF; --ink:#1D1B24; --muted:#67636E; --line:#E4E0D7; --soft:#EFECE5;
+  --green:#4C3FCB; --green-bg:#ECEAFB; --gold:#67636E;
+  --ca:#C8442F; --ca-bg:#FBE4DE; --ct:#4C3FCB; --ct-bg:#E8E5FB; --cz:#2A7F67; --cz-bg:#DDF1E9;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+body{background:var(--paper);background-image:none;font-family:var(--sans)}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(21px,5vw,27px);margin:6px 0 6px;line-height:1.2}
+span.A,span.T,span.Z{border-radius:5px;padding:0 4px;font-weight:700;white-space:nowrap}
+span.A{color:var(--ca);background:var(--ca-bg)}span.T{color:var(--ct);background:var(--ct-bg)}span.Z{color:var(--cz);background:var(--cz-bg)}
+s{color:var(--bad);text-decoration-thickness:2px}
+/* header */
+header.top{padding:16px 0 6px}
+.brand{display:flex;align-items:center;gap:10px;font-size:18px}
+.brand b{font-weight:800}.brand .sub{color:var(--muted);font-size:14px}
+.dots{display:inline-flex;gap:4px}.dots i{width:11px;height:11px;border-radius:50%;display:block}
+.dots .d1{background:var(--ca)}.dots .d2{background:var(--ct)}.dots .d3{background:var(--cz)}
+.hero{padding:18px 0 4px}
+.hero .kick{font:700 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-size:clamp(32px,8vw,56px);line-height:1.04;margin:8px 0 10px}
+.hero p{color:#4A4752;font-size:17px;max-width:680px;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.legend span{font-size:15px;padding:4px 12px;border-radius:99px}
+.legend.sm span{font-size:13px;padding:2px 10px}
+.namebox{background:#fff;border:1px solid var(--line);margin-top:12px;display:inline-flex}
+.namebox label{color:var(--muted);opacity:1}
+.namebox input{color:var(--ink);border-bottom-color:var(--line)}
+/* sticky + tabs */
+.sticky{background:rgba(244,242,238,.95)}
+.bar i{background:linear-gradient(90deg,var(--ca),var(--ct),var(--cz))}
+nav.tabs{gap:6px}
+.tab{flex:0 0 auto;min-width:0;flex-direction:row;gap:6px;padding:8px 14px;border-radius:10px;font-size:14.5px}
+.tab .coin{display:none}
+.tab b{font-weight:700;color:#3F3C46}
+.tab .badge{font-family:var(--sans);font-weight:700}
+.tab.on{background:var(--ink)}.tab.on b{color:#fff}.tab.on .badge{color:#C9C3FF}
+/* cards */
+.card,.ex{border-radius:16px;box-shadow:0 1px 2px rgba(29,27,36,.05),0 8px 24px rgba(29,27,36,.05)}
+.kicker{font:700 11.5px var(--sans);letter-spacing:.16em;color:var(--muted)}
+.exhead .no{font:700 11px var(--sans);letter-spacing:.14em;color:#fff;background:var(--ink);padding:4px 8px;border-radius:5px;display:inline-block}
+.exhead h3{font-size:21px}
+.btn{border-width:1.5px}
+.btn.pri{background:var(--ink);border-color:var(--ink);color:#fff}
+.opt.mono{font-family:var(--sans);font-weight:800;min-width:58px;text-align:center}
+.gapin{width:84px;border-bottom-color:var(--ct);background:var(--ct-bg)}
+/* three questions */
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 18px}
+.st{background:#fff;border-radius:14px;padding:16px;border-top:4px solid;box-shadow:0 8px 24px rgba(29,27,36,.05)}
+.st.A{border-color:var(--ca)}.st.T{border-color:var(--ct)}.st.Z{border-color:var(--cz)}
+.st .sn{font:700 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.st p{margin:8px 0 10px;font-size:15.5px}
+.st>div{font-size:17px}
+@media (max-width:700px){ .steps3{grid-template-columns:1fr} }
+/* finder */
+.flow{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.fstep{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:12px;background:var(--soft)}
+.fstep.done{opacity:.75;font-size:14.5px;align-items:center}
+.fstep .ans{margin-left:auto;font-size:13px;background:#fff;border-radius:6px;padding:2px 8px}
+.fstep.now{background:#fff;border:2px solid var(--ink)}
+.fn{flex:0 0 26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800}
+.fstep small{display:block;color:var(--muted);margin-top:4px}
+.fbtns{display:flex;gap:8px;margin-top:10px}.fbtns .btn{min-width:90px}
+.fres{border-radius:14px;padding:16px;border-left:6px solid}
+.fres.A{background:var(--ca-bg);border-color:var(--ca)}.fres.T{background:var(--ct-bg);border-color:var(--ct)}.fres.Z{background:var(--cz-bg);border-color:var(--cz)}
+.frt{font:700 22px var(--serif);margin-bottom:6px}
+.fex{padding:5px 0;font-size:15.5px}
+.fres span.A,.fres span.T,.fres span.Z{background:#fff}
+.fres .btn{margin-top:10px}
+/* rule panels */
+.rule{background:#fff;border-radius:16px;margin:0 0 18px;overflow:hidden;box-shadow:0 8px 24px rgba(29,27,36,.05);border:1px solid var(--line)}
+.rh{padding:12px 16px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rule.A .rh{background:var(--ca-bg);color:var(--ca)}.rule.T .rh{background:var(--ct-bg);color:var(--ct)}.rule.Z .rh{background:var(--cz-bg);color:var(--cz)}
+.rh span.A,.rh span.T,.rh span.Z{background:#fff}
+.rn{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:14px}
+.rule.A .rn{background:var(--ca)}.rule.T .rn{background:var(--ct)}.rule.Z .rn{background:var(--cz)}
+.rule ul{margin:0;padding:6px 16px 10px 34px}
+.rule li{padding:9px 0;border-bottom:1px dashed var(--line);line-height:1.75}
+.rule li:last-child{border-bottom:0}
+.rule li small{display:block;color:var(--muted);font-size:13.5px;line-height:1.7}
+/* tables */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gp,.ref{width:100%;border-collapse:collapse;font-size:15px;min-width:300px}
+.gp th,.ref th{font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.gp td,.ref td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+.gp td:first-child{border-right:1px solid var(--line)}
+.ref td:nth-child(2){white-space:nowrap}
+/* traps & tips */
+.traps{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.trap{background:#fff;border-radius:14px;padding:14px 16px;border-left:5px solid #B98A2E;box-shadow:0 8px 24px rgba(29,27,36,.05);line-height:1.7}
+.trap>b{display:block;font-size:15.5px}
+.trap p{margin:6px 0 4px}
+.trap small{color:var(--muted);font-size:13.5px}
+@media (max-width:700px){ .traps{grid-template-columns:1fr} }
+.tips ol{margin:8px 0 0;padding-left:22px}
+.tips li{margin:0 0 12px;line-height:1.65}
+/* reading */
+.rbtns{margin:4px 0 8px}
+.reading{font:400 18px/1.85 var(--serif);max-width:680px}
+.reading p{margin:12px 0}
+.reading p:first-child::first-letter{font:700 52px/0.9 var(--serif);float:left;margin:6px 8px 0 0;color:var(--ct)}
+.reading span{white-space:normal}
+.reading.plain span.A,.reading.plain span.T,.reading.plain span.Z{background:none;color:inherit;font-weight:inherit;padding:0}
+.receipt .msg{font-family:var(--sans)}
+footer{font-family:var(--serif);font-style:italic}
+.toast{visibility:hidden;transition:transform .3s,visibility .3s}
+.toast.show{visibility:visible}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="dots" aria-hidden="true"><i class="d1"></i><i class="d2"></i><i class="d3"></i></span><b>Articles</b><span class="sub">a · an · the · —</span></div>
+    <div class="hero">
+      <div class="kick">Grammar · Upper-Intermediate · for Misha</div>
+      <h1>Three choices, one question</h1>
+      <p>For every noun you say, English makes you decide how much the other person already knows. That's the whole job of an article: it signals shared knowledge. It isn't decoration. About 25 minutes, no writing.</p>
+      <div class="legend"><span class="A">a / an</span><span class="T">the</span><span class="Z">no article</span></div>
+      <div class="namebox"><label for="nm">Name</label><input id="nm" autocomplete="off" placeholder="Your name"></div>
+    </div>
+  </div>
+</header>
+
+<div class="sticky">
+  <div class="wrap">
+    <div class="progress"><span id="pdone">0%</span><div class="bar"><i id="pbar"></i></div><span class="score" id="pscore">0 / 0</span></div>
+    <nav class="tabs" id="tabs" aria-label="sections"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="panel" id="p-how">
+  <div class="steps3">
+    <div class="st A"><span class="sn">Question 1</span><p>Is it <b>one countable thing</b> the listener can't identify yet?</p><div>Use <span class="A">a / an</span></div></div>
+    <div class="st T"><span class="sn">Question 2</span><p>Can the listener work out <b>exactly which one</b> you mean?</p><div>Use <span class="T">the</span></div></div>
+    <div class="st Z"><span class="sn">Question 3</span><p>Is it plural or uncountable, and do you mean it <b>in general</b>?</p><div>Use <span class="Z">no article</span></div></div>
+  </div>
+
+  <div class="card">
+    <span class="kicker">Try it</span>
+    <h2>The article finder</h2>
+    <p class="lead">Think of any noun in a sentence you want to say and answer the questions.</p>
+    <div class="flow" id="flow" aria-live="polite"></div>
+  </div>
+
+  <div class="rule A">
+    <div class="rh"><span class="rn">1</span><span class="A">a / an</span> one of many, and you can't tell which</div>
+    <ul>
+      <li><b>Introducing something new.</b> I heard <span class="A">a</span> take yesterday that made me close the app.</li>
+      <li><b>Saying what something is.</b> That's <span class="A">a</span> pretty unpopular opinion. · She's <span class="A">a</span> journalist. · It was <span class="A">an</span> argument, not <span class="A">a</span> conversation.</li>
+      <li><b>Rates and amounts.</b> twice <span class="A">a</span> week · ten pounds <span class="A">a</span> ticket</li>
+      <li><b>After what and such.</b> What <span class="A">an</span> awful take! · such <span class="A">a</span> strange thing to believe</li>
+      <li><b>Choose by sound, never by spelling.</b><small><span class="A">a</span> university · <span class="A">a</span> one-sided debate · <span class="A">a</span> European habit · <span class="A">an</span> hour · <span class="A">an</span> honest opinion · <span class="A">an</span> MP</small></li>
+    </ul>
+  </div>
+
+  <div class="rule T">
+    <div class="rh"><span class="rn">2</span><span class="T">the</span> you and I both know which one</div>
+    <ul>
+      <li><b>Second mention.</b> I read <span class="A">a</span> comment. <span class="T">The</span> comment was three words long.</li>
+      <li><b>Only one in this situation.</b> Could you close <span class="T">the</span> window? · What did <span class="T">the</span> teacher say?</li>
+      <li><b>Only one in the world we share.</b> <span class="T">the</span> internet · <span class="T">the</span> media · <span class="T">the</span> government · <span class="T">the</span> environment</li>
+      <li><b>The words after the noun say which one.</b> <span class="T">the</span> view <i>that nobody defends</i> · <span class="T">the</span> opinions <i>of my parents</i><small>This is the one good students forget. If you ask “which one?” and the sentence already answers, you need <span class="T">the</span>.</small></li>
+      <li><b>Superlative, only, same, first, next, last.</b> <span class="T">the</span> most unpopular opinion in the room · <span class="T">the</span> only person who agreed</li>
+      <li><b>the + adjective = a whole group of people.</b> <span class="T">the</span> young · <span class="T">the</span> rich · <span class="T">the</span> silent majority</li>
+    </ul>
+  </div>
+
+  <div class="rule Z">
+    <div class="rh"><span class="rn">3</span><span class="Z">no article</span> things in general, not particular ones</div>
+    <ul>
+      <li><b>Plural, in general.</b> <span class="Z">Opinions</span> are cheap. · <span class="Z">People</span> say they want honesty.</li>
+      <li><b>Uncountable and abstract, in general.</b> <span class="Z">Honesty</span> is rare online. · <span class="Z">Outrage</span> travels faster than <span class="Z">information</span>.</li>
+      <li><b>Most names.</b> <span class="Z">Misha</span> · <span class="Z">Georgia</span> · <span class="Z">Tbilisi</span> · <span class="Z">English</span></li>
+      <li><b>Set phrases.</b> at <span class="Z">home</span> · at <span class="Z">work</span> · by <span class="Z">bus</span> · go to <span class="Z">bed</span> / <span class="Z">school</span> / <span class="Z">university</span><small>No article when you mean the purpose of the place: I went to <span class="Z">school</span> (to study) vs I went to <span class="T">the</span> school (the building).</small></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>General or particular? The table to remember</h2>
+    <div class="tw"><table class="gp">
+      <tr><th>In general: no article</th><th>These particular ones: the</th></tr>
+      <tr><td><span class="Z">Opinions</span> change.</td><td><span class="T">The</span> opinions in that article are ten years old.</td></tr>
+      <tr><td><span class="Z">Teenagers</span> spend hours on TikTok.</td><td><span class="T">The</span> teenagers in my class spend hours on TikTok.</td></tr>
+      <tr><td><span class="Z">Life</span> is unfair.</td><td><span class="T">The</span> life she leads is unfair.</td></tr>
+      <tr><td><span class="Z">Most</span> people disagree.</td><td>Most of <span class="T">the</span> people in the room disagreed.</td></tr>
+    </table></div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="1" type="button">Next: Traps &amp; tips →</button></div>
+</section>
+
+<!-- ============ TRAPS & TIPS ============ -->
+<section class="panel" id="p-traps">
+  <div class="card intro">
+    <span class="kicker">Where marks are lost</span>
+    <h2>Eight traps that catch good students</h2>
+    <p class="lead">You know the three rules. Almost every upper-intermediate mistake happens in the small print below.</p>
+  </div>
+  <div class="traps">
+    <div class="trap"><b>Big abstract nouns in general</b><p><s>The society</s> expects you to agree. → <span class="Z">Society</span> expects you to agree.</p><small>also life, nature, history, technology, love</small></div>
+    <div class="trap"><b>…but these always take <span class="T">the</span></b><p><span class="T">the</span> media · <span class="T">the</span> internet · <span class="T">the</span> environment · <span class="T">the</span> economy · <span class="T">the</span> government</p><small>but <span class="Z">social media</span>, <span class="Z">television</span> (watch TV), <span class="Z">nature</span></small></div>
+    <div class="trap"><b>most people, not the most people</b><p><span class="Z">Most</span> people never change their minds. · Most of <span class="T">the</span> people I follow are like that.</p><small><s>most of people</s> and <s>the most people</s> are always wrong</small></div>
+    <div class="trap"><b>Uncountables never take a / an</b><p><s>an advice</s> → <span class="Z">advice</span> / some advice / a piece of advice</p><small>information, news, research, evidence, feedback, progress, knowledge</small></div>
+    <div class="trap"><b>Abstract noun + of / that / to</b><p><span class="T">the</span> importance of listening · <span class="T">the</span> idea that everyone deserves a platform</p><small>the phrase after the noun pins the idea down</small></div>
+    <div class="trap"><b>One determiner is enough</b><p><s>the my opinion</s> → <span class="Z">my</span> opinion · <s>a some views</s> → <span class="Z">some</span> views</p><small>my, this, some, every, no already do the article's job</small></div>
+    <div class="trap"><b>the number of / a number of</b><p><span class="T">The number of</span> complaints <b>is</b> rising. · <span class="A">A number of</span> people <b>have</b> complained.</p><small>the number = the quantity (singular verb) · a number = several (plural verb)</small></div>
+    <div class="trap"><b>Fixed phrases: learn them whole</b><p>on <span class="T">the</span> one hand · in <span class="T">the</span> minority · <span class="A">a</span> matter of opinion · to <span class="A">a</span> certain extent · make <span class="A">a</span> point · in <span class="Z">my</span> opinion</p></div>
+  </div>
+
+  <div class="card tips">
+    <span class="kicker">How to actually learn them</span>
+    <h2>Six techniques that work</h2>
+    <ol>
+      <li><b>Ask “which one?” every time.</b> Before every noun, ask yourself “which one?”. If the context or the words after the noun answer it, use <span class="T">the</span>. If they don't, it's <span class="A">a</span> (one thing) or <span class="Z">nothing</span> (general).</li>
+      <li><b>Learn nouns with their article, as chunks.</b> Don't learn <i>internet</i>, learn <i>the internet</i>. Don't learn <i>opinion</i>, learn <i>a matter of opinion</i> and <i>in my opinion</i>. Keep a list of chunks and add to it.</li>
+      <li><b>Check [C] or [U] in the dictionary.</b> Most a / an mistakes are really uncountable mistakes. If the dictionary says [U] (advice, research), you can't use a / an.</li>
+      <li><b>Read with three highlighters.</b> Take any short article and mark every a / an, the and noun with no article in three colours, then explain each one to yourself. The Read tab does this for you, so try it there first.</li>
+      <li><b>Do one editing pass just for nouns.</b> After you write something, go back and read it only for nouns, asking the three questions. Don't check articles while you're writing; check them afterwards.</li>
+      <li><b>Collect your own mistakes.</b> Write down every article your teacher corrects, with the reason. You'll see you make the same 3–4 mistakes again and again, and those are the ones worth drilling.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>One-screen reference</h2>
+    <div class="tw"><table class="ref">
+      <tr><th>When</th><th>Use</th><th>Example</th></tr>
+      <tr><td>First mention of a countable thing</td><td><span class="A">a / an</span></td><td>I have <span class="A">an</span> unpopular opinion.</td></tr>
+      <tr><td>What something is (job, category)</td><td><span class="A">a / an</span></td><td>That's <span class="A">a</span> bad argument.</td></tr>
+      <tr><td>Second mention</td><td><span class="T">the</span></td><td><span class="T">The</span> opinion is this…</td></tr>
+      <tr><td>Only one in the situation or the world</td><td><span class="T">the</span></td><td><span class="T">the</span> internet, <span class="T">the</span> teacher</td></tr>
+      <tr><td>Defined by the words that follow</td><td><span class="T">the</span></td><td><span class="T">the</span> view that nobody defends</td></tr>
+      <tr><td>Superlative / only / same / first</td><td><span class="T">the</span></td><td><span class="T">the</span> worst take of the year</td></tr>
+      <tr><td>Plural or uncountable, in general</td><td><span class="Z">nothing</span></td><td><span class="Z">Opinions</span> are cheap.</td></tr>
+      <tr><td>Another determiner is already there</td><td><span class="Z">nothing</span></td><td><span class="Z">my</span> opinion, <span class="Z">this</span> view</td></tr>
+    </table></div>
+  </div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Practice →</button></div>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section class="panel" id="p-practice">
+  <div class="card intro"><span class="kicker">Drilling</span><h2>Practise until it stops being a decision</h2>
+    <p class="lead" style="margin:0">Four short drills. Go fast: when you speak, you have about half a second to choose.</p></div>
+  <div data-ex="d1"></div><div data-ex="d2"></div><div data-ex="d3"></div><div data-ex="d4"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Read →</button></div>
+</section>
+
+<!-- ============ READ ============ -->
+<section class="panel" id="p-read">
+  <div class="card article">
+    <span class="kicker">Reading · ≈ 300 words</span>
+    <h2>Everybody loves an unpopular opinion</h2>
+    <p class="lead">Read it once for the argument. Then read it again for the articles: every one is colour-coded. Hide the colours and test yourself.</p>
+    <div class="row rbtns"><button class="btn" id="readHl" type="button">Hide the colours</button><button class="btn" id="readSay" type="button" data-say="">🔊 Listen</button></div>
+    <div class="legend sm"><span class="A">a / an</span><span class="T">the</span><span class="Z">no article</span></div>
+    <div class="reading" id="reading"></div>
+  </div>
+  <div data-ex="r1"></div><div data-ex="r2"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">See my report →</button></div>
+</section>
+
+<!-- ============ REPORT ============ -->
+<section class="panel" id="p-results">
+  <div class="receipt" id="receipt"></div>
+  <div class="card">
+    <h2 style="font-size:22px">Send it to your teacher</h2>
+    <p class="lead">When you've finished, send your results. Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+    <div class="sendgrid" id="sendgrid"></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Gmail, Telegram, WhatsApp and the email app send a shorter version. “Copy text” always copies the full report.</p>
+  </div>
+  <div class="card"><h2 style="font-size:22px">Mistakes to look at again</h2><ul class="mlist" id="rMist"></ul></div>
+  <div class="card">
+    <h2 style="font-size:22px">Start again</h2>
+    <button class="btn bad" id="resetBtn" type="button">🗑 Delete all my answers</button>
+    <div class="confirm" id="resetConfirm"><b>Delete all answers? This can't be undone.</b>
+      <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes" type="button">Yes, delete</button><button class="btn" id="resetNo" type="button">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<footer>That's an opinion nobody can argue with: well done, Misha.</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA — Misha · Articles: a / an / the / no article (Upper-Intermediate+)
+   topic: unpopular opinions · English only
+   ========================================================= */
+const STUDENT = "Misha";
+const TEACHER = "ulchik2211@gmail.com";
+const TITLE = "Articles (a / an / the / no article) — unpopular opinions · Upper-Intermediate";
+const SUBJECT_TOPIC = "Articles";
+const REPORT_HEAD = "ARTICLES · REPORT";
+const KEY = "misha-articles-unpopular-opinions-v1";
+const VOCAB = [];
+
+/* reading — an original text written for this homework.
+   {a:…} = a/an · {t:…} = the · {z:…} = noun with no article */
+const READING = [
+  "Every few weeks, {a:a} new “unpopular opinion” goes viral. Somebody writes that {z:pineapple} belongs on {z:pizza}, that {t:the} beach is boring, or that {z:breakfast} is {t:the} most overrated meal of {t:the} day. Thousands of strangers reply. Half of them are furious; {t:the} other half say they have thought {t:the} same thing for years.",
+  "There are whole online forums for this kind of post, and they reveal {a:a} strange pattern. {t:The} posts that do best are rarely {t:the} truly unpopular ones. {t:The} opinions people reward are usually {z:opinions} they already hold but have never said out loud. {a:A} genuinely unpopular view, one that almost nobody shares, tends to sink without {a:a} trace.",
+  "So why do we enjoy them so much? Partly because {z:disagreement} feels safe when {t:the} topic is {a:a} sandwich and not {z:politics}. Arguing about {t:the} right way to load {a:a} dishwasher lets us practise having {z:opinions} without risking {z:friendships}.",
+  "So here is mine, offered in {t:the} spirit of {t:the} genre: {z:silence} is {t:the} best soundtrack for {a:a} long train journey. You may now disagree."
+];
+
+const Z = ["—","-","–","x","0","ø","/","nothing","no article","zero"];  // accepted ways to write "no article"
+
+const EXERCISES = [
+  /* ---------- PRACTICE ---------- */
+  {id:"d1", type:"choice", options:["a","an"], mono:true, title:"a or an? Listen, don't look",
+   ins:"The choice follows the first <b>sound</b> of the next word, not the first letter.",
+   items:[
+    {q:"___ honest opinion", answer:"an", why:"honest starts with a vowel sound /ɒ/: the h is silent."},
+    {q:"___ university lecturer", answer:"a", why:"university starts with the sound /juː/, like you."},
+    {q:"___ hour-long argument", answer:"an", why:"hour: silent h, so the first sound is /aʊ/."},
+    {q:"___ unpopular view", answer:"an", why:"unpopular starts with the vowel sound /ʌ/."},
+    {q:"___ one-sided debate", answer:"a", why:"one starts with the sound /w/."},
+    {q:"___ MP who disagreed", answer:"an", why:"We say the letter: “em-pee”, which starts with the vowel sound /e/."},
+    {q:"___ European habit", answer:"a", why:"European starts with /j/, like you."},
+    {q:"___ useless argument", answer:"a", why:"useless starts with /j/, like you."}
+   ]},
+  {id:"d2", type:"choice", options:["a","an","the","—"], mono:true, title:"a, an, the or nothing?",
+   ins:"Choose the article. <b>—</b> means no article.",
+   items:[
+    {q:"I have ___ unpopular opinion: brunch is a waste of money.", answer:"an", why:"First mention: one opinion of many, and the listener doesn't know it yet."},
+    {q:"___ breakfast is not the most important meal of the day.", answer:"—", why:"Meals in general take no article: have breakfast, skip lunch."},
+    {q:"The man who sits next to me at work thinks ___ cats are overrated.", answer:"—", why:"Plural noun in general (all cats): no article."},
+    {q:"Honestly, I think ___ social media makes people more interesting.", answer:"—", why:"social media in general: no article. (Compare the media, the internet.)"},
+    {q:"My most unpopular opinion? ___ best season is winter.", answer:"the", why:"Superlative: the best, the worst, the most…"},
+    {q:"She's ___ only person I know who hates chocolate.", answer:"the", why:"only, first, same, next and last take the."},
+    {q:"That's ___ really bad take.", answer:"a", why:"Saying what something is: it's a bad take, she's a journalist."},
+    {q:"I never take ___ advice from influencers.", answer:"—", why:"advice is uncountable: never an advice. Use advice, some advice or a piece of advice."},
+    {q:"Most of ___ comments under the post were angry.", answer:"the", why:"most of the + a particular group (these comments). Without of: most comments."},
+    {q:"___ importance of being honest is exaggerated.", answer:"the", why:"An abstract noun pinned down by of…: the importance of, the idea that…"}
+   ]},
+  {id:"d3", type:"type", title:"Find and fix the mistake",
+   ins:"Each sentence has one article mistake. Write the whole sentence correctly.",
+   items:[
+    {wrong:"The life is too short to queue for brunch.", accept:["Life is too short to queue for brunch"], hint:"life in general: no article.", why:"Big abstract nouns in general take no article: life, society, nature, history."},
+    {wrong:"Most of people secretly agree with me.", accept:["Most people secretly agree with me","Most of the people secretly agree with me"], hint:"most + noun, or most of the + noun.", why:"most people = people in general; most of the people = a particular group. Never most of people."},
+    {wrong:"She gave me a very good advice.", accept:["She gave me very good advice","She gave me some very good advice","She gave me a very good piece of advice","She gave me a piece of very good advice"], hint:"advice is uncountable.", why:"Uncountable nouns never take a/an: advice, information, news, research, feedback, evidence."},
+    {wrong:"I think the honesty is overrated.", accept:["I think honesty is overrated"], hint:"honesty in general.", why:"Abstract noun used in general: no article."},
+    {wrong:"He is best cook in our family.", accept:["He is the best cook in our family","He's the best cook in our family"], hint:"superlative…", why:"Superlatives always need the: the best, the most unpopular."}
+   ]},
+  {id:"d4", type:"textgap", title:"An unpopular opinion about holidays",
+   ins:"Type <b>a</b>, <b>an</b>, <b>the</b> or <b>–</b> (a dash or x) for no article.",
+   text:"Here is [[an]] unpopular opinion: [[—|"+Z.slice(1).join("|")+"]] holidays are overrated. Every summer, millions of people spend [[a]] fortune to lie on [[the]] same crowded beach as everyone else. I would rather spend [[a]] week at home with [[—|"+Z.slice(1).join("|")+"]] good books and switch off [[the]] internet completely. [[The]] best part? Nobody sends you photos of their breakfast.",
+   whys:["First mention, one of many: an + vowel sound /ʌ/.","Plural, in general: no article.","a fortune: one (countable) amount, not identified.","same always takes the.","One week, not a particular one: a.","Plural, in general: no article (a good books is impossible).","There is only one internet: the internet.","Superlative: the best."]},
+
+  /* ---------- READING ---------- */
+  {id:"r1", type:"choice", options:["True","False","Not given"], title:"True, False or Not given?",
+   ins:"<b>Not given</b> means the text simply doesn't say, not that you disagree.",
+   items:[
+    {q:"According to the writer, the most successful “unpopular opinion” posts usually express views that few people share.", answer:"False", why:"The posts that do best are rarely the truly unpopular ones."},
+    {q:"Many readers of these posts say they have had the same thought before.", answer:"True", why:"The other half say they have thought the same thing for years."},
+    {q:"Forums for unpopular opinions are mainly used by teenagers.", answer:"Not given", why:"The text doesn't say who uses them."},
+    {q:"The writer sees arguing about trivial things as a safe way to practise disagreeing.", answer:"True", why:"…lets us practise having opinions without risking friendships."},
+    {q:"The writer's own unpopular opinion is about food.", answer:"False", why:"It's about silence on a long train journey."}
+   ]},
+  {id:"r2", type:"choice", title:"Why this article?",
+   ins:"Look at the phrase from the text and choose the reason for the article (or for no article).",
+   items:[
+    {q:"<b>the</b> most overrated meal of the day", answer:"superlative", options:["first mention","superlative","general idea"], why:"most + adjective = superlative, so the."},
+    {q:"they reveal <b>a</b> strange pattern", answer:"something new, one of many", options:["something new, one of many","only one in the world","defined by the words after it"], why:"The reader hears about this pattern for the first time."},
+    {q:"<b>The</b> posts that do best are rarely…", answer:"defined by the words after it", options:["superlative","defined by the words after it","plural in general"], why:"“that do best” tells us exactly which posts."},
+    {q:"without risking <b>—</b> friendships", answer:"plural, in general", options:["plural, in general","uncountable noun","second mention"], why:"friendships in general, not particular ones: no article."}
+   ]}
+];
+
+const TABS = [
+  {id:"how", icon:"1", en:"How it works", ex:[]},
+  {id:"traps", icon:"2", en:"Traps & tips", ex:[]},
+  {id:"practice", icon:"3", en:"Practice", ex:["d1","d2","d3","d4"]},
+  {id:"read", icon:"4", en:"Read", ex:["r1","r2"]},
+  {id:"results", icon:"5", en:"Your report", ex:[]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+
+const store = (()=>{ let mem=null; return {
+  get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
+  set(v){ mem=v; try{ localStorage.setItem(KEY,v); }catch(e){} },
+  del(){ mem=null; try{ localStorage.removeItem(KEY); }catch(e){} } };})();
+function fresh(){ return {name:STUDENT, ans:{}, known:[], writing:{}, tab:0, fcDir:"word"}; }
+let state=fresh();
+try{ const raw=store.get(); if(raw) state=Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ store.set(JSON.stringify(state)); }catch(e){} updateProgress(); }
+function rec(id,i){ return (state.ans[id]||{})[i]; }
+function setRec(id,i,r){ state.ans[id]=state.ans[id]||{}; state.ans[id][i]=r; save(); }
+
+const CONTR={"i'm":"i am","you're":"you are","he's":"he is","she's":"she is","it's":"it is","we're":"we are","they're":"they are","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","couldn't":"could not","isn't":"is not","aren't":"are not","haven't":"have not","hasn't":"has not","won't":"will not","i'll":"i will","what's":"what is","let's":"let us","i've":"i have","wasn't":"was not","weren't":"were not","i'd":"i would","you'd":"you would","we'd":"we would","they'd":"they would","it'll":"it will","you'll":"you will","we'll":"we will","they'll":"they will","that's":"that is","there's":"there is","wouldn't":"would not","shouldn't":"should not","you're":"you are"};
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/,(\d{3})/g,"$1").replace(/,/g," ")
+    .replace(/\s+/g," ").trim().replace(/[.!?]+$/,"").trim();
+  s=s.split(" ").map(w=>CONTR[w]||w).join(" ").replace(/\bcan not\b/g,"cannot").replace(/^'s /,"is ").replace(/ 's /g," is ");
+  return s;
+}
+const matches=(v,list)=>list.some(a=>norm(a)===norm(v));
+
+let VOICE=null;
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices(); VOICE=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
+function speak(t){ if(!("speechSynthesis" in window)||!t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(strip(t).replace(/\(sb[^)]*\)|\(an amount\)|\(money\)/g,"").replace(/·/g,"")); u.lang="en-GB"; u.rate=.88; if(VOICE) u.voice=VOICE; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } },true);
+const sayBtn=(t,sm)=>`<button class="say${sm?" sm":""}" data-say="${esc(t)}" aria-label="listen" type="button">🔊</button>`;
+
+const PRAISE=["Correct!","Spot on!","Exactly!","Well done!","Nice one!","Perfect!","Great!"];
+const OOPS=["Not quite.","Almost!","Have another look."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let toastT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function hash(s){ let h=7; for(const c of s) h=(h*31+c.charCodeAt(0))%1000003; return h; }
+function seeded(arr,seed){ let s=seed%233280; const a=arr.slice(); for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function exShell(ex){
+  const box=document.createElement("div"); box.className="ex"; box.id="ex-"+ex.id;
+  box.innerHTML=`<div class="exhead"><span class="exscore" id="sc-${ex.id}"></span><span class="no">Exercise ${ex.no}</span><h3>${ex.title}</h3><div class="ins">${ex.ins}</div></div><div class="exbody"></div>`;
+  return box;
+}
+// q may contain <b> tags (trusted data); gap marker ___
+const capF=(q,f)=>q.startsWith("___")&&f?f.charAt(0).toUpperCase()+f.slice(1):f;
+function gapHtml(q,fill,cls){ return q.replace("___",`<span class="gap ${cls||""}">${fill?esc(capF(q,fill)):"&nbsp;"}</span>`); }
+function fillSentence(q,a){ const s=strip(q).replace("___",a==="—"?"":capF(q,a)).replace(/\s+/g," ").trim(); return s; }
+const whyHtml=w=>w?`<div class="why">💡 ${esc(w)}</div>`:"";
+function bankHtml(b){ return `<div class="bank"><b>Word box</b>${b.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`; }
+
+/* choice */
+function renderChoice(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    const hasGap=it.q.includes("___");
+    const qh = it.say ? `<span class="row">${sayBtn(it.say)} <span>${esc(it.q)}</span></span>` : `<span class="qt">${gapHtml(it.q)}</span>`;
+    const opts=it.options||ex.options;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="opts">${opts.map(o=>`<button class="opt${ex.mono?" mono":""}" type="button" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>`;
+    $$(".opt",row).forEach(b=>b.addEventListener("click",()=>{ if(rec(ex.id,i)) return;
+      const o=b.dataset.o; setRec(ex.id,i,{given:o,correct:o===it.answer,done:true}); paintChoice(ex,it,i,row,true); }));
+    row.dataset.gap=hasGap?"1":"";
+    body.appendChild(row);
+    if(rec(ex.id,i)) paintChoice(ex,it,i,row,false);
+  });
+}
+function paintChoice(ex,it,i,row,live){
+  const r=rec(ex.id,i);
+  $$(".opt",row).forEach(b=>{ b.disabled=true; const o=b.dataset.o; if(o===r.given) b.classList.add(r.correct?"right":"wrong"); else if(o===it.answer) b.classList.add("ghost"); });
+  const hasGap=it.q.includes("___");
+  if(hasGap){ const qt=$(".qt",row); qt.innerHTML=gapHtml(it.q,it.answer,r.correct?"filled":"filledbad"); }
+  const sent=hasGap?fillSentence(it.q,it.answer):(it.say||it.answer);
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):(live?pick(OOPS):"✗")+" The answer is: "+esc(it.answer)}</b>${hasGap?`<span class="row">${sayBtn(sent,true)} <span>${esc(sent)}</span></span>`:""}${whyHtml(it.why)}`;
+  if(live&&r.correct) speak(sent);
+  updateExScore(ex);
+}
+
+/* typed */
+function renderType(ex,body){
+  if(ex.bank) body.insertAdjacentHTML("beforeend",bankHtml(ex.bank));
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let qh;
+    if(ex.listen) qh=`<span class="row">${sayBtn(it.say)} <span style="color:var(--muted);font-weight:600">Listen and type</span></span>`;
+    else if(it.wrong) qh=`<span class="wrongs">${esc(it.wrong)}</span>`;
+    else qh=`${it.orig?`<span class="orig">${esc(it.orig)}</span>`:""}<span class="qt">${gapHtml(it.q)}</span>${it.key?`<span class="key">${esc(it.key)}</span>`:""}`;
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${qh}</div></div>
+      <div class="inrow"><input type="text" autocomplete="off" autocapitalize="${it.wrong?"sentences":"off"}" spellcheck="false" aria-label="answer" placeholder="${it.wrong?"Write the correct sentence":"Type your answer"}"><button class="btn pri" type="button">Check</button></div><div class="fb"></div>`;
+    const inp=$("input",row), go=()=>checkTyped(ex,it,i,row,inp.value);
+    $("button.btn",row).addEventListener("click",go); inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    body.appendChild(row);
+    const r=rec(ex.id,i); if(r&&r.done) paintTyped(ex,it,i,row,false);
+  });
+}
+function checkTyped(ex,it,i,row,v){
+  if(!v.trim()) return; const prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+  const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+  if(ok||tries>=2){ setRec(ex.id,i,{given:v.trim(),correct:ok,done:true,tries}); paintTyped(ex,it,i,row,true); }
+  else{ setRec(ex.id,i,{given:v.trim(),correct:false,done:false,tries}); const inp=$("input",row); inp.classList.add("badv");
+    const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>${it.hint?"💡 "+esc(it.hint):""}`; inp.focus(); }
+}
+function modelOf(ex,it){ if(ex.listen) return it.say; if(it.wrong) return it.accept[0]+(it.end||"."); return fillSentence(it.q,it.accept[0]); }
+function paintTyped(ex,it,i,row,live){
+  const r=rec(ex.id,i), inp=$("input",row);
+  inp.value=r.given; inp.disabled=true; $("button.btn",row).disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+  if(!ex.listen&&!it.wrong){ $(".qt",row).innerHTML=gapHtml(it.q,it.accept[0],r.correct?"filled":"filledbad"); }
+  const full=modelOf(ex,it); let notes="";
+  if(r.correct&&it.wrong&&r.given[0]!==r.given[0].toUpperCase()) notes+=`<div>✏️ Remember the capital letter at the start.</div>`;
+  if(r.correct&&it.end==="?"&&!/\?\s*$/.test(r.given)) notes+=`<div>❓ Don't forget the question mark.</div>`;
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(r.self?"✓ Marked as correct by you":(live?pick(PRAISE):"✓ Correct")):"✗ The answer is:"}</b><span class="row">${sayBtn(full,true)} <span>${esc(full)}</span></span>${notes}${whyHtml(it.why)}${ex.selfmark&&!r.correct?`<button class="btn ok selfok" type="button">My answer is also correct ✓</button>`:""}`;
+  const sb=$(".selfok",fb); if(sb) sb.addEventListener("click",()=>{ r.correct=true; r.self=true; setRec(ex.id,i,r); paintTyped(ex,it,i,row,false); });
+  if(live&&r.correct) speak(full);
+  updateExScore(ex);
+}
+
+/* match */
+function renderMatch(ex,body){
+  const order=seeded(ex.items.map((p,k)=>k),hash(ex.id)+5);
+  body.insertAdjacentHTML("beforeend",`<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb" style="margin-left:0"></div>`);
+  const L=$(".L",body), R=$(".R",body); let sl=null, sr=null;
+  ex.items.forEach((p,k)=>L.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(p.en)}</button>`));
+  order.forEach(k=>R.insertAdjacentHTML("beforeend",`<button class="mbtn" type="button" data-k="${k}">${esc(ex.items[k].def)}</button>`));
+  const allDone=()=>ex.items.every((p,k)=>rec(ex.id,k)&&rec(ex.id,k).done);
+  function refresh(){ ex.items.forEach((p,k)=>{ const r=rec(ex.id,k); if(r&&r.done) [L,R].forEach(c=>{ const b=$(`[data-k="${k}"]`,c); b.classList.add("done"); b.classList.toggle("miss",!r.correct); b.classList.remove("sel"); b.disabled=true; }); });
+    if(allDone()){ const fb=$(".fb",body); fb.className="fb show good"; fb.innerHTML=`<b class="t">All matched!</b>${exGot(ex)}/${ex.items.length} on the first try. Yellow ones had a mistake — look at them again.`; } }
+  function tryPair(){ if(sl===null||sr===null) return; const k=sl, prev=rec(ex.id,k)||{tries:0};
+    if(sl===sr){ setRec(ex.id,k,{given:prev.tries>0?prev.given:ex.items[k].def,correct:!(prev.tries>0),done:true,tries:prev.tries||0}); speak(ex.items[k].en); }
+    else{ setRec(ex.id,k,{given:ex.items[sr].def,correct:false,done:false,tries:(prev.tries||0)+1});
+      const bl=$(`[data-k="${sl}"]`,L), br=$(`[data-k="${sr}"]`,R); [bl,br].forEach(b=>{ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake","sel"),400); }); }
+    sl=sr=null; refresh(); updateExScore(ex); }
+  $$(".mbtn",L).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",L).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sl=+b.dataset.k; tryPair(); }));
+  $$(".mbtn",R).forEach(b=>b.addEventListener("click",()=>{ if(b.disabled) return; $$(".mbtn",R).forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sr=+b.dataset.k; tryPair(); }));
+  refresh();
+}
+
+/* text with gaps */
+function parseText(ex){ if(ex._p) return; ex._p=true; const g=[]; ex.text.replace(/\[\[(.+?)\]\]/g,(m,a)=>{ g.push(a.split("|")); return m; }); ex.items=g.map((a,k)=>({accept:a,why:ex.whys[k]})); }
+function renderTextGap(ex,body){
+  parseText(ex); let k=0;
+  const plain=ex.text.replace(/\[\[(.+?)(\|[^\]]*)?\]\]/g,"$1").replace(/\n/g," ");
+  const html=esc(ex.text).replace(/\[\[(.+?)\]\]/g,()=>{ const n=k++; return `<span class="gn">${n+1}</span><input class="gapin" data-g="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${n+1}">`; }).replace(/\n/g,"<br>");
+  body.insertAdjacentHTML("beforeend",`${ex.bank?bankHtml(ex.bank):""}<div class="gtext">${html}</div><div class="inrow" style="margin-left:0"><button class="btn pri chk" type="button">Check my answers</button><button class="btn lst" type="button" data-say="${esc(plain)}" style="display:none">🔊 Listen to the whole text</button></div><ul class="whylist"></ul>`);
+  $$(".gapin",body).forEach(inp=>inp.addEventListener("keydown",e=>{ if(e.key==="Enter") checkText(ex,body); }));
+  $(".chk",body).addEventListener("click",()=>checkText(ex,body));
+  paintText(ex,body);
+}
+function checkText(ex,body){
+  let any=false, wrong=0;
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, v=inp.value, prev=rec(ex.id,n)||{tries:0}; if(prev.done||!v.trim()) return; any=true;
+    const ok=matches(v,ex.items[n].accept), tries=(prev.tries||0)+1;
+    if(ok||tries>=2) setRec(ex.id,n,{given:v.trim(),correct:ok,done:true,tries}); else { setRec(ex.id,n,{given:v.trim(),correct:false,done:false,tries}); wrong++; } });
+  if(!any){ toast("Fill in some gaps first."); return; }
+  paintText(ex,body);
+  if(wrong) toast(`${wrong} gap${wrong>1?"s are":" is"} not right yet (in red) — you have one more try.`);
+}
+function paintText(ex,body){
+  const ul=$(".whylist",body); ul.innerHTML="";
+  $$(".gapin",body).forEach(inp=>{ const n=+inp.dataset.g, r=rec(ex.id,n); if(!r) return;
+    if(r.done){ inp.value=r.correct?r.given:ex.items[n].accept[0]; inp.disabled=true; inp.classList.remove("badv"); inp.classList.add(r.correct?"okv":"badv");
+      ul.insertAdjacentHTML("beforeend",`<li class="${r.correct?"g":"b"}"><b>${n+1}. ${esc(ex.items[n].accept[0])}</b>${r.correct?" ✓":` ✗ (you wrote: ${esc(r.given)})`} — ${esc(ex.items[n].why)}</li>`); }
+    else{ inp.value=r.given; inp.classList.add("badv"); inp.addEventListener("input",()=>inp.classList.remove("badv"),{once:true}); } });
+  if(ex.items.every((it,n)=>rec(ex.id,n)&&rec(ex.id,n).done)) $(".lst",body).style.display="";
+  updateExScore(ex);
+}
+
+/* writing */
+function usedWords(t){ const s=" "+t.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z' ]+/g," ").replace(/\s+/g," ")+" ";
+  return WRITE_WORDS.map(forms=>forms.some(f=>new RegExp("\\b"+f.replace(/ /g,"\\s+")).test(s))); }
+function renderWriting(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.q)}${it.try?`<span class="trychip">try: ${esc(it.try)}</span>`:""}</div></div>
+      <div style="margin-top:8px"><textarea aria-label="your answer" placeholder="${esc(it.eg)}"></textarea><div class="wcount"></div><div class="tick"></div>${it.model?`<details class="model"><summary>See a model answer</summary><p>${esc(it.model)}</p>${sayBtn(it.model,true)}</details>`:""}</div>`;
+    const ta=$("textarea",row), wc=$(".wcount",row), tk=$(".tick",row), key=ex.id+"-"+i;
+    ta.value=state.writing[key]||"";
+    const upd=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=`${n} words (aim: ${it.min}+)`; wc.classList.toggle("ok",n>=it.min);
+      const u=usedWords(ta.value); tk.innerHTML=WRITE_WORDS.map((f,k)=>u[k]?`<span class="used">${esc(f[0].replace(/ \(.*$/,""))}</span>`:"").join("") || `<span>The linkers you use will appear here</span>`; updAll(); };
+    let tm; ta.addEventListener("input",()=>{ upd(); clearTimeout(tm); tm=setTimeout(()=>{ state.writing[key]=ta.value; save(); },400); });
+    ta.addEventListener("blur",()=>{ state.writing[key]=ta.value; save(); });
+    upd(); body.appendChild(row);
+  });
+  body.insertAdjacentHTML("afterbegin",`<div class="alllinks" id="allLinks"></div>`); ALLBOX=body.firstElementChild; updAll();
+  body.insertAdjacentHTML("beforeend",`<p style="font-size:14px;color:var(--muted);margin:6px 0 0">This isn't marked automatically — your teacher will read it. It's included in the report you send.</p>`);
+}
+
+let ALLBOX=null;
+function updAll(){ const box=ALLBOX; if(!box) return;
+  const all=Object.keys(state.writing).filter(k=>k.startsWith("w1-")).map(k=>state.writing[k]).join(" ")+" "+$$("#ex-w1 textarea").map(t=>t.value).join(" ");
+  const u=usedWords(all), n=u.filter(Boolean).length;
+  box.innerHTML=`<b>Linkers used in all your answers: ${n} / ${WRITE_WORDS.length}</b><div>${WRITE_WORDS.map((f,k)=>`<span class="${u[k]?"used":"todo"}">${esc(f[0])}</span>`).join("")}</div>`; }
+/* scoring */
+const scored=ex=>ex.type!=="writing";
+function exTotal(ex){ if(ex.type==="textgap") parseText(ex); return scored(ex)?ex.items.length:0; }
+function exGot(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&r.correct) n++; } return n; }
+function exDone(ex){ let n=0; for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done) n++; } return n; }
+function updateExScore(ex){ const s=$("#sc-"+ex.id); if(!s||!scored(ex)) return; const d=exDone(ex), t=exTotal(ex);
+  s.textContent=d===t?`✓ ${exGot(ex)}/${t}`:`${d}/${t}`; s.style.background=d===t?"var(--ok-bg)":""; s.style.color=d===t?"var(--ok)":""; }
+function totals(){ let got=0,tot=0,done=0; EXERCISES.filter(scored).forEach(ex=>{ got+=exGot(ex); tot+=exTotal(ex); done+=exDone(ex); }); return {got,tot,done}; }
+function updateProgress(){
+  const t=totals(); $("#pscore").textContent=`★ ${t.got} / ${t.tot}`;
+  const pct=t.tot?Math.round(t.done/t.tot*100):0; $("#pbar").style.width=pct+"%"; $("#pdone").textContent=pct+"%";
+  TABS.forEach((tab,k)=>{ const b=$(`#tabs [data-t="${k}"]`); if(!b) return; const badge=$(".badge",b); const exs=tab.ex.map(id=>EX[id]).filter(scored);
+    if(exs.length){ const d=exs.reduce((n,e)=>n+exDone(e),0), tt=exs.reduce((n,e)=>n+exTotal(e),0), g=exs.reduce((n,e)=>n+exGot(e),0);
+      badge.textContent=d===tt?`✓ ${g}/${tt}`:`${d}/${tt}`; b.classList.toggle("done",d===tt); }
+    else if(tab.id==="cards"){ badge.textContent=`${state.known.length}/${VOCAB.length}`; b.classList.toggle("done",state.known.length===VOCAB.length); }
+    else badge.textContent=""; });
+}
+
+/* tabs */
+function buildTabs(){
+  $("#tabs").innerHTML=TABS.map((t,k)=>`<button class="tab" type="button" data-t="${k}"><span class="coin">${t.icon}</span><b>${t.en}</b><span class="badge"></span></button>`).join("");
+  $$("#tabs .tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.t)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.go)));
+}
+function showTab(k){
+  state.tab=k; save();
+  $$(".panel").forEach(p=>p.classList.remove("show")); $("#p-"+TABS[k].id).classList.add("show");
+  $$("#tabs .tab").forEach(b=>b.classList.toggle("on",+b.dataset.t===k));
+  const cur=$(`#tabs [data-t="${k}"]`); try{ cur.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}); }catch(e){}
+  if(TABS[k].id==="results") renderResults();
+  if(TABS[k].id==="cards") renderCard();
+  const top=$("header.top").getBoundingClientRect().bottom+window.scrollY; if(window.scrollY>top) window.scrollTo({top,behavior:"auto"});
+}
+
+/* words */
+function buildWords(){
+  const card=w=>`<div class="word"><span class="em" aria-hidden="true">${w.em}</span><div><b>${esc(w.en)}</b><br><span class="pat">${esc(w.pat)}</span>
+    <div class="def">${esc(w.def)}</div><div class="exl">${sayBtn(w.ex,true)} ${esc(w.ex)}</div></div>${sayBtn(w.en)}</div>`;
+  $$("[data-wl]").forEach(el=>{ el.innerHTML=VOCAB.filter(w=>w.g===el.dataset.wl).map(card).join(""); });
+}
+function buildStory(){
+  const byId={}; VOCAB.forEach(w=>byId[w.id]=w);
+  $("#story").innerHTML=STORY.map(p=>"<p>"+esc(p).replace(/\{(\w+)\|([^}]+)\}/g,(m,id,txt)=>`<button class="gl" type="button" data-w="${id}">${txt}</button>`)+"</p>").join("");
+  const box=$("#gloss");
+  $$("#story .gl").forEach(b=>b.addEventListener("click",()=>{ const w=byId[b.dataset.w]; $$("#story .gl").forEach(x=>x.classList.toggle("on",x===b));
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><b style="font-size:18px">${esc(w.en)}</b>${sayBtn(w.en,true)}</div><div>${esc(w.def)}</div>`; box.classList.add("show"); }));
+  const plain=STORY.map(p=>p.replace(/\{\w+\|([^}]+)\}/g,"$1")).join(" ");
+  $("#storySay").dataset.say=plain;
+}
+
+function buildReading(){
+  const box=$("#reading"); if(!box||typeof READING==="undefined") return;
+  box.innerHTML=READING.map((p,k)=>`<p><span class="pn">${k+1}</span>${p}</p>`).join("");
+  const b=$("#readSay"); if(b) b.dataset.say=READING.map(strip).join(" ");
+}
+
+/* flashcards */
+let fcOrder=VOCAB.map((w,k)=>k), fcIdx=0;
+function fcDeck(){ const only=$("#fcOnly").checked; return fcOrder.filter(k=>!only||!state.known.includes(VOCAB[k].id)); }
+const ruBit=w=>"";
+function renderCard(){
+  const deck=fcDeck(); $("#fc").classList.remove("flipped");
+  $("#fcTotal").textContent=VOCAB.length; $("#fcKnown").textContent=state.known.length; $("#fcKbar").style.width=(state.known.length/VOCAB.length*100)+"%";
+  $("#fcDir").textContent=state.fcDir==="word"?"Word → meaning":"Meaning → word";
+  if(!deck.length){ $("#fcFront").innerHTML=`<div class="big">🎉</div><div class="txt">All known!</div><div class="sub">Untick the filter to review everything.</div>`; $("#fcBack").innerHTML=""; $("#fcPos").textContent=""; return; }
+  if(fcIdx>=deck.length) fcIdx=0; if(fcIdx<0) fcIdx=deck.length-1;
+  const w=VOCAB[deck[fcIdx]], known=state.known.includes(w.id);
+  const wordSide=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div>${w.ipa?`<div class="ipa">${esc(w.ipa)}</div>`:""}`;
+  const meaning=`<div class="def">${esc(w.def)}</div>`;
+  if(state.fcDir==="word"){
+    $("#fcFront").innerHTML=wordSide+sayBtn(w.en)+`<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="txt" style="font-size:22px">${esc(w.en)}</div>${meaning}<div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  } else {
+    $("#fcFront").innerHTML=`<div class="big">❓</div>${meaning}<span class="tap">tap to flip</span>`;
+    $("#fcBack").innerHTML=`<div class="big">${w.em}</div><div class="txt">${esc(w.en)}</div><div class="sub">“${esc(w.ex)}”</div>${ruBit(w)}`+sayBtn(w.en+". "+w.ex)+`<span class="tap">${known?"✓ known":""}</span>`;
+  }
+  $("#fcPos").textContent=`${fcIdx+1} / ${deck.length}`;
+}
+function buildCards(){
+  const fc=$("#fc"), flip=()=>fc.classList.toggle("flipped");
+  fc.addEventListener("click",e=>{ if(e.target.closest("[data-say]")) return; const rb=e.target.closest(".rubtn-card"); if(rb){ const t=rb.nextElementSibling; t.hidden=!t.hidden; rb.textContent=t.hidden?"Show Russian":"Hide Russian"; return; } flip(); });
+  fc.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip(); } });
+  $("#fcNext").addEventListener("click",()=>{ fcIdx++; renderCard(); });
+  $("#fcPrev").addEventListener("click",()=>{ fcIdx--; renderCard(); });
+  $("#fcShuf").addEventListener("click",()=>{ fcOrder=seeded(fcOrder,Date.now()%100000); fcIdx=0; renderCard(); toast("Shuffled"); });
+  $("#fcDir").addEventListener("click",()=>{ state.fcDir=state.fcDir==="word"?"meaning":"word"; save(); renderCard(); });
+  $("#fcOnly").addEventListener("change",()=>{ fcIdx=0; renderCard(); });
+  const mark=k=>{ const deck=fcDeck(); if(!deck.length) return; const w=VOCAB[deck[fcIdx]];
+    state.known=state.known.filter(x=>x!==w.id); if(k) state.known.push(w.id); save();
+    if(!(k&&$("#fcOnly").checked)) fcIdx++; renderCard(); };
+  $("#fcKnow").addEventListener("click",()=>mark(true)); $("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* results */
+const studentName=()=>((state.name||STUDENT).trim()||"Student");
+function questionText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
+   return strip(it.q)+(it.key?" ("+it.key+")":""); }
+function correctText(ex,i){ const it=ex.items[i];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
+  return modelOf(ex,it); }
+function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
+function band(p){ if(p>=90) return `Excellent, ${studentName()}! You passed with flying colours. 🎓`; if(p>=75) return "Great work: a couple of things to look at again below."; if(p>=50) return "Good effort. Re-read the rules and look at the mistakes below."; return "A start. Go back to “How it works”, then try again."; }
+function renderResults(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date();
+  const lines=EXERCISES.filter(scored).map(ex=>`<div class="ln"><span>${ex.no}. ${esc(ex.title)}</span><span>${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?"*":""}</span></div>`).join("");
+  $("#receipt").innerHTML=`<h2>${REPORT_HEAD}</h2><div class="c">${esc(SUBJECT_TOPIC)} · ${esc(studentName())}<br>${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</div><hr>${lines}
+    ${VOCAB.length?`<div class="ln"><span>Flashcards known</span><span>${state.known.length}/${VOCAB.length}</span></div>`:""}<hr>
+    <div class="ln tot"><span>TOTAL</span><span>${t.got}/${t.tot}</span></div><div class="ln"><span>Score</span><span>${pct}%</span></div>
+    ${t.done<t.tot?`<div class="c" style="margin-top:6px">* not finished — ${t.tot-t.done} answers still to do</div>`:`<div style="text-align:center"><span class="stamp">ALL DONE</span></div>`}
+    <div class="msg">${t.done?band(pct):"Start with “How it works”!"}</div>`;
+  const m=mistakes();
+  $("#rMist").innerHTML=m.length?m.map(x=>`<li><b>${x.ex.no}.</b> ${esc(x.q)}<br>Your answer: <span class="yr">${esc(x.a)}</span><br>Correct: <span class="cr">${esc(x.c)}</span></li>`).join(""):`<li>No mistakes so far 🎉</li>`;
+  buildSend();
+}
+function reportText(){
+  const t=totals(), pct=t.tot?Math.round(t.got/t.tot*100):0, d=new Date(), L=[];
+  L.push(`HOMEWORK: ${TITLE}`); L.push(`Student: ${studentName()}`); L.push(`Date: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`);
+  L.push(`SCORE: ${t.got}/${t.tot} (${pct}%) · answered ${t.done}/${t.tot}`); if(VOCAB.length) L.push(`Flashcards known: ${state.known.length}/${VOCAB.length}`); L.push("");
+  L.push("BY EXERCISE:"); EXERCISES.filter(scored).forEach(ex=>L.push(`${ex.no}. ${ex.title}: ${exGot(ex)}/${exTotal(ex)}${exDone(ex)<exTotal(ex)?` (${exDone(ex)} answered)`:""}`)); L.push("");
+  const m=mistakes(); L.push(`MISTAKES (${m.length}):`); m.forEach(x=>L.push(`- [${x.ex.no}] ${x.q} → wrote: "${x.a}" → correct: ${x.c}`)); if(!m.length) L.push("- none"); L.push("");
+  const selfs=[]; EXERCISES.filter(x=>x.selfmark).forEach(x=>x.items.forEach((it,i)=>{ const r=rec(x.id,i); if(r&&r.self) selfs.push(`- [${x.no}] ${it.orig} → "${r.given}" (model: ${it.accept[0]})`); }));
+  if(selfs.length){ L.push("SELF-MARKED AS CORRECT (please check):"); selfs.forEach(s=>L.push(s)); L.push(""); }
+  if(EX.w1){ L.push("WRITING:"); EX.w1.items.forEach((it,i)=>{ const txt=(state.writing["w1-"+i]||"").trim(); L.push(`${i+1}. ${it.q}`); L.push(`   ${txt||"—"}`); }); L.push(""); }
+  L.push("ALL ANSWERS:"); EXERCISES.filter(scored).forEach(ex=>{ L.push(`${ex.no}. ${ex.title}`); for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); L.push(`   ${i+1}) ${questionText(ex,i)} → ${r?r.given:"—"} ${r&&r.done?(r.correct?"✓":"✗"):"(not done)"}`); } });
+  return L.join("\n");
+}
+function shortReport(){ const f=reportText(); if(f.length<=1500) return f; return f.slice(0,1450).replace(/\n[^\n]*$/,"")+"\n…\n(Full report: use “Copy text” in the app.)"; }
+const subject=()=>{ const t=totals(); return `${SUBJECT_TOPIC} — ${studentName()} — ${t.got}/${t.tot}`; };
+function buildSend(){
+  const sub=encodeURIComponent(subject()), body=encodeURIComponent(shortReport()); let h="";
+  if(navigator.share) h+=`<button class="btn pri" type="button" id="shareBtn">📤 Share</button>`;
+  h+=`<a class="btn${navigator.share?"":" pri"}" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${sub}&body=${body}">✉️ Send in Gmail</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${sub}&text=${body}">✈️ Telegram</a>`;
+  h+=`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${body}">💬 WhatsApp</a>`;
+  h+=`<a class="btn" href="mailto:${TEACHER}?subject=${sub}&body=${body}">📧 Email app</a>`;
+  h+=`<button class="btn" type="button" id="copyBtn">📋 Copy text</button>`;
+  $("#sendgrid").innerHTML=h;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",async()=>{ try{ await navigator.share({title:subject(),text:reportText()}); }catch(e){} });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+}
+function copyText(t){
+  const fb=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok?"Copied! Paste it into a message to your teacher.":"Couldn't copy — please select the text manually."); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>toast("Copied! Paste it into a message to your teacher."),fb); else fb();
+}
+
+/* init */
+/* --- reading with colour-coded articles --- */
+function buildReading(){
+  const box=$("#reading"); if(!box) return;
+  const cls={a:"A",t:"T",z:"Z"};
+  box.innerHTML=READING.map(p=>`<p>${esc(p).replace(/\{([atz]):([^}]+)\}/g,(m,k,w)=>`<span class="${cls[k]}">${w}</span>`)}</p>`).join("");
+  const b=$("#readSay"); if(b) b.dataset.say=READING.map(p=>p.replace(/\{[atz]:([^}]+)\}/g,"$1")).join(" ");
+  const t=$("#readHl"); t.addEventListener("click",()=>{ const off=box.classList.toggle("plain"); t.textContent=off?"Show the colours":"Hide the colours"; });
+}
+/* --- the article finder (decision flow) --- */
+const FLOW={
+  q1:{q:"Can your listener tell <b>exactly which one</b> you mean?", hint:"Mentioned before · only one in the situation or the world · pinned down by the words after it · superlative, only, same", yes:"the", no:"q2"},
+  q2:{q:"Is it <b>one countable thing</b> (a singular noun you can count)?", hint:"an opinion, a debate, a take — not opinions, not advice", yes:"a", no:"q3"},
+  q3:{q:"Do you mean it <b>in general</b> (all of them, the idea itself)?", hint:"Opinions are cheap. Honesty is rare online.", yes:"zero", no:"some"},
+  the:{r:"the", c:"T", t:"Use <b>the</b>", ex:["I read a comment. <span class='T'>The</span> comment was three words long.","<span class='T'>the</span> internet · <span class='T'>the</span> government · <span class='T'>the</span> news","<span class='T'>the</span> view that nobody defends","<span class='T'>the</span> most unpopular opinion in the room"]},
+  a:{r:"a / an", c:"A", t:"Use <b>a / an</b>, chosen by the first sound", ex:["I have <span class='A'>an</span> unpopular opinion.","That's <span class='A'>a</span> bad argument.","<span class='A'>a</span> university · <span class='A'>an</span> hour · <span class='A'>an</span> MP"]},
+  zero:{r:"no article", c:"Z", t:"Use <b>no article</b>", ex:["<span class='Z'>Opinions</span> are cheap.","<span class='Z'>Honesty</span> is rare online.","<span class='Z'>Society</span> expects you to agree."]},
+  some:{r:"some / no article", c:"Z", t:"Use <b>some</b> (or nothing) for an unspecified amount", ex:["I heard <span class='Z'>some</span> interesting opinions yesterday.","She gave me <span class='Z'>some</span> advice. (never <s>an advice</s>)"]}
+};
+function buildMachine(){
+  const box=$("#flow"); if(!box) return; let path=["q1"];
+  const draw=()=>{
+    const cur=FLOW[path[path.length-1]];
+    const trail=path.slice(0,-1).map((id,k)=>`<div class="fstep done"><span class="fn">${k+1}</span><span>${FLOW[id].q}</span><b class="ans">${FLOW[id].yes===path[k+1]?"Yes":"No"}</b></div>`).join("");
+    let now;
+    if(cur.q) now=`<div class="fstep now"><span class="fn">${path.length}</span><div><div>${cur.q}</div><small>${cur.hint}</small><div class="fbtns"><button type="button" class="btn pri" data-a="yes">Yes</button><button type="button" class="btn" data-a="no">No</button></div></div></div>`;
+    else now=`<div class="fres ${cur.c}"><div class="frt">${cur.t}</div>${cur.ex.map(e=>`<div class="fex">${e}</div>`).join("")}<button type="button" class="btn" data-a="again">↺ Try another noun</button></div>`;
+    box.innerHTML=trail+now;
+    $$("[data-a]",box).forEach(b=>b.addEventListener("click",()=>{ const a=b.dataset.a;
+      if(a==="again") path=["q1"]; else path.push(cur[a]); draw(); }));
+  };
+  draw();
+}
+
+
+function init(){
+  buildTabs(); if($("[data-wl]")) buildWords(); if($("#fc")) buildCards(); buildMachine(); buildReading(); if($("#story")) buildStory();
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
+  const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
+  $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
+  $("#resetNo").addEventListener("click",()=>$("#resetConfirm").classList.remove("show"));
+  $("#resetYes").addEventListener("click",()=>{ store.del(); state=fresh(); location.reload(); });
+  showTab(Math.min(state.tab||0,TABS.length-1)); updateProgress();
+}
+init();
+
+</script>
+</body>
+</html>
