@@ -385,6 +385,17 @@ footer{font-family:var(--serif);font-style:italic}
 .sortout .say{background:rgba(255,255,255,.15);color:#fff}
 .sorthint{margin-top:8px;color:#C9C3FF;font-size:14px}
 @media (prefers-reduced-motion: reduce){ .phrase.go{animation:none} }
+.tline{min-height:52px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0 36px;align-items:center}
+.tbank{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0 36px}
+.tile{border:1.5px solid var(--ink);background:#fff;border-radius:10px;padding:6px 12px;min-height:42px;font-weight:700;font-size:16px}
+.tline .tile{background:var(--ct-bg);border-color:var(--ct)}
+.tline.okv{border-color:var(--ok);background:var(--ok-bg)}
+.tline.badv{border-color:var(--bad)}
+.tline .ph{color:var(--muted);font-size:14px;padding:0 6px}
+@media (max-width:600px){ .tline,.tbank{margin-left:0} }
+.orig{font-size:15.5px}
+#ex-p8 .orig{font-size:40px;line-height:1.1}
+#ex-p6 .opts{gap:6px}#ex-p6 .opt{min-width:0;padding:8px 10px;font-size:14.5px}
 
 </style>
 </head>
@@ -395,7 +406,7 @@ footer{font-family:var(--serif);font-style:italic}
     <div class="hero">
       <div class="kick">Grammar · Upper-Intermediate · for Arseniy</div>
       <h1>A lovely little Italian restaurant</h1>
-      <p>Why does English say <i>a lovely little Italian restaurant</i> and never <i>an Italian little lovely restaurant</i>? The order, the fine print, then practice. About 20 minutes.</p>
+      <p>Why does English say <i>a lovely little Italian restaurant</i> and never <i>an Italian little lovely restaurant</i>? The order, the fine print, then practice. About 40 minutes, in two or three sittings if you like.</p>
       <div class="namebox"><label for="nm">Name</label><input id="nm" autocomplete="off" placeholder="Your name"></div>
     </div>
   </div>
@@ -437,7 +448,7 @@ footer{font-family:var(--serif);font-style:italic}
     <div class="adjs" id="sortAdj"></div>
     <div class="sortout" id="sortOut" aria-live="polite"></div>
   </div>
-  <div data-ex="p1"></div>
+  <div data-ex="p6"></div><div data-ex="p1"></div>
   <div class="next"><button class="btn pri" data-go="1" type="button">Next: Fine print →</button></div>
 </section>
 
@@ -467,14 +478,20 @@ footer{font-family:var(--serif);font-style:italic}
       <li><b>Don't stack.</b> Two good adjectives beat four average ones: <i>a battered leather sofa</i> > <i>an old brown worn big leather sofa</i>.</li>
     </ul>
   </div>
-  <div data-ex="p2"></div>
-  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Practice →</button></div>
+  <div data-ex="p2"></div><div data-ex="p9"></div>
+  <div class="next"><button class="btn pri" data-go="2" type="button">Next: Practice 1 →</button></div>
 </section>
 
 <section class="panel" id="p-practice">
-  <div class="card intro"><span class="kicker">Practice</span><h2>Order, fix, use</h2><p class="lead" style="margin:0">Put adjectives in order, correct mistakes, then complete a real-life advert.</p></div>
-  <div data-ex="p3"></div><div data-ex="p4"></div><div data-ex="p5"></div>
-  <div class="next"><button class="btn pri" data-go="3" type="button">See my report →</button></div>
+  <div class="card intro"><span class="kicker">Practice 1</span><h2>Build and order</h2><p class="lead" style="margin:0">Build phrases from tiles, put adjectives in order, then describe some pictures.</p></div>
+  <div data-ex="p7"></div><div data-ex="p3"></div><div data-ex="p8"></div>
+  <div class="next"><button class="btn pri" data-go="3" type="button">Next: Practice 2 →</button></div>
+</section>
+
+<section class="panel" id="p-practice2">
+  <div class="card intro"><span class="kicker">Practice 2</span><h2>Fix and use</h2><p class="lead" style="margin:0">Correct the mistakes, then complete an advert and a travel review.</p></div>
+  <div data-ex="p4"></div><div data-ex="p5"></div><div data-ex="p10"></div>
+  <div class="next"><button class="btn pri" data-go="4" type="button">See my report →</button></div>
 </section>
 
 <section class="panel" id="p-results">
@@ -533,7 +550,11 @@ const EXERCISES = [
     {q:"<b>striped · woollen</b> + scarf", answer:"a striped woollen scarf", options:["a woollen striped scarf","a striped woollen scarf","a striped and woollen scarf"], why:"pattern → material."},
     {q:"<b>ugly · old · Chinese</b> + vase", answer:"an ugly old Chinese vase", options:["an ugly old Chinese vase","a Chinese ugly old vase","an old Chinese ugly vase"], why:"opinion → age → origin."},
     {q:"<b>tall · young · Brazilian</b> + footballer", answer:"a tall young Brazilian footballer", options:["a young Brazilian tall footballer","a tall young Brazilian footballer","a Brazilian tall young footballer"], why:"size → age → origin."},
-    {q:"<b>beautiful · long · silver</b> + necklace", answer:"a beautiful long silver necklace", options:["a silver beautiful long necklace","a long silver beautiful necklace","a beautiful long silver necklace"], why:"opinion → size → material."}
+    {q:"<b>beautiful · long · silver</b> + necklace", answer:"a beautiful long silver necklace", options:["a silver beautiful long necklace","a long silver beautiful necklace","a beautiful long silver necklace"], why:"opinion → size → material."},
+    {q:"<b>expensive · new · Swiss</b> + watch", answer:"an expensive new Swiss watch", options:["a new expensive Swiss watch","an expensive new Swiss watch","a Swiss expensive new watch"], why:"opinion → age → origin."},
+    {q:"<b>huge · square · concrete</b> + building", answer:"a huge square concrete building", options:["a huge square concrete building","a concrete huge square building","a square huge concrete building"], why:"size → shape → material."},
+    {q:"<b>funny · little · Japanese</b> + robot", answer:"a funny little Japanese robot", options:["a little funny Japanese robot","a Japanese funny little robot","a funny little Japanese robot"], why:"opinion → size → origin."},
+    {q:"<b>green · plastic · garden</b> + chairs", answer:"green plastic garden chairs", options:["plastic green garden chairs","green plastic garden chairs","garden green plastic chairs"], why:"colour → material → purpose."}
    ]},
   {id:"p2", type:"choice", options:["comma","no comma"], title:"Comma or no comma?",
    ins:"Same type of adjective (you could say <b>and</b> between them) → comma. Different types → no comma.",
@@ -543,7 +564,11 @@ const EXERCISES = [
     {q:"a cheap ▢ cheerful café", answer:"comma", full:"a cheap, cheerful café", why:"cheap and cheerful: you can add and → comma."},
     {q:"a big ▢ black dog", answer:"no comma", full:"a big black dog", why:"size + colour: different types."},
     {q:"a clever ▢ funny speech", answer:"comma", full:"a clever, funny speech", why:"two opinions → comma (or and)."},
-    {q:"a small ▢ wooden box", answer:"no comma", full:"a small wooden box", why:"size + material: different types."}
+    {q:"a small ▢ wooden box", answer:"no comma", full:"a small wooden box", why:"size + material: different types."},
+    {q:"an exciting ▢ new project", answer:"no comma", full:"an exciting new project", why:"opinion + age: different types."},
+    {q:"a quiet ▢ peaceful village", answer:"comma", full:"a quiet, peaceful village", why:"quiet and peaceful: both describe the atmosphere → comma."},
+    {q:"a long ▢ black coat", answer:"no comma", full:"a long black coat", why:"size + colour: different types."},
+    {q:"an honest ▢ hard-working employee", answer:"comma", full:"an honest, hard-working employee", why:"two opinions about character → comma."}
    ]},
   {id:"p3", type:"type", title:"Put them in order",
    ins:"Write the three adjectives in the correct order (no commas needed).",
@@ -555,7 +580,11 @@ const EXERCISES = [
     {q:"We stayed in a ___ cabin.", key:"wooden / little / cosy", accept:["cosy little wooden"], hint:"opinion → size → material", why:"opinion → size → material."},
     {q:"There was a ___ rug on the floor.", key:"Persian / huge / red", accept:["huge red Persian"], hint:"size → colour → origin", why:"size → colour → origin."},
     {q:"He wore a ___ shirt.", key:"checked / cotton / blue", accept:["blue checked cotton"], hint:"colour → pattern → material", why:"colour → pattern → material."},
-    {q:"We need a ___ table.", key:"dining / oak / large", accept:["large oak dining"], hint:"purpose goes next to the noun", why:"size → material → purpose (dining table)."}
+    {q:"We need a ___ table.", key:"dining / oak / large", accept:["large oak dining"], hint:"purpose goes next to the noun", why:"size → material → purpose (dining table)."},
+    {q:"She gave me a ___ box.", key:"jewellery / wooden / small", accept:["small wooden jewellery"], hint:"size → material → purpose", why:"size → material → purpose (jewellery box)."},
+    {q:"We had dinner in a ___ restaurant.", key:"Greek / tiny / charming", accept:["charming tiny Greek"], hint:"opinion → size → origin", why:"opinion → size → origin."},
+    {q:"He's wearing a ___ jacket.", key:"denim / old / blue", accept:["old blue denim"], hint:"age → colour → material", why:"age → colour → material."},
+    {q:"They sell ___ carpets.", key:"Turkish / red / beautiful", accept:["beautiful red Turkish"], hint:"opinion → colour → origin", why:"opinion → colour → origin."}
    ]},
   {id:"p4", type:"type", title:"Find and fix",
    ins:"Each sentence has one mistake with adjectives. Write the whole sentence correctly.",
@@ -564,19 +593,71 @@ const EXERCISES = [
     {wrong:"I bought a leather black jacket.", accept:["I bought a black leather jacket"], hint:"colour before material", why:"colour → material."},
     {wrong:"The film was long boring.", accept:["The film was long and boring"], hint:"after be: two adjectives need …", why:"After be, seem, look… two adjectives are joined with and."},
     {wrong:"He has a Japanese old car.", accept:["He has an old Japanese car"], hint:"age before origin, and check the article", why:"age → origin; and old starts with a vowel sound: an old."},
-    {wrong:"My grandmother has a blue white vase.", accept:["My grandmother has a blue and white vase","My grandmother has a white and blue vase"], hint:"two colours", why:"Two colours are joined with and."}
+    {wrong:"My grandmother has a blue white vase.", accept:["My grandmother has a blue and white vase","My grandmother has a white and blue vase"], hint:"two colours", why:"Two colours are joined with and."},
+    {wrong:"The weather was cold, wet.", accept:["The weather was cold and wet"], hint:"after be…", why:"After be, two adjectives are joined with and."},
+    {wrong:"He bought a sports red new car.", accept:["He bought a new red sports car"], hint:"age → colour → purpose", why:"age → colour → purpose (sports car)."},
+    {wrong:"It's a cotton white comfortable T-shirt.", accept:["It's a comfortable white cotton T-shirt","It is a comfortable white cotton T-shirt"], hint:"opinion → colour → material", why:"opinion → colour → material."}
    ]},
   {id:"p5", type:"textgap", title:"For sale: everything must go",
    ins:"Write the adjectives in brackets in the correct order.",
    text:"FOR SALE: a [[beautiful old wooden]] (wooden / beautiful / old) wardrobe in excellent condition. Also a [[large round glass]] (glass / round / large) coffee table and two [[comfortable grey velvet]] (velvet / comfortable / grey) armchairs: perfect for a [[small modern]] (modern / small) flat. Free to anyone who buys the [[lovely little Victorian]] (Victorian / little / lovely) mirror!",
-   whys:["opinion → age → material","size → shape → material (coffee table: purpose + noun)","opinion → colour → material","size → age","opinion → size → origin / period"]}
+   whys:["opinion → age → material","size → shape → material (coffee table: purpose + noun)","opinion → colour → material","size → age","opinion → size → origin / period"]},
+  {id:"p6", type:"choice", options:["Opinion","Size","Age","Shape","Colour","Pattern","Origin","Material","Purpose"], title:"Which category?",
+   ins:"Before you can order adjectives, you need to know their type. Choose the category.",
+   items:[
+    {q:"<b>gorgeous</b>", answer:"Opinion", why:"Your judgement: opinion."},
+    {q:"<b>ancient</b>", answer:"Age", why:"How old something is."},
+    {q:"<b>tiny</b>", answer:"Size", why:"How big something is."},
+    {q:"<b>oval</b>", answer:"Shape", why:"The form of something."},
+    {q:"<b>woollen</b>", answer:"Material", why:"What it's made of."},
+    {q:"<b>tartan</b>", answer:"Pattern", why:"A pattern of checks (Scottish style)."},
+    {q:"<b>Brazilian</b>", answer:"Origin", why:"Where it comes from."},
+    {q:"<b>navy</b>", answer:"Colour", why:"A dark blue colour."},
+    {q:"<b>sleeping</b> (bag)", answer:"Purpose", why:"What it's for: a bag for sleeping."},
+    {q:"<b>awful</b>", answer:"Opinion", why:"Your judgement: opinion."}
+   ]},
+  {id:"p7", type:"tiles", title:"Build the phrase",
+   ins:"Tap the words in the right order.",
+   items:[
+    {ru:"Build: a bag", tiles:["a","beautiful","old","Italian","leather","bag"], accept:["a beautiful old Italian leather bag"]},
+    {ru:"Build: a table", tiles:["a","small","round","glass","table"], accept:["a small round glass table"]},
+    {ru:"Build: tourists", tiles:["three","tall","young","French","tourists"], accept:["three tall young French tourists"]},
+    {ru:"Build: shoes", tiles:["expensive","new","black","running","shoes"], accept:["expensive new black running shoes"]},
+    {ru:"Build: a building", tiles:["a","huge","modern","glass","office","building"], accept:["a huge modern glass office building"]},
+    {ru:"Build: a town", tiles:["a","charming","little","seaside","town"], accept:["a charming little seaside town"]},
+    {ru:"Build: a mug", tiles:["my","favourite","big","blue","coffee","mug"], accept:["my favourite big blue coffee mug"]},
+    {ru:"Build: a lady", tiles:["a","friendly","little","old","lady"], accept:["a friendly little old lady"]}
+   ]},
+  {id:"p8", type:"type", title:"Describe it",
+   ins:"Use the adjectives in brackets in the right order to describe the picture. Write the whole phrase with a / an.",
+   items:[
+    {q:"___", orig:"☂️", key:"umbrella · red · big · old", accept:["a big old red umbrella"], hint:"size → age → colour", why:"size → age → colour."},
+    {q:"___", orig:"🏰", key:"castle · Scottish · stone · ancient", accept:["an ancient Scottish stone castle"], hint:"age → origin → material; ancient starts with a vowel", why:"age → origin → material, and an before ancient."},
+    {q:"___", orig:"🧣", key:"scarf · cosy · striped · wool", accept:["a cosy striped wool scarf"], hint:"opinion → pattern → material", why:"opinion → pattern → material."},
+    {q:"___", orig:"🚲", key:"bike · Dutch · black · old-fashioned", accept:["an old-fashioned black Dutch bike"], hint:"age → colour → origin", why:"age (old-fashioned) → colour → origin; an before a vowel sound."},
+    {q:"___", orig:"🍵", key:"teapot · Chinese · round · lovely", accept:["a lovely round Chinese teapot"], hint:"opinion → shape → origin", why:"opinion → shape → origin."}
+   ]},
+  {id:"p9", type:"type", title:"After the verb",
+   ins:"Rewrite the phrase as a sentence with the verb <b>be</b>: the adjectives go after it, joined with <b>and</b>.",
+   items:[
+    {q:"___", orig:"It's a cold, dark room.", key:"The room…", accept:["The room is cold and dark","The room's cold and dark"], hint:"The room is … and …", why:"After be: adjective + and + adjective."},
+    {q:"___", orig:"She's a clever, funny girl.", key:"She…", accept:["She is clever and funny","She's clever and funny"], hint:"She is … and …", why:"After be: clever and funny."},
+    {q:"___", orig:"They live in a small, quiet flat.", key:"Their flat…", accept:["Their flat is small and quiet"], hint:"Their flat is … and …", why:"After be: small and quiet."},
+    {q:"___", orig:"It was a long, boring film.", key:"The film…", accept:["The film was long and boring"], hint:"The film was … and …", why:"After be: long and boring."},
+    {q:"___", orig:"It's a cheap, comfortable hotel.", key:"The hotel…", accept:["The hotel is cheap and comfortable","The hotel's cheap and comfortable"], hint:"The hotel is … and …", why:"After be: cheap and comfortable."}
+   ]},
+  {id:"p10", type:"textgap", title:"A review: our weekend in Porto",
+   ins:"Write the adjectives in brackets in the correct order.",
+   text:"We stayed in a [[charming small family-run]] (family-run / small / charming) hotel in the old town. Our room had a [[huge old wooden]] (wooden / huge / old) bed and a [[lovely little]] (little / lovely) balcony. On the first evening we found a [[cosy Portuguese seafood]] (seafood / Portuguese / cosy) restaurant near the river. The waiter wore a [[funny tall black]] (black / funny / tall) hat. We bought some [[beautiful blue and white]] (blue and white / beautiful) tiles as a souvenir.",
+   whys:["opinion → size → type (family-run)","size → age → material","opinion → size","opinion → origin → purpose / type (seafood restaurant)","opinion → size → colour","opinion → colour (two colours joined with and)"]}
 ];
 
 const TABS = [
-  {id:"order", icon:"1", en:"The order", ex:["p1"]},
-  {id:"fine", icon:"2", en:"Fine print", ex:["p2"]},
-  {id:"practice", icon:"3", en:"Practice", ex:["p3","p4","p5"]},
-  {id:"results", icon:"4", en:"Your report", ex:[]}
+  {id:"order", icon:"1", en:"The order", ex:["p6","p1"]},
+  {id:"fine", icon:"2", en:"Fine print", ex:["p2","p9"]},
+  {id:"practice", icon:"3", en:"Practice 1", ex:["p7","p3","p8"]},
+  {id:"practice2", icon:"4", en:"Practice 2", ex:["p4","p5","p10"]},
+  {id:"results", icon:"5", en:"Your report", ex:[]}
 ];
 
 /* =========================================================
@@ -587,7 +668,7 @@ const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const strip = s => String(s).replace(/<[^>]+>/g,"");
 const EX = {}; EXERCISES.forEach(e=>{EX[e.id]=e;});
-let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;}));
+let exNo=0; TABS.forEach(t=>t.ex.forEach(id=>{EX[id].no=++exNo;})); EXERCISES.sort((x,y)=>(x.no||99)-(y.no||99));
 
 const store = (()=>{ let mem=null; return {
   get(){ try{ const v=localStorage.getItem(KEY); return v!==null?v:mem; }catch(e){ return mem; } },
@@ -874,11 +955,11 @@ function buildCards(){
 /* results */
 const studentName=()=>((state.name||STUDENT).trim()||"Student");
 function questionText(ex,i){ const it=ex.items[i];
-  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1);
+  if(ex.type==="match") return it.en; if(ex.type==="textgap") return "Gap "+(i+1); if(ex.type==="tiles") return it.ru; if(it.orig) return it.orig+" ("+it.key+")";
   if(ex.listen) return "Listening: (word "+(i+1)+")"; if(it.wrong) return it.wrong;
    return strip(it.q)+(it.key?" ("+it.key+")":""); }
 function correctText(ex,i){ const it=ex.items[i];
-  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0];
+  if(ex.type==="match") return it.en+" = "+it.def; if(ex.type==="textgap") return it.accept[0]; if(ex.type==="tiles") return it.accept[0];
   if(ex.type==="choice") return it.q.includes("___")?fillSentence(it.q,it.answer):it.answer;
   return modelOf(ex,it); }
 function mistakes(){ const out=[]; EXERCISES.filter(scored).forEach(ex=>{ for(let i=0;i<exTotal(ex);i++){ const r=rec(ex.id,i); if(r&&r.done&&!r.correct) out.push({ex,i,q:questionText(ex,i),a:r.given,c:correctText(ex,i)}); } }); return out; }
@@ -949,11 +1030,47 @@ function buildMachine(){
   $$("#sortNouns .chip").forEach(b=>b.addEventListener("click",()=>{ n=+b.dataset.n; picked=[]; draw(false); }));
   draw(false);
 }
+/* --- tiles (word order builder) --- */
+const PH=`<span class="ph">Tap the words</span>`;
+function renderTiles(ex,body){
+  ex.items.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="item";
+    let order=seeded(it.tiles.map((t,k)=>k),hash(ex.id+i)+3); if(order.every((v,k)=>v===k)) order=order.slice(1).concat(order[0]);
+    row.innerHTML=`<div class="qline"><span class="num">${i+1}</span><div class="q">${esc(it.ru)}</div></div>
+      <div class="tline" aria-label="your answer">${PH}</div><div class="tbank"></div>
+      <div class="inrow"><button class="btn pri chk" type="button">Check</button><button class="btn clr" type="button">↺ Clear</button></div><div class="fb"></div>`;
+    const line=$(".tline",row), bank=$(".tbank",row);
+    order.forEach(k=>{ const t=document.createElement("button"); t.type="button"; t.className="tile"; t.textContent=it.tiles[k];
+      t.addEventListener("click",()=>{ if(rec(ex.id,i)&&rec(ex.id,i).done) return; const ph=$(".ph",line); if(ph) ph.remove();
+        (t.parentNode===bank?line:bank).appendChild(t); line.classList.remove("badv"); if(!line.querySelector(".tile")) line.innerHTML=PH; });
+      bank.appendChild(t); });
+    $(".clr",row).addEventListener("click",()=>{ if(rec(ex.id,i)&&rec(ex.id,i).done) return; $$(".tile",line).forEach(t=>bank.appendChild(t)); line.innerHTML=PH; });
+    $(".chk",row).addEventListener("click",()=>{
+      const words=$$(".tile",line).map(t=>t.textContent); if(words.length<it.tiles.length){ toast("Use all the words."); return; }
+      const v=words.join(" "), prev=rec(ex.id,i)||{tries:0}; if(prev.done) return;
+      const ok=matches(v,it.accept), tries=(prev.tries||0)+1;
+      if(ok||tries>=2){ setRec(ex.id,i,{given:v,correct:ok,done:true,tries}); paintTiles(ex,it,i,row,true); }
+      else{ setRec(ex.id,i,{given:v,correct:false,done:false,tries}); line.classList.add("badv");
+        const fb=$(".fb",row); fb.className="fb show hint"; fb.innerHTML=`<b class="t">${pick(OOPS)} Try again.</b>💡 Start with “${esc(it.accept[0].split(" ")[0])}”.`; }
+    });
+    body.appendChild(row); const r=rec(ex.id,i); if(r&&r.done) paintTiles(ex,it,i,row,false);
+  });
+}
+function paintTiles(ex,it,i,row,live){
+  const r=rec(ex.id,i), line=$(".tline",row);
+  line.innerHTML=r.given.split(" ").map(w=>`<span class="tile" style="cursor:default">${esc(w)}</span>`).join(""); $(".tbank",row).innerHTML="";
+  line.classList.remove("badv"); line.classList.add(r.correct?"okv":"badv"); $$(".inrow button",row).forEach(b=>b.disabled=true);
+  const model=it.accept[0];
+  const fb=$(".fb",row); fb.className="fb show "+(r.correct?"good":"bad");
+  fb.innerHTML=`<b class="t">${r.correct?(live?pick(PRAISE):"✓ Correct"):"✗ The answer is:"}</b><span class="row">${sayBtn(model,true)} <span>${esc(model)}</span></span>`;
+  if(live&&r.correct) speak(model);
+  updateExScore(ex);
+}
 
 
 function init(){
   buildTabs(); if($("[data-wl]")) buildWords(); if($("#fc")) buildCards(); buildMachine(); buildReading(); if($("#story")) buildStory();
-  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting};
+  const R={choice:renderChoice,type:renderType,match:renderMatch,textgap:renderTextGap,writing:renderWriting,tiles:renderTiles};
   $$("[data-ex]").forEach(h=>{ const ex=EX[h.dataset.ex], box=exShell(ex); R[ex.type](ex,$(".exbody",box)); h.replaceWith(box); updateExScore(ex); });
   const nm=$("#nm"); nm.value=state.name||STUDENT; nm.addEventListener("input",()=>{ state.name=nm.value; save(); });
   $("#resetBtn").addEventListener("click",()=>$("#resetConfirm").classList.add("show"));
