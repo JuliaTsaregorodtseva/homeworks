@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adjective order — Arseniy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF7F0;--paper:#fff;--ink:#232A4D;--soft:#5D6385;--line:#E7DFF3;
+  --violet:#8770D6;--violet-d:#6A52C4;--violet-soft:#F1EDFC;
+  --good:#23885C;--good-bg:#E6F6EE;--bad:#C9473D;--bad-bg:#FDECEA;--warn-bg:#FFF6DD;--warn:#8A6400;
+  --r:18px;--shadow:0 6px 24px rgba(35,42,77,.08);
+  --c-opinion:#EE7660;--c-size:#F4C35E;--c-age:#5DB5A4;--c-shape:#5880E8;--c-colour:#DA6898;
+  --c-pattern:#8770D6;--c-origin:#E58A4E;--c-material:#3E9C8E;--c-type:#8C7B6B;--c-noun:#232A4D;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+/* hero */
+.hero{padding:28px 0 18px}
+.badge{display:inline-block;background:var(--violet);color:#fff;font-weight:800;letter-spacing:.18em;font-size:.78rem;padding:8px 16px;border-radius:999px}
+.hero h1{font-size:clamp(2.2rem,8vw,3.6rem);font-weight:800;margin:14px 0 6px}
+.hero .sub{color:var(--violet-d);font-style:italic;font-size:1.15rem;margin:0 0 14px}
+.howto{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 320px;color:var(--soft)}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:700}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:150px;min-height:44px;background:#fff}
+.sound{border:2px solid var(--line);background:#fff;border-radius:12px;min-height:44px;padding:6px 12px;font-weight:700}
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(251,247,240,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;min-height:44px;font-weight:800;font-size:.92rem;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.78rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 8px}
+.tab[aria-selected="true"] .tb{background:#fff}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.88rem;font-weight:700;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--c-opinion),var(--c-size),var(--c-age),var(--c-shape),var(--c-colour),var(--c-pattern));transition:width .4s}
+/* cards */
+main{padding:18px 0 60px}
+.page{display:none}
+.page.on{display:block}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:1.6rem;margin-bottom:8px}
+.card h3{font-size:1.2rem;margin-bottom:6px}
+.card p{margin:.4em 0}
+.lead{font-size:1.08rem}
+.kicker{font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--violet-d);margin-bottom:4px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.grid2 .card{margin:0}
+.rule-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px;margin:14px 0 8px}
+.cell{border-radius:14px;overflow:hidden;border:2px solid var(--line);background:#fff;text-align:center}
+.cell .h{font-weight:800;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;padding:8px 4px;color:#fff}
+.cell .w{padding:10px 4px;font-size:1.02rem}
+.cell.noun .w{font-weight:800}
+.h.size,.chip.size{color:var(--ink)!important}
+.note{border-left:5px solid var(--violet);background:var(--violet-soft);padding:12px 14px;border-radius:0 12px 12px 0;margin:12px 0}
+.note.warm{border-color:var(--c-size);background:var(--warn-bg)}
+.exm{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.exm:last-child{border-bottom:0}
+.say{flex:0 0 auto;border:0;background:var(--violet-soft);border-radius:999px;width:44px;height:44px;font-size:1.05rem}
+.say:hover{background:#E4DCFA}
+.w-opinion{color:#D2543C}.w-size{color:#A8770A}.w-age{color:#2F8475}.w-shape{color:#3D66D6}.w-colour{color:#C2457C}
+.w-pattern{color:#6A52C4}.w-origin{color:#BF6324}.w-material{color:#2B7F73}.w-type{color:#7A6656}
+.exm b,.ph b{font-weight:800}
+.mn{font-size:1.2rem;font-weight:700}
+.mn b{color:var(--violet-d)}
+table.tt{width:100%;border-collapse:collapse;margin:8px 0}
+.tt th,.tt td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.tt th{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--soft)}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.mist div{padding:9px 12px;border-radius:12px}
+.mist .x{background:var(--bad-bg);color:#8E2F28;text-decoration:line-through;text-decoration-thickness:1px}
+.mist .v{background:var(--good-bg);color:#17603F;font-weight:700}
+/* demo */
+.demo-chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:2px solid transparent;border-radius:999px;padding:8px 14px;min-height:44px;font-weight:800;color:#fff;background:var(--c);opacity:.38}
+.chip[aria-pressed="true"]{opacity:1;box-shadow:0 3px 10px rgba(35,42,77,.18)}
+.phrase{font-family:Fraunces,Georgia,serif;font-size:clamp(1.3rem,5vw,1.9rem);line-height:1.3;background:var(--bg);border-radius:14px;padding:16px;min-height:76px}
+.verdict{font-weight:800;margin-top:10px}
+.btn{border:0;border-radius:12px;padding:10px 18px;min-height:44px;font-weight:800;background:var(--ink);color:#fff}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.v{background:var(--violet)}
+.btn:disabled{opacity:.45;cursor:default}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 18px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.ex-num{font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--violet-d)}
+.ex-head h3{font-size:1.35rem;margin:2px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--violet-soft);color:var(--violet-d);border-radius:999px;padding:4px 12px;font-size:.9rem}
+.item{border:2px solid var(--line);border-radius:14px;padding:14px;margin-top:12px;transition:border-color .2s}
+.item.ok{border-color:#9FD9BD}
+.item.no{border-color:#F0B4AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:.85rem;display:grid;place-items:center;margin-top:2px}
+.qp{flex:1;min-width:0}
+.big{font-family:Fraunces,Georgia,serif;font-size:1.45rem;font-weight:700}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:44px;font-weight:600}
+.opt:hover:not(:disabled){border-color:var(--violet)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#17603F;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8E2F28}
+.opt.dim{opacity:.55}
+.opts.chips{display:flex;flex-wrap:wrap}
+.opts.chips .opt{background:var(--c);color:#fff;border-color:var(--c);font-weight:800;text-align:center;padding:8px 14px}
+.opts.chips .opt.size{color:var(--ink)}
+.opts.chips .opt.dim{opacity:.3}
+.opts.chips .opt.right{outline:3px solid var(--good);outline-offset:2px;opacity:1}
+.opts.chips .opt.wrong{outline:3px solid var(--bad);outline-offset:2px;opacity:1;text-decoration:line-through}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1}
+.fb.good{background:var(--good-bg)}
+.fb.bad{background:var(--bad-bg)}
+.fb.hint{background:var(--warn-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.slot{display:inline-block;min-width:44px;text-align:center;border-bottom:3px solid var(--violet);color:var(--violet-d);font-weight:800}
+mark{background:#FFE7A8;border-radius:6px;padding:0 4px;color:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 220px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;background:#fff}
+.inp:focus{border-color:var(--violet);outline:none}
+.given{font-weight:700}
+.model{font-weight:800;color:#17603F}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800}
+.info{background:var(--bg);border-radius:12px;padding:10px 12px;margin:6px 0 8px;color:var(--soft)}
+.frame{font-weight:700}
+/* tiles */
+.build{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-size:1.08rem}
+.build .fx{font-weight:700}
+.zone{display:flex;flex-wrap:wrap;gap:6px;min-height:48px;min-width:140px;padding:4px 6px;border:2px dashed var(--line);border-radius:12px;align-items:center}
+.zone .ph{color:#A3A6BC;font-size:.9rem;padding:0 6px}
+.tile{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 12px;min-height:44px;font-weight:800}
+.zone .tile{background:var(--ink);color:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* gap text */
+.story{font-size:1.08rem;line-height:2.3}
+.gapw{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;flex-wrap:nowrap;white-space:nowrap}
+.gapw .gn{font-size:.75rem;font-weight:800;background:var(--ink);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-grid;place-items:center}
+.gapw input{width:11em;max-width:calc(100vw - 150px);border:2px solid var(--line);border-radius:10px;padding:4px 8px;min-height:40px;background:#fff;line-height:1.3}
+.gapw input:focus{border-color:var(--violet);outline:none}
+.gapw .gc{border:0;background:var(--violet);color:#fff;border-radius:10px;min-width:44px;min-height:40px;font-weight:800}
+.gapw .done{font-weight:800;border-radius:8px;padding:2px 8px;line-height:1.4}
+.gapw .done.ok{background:var(--good-bg);color:#17603F}
+.gapw .done.no{background:var(--bad-bg);color:#8E2F28}
+.br{color:var(--soft);font-size:.92rem}
+.gfbs .fb{margin-top:8px}
+/* results */
+.score-big{font-family:Fraunces,Georgia,serif;font-size:3rem;font-weight:800;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}
+.mlist li{margin:6px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.mail{user-select:all;font-weight:800;color:var(--violet-d)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.small{font-size:.88rem;color:var(--soft)}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.ex{padding:16px}
+  .mist{grid-template-columns:1fr}
+  .tt th:nth-child(3),.tt td:nth-child(3){display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <span class="badge">GRAMMAR · ADJECTIVES</span>
+  <h1>Adjective order</h1>
+  <p class="sub">Upper-Intermediate homework for <span id="nameOut">Arseniy</span></p>
+  <div class="howto">
+    <p>Work through the steps in order: read each rule card, then do its exercises. Your answers save automatically. At the end, open <b>Results</b> and send them to your teacher.</p>
+    <div class="namebox">
+      <label for="nameIn">Name</label>
+      <input id="nameIn" autocomplete="off">
+      <button class="sound" id="soundBtn" aria-pressed="true">🔊 Sound on</button>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+  </div>
+</div>
+
+<main class="wrap" id="app">
+  <!-- STEP 1 -->
+  <section class="page" data-page="0">
+    <div class="card">
+      <div class="kicker">Step 1 · The rule</div>
+      <h2>Opinion first. Facts follow in a fixed order.</h2>
+      <p class="lead">When two or more adjectives come <b>before a noun</b>, English puts them in a fairly fixed order. What you <i>think</i> comes first; what anyone can <i>see or check</i> comes after, from general to specific — the closer to the noun, the more it says about what the thing really is.</p>
+      <div class="rule-row" id="ruleRow"></div>
+      <p class="small"><i>a lovely big old round green spotted Chinese ceramic teapot</i> — possible, but nobody talks like this!</p>
+    </div>
+
+    <div class="card">
+      <div class="kicker">Try it</div>
+      <h3>Build the teapot</h3>
+      <p>Switch groups on and off in <b>any order</b> you like. The adjectives always jump into the right place — and watch what happens to <i>a / an</i>.</p>
+      <div class="demo-chips" id="demoChips"></div>
+      <div class="phrase" id="demoPhrase"></div>
+      <div class="verdict" id="demoVerdict"></div>
+      <div class="row"><button class="btn ghost" id="demoRand">🎲 Random 2–3</button><button class="say" id="demoSay" aria-label="Listen">🔊</button></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="kicker">How many?</div>
+        <h3>Usually 2, sometimes 3 — not 8.</h3>
+        <p>In real speech and writing, two adjectives before a noun is normal and three is the usual maximum. The full order is a map that tells you where each one goes, not a target to hit.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Remember it</div>
+        <p class="mn"><b>O</b>ur <b>S</b>illy <b>A</b>unt <b>S</b>ally <b>C</b>an't <b>P</b>ick <b>O</b>ld <b>M</b>ovies</p>
+        <p class="small">Opinion · Size · Age · Shape · Colour · Pattern · Origin · Material</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="kicker">Examples</div>
+      <div id="ex1"></div>
+      <div class="note warm"><b>Flexible pairs.</b> Native speakers sometimes swap <i>age ↔ shape</i> and <i>colour ↔ pattern</i> (you will see both <i>an old round table</i> and <i>a round old table</i>). These pairs are not tested in this homework — every other order is.</div>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="page" data-page="1">
+    <div class="card">
+      <div class="kicker">Step 2 · Building phrases</div>
+      <h2>Opinion or fact?</h2>
+      <p class="lead">An <b>opinion</b> adjective is something another person could disagree with: <i>lovely, awful, expensive, comfortable, boring, smart, delicious</i>. A <b>fact</b> adjective can be checked: <i>big, old, round, red, French, wooden</i>. Opinion always goes first.</p>
+      <div id="ex2a"></div>
+      <div class="note"><b>Two opinions?</b> General words that can describe almost anything (<i>nice, lovely, great, awful</i>) usually come before more specific ones (<i>comfortable, friendly, tasty</i>): <i>a nice comfortable chair</i>, <i>a lovely friendly teacher</i>.</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="kicker">Type / purpose</div>
+        <h3>The "what kind?" word sits next to the noun</h3>
+        <p>Words that tell us what kind of thing it is, or what it is for, go <b>last</b> — after material. They are often nouns themselves.</p>
+        <div id="ex2b"></div>
+      </div>
+      <div class="card">
+        <div class="kicker">a or an?</div>
+        <h3>Look at the first adjective, not the noun</h3>
+        <p>The article depends on the <b>sound</b> of the word right after it.</p>
+        <div id="ex2c"></div>
+        <p class="small">It's the sound that counts: <i>a useful tip</i> (/juː/), <i>an honest answer</i> (silent h).</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="kicker">Style tip</div>
+      <h3>Too many adjectives? Move some after the noun.</h3>
+      <p>Instead of piling up five adjectives, keep two or three and put the rest into a <i>with</i>-phrase, a <i>made of</i>-phrase or a second sentence.</p>
+      <div id="ex2d"></div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="page" data-page="2">
+    <div class="card">
+      <div class="kicker">Step 3 · Commas and "and"</div>
+      <h2>Nothing, a comma, or <i>and</i>?</h2>
+      <table class="tt">
+        <thead><tr><th>Situation</th><th>What to do</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><b>Different groups</b> before a noun</td><td>Nothing — no comma, no <i>and</i></td><td><i>a lovely old house</i></td></tr>
+          <tr><td><b>Same group</b> before a noun (two opinions)</td><td>A comma <b>or</b> <i>and</i></td><td><i>a kind, generous man / a kind and generous man</i></td></tr>
+          <tr><td><b>Colours</b></td><td><i>and</i> (with commas in a longer list)</td><td><i>a black and white cat; a red, white and blue flag</i></td></tr>
+          <tr><td><b>After the verb</b> (<i>be, look, seem, feel…</i>)</td><td><i>and</i> before the last one</td><td><i>The flat was bright and quiet. It was cold, wet and windy.</i></td></tr>
+        </tbody>
+      </table>
+      <div class="note">After the verb, the strict order matters much less: <i>The film was long and boring</i> and <i>The film was boring and long</i> are both fine. The fixed order is a rule for adjectives <b>before</b> a noun.</div>
+    </div>
+    <div class="card">
+      <div class="kicker">Common mistakes</div>
+      <h3>Watch out for these</h3>
+      <div class="mist"><div class="x">a big and old house</div><div class="v">a big old house</div></div>
+      <div class="mist"><div class="x">a French expensive perfume</div><div class="v">an expensive French perfume</div></div>
+      <div class="mist"><div class="x">a wool grey scarf</div><div class="v">a grey wool scarf</div></div>
+      <div class="mist"><div class="x">a football leather ball</div><div class="v">a leather football</div></div>
+      <div class="mist"><div class="x">The weather was cold wet.</div><div class="v">The weather was cold and wet.</div></div>
+      <div class="mist"><div class="x">a old wooden box</div><div class="v">an old wooden box</div></div>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="page" data-page="3">
+    <div class="card">
+      <div class="kicker">Step 4 · Mixed practice</div>
+      <h2>Put it all together</h2>
+      <p class="lead">Everything from Steps 1–3 in longer tasks. Typed answers: you get a hint after the first wrong try and a second chance. Commas between adjectives from different groups are accepted, but you'll get a reminder.</p>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="page" data-page="4">
+    <div class="card" id="resCard"></div>
+    <div class="card">
+      <div class="kicker">Send to your teacher</div>
+      <h3>Send your results</h3>
+      <p>Choose any way that works for you. <b>Copy text</b> always includes the full report.</p>
+      <div class="sendbtns" id="sendBtns"></div>
+      <p class="small">Teacher's email: <span class="mail">ulchik2211@gmail.com</span></p>
+      <p class="small" id="copyMsg" aria-live="polite"></p>
+    </div>
+    <div class="card">
+      <h3>Start again</h3>
+      <p class="small">This deletes all your answers on this device.</p>
+      <button class="btn ghost" id="resetBtn">↺ Start again</button>
+      <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes, delete</button> <button class="btn ghost" id="resetNo">No, keep them</button></div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* =========================================================
+   DATA — rules, examples and exercises (edit here)
+   ========================================================= */
+const TEACHER_EMAIL = 'ulchik2211@gmail.com';
+const HOMEWORK_TITLE = 'Adjective order';
+const STORE_KEY = 'arseniy-adjective-order-v1';
+const DEFAULT_NAME = 'Arseniy';
+const STEPS = ['1 · The order', '2 · Building phrases', '3 · Commas & "and"', '4 · Mixed practice', 'Results'];
+
+const CAT = {
+  opinion:{label:'Opinion', c:'var(--c-opinion)'},
+  size:{label:'Size', c:'var(--c-size)'},
+  age:{label:'Age', c:'var(--c-age)'},
+  shape:{label:'Shape', c:'var(--c-shape)'},
+  colour:{label:'Colour', c:'var(--c-colour)'},
+  pattern:{label:'Pattern', c:'var(--c-pattern)'},
+  origin:{label:'Origin', c:'var(--c-origin)'},
+  material:{label:'Material', c:'var(--c-material)'},
+  type:{label:'Type / purpose', c:'var(--c-type)'},
+  noun:{label:'Noun', c:'var(--c-noun)'}
+};
+const SORT_CATS = ['opinion','size','age','shape','colour','pattern','origin','material'];
+const DEMO = [['opinion','lovely'],['size','big'],['age','old'],['shape','round'],['colour','green'],['pattern','spotted'],['origin','Chinese'],['material','ceramic']];
+
+/* Example phrases: arrays of [category, word]; plain strings are uncoloured */
+const EXAMPLES = {
+  ex1: [
+    [['opinion','lovely'],['age','old'],' house'],
+    [['size','big'],['colour','black'],' dog'],
+    [['opinion','expensive'],['origin','Italian'],' car'],
+    [['size','small'],['shape','round'],['material','wooden'],' table'],
+    [['opinion','beautiful'],['age','old'],['origin','French'],' clock']
+  ],
+  ex2a: [
+    [['opinion','comfortable'],['age','old'],['material','leather'],' armchair'],
+    [['opinion','boring'],['origin','American'],' film']
+  ],
+  ex2b: [
+    [['size','big'],['type','dining'],' table'],
+    [['age','new'],['type','running'],' shoes'],
+    [['material','leather'],['type','travel'],' bag'],
+    [['opinion','warm'],['type','winter'],' coat']
+  ],
+  ex2c: [
+    [['age','new'],' car'],
+    [['age','old'],' car'],
+    [['opinion','amazing'],['age','new'],' car']
+  ],
+  ex2d: [
+    'a lovely old teapot with green spots',
+    'a lovely old Chinese teapot made of ceramic'
+  ]
+};
+
+/* Exercises. kind: choice | tiles | type | gaptext.  step = page index */
+const EX = [
+  { id:'sort', step:0, kind:'choice', chips:true, title:'Which group?',
+    instr:'Tap the group each adjective belongs to.',
+    items:[
+      ['delicious','opinion','It says what you think of the food — another person might disagree.'],
+      ['wooden','material','It tells us what the thing is made of: wood.'],
+      ['huge','size','It tells us how big something is.'],
+      ['Japanese','origin','It tells us where something comes from.'],
+      ['striped','pattern','It means "with stripes" — a pattern.'],
+      ['ancient','age','It means very, very old.'],
+      ['turquoise','colour','It is a blue-green colour.'],
+      ['square','shape','It describes the shape.'],
+      ['plastic','material','It tells us what the thing is made of.'],
+      ['elegant','opinion','It is your judgement — someone else might disagree.'],
+      ['oval','shape','It means "shaped like an egg".'],
+      ['Brazilian','origin','It tells us where something or someone comes from.'],
+      ['brand-new','age','It means completely new — that is about age.'],
+      ['checked','pattern','It means "with squares", like a chessboard — a pattern.'],
+      ['tiny','size','It means very small.'],
+      ['purple','colour','It is a colour.']
+    ].map(([w,c,why])=>({p:`<span class="big">${w}</span>`, opts:SORT_CATS, a:SORT_CATS.indexOf(c), why:`<b>${w}</b> → ${CAT[c].label.toUpperCase()}. ${why}`, say:w, q:w}))
+  },
+  { id:'choose', step:0, kind:'choice', title:'Which is correct?',
+    instr:'Choose the phrase with the correct order (and the correct a / an).',
+    items:[
+      {opts:['a beautiful long red dress','a long beautiful red dress','a red long beautiful dress'], a:0, why:'Opinion (<i>beautiful</i>) → size (<i>long</i>) → colour (<i>red</i>).'},
+      {opts:['an Italian expensive leather bag','an expensive Italian leather bag','a leather expensive Italian bag'], a:1, why:'Opinion (<i>expensive</i>) → origin (<i>Italian</i>) → material (<i>leather</i>).'},
+      {opts:['a small old wooden box','an old small wooden box','a wooden small old box'], a:0, why:'Size (<i>small</i>) → age (<i>old</i>) → material (<i>wooden</i>).'},
+      {opts:['two young lovely Spanish students','two Spanish lovely young students','two lovely young Spanish students'], a:2, why:'Opinion (<i>lovely</i>) → age (<i>young</i>) → origin (<i>Spanish</i>).'},
+      {opts:['a round big glass table','a big round glass table','a glass big round table'], a:1, why:'Size (<i>big</i>) → shape (<i>round</i>) → material (<i>glass</i>).'},
+      {opts:['an old strange Japanese film','a strange old Japanese film','a Japanese strange old film'], a:1, why:'Opinion (<i>strange</i>) → age (<i>old</i>) → origin (<i>Japanese</i>). Notice the article changes too: <i>a strange…</i>'},
+      {opts:['a plastic cheap Chinese toy','a cheap Chinese plastic toy','a Chinese cheap plastic toy'], a:1, why:'Opinion (<i>cheap</i>) → origin (<i>Chinese</i>) → material (<i>plastic</i>).'},
+      {opts:['a brown ugly plastic chair','an ugly brown plastic chair','an ugly plastic brown chair'], a:1, why:'Opinion (<i>ugly</i>) → colour (<i>brown</i>) → material (<i>plastic</i>). <i>An</i> because <i>ugly</i> starts with a vowel sound.'},
+      {opts:['a new nice Swiss watch','a Swiss nice new watch','a nice new Swiss watch'], a:2, why:'Opinion (<i>nice</i>) → age (<i>new</i>) → origin (<i>Swiss</i>).'},
+      {opts:['a enormous black dog','an enormous black dog','a black enormous dog'], a:1, why:'Size before colour, and the article follows the first adjective: <i>an enormous</i>.'}
+    ].map(o=>Object.assign(o,{p:'Which is correct?', q:o.opts.join(' / ')}))
+  },
+  { id:'build', step:1, kind:'tiles', title:'Build the phrase',
+    instr:'Tap the adjectives in the correct order. Tap a placed word to send it back.',
+    items:[
+      {pre:"my grandmother's", post:'cottage', tiles:['stone','lovely','old'], a:['lovely','old','stone'], hint:'One is an opinion, one is about age, one is a material.', why:'Opinion (<i>lovely</i>) → age (<i>old</i>) → material (<i>stone</i>).'},
+      {pre:'two', post:'glasses', tiles:['wine','tall','French'], a:['tall','French','wine'], hint:'Which word tells us what the glasses are for?', why:'Size (<i>tall</i>) → origin (<i>French</i>) → purpose (<i>wine</i> glasses) right next to the noun.'},
+      {pre:'her', post:'boots', tiles:['leather','new','black'], a:['new','black','leather'], hint:'Age, colour, material — in which order?', why:'Age (<i>new</i>) → colour (<i>black</i>) → material (<i>leather</i>).'},
+      {pre:'those', post:'T-shirts', tiles:['cotton','ugly','striped'], a:['ugly','striped','cotton'], hint:'Start with your opinion. Material goes nearest the noun.', why:'Opinion (<i>ugly</i>) → pattern (<i>striped</i>) → material (<i>cotton</i>).'},
+      {pre:'the', post:'table', tiles:['kitchen','wooden','big','old'], a:['big','old','wooden','kitchen'], hint:'"Kitchen" tells us what kind of table — where does that go?', why:'Size (<i>big</i>) → age (<i>old</i>) → material (<i>wooden</i>) → type (<i>kitchen</i> table).'},
+      {pre:'some', post:'sunglasses', tiles:['round','cool','Italian'], a:['cool','round','Italian'], hint:'Opinion, shape, origin.', why:'Opinion (<i>cool</i>) → shape (<i>round</i>) → origin (<i>Italian</i>).'},
+      {pre:'his', post:'suit', tiles:['grey','smart','wool'], a:['smart','grey','wool'], hint:'Which word is your opinion? Which is the material?', why:'Opinion (<i>smart</i>) → colour (<i>grey</i>) → material (<i>wool</i>).'},
+      {pre:'these', post:'boxes', tiles:['cardboard','small','brown'], a:['small','brown','cardboard'], hint:'Size, colour, material.', why:'Size (<i>small</i>) → colour (<i>brown</i>) → material (<i>cardboard</i>).'}
+    ]
+  },
+  { id:'join', step:2, kind:'choice', title:'Nothing, a comma, or "and"?',
+    instr:'What goes in the gap?',
+    items:[
+      {p:'a lovely <span class="slot">?</span> old house', a:0, say:'a lovely old house', why:'<i>Lovely</i> (opinion) and <i>old</i> (age) are from different groups → nothing.'},
+      {p:'a black <span class="slot">?</span> white photo', a:2, say:'a black and white photo', why:'Two colours are joined with <i>and</i>: <i>a black and white photo</i>.'},
+      {p:'The room was small <span class="slot">?</span> dark.', a:2, say:'The room was small and dark.', why:'After the verb (<i>be, look, seem…</i>) we join adjectives with <i>and</i>.'},
+      {p:'a friendly <span class="slot">?</span> helpful waiter', a:1, say:'a friendly, helpful waiter', why:'Both are opinions (same group), so you can use a comma or <i>and</i>: <i>a friendly, helpful waiter / a friendly and helpful waiter</i>.'},
+      {p:'a big <span class="slot">?</span> round table', a:0, say:'a big round table', why:'Size and shape are different groups → nothing.'},
+      {p:'My new boss is clever <span class="slot">?</span> funny.', a:2, say:'My new boss is clever and funny.', why:'After the verb <i>is</i> → <i>and</i>.'},
+      {p:'an intelligent <span class="slot">?</span> hard-working student', a:1, say:'an intelligent, hard-working student', why:'Two opinions (same group) → a comma or <i>and</i>.'},
+      {p:'a dark blue <span class="slot">?</span> Italian suit', a:0, say:'a dark blue Italian suit', why:'Colour and origin are different groups → nothing.'},
+      {p:'a red, white <span class="slot">?</span> blue flag', a:2, say:'a red, white and blue flag', why:'A list of colours: commas between the first ones, <i>and</i> before the last.'}
+    ].map(o=>Object.assign(o,{opts:['Nothing','A comma or "and"','Only "and"'], q:o.p.replace(/<[^>]+>/g,'').replace('?','___')}))
+  },
+  { id:'story', step:3, kind:'gaptext', title:'A Saturday at the flea market',
+    instr:'Put the adjectives in brackets in the correct order. Type only the adjectives, then press ✓.',
+    text:['It was a ',0,' afternoon, so I went to the flea market. In a quiet corner I found a ',1,' shop. In the window there was a ',2,' table, and on it stood two ',3,' vases. The owner, a ',4,' man, showed me a ',5,' suitcase from the 1950s. I almost bought a ',6,' scarf for my sister, but in the end I chose a ',7,' clock for my flat.'],
+    items:[
+      {words:'lovely / autumn / sunny', acc:['lovely sunny autumn'], pre:'a', post:'afternoon', hint:'<i>Autumn</i> tells us what kind of afternoon — it goes next to the noun. Opinion first.', why:'Opinion (<i>lovely</i>) → <i>sunny</i> → type (<i>autumn</i> afternoon).'},
+      {words:'old / tiny', acc:['tiny old'], pre:'a', post:'shop', hint:'Size or age — which comes first?', why:'Size (<i>tiny</i>) → age (<i>old</i>).'},
+      {words:'wooden / beautiful / round', acc:['beautiful round wooden'], pre:'a', post:'table', hint:'Opinion → shape → material.', why:'Opinion (<i>beautiful</i>) → shape (<i>round</i>) → material (<i>wooden</i>).'},
+      {words:'Chinese / blue / tall', acc:['tall blue chinese'], pre:'two', post:'vases', hint:'Size → colour → origin.', why:'Size (<i>tall</i>) → colour (<i>blue</i>) → origin (<i>Chinese</i>).'},
+      {words:'cheerful / little / old', acc:['cheerful little old'], pre:'a', post:'man', hint:'Opinion → size → age.', why:'Opinion (<i>cheerful</i>) → size (<i>little</i>) → age (<i>old</i>).'},
+      {words:'leather / brown / small', acc:['small brown leather'], pre:'a', post:'suitcase', hint:'Size → colour → material.', why:'Size (<i>small</i>) → colour (<i>brown</i>) → material (<i>leather</i>).'},
+      {words:'silk / gorgeous / green', acc:['gorgeous green silk'], pre:'a', post:'scarf', hint:'Opinion → colour → material.', why:'Opinion (<i>gorgeous</i>) → colour (<i>green</i>) → material (<i>silk</i>).'},
+      {words:'old / French / strange', acc:['strange old french'], pre:'a', post:'clock', hint:'Opinion → age → origin. Check that it still fits after "a".', why:'Opinion (<i>strange</i>) → age (<i>old</i>) → origin (<i>French</i>). <i>A strange…</i> — the article fits the first adjective.'}
+    ].map((o,k)=>Object.assign(o,{q:`Gap ${k+1} (${o.words})`}))
+  },
+  { id:'fix', step:3, kind:'type', title:'Find and correct the mistake',
+    instr:'Each highlighted part has one mistake. Type the highlighted part correctly (with the article).',
+    items:[
+      {pre:'She lives in', bad:'an old lovely house', post:'.', acc:['a lovely old house'], hint:'Opinion comes first — and check the article.', why:'Opinion before age: <i>a lovely old house</i>. The article changes to <i>a</i>.'},
+      {pre:'I bought', bad:'a leather black jacket', post:'yesterday.', acc:['a black leather jacket'], hint:'Colour or material — which is closer to the noun?', why:'Colour before material: <i>a black leather jacket</i>.'},
+      {pre:'We stayed in', bad:'a modern big hotel', post:'.', acc:['a big modern hotel'], hint:'Size comes before age.', why:'Size before age: <i>a big modern hotel</i>.'},
+      {pre:'He gave her', bad:'a gold beautiful ring', post:'.', acc:['a beautiful gold ring'], hint:'Where does the opinion go?', why:'Opinion first: <i>a beautiful gold ring</i>.'},
+      {pre:"They've got", bad:'a German old car', post:'.', acc:['an old german car'], hint:'Age before origin — and check a / an.', why:'Age before origin, and <i>an</i> before <i>old</i>: <i>an old German car</i>.'},
+      {pre:'The film was', bad:'boring long', post:'.', acc:['long and boring','boring and long'], hint:'After the verb you need a little word between the adjectives.', why:'After the verb, join adjectives with <i>and</i>: <i>long and boring</i> (or <i>boring and long</i>).'},
+      {pre:'I need', bad:'a cotton white shirt', post:'for the interview.', acc:['a white cotton shirt'], hint:'Material goes nearest the noun.', why:'Colour before material: <i>a white cotton shirt</i>.'},
+      {pre:"There's", bad:'a black white photo', post:'of my grandparents on the wall.', acc:['a black and white photo','a black-and-white photo'], hint:'How do we join two colours?', why:'Two colours → <i>and</i>: <i>a black and white photo</i>.'},
+      {pre:'She was carrying', bad:'a shopping plastic bag', post:'.', acc:['a plastic shopping bag'], hint:'"Shopping" tells us what the bag is for.', why:'Material, then purpose next to the noun: <i>a plastic shopping bag</i>.'}
+    ].map(o=>Object.assign(o,{p:`${o.pre} <mark>${o.bad}</mark>${o.post==='.'?'.':' '+o.post}`, q:`${o.pre} [${o.bad}] ${o.post}`.replace(' .','.'), post:o.post.replace(/\.$/,''), phraseOnly:true}))
+  },
+  { id:'combine', step:3, kind:'type', title:'Three facts, one phrase',
+    instr:'Read the information and complete the sentence with the adjectives in the correct order. Type only the adjectives.',
+    items:[
+      {info:"The sofa is brown. It's made of leather. It's really comfortable.", pre:"I've got a", post:'sofa', acc:['comfortable brown leather'], hint:'Opinion → colour → material.', why:'<i>a comfortable brown leather sofa</i> — opinion, colour, material.'},
+      {info:'The dress was long. It was made of silk. It looked elegant.', pre:'She was wearing an', post:'dress', acc:['elegant long silk'], hint:'Opinion → size → material. The article "an" is a clue.', why:'<i>an elegant long silk dress</i> — opinion, size (length), material.'},
+      {info:'The restaurant is Greek. It opened last month. The food there is fantastic.', pre:'We had dinner at a', post:'restaurant', acc:['fantastic new greek'], hint:'"Opened last month" = what age adjective? Opinion → age → origin.', why:'<i>a fantastic new Greek restaurant</i> — opinion, age, origin.'},
+      {info:"The van is white. It's huge. It's twenty years old.", pre:'My uncle drives a', post:'van', acc:['huge old white'], hint:'"Twenty years old" = what age adjective? Size → age → colour.', why:'<i>a huge old white van</i> — size, age, colour.'},
+      {info:"The watch is Swiss. It's very thin. It's beautiful.", pre:"I'd love a", post:'watch', acc:['beautiful thin swiss'], hint:'Opinion → shape → origin.', why:'<i>a beautiful thin Swiss watch</i> — opinion, shape, origin.'},
+      {info:"The mugs are big. They're white. They're for coffee.", pre:'Can you pass me those two', post:'mugs', acc:['big white coffee'], hint:'What the mugs are for goes next to the noun.', why:'<i>two big white coffee mugs</i> — size, colour, purpose.'}
+    ].map(o=>Object.assign(o,{p:`<div class="info">${o.info}</div><span class="frame">${o.pre} <span class="slot">______</span> ${o.post}.</span>`, q:`${o.info} → ${o.pre} ___ ${o.post}.`}))
+  }
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const PRAISE = ['Correct!','Spot on!','Exactly right!','Perfect!','Well done!','Nice one!','Yes — great!'];
+const OOPS = ['Not quite.','Almost — have a look.','Not this one.'];
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const strip = s => String(s).replace(/<[^>]+>/g,'');
+
+/* storage with in-memory fallback */
+const MEM = {};
+function loadState(){ try{ const s = localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s = JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY, s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+
+let state = loadState() || {name:DEFAULT_NAME, tab:0, sound:true, ans:{}};
+if(!state.ans) state.ans = {};
+function S(ex,i){ const a = state.ans[ex.id] || (state.ans[ex.id]=[]); return a[i] || (a[i]={done:false,correct:false,tries:0}); }
+
+/* speech */
+function speak(text){
+  if(!state.sound || !text) return;
+  try{
+    if(!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const vs = speechSynthesis.getVoices() || [];
+    const v = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice = v;
+    u.lang = v ? v.lang : 'en-GB'; u.rate = 0.88;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(text){ const s=state.sound; state.sound=true; speak(text); state.sound=s; }
+
+/* normalising answers */
+const CONTR = [[/\bit's\b/g,'it is'],[/\bi've\b/g,'i have'],[/\bthey've\b/g,'they have'],[/\bwe've\b/g,'we have'],[/\bthere's\b/g,'there is'],[/\bi'd\b/g,'i would'],[/\bi'm\b/g,'i am'],[/\bthey're\b/g,'they are'],[/\bdon't\b/g,'do not'],[/\bcan't\b/g,'cannot'],[/\bisn't\b/g,'is not']];
+function norm(s){
+  s = String(s||'').toLowerCase().replace(/[‘’`´]/g,"'").replace(/[“”]/g,'"').replace(/[‐‑–—]/g,'-').replace(/\s+/g,' ').trim();
+  s = s.replace(/[.!?;:]+$/,'').trim();
+  CONTR.forEach(([r,v])=>{ s = s.replace(r,v); });
+  return s;
+}
+const noCommas = s => s.replace(/\s*,\s*/g,' ').replace(/\s+/g,' ').trim();
+function variants(it){
+  const out = [];
+  const pre = it.pre||'', post = it.post||'';
+  it.acc.forEach(a=>{
+    out.push(a);
+    if(pre) out.push(pre+' '+a);
+    if(post) out.push(a+' '+post);
+    if(pre && post) out.push(pre+' '+a+' '+post);
+  });
+  return out.map(norm);
+}
+function evalTyped(it, raw){
+  const n = norm(raw), vs = variants(it);
+  if(vs.includes(n)) return {ok:true};
+  if(vs.map(noCommas).includes(noCommas(n))) return {ok:true, note:'Small point: no commas between adjectives from different groups.'};
+  return {ok:false};
+}
+function fullOf(it){ return [it.pre, it.acc[0], it.post].filter(Boolean).join(' ').replace(/\b(german|chinese|french|greek|swiss)\b/g,m=>m[0].toUpperCase()+m.slice(1)); }
+const cap = s => s.replace(/\b(german|chinese|french|greek|swiss)\b/g,m=>m[0].toUpperCase()+m.slice(1));
+
+/* feedback block */
+function fbHTML(kind, msg, body, say){
+  return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:''}${body||''}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:''}</div>`;
+}
+
+/* ---------- renderers ---------- */
+function renderItem(ex,i){
+  if(ex.kind==='choice') return renderChoice(ex,i);
+  if(ex.kind==='tiles') return renderTiles(ex,i);
+  if(ex.kind==='type') return renderType(ex,i);
+}
+function itemShell(ex,i,st){
+  const d = document.createElement('div');
+  d.className = 'item' + (st.done ? (st.correct?' ok':' no') : '');
+  d.id = `it-${ex.id}-${i}`;
+  return d;
+}
+function renderChoice(ex,i){
+  const it = ex.items[i], st = S(ex,i), d = itemShell(ex,i,st);
+  const say = it.say || it.opts[it.a];
+  let h = `<div class="q"><span class="qn">${i+1}</span><div class="qp">${it.p}</div></div><div class="opts${ex.chips?' chips':''}">`;
+  it.opts.forEach((o,k)=>{
+    let cls = 'opt';
+    if(st.done){ cls += k===it.a ? ' right' : (k===st.pick ? ' wrong' : ' dim'); }
+    if(ex.chips) cls += ' '+o;
+    const style = ex.chips ? ` style="--c:${CAT[o].c}"` : '';
+    h += `<button class="${cls}" data-k="${k}"${st.done?' disabled':''}${style}>${ex.chips?CAT[o].label:esc(o)}</button>`;
+  });
+  h += '</div>';
+  if(st.done) h += fbHTML(st.correct?'good':'bad', st.msg, it.why, say);
+  d.innerHTML = h;
+  if(!st.done) d.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    st.done = true; st.tries = 1; st.pick = +b.dataset.k; st.correct = st.pick===it.a;
+    st.given = ex.chips ? CAT[it.opts[st.pick]].label : it.opts[st.pick];
+    st.msg = st.correct ? pick(PRAISE) : pick(OOPS);
+    if(st.correct) speak(say);
+    refresh(ex,i);
+  }));
+  return d;
+}
+function renderTiles(ex,i){
+  const it = ex.items[i], st = S(ex,i), d = itemShell(ex,i,st);
+  if(!st.cur) st.cur = [];
+  const full = [it.pre, ...it.a, it.post].join(' ');
+  let h = `<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="build"><span class="fx">${esc(it.pre)}</span><div class="zone">`;
+  if(st.done){
+    h += (st.correct ? it.a : (st.given||'').split(' ')).map(w=>`<span class="tile" style="pointer-events:none">${esc(w)}</span>`).join('');
+  } else {
+    h += st.cur.length ? st.cur.map((k,pos)=>`<button class="tile" data-pos="${pos}">${esc(it.tiles[k])}</button>`).join('') : '<span class="ph">tap the words below</span>';
+  }
+  h += `</div><span class="fx">${esc(it.post)}</span></div>`;
+  if(!st.done){
+    h += `<div class="pool">${it.tiles.map((w,k)=>st.cur.includes(k)?'':`<button class="tile" data-k="${k}">${esc(w)}</button>`).join('')}</div>`;
+    h += `<div class="row"><button class="btn v chk">Check</button><button class="btn ghost clr">Clear</button></div>`;
+    if(st.warn) h += fbHTML('hint','',st.warn);
+    else if(st.tries===1) h += fbHTML('hint', 'Not quite — try again.', 'Hint: '+it.hint);
+  } else {
+    h += st.correct ? fbHTML('good', st.msg, it.why, full)
+                    : fbHTML('bad', st.msg, `Correct: <span class="model">${esc(full)}</span><br>${it.why}`, full);
+  }
+  h += '</div></div>';
+  d.innerHTML = h;
+  if(!st.done){
+    d.querySelectorAll('.pool .tile').forEach(b=>b.addEventListener('click',()=>{ st.cur.push(+b.dataset.k); st.warn=''; refresh(ex,i,true); }));
+    d.querySelectorAll('.zone .tile').forEach(b=>b.addEventListener('click',()=>{ st.cur.splice(+b.dataset.pos,1); refresh(ex,i,true); }));
+    d.querySelector('.clr').addEventListener('click',()=>{ st.cur=[]; st.warn=''; refresh(ex,i,true); });
+    d.querySelector('.chk').addEventListener('click',()=>{
+      if(st.cur.length < it.tiles.length){ st.warn = 'Use all the words first.'; refresh(ex,i,true); return; }
+      st.warn = '';
+      const ans = st.cur.map(k=>it.tiles[k]);
+      st.tries++;
+      if(ans.join(' ')===it.a.join(' ')){ st.done=true; st.correct=true; st.given=ans.join(' '); st.msg = st.tries===1?pick(PRAISE):'Correct on the second try!'; speak(full); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=ans.join(' '); st.msg='Not this time.'; }
+      else { st.cur = []; }
+      refresh(ex,i);
+    });
+  }
+  return d;
+}
+function typedFeedback(it, st, sayText){
+  if(st.done){
+    if(st.correct){
+      const extra = st.self ? '<br><i>You marked your answer as correct — your teacher will check it.</i>' : '';
+      return fbHTML('good', st.self?'Marked as correct':st.msg, (st.note?`<span>${st.note}</span><br>`:'') + it.why + extra, sayText);
+    }
+    return fbHTML('bad', st.msg, `Your answer: <span class="given">${esc(st.given)}</span><br>Correct: <span class="model">${esc(cap(it.acc[0]))}</span><br>${it.why}`, sayText)
+      + `<button class="selfmark" data-self="1">My answer is also correct ✓</button>`;
+  }
+  if(st.warn) return fbHTML('hint','',st.warn);
+  if(st.tries===1) return fbHTML('hint','Not quite — try again.','Hint: '+it.hint);
+  return '';
+}
+function doTyped(ex,i,val){
+  const it = ex.items[i], st = S(ex,i);
+  if(!String(val||'').trim()){ st.warn='Type your answer first.'; return; }
+  st.warn=''; const r = evalTyped(it,val); st.tries++;
+  if(r.ok){ st.done=true; st.correct=true; st.given=val; st.note=r.note||''; st.msg = st.tries===1?pick(PRAISE):'Correct on the second try!'; speak(fullOf(it)); }
+  else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg='Not this time.'; }
+  st.draft = st.done ? '' : val;
+}
+function renderType(ex,i){
+  const it = ex.items[i], st = S(ex,i), d = itemShell(ex,i,st);
+  const sayText = it.phraseOnly ? cap([it.pre, it.acc[0], it.post].filter(Boolean).join(' ')) : fullOf(it);
+  let h = `<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done){
+    h += `<div class="row"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||'')}" placeholder="${it.phraseOnly?'Type the correct phrase':'Type the adjectives'}"><button class="btn v chk">Check</button></div>`;
+  }
+  h += typedFeedback(it, st, sayText) + '</div></div>';
+  d.innerHTML = h;
+  const inp = d.querySelector('.inp');
+  if(inp){
+    inp.addEventListener('input',()=>{ st.draft = inp.value; saveSoon(); });
+    const go = ()=>{ doTyped(ex,i,inp.value); refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus(); };
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); go(); } });
+    d.querySelector('.chk').addEventListener('click',go);
+  }
+  const sm = d.querySelector('[data-self]');
+  if(sm) sm.addEventListener('click',()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+function renderGapText(ex){
+  const d = document.createElement('div');
+  d.className = 'item'; d.id = `it-${ex.id}-all`;
+  let h = '<div class="story">';
+  ex.text.forEach(seg=>{
+    if(typeof seg==='string'){ h += esc(seg); return; }
+    const it = ex.items[seg], st = S(ex,seg);
+    h += `<span class="gapw"><span class="gn">${seg+1}</span>`;
+    if(st.done) h += `<span class="done ${st.correct?'ok':'no'}">${esc(cap(st.correct ? it.acc[0] : it.acc[0]))}</span>${st.correct?'':` <s class="br">${esc(st.given)}</s>`}`;
+    else h += `<input data-g="${seg}" aria-label="Gap ${seg+1}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||'')}"><button class="gc" data-g="${seg}" aria-label="Check gap ${seg+1}">✓</button></span> <span class="br">(${esc(it.words)})</span><span>`;
+    h += '</span>';
+  });
+  h += '</div><div class="gfbs">';
+  ex.items.forEach((it,k)=>{
+    const st = S(ex,k);
+    if(!st.done && !st.tries && !st.warn) return;
+    const sayText = fullOf(it);
+    let f = typedFeedback(it, st, sayText);
+    if(f) h += `<div data-gfb="${k}"><b>Gap ${k+1}</b>${f}</div>`;
+  });
+  h += '</div>';
+  d.innerHTML = h;
+  d.querySelectorAll('input[data-g]').forEach(inp=>{
+    const k = +inp.dataset.g;
+    inp.addEventListener('input',()=>{ S(ex,k).draft = inp.value; saveSoon(); });
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); gapGo(ex,k,inp.value); } });
+  });
+  d.querySelectorAll('button.gc').forEach(b=>b.addEventListener('click',()=>{ const k=+b.dataset.g; const inp=d.querySelector(`input[data-g="${k}"]`); gapGo(ex,k,inp.value); }));
+  d.querySelectorAll('[data-gfb] [data-self]').forEach(b=>b.addEventListener('click',()=>{ const k=+b.closest('[data-gfb]').dataset.gfb; const st=S(ex,k); st.correct=true; st.self=true; refreshGap(ex); }));
+  return d;
+}
+function gapGo(ex,k,val){
+  doTyped(ex,k,val);
+  refreshGap(ex);
+  const st = S(ex,k);
+  const sel = st.done ? 'input[data-g]' : `input[data-g="${k}"]`;
+  const n = document.querySelector(`#it-${ex.id}-all ${sel}`);
+  if(n) n.focus({preventScroll:true});
+}
+function refreshGap(ex){
+  const old = document.getElementById(`it-${ex.id}-all`);
+  old.replaceWith(renderGapText(ex));
+  afterChange();
+}
+function refresh(ex,i,keepFocus){
+  const old = document.getElementById(`it-${ex.id}-${i}`);
+  old.replaceWith(renderItem(ex,i));
+  afterChange();
+}
+
+/* ---------- exercises & pages ---------- */
+function buildExercises(){
+  let n = 0;
+  EX.forEach(ex=>{
+    ex.n = ++n;
+    const sec = document.createElement('section');
+    sec.className = 'ex'; sec.id = 'ex-'+ex.id;
+    sec.innerHTML = `<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n}</span><h3>${esc(ex.title)}</h3><p class="instr">${ex.instr}</p></div><span class="ex-score" id="sc-${ex.id}"></span></div><div class="items"></div>`;
+    const box = sec.querySelector('.items');
+    if(ex.kind==='gaptext') box.appendChild(renderGapText(ex));
+    else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<4;p++){
+    const nx = document.createElement('div'); nx.className='next';
+    nx.innerHTML = `<button class="btn" data-go="${p+1}">Next: ${STEPS[p+1].replace(/^\d · /,'')} →</button>`;
+    document.querySelector(`.page[data-page="${p}"]`).appendChild(nx);
+  }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+
+let saveT = null;
+function saveSoon(){ clearTimeout(saveT); saveT = setTimeout(saveState, 300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById('sc-'+ex.id); if(el) el.textContent = s.d===s.n ? `${s.c} / ${s.n}` : `${s.d} / ${s.n} done`; });
+  const t = totals();
+  document.getElementById('fill').style.width = (t.n? (t.d/t.n*100):0)+'%';
+  document.getElementById('progTxt').textContent = `${t.d}/${t.n} done · score ${t.c}`;
+  renderTabs();
+  if(state.tab===4) renderResults();
+}
+function renderTabs(){
+  const box = document.getElementById('tabs');
+  box.innerHTML = STEPS.map((s,k)=>{
+    let badge = '';
+    const exs = EX.filter(e=>e.step===k);
+    if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge = `<span class="tb">✓ ${c}/${n}</span>`; }
+    return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(s)}${badge}</button>`;
+  }).join('');
+  box.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(+b.dataset.tab)));
+}
+function showTab(k, scroll){
+  state.tab = k; saveState();
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on', +p.dataset.page===k));
+  renderTabs();
+  if(k===4) renderResults();
+  if(scroll!==false){ const top = document.querySelector('.bar').offsetTop; window.scrollTo({top: Math.max(0, top-4), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); }
+  const t = document.querySelector(`.tab[data-tab="${k}"]`); if(t && t.scrollIntoView) t.scrollIntoView({block:'nearest', inline:'center'});
+}
+
+/* ---------- static rule parts ---------- */
+function phraseHTML(parts){
+  let words = [], noun = '';
+  parts.forEach(p=>{ if(typeof p==='string') noun = p.trim(); else words.push(p); });
+  const first = words.length ? words[0][1] : noun;
+  const art = /^[aeiou]/i.test(first) ? 'an' : 'a';
+  const plural = /s$/.test(noun) && !/glass$/.test(noun);
+  const lead = plural ? '' : art+' ';
+  const html = lead + words.map(([c,w])=>`<b class="w-${c}">${w}</b>`).join(' ') + ' ' + noun;
+  const text = lead + words.map(w=>w[1]).join(' ') + ' ' + noun;
+  return {html, text};
+}
+function buildRules(){
+  const row = document.getElementById('ruleRow');
+  row.innerHTML = DEMO.map(([c,w])=>`<div class="cell"><div class="h ${c}" style="background:${CAT[c].c}">${CAT[c].label}</div><div class="w">${w}</div></div>`).join('')
+    + `<div class="cell noun"><div class="h" style="background:${CAT.noun.c}">Noun</div><div class="w">teapot</div></div>`;
+  Object.keys(EXAMPLES).forEach(id=>{
+    const box = document.getElementById(id); if(!box) return;
+    box.innerHTML = EXAMPLES[id].map(e=>{
+      if(typeof e==='string') return `<div class="exm"><span><i>${e}</i></span><button class="say" data-say="${esc(e)}" aria-label="Listen">🔊</button></div>`;
+      const p = phraseHTML(e);
+      return `<div class="exm"><span>${p.html}</span><button class="say" data-say="${esc(p.text)}" aria-label="Listen">🔊</button></div>`;
+    }).join('');
+  });
+  // demo
+  const chips = document.getElementById('demoChips');
+  chips.innerHTML = DEMO.map(([c,w])=>`<button class="chip ${c}" data-c="${c}" style="--c:${CAT[c].c}" aria-pressed="false">${CAT[c].label}: ${w}</button>`).join('');
+  chips.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{ const c=b.dataset.c; demoOn.has(c)?demoOn.delete(c):demoOn.add(c); renderDemo(); }));
+  document.getElementById('demoRand').addEventListener('click',()=>{
+    const n = 2 + Math.floor(Math.random()*2); const keys = DEMO.map(d=>d[0]).sort(()=>Math.random()-.5).slice(0,n);
+    demoOn = new Set(keys); renderDemo();
+  });
+  document.getElementById('demoSay').addEventListener('click',()=>speakForce(demoText));
+  renderDemo();
+}
+let demoOn = new Set(['opinion','age']), demoText = '';
+function renderDemo(){
+  document.querySelectorAll('#demoChips .chip').forEach(b=>b.setAttribute('aria-pressed', demoOn.has(b.dataset.c)));
+  const parts = DEMO.filter(([c])=>demoOn.has(c));
+  const p = phraseHTML([...parts, ' teapot']);
+  demoText = p.text;
+  document.getElementById('demoPhrase').innerHTML = p.html;
+  const n = parts.length;
+  document.getElementById('demoVerdict').textContent =
+    n===0 ? 'No adjectives yet — switch some on.' :
+    n===1 ? 'One adjective. Add another one.' :
+    n<=3 ? '✓ Natural — this is how people really talk.' :
+    n===4 ? 'Correct order, but heavy. Real speakers would use fewer.' :
+    'Correct order — but nobody talks like this!';
+}
+
+/* ---------- results & report ---------- */
+function correctText(ex,it){
+  if(ex.kind==='choice') return ex.chips ? CAT[it.opts[it.a]].label : it.opts[it.a];
+  if(ex.kind==='tiles') return [it.pre,...it.a,it.post].join(' ');
+  return cap(it.acc[0]);
+}
+function buildReport(){
+  const t = totals(), pct = t.n?Math.round(t.c/t.n*100):0;
+  const date = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const L = [];
+  L.push(`${HOMEWORK_TITLE} — homework (Upper-Intermediate)`);
+  L.push(`Student: ${state.name||DEFAULT_NAME}`);
+  L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`);
+  L.push('');
+  L.push('BY EXERCISE');
+  EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:''}`); });
+  L.push('');
+  const mist = [], self = [];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{
+    const st = S(ex,i); if(!st.done) return;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" (model: "${correctText(ex,it)}")`);
+  }));
+  L.push('MISTAKES'); L.push(mist.length?mist.join('\n'):'None 🎉'); L.push('');
+  if(self.length){ L.push('SELF-MARKED AS CORRECT (please check)'); L.push(self.join('\n')); L.push(''); }
+  const sec = EX.filter(e=>e.kind!=='choice').map(ex=>{
+    const lines = ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${st.given}${st.correct?(st.tries>1?' ✓ (2nd try)':' ✓'):' ✗'}`; }).filter(Boolean);
+    return lines.length ? `${ex.title}:\n`+lines.join('\n') : null;
+  }).filter(Boolean);
+  if(sec.length){ L.push('ALL TYPED / BUILT ANSWERS'); L.push(sec.join('\n\n')); }
+  return L.join('\n');
+}
+function shortReport(full){
+  const tail = '\n\n…(shortened — the full report is under "Copy text")';
+  return full.length>1500 ? full.slice(0,1500)+tail : full;
+}
+function subject(){ const t=totals(); return `${HOMEWORK_TITLE} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t = totals(), pct = t.n?Math.round(t.c/t.n*100):0;
+  const msg = t.d===0 ? 'Start with Step 1 — your results will appear here.' :
+    pct>=90 ? `Outstanding, ${esc(state.name||DEFAULT_NAME)}! You clearly know how to line adjectives up.` :
+    pct>=75 ? 'Great work — just a few slips. Look at the mistakes below.' :
+    pct>=55 ? 'Good effort! Re-read the rule cards for the groups you mixed up.' :
+              'Keep going — the order takes practice. Have another look at Steps 1 and 3.';
+  let h = `<div class="kicker">Results</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered ${t.d} of ${t.n}</p><p class="lead">${msg}</p>`;
+  h += EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}</span><b>${s.c}/${s.n}${s.d<s.n?` <span class="small">(${s.n-s.d} left)</span>`:''}</b></div>`; }).join('');
+  const mist = [];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done && !st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer: <s>${esc(st.given)}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  if(mist.length) h += `<h3 style="margin-top:16px">Your mistakes</h3><ol class="mlist">${mist.join('')}</ol>`;
+  document.getElementById('resCard').innerHTML = h;
+  buildSend();
+}
+function buildSend(){
+  const box = document.getElementById('sendBtns');
+  const full = buildReport(), short = shortReport(full), sub = subject();
+  let h = '';
+  if(navigator.share) h += `<button class="btn v" id="sShare">📤 Share</button>`;
+  h += `<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h += `<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h += `<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+'\n\n'+short)}">💬 WhatsApp</a>`;
+  h += `<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email app</a>`;
+  h += `<button class="btn" id="sCopy">📋 Copy text</button>`;
+  box.innerHTML = h;
+  box.querySelectorAll('a.btn').forEach(a=>{ a.style.textDecoration='none'; a.style.display='inline-flex'; a.style.alignItems='center'; });
+  const sh = document.getElementById('sShare');
+  if(sh) sh.addEventListener('click',()=>{ navigator.share({title:sub, text:buildReport()}).catch(()=>{}); });
+  document.getElementById('sCopy').addEventListener('click',()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const done = ()=>{ document.getElementById('copyMsg').textContent = '✓ Copied! Paste it into a message to your teacher.'; };
+  const fallback = ()=>{ const ta=document.createElement('textarea'); ta.value=txt; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.top='-1000px'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ document.getElementById('copyMsg').textContent='Could not copy automatically — select the text and copy it.'; } ta.remove(); };
+  try{ if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(done, fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni = document.getElementById('nameIn');
+  ni.value = state.name || DEFAULT_NAME;
+  document.getElementById('nameOut').textContent = ni.value;
+  ni.addEventListener('input',()=>{ state.name = ni.value.trim() || DEFAULT_NAME; document.getElementById('nameOut').textContent = state.name; saveSoon(); if(state.tab===4) renderResults(); });
+  const sb = document.getElementById('soundBtn');
+  const sbr = ()=>{ sb.textContent = state.sound ? '🔊 Sound on' : '🔇 Sound off'; sb.setAttribute('aria-pressed', !!state.sound); };
+  sbr(); sb.addEventListener('click',()=>{ state.sound = !state.sound; sbr(); saveState(); });
+  document.addEventListener('click',e=>{
+    const s = e.target.closest('[data-say]'); if(s){ speakForce(s.dataset.say); return; }
+    const g = e.target.closest('[data-go]'); if(g){ showTab(+g.dataset.go); }
+  });
+  buildRules();
+  buildExercises();
+  document.getElementById('resetBtn').addEventListener('click',()=>document.getElementById('confirmBox').classList.add('on'));
+  document.getElementById('resetNo').addEventListener('click',()=>document.getElementById('confirmBox').classList.remove('on'));
+  document.getElementById('resetYes').addEventListener('click',()=>{
+    clearState();
+    state = {name:state.name, tab:0, sound:state.sound, ans:{}};
+    document.querySelectorAll('section.ex, .next').forEach(n=>n.remove());
+    buildExercises();
+    document.getElementById('confirmBox').classList.remove('on');
+    afterChange(); showTab(0);
+  });
+  try{ if('speechSynthesis' in window) speechSynthesis.getVoices(); }catch(e){}
+  afterChange();
+  showTab(state.tab||0, false);
+}
+init();
+</script>
+</body>
+</html>
