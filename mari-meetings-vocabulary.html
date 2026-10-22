@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your calendar, your call — Mari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F4F8; --paper:#FFFFFF; --ink:#1D2334; --soft:#646B80; --line:#E3E6EE; --line2:#D3D8E3;
+  --teal:#1F9E91; --teal-bg:#E1F4F1; --amber:#E79A22; --amber-bg:#FDF1DC; --coral:#E3604B; --coral-bg:#FCE8E4;
+  --violet:#6656E0; --violet-bg:#ECEAFD; --blue:#2F7BE5; --blue-bg:#E4EEFC;
+  --good:#1E8256; --good-bg:#E2F5EB; --bad:#C43D33; --bad-bg:#FCE8E5; --hint-bg:#FFF4D9;
+  --r:18px; --shadow:0 1px 2px rgba(29,35,52,.06),0 8px 24px rgba(29,35,52,.08);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--violet);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:"Bricolage Grotesque",Manrope,sans-serif;line-height:1.12;margin:0;font-weight:800;letter-spacing:-.01em}
+/* hero */
+.hero{padding-top:28px;padding-bottom:16px;display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:center}
+.badge{display:inline-block;background:var(--ink);color:#fff;font-weight:800;letter-spacing:.14em;font-size:.72rem;padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(2.1rem,7vw,3.3rem);margin:14px 0 8px}
+.hero h1 em{font-style:normal;color:var(--violet)}
+.hero .sub{margin:0;color:var(--soft)}
+.week{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;font-size:.66rem;font-weight:700}
+.week .d{text-align:center;color:var(--soft);font-size:.7rem;letter-spacing:.08em;padding-bottom:2px}
+.week .col{display:flex;flex-direction:column;gap:5px;min-height:150px}
+.blk{border-radius:8px;padding:5px 6px;line-height:1.2;color:var(--ink);border-left:3px solid var(--k);background:var(--kb)}
+.blk.x{opacity:.55;text-decoration:line-through;background:repeating-linear-gradient(135deg,#fff 0 6px,#F1F2F6 6px 12px);border-left-color:#B8BDCB}
+.blk.f{--k:var(--teal);--kb:var(--teal-bg)}.blk.a{--k:var(--amber);--kb:var(--amber-bg)}.blk.c{--k:var(--coral);--kb:var(--coral-bg)}.blk.v{--k:var(--violet);--kb:var(--violet-bg)}.blk.b{--k:var(--blue);--kb:var(--blue-bg)}
+.blk.tall{flex:1}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 320px;color:var(--soft)}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:140px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--violet);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(243,244,248,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:800;font-size:.9rem;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.74rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 8px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:9px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue),var(--violet));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.45rem,5vw,1.8rem);margin-bottom:6px}
+.card h3{font-size:1.2rem;margin-bottom:6px}
+.card p{margin:.4em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.small{font-size:.87rem;color:var(--soft)}
+/* chat */
+.chat{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.msg{display:grid;grid-template-columns:38px 1fr;gap:10px}
+.av{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:800}
+.mh{font-size:.84rem;color:var(--soft)}.mh b{color:var(--ink);margin-right:6px}
+.mb{margin-top:2px}
+.w{border:0;background:var(--violet-bg);color:var(--ink);border-radius:6px;padding:0 4px;font-weight:700;border-bottom:2px solid var(--violet);cursor:pointer;line-height:1.5}
+.w[aria-expanded="true"]{background:var(--violet);color:#fff}
+.gloss{display:block;margin:6px 0 2px;background:var(--bg);border-radius:10px;padding:8px 10px;font-size:.92rem}
+.gloss b{color:var(--violet)}
+/* word list */
+.words{display:grid;gap:10px;margin-top:10px}
+.wd{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:start;border:2px solid var(--line);border-radius:14px;padding:12px}
+.ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;background:var(--kb,var(--violet-bg))}
+.wd h4{margin:0;font-size:1.06rem}
+.wd .pos{font-size:.76rem;font-weight:800;color:var(--soft);margin-left:6px;letter-spacing:.04em}
+.wd .def{margin:2px 0 4px}
+.wd .eg{color:var(--soft);font-style:italic;font-size:.94rem}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.careful{display:grid;gap:8px;margin-top:8px}
+.cf{border-left:4px solid var(--amber);background:var(--amber-bg);border-radius:0 12px 12px 0;padding:10px 12px}
+.cf .x{color:var(--bad);text-decoration:line-through}.cf .v{color:var(--good);font-weight:800}
+/* flashcards */
+.fcwrap{perspective:1200px;margin:14px auto 10px;max-width:560px}
+.fc{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);cursor:pointer;border:0;background:none;padding:0;display:block;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:8px}
+.front{background:linear-gradient(150deg,#fff,var(--violet-bg))}
+.back{background:linear-gradient(150deg,#fff,var(--teal-bg));transform:rotateY(180deg)}
+.face .em{font-size:2.4rem}
+.face .ph{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(1.5rem,6vw,2rem);line-height:1.15}
+.face .df{font-size:1.08rem;font-weight:600;max-width:440px}
+.face .fex{font-style:italic;color:var(--soft);font-size:.95rem;max-width:440px}
+.face .tap{position:absolute;bottom:10px;font-size:.74rem;color:var(--soft);font-weight:700;letter-spacing:.06em}
+.face .fsay{position:absolute;top:12px;right:12px;background:#fff}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.fcmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;max-width:560px;margin:0 auto;font-weight:700;font-size:.9rem;color:var(--soft)}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--ink)}
+.chk input{width:20px;height:20px;accent-color:var(--violet)}
+.knowbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;max-width:560px;margin:6px auto 0}
+.knowbar div{height:100%;background:var(--teal);width:0;transition:width .4s}
+.state-k{color:var(--good)}.state-l{color:var(--amber)}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.v{background:var(--violet)}.btn.t{background:var(--teal)}.btn.a{background:var(--amber);color:var(--ink)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
+.ex-head h3{font-size:1.3rem;margin:3px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--violet-bg);color:var(--violet);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.item{border:2px solid var(--line);border-radius:14px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row3{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.opt{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:44px;font-weight:700}
+.opt:hover:not(:disabled){border-color:var(--violet);background:#FBFAFF}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--violet);color:var(--violet);font-weight:800;line-height:1.2}
+.kw{display:inline-block;background:var(--ink);color:#fff;font-weight:800;letter-spacing:.08em;border-radius:8px;padding:2px 10px;font-size:.84rem;margin:6px 0}
+.info{background:var(--bg);border-radius:10px;padding:8px 12px;margin-bottom:4px}
+.br{color:var(--soft);font-weight:700;font-size:.92rem}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;background:#fff}
+.inp:focus{border-color:var(--violet);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800}
+/* match */
+.match{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:12px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:52px;text-align:left;font-weight:700;display:flex;align-items:center;gap:4px 8px;flex-wrap:wrap}
+.mi.sel{border-color:var(--violet);background:var(--violet-bg)}
+.mi.done{border-color:#A4D9BF;background:var(--good-bg);color:#155E3E;cursor:default}
+.mi.done.late{border-color:#F3D49B;background:var(--amber-bg);color:#7A5200}
+.mi.done.late .tagn{background:var(--amber)}
+.mi.miss{border-color:#EDB5AE}
+.mi.shake{animation:shake .35s}
+.mi .tagn{flex:0 0 auto;font-size:.72rem;background:var(--good);color:#fff;border-radius:6px;padding:1px 6px}
+.mi.r{font-weight:600}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* tiles */
+.build{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:1.04rem}
+.build .fx{font-weight:700}
+.zone{display:flex;flex-wrap:wrap;gap:6px;min-height:50px;min-width:150px;flex:1 1 200px;padding:4px 6px;border:2px dashed var(--line2);border-radius:12px;align-items:center}
+.zone .ph{color:#A3A8B8;font-size:.9rem;padding:0 6px}
+.tile{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 12px;min-height:44px;font-weight:800}
+.zone .tile{background:var(--ink);color:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* email gap text */
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.bank span{background:var(--amber-bg);border:1px solid #F3D49B;border-radius:8px;padding:3px 10px;font-weight:700}
+.mail{background:#fff;border:2px solid var(--line);border-radius:14px;overflow:hidden;margin-top:12px}
+.mail-h{background:var(--bg);padding:10px 14px;font-size:.88rem;color:var(--soft)}
+.mail-h b{color:var(--ink)}
+.story{padding:14px 16px;line-height:2.35}
+.gapw{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;white-space:nowrap}
+.gapw .gn{font-size:.72rem;font-weight:800;background:var(--ink);color:#fff;border-radius:6px;width:22px;height:22px;display:inline-grid;place-items:center}
+.gapw input{width:9.5em;max-width:calc(100vw - 150px);border:2px solid var(--line);border-radius:10px;padding:4px 8px;min-height:40px;background:#fff;line-height:1.3}
+.gapw input:focus{border-color:var(--violet);outline:none}
+.gapw .gc{border:0;background:var(--violet);color:#fff;border-radius:10px;min-width:44px;min-height:40px;font-weight:800}
+.gapw .done{font-weight:800;border-radius:8px;padding:2px 8px;line-height:1.4}
+.gapw .done.ok{background:var(--good-bg);color:#155E3E}.gapw .done.no{background:var(--bad-bg);color:#8B2B24}
+.gfbs{padding:0 14px 14px}.gfbs>div{margin-top:8px}
+/* results */
+.score-big{font-family:"Bricolage Grotesque",sans-serif;font-size:3rem;font-weight:800;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--violet)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:640px){
+  .hero{grid-template-columns:1fr}
+  .week{font-size:.6rem}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.ex{padding:16px}
+  .match{grid-template-columns:.85fr 1.15fr;gap:8px}
+  .mi{font-size:.88rem;padding:8px 9px}
+  .wd{grid-template-columns:40px 1fr;}
+  .wd .say{grid-column:2;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">VOCABULARY · UPPER-INTERMEDIATE</span>
+    <h1>Your calendar, <em>your call</em></h1>
+    <p class="sub">Polite ways to skip a meeting, stay informed and protect your focus — homework for <b id="nameOut">Mari</b></p>
+  </div>
+  <div class="week" aria-hidden="true">
+    <div><div class="d">MON</div><div class="col"><div class="blk f tall">Focus time</div><div class="blk b">1:1</div></div></div>
+    <div><div class="d">TUE</div><div class="col"><div class="blk c x">Status call</div><div class="blk f tall">Focus time</div></div></div>
+    <div><div class="d">WED</div><div class="col"><div class="blk a">Client demo</div><div class="blk v x">All-hands</div><div class="blk f">Deep work</div></div></div>
+    <div><div class="d">THU</div><div class="col"><div class="blk v x">Brainstorm</div><div class="blk f tall">Focus time</div></div></div>
+    <div><div class="d">FRI</div><div class="col"><div class="blk b">Async update ✓</div><div class="blk f tall">Ship it</div></div></div>
+  </div>
+  <div class="howto">
+    <p>Read the chat and the word list, practise with the flashcards, then do Practice 1 and 2. Your answers save automatically. Finish on <b>Results</b> and send them to your teacher.</p>
+    <div class="namebox"><label for="nameIn">Name</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 Sound on</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">In context</div>
+    <h2>Monday morning in #team-launch</h2>
+    <p class="small">Tap any highlighted phrase to see what it means.</p>
+    <div class="chat" id="chat"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Word list · 15 phrases</div>
+    <h2>The phrases</h2>
+    <div class="words" id="words"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Careful with these</div>
+    <h3>Small words, big difference</h3>
+    <div class="careful" id="careful"></div>
+  </div>
+</section>
+
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Flashcards</div>
+    <h2>Learn the phrases</h2>
+    <p class="small">Tap the card to flip it. Mark each phrase as <b>I know it</b> or <b>Still learning</b>, then practise only the ones you're still learning.</p>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcDir">⇄ Phrase → meaning</button>
+      <button class="btn ghost" id="fcShuffle">🔀 Shuffle</button>
+      <label class="chk"><input type="checkbox" id="fcFilter"> Only phrases I'm learning</label>
+    </div>
+    <div class="fcwrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Flashcard, press to flip"></div></div>
+    <div class="fcmeta"><span id="fcPos"></span><span id="fcState"></span></div>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcPrev" aria-label="Previous card">←</button>
+      <button class="btn a" id="fcLearn">Still learning</button>
+      <button class="btn t" id="fcKnow">I know it ✓</button>
+      <button class="btn ghost" id="fcNext" aria-label="Next card">→</button>
+    </div>
+    <div class="fcmeta"><span id="fcKnown"></span></div>
+    <div class="knowbar"><div id="fcKnowBar"></div></div>
+  </div>
+</section>
+
+<section class="page" data-page="2">
+  <div class="card"><div class="kicker">Practice 1 · Recognise</div><h2>Do you know them when you see them?</h2><p>Match, choose and fill in the small words. Choice items count your first answer.</p></div>
+</section>
+<section class="page" data-page="3">
+  <div class="card"><div class="kicker">Practice 2 · Use</div><h2>Now use them yourself</h2><p>Typed answers: after a first wrong try you get a hint and a second chance. Contractions are fine (<i>I'll</i> = <i>I will</i>).</p></div>
+</section>
+
+<section class="page" data-page="4">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher</div>
+    <h3>Send your results</h3>
+    <p>Choose any way that works for you. <b>Copy text</b> always includes the full report.</p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again</h3>
+    <p class="small">This deletes all your answers and flashcard progress on this device.</p>
+    <button class="btn ghost" id="resetBtn">↺ Start again</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes, delete</button> <button class="btn ghost" id="resetNo">No, keep them</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="Your calendar, your call — meetings vocabulary";
+const SUBJECT_TOPIC="Meetings vocabulary";
+const STORE_KEY="mari-meetings-vocabulary-v1";
+const DEFAULT_NAME="Mari";
+const STEPS=["📋 Words","🗂️ Flashcards","✅ Practice 1","✍️ Practice 2","📊 Results"];
+
+/* [phrase, part of speech / pattern, definition, example, emoji, colour] */
+const WORDS=[
+  ["pass on sth","phrasal verb","to politely say no to an invitation or offer","I think I'm going to pass on today's meeting.","🙅","coral"],
+  ["bow out (of sth)","phrasal verb","to withdraw from something you were expected to take part in","I'll have to bow out of this session — my plate is full.","🚪","coral"],
+  ["sit sth out","phrasal verb","to not take part in an activity and wait until it's over","Do you need me on this call, or should I sit this one out?","🪑","coral"],
+  ["my plate is full","idiom","I already have too much work to take on anything else","I'd love to help, but my plate is full this month.","🍽️","amber"],
+  ["juggle sth","verb","to try to deal with several things at the same time","I'm juggling too many meetings at the moment.","🤹","amber"],
+  ["keep sth lean","verb + adjective","to keep something small, with nothing unnecessary","I'm keeping my calendar lean to focus on delivery.","🪶","amber"],
+  ["suffice","verb (formal)","to be enough","A shared document could suffice for this update.","👌","teal"],
+  ["asynchronously","adverb","not at the same time — people contribute when it suits them, not in a live meeting (adj: asynchronous, informal: async)","I'd prefer to contribute asynchronously.","⏱️","teal"],
+  ["key outcomes","noun phrase","the most important results or decisions of a meeting","Just send me the key outcomes afterwards.","🎯","teal"],
+  ["keep sb in the loop","idiom","to keep someone informed about what is happening","Keep me in the loop on any key outcomes.","🔁","blue"],
+  ["loop sb in","phrasal verb","to include someone in a conversation or email thread","I'll loop Anna in so she sees the update.","➕","blue"],
+  ["bring sb up to speed (on sth)","idiom","to give someone all the latest information about something","Can someone bring me up to speed on the budget?","⚡","blue"],
+  ["be on top of sth","idiom","to be in control of something and know exactly what is happening","Tom is completely on top of the project timeline.","🏔️","violet"],
+  ["thorough","adjective","careful and complete, paying attention to every detail","She did a thorough review of the contract.","🔍","violet"],
+  ["thoroughly","adverb","carefully and completely","I trust you will cover this thoroughly without me.","🧾","violet"]
+];
+
+/* chat: [name, colour, time, html with {i|shown text} markers pointing to WORDS index] */
+const CHAT=[
+  ["Dana","var(--coral)","09:12","Morning all! Heads-up: I'm {4|juggling} two launches this week, so I'm {5|keeping my calendar lean}. I'll {0|pass on} Thursday's brainstorm — I'm sure you'll cover it {14|thoroughly} without me."],
+  ["Marco","var(--blue)","09:15","No problem. Shall I {10|loop you in} on the client emails?"],
+  ["Dana","var(--coral)","09:16","Yes please — {9|keep me in the loop} on any {8|key outcomes}. And for Friday's update, a shared doc should {6|suffice}. Let's do it {7|asynchronously}."],
+  ["Sara","var(--teal)","09:20","Hi, I'm new here 👋 Is anyone free to {11|bring me up to speed} on the client project?"],
+  ["Marco","var(--blue)","09:22","Tom's the person to ask — he's completely {12|on top of} it. His notes are really {13|thorough}, too."],
+  ["Tom","var(--violet)","09:30","Happy to help, Sara! I'll have to {1|bow out of} the 3 pm demo, though — {3|my plate is full}. Marco, you could {2|sit that one out} too, if you like."]
+];
+
+const CAREFUL=[
+  "<b>pass on</b> sth = say no to it: <span class='v'>I'll pass on the meeting.</span> Without <i>on</i>, <i>pass</i> means something else: <i>I passed the exam.</i>",
+  "<b>bow out OF</b> sth, but <b>sit</b> sth <b>OUT</b> — with <i>sit out</i> the object usually goes in the middle: <span class='v'>sit this one out</span>, <span class='v'>sit it out</span>.",
+  "<b>keep</b> sb <b>in the loop</b> (noun) vs <b>loop</b> sb <b>in</b> (verb): <span class='v'>Keep me in the loop.</span> / <span class='v'>Loop me in.</span> — not <span class='x'>keep me in loop</span>.",
+  "<b>bring</b> sb <b>up to speed ON</b> sth · <b>be on top OF</b> sth: <span class='v'>She's on top of the budget.</span>",
+  "<b>thorough</b> /ˈθʌrə/ (careful) ≠ <b>through</b> /θruː/ ≠ <b>though</b> /ðəʊ/ ≠ <b>thought</b> /θɔːt/. Adjective: <i>a thorough review</i>; adverb: <i>check it thoroughly</i>.",
+  "<b>suffice</b> is formal and usually has no object: <span class='v'>A short email will suffice.</span> In everyday speech: <i>will be enough</i>."
+];
+
+const GAP='<span class="slot">___</span>';
+const EX=[
+  { id:"match", step:2, kind:"match", title:"Match the phrase to its meaning",
+    instr:"Tap a phrase, then tap its meaning. Your first try for each phrase counts.",
+    items:[
+      ["pass on sth","politely say no to an invitation or offer"],
+      ["bow out of sth","withdraw from something you were expected to do"],
+      ["sit sth out","not take part, and wait until it's over"],
+      ["suffice","be enough"],
+      ["juggle","deal with several things at the same time"],
+      ["lean","with nothing unnecessary"],
+      ["thorough","careful and complete"],
+      ["be on top of sth","be in control of something"]
+    ].map(([l,r])=>({l,r,q:l}))},
+  { id:"choose", step:2, kind:"choice", title:"Which word fits?",
+    instr:"Choose the word that completes the sentence.",
+    items:[
+      {p:`Thanks for the invite, but I'll ${GAP} on lunch today — I've got a deadline.`, opts:["pass","bow","sit"], a:0, why:"<b>pass on</b> sth = politely say no to it. <i>Bow</i> and <i>sit</i> need <i>out</i>."},
+      {p:`Three projects, two clients and an offsite — I'm ${GAP} a lot right now.`, opts:["juggling","suffering","leaning"], a:0, why:"<b>juggle</b> = deal with several things at once."},
+      {p:`Don't worry about a meeting — a quick email will ${GAP}.`, opts:["suffice","pass","juggle"], a:0, why:"<b>suffice</b> = be enough."},
+      {p:`I've been away for two weeks. Could someone bring me up to ${GAP}?`, opts:["speed","pace","track"], a:0, why:"The fixed phrase is <b>bring sb up to speed</b>."},
+      {p:`Please keep me in the ${GAP} — I want to know what the client decides.`, opts:["loop","circle","line"], a:0, why:"<b>keep sb in the loop</b> = keep them informed."},
+      {p:`Our team is spread across five time zones, so most of our work happens ${GAP}.`, opts:["thoroughly","asynchronously","leanly"], a:1, why:"<b>asynchronously</b> = not at the same time — perfect for different time zones."},
+      {p:`Before you sign, read the contract ${GAP}.`, opts:["thorough","through","thoroughly"], a:2, why:"After a verb (<i>read</i>) we need the adverb: <b>thoroughly</b>."},
+      {p:`Nadia is completely ${GAP} the budget — ask her anything.`, opts:["in the loop","on top of","up to speed"], a:1, why:"<b>be on top of</b> sth = be in control of it. The other two would need another word (<i>in the loop on</i>, <i>up to speed with</i>)."},
+      {p:`This workshop isn't really relevant to my role, so I'll ${GAP} this one out.`, opts:["bow","pass","sit"], a:2, why:"<b>sit this one out</b> = not take part this time."},
+      {p:`I'm afraid I'll have to ${GAP} out of the conference — something urgent has come up.`, opts:["sit","bow","pass"], a:1, why:"<b>bow out of</b> sth = withdraw from something you were expected to do."},
+      {p:`I'd love to help, but my ${GAP} is full this week.`, opts:["plate","table","cup"], a:0, why:"The idiom is <b>my plate is full</b>."},
+      {p:`She did a ${GAP} check of every slide before the presentation.`, opts:["thoroughly","thorough","through"], a:1, why:"Before a noun (<i>check</i>) we need the adjective: <b>thorough</b>."}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  { id:"particles", step:2, kind:"type", title:"The small words",
+    instr:"Type the missing word (one word only).",
+    items:[
+      {p:`I'll have to bow ${GAP} of the planning session.`, acc:["out"], hint:"bow ___ of", why:"<b>bow out of</b> sth."},
+      {p:`Can you loop Marco ${GAP} on this thread?`, acc:["in"], hint:"loop sb ___", why:"<b>loop sb in</b> = include them."},
+      {p:`Let me bring you up ${GAP} speed on the project.`, acc:["to"], hint:"up ___ speed", why:"<b>bring sb up to speed</b>."},
+      {p:`She's always on top ${GAP} her inbox.`, acc:["of"], hint:"on top ___", why:"<b>be on top of</b> sth."},
+      {p:`I think I'll pass ${GAP} the after-work drinks tonight.`, acc:["on"], hint:"pass ___ sth = say no to it", why:"<b>pass on</b> sth = politely decline it."},
+      {p:`You don't need to join — feel free to sit this one ${GAP}.`, acc:["out"], hint:"sit this one ___", why:"<b>sit sth out</b> — the object goes in the middle."},
+      {p:`Keep me ${GAP} the loop, please.`, acc:["in"], hint:"___ the loop", why:"<b>keep sb in the loop</b>."},
+      {p:`Could you bring the new manager up to speed ${GAP} the client's requirements?`, acc:["on","with"], hint:"up to speed ___ sth", why:"<b>bring sb up to speed on</b> sth (<i>with</i> is also possible)."}
+    ].map(o=>Object.assign(o,{q:strip(o.p), single:true}))},
+  { id:"forms", step:3, kind:"type", title:"Word formation",
+    instr:"Use the word in capitals to form a word that fits the gap.",
+    items:[
+      {p:`Please check the figures ${GAP} before you send the report. <span class="br">(THOROUGH)</span>`, acc:["thoroughly"], hint:"It describes the verb <i>check</i> — you need an adverb.", why:"Adverb after a verb: <b>thoroughly</b>."},
+      {p:`Everyone was impressed by the ${GAP} of her research. <span class="br">(THOROUGH)</span>`, acc:["thoroughness"], hint:"After <i>the … of</i> you need a noun.", why:"Noun: <b>thoroughness</b>."},
+      {p:`A live call is synchronous; a shared doc that people update in their own time is ${GAP}. <span class="br">(SYNCHRONOUS)</span>`, acc:["asynchronous"], hint:"Add a prefix that means <i>not</i>.", why:"<b>a-</b> + synchronous = <b>asynchronous</b>."},
+      {p:`Most of our feedback happens ${GAP}, in comments on the document. <span class="br">(SYNCHRONOUS)</span>`, acc:["asynchronously"], hint:"Opposite meaning + adverb ending.", why:"<b>asynchronously</b> — prefix <i>a-</i> and adverb ending <i>-ly</i>."},
+      {p:`Two short paragraphs will be ${GAP} for this update. <span class="br">(SUFFICE)</span>`, acc:["sufficient"], hint:"After <i>will be</i> you need an adjective.", why:"suffice → <b>sufficient</b> (= enough)."},
+      {p:`Our calendars are much ${GAP} since we cancelled the weekly status meetings. <span class="br">(LEAN)</span>`, acc:["leaner"], hint:"<i>much … since</i> — compare with before.", why:"Comparative: <b>leaner</b>."}
+    ].map(o=>Object.assign(o,{q:strip(o.p), single:true}))},
+  { id:"email", step:3, kind:"gaptext", title:"An email from the team lead",
+    instr:"Complete the email with words from the bank. Type one word in each gap, then press ✓. One word in the bank is extra.",
+    bank:["juggling","lean","pass","thoroughly","loop","suffice","asynchronously","speed","top","bow","plate","sit"],
+    head:"<b>From:</b> Dana &nbsp;·&nbsp; <b>To:</b> Launch team &nbsp;·&nbsp; <b>Subject:</b> This week",
+    text:["Hi team,<br>Quick note about this week. I'm ",0," three launches at once, so I'm trying to keep my calendar ",1,". That means I'll ",2," on Thursday's brainstorm — I trust you'll cover everything ",3," without me. Please keep me in the ",4," on any key outcomes.<br><br>For Friday's status call, I don't think we need to meet at all: a shared document should ",5,", and everyone can contribute ",6,", whenever it suits them.<br><br>Sara joins us on Monday. Could someone bring her up to ",7," on the client project? Tom, you're the most on ",8," of it.<br><br>Finally, I'll have to ",9," out of the offsite planning — my ",10," is full until the end of the month.<br><br>Thanks,<br>Dana"],
+    items:[
+      {acc:["juggling"], hint:"several things at the same time", why:"<b>juggling</b> three launches."},
+      {acc:["lean"], hint:"keep my calendar … = with nothing unnecessary", why:"keep my calendar <b>lean</b>."},
+      {acc:["pass"], hint:"… on sth = politely say no", why:"I'll <b>pass</b> on the brainstorm."},
+      {acc:["thoroughly"], hint:"cover everything … = carefully and completely", why:"cover everything <b>thoroughly</b>."},
+      {acc:["loop"], hint:"keep me in the …", why:"keep me in the <b>loop</b>."},
+      {acc:["suffice"], hint:"= be enough", why:"a shared document should <b>suffice</b>."},
+      {acc:["asynchronously"], hint:"whenever it suits them, not in a live call", why:"contribute <b>asynchronously</b>."},
+      {acc:["speed"], hint:"bring her up to …", why:"bring her up to <b>speed</b>."},
+      {acc:["top"], hint:"be on … of sth", why:"on <b>top</b> of it."},
+      {acc:["bow"], hint:"… out of sth", why:"<b>bow</b> out of the planning."},
+      {acc:["plate"], hint:"my … is full", why:"my <b>plate</b> is full."}
+    ].map((o,k)=>Object.assign(o,{q:`Gap ${k+1}`, single:true}))},
+  { id:"kwt", step:3, kind:"type", title:"Say it another way",
+    instr:"Complete the second sentence so it means the same as the first. Use the word in capitals. Type only the missing words.",
+    items:[
+      {orig:"Could you tell Tom all the latest news about the project?", kw:"SPEED", pre:"Could you", post:"on the project?", acc:["bring Tom up to speed"], hint:"bring sb up to …", why:"Could you <b>bring Tom up to speed</b> on the project?"},
+      {orig:"I don't think I'll go to today's meeting, thanks.", kw:"PASS", pre:"I think I'll", post:"today's meeting, thanks.", acc:["pass on"], hint:"pass + a small word", why:"I think I'll <b>pass on</b> today's meeting."},
+      {orig:"Please tell me what happens.", kw:"LOOP", pre:"Please keep", post:".", acc:["me in the loop"], hint:"keep sb in the …", why:"Please <b>keep me in the loop</b>."},
+      {orig:"I'm going to withdraw from the project.", kw:"BOW", pre:"I'm going to", post:"the project.", acc:["bow out of"], hint:"bow + two small words", why:"I'm going to <b>bow out of</b> the project."},
+      {orig:"I have too much work to take on anything else right now.", kw:"PLATE", pre:"My", post:"right now.", acc:["plate is full","plate is really full","plate is very full","plate is completely full"], hint:"My … is …", why:"<b>My plate is full</b> right now."},
+      {orig:"She knows exactly what's happening with every deadline.", kw:"TOP", pre:"She's", post:"every deadline.", acc:["on top of","completely on top of","really on top of"], hint:"be on … of sth", why:"She's <b>on top of</b> every deadline."},
+      {orig:"Add Anna to the email thread, please.", kw:"LOOP", pre:"Can you", post:"on the email thread?", acc:["loop Anna in"], hint:"loop sb …", why:"Can you <b>loop Anna in</b> on the email thread?"},
+      {orig:"One short email will be enough.", kw:"SUFFICE", pre:"One short email", post:".", acc:["will suffice","should suffice","would suffice"], hint:"will + the formal verb", why:"One short email <b>will suffice</b>."}
+    ].map(o=>Object.assign(o,{p:`<div class="info">${o.orig}</div><span class="kw">${o.kw}</span><div>${o.pre} ${GAP} ${o.post}</div>`, q:`${o.orig} (${o.kw}) → ${o.pre} ___ ${o.post}`, post:o.post.replace(/[.?]$/,"").trim(), full:`${o.pre} ${o.acc[0]} ${o.post}`.replace(/ ([.?])$/,"$1")}))},
+  { id:"build", step:3, kind:"tiles", title:"Build the sentence",
+    instr:"Tap the parts in the correct order. Tap a placed part to send it back.",
+    items:[
+      {pre:"", post:".", tiles:["this session","bow","I'll have to","out of"], a:["I'll have to","bow","out of","this session"], hint:"Who? → have to → the phrasal verb → what?", why:"<b>bow out of</b> + the thing you withdraw from."},
+      {pre:"Would it make more sense", post:"?", tiles:["out","to","sit","this one","for me"], a:["for me","to","sit","this one","out"], hint:"<i>sit</i> + object + <i>out</i>", why:"<b>sit this one out</b> — the object goes in the middle."},
+      {pre:"Just", post:".", tiles:["on","in the loop","any key outcomes","me","keep"], a:["keep","me","in the loop","on","any key outcomes"], hint:"keep + sb + in the loop + on + what?", why:"<b>keep me in the loop on</b> sth."},
+      {pre:"Can you", post:"?", tiles:["up to speed","the budget","me","on","bring"], a:["bring","me","up to speed","on","the budget"], hint:"bring + sb + up to speed + on + what?", why:"<b>bring sb up to speed on</b> sth."},
+      {pre:"I'm trying to", post:".", tiles:["lean","my calendar","keep"], a:["keep","my calendar","lean"], hint:"keep + sth + adjective", why:"<b>keep</b> sth <b>lean</b> — the adjective goes after the object."}
+    ].map(o=>Object.assign(o,{q:[o.pre,"…",o.post].join(" ")}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+const PRAISE=["Correct!","Spot on!","Exactly right!","Perfect!","Well done!","Nice one!","Nailed it!"];
+const OOPS=["Not quite.","Almost — have a look.","Not this one."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const capFirst=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, fc:{order:WORDS.map((_,i)=>i), pos:0, dir:"en", only:false, mark:{}}}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.fc) state.fc=freshState().fc;
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text) return;
+  try{
+    if(!("speechSynthesis" in window)) return;
+    const u=new SpeechSynthesisUtterance(strip(text).replace(/\bsth\b/g,"something").replace(/\bsb\b/g,"somebody"));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.88;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[“”]/g,'"').replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have").replace(/\b(\w+)'ll\b/g,"$1 will");
+  s=s.replace(/\b(he|she|it|what|who|there|that|where|how|tom)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function variants(list,it){
+  const pre=it.pre||"", post=it.post||"", out=[];
+  list.forEach(a=>{ out.push(a); if(pre) out.push(pre+" "+a); if(post) out.push(a+" "+post); if(pre&&post) out.push(pre+" "+a+" "+post); });
+  return out.map(norm);
+}
+function evalTyped(it,raw){
+  const n=norm(raw);
+  if(variants(it.acc,it).includes(n)) return {ok:true};
+  return {ok:false};
+}
+function modelOf(it){ return it.acc[0]; }
+function sayOf(ex,it){
+  if(it.full) return it.full;
+  if(ex.kind==="gaptext") return it.acc[0];
+  if(it.p&&it.p.includes("___")) return strip(it.p).replace(/\([A-Z ]+\)\s*$/,"").replace("___",it.acc[0]).trim();
+  return it.acc[0];
+}
+function fbHTML(kind,msg,body,say){
+  return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`;
+}
+
+/* ---------- words tab ---------- */
+function buildWords(){
+  document.getElementById("chat").innerHTML=CHAT.map(([n,c,t,h])=>{
+    const body=h.replace(/\{(\d+)\|([^}]+)\}/g,(m,i,txt)=>`<button class="w" data-w="${i}" aria-expanded="false">${txt}</button>`);
+    return `<div class="msg"><div class="av" style="background:${c}">${n[0]}</div><div><div class="mh"><b>${n}</b>${t}</div><div class="mb">${body}</div></div></div>`;
+  }).join("");
+  document.querySelectorAll("#chat .w").forEach(b=>b.addEventListener("click",()=>{
+    const open=b.getAttribute("aria-expanded")==="true";
+    const nx=b.nextElementSibling; if(nx&&nx.classList.contains("gloss")) nx.remove();
+    if(!open){ const w=WORDS[+b.dataset.w]; const g=document.createElement("span"); g.className="gloss"; g.innerHTML=`<b>${esc(w[0])}</b> — ${esc(w[2])}`; b.after(g); speak(w[0]); }
+    b.setAttribute("aria-expanded",!open);
+  }));
+  document.getElementById("words").innerHTML=WORDS.map(([w,pos,def,eg,em,col])=>
+    `<div class="wd"><div class="ic" style="--kb:var(--${col}-bg)">${em}</div><div><h4>${esc(w)}<span class="pos">${esc(pos)}</span></h4><div class="def">${esc(def)}</div><div class="eg">${esc(eg)}</div></div><button class="say" data-say="${esc(w+". "+eg)}" aria-label="Listen to ${esc(w)}">🔊</button></div>`).join("");
+  document.getElementById("careful").innerHTML=CAREFUL.map(c=>`<div class="cf">${c}</div>`).join("");
+}
+
+/* ---------- flashcards ---------- */
+function fcList(){ const f=state.fc; return f.order.filter(i=>!f.only||f.mark[i]!=="k"); }
+function renderFC(){
+  const f=state.fc, list=fcList(), card=document.getElementById("fc");
+  document.getElementById("fcDir").textContent= f.dir==="en"?"⇄ Phrase → meaning":"⇄ Meaning → phrase";
+  document.getElementById("fcFilter").checked=!!f.only;
+  const known=Object.values(f.mark).filter(v=>v==="k").length;
+  document.getElementById("fcKnown").textContent=`Known: ${known} / ${WORDS.length}`;
+  document.getElementById("fcKnowBar").style.width=(known/WORDS.length*100)+"%";
+  card.classList.remove("flip");
+  if(!list.length){ card.innerHTML=`<div class="face front"><div class="em">🎉</div><div class="ph">You know them all!</div><div class="df">Untick the filter to review the whole deck.</div></div>`; document.getElementById("fcPos").textContent=""; document.getElementById("fcState").textContent=""; return; }
+  if(f.pos>=list.length) f.pos=0; if(f.pos<0) f.pos=list.length-1;
+  const i=list[f.pos], [w,pos,def,eg,em]=WORDS[i];
+  const fr= f.dir==="en" ? `<div class="em">${em}</div><div class="ph">${esc(w)}</div><div class="small">${esc(pos)}</div>` : `<div class="em">${em}</div><div class="df">${esc(def)}</div>`;
+  const bk= f.dir==="en" ? `<div class="df">${esc(def)}</div><div class="fex">“${esc(eg)}”</div>` : `<div class="ph">${esc(w)}</div><div class="fex">“${esc(eg)}”</div>`;
+  card.innerHTML=`<div class="face front">${fr}<button class="say fsay" data-say="${esc(f.dir==="en"?w:def)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP</span></div><div class="face back">${bk}<button class="say fsay" data-say="${esc(f.dir==="en"?def+". "+eg:w+". "+eg)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP BACK</span></div>`;
+  document.getElementById("fcPos").textContent=`Card ${f.pos+1} of ${list.length}`;
+  const m=f.mark[i];
+  document.getElementById("fcState").innerHTML= m==="k"?'<span class="state-k">✓ You know this one</span>': m==="l"?'<span class="state-l">● Still learning</span>':"Not marked yet";
+}
+function buildFC(){
+  const card=document.getElementById("fc"), f=()=>state.fc;
+  const flip=e=>{ if(e&&e.target.closest("[data-say]")) return; card.classList.toggle("flip"); };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); flip(); } });
+  document.getElementById("fcPrev").addEventListener("click",()=>{ f().pos--; renderFC(); saveState(); });
+  document.getElementById("fcNext").addEventListener("click",()=>{ f().pos++; renderFC(); saveState(); });
+  document.getElementById("fcDir").addEventListener("click",()=>{ f().dir=f().dir==="en"?"def":"en"; renderFC(); saveState(); });
+  document.getElementById("fcShuffle").addEventListener("click",()=>{ const o=f().order; for(let k=o.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [o[k],o[j]]=[o[j],o[k]]; } f().pos=0; renderFC(); saveState(); });
+  document.getElementById("fcFilter").addEventListener("change",e=>{ f().only=e.target.checked; f().pos=0; renderFC(); saveState(); });
+  const mark=v=>{ const list=fcList(); if(!list.length) return; const i=list[f().pos]; f().mark[i]=v; if(!(f().only&&v==="k")) f().pos++; renderFC(); saveState(); if(state.tab===4) renderResults(); };
+  document.getElementById("fcKnow").addEventListener("click",()=>mark("k"));
+  document.getElementById("fcLearn").addEventListener("click",()=>mark("l"));
+  renderFC();
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):ex.kind==="tiles"?renderTiles(ex,i):renderType(ex,i); }
+
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div><div class="opts${it.opts.every(o=>o.length<16)?" row3":""}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick];
+    st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i);
+  }));
+  return d;
+}
+function renderTiles(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  if(!st.cur) st.cur=[];
+  const full=[it.pre,...it.a].filter(Boolean).join(" ")+it.post;
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="build">${it.pre?`<span class="fx">${esc(it.pre)}</span>`:""}<div class="zone">`;
+  if(st.done) h+=(st.correct?it.a:String(st.given||"").split("|")).map(w=>`<span class="tile" style="pointer-events:none">${esc(w)}</span>`).join("");
+  else h+=st.cur.length?st.cur.map((k,pos)=>`<button class="tile" data-pos="${pos}">${esc(it.tiles[k])}</button>`).join(""):'<span class="ph">tap the parts below</span>';
+  h+=`</div><span class="fx">${esc(it.post)}</span></div>`;
+  if(!st.done){
+    h+=`<div class="pool">${it.tiles.map((w,k)=>st.cur.includes(k)?"":`<button class="tile" data-k="${k}">${esc(w)}</button>`).join("")}</div>`;
+    h+=`<div class="row"><button class="btn v chkb">Check</button><button class="btn ghost clr">Clear</button></div>`;
+    if(st.warn) h+=fbHTML("hint","",st.warn); else if(st.tries===1) h+=fbHTML("hint","Not quite — try again.","Hint: "+it.hint);
+  } else h+= st.correct?fbHTML("good",st.msg,it.why,full):fbHTML("bad",st.msg,`Correct: <span class="model">${esc(full)}</span><br>${it.why}`,full);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done){
+    d.querySelectorAll(".pool .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.push(+b.dataset.k); st.warn=""; refresh(ex,i); }));
+    d.querySelectorAll(".zone .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.splice(+b.dataset.pos,1); refresh(ex,i); }));
+    d.querySelector(".clr").addEventListener("click",()=>{ st.cur=[]; st.warn=""; refresh(ex,i); });
+    d.querySelector(".chkb").addEventListener("click",()=>{
+      if(st.cur.length<it.tiles.length){ st.warn="Use all the parts first."; refresh(ex,i); return; }
+      st.warn=""; const ans=st.cur.map(k=>it.tiles[k]); st.tries++;
+      if(ans.join("|")===it.a.join("|")){ st.done=true; st.correct=true; st.given=ans.join("|"); st.msg=st.tries===1?pick(PRAISE):"Correct on the second try!"; speak(full); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=ans.join("|"); st.msg="Not this time."; }
+      else st.cur=[];
+      refresh(ex,i);
+    });
+  }
+  return d;
+}
+function typedFB(ex,it,st){
+  const sayTxt=sayOf(ex,it);
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>You marked your answer as correct — your teacher will check it.</i>":""; return fbHTML("good",st.self?"Marked as correct":st.msg,(st.note?st.note+"<br>":"")+it.why+extra,sayTxt); }
+    return fbHTML("bad",st.msg,`Your answer: <span class="given">${esc(st.given)}</span><br>Correct: <span class="model">${esc(modelOf(it))}</span><br>${it.why}`,sayTxt)
+      + (it.single?"":`<button class="selfmark" data-self="1">My answer is also correct ✓</button>`);
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Not quite — try again.","Hint: "+it.hint);
+  return "";
+}
+function doTyped(ex,i,val){
+  const it=ex.items[i], st=S(ex,i);
+  if(!String(val||"").trim()){ st.warn="Type your answer first."; return; }
+  st.warn=""; const r=evalTyped(it,val); st.tries++;
+  if(r.ok){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the second try!"; speak(sayOf(ex,it)); }
+  else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time."; }
+  st.draft=st.done?"":val;
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="row"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.single?"Type one word":"Type the missing words"}"><button class="btn v chkb">Check</button></div>`;
+  h+=typedFB(ex,it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{ doTyped(ex,i,inp.value); refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus(); };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+function renderGapText(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  let h=`<div class="bank" aria-label="Word bank">${ex.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div><div class="mail"><div class="mail-h">${ex.head}</div><div class="story">`;
+  ex.text.forEach(seg=>{
+    if(typeof seg==="string"){ h+=seg; return; }
+    const it=ex.items[seg], st=S(ex,seg);
+    h+=`<span class="gapw"><span class="gn">${seg+1}</span>`;
+    h+= st.done ? `<span class="done ${st.correct?"ok":"no"}">${esc(st.correct?st.given.trim():it.acc[0])}</span>` : `<input data-g="${seg}" aria-label="Gap ${seg+1}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}"><button class="gc" data-g="${seg}" aria-label="Check gap ${seg+1}">✓</button>`;
+    h+="</span>";
+  });
+  h+=`</div><div class="gfbs">`;
+  ex.items.forEach((it,k)=>{ const st=S(ex,k); if(!st.done&&!st.tries&&!st.warn) return; const f=typedFB(ex,it,st); if(f) h+=`<div><b>Gap ${k+1}</b>${f}</div>`; });
+  h+="</div></div>";
+  d.innerHTML=h;
+  d.querySelectorAll("input[data-g]").forEach(inp=>{ const k=+inp.dataset.g; inp.addEventListener("input",()=>{ S(ex,k).draft=inp.value; saveSoon(); }); inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); gapGo(ex,k,inp.value); } }); });
+  d.querySelectorAll("button.gc").forEach(b=>b.addEventListener("click",()=>{ const k=+b.dataset.g; gapGo(ex,k,d.querySelector(`input[data-g="${k}"]`).value); }));
+  return d;
+}
+function gapGo(ex,k,val){ doTyped(ex,k,val); refreshGap(ex); const st=S(ex,k); const n=document.querySelector(`#it-${ex.id}-all ${st.done?"input[data-g]":`input[data-g="${k}"]`}`); if(n) n.focus({preventScroll:true}); }
+function refreshGap(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderGapText(ex)); afterChange(); }
+
+/* match */
+let matchSel=null;
+function seeded(n,seed){ const a=[...Array(n).keys()]; let s=seed; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderMatch(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  const order=seeded(ex.items.length,7);
+  let h=`<div class="match"><div class="mcol">`;
+  ex.items.forEach((it,i)=>{ const st=S(ex,i); h+=`<button class="mi${st.done?" done":""}${st.done&&!st.correct?" late":""}${matchSel===i?" sel":""}${!st.done&&st.tries?" miss":""}" data-l="${i}"${st.done?' aria-disabled="true"':""}>${esc(it.l)}${st.done?` <span class="tagn">${st.correct?"✓":"missed first"}</span>`:""}</button>`; });
+  h+=`</div><div class="mcol">`;
+  order.forEach(i=>{ const st=S(ex,i); h+=`<button class="mi r${st.done?" done":""}" data-r="${i}"${st.done?' aria-disabled="true"':""}>${esc(ex.items[i].r)}</button>`; });
+  h+=`</div></div><p class="small" id="matchMsg" aria-live="polite">${matchSel==null?"Tap a phrase on the left first.":"Now tap its meaning."}</p>`;
+  d.innerHTML=h;
+  d.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.l; if(S(ex,i).done) return; matchSel=i; speak(ex.items[i].l); refreshMatch(ex); }));
+  d.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const r=+b.dataset.r; if(S(ex,r).done) return;
+    if(matchSel==null){ document.getElementById("matchMsg").textContent="Tap a phrase on the left first."; return; }
+    const st=S(ex,matchSel);
+    if(r===matchSel){ st.done=true; st.correct=st.tries===0; st.given=st.given||ex.items[r].r; matchSel=null; refreshMatch(ex); }
+    else { if(st.tries===0) st.given=ex.items[r].r; st.tries++; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),400); document.getElementById("matchMsg").textContent="Not that one — try another meaning."; afterChange(); const lb=d.querySelector(`[data-l="${matchSel}"]`); if(lb) lb.classList.add("miss"); }
+  }));
+  return d;
+}
+function refreshMatch(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderMatch(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n}</span><h3>${esc(ex.title)}</h3><p class="instr">${ex.instr}</p></div><span class="ex-score" id="sc-${ex.id}"></span></div><div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="gaptext") box.appendChild(renderGapText(ex));
+    else if(ex.kind==="match") box.appendChild(renderMatch(ex));
+    else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<4;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next: ${STEPS[p+1].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n} done`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} done · score ${t.c}`;
+  renderTabs(); if(state.tab===4) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map((s,k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(s)}${badge}</button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===4) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){
+  if(ex.kind==="choice") return it.opts[it.a];
+  if(ex.kind==="match") return it.r;
+  if(ex.kind==="tiles") return [it.pre,...it.a].filter(Boolean).join(" ")+it.post;
+  return it.acc[0];
+}
+function givenText(ex,st){ return ex.kind==="tiles"?String(st.given||"").split("|").join(" "):st.given; }
+function knownCount(){ return Object.values(state.fc.mark).filter(v=>v==="k").length; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (Upper-Intermediate)`);
+  L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`);
+  L.push(`Flashcards known: ${knownCount()}/${WORDS.length}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return; const q=it.q||strip(it.p);
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" (model: "${correctText(ex,it)}")`);
+    else if(ex.kind==="match"&&st.tries) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — first try: "${st.given}" — correct: "${it.r}"`);
+  }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type"||e.kind==="gaptext"||e.kind==="tiles").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${givenText(ex,st)}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED / BUILT ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Nothing here yet — start with the Words tab.":pct>=90?`Outstanding, ${nm}! You could run that meeting-free week yourself.`:pct>=75?"Great work — just a few slips. Have a look at them below.":pct>=55?"Good effort! Review the flashcards for the phrases you mixed up.":"Keep going — go back to the word list and flashcards, then try again.";
+  let h=`<div class="kicker">Results</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered ${t.d} of ${t.n} · flashcards known ${knownCount()} / ${WORDS.length}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}${s.d<s.n?` <span class="small">(${s.n-s.d} left)</span>`:""}</span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q||strip(it.p))}<br>Your answer: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again</div><h3>Your mistakes</h3><ol class="mlist">${mist.join("")}</ol>`:`<div class="kicker">Look again</div><h3>No mistakes so far 🎉</h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn v" id="sShare">📤 Share</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email app</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message to your teacher."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Could not copy automatically — please select and copy the text."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===4) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 Sound on":"🔇 Sound off"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ e.stopPropagation(); speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildWords(); buildFC(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound); matchSel=null;
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderFC();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if("speechSynthesis" in window) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
