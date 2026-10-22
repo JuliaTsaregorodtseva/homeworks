@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Present simple or continuous? — Vlad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,SOFT,wght@9..144,100,600;9..144,100,800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F1E6; --bg2:#EFE5D3; --paper:#FFFDF8; --ink:#25233F; --soft:#6B6577; --line:#EADFCB;
+  --simple:#2F4C93; --simple-bg:#E6EBF7; --simple-d:#233A74;
+  --cont:#D35B45; --cont-bg:#FAE6E0; --cont-d:#AE4130;
+  --sage:#3F8A78; --sage-bg:#E3F1EC; --mustard:#D49A33; --mustard-bg:#FBF0D9; --plum:#7C5CC4; --plum-bg:#EEE8FA;
+  --good:#257A57; --good-bg:#E3F4EA; --bad:#C2453A; --bad-bg:#FCE9E6; --hint-bg:#FDF3DC;
+  --r:22px; --shadow:0 2px 0 rgba(120,90,50,.06),0 10px 30px rgba(120,90,50,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:17px/1.6 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);
+  background-image:radial-gradient(circle at 12% 8%,rgba(212,154,51,.10) 0,transparent 32%),radial-gradient(circle at 92% 30%,rgba(211,91,69,.07) 0,transparent 30%),radial-gradient(circle at 20% 80%,rgba(47,76,147,.06) 0,transparent 35%);
+  background-attachment:fixed}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--plum);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100;line-height:1.15;margin:0;font-weight:800}
+i,em{font-style:italic}
+/* ---------- hero ---------- */
+.hero{padding-top:30px;padding-bottom:18px;display:grid;grid-template-columns:1fr auto;gap:12px 20px;align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;background:var(--plum);color:#fff;font-weight:800;letter-spacing:.16em;font-size:.74rem;padding:8px 16px;border-radius:999px}
+.hero h1{font-size:clamp(2.1rem,7.4vw,3.5rem);margin:14px 0 6px;letter-spacing:-.01em}
+.hero h1 .s{color:var(--simple)}.hero h1 .c{color:var(--cont)}
+.hero .sub{margin:0;color:var(--soft);font-size:1.05rem}
+.cup{width:118px;height:auto}
+.steam path{fill:none;stroke:#C9B89A;stroke-width:3;stroke-linecap:round;animation:rise 3.2s ease-in-out infinite;opacity:.0}
+.steam path:nth-child(2){animation-delay:1s}.steam path:nth-child(3){animation-delay:2s}
+@keyframes rise{0%{transform:translateY(8px);opacity:0}40%{opacity:.9}100%{transform:translateY(-10px);opacity:0}}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px;color:var(--soft)}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:14px;padding:8px 12px;width:140px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--plum);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* ---------- sticky bar ---------- */
+.bar{position:sticky;top:0;z-index:30;background:rgba(247,241,230,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;min-height:44px;font-weight:800;font-size:.92rem;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.76rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 8px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.86rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--bg2);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--simple),var(--plum),var(--cont));border-radius:999px;transition:width .5s}
+/* ---------- cards ---------- */
+main{padding:20px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin:0 0 18px}
+.card h2{font-size:clamp(1.5rem,5vw,1.9rem);margin-bottom:8px}
+.card h3{font-size:1.25rem;margin-bottom:6px}
+.card p{margin:.45em 0}
+.lead{font-size:1.07rem}
+.kicker{font-weight:800;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-bottom:18px}
+.grid2>.card{margin:0}
+.tense{border-top:6px solid var(--k)}
+.tense.s{--k:var(--simple);--kb:var(--simple-bg)}.tense.c{--k:var(--cont);--kb:var(--cont-bg)}
+.thead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.ico{flex:0 0 auto;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--k);color:#fff;font-size:1.35rem}
+.thead h3{color:var(--k);font-family:Nunito,sans-serif;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:1.02rem;margin:0}
+.tl{display:block;width:100%;height:auto;margin:6px 0 4px}
+.use{padding:10px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px;align-items:center;justify-content:space-between}
+.use:last-of-type{border-bottom:0}
+.use .lbl{display:block;font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--k)}
+.signal{background:var(--kb);border-radius:14px;padding:10px 14px;margin-top:10px;font-style:italic;color:var(--ink)}
+.signal b{font-style:normal;color:var(--k)}
+.vs{color:var(--simple);font-weight:800}.vc{color:var(--cont);font-weight:800}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1.05rem}
+.say:hover{background:var(--bg2)}
+table.form{width:100%;border-collapse:separate;border-spacing:0;margin:8px 0;font-size:.98rem}
+.form th,.form td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.form th{font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--soft)}
+.form td:first-child{font-weight:800;width:32px;color:var(--soft)}
+.note{border-left:5px solid var(--mustard);background:var(--mustard-bg);padding:12px 14px;border-radius:0 14px 14px 0;margin:12px 0}
+.note.p{border-color:var(--plum);background:var(--plum-bg)}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:7px 0}
+.mist div{padding:9px 12px;border-radius:12px}
+.mist .x{background:var(--bad-bg);color:#8E2F28}.mist .x::before{content:"✗ ";font-weight:800}
+.mist .x s{text-decoration-thickness:1px}
+.mist .v{background:var(--good-bg);color:#17603F;font-weight:700}.mist .v::before{content:"✓ ";font-weight:800}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+.grp{display:flex;gap:12px;align-items:flex-start;border-radius:18px;padding:14px;background:var(--gb)}
+.grp .ico{background:var(--gk)}
+.grp b{display:block;color:var(--gk);font-size:1.02rem}
+.two{display:grid;gap:10px;margin-top:10px}
+.tw{border:2px solid var(--line);border-radius:16px;padding:12px 14px}
+.tw h4{margin:0 0 6px;font-family:Fraunces,Georgia,serif;font-size:1.15rem}
+.tw .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tw .r div{border-radius:12px;padding:8px 10px;font-size:.97rem}
+.tw .st{background:var(--simple-bg)}.tw .ac{background:var(--cont-bg)}
+.tw small{display:block;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+/* contrast demo */
+.pairs{display:grid;gap:12px;margin-top:12px}
+.pair{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
+.pn{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;display:grid;place-items:center}
+.flip{border:0;border-radius:16px;padding:12px 14px;min-height:64px;text-align:left;display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;transition:background .25s}
+.flip.s{background:var(--simple-bg)}.flip.c{background:var(--cont-bg)}
+.flip .tx{font-size:1.06rem}
+.flip .tag{flex:0 0 auto;font-size:.82rem;font-style:italic;color:var(--soft);text-align:right}
+.flip .tag b{display:block;font-style:normal;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.flip.s .tag b{color:var(--simple)}.flip.c .tag b{color:var(--cont)}
+.toggle-all{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.btn{border:0;border-radius:14px;padding:10px 18px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.p{background:var(--plum)}
+.btn.s{background:var(--simple)}.btn.c{background:var(--cont)}
+/* ---------- exercises ---------- */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin:0 0 18px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--plum)}
+.ex-head h3{font-size:1.35rem;margin:3px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--plum-bg);color:var(--plum);border-radius:999px;padding:4px 12px;font-size:.86rem;white-space:nowrap}
+.item{border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A6D8C0}.item.no{border-color:#EFB7AF}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg2);color:var(--ink);font-weight:800;font-size:.85rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.08rem}
+.ask{display:block;font-size:.84rem;font-weight:800;color:var(--soft);margin-top:4px}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row2{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.opt{text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;min-height:44px;font-weight:700}
+.opt:hover:not(:disabled){border-color:var(--plum);background:#FCFAFF}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#17603F;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8E2F28}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--plum);color:var(--plum);font-weight:800;line-height:1.2}
+.br{color:var(--soft);font-size:.92rem;font-weight:700}
+mark{background:#FFE3A3;border-radius:6px;padding:0 4px;color:inherit}
+.fb{margin-top:10px;padding:10px 12px;border-radius:14px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:14px;padding:10px 12px;min-height:44px;background:#fff}
+.inp:focus{border-color:var(--plum);outline:none}
+.model{font-weight:800;color:#17603F}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:14px;padding:8px 12px;min-height:44px;font-weight:800}
+.build{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:1.06rem}
+.build .fx{font-weight:700}
+.zone{display:flex;flex-wrap:wrap;gap:6px;min-height:50px;min-width:150px;flex:1 1 200px;padding:4px 6px;border:2px dashed var(--line);border-radius:14px;align-items:center}
+.zone .ph{color:#A9A2B3;font-size:.9rem;padding:0 6px}
+.tile{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:6px 12px;min-height:44px;font-weight:800}
+.zone .tile{background:var(--ink);color:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* email gap text */
+.mail{background:#fff;border:2px solid var(--line);border-radius:18px;overflow:hidden;margin-top:12px}
+.mail-h{background:var(--bg2);padding:10px 14px;font-size:.9rem;color:var(--soft)}
+.mail-h b{color:var(--ink)}
+.story{padding:14px 16px;font-size:1.06rem;line-height:2.35}
+.gapw{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;white-space:nowrap}
+.gapw .gn{font-size:.72rem;font-weight:800;background:var(--ink);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-grid;place-items:center}
+.gapw input{width:9.5em;max-width:calc(100vw - 150px);border:2px solid var(--line);border-radius:10px;padding:4px 8px;min-height:40px;background:#fff;line-height:1.3}
+.gapw input:focus{border-color:var(--plum);outline:none}
+.gapw .gc{border:0;background:var(--plum);color:#fff;border-radius:10px;min-width:44px;min-height:40px;font-weight:800}
+.gapw .done{font-weight:800;border-radius:8px;padding:2px 8px;line-height:1.4}
+.gapw .done.ok{background:var(--good-bg);color:#17603F}.gapw .done.no{background:var(--bad-bg);color:#8E2F28}
+.gfbs{padding:0 14px 14px}.gfbs>div{margin-top:8px}
+/* ---------- the bill ---------- */
+.bill{max-width:520px;margin:0 auto 18px;background:#fff;border-radius:6px;box-shadow:var(--shadow);padding:26px 24px 30px;position:relative;font-variant-numeric:tabular-nums}
+.bill::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;background:radial-gradient(circle at 10px 0,#fff 10px,transparent 10.5px) 0 0/20px 12px repeat-x}
+.bill h2{text-align:center;font-size:1.6rem}
+.bill .cafe{text-align:center;color:var(--soft);font-size:.9rem;margin:2px 0 14px;letter-spacing:.06em}
+.bl{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dotted #CFC3AE}
+.bl span:first-child{min-width:0}
+.tot{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 4px;border-top:2px solid var(--ink);margin-top:8px}
+.tot b{font-family:Fraunces,Georgia,serif;font-size:2.1rem}
+.thanks{text-align:center;margin-top:12px;font-weight:700}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--plum)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:14px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.small{font-size:.88rem;color:var(--soft)}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:560px){
+  body{font-size:16px}
+  .card,.ex{padding:16px}
+  .hero{grid-template-columns:1fr}
+  .cup{display:none}
+  .mist,.tw .r{grid-template-columns:1fr}
+  .flip{flex-direction:column;align-items:flex-start}
+  .flip .tag{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.steam path{opacity:.6}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">☕ GRAMMAR · 1A EATING IN AND OUT</span>
+    <h1>Present <span class="s">simple</span> or <span class="c">continuous</span>?</h1>
+    <p class="sub">Intermediate homework for <b id="nameOut">Vlad</b></p>
+  </div>
+  <svg class="cup" viewBox="0 0 120 120" aria-hidden="true">
+    <g class="steam"><path d="M44 40c-6-8 6-12 0-20"/><path d="M60 40c-6-8 6-12 0-20"/><path d="M76 40c-6-8 6-12 0-20"/></g>
+    <path d="M26 50h66v22c0 18-14 30-33 30S26 90 26 72z" fill="#D35B45"/>
+    <path d="M92 58h6a12 12 0 0 1 0 24h-8" fill="none" stroke="#D35B45" stroke-width="7"/>
+    <ellipse cx="59" cy="50" rx="33" ry="6" fill="#8A4B2E"/>
+    <rect x="16" y="104" width="88" height="7" rx="3.5" fill="#2F4C93"/>
+  </svg>
+  <div class="howto">
+    <p>Get comfy and go step by step: read each rule card, then try its exercises. Your answers save as you go. When you're done, open <b>The bill</b> and send your results to your teacher.</p>
+    <div class="namebox">
+      <label for="nameIn">Name</label>
+      <input id="nameIn" autocomplete="off">
+      <button class="pill" id="soundBtn" aria-pressed="true">🔊 Sound on</button>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+  </div>
+</div>
+
+<main class="wrap">
+<!-- ============ STEP 1 ============ -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">Step 1 · Two tenses</div>
+    <h2>The way things are vs. what's happening around now</h2>
+    <p class="lead">Both tenses talk about the present, but they look at it differently. The <span class="vs">present simple</span> is for things that are generally true, repeated or fixed. The <span class="vc">present continuous</span> is for things in progress <b>now</b> or <b>around now</b>: unfinished, temporary or changing.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tense s">
+      <div class="thead"><span class="ico">↻</span><h3>Present simple</h3></div>
+      <svg class="tl" viewBox="0 0 300 60" role="img" aria-label="Timeline: the action repeats again and again, past, now and future">
+        <line x1="10" y1="34" x2="290" y2="34" stroke="#CFC3AE" stroke-width="3" stroke-linecap="round"/>
+        <g fill="#2F4C93"><circle cx="35" cy="34" r="7"/><circle cx="80" cy="34" r="7"/><circle cx="125" cy="34" r="7"/><circle cx="175" cy="34" r="7"/><circle cx="220" cy="34" r="7"/><circle cx="265" cy="34" r="7"/></g>
+        <line x1="150" y1="14" x2="150" y2="50" stroke="#25233F" stroke-width="2" stroke-dasharray="4 3"/>
+        <text x="150" y="10" text-anchor="middle" font-size="11" font-weight="800" fill="#25233F" font-family="Nunito,sans-serif">NOW</text>
+        <text x="12" y="58" font-size="10" fill="#6B6577" font-family="Nunito,sans-serif">again and again · always true</text>
+      </svg>
+      <div id="useS"></div>
+      <div class="signal"><b>Signal words:</b> always · usually · often · rarely · never · every day · twice a week · once a month · on Mondays</div>
+    </div>
+    <div class="card tense c">
+      <div class="thead"><span class="ico">▶</span><h3>Present continuous</h3></div>
+      <svg class="tl" viewBox="0 0 300 60" role="img" aria-label="Timeline: the action started before now and is still in progress">
+        <line x1="10" y1="34" x2="290" y2="34" stroke="#CFC3AE" stroke-width="3" stroke-linecap="round"/>
+        <rect x="95" y="25" width="110" height="18" rx="9" fill="#D35B45" opacity=".9"/>
+        <path d="M205 25 l14 9 -14 9z" fill="#D35B45" opacity=".55"/>
+        <line x1="150" y1="14" x2="150" y2="50" stroke="#25233F" stroke-width="2" stroke-dasharray="4 3"/>
+        <text x="150" y="10" text-anchor="middle" font-size="11" font-weight="800" fill="#25233F" font-family="Nunito,sans-serif">NOW</text>
+        <text x="12" y="58" font-size="10" fill="#6B6577" font-family="Nunito,sans-serif">in progress · not finished · temporary</text>
+      </svg>
+      <div id="useC"></div>
+      <div class="signal"><b>Signal words:</b> now · right now · at the moment · currently · today · this week / month · these days · still · more and more</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Form</div>
+    <h3>How to build them</h3>
+    <div class="grid2" style="margin:8px 0 0">
+      <div>
+        <p class="vs" style="margin:0">Present simple</p>
+        <table class="form">
+          <tr><td>+</td><td>I / you / we / they <b class="vs">cook</b><br>he / she / it <b class="vs">cooks</b></td></tr>
+          <tr><td>−</td><td>I <b class="vs">don't cook</b> · she <b class="vs">doesn't cook</b></td></tr>
+          <tr><td>?</td><td><b class="vs">Do</b> you <b class="vs">cook</b>? · <b class="vs">Does</b> she <b class="vs">cook</b>?</td></tr>
+          <tr><td>↩</td><td>Yes, I do. · No, she doesn't.</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="vc" style="margin:0">Present continuous</p>
+        <table class="form">
+          <tr><td>+</td><td>I<b class="vc">'m cooking</b> · you / we / they<b class="vc">'re cooking</b><br>he / she / it<b class="vc">'s cooking</b></td></tr>
+          <tr><td>−</td><td>I<b class="vc">'m not cooking</b> · she <b class="vc">isn't cooking</b></td></tr>
+          <tr><td>?</td><td><b class="vc">Are</b> you <b class="vc">cooking</b>? · <b class="vc">Is</b> she <b class="vc">cooking</b>?</td></tr>
+          <tr><td>↩</td><td>Yes, I am. · No, she isn't.</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="note"><b>Spelling.</b> <i>-s</i>: cook → cook<b>s</b>, watch → watch<b>es</b>, try → tr<b>ies</b>, go → go<b>es</b>, have → <b>has</b>. <i>-ing</i>: make → mak<b>ing</b>, cut → cu<b>tting</b>, sit → si<b>tting</b>, lie → l<b>ying</b>, travel → trave<b>lling</b>.</div>
+    <h3 style="margin-top:14px">Watch out</h3>
+    <div class="mist"><div class="x"><s>I am work in finance.</s></div><div class="v">I work in finance.</div></div>
+    <div class="mist"><div class="x"><s>She don't eat meat.</s></div><div class="v">She doesn't eat meat.</div></div>
+    <div class="mist"><div class="x"><s>Where you work?</s></div><div class="v">Where do you work?</div></div>
+    <div class="mist"><div class="x"><s>What you are doing?</s></div><div class="v">What are you doing?</div></div>
+  </div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Step 2 · Action or non-action?</div>
+    <h2>Some verbs don't like the continuous</h2>
+    <p class="lead"><b>Non-action (state) verbs</b> describe feelings, thoughts, senses and possession — not actions. They are not "happening"; they just <i>are</i>. So we don't usually use them in the continuous, even when we mean right now.</p>
+    <div class="groups">
+      <div class="grp" style="--gb:var(--cont-bg);--gk:var(--cont)"><span class="ico">♥</span><div><b>likes &amp; wants</b>like · love · hate · want · prefer · need</div></div>
+      <div class="grp" style="--gb:var(--plum-bg);--gk:var(--plum)"><span class="ico">✱</span><div><b>thinking</b>know · believe · think (= opinion) · remember · understand · mean</div></div>
+      <div class="grp" style="--gb:var(--sage-bg);--gk:var(--sage)"><span class="ico">◉</span><div><b>senses &amp; seeming</b>taste · smell · look · sound · seem</div></div>
+      <div class="grp" style="--gb:var(--simple-bg);--gk:var(--simple)"><span class="ico">⚿</span><div><b>having &amp; other</b>have (= own) · belong · cost · depend · agree · matter</div></div>
+    </div>
+    <div class="mist"><div class="x"><s>I'm needing a coffee.</s></div><div class="v">I need a coffee.</div></div>
+    <div class="mist"><div class="x"><s>This soup is tasting great.</s></div><div class="v">This soup tastes great.</div></div>
+    <div class="mist"><div class="x"><s>Are you knowing the chef?</s></div><div class="v">Do you know the chef?</div></div>
+    <div class="note p"><b>Quick test:</b> can you say "I'm in the middle of …ing"? <i>I'm in the middle of cooking</i> — yes, an action. <i>I'm in the middle of knowing</i> — no! That's a state.</div>
+  </div>
+  <div class="card">
+    <div class="kicker">Careful</div>
+    <h3>Same verb, two meanings</h3>
+    <p>A few verbs can be a <b>state</b> (simple) <i>or</i> an <b>action</b> (continuous) — the meaning changes.</p>
+    <div class="two" id="twoMeanings"></div>
+  </div>
+</section>
+
+<!-- ============ STEP 3 ============ -->
+<section class="page" data-page="2">
+  <div class="card">
+    <div class="kicker">Step 3 · Same verb, different message</div>
+    <h2>Change the tense, change the meaning</h2>
+    <p class="lead">Often <b>both</b> tenses are correct — but they don't say the same thing. Tap a sentence to switch it between <span class="vs">simple</span> and <span class="vc">continuous</span> and see what changes.</p>
+    <div class="toggle-all"><button class="btn s" data-all="s">All simple</button><button class="btn c" data-all="c">All continuous</button></div>
+    <div class="pairs" id="pairs"></div>
+    <div class="note"><b>Ask yourself:</b> permanent or temporary? · official timetable or my own plan? · neutral fact or annoyed? · someone's character or how they're behaving today?</div>
+  </div>
+</section>
+
+<!-- ============ STEP 4 ============ -->
+<section class="page" data-page="3">
+  <div class="card">
+    <div class="kicker">Step 4 · Mixed practice</div>
+    <h2>Busy, or just in meetings?</h2>
+    <p class="lead">Everything together in one real message. Think about each gap: routine or now? fact or temporary? action or state?</p>
+  </div>
+</section>
+
+<!-- ============ THE BILL ============ -->
+<section class="page" data-page="4">
+  <div class="bill" id="bill"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher</div>
+    <h3>Send your results</h3>
+    <p>Choose any way that works for you. <b>Copy text</b> always includes the full report.</p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again</h3>
+    <p class="small">This deletes all your answers on this device.</p>
+    <button class="btn ghost" id="resetBtn">↺ Start again</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes, delete</button> <button class="btn ghost" id="resetNo">No, keep them</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA — rules, examples, exercises (edit here)
+   ========================================================= */
+const TEACHER_EMAIL = "ulchik2211@gmail.com";
+const HOMEWORK_TITLE = "Present simple or continuous?";
+const STORE_KEY = "vlad-present-simple-continuous-v1";
+const DEFAULT_NAME = "Vlad";
+const STEPS = ["☕ 1 · Two tenses", "🫖 2 · Action or state?", "🍰 3 · Same verb", "🍽️ 4 · Mixed practice", "🧾 The bill"];
+
+/* Uses: [label, sentence html, sentence text] */
+const USES_S = [
+  ["habits & routines", "I <b class='vs'>eat out</b> about twice a month.", "I eat out about twice a month."],
+  ["always true / permanent", "Chefs <b class='vs'>work</b> very long hours. I <b class='vs'>work</b> in finance.", "Chefs work very long hours. I work in finance."],
+  ["with how often", "She <b class='vs'>never drinks</b> coffee after 5.", "She never drinks coffee after 5."],
+  ["timetables & schedules", "The quarterly review <b class='vs'>starts</b> at 10 on Monday.", "The quarterly review starts at 10 on Monday."],
+  ["instructions & demos", "First you <b class='vs'>open</b> the dashboard, then you <b class='vs'>click</b> 'Export'.", "First you open the dashboard, then you click Export."],
+  ["stories, reviews, headlines", "So the manager <b class='vs'>walks</b> in and <b class='vs'>says</b>: 'Who called this meeting?'", "So the manager walks in and says: Who called this meeting?"]
+];
+const USES_C = [
+  ["happening right now", "Shh, I<b class='vc'>'m making</b> pancakes! Sorry, I can't talk, I<b class='vc'>'m driving</b>.", "Shh, I'm making pancakes! Sorry, I can't talk, I'm driving."],
+  ["temporary, around now", "I<b class='vc'>'m cutting down on</b> sugar this month.", "I'm cutting down on sugar this month."],
+  ["changing situations & trends", "Food prices <b class='vc'>are going up</b>.", "Food prices are going up."],
+  ["annoying habits (with always)", "He<b class='vc'>'s always scheduling</b> meetings at 5 on a Friday!", "He's always scheduling meetings at 5 on a Friday!"],
+  ["arrangements for the future", "We<b class='vc'>'re meeting</b> the client on Thursday.", "We're meeting the client on Thursday."],
+  ["unfinished projects", "I<b class='vc'>'m writing</b> a report on remote work. It's taking ages.", "I'm writing a report on remote work. It's taking ages."]
+];
+/* Verbs with two meanings: [verb, state example, action example] */
+const TWO = [
+  ["think", "I <b class='vs'>think</b> it's too expensive. <i>(= my opinion)</i>", "I<b class='vc'>'m thinking</b> about changing jobs. <i>(= considering)</i>"],
+  ["have", "She <b class='vs'>has</b> a small café. <i>(= owns)</i>", "We<b class='vc'>'re having</b> lunch. <i>(= eating)</i> · I<b class='vc'>'m having</b> a great time."],
+  ["taste / smell", "This sauce <b class='vs'>tastes</b> salty. <i>(= it is salty)</i>", "The chef <b class='vc'>is tasting</b> the sauce. <i>(= trying it)</i>"],
+  ["look", "You <b class='vs'>look</b> tired. <i>(= seem)</i>", "What <b class='vc'>are</b> you <b class='vc'>looking</b> at? <i>(= using your eyes)</i>"],
+  ["be", "He <b class='vs'>is</b> very polite. <i>(= his character)</i>", "He<b class='vc'>'s being</b> very polite today. <i>(= behaviour now, unusual)</i>"]
+];
+/* Contrast pairs: [simple html, simple tag, continuous html, continuous tag] */
+const PAIRS = [
+  ["I <b class='vs'>work</b> in marketing.", "permanent", "I<b class='vc'>'m working</b> on the Q4 launch.", "temporary"],
+  ["The meeting <b class='vs'>starts</b> at 10.", "timetable", "I<b class='vc'>'m meeting</b> Tom at 10.", "my plan"],
+  ["He <b class='vs'>interrupts</b> people.", "a fact", "He<b class='vc'>'s always interrupting</b>!", "it annoys me"],
+  ["I <b class='vs'>take</b> the bus to work.", "usually", "I<b class='vc'>'m taking</b> the bus this week.", "just for now"],
+  ["She <b class='vs'>is</b> very polite.", "her character", "She<b class='vc'>'s being</b> very polite today.", "today, unusually"]
+];
+
+const S_USES = ["Routine / habit", "Fact / permanent state", "Timetable / schedule", "Instructions / demo", "Story / headline / review"];
+const C_USES = ["Happening right now", "Temporary / around now", "Changing trend", "Annoying habit (with always)", "Future arrangement"];
+const GAP = '<span class="slot">___</span>';
+
+/* kind: choice | tiles | type | gaptext ; step = page index */
+const EX = [
+  { id:"choose", step:0, kind:"choice", title:"Simple or continuous?",
+    instr:"Choose the correct form. Look for clues: how often? right now? this month?",
+    items:[
+      {p:`Shh! I ${GAP} pancakes and they're nearly ready.`, opts:["make","'m making"], a:1, say:"Shh! I'm making pancakes and they're nearly ready.", why:"Happening <b>right now</b> → continuous."},
+      {p:`We ${GAP} out about twice a month, usually on Fridays.`, opts:["eat","are eating"], a:0, say:"We eat out about twice a month, usually on Fridays.", why:"A <b>routine</b> with <i>how often</i> (<i>twice a month</i>) → simple."},
+      {p:`I ${GAP} down on sugar this month, so no dessert for me, thanks.`, opts:["'m cutting","cut"], a:0, say:"I'm cutting down on sugar this month, so no dessert for me, thanks.", why:"<b>Temporary</b>, just <i>this month</i> → continuous."},
+      {p:`Food prices ${GAP} up — everything costs more than last year.`, opts:["go","are going"], a:1, say:"Food prices are going up. Everything costs more than last year.", why:"A <b>changing situation / trend</b> → continuous."},
+      {p:`I ${GAP} Tom for lunch at 1 — we booked a table yesterday.`, opts:["'m meeting","meet"], a:0, say:"I'm meeting Tom for lunch at 1. We booked a table yesterday.", why:"A <b>personal arrangement</b> for the future → continuous."},
+      {p:`${GAP} the chef here? He's my cousin.`, opts:["Do you know","Are you knowing"], a:0, say:"Do you know the chef here? He's my cousin.", why:"<i>Know</i> is a <b>non-action</b> (thinking) verb → no continuous."},
+      {p:`This soup ${GAP} amazing. What's in it?`, opts:["is tasting","tastes"], a:1, say:"This soup tastes amazing. What's in it?", why:"<i>Taste</i> here describes the soup (a <b>sense</b>, a state) → simple."},
+      {p:`She ${GAP} in finance — it's her permanent job.`, opts:["works","is working"], a:0, say:"She works in finance. It's her permanent job.", why:"A <b>permanent</b> situation → simple."},
+      {p:`Sorry, I can't talk right now — I ${GAP}.`, opts:["drive","'m driving"], a:1, say:"Sorry, I can't talk right now. I'm driving.", why:"Happening <b>right now</b> → continuous."},
+      {p:`I usually ${GAP} the bus, but this week I ${GAP} my bike.`, opts:["take … ride","'m taking … 'm riding","take … 'm riding"], a:2, say:"I usually take the bus, but this week I'm riding my bike.", why:"<i>Usually</i> → routine → simple. <i>This week</i> → temporary → continuous."}
+    ]},
+  { id:"why", step:0, kind:"choice", title:"Why this tense?",
+    instr:"Each sentence is correct. Choose why the speaker uses this tense.",
+    items:[
+      {p:"I go to the gym three times a week.", t:"s", a:0, why:"<i>Three times a week</i> — a regular <b>routine</b>."},
+      {p:"Can you call back later? We're having dinner.", t:"c", a:0, why:"Dinner is <b>in progress right now</b>."},
+      {p:"Water boils at 100°C.", t:"s", a:1, why:"A <b>fact</b> that is always true."},
+      {p:"I'm living with my parents until my new flat is ready.", t:"c", a:1, why:"<i>Until my new flat is ready</i> — a <b>temporary</b> situation."},
+      {p:"My flight lands at 6.15 tomorrow morning.", t:"s", a:2, why:"Flights follow an official <b>timetable</b> — simple, even for the future."},
+      {p:"Plant-based food is getting more and more popular.", t:"c", a:2, why:"<i>More and more</i> — a <b>changing trend</b>."},
+      {p:"You add the eggs, then you stir for two minutes.", t:"s", a:3, why:"Step-by-step <b>instructions</b>."},
+      {p:"My flatmate is always leaving dirty plates in the sink!", t:"c", a:3, why:"<i>Always</i> + continuous shows the speaker is <b>annoyed</b>."},
+      {p:"<i>(a newspaper headline)</i> Brilliant new café opens in city centre", t:"s", a:4, say:"Brilliant new café opens in city centre", why:"<b>Headlines</b> use the present simple, even for something that has just happened."},
+      {p:"I'm having lunch with Anna on Saturday — we've booked a table.", t:"c", a:4, why:"A <b>future arrangement</b> — the table is booked."}
+    ].map(o=>Object.assign(o,{opts:o.t==="s"?S_USES:C_USES, ask:o.t==="s"?"Why the present simple?":"Why the present continuous?"}))},
+  { id:"build", step:0, kind:"tiles", title:"Build the question",
+    instr:"Tap the words in the correct order. Tap a placed word to send it back.",
+    items:[
+      {post:"?", tiles:["cook","usually","you","Do","at home"], a:["Do","you","usually","cook","at home"], hint:"Start with the auxiliary. Adverbs like <i>usually</i> go before the main verb.", why:"Question: <b>Do</b> + subject + (adverb) + verb."},
+      {post:"these days?", tiles:["working","are","What","on","you"], a:["What","are","you","working","on"], hint:"Question word → <i>are</i> → subject → -ing → preposition.", why:"<b>What are you working on</b> — the preposition stays at the end."},
+      {post:"?", tiles:["you","eat out","How often","do"], a:["How often","do","you","eat out"], hint:"<i>How often</i> asks about a routine, so it's present simple.", why:"<b>How often do you eat out?</b> — question word + <i>do</i> + subject + verb."},
+      {post:"?", tiles:["always","you","checking","Why","are","your phone"], a:["Why","are","you","always","checking","your phone"], hint:"<i>Always</i> goes between <i>are you</i> and the -ing verb.", why:"<b>Why are you always checking your phone?</b> — always + continuous = it annoys me."},
+      {post:"?", tiles:["belong","this bag","does","to","Who"], a:["Who","does","this bag","belong","to"], hint:"<i>Belong</i> is a state verb — so <i>does</i>, not <i>is</i>.", why:"<b>Who does this bag belong to?</b> — state verb → simple."},
+      {post:"on Thursday?", tiles:["meeting","you","Are","the client"], a:["Are","you","meeting","the client"], hint:"It's a future arrangement.", why:"<b>Are you meeting the client on Thursday?</b> — arrangement → continuous."},
+      {post:"the new menu?", tiles:["think","do","of","What","you"], a:["What","do","you","think","of"], hint:"<i>Think</i> = opinion here, so it's a state.", why:"<b>What do you think of…?</b> asks for an opinion → simple."}
+    ]},
+  { id:"state", step:1, kind:"choice", title:"Action or non-action?",
+    instr:"Choose the correct sentence.",
+    items:[
+      {opts:["I need a coffee.","I'm needing a coffee."], a:0, why:"<i>Need</i> is a 'likes & wants' verb → no continuous."},
+      {opts:["This soup is tasting great.","This soup tastes great."], a:1, why:"<i>Taste</i> describes the soup (sense / state) → simple."},
+      {opts:["Are you knowing the chef?","Do you know the chef?"], a:1, why:"<i>Know</i> is a thinking verb → simple."},
+      {opts:["I think about changing jobs at the moment.","I'm thinking about changing jobs at the moment."], a:1, why:"<i>Think about</i> = consider, an <b>action</b> in progress → continuous is fine."},
+      {opts:["What do you think of the new menu?","What are you thinking of the new menu?"], a:0, why:"<i>Think of</i> here = opinion → state → simple."},
+      {opts:["We have dinner — can I call you back?","We're having dinner — can I call you back?"], a:1, why:"<i>Have dinner</i> = eat, an <b>action</b> happening now → continuous."},
+      {opts:["She has a small restaurant in the old town.","She's having a small restaurant in the old town."], a:0, why:"<i>Have</i> = own → state → simple."},
+      {opts:["Look! The chef tastes the sauce.","Look! The chef is tasting the sauce."], a:1, why:"Here <i>taste</i> = try, an <b>action</b> happening now → continuous."},
+      {opts:["I'm not understanding what you're meaning.","I don't understand what you mean."], a:1, why:"<i>Understand</i> and <i>mean</i> are thinking verbs → simple."}
+    ].map(o=>Object.assign(o,{p:"Which sentence is correct?", say:o.opts[o.a], q:o.opts.join(" / ")}))},
+  { id:"fix", step:1, kind:"type", title:"Find and correct the mistake",
+    instr:"The highlighted part is wrong. Type it correctly.",
+    items:[
+      {p:"<mark>I'm not believing</mark> it — they've closed our favourite café!", pre:"I", acc:["don't believe"], post:"it", hint:"<i>Believe</i> is a thinking verb.", why:"<i>Believe</i> = state → <b>I don't believe</b> it."},
+      {p:"This coffee <mark>is smelling</mark> wonderful.", pre:"this coffee", acc:["smells"], hint:"It describes the coffee — a sense.", why:"Sense verb describing something → <b>smells</b>."},
+      {p:"<mark>Are you preferring</mark> tea or coffee?", acc:["do you prefer"], hint:"<i>Prefer</i> is a 'likes & wants' verb.", why:"State verb → <b>Do you prefer</b> tea or coffee?"},
+      {p:"Look! The waiter <mark>brings</mark> our food.", pre:"the waiter", acc:["is bringing"], hint:"<i>Look!</i> — it's happening right now.", why:"<i>Look!</i> → happening now → <b>is bringing</b>."},
+      {p:"My brother <mark>is being</mark> a chef. He loves his job.", pre:"my brother", acc:["is"], hint:"It's his permanent job, not his behaviour today.", why:"A permanent fact → <b>is</b> a chef."},
+      {p:"The price <mark>is depending</mark> on the season.", pre:"the price", acc:["depends"], hint:"<i>Depend</i> is in the 'having & other' group.", why:"<i>Depend</i> = state → <b>depends</b>."},
+      {p:"We've got a big deadline, so I <mark>eat</mark> at my desk this week.", pre:"I", acc:["am eating"], hint:"<i>This week</i> — temporary.", why:"Temporary situation (<i>this week</i>) → <b>I'm eating</b>."},
+      {p:"<mark>Do you cook</mark> dinner right now? Something smells good!", acc:["are you cooking"], hint:"<i>Right now</i>.", why:"Happening right now → <b>Are you cooking</b>?"},
+      {p:"Who <mark>is this bag belonging</mark> to?", pre:"who", acc:["does this bag belong"], hint:"<i>Belong</i> is a state verb — use <i>does</i>.", why:"State verb → Who <b>does this bag belong</b> to?"}
+    ].map(o=>Object.assign(o,{q:o.p.replace(/<[^>]+>/g,"").replace(/\s+/g," "), phrase:true}))},
+  { id:"pair", step:2, kind:"type", title:"Same verb, two messages",
+    instr:"Put the verb in brackets into the present simple or the present continuous. Type only the verb form (contractions are fine).",
+    items:[
+      {p:`I ${GAP} in marketing — it's my permanent job. <span class="br">(work)</span>`, pre:"I", acc:["work"], hint:"Permanent → ?", why:"Permanent → simple: <b>I work</b>."},
+      {p:`This month I ${GAP} on the Q4 launch, so I'm really busy. <span class="br">(work)</span>`, pre:"I", acc:["am working"], hint:"<i>This month</i> → temporary.", why:"Temporary → continuous: <b>I'm working</b>."},
+      {p:`I usually ${GAP} the bus to work. <span class="br">(take)</span>`, pre:"I", acc:["take"], hint:"<i>Usually</i> → routine.", why:"Routine → simple: <b>I take</b>."},
+      {p:`My car is at the garage, so I ${GAP} the bus this week. <span class="br">(take)</span>`, pre:"I", acc:["am taking"], hint:"Just for this week.", why:"Temporary → continuous: <b>I'm taking</b>."},
+      {p:`${GAP} a car, or do you cycle everywhere? <span class="br">(you / have)</span>`, acc:["do you have","have you got"], hint:"<i>Have</i> = own → state. Make a question.", why:"<i>Have</i> = own → simple: <b>Do you have</b> a car? (<i>Have you got</i> is fine too.)"},
+      {p:`Sorry, we ${GAP} lunch right now — can I call you back? <span class="br">(have)</span>`, pre:"we", acc:["are having"], hint:"<i>Have lunch</i> = eat — an action, right now.", why:"<i>Have lunch</i> = action, now → <b>we're having</b>."},
+      {p:`Kate ${GAP} always very polite — it's just her character. <span class="br">(be)</span>`, pre:"Kate", acc:["is"], hint:"Her character → state.", why:"Character → simple: <b>Kate is</b>."},
+      {p:`Kate ${GAP} very polite today — she must want something! <span class="br">(be)</span>`, pre:"Kate", acc:["is being"], hint:"Today, unusually — her behaviour.", why:"Unusual behaviour today → <b>is being</b>."},
+      {p:`I ${GAP} Georgian food is the best in the world. <span class="br">(think)</span>`, pre:"I", acc:["think"], hint:"An opinion.", why:"Opinion → state → <b>I think</b>."},
+      {p:`Quiet, please — I ${GAP}! <span class="br">(think)</span>`, pre:"I", acc:["am thinking"], hint:"The process of thinking, right now.", why:"Process happening now → <b>I'm thinking</b>."}
+    ].map(o=>Object.assign(o,{q:o.p.replace(/<[^>]+>/g,"").replace("___","___").replace(/\s+/g," ")}))},
+  { id:"meaning", step:2, kind:"choice", title:"What's the message?",
+    instr:"Read the sentence. What does the speaker mean?",
+    items:[
+      {s:"He's always interrupting people!", opts:["It annoys me.","It's just a neutral fact about him."], a:0, why:"<i>Always</i> + continuous = the speaker is <b>annoyed</b>."},
+      {s:"I'm meeting Tom at 10.", opts:["It's on an official timetable.","It's my personal plan — we've arranged it."], a:1, why:"Continuous for the future = a <b>personal arrangement</b>."},
+      {s:"She's being very rude today.", opts:["That's unusual — it's just her behaviour today.","She's a rude person in general."], a:0, why:"<i>Be</i> in the continuous = <b>behaviour now</b>, not character."},
+      {s:"I'm taking the bus this week.", opts:["It's my normal routine.","It's temporary — just for now."], a:1, why:"Continuous = <b>temporary</b>."},
+      {s:"<i>(in a restaurant)</i> What are you having?", say:"What are you having?", opts:["What are you going to eat or order?","What do you own?"], a:0, why:"<i>Have</i> = eat / order → an action → continuous is possible."},
+      {s:"The conference starts on Monday.", opts:["It's my personal arrangement.","It's an official schedule."], a:1, why:"Simple for the future = an official <b>timetable</b>."},
+      {s:"I think you're right.", opts:["It's my opinion.","I'm in the middle of considering it."], a:0, why:"<i>Think</i> in the simple = <b>opinion</b>."}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">“${o.s}”</span>`, say:o.say||o.s, q:o.s.replace(/<[^>]+>/g,"")}))},
+  { id:"email", step:3, kind:"gaptext", title:"A message to a friend",
+    instr:"Put the verbs in brackets into the present simple or continuous. Type only the verb form, then press ✓. Contractions are fine.",
+    head:'<b>From:</b> Max &nbsp;·&nbsp; <b>To:</b> Anna &nbsp;·&nbsp; <b>Subject:</b> Busy, or just in meetings?',
+    text:["Hi Anna,<br>Sorry for the slow reply — it's a crazy week! I ",0," for a colleague this month, so my calendar is completely full. Normally I ",1," work at 6, but this week I ",2," in the office until 8. And my manager ",3," meetings at 5 on a Friday — it drives me mad!<br><br>Food-wise, I ",4," to cook more at the moment. I ",5," eating at my desk, but sometimes there's no choice. Right now, as I write this, my flatmate ",6," pancakes and the kitchen ",7," amazing.<br><br>By the way, we ",8," dinner at that new Georgian place on Saturday — the table is booked for 7. ",9," to come?<br><br>Write soon,<br>Max"],
+    items:[
+      {words:"cover", pre:"I", acc:["am covering"], hint:"<i>This month</i> → temporary.", why:"Temporary (<i>this month</i>) → <b>I'm covering</b>."},
+      {words:"finish", pre:"I", acc:["finish"], hint:"<i>Normally</i> → routine.", why:"Routine (<i>normally</i>) → <b>I finish</b>."},
+      {words:"stay", pre:"I", acc:["am staying"], hint:"<i>This week</i> → temporary.", why:"Temporary (<i>this week</i>) → <b>I'm staying</b>."},
+      {words:"always / book", pre:"my manager", acc:["is always booking"], alts:[["always books","Correct grammar — but <i>is always booking</i> shows that Max is annoyed, and that's the point here."]], hint:"<i>It drives me mad!</i> — an annoying habit.", why:"Annoying habit → <b>is always booking</b>."},
+      {words:"try", pre:"I", acc:["am trying"], hint:"<i>At the moment</i>.", why:"Around now (<i>at the moment</i>) → <b>I'm trying</b>."},
+      {words:"not / like", pre:"I", acc:["don't like"], hint:"<i>Like</i> is a state verb. Make it negative.", why:"<i>Like</i> = state → <b>I don't like</b>."},
+      {words:"make", pre:"my flatmate", acc:["is making"], hint:"<i>Right now, as I write this</i>.", why:"Happening right now → <b>is making</b>."},
+      {words:"smell", pre:"the kitchen", acc:["smells"], hint:"It describes the kitchen — a sense verb.", why:"Sense verb describing something → <b>smells</b>."},
+      {words:"have", pre:"we", acc:["are having","are going to have"], hint:"The table is booked — a future arrangement.", why:"Future arrangement → <b>we're having</b> dinner."},
+      {words:"you / want", acc:["do you want"], hint:"<i>Want</i> is a state verb. Make a question.", why:"<i>Want</i> = state → <b>Do you want</b> to come?"}
+    ].map((o,k)=>Object.assign(o,{q:`Gap ${k+1} (${o.words})`}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const PRAISE = ["Correct!","Spot on!","Exactly right!","Perfect!","Well done!","Nice one!","Lovely — that's it!"];
+const OOPS = ["Not quite.","Almost — have a look.","Not this one."];
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+
+const MEM = {};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+
+let state = loadState() || {name:DEFAULT_NAME, tab:0, sound:true, ans:{}, pairs:{}};
+if(!state.ans) state.ans={}; if(!state.pairs) state.pairs={};
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+/* speech */
+function speak(text){
+  if(!state.sound||!text) return;
+  try{
+    if(!("speechSynthesis" in window)) return;
+    const u=new SpeechSynthesisUtterance(strip(text));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.88;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+/* normalising typed answers */
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[“”]/g,'"').replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have");
+  s=s.replace(/\b(\w+)'s\b/g,"$1 is");
+  s=s.replace(/(^|\s)'m\b/g,"$1am").replace(/(^|\s)'re\b/g,"$1are").replace(/(^|\s)'s\b/g,"$1is");
+  return s.replace(/\s+/g," ").trim();
+}
+function variants(list,it){
+  const out=[];
+  list.forEach(a=>{ out.push(a); if(it.pre) out.push(it.pre+" "+a); if(it.post) out.push(a+" "+it.post); if(it.pre&&it.post) out.push(it.pre+" "+a+" "+it.post); });
+  return out.map(norm);
+}
+function evalTyped(it,raw){
+  const n=norm(raw);
+  if(variants(it.acc,it).includes(n)) return {ok:true};
+  for(const [a,note] of (it.alts||[])) if(variants([a],it).includes(n)) return {ok:true,note};
+  return {ok:false};
+}
+const capFirst = s => s.charAt(0).toUpperCase()+s.slice(1);
+function markText(it){ const m=it.p.match(/<mark>(.*?)<\/mark>/); return m?strip(m[1]):""; }
+function modelOf(it){
+  if(!it.phrase) return (it.p||"").startsWith('<span class="slot">') ? capFirst(it.acc[0]) : it.acc[0];
+  const mk=markText(it);
+  return (it.pre && norm(mk).startsWith(norm(it.pre)+" ")) ? capFirst(it.pre+" "+it.acc[0]) : (/^<mark>/.test(it.p)?capFirst(it.acc[0]):it.acc[0]);
+}
+function sayOf(ex,it){
+  if(it.say) return it.say;
+  if(ex.kind==="type"||ex.kind==="gaptext"){
+    if(it.p&&it.p.includes("___")) return capFirst(strip(it.p).replace(/\(.*?\)\s*$/,"").replace("___",it.acc[0]).trim());
+    if(it.phrase) return capFirst(strip(it.p).replace(markText(it), modelOf(it)));
+    return capFirst([it.pre,it.acc[0]].filter(Boolean).join(" "));
+  }
+  return "";
+}
+
+function fbHTML(kind,msg,body,say){
+  return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`;
+}
+
+/* ---------- item renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):ex.kind==="tiles"?renderTiles(ex,i):renderType(ex,i); }
+
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const say = it.say || (it.p.includes("___") ? null : strip(it.p));
+  const sayTxt = say || (()=>{ const parts=it.opts[it.a].split(" … "); let k=0; return strip(it.p).replace(/___/g,()=>parts[k++]||"").replace(/ '/g,"'"); })();
+  const long = it.opts.some(o=>o.length>22);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="sent">${it.p}</div>${it.ask?`<span class="ask">${it.ask}</span>`:""}<div class="opts${long?"":" row2"}">`;
+  it.opts.forEach((o,k)=>{
+    let c="opt"; if(st.done) c+= k===it.a?" right":(k===st.pick?" wrong":" dim");
+    h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`;
+  });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad", st.msg, it.why, sayTxt);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick];
+    st.msg=st.correct?pick(PRAISE):pick(OOPS);
+    if(st.correct) speak(sayTxt);
+    refresh(ex,i);
+  }));
+  return d;
+}
+
+function renderTiles(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  if(!st.cur) st.cur=[];
+  const full=[...it.a,it.post].join(" ").replace(/ \?$/,"?");
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="build"><div class="zone">`;
+  if(st.done) h+=(st.correct?it.a:(st.given||"").split("|")).map(w=>`<span class="tile" style="pointer-events:none">${esc(w)}</span>`).join("");
+  else h+= st.cur.length ? st.cur.map((k,pos)=>`<button class="tile" data-pos="${pos}">${esc(it.tiles[k])}</button>`).join("") : '<span class="ph">tap the words below</span>';
+  h+=`</div><span class="fx">${esc(it.post)}</span></div>`;
+  if(!st.done){
+    h+=`<div class="pool">${it.tiles.map((w,k)=>st.cur.includes(k)?"":`<button class="tile" data-k="${k}">${esc(w)}</button>`).join("")}</div>`;
+    h+=`<div class="row"><button class="btn p chk">Check</button><button class="btn ghost clr">Clear</button></div>`;
+    if(st.warn) h+=fbHTML("hint","",st.warn);
+    else if(st.tries===1) h+=fbHTML("hint","Not quite — try again.","Hint: "+it.hint);
+  } else {
+    h+= st.correct ? fbHTML("good",st.msg,it.why,full) : fbHTML("bad",st.msg,`Correct: <span class="model">${esc(full)}</span><br>${it.why}`,full);
+  }
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done){
+    d.querySelectorAll(".pool .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.push(+b.dataset.k); st.warn=""; refresh(ex,i); }));
+    d.querySelectorAll(".zone .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.splice(+b.dataset.pos,1); refresh(ex,i); }));
+    d.querySelector(".clr").addEventListener("click",()=>{ st.cur=[]; st.warn=""; refresh(ex,i); });
+    d.querySelector(".chk").addEventListener("click",()=>{
+      if(st.cur.length<it.tiles.length){ st.warn="Use all the words first."; refresh(ex,i); return; }
+      st.warn=""; const ans=st.cur.map(k=>it.tiles[k]); st.tries++;
+      if(ans.join("|")===it.a.join("|")){ st.done=true; st.correct=true; st.given=ans.join("|"); st.msg=st.tries===1?pick(PRAISE):"Correct on the second try!"; speak(full); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=ans.join("|"); st.msg="Not this time."; }
+      else st.cur=[];
+      refresh(ex,i);
+    });
+  }
+  return d;
+}
+
+function typedFB(ex,it,st){
+  const sayTxt=sayOf(ex,it);
+  if(st.done){
+    if(st.correct){
+      const extra=st.self?"<br><i>You marked your answer as correct — your teacher will check it.</i>":"";
+      return fbHTML("good", st.self?"Marked as correct":st.msg, (st.note?`<span>${st.note}</span><br>`:"")+it.why+extra, sayTxt);
+    }
+    return fbHTML("bad", st.msg, `Your answer: <span class="given">${esc(st.given)}</span><br>Correct: <span class="model">${esc(modelOf(it))}</span><br>${it.why}`, sayTxt)
+      + `<button class="selfmark" data-self="1">My answer is also correct ✓</button>`;
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Not quite — try again.","Hint: "+it.hint);
+  return "";
+}
+function doTyped(ex,i,val){
+  const it=ex.items[i], st=S(ex,i);
+  if(!String(val||"").trim()){ st.warn="Type your answer first."; return; }
+  st.warn=""; const r=evalTyped(it,val); st.tries++;
+  if(r.ok){ st.done=true; st.correct=true; st.given=val; st.note=r.note||""; st.msg=st.tries===1?pick(PRAISE):"Correct on the second try!"; speak(sayOf(ex,it)); }
+  else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time."; }
+  st.draft=st.done?"":val;
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="sent">${it.p}</div>`;
+  if(!st.done) h+=`<div class="row"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.phrase?"Type the correct form":"Type the verb form"}"><button class="btn p chk">Check</button></div>`;
+  h+=typedFB(ex,it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{ doTyped(ex,i,inp.value); refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus(); };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chk").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]");
+  if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+
+function renderGapText(ex){
+  const d=document.createElement("div"); d.className="mail"; d.id=`it-${ex.id}-all`;
+  let h=`<div class="mail-h">${ex.head}</div><div class="story">`;
+  ex.text.forEach(seg=>{
+    if(typeof seg==="string"){ h+=seg; return; }
+    const it=ex.items[seg], st=S(ex,seg);
+    h+=`<span class="gapw"><span class="gn">${seg+1}</span>`;
+    if(st.done) h+=`<span class="done ${st.correct?"ok":"no"}">${esc(st.correct?st.given:it.acc[0])}</span>`;
+    else h+=`<input data-g="${seg}" aria-label="Gap ${seg+1}, ${esc(it.words)}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}"><button class="gc" data-g="${seg}" aria-label="Check gap ${seg+1}">✓</button>`;
+    h+=`</span> <span class="br">(${esc(it.words)})</span>`;
+  });
+  h+=`</div><div class="gfbs">`;
+  ex.items.forEach((it,k)=>{
+    const st=S(ex,k); if(!st.done&&!st.tries&&!st.warn) return;
+    const f=typedFB(ex,it,st); if(f) h+=`<div data-gfb="${k}"><b>Gap ${k+1}</b>${f}</div>`;
+  });
+  h+="</div>";
+  d.innerHTML=h;
+  d.querySelectorAll("input[data-g]").forEach(inp=>{
+    const k=+inp.dataset.g;
+    inp.addEventListener("input",()=>{ S(ex,k).draft=inp.value; saveSoon(); });
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); gapGo(ex,k,inp.value); } });
+  });
+  d.querySelectorAll("button.gc").forEach(b=>b.addEventListener("click",()=>{ const k=+b.dataset.g; gapGo(ex,k,d.querySelector(`input[data-g="${k}"]`).value); }));
+  d.querySelectorAll("[data-gfb] [data-self]").forEach(b=>b.addEventListener("click",()=>{ const k=+b.closest("[data-gfb]").dataset.gfb; const st=S(ex,k); st.correct=true; st.self=true; refreshGap(ex); }));
+  return d;
+}
+function gapGo(ex,k,val){
+  doTyped(ex,k,val); refreshGap(ex);
+  const st=S(ex,k);
+  const n=document.querySelector(`#it-${ex.id}-all ${st.done?"input[data-g]":`input[data-g="${k}"]`}`);
+  if(n) n.focus({preventScroll:true});
+}
+function refreshGap(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderGapText(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- build pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n}</span><h3>${esc(ex.title)}</h3><p class="instr">${ex.instr}</p></div><span class="ex-score" id="sc-${ex.id}"></span></div><div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="gaptext") box.appendChild(renderGapText(ex)); else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<4;p++){
+    const nx=document.createElement("div"); nx.className="next";
+    nx.innerHTML=`<button class="btn" data-go="${p+1}">Next: ${STEPS[p+1].replace(/^\S+ (\d · )?/,"")} →</button>`;
+    document.querySelector(`.page[data-page="${p}"]`).appendChild(nx);
+  }
+}
+function buildRules(){
+  const useHTML=list=>list.map(([l,h,t])=>`<div class="use"><span><span class="lbl">${l}</span>${h}</span><button class="say" data-say="${esc(t)}" aria-label="Listen">🔊</button></div>`).join("");
+  document.getElementById("useS").innerHTML=useHTML(USES_S);
+  document.getElementById("useC").innerHTML=useHTML(USES_C);
+  document.getElementById("twoMeanings").innerHTML=TWO.map(([v,s,a])=>`<div class="tw"><h4>${v}</h4><div class="r"><div class="st"><small>state · simple</small>${s}</div><div class="ac"><small>action · continuous</small>${a}</div></div></div>`).join("");
+  renderPairs();
+  document.querySelectorAll("[data-all]").forEach(b=>b.addEventListener("click",()=>{ PAIRS.forEach((_,k)=>state.pairs[k]=b.dataset.all); saveState(); renderPairs(); }));
+}
+function renderPairs(){
+  const box=document.getElementById("pairs");
+  box.innerHTML=PAIRS.map((p,k)=>{
+    const m=state.pairs[k]||"s", s=m==="s";
+    return `<div class="pair"><span class="pn">${k+1}</span><button class="flip ${m}" data-pair="${k}" aria-label="Switch tense"><span class="tx">${s?p[0]:p[2]}</span><span class="tag"><b>${s?"Present simple":"Present continuous"}</b>${s?p[1]:p[3]} ⇄</span></button></div>`;
+  }).join("");
+  box.querySelectorAll(".flip").forEach(b=>b.addEventListener("click",()=>{
+    const k=+b.dataset.pair; state.pairs[k]=(state.pairs[k]||"s")==="s"?"c":"s"; saveState(); renderPairs();
+    speak(strip(state.pairs[k]==="s"?PAIRS[k][0]:PAIRS[k][2]));
+    const nb=document.querySelector(`.flip[data-pair="${k}"]`); if(nb) nb.focus({preventScroll:true});
+  }));
+}
+
+/* ---------- scores, tabs ---------- */
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent= s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n} done`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} done · score ${t.c}`;
+  renderTabs();
+  if(state.tab===4) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map((s,k)=>{
+    let badge=""; const exs=EX.filter(e=>e.step===k);
+    if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; }
+    return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(s)}${badge}</button>`;
+  }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs();
+  if(k===4) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results & report ---------- */
+function correctText(ex,it){
+  if(ex.kind==="choice") return it.opts[it.a];
+  if(ex.kind==="tiles") return [...it.a,it.post].join(" ").replace(/ \?$/,"?");
+  return modelOf(it);
+}
+function givenText(ex,st){ return ex.kind==="tiles"?String(st.given||"").split("|").join(" "):st.given; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} — homework (Intermediate, 1A Eating in and out)`);
+  L.push(`Student: ${state.name||DEFAULT_NAME}`);
+  L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`);
+  L.push("");
+  L.push("BY EXERCISE");
+  EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); });
+  L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{
+    const st=S(ex,i); if(!st.done) return;
+    const q=it.q||strip(it.p).replace(/\s+/g," ");
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" (model: "${correctText(ex,it)}")`);
+  }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind!=="choice").map(ex=>{
+    const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${givenText(ex,st)}${st.correct?(st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean);
+    return lines.length?`${ex.title}:\n`+lines.join("\n"):null;
+  }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED / BUILT ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500 ? full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")' : full; }
+function subject(){ const t=totals(); return `Present simple or continuous — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg = t.d===0 ? "Nothing on the bill yet — start with Step 1!" :
+    pct>=90 ? `Outstanding, ${nm}! You really know when things are happening.` :
+    pct>=75 ? "Great work — just a few slips. Have a look at them below." :
+    pct>=55 ? "Good effort! Re-read the rule cards for the bits you mixed up." :
+              "Keep going — have another look at Steps 1 and 2, then try again.";
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  let h=`<h2>The bill 🧾</h2><p class="cafe">PRESENT TENSES CAFÉ · ${esc(date)} · TABLE FOR ${nm.toUpperCase()}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="bl"><span>${ex.n}. ${esc(ex.title)}${s.d<s.n?` <span class="small">(${s.n-s.d} left)</span>`:""}</span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  h+=`<div class="tot"><span><b style="font-size:1.1rem;font-family:Nunito,sans-serif">TOTAL</b><br><span class="small">${pct}% · answered ${t.d} of ${t.n}</span></span><b>${t.c} / ${t.n}</b></div><p class="thanks">${msg}</p>`;
+  document.getElementById("bill").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q||strip(it.p))}<br>Your answer: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard");
+  mc.style.display = t.d? "" : "none";
+  mc.innerHTML = mist.length ? `<div class="kicker">Look again</div><h3>Your mistakes</h3><ol class="mlist">${mist.join("")}</ol>` : `<div class="kicker">Look again</div><h3>No mistakes so far 🎉</h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email app</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg");
+  const done=()=>{ msg.textContent="✓ Copied! Paste it into a message to your teacher."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Could not copy automatically — please select and copy the text."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn");
+  ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===4) renderResults(); });
+  const sb=document.getElementById("soundBtn");
+  const sbr=()=>{ sb.textContent=state.sound?"🔊 Sound on":"🔇 Sound off"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{
+    const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; }
+    const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go);
+  });
+  buildRules(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state={name:state.name,tab:0,sound:state.sound,ans:{},pairs:{}};
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderPairs();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if("speechSynthesis" in window) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
