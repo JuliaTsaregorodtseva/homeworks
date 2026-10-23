@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Be or have? — Tamara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F1F7; --paper:#FFFFFF; --ink:#272439; --soft:#6C6880; --ru:#86799A; --line:#E7E1EE; --line2:#D9D0E4;
+  --be:#E2604A; --be-bg:#FDE9E4; --have:#2D8A86; --have-bg:#DFF2F0; --sun:#E9A93A; --sun-bg:#FCF1DA; --plum:#7457C9; --plum-bg:#EEE9FB;
+  --good:#22805A; --good-bg:#E2F5EA; --bad:#C6453A; --bad-bg:#FCE8E5; --hint-bg:#FFF4D6;
+  --r:20px; --shadow:0 1px 2px rgba(39,36,57,.05),0 10px 28px rgba(39,36,57,.09);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--plum);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:Prata,Georgia,serif;font-weight:400;line-height:1.15;margin:0}
+.ru{display:block;color:var(--ru);font-weight:500;font-size:.92em}
+h2 .ru,h3 .ru{font-family:"Golos Text",sans-serif;font-size:.6em;margin-top:5px}
+.be{color:var(--be);font-weight:800}.have{color:var(--have);font-weight:800}
+/* hero */
+.hero{padding-top:26px;padding-bottom:16px;display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:center}
+.badge{display:inline-block;background:var(--ink);color:#fff;font-weight:800;letter-spacing:.12em;font-size:.72rem;padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(2.2rem,8vw,3.4rem);margin:14px 0 6px}
+.hero .sub{margin:0;color:var(--soft)}
+.polaroids{position:relative;height:200px}
+.pol{position:absolute;background:#fff;padding:10px 10px 30px;box-shadow:var(--shadow);border-radius:6px;width:150px}
+.pol .ph{height:118px;border-radius:3px;display:grid;place-items:center;font-family:Prata,serif;font-size:2.4rem;color:#fff}
+.pol .cap{position:absolute;bottom:7px;left:0;right:0;text-align:center;font-weight:700;font-size:.82rem}
+.pol.a{left:6%;top:10px;transform:rotate(-6deg)}.pol.a .ph{background:var(--be)}
+.pol.b{right:6%;top:30px;transform:rotate(5deg)}.pol.b .ph{background:var(--have)}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px}
+.howto .ru{font-size:.9rem}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:130px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--plum);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(244,241,247,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px 12px;min-height:48px;font-weight:800;font-size:.88rem;white-space:nowrap;line-height:1.2;text-align:left}
+.tab small{display:block;font-weight:600;font-size:.74rem;color:var(--ru)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab[aria-selected="true"] small{color:#CFCBE2}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.72rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 7px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--be),var(--sun),var(--have));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.4rem,5.5vw,1.8rem);margin-bottom:8px}
+.card h3{font-size:1.2rem;margin-bottom:6px}
+.card p{margin:.45em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);margin-bottom:6px}
+.small{font-size:.88rem;color:var(--soft)}
+/* word list */
+.wgroup{margin-top:14px}
+.wgroup h4{margin:0 0 6px;font-size:.95rem}
+.wgroup h4 .ru{display:inline;margin-left:6px;font-size:.85rem}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.wrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:2px solid var(--line);border-radius:14px;padding:8px 10px}
+.tag{font-size:.68rem;font-weight:800;letter-spacing:.06em;border-radius:7px;padding:3px 7px;color:#fff}
+.tag.b{background:var(--be)}.tag.h{background:var(--have)}.tag.x{background:var(--plum)}
+.wrow b{font-size:1.02rem}
+.wrow .tr{display:block;color:var(--ru);font-weight:600;font-size:.9rem}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.cf{border-radius:14px;padding:10px 12px;margin-top:8px;background:var(--sun-bg)}
+.cf .x{color:var(--bad);text-decoration:line-through}.cf .v{color:var(--good);font-weight:800}
+/* grammar */
+.rule2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.rb{border-radius:16px;padding:14px}
+.rb.b{background:var(--be-bg)}.rb.h{background:var(--have-bg)}
+.rb .big{font-family:Prata,serif;font-size:1.5rem}
+.rb.b .big{color:var(--be)}.rb.h .big{color:var(--have)}
+.exm{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed rgba(0,0,0,.08)}
+.exm:last-child{border:0}
+.eq{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:8px 0}
+.eq div{background:var(--bg);border-radius:12px;padding:10px 12px;text-align:center;font-weight:600}
+.eq span{font-weight:800;color:var(--plum);font-size:1.3rem}
+table.form{width:100%;border-collapse:separate;border-spacing:0;margin:8px 0;font-size:.97rem}
+.form th,.form td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.form th{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:7px 0}
+.mist div{padding:9px 12px;border-radius:12px}
+.mist .x{background:var(--bad-bg);color:#8B2B24}.mist .x::before{content:"✗ ";font-weight:800}
+.mist .v{background:var(--good-bg);color:#155E3E;font-weight:700}.mist .v::before{content:"✓ ";font-weight:800}
+/* face builder */
+.studio{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start;margin-top:10px}
+.studio svg{width:100%;max-width:200px;background:linear-gradient(180deg,var(--plum-bg),#fff);border-radius:18px;justify-self:center}
+.ctrl{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.ctrl .lab{width:100%;font-size:.78rem;font-weight:800;color:var(--soft)}
+.chip{border:2px solid var(--line2);background:#fff;border-radius:999px;padding:5px 12px;min-height:44px;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:disabled{opacity:.35;cursor:default}
+.out{background:var(--bg);border-radius:14px;padding:12px 14px;margin-top:10px}
+.out p{margin:4px 0}
+.out .en{font-weight:700}
+/* flashcards */
+.fcwrap{perspective:1200px;margin:14px auto 10px;max-width:540px}
+.fc{position:relative;width:100%;min-height:240px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);cursor:pointer;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:8px}
+.front{background:linear-gradient(150deg,#fff,var(--plum-bg))}
+.back{background:linear-gradient(150deg,#fff,var(--sun-bg));transform:rotateY(180deg)}
+.face .ph{font-family:Prata,serif;font-size:clamp(1.5rem,6.5vw,2rem);line-height:1.15}
+.face .rt{font-size:1.15rem;font-weight:700;color:#6A5A88}
+.face .fex{font-style:italic;color:var(--soft);font-size:.95rem;max-width:420px}
+.face .tap{position:absolute;bottom:10px;font-size:.72rem;color:var(--soft);font-weight:700;letter-spacing:.05em}
+.face .fsay{position:absolute;top:12px;right:12px;background:#fff}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.fcmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;max-width:540px;margin:0 auto;font-weight:700;font-size:.88rem;color:var(--soft)}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700}
+.chk input{width:20px;height:20px;accent-color:var(--plum)}
+.knowbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;max-width:540px;margin:6px auto 0}
+.knowbar div{height:100%;background:var(--have);width:0;transition:width .4s}
+.state-k{color:var(--good)}.state-l{color:#B07A12}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.t{background:var(--have)}.btn.s{background:var(--sun);color:var(--ink)}.btn.p{background:var(--plum)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
+.ex-head h3{font-size:1.25rem;margin:4px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--plum-bg);color:var(--plum);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.item{border:2px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.06rem}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(90px,1fr))}
+.opt{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:48px;font-weight:700}
+.opts.row .opt{text-align:center}
+.opt:hover:not(:disabled){border-color:var(--plum);background:#FCFBFF}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--plum);color:var(--plum);font-weight:800;line-height:1.2}
+.src{display:block;color:var(--soft);font-size:.95rem;margin-bottom:2px}
+.cue{display:inline-block;font-size:.78rem;font-weight:800;border-radius:7px;padding:1px 8px;margin-left:4px;background:var(--plum-bg);color:var(--plum)}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.rowi{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.inp:focus{border-color:var(--plum);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;text-align:left}
+.ruq{font-size:1.08rem;font-weight:700}
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;min-height:52px;text-align:left;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.mi.r{font-weight:600;color:#5C5076}
+.mi.sel{border-color:var(--plum);background:var(--plum-bg)}
+.mi.done{border-color:#A4D9BF;background:var(--good-bg);color:#155E3E;cursor:default}
+.mi.done.late{border-color:#F0D392;background:var(--sun-bg);color:#7A5200}
+.mi.miss{border-color:#EDB5AE}
+.mi.shake{animation:shake .35s}
+.mi .tagn{font-size:.7rem;background:var(--good);color:#fff;border-radius:6px;padding:1px 6px}
+.mi.late .tagn{background:var(--sun);color:var(--ink)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.story{background:var(--sun-bg);border-radius:16px;padding:14px 16px;margin-top:10px;line-height:1.7}
+/* results */
+.score-big{font-family:Prata,serif;font-size:3rem;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--plum)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:640px){ .hero{grid-template-columns:1fr} .polaroids{height:170px;max-width:340px;width:100%;justify-self:center} .pol{width:130px} .pol .ph{height:100px} }
+@media (max-width:560px){
+  body{font-size:16px}
+  .card,.ex{padding:15px}
+  .rule2,.mist{grid-template-columns:1fr}
+  .studio{grid-template-columns:1fr}
+  .mi{font-size:.9rem;padding:8px}
+  .eq{grid-template-columns:1fr}
+  .eq span{text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">PRE-INTERMEDIATE · GRAMMAR + VOCABULARY</span>
+    <h1>Be or <span class="have">have</span>?</h1>
+    <p class="sub">Describing appearance — homework for <b id="nameOut">Tamara</b><span class="ru">Описываем внешность — домашнее задание</span></p>
+  </div>
+  <div class="polaroids" aria-hidden="true">
+    <div class="pol a"><div class="ph">BE</div><div class="cap">She is tall.</div></div>
+    <div class="pol b"><div class="ph">HAVE</div><div class="cap">She has long hair.</div></div>
+  </div>
+  <div class="howto">
+    <p>Go tab by tab: words → flashcards → be or have → look / look like → mix. Then send your results.<span class="ru">Иди по вкладкам по порядку: слова → карточки → be или have → look / look like → всё вместе. Потом отправь результаты.</span></p>
+    <div class="namebox"><label for="nameIn">Name · Имя</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 On</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<!-- 0 WORDS -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">Word list · Слова</div>
+    <h2>Describing appearance<span class="ru">Описываем внешность</span></h2>
+    <p class="small">The tag shows which verb you need: <span class="tag b">BE</span> = adjective, <span class="tag h">HAVE</span> = noun.<span class="ru">Метка показывает, какой глагол нужен: BE — с прилагательным, HAVE — с существительным.</span></p>
+    <div id="words"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Careful! · Осторожно!</div>
+    <h3>Little traps<span class="ru">Маленькие ловушки</span></h3>
+    <div class="cf"><b>hair</b> is uncountable: <span class="v">She has long hair.</span> — not <span class="x">a long hair</span>. <span class="v">Her hair is long.</span> — not <span class="x">are</span>.<span class="ru">hair — неисчисляемое: без a и с is. «A hair» — это один волосок!</span></div>
+    <div class="cf"><b>eyes</b> are plural: <span class="v">His eyes are blue.</span> — not <span class="x">is</span>.<span class="ru">eyes — множественное число, поэтому are.</span></div>
+    <div class="cf">One thing → <b>a</b>: <span class="v">a beard, a moustache, a big nose, a round face, a nice smile</span>.<span class="ru">Если предмет один — ставим a.</span></div>
+    <div class="cf">Age → <b>BE</b>: <span class="v">I am 30 (years old).</span> — not <span class="x">I have 30 years</span>.<span class="ru">По-русски «мне 30 лет», а по-английски «я есть 30» — I am 30.</span></div>
+    <div class="cf">Word order: <b>length → type → colour</b>: <span class="v">long curly red hair</span>, <span class="v">short straight dark hair</span>.<span class="ru">Порядок: длина → тип → цвет.</span></div>
+    <div class="cf"><b>handsome</b> — usually about men · <b>pretty</b> — about women and girls · <b>good-looking</b> — about anyone.<span class="ru">handsome — о мужчинах, pretty — о женщинах, good-looking — о любом человеке.</span></div>
+  </div>
+</section>
+
+<!-- 1 FLASHCARDS -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Flashcards · Карточки</div>
+    <h2>Learn the words<span class="ru">Учим слова</span></h2>
+    <p class="small">Tap the card to flip it. Mark each word: <b>I know it</b> or <b>Still learning</b>.<span class="ru">Нажми на карточку, чтобы перевернуть. Отмечай: «Знаю» или «Ещё учу».</span></p>
+    <div class="fcbar"><button class="btn ghost" id="fcDir">⇄</button><button class="btn ghost" id="fcShuffle">🔀 Shuffle · Перемешать</button></div>
+    <div class="fcbar"><label class="chk"><input type="checkbox" id="fcFilter"> Only words I'm learning · Только те, что учу</label></div>
+    <div class="fcwrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Flashcard, press to flip"></div></div>
+    <div class="fcmeta"><span id="fcPos"></span><span id="fcState"></span></div>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcPrev" aria-label="Previous">←</button>
+      <button class="btn s" id="fcLearn">Still learning · Ещё учу</button>
+      <button class="btn t" id="fcKnow">I know it · Знаю ✓</button>
+      <button class="btn ghost" id="fcNext" aria-label="Next">→</button>
+    </div>
+    <div class="fcmeta"><span id="fcKnown"></span></div>
+    <div class="knowbar"><div id="fcKnowBar"></div></div>
+  </div>
+</section>
+
+<!-- 2 BE OR HAVE -->
+<section class="page" data-page="2">
+  <div class="card">
+    <div class="kicker">The golden rule · Золотое правило</div>
+    <h2><span class="be">BE</span> + adjective · <span class="have">HAVE</span> + noun<span class="ru">BE + прилагательное · HAVE + существительное</span></h2>
+    <div class="rule2">
+      <div class="rb b"><div class="big">BE</div><p><b>am · is · are</b> — the whole person<span class="ru">описываем человека целиком: рост, возраст, фигуру</span></p><div id="exBe"></div></div>
+      <div class="rb h"><div class="big">HAVE</div><p><b>have · has</b> — a part of the person<span class="ru">описываем часть тела: волосы, глаза, нос, бороду</span></p><div id="exHave"></div></div>
+    </div>
+    <p style="margin-top:12px"><b>Quick test:</b> is there a noun (hair, eyes, beard)? → <span class="have">HAVE</span>.<span class="ru">Быстрая проверка: есть существительное (волосы, глаза, борода)? → HAVE. Нет — значит BE.</span></p>
+  </div>
+  <div class="card">
+    <div class="kicker">Two ways · Два способа</div>
+    <h3>The same idea, two sentences<span class="ru">Одна мысль — два предложения</span></h3>
+    <div class="eq"><div>He <span class="have">has</span> long hair.</div><span>=</span><div>His hair <span class="be">is</span> long.</div></div>
+    <div class="eq"><div>She <span class="have">has</span> green eyes.</div><span>=</span><div>Her eyes <span class="be">are</span> green.</div></div>
+    <p>If the <b>person</b> is the subject → <span class="have">have</span>. If the <b>body part</b> is the subject → <span class="be">be</span>.<span class="ru">Если подлежащее — человек, берём have. Если подлежащее — часть тела (волосы, глаза), берём be.</span></p>
+  </div>
+  <div class="card">
+    <div class="kicker">Questions and negatives · Вопросы и отрицания</div>
+    <table class="form">
+      <thead><tr><th></th><th><span class="be">BE</span></th><th><span class="have">HAVE</span></th></tr></thead>
+      <tbody>
+        <tr><td><b>+</b></td><td>She <span class="be">is</span> tall.</td><td>She <span class="have">has</span> long hair.</td></tr>
+        <tr><td><b>−</b></td><td>She <span class="be">isn't</span> tall.</td><td>She <span class="have">doesn't have</span> long hair.</td></tr>
+        <tr><td><b>?</b></td><td><span class="be">Is</span> she tall?</td><td><span class="have">Does</span> she <span class="have">have</span> long hair?</td></tr>
+        <tr><td><b>↩</b></td><td>Yes, she is. / No, she isn't.</td><td>Yes, she does. / No, she doesn't.</td></tr>
+      </tbody>
+    </table>
+    <div class="cf">After <b>does / doesn't</b> → <b>have</b>, never <span class="x">has</span>: <span class="v">Does she have…?</span> <span class="v">She doesn't have…</span><span class="ru">После does / doesn't всегда have, а не has. С BE просто меняем местами: Is she tall?</span></div>
+    <h3 style="margin-top:14px">Watch out!<span class="ru">Типичные ошибки</span></h3>
+    <div class="mist"><div class="x">I have 30 years.</div><div class="v">I am 30.</div></div>
+    <div class="mist"><div class="x">She is long hair.</div><div class="v">She has long hair.</div></div>
+    <div class="mist"><div class="x">He has tall.</div><div class="v">He is tall.</div></div>
+    <div class="mist"><div class="x">She has a long hair.</div><div class="v">She has long hair.</div></div>
+    <div class="mist"><div class="x">His eyes is blue.</div><div class="v">His eyes are blue.</div></div>
+    <div class="mist"><div class="x">Does he has a beard?</div><div class="v">Does he have a beard?</div></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Try it · Попробуй</div>
+    <h3>The portrait studio<span class="ru">Фотостудия: создай портрет — и получи описание</span></h3>
+    <div class="studio">
+      <svg id="faceSvg" viewBox="0 0 200 230" role="img" aria-label="Portrait"></svg>
+      <div id="ctrls"></div>
+    </div>
+    <div class="out" id="faceOut"></div>
+  </div>
+</section>
+
+<!-- 3 LOOK -->
+<section class="page" data-page="3">
+  <div class="card">
+    <div class="kicker">look · look like</div>
+    <h2>What does she look like?<span class="ru">Как она выглядит?</span></h2>
+    <table class="form">
+      <thead><tr><th>Question · Вопрос</th><th>About · О чём</th><th>Answer · Ответ</th></tr></thead>
+      <tbody>
+        <tr><td><b>What does she look like?</b><span class="ru">Как она выглядит?</span></td><td>appearance<span class="ru">внешность</span></td><td>She's tall and she has curly hair.</td></tr>
+        <tr><td><b>What is she like?</b><span class="ru">Какая она (по характеру)?</span></td><td>character<span class="ru">характер</span></td><td>She's kind and funny.</td></tr>
+        <tr><td><b>What does she like?</b><span class="ru">Что ей нравится?</span></td><td>likes<span class="ru">что нравится</span></td><td>She likes music.</td></tr>
+      </tbody>
+    </table>
+    <div class="rule2">
+      <div class="rb b"><div class="big">look + adjective</div><p>You <b>look tired</b>. She <b>looks young</b>.<span class="ru">выглядеть (как?): усталым, молодо</span></p></div>
+      <div class="rb h"><div class="big">look like + noun</div><p>You <b>look like</b> your dad. He <b>looks like</b> a film star.<span class="ru">быть похожим на (кого? что?)</span></p></div>
+    </div>
+    <div class="mist" style="margin-top:12px"><div class="x">You look like tired.</div><div class="v">You look tired.</div></div>
+    <div class="mist"><div class="x">She looks her mum.</div><div class="v">She looks like her mum.</div></div>
+    <div class="mist"><div class="x">How does he look like?</div><div class="v">What does he look like?</div></div>
+    <p class="small">Remember: <b>does</b> in the question → <b>look like</b> without -s.<span class="ru">В вопросе с does — look like без -s: What does he look like?</span></p>
+  </div>
+</section>
+
+<!-- 4 MIX -->
+<section class="page" data-page="4">
+  <div class="card"><div class="kicker">Mix · Всё вместе</div><h2>Put it all together<span class="ru">Всё вместе</span></h2></div>
+</section>
+
+<!-- 5 RESULTS -->
+<section class="page" data-page="5">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher · Отправь учителю</div>
+    <h3>Send your results<span class="ru">Отправь результаты</span></h3>
+    <p class="small">Choose any way. <b>Copy text</b> always has the full report.<span class="ru">Выбери любой способ. «Скопировать текст» — всегда полный отчёт.</span></p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email · Почта учителя: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again<span class="ru">Начать заново</span></h3>
+    <p class="small">This deletes all your answers on this device.<span class="ru">Все ответы на этом устройстве удалятся.</span></p>
+    <button class="btn ghost" id="resetBtn">↺ Start again · Заново</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers? · Удалить все ответы?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes · Да</button> <button class="btn ghost" id="resetNo">No · Нет</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="Be or have? — describing appearance";
+const SUBJECT_TOPIC="Be or have — appearance";
+const STORE_KEY="tamara-be-have-appearance-v1";
+const DEFAULT_NAME="Tamara";
+const STEPS=[["📸 Words","Слова"],["🗂️ Flashcards","Карточки"],["⚖️ be or have?","Грамматика"],["👀 look / look like","Как выглядит?"],["🧩 Mix","Всё вместе"],["📊 Results","Итоги"]];
+
+/* WORDS: [group EN, group RU, [[word, Russian, verb tag b|h|x, example]]] */
+const WORDS=[
+  ["Build and age","Фигура и возраст",[
+    ["tall","высокий","b","My brother is very tall."],
+    ["short","невысокий","b","She's short and slim."],
+    ["slim","стройный","b","Anna is slim."],
+    ["overweight","полный (с лишним весом)","b","He's a bit overweight."],
+    ["young","молодой","b","They are young."],
+    ["old","пожилой, старый","b","My grandpa is quite old."],
+    ["middle-aged","средних лет","b","She's middle-aged."],
+    ["30 years old","30 лет","b","I am 30 years old."]]],
+  ["Looks","Привлекательность",[
+    ["pretty","симпатичная, хорошенькая","b","Your sister is very pretty."],
+    ["handsome","красивый (о мужчине)","b","He is very handsome."],
+    ["good-looking","привлекательный","b","They are both good-looking."]]],
+  ["Hair","Волосы",[
+    ["long hair","длинные волосы","h","She has long hair."],
+    ["short hair","короткие волосы","h","He has short hair."],
+    ["straight hair","прямые волосы","h","I have straight hair."],
+    ["curly hair","кудрявые волосы","h","My cousin has curly hair."],
+    ["wavy hair","волнистые волосы","h","She has wavy hair."],
+    ["blonde hair","светлые волосы","h","Her daughter has blonde hair."],
+    ["dark hair","тёмные волосы","h","He has short dark hair."],
+    ["bald","лысый","b","My uncle is bald."]]],
+  ["Face","Лицо",[
+    ["blue eyes","голубые глаза","h","He has blue eyes."],
+    ["a beard","борода","h","Grandpa has a grey beard."],
+    ["a moustache","усы","h","My dad has a moustache."],
+    ["freckles","веснушки","h","I have freckles."],
+    ["a big nose","большой нос","h","He has a big nose."],
+    ["a round face","круглое лицо","h","She has a round face."],
+    ["a nice smile","приятная улыбка","h","You have a nice smile!"]]],
+  ["Useful phrases","Полезные фразы",[
+    ["What does he look like?","Как он выглядит?","x","What does your brother look like?"],
+    ["look like","быть похожим на","x","You look like your mum."]]]
+];
+const CARDS=WORDS.flatMap(g=>g[2].map(w=>({w:w[0],ru:w[1],t:w[2],ex:w[3]})));
+
+const GAP='<span class="slot">___</span>';
+const WHY_B="Adjective → <b>BE</b>.<span class='ru'>Прилагательное → BE.</span>";
+const WHY_H="Noun → <b>HAVE</b>.<span class='ru'>Существительное → HAVE.</span>";
+const EX=[
+  { id:"match", step:0, kind:"match", title:"Match the words", ru:"Соедини слово и перевод",
+    instr:"Tap an English word, then its translation.", instrRu:"Нажми на английское слово, потом на перевод.",
+    items:[["handsome","красивый (о мужчине)"],["pretty","симпатичная"],["slim","стройный"],["middle-aged","средних лет"],["freckles","веснушки"],["a beard","борода"],["a moustache","усы"],["curly","кудрявый"]].map(([l,r])=>({l,r,q:l}))},
+  { id:"sort", step:0, kind:"choice", title:"BE or HAVE?", ru:"BE или HAVE?",
+    instr:"Which verb goes with the word?", instrRu:"Какой глагол подходит к слову?",
+    items:[["tall",0],["long hair",1],["slim",0],["blue eyes",1],["middle-aged",0],["a beard",1],["good-looking",0],["freckles",1],["30 years old",0],["a round face",1]]
+      .map(([w,a])=>({p:`<span class="sent"><b>${w}</b></span>`, opts:["be","have"], a, why:a?WHY_H:(w.includes("years")?"Age → <b>BE</b>: I am 30.<span class='ru'>Возраст — всегда BE.</span>":WHY_B), say:(a?"He has ":"He is ")+w+".", q:w}))},
+  { id:"spell", step:0, kind:"type", title:"Write the word", ru:"Напиши слово",
+    instr:"Write the English word.", instrRu:"Напиши английское слово.",
+    items:[
+      {ruw:"веснушки", acc:["freckles"], hint:"f _ _ _ _ _ _ s"},
+      {ruw:"усы", acc:["moustache","a moustache","mustache","a mustache"], hint:"m o u s _ _ _ _ _"},
+      {ruw:"борода", acc:["beard","a beard"], hint:"b _ _ _ d"},
+      {ruw:"кудрявые (волосы)", acc:["curly","curly hair"], hint:"c _ _ _ y"},
+      {ruw:"средних лет", acc:["middle-aged","middle aged"], hint:"middle - _ _ _ _"},
+      {ruw:"лысый", acc:["bald"], hint:"b _ _ d"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:`<b>${o.acc[0]}</b>`, q:o.ruw, single:true}))},
+
+  { id:"gaps", step:2, kind:"choice", title:"is · are · has · have", ru:"is · are · has · have",
+    instr:"Choose the right word.", instrRu:"Выбери правильное слово.",
+    items:[
+      {s:"My sister ___ very pretty.", a:0, why:"<i>pretty</i> = adjective, she → <b>is</b>.<span class='ru'>Прилагательное → is.</span>"},
+      {s:"My dad ___ a big moustache.", a:2, why:"<i>a moustache</i> = noun, he → <b>has</b>.<span class='ru'>Существительное, he → has.</span>"},
+      {s:"His eyes ___ green.", a:1, why:"<i>eyes</i> are plural → <b>are</b>.<span class='ru'>eyes — множественное число → are.</span>"},
+      {s:"I ___ straight blonde hair.", a:3, why:"<i>hair</i> = noun, I → <b>have</b>.<span class='ru'>Существительное, I → have.</span>"},
+      {s:"Her hair ___ short and wavy.", a:0, why:"<i>hair</i> is uncountable → <b>is</b>.<span class='ru'>hair — неисчисляемое → is.</span>"},
+      {s:"We ___ both tall and slim.", a:1, why:"adjectives, we → <b>are</b>.<span class='ru'>Прилагательные, we → are.</span>"},
+      {s:"You ___ a lovely smile!", a:3, why:"<i>a smile</i> = noun, you → <b>have</b>.<span class='ru'>Существительное, you → have.</span>"},
+      {s:"Grandma ___ 75 years old.", a:0, why:"Age → <b>BE</b>.<span class='ru'>Возраст — всегда BE.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.s.replace("___",GAP)}</span>`, opts:["is","are","has","have"], say:o.s.replace("___",["is","are","has","have"][o.a]), q:o.s}))},
+  { id:"twoways", step:2, kind:"type", title:"Say it another way", ru:"Скажи по-другому",
+    instr:"Complete the second sentence. Type one word.", instrRu:"Дополни второе предложение. Напиши одно слово.",
+    items:[
+      {src:"She has brown eyes.", s:"Her eyes ___ brown.", acc:["are"], hint:"eyes = plural", why:"Body part is the subject → <b>be</b>: Her eyes <b>are</b> brown.<span class='ru'>Подлежащее — глаза → be.</span>"},
+      {src:"His hair is grey.", s:"He ___ grey hair.", acc:["has"], hint:"he + noun", why:"Person is the subject → <b>have</b>: He <b>has</b> grey hair.<span class='ru'>Подлежащее — человек → have.</span>"},
+      {src:"My brother has curly hair.", s:"My brother's hair ___ curly.", acc:["is"], hint:"hair = uncountable", why:"<b>hair is</b> — uncountable.<span class='ru'>hair — неисчисляемое → is.</span>"},
+      {src:"Your eyes are beautiful.", s:"You ___ beautiful eyes.", acc:["have"], hint:"you + noun", why:"You <b>have</b> beautiful eyes.<span class='ru'>Подлежащее — ты → have.</span>"},
+      {src:"Their hair is dark.", s:"They ___ dark hair.", acc:["have"], hint:"they + noun", why:"They <b>have</b> dark hair.<span class='ru'>they → have.</span>"},
+      {src:"Anna has long hair.", s:"Anna's hair ___ long.", acc:["is"], hint:"hair = uncountable", why:"Anna's hair <b>is</b> long.<span class='ru'>hair → is.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="src">${o.src} →</span><span class="sent">${o.s.replace("___",GAP)}</span>`, q:`${o.src} → ${o.s}`, full:o.s, single:true}))},
+  { id:"negq", step:2, kind:"type", title:"Negatives and questions", ru:"Отрицания и вопросы",
+    instr:"Write the sentence in the form shown: − = negative, ? = question.", instrRu:"Напиши предложение в нужной форме: − отрицание, ? вопрос.",
+    items:[
+      {src:"She is tall.", cue:"−", acc:["She isn't tall","She is not tall"], hint:"BE: add <b>not</b>.<span class='ru'>С BE просто добавь not.</span>"},
+      {src:"He has a beard.", cue:"?", acc:["Does he have a beard","Has he got a beard"], hint:"Does + he + <b>have</b>…?<span class='ru'>Does + he + have…?</span>"},
+      {src:"They are young.", cue:"?", acc:["Are they young"], hint:"BE: swap the words.<span class='ru'>С BE просто поменяй слова местами.</span>"},
+      {src:"I have freckles.", cue:"−", acc:["I don't have freckles","I do not have freckles","I haven't got freckles","I have no freckles"], hint:"I + <b>don't have</b>…<span class='ru'>I + don't have…</span>"},
+      {src:"Your sister has blue eyes.", cue:"?", acc:["Does your sister have blue eyes","Has your sister got blue eyes"], hint:"Does + your sister + <b>have</b>…?<span class='ru'>После does — have, не has.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.src}</span><span class="cue">${o.cue==="−"?"− negative · отрицание":"? question · вопрос"}</span>`, q:`${o.src} (${o.cue})`, sentence:true, question:o.cue==="?"}))},
+  { id:"fix", step:2, kind:"type", title:"Find the mistake", ru:"Найди ошибку",
+    instr:"Each sentence has one mistake. Write the correct sentence.", instrRu:"В каждом предложении одна ошибка. Напиши правильное предложение.",
+    items:[
+      {src:"I have 25 years.", acc:["I am 25","I am 25 years old"], hint:"Age → BE.<span class='ru'>Возраст — BE.</span>"},
+      {src:"My cousin has very slim.", acc:["My cousin is very slim"], hint:"<i>slim</i> is an adjective.<span class='ru'>slim — прилагательное.</span>"},
+      {src:"She has a long hair.", acc:["She has long hair","She has got long hair"], hint:"<i>hair</i> is uncountable — no <i>a</i>.<span class='ru'>hair неисчисляемое — без a.</span>"},
+      {src:"His eyes is grey.", acc:["His eyes are grey","His eyes are gray"], hint:"<i>eyes</i> = plural.<span class='ru'>eyes — множественное число.</span>"},
+      {src:"Does your dad has a moustache?", acc:["Does your dad have a moustache","Does your dad have a mustache"], hint:"After <i>does</i> → have.<span class='ru'>После does — have.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.src}</span>`, q:o.src, sentence:true, question:/\?$/.test(o.src)}))},
+
+  { id:"look", step:3, kind:"choice", title:"look or look like?", ru:"look или look like?",
+    instr:"Adjective → look. Noun → look like.", instrRu:"Прилагательное → look. Существительное (кто-то, что-то) → look like.",
+    items:[
+      {s:"You ___ tired today.", o:["look","look like"], a:0},
+      {s:"She ___ her mother.", o:["looks","looks like"], a:1},
+      {s:"He ___ a film star!", o:["looks","looks like"], a:1},
+      {s:"Your sister ___ very young.", o:["looks","looks like"], a:0},
+      {s:"That cloud ___ a cat.", o:["looks","looks like"], a:1},
+      {s:"You ___ happy!", o:["look","look like"], a:0},
+      {s:"Do you ___ your dad?", o:["look","look like"], a:1}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.s.replace("___",GAP)}</span>`, opts:o.o, say:o.s.replace("___",o.o[o.a]), why:o.a===0?"Adjective → <b>look</b>.<span class='ru'>Прилагательное → look.</span>":"Noun (a person or a thing) → <b>look like</b>.<span class='ru'>Существительное → look like (быть похожим на).</span>", q:o.s}))},
+  { id:"answers", step:3, kind:"choice", title:"Which answer fits?", ru:"Какой ответ подходит?",
+    instr:"Choose the best answer to the question.", instrRu:"Выбери лучший ответ на вопрос.",
+    items:[
+      {s:"What does your best friend look like?", opts:["She's tall with long dark hair.","She's very kind and funny.","She likes music."], a:0, why:"look like → <b>appearance</b>.<span class='ru'>look like — о внешности.</span>"},
+      {s:"What is your boss like?", opts:["He's tall and bald.","He's friendly but strict.","He likes golf."], a:1, why:"be like → <b>character</b>.<span class='ru'>What is he like? — о характере.</span>"},
+      {s:"What does your brother like?", opts:["He's short with curly hair.","He's very shy.","He likes football and pizza."], a:2, why:"like → <b>what he likes</b>.<span class='ru'>What does he like? — что ему нравится.</span>"},
+      {s:"Who do you look like?", opts:["I look like my dad.","I like my dad.","I'm like tall."], a:0, why:"look like + a person.<span class='ru'>На кого ты похож(а)? — I look like…</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent"><b>${o.s}</b></span>`, say:o.s+" "+o.opts[o.a], q:o.s}))},
+
+  { id:"story", step:4, kind:"choice", title:"Read about a family photo", ru:"Прочитай о семейной фотографии",
+    instr:"Read the text. True or false?", instrRu:"Прочитай текст. Верно или неверно?",
+    text:"This is a photo of my family. My dad, Giorgi, is tall and a bit overweight. He has short grey hair and a moustache. My mum, Nino, is slim and very pretty. She has long wavy dark hair and brown eyes. My brother Luka looks like my dad: he's tall and he has a beard. My little sister has curly red hair and lots of freckles — she doesn't look like anyone in our family!",
+    items:[
+      {s:"Giorgi is short.", a:1, why:"He's <b>tall</b>.<span class='ru'>Он высокий.</span>"},
+      {s:"Giorgi has a moustache.", a:0, why:"He has short grey hair and <b>a moustache</b>.<span class='ru'>У него есть усы.</span>"},
+      {s:"Nino's hair is straight.", a:1, why:"Her hair is <b>wavy</b>.<span class='ru'>У неё волнистые волосы.</span>"},
+      {s:"Nino has brown eyes.", a:0, why:"She has <b>brown eyes</b>.<span class='ru'>У неё карие глаза.</span>"},
+      {s:"Luka looks like his mum.", a:1, why:"Luka <b>looks like his dad</b>.<span class='ru'>Лука похож на папу.</span>"},
+      {s:"The little sister has freckles.", a:0, why:"She has <b>lots of freckles</b>.<span class='ru'>У неё много веснушек.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.s}</span>`, opts:["True · Верно","False · Неверно"], say:o.s, q:o.s}))},
+  { id:"translate", step:4, kind:"type", title:"Translate into English", ru:"Переведи на английский",
+    instr:"Write the sentence in English.", instrRu:"Напиши предложение по-английски.",
+    items:[
+      {ruw:"У неё длинные кудрявые волосы.", acc:["She has long curly hair","She has got long curly hair","Her hair is long and curly"], hint:"She has… (length → type)<span class='ru'>She has… — сначала длина, потом тип.</span>"},
+      {ruw:"Его глаза голубые.", acc:["His eyes are blue","He has blue eyes","He has got blue eyes"], hint:"His eyes…<span class='ru'>eyes — множественное число.</span>"},
+      {ruw:"Мне 25 лет.", acc:["I am 25","I am 25 years old","I am twenty-five","I am twenty-five years old","I am twenty five","I am twenty five years old"], hint:"Age → BE.<span class='ru'>Возраст — BE, а не have.</span>"},
+      {ruw:"Как выглядит твой брат?", acc:["What does your brother look like"], hint:"What does … look like?<span class='ru'>What does … look like?</span>"},
+      {ruw:"Ты похожа на маму.", acc:["You look like your mum","You look like your mother","You look like your mom","You look like mum"], hint:"You look like…<span class='ru'>быть похожим — look like</span>"},
+      {ruw:"У него нет бороды.", acc:["He doesn't have a beard","He does not have a beard","He has no beard","He hasn't got a beard"], hint:"He doesn't have…<span class='ru'>He doesn't have…</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, q:o.ruw, sentence:true, question:/\?$/.test(o.ruw)}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+const PRAISE=["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Yes! · Да!"];
+const OOPS=["Not quite. · Не совсем.","Almost! · Почти!","Not this one. · Не то."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const capFirst=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+const FACE0={g:"she",ht:"tall",len:"long",type:"curly",col:"red",eyes:"green",beard:false,freck:true};
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, fc:{order:CARDS.map((_,i)=>i), pos:0, dir:"en", only:false, mark:{}}, face:Object.assign({},FACE0)}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.fc) state.fc=freshState().fc; if(!state.face) state.face=Object.assign({},FACE0);
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text) return;
+  try{
+    if(!("speechSynthesis" in window)) return;
+    const u=new SpeechSynthesisUtterance(strip(text));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.86;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have");
+  s=s.replace(/\b(\w+)'s got\b/g,"$1 has got");
+  s=s.replace(/\b(he|she|it|what|who|that|there)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function evalTyped(it,raw){ return it.acc.map(norm).includes(norm(raw)); }
+function fbHTML(kind,msg,body,say){ return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`; }
+
+/* ---------- words ---------- */
+function buildWords(){
+  document.getElementById("words").innerHTML=WORDS.map(([g,gr,list])=>`<div class="wgroup"><h4>${g}<span class="ru">${gr}</span></h4><div class="wl">${list.map(([w,ru,t,ex])=>`<div class="wrow"><span class="tag ${t}">${t==="b"?"BE":t==="h"?"HAVE":"PHRASE"}</span><div><b>${esc(w)}</b><span class="tr">${esc(ru)}</span></div><button class="say" data-say="${esc(w+". "+ex)}" aria-label="Listen to ${esc(w)}">🔊</button></div>`).join("")}</div></div>`).join("");
+  const exB=["I am 30.","She is tall and slim.","They are young.","He is good-looking."], exH=["She has long hair.","He has blue eyes.","I have freckles.","He has a beard."];
+  const row=s=>`<div class="exm"><span>${s.replace(/\b(am|is|are)\b/,'<span class="be">$1</span>').replace(/\b(has|have)\b/,'<span class="have">$1</span>')}</span><button class="say" data-say="${esc(s)}" aria-label="Listen">🔊</button></div>`;
+  document.getElementById("exBe").innerHTML=exB.map(row).join("");
+  document.getElementById("exHave").innerHTML=exH.map(row).join("");
+}
+
+/* ---------- portrait studio ---------- */
+const HAIRC={blonde:"#E6C15F",dark:"#3A2A22",red:"#C4552B",grey:"#A7A7AE"};
+const EYEC={blue:"#3B7BD5",green:"#3C9A5B",brown:"#6A4126"};
+const RU={ len:{long:"длинные",short:"короткие"}, type:{straight:"прямые",curly:"кудрявые",wavy:"волнистые"}, col:{blonde:"светлые",dark:"тёмные",red:"рыжие",grey:"седые"}, eyes:{blue:"голубые",green:"зелёные",brown:"карие"} };
+const CTRL=[
+  ["g","He or she? · Он или она?",[["she","She"],["he","He"]]],
+  ["ht","Height · Рост",[["tall","tall"],["short","short"]]],
+  ["len","Hair · Волосы",[["long","long"],["short","short"],["bald","bald"]]],
+  ["type","Type · Тип",[["straight","straight"],["wavy","wavy"],["curly","curly"]]],
+  ["col","Colour · Цвет",[["blonde","blonde"],["dark","dark"],["red","red"],["grey","grey"]]],
+  ["eyes","Eyes · Глаза",[["blue","blue"],["green","green"],["brown","brown"]]],
+  ["beard","Beard · Борода",[[true,"a beard"],[false,"no beard"]]],
+  ["freck","Freckles · Веснушки",[[true,"freckles"],[false,"no freckles"]]]
+];
+function buildStudio(){
+  const box=document.getElementById("ctrls");
+  box.innerHTML=CTRL.map(([k,lab,opts])=>`<div class="ctrl" data-k="${k}"><span class="lab">${lab}</span>${opts.map(([v,t])=>`<button class="chip" data-v="${v}">${t}</button>`).join("")}</div>`).join("");
+  box.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
+    const k=b.closest(".ctrl").dataset.k; let v=b.dataset.v; if(v==="true") v=true; else if(v==="false") v=false;
+    state.face[k]=v; saveState(); renderStudio(); speak(document.getElementById("faceOut").dataset.en);
+  }));
+  renderStudio();
+}
+function drawFace(f){
+  const hc=HAIRC[f.col], ec=EYEC[f.eyes], skin="#F3C9A3", sc=f.ht==="tall"?1:0.84, ty=f.ht==="tall"?0:34;
+  let back="", front="";
+  if(f.len!=="bald"){
+    if(f.len==="long"){
+      if(f.type==="curly"){ for(let y=70;y<=185;y+=17){ back+=`<circle cx="50" cy="${y}" r="15" fill="${hc}"/><circle cx="150" cy="${y}" r="15" fill="${hc}"/>`; } }
+      else if(f.type==="wavy"){ back+=`<path d="M48 70 Q38 100 50 120 Q62 140 46 160 Q36 178 52 192 L148 192 Q164 178 154 160 Q138 140 150 120 Q162 100 152 70 Z" fill="${hc}"/>`; }
+      else back+=`<path d="M46 70 L44 192 L156 192 L154 70 Z" fill="${hc}"/>`;
+    }
+    if(f.type==="curly"){ for(let x=56;x<=144;x+=14){ front+=`<circle cx="${x}" cy="${x<70||x>130?64:52}" r="15" fill="${hc}"/>`; } front+=`<circle cx="100" cy="46" r="16" fill="${hc}"/>`; }
+    else if(f.type==="wavy"){ front+=`<path d="M50 84 Q48 40 100 38 Q152 40 150 84 Q140 70 128 76 Q116 62 100 72 Q84 62 72 76 Q60 70 50 84 Z" fill="${hc}"/>`; }
+    else front+=`<path d="M50 84 Q50 38 100 38 Q150 38 150 84 Q120 62 100 64 Q80 62 50 84 Z" fill="${hc}"/>`;
+  }
+  const beardC=f.col==="grey"||f.len==="bald"?(f.len==="bald"?"#7B6A5E":hc):hc;
+  const beard=f.beard?`<path d="M62 120 Q64 172 100 176 Q136 172 138 120 Q128 146 100 148 Q72 146 62 120 Z" fill="${beardC}"/>`:"";
+  let fr=""; if(f.freck){ [[76,124],[83,129],[70,130],[124,124],[117,129],[130,130]].forEach(([x,y])=>fr+=`<circle cx="${x}" cy="${y}" r="2" fill="#B9733F"/>`); }
+  const body=`<path d="M40 230 Q44 186 100 182 Q156 186 160 230 Z" fill="${f.g==="she"?"#7457C9":"#2D8A86"}"/>`;
+  return `<g transform="translate(${100-100*sc} ${ty}) scale(${sc})">${back}${body}<rect x="88" y="150" width="24" height="30" fill="${skin}"/><ellipse cx="100" cy="105" rx="50" ry="58" fill="${skin}"/>${fr}
+   <ellipse cx="80" cy="102" rx="9" ry="7" fill="#fff"/><ellipse cx="120" cy="102" rx="9" ry="7" fill="#fff"/><circle cx="80" cy="102" r="5" fill="${ec}"/><circle cx="120" cy="102" r="5" fill="${ec}"/>
+   <path d="M98 108 Q96 120 102 122" stroke="#C98A63" stroke-width="2.5" fill="none" stroke-linecap="round"/>${beard}<path d="M86 136 Q100 146 114 136" stroke="#9E4A3C" stroke-width="3" fill="none" stroke-linecap="round"/>${front}</g>
+   <g><line x1="186" y1="20" x2="186" y2="226" stroke="#D9D0E4" stroke-width="3"/><path d="M180 ${ty+44} L192 ${ty+44}" stroke="#E2604A" stroke-width="4"/><text x="184" y="${ty+38}" font-size="11" text-anchor="end" fill="#6C6880" font-family="sans-serif">${f.ht}</text></g>`;
+}
+function renderStudio(){
+  const f=state.face;
+  if(f.g==="she") f.beard=false;
+  document.querySelectorAll("#ctrls .ctrl").forEach(c=>{
+    const k=c.dataset.k;
+    c.querySelectorAll(".chip").forEach(b=>{ let v=b.dataset.v; if(v==="true") v=true; else if(v==="false") v=false; b.setAttribute("aria-pressed",String(f[k]===v));
+      b.disabled = (f.len==="bald"&&(k==="type")) || (k==="beard"&&f.g==="she"&&v===true); });
+  });
+  document.getElementById("faceSvg").innerHTML=drawFace(f);
+  const P=f.g==="she"?"She":"He", pos=f.g==="she"?"Her":"His", ruP=f.g==="she"?"Она":"Он", ruU=f.g==="she"?"У неё":"У него", ruPos=f.g==="she"?"Её":"Его";
+  const lines=[]; const ru=[];
+  lines.push(`${P} <span class="be">is</span> ${f.ht}.`); ru.push(`${ruP} ${f.ht==="tall"?(f.g==="she"?"высокая":"высокий"):(f.g==="she"?"невысокая":"невысокий")}.`);
+  if(f.len==="bald"){ lines.push(`${P} <span class="be">is</span> bald.`); ru.push(`${ruP} ${f.g==="she"?"лысая":"лысый"}.`); }
+  else { lines.push(`${P} <span class="have">has</span> ${f.len} ${f.type} ${f.col} hair. = ${pos} hair <span class="be">is</span> ${f.len}, ${f.type} and ${f.col}.`); ru.push(`${ruU} ${RU.len[f.len]} ${RU.type[f.type]} ${RU.col[f.col]} волосы.`); }
+  lines.push(`${pos} eyes <span class="be">are</span> ${f.eyes}. = ${P} <span class="have">has</span> ${f.eyes} eyes.`); ru.push(`${ruPos} глаза ${RU.eyes[f.eyes]}.`);
+  if(f.beard){ lines.push(`${P} <span class="have">has</span> a beard.`); ru.push(`${ruU} есть борода.`); }
+  if(f.freck){ lines.push(`${P} <span class="have">has</span> freckles.`); ru.push(`${ruU} есть веснушки.`); }
+  const out=document.getElementById("faceOut");
+  out.dataset.en=strip(lines.join(" "));
+  out.innerHTML=`<div class="kicker" style="margin:0">What does ${f.g} look like? · Как ${f.g==="she"?"она":"он"} выглядит?</div>`+lines.map((l,i)=>`<p><span class="en">${l}</span><span class="ru">${ru[i]}</span></p>`).join("")+`<button class="say" data-say="${esc(out.dataset.en)}" aria-label="Listen">🔊</button>`;
+}
+
+/* ---------- flashcards ---------- */
+function fcList(){ const f=state.fc; return f.order.filter(i=>!f.only||f.mark[i]!=="k"); }
+function renderFC(){
+  const f=state.fc, list=fcList(), card=document.getElementById("fc");
+  document.getElementById("fcDir").textContent=f.dir==="en"?"⇄ English → Русский":"⇄ Русский → English";
+  document.getElementById("fcFilter").checked=!!f.only;
+  const known=Object.values(f.mark).filter(v=>v==="k").length;
+  document.getElementById("fcKnown").textContent=`Known · Знаю: ${known} / ${CARDS.length}`;
+  document.getElementById("fcKnowBar").style.width=(known/CARDS.length*100)+"%";
+  card.classList.remove("flip");
+  if(!list.length){ card.innerHTML=`<div class="face front"><div class="ph">You know them all! 🎉</div><div class="rt">Ты знаешь все слова!</div></div>`; document.getElementById("fcPos").textContent=""; document.getElementById("fcState").textContent=""; return; }
+  if(f.pos>=list.length) f.pos=0; if(f.pos<0) f.pos=list.length-1;
+  const i=list[f.pos], c=CARDS[i], tg=`<span class="tag ${c.t}">${c.t==="b"?"BE":c.t==="h"?"HAVE":"PHRASE"}</span>`;
+  const fr=f.dir==="en"?`${tg}<div class="ph">${esc(c.w)}</div><button class="say fsay" data-say="${esc(c.w)}" aria-label="Listen">🔊</button>`:`<div class="rt">${esc(c.ru)}</div>`;
+  const bk=f.dir==="en"?`<div class="rt">${esc(c.ru)}</div><div class="fex">“${esc(c.ex)}”</div>`:`${tg}<div class="ph">${esc(c.w)}</div><div class="fex">“${esc(c.ex)}”</div>`;
+  card.innerHTML=`<div class="face front">${fr}<span class="tap">TAP TO FLIP · НАЖМИ</span></div><div class="face back">${bk}<button class="say fsay" data-say="${esc(c.w+". "+c.ex)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP BACK</span></div>`;
+  document.getElementById("fcPos").textContent=`${f.pos+1} / ${list.length}`;
+  const m=f.mark[i];
+  document.getElementById("fcState").innerHTML=m==="k"?'<span class="state-k">✓ I know it · Знаю</span>':m==="l"?'<span class="state-l">● Still learning · Учу</span>':"";
+}
+function buildFC(){
+  const card=document.getElementById("fc"), f=()=>state.fc;
+  const flip=e=>{ if(e&&e.target&&e.target.closest&&e.target.closest("[data-say]")) return; card.classList.toggle("flip"); };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); flip(); } });
+  document.getElementById("fcPrev").addEventListener("click",()=>{ f().pos--; renderFC(); saveState(); });
+  document.getElementById("fcNext").addEventListener("click",()=>{ f().pos++; renderFC(); saveState(); });
+  document.getElementById("fcDir").addEventListener("click",()=>{ f().dir=f().dir==="en"?"ru":"en"; renderFC(); saveState(); });
+  document.getElementById("fcShuffle").addEventListener("click",()=>{ const o=f().order; for(let k=o.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [o[k],o[j]]=[o[j],o[k]]; } f().pos=0; renderFC(); saveState(); });
+  document.getElementById("fcFilter").addEventListener("change",e=>{ f().only=e.target.checked; f().pos=0; renderFC(); saveState(); });
+  const mark=v=>{ const list=fcList(); if(!list.length) return; const i=list[f().pos]; f().mark[i]=v; if(!(f().only&&v==="k")) f().pos++; renderFC(); saveState(); if(state.tab===5) renderResults(); };
+  document.getElementById("fcKnow").addEventListener("click",()=>mark("k"));
+  document.getElementById("fcLearn").addEventListener("click",()=>mark("l"));
+  renderFC();
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):renderType(ex,i); }
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const rowCls=it.opts.every(o=>o.length<16)?" row":"";
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp">${it.p}<div class="opts${rowCls}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick]; st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i); }));
+  return d;
+}
+function modelOf(it){ if(it.sentence) return capFirst(it.acc[0])+(it.question?"?":"."); return it.acc[0]; }
+function sayOf(it){ if(it.full) return it.full.replace("___",it.acc[0]); return modelOf(it); }
+function typedFB(it,st){
+  const model=modelOf(it), say=sayOf(it);
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>Marked as correct — your teacher will check. · Ты отметила ответ как верный — учитель проверит.</i>":""; return fbHTML("good",st.self?"Marked as correct · Отмечено как верное":st.msg,(it.sentence?`<span class="model">${esc(model)}</span>`:(it.why||""))+(st.note?"<br>"+st.note:"")+extra,say); }
+    return fbHTML("bad",st.msg,`Your answer · Твой ответ: <span class="given">${esc(st.given)}</span><br>Correct · Правильно: <span class="model">${esc(model)}</span>${it.why&&!it.sentence?"<br>"+it.why:""}`,say)+(it.sentence?`<button class="selfmark" data-self="1">My answer is also correct ✓ · Мой ответ тоже верный</button>`:"");
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  return "";
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="rowi"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.sentence?"Type the sentence · Напиши предложение":"Type the word · Напиши слово"}"><button class="btn p chkb">Check · Проверить</button></div>`;
+  h+=typedFB(it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{
+      const val=inp.value;
+      if(!val.trim()){ st.warn="Type your answer first. · Сначала напиши ответ."; refresh(ex,i); return; }
+      st.warn=""; st.tries++;
+      if(evalTyped(it,val)){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!";
+        if(it.question&&!/\?\s*$/.test(val)) st.note="Remember the question mark ? · Не забудь знак вопроса.";
+        speak(sayOf(it)); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time. · В этот раз не вышло."; }
+      st.draft=st.done?"":val;
+      refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus();
+    };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+let matchSel=null;
+function seeded(n,seed){ const a=[...Array(n).keys()]; let s=seed; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderMatch(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  const order=seeded(ex.items.length,5);
+  let h=`<div class="match"><div class="mcol">`;
+  ex.items.forEach((it,i)=>{ const st=S(ex,i); h+=`<button class="mi${st.done?" done":""}${st.done&&!st.correct?" late":""}${matchSel===i?" sel":""}${!st.done&&st.tries?" miss":""}" data-l="${i}">${esc(it.l)}${st.done?` <span class="tagn">${st.correct?"✓":"2+"}</span>`:""}</button>`; });
+  h+=`</div><div class="mcol">`;
+  order.forEach(i=>{ const st=S(ex,i); h+=`<button class="mi r${st.done?" done":""}" data-r="${i}">${esc(ex.items[i].r)}</button>`; });
+  h+=`</div></div><p class="small" id="matchMsg" aria-live="polite">${matchSel==null?"Tap an English word first. · Сначала нажми на английское слово.":"Now tap the translation. · Теперь нажми на перевод."}</p>`;
+  d.innerHTML=h;
+  d.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.l; if(S(ex,i).done) return; matchSel=i; speak(ex.items[i].l); refreshMatch(ex); }));
+  d.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const r=+b.dataset.r; if(S(ex,r).done) return;
+    if(matchSel==null){ document.getElementById("matchMsg").textContent="Tap an English word first. · Сначала нажми на английское слово."; return; }
+    const st=S(ex,matchSel);
+    if(r===matchSel){ st.done=true; st.correct=st.tries===0; st.given=st.given||ex.items[r].r; matchSel=null; refreshMatch(ex); }
+    else { if(st.tries===0) st.given=ex.items[r].r; st.tries++; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),400); document.getElementById("matchMsg").textContent="Not this one — try again. · Не то — попробуй ещё."; const lb=d.querySelector(`[data-l="${matchSel}"]`); if(lb) lb.classList.add("miss"); afterChange(); }
+  }));
+  return d;
+}
+function refreshMatch(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderMatch(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n} · Упражнение ${ex.n}</span><h3>${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></h3><p class="instr">${ex.instr}<span class="ru">${ex.instrRu}</span></p></div><span class="ex-score" id="sc-${ex.id}"></span></div>${ex.text?`<div class="story">${esc(ex.text)} <button class="say" data-say="${esc(ex.text)}" aria-label="Listen to the text">🔊</button></div>`:""}<div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="match") box.appendChild(renderMatch(ex)); else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<5;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next · Дальше: ${STEPS[p+1][0].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=`${s.d===s.n?s.c:s.d} / ${s.n}`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} · ✓ ${t.c}`;
+  renderTabs(); if(state.tab===5) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map(([en,ru],k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(en)}${badge}<small>${esc(ru)}</small></button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===5) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){ if(ex.kind==="choice") return it.opts[it.a]; if(ex.kind==="match") return it.r; return modelOf(it); }
+function knownCount(){ return Object.values(state.fc.mark).filter(v=>v==="k").length; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (Pre-Intermediate)`); L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`); L.push(`Flashcards known: ${knownCount()}/${CARDS.length}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" (model: "${correctText(ex,it)}")`); }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${st.given}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Start with the Words tab!<span class='ru'>Начни с вкладки «Слова»!</span>":pct>=90?`Brilliant, ${nm}!<span class='ru'>Блестяще, ${nm}! Ты отлично разобралась с be и have!</span>`:pct>=75?"Great work! Look at your mistakes below.<span class='ru'>Отличная работа! Посмотри ошибки ниже.</span>":pct>=55?"Good effort! Read the golden rule again.<span class='ru'>Хорошая попытка! Перечитай золотое правило.</span>":"Keep going! Read the rules and try once more.<span class='ru'>Не сдавайся! Перечитай правила и попробуй ещё раз.</span>";
+  let h=`<div class="kicker">Results · Итоги</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered · отвечено ${t.d} / ${t.n} · flashcards · карточки ${knownCount()} / ${CARDS.length}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer · Твой ответ: <s>${esc(st.given)}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again · Посмотри ещё раз</div><h3>Your mistakes<span class="ru">Твои ошибки</span></h3><ol class="mlist">${mist.join("")}</ol>`:`<h3>No mistakes so far 🎉<span class="ru">Пока без ошибок!</span></h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share · Поделиться</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email · Почта</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text · Скопировать</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message. · Скопировано! Вставь в сообщение учителю."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Please copy the text by hand. · Скопируй текст вручную."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===5) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 On · Звук":"🔇 Off · Без звука"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildWords(); buildStudio(); buildFC(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound); matchSel=null;
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderFC(); renderStudio();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if("speechSynthesis" in window) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
