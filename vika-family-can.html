@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My family can! — Vika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF6EE; --paper:#FFFFFF; --ink:#26304A; --soft:#6E7287; --ru:#8A7F9E; --line:#EEE5D6; --line2:#E0D4C0;
+  --leaf:#3E9A6B; --leaf-bg:#E3F3EA; --terra:#E0714F; --terra-bg:#FCE9E1; --sky:#3C86D6; --sky-bg:#E4EFFB;
+  --sun:#F0B43C; --sun-bg:#FDF2D8; --plum:#9A5BC8; --plum-bg:#F2E9FA;
+  --good:#22805A; --good-bg:#E2F5EA; --bad:#C6453A; --bad-bg:#FCE8E5; --hint-bg:#FFF4D6;
+  --r:20px; --shadow:0 1px 2px rgba(38,48,74,.05),0 8px 26px rgba(120,90,40,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Onest,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background-image:radial-gradient(circle at 8% 4%,rgba(62,154,107,.10),transparent 30%),radial-gradient(circle at 95% 25%,rgba(240,180,60,.12),transparent 28%);background-attachment:fixed}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--plum);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:Unbounded,Onest,sans-serif;line-height:1.15;margin:0;font-weight:800}
+.ru{display:block;color:var(--ru);font-weight:500;font-size:.92em}
+h2 .ru,h3 .ru{font-family:Onest,sans-serif;font-weight:600;font-size:.62em;margin-top:4px}
+/* hero */
+.hero{padding-top:26px;padding-bottom:16px;display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:center}
+.badge{display:inline-block;background:var(--leaf);color:#fff;font-weight:800;letter-spacing:.12em;font-size:.72rem;padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(1.9rem,7vw,3rem);margin:14px 0 6px}
+.hero h1 span{color:var(--terra)}
+.hero .sub{margin:0;color:var(--soft)}
+.tree{width:100%;max-width:340px;justify-self:center}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px}
+.howto .ru{font-size:.9rem}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:130px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--plum);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(251,246,238,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px 12px;min-height:48px;font-weight:800;font-size:.88rem;white-space:nowrap;line-height:1.2;text-align:left}
+.tab small{display:block;font-weight:600;font-size:.74rem;color:var(--ru)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab[aria-selected="true"] small{color:#C9CBE0}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.72rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 7px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--leaf),var(--sun),var(--terra));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.25rem,5vw,1.6rem);margin-bottom:8px}
+.card h3{font-size:1.05rem;margin-bottom:6px}
+.card p{margin:.45em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);margin-bottom:6px}
+.small{font-size:.88rem;color:var(--soft)}
+/* album */
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:10px}
+.grp{border-radius:16px;padding:12px;background:var(--gb)}
+.grp h4{margin:0 0 8px;font-size:.95rem}
+.grp h4 .ru{font-size:.82rem}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}
+.person{border:2px solid transparent;background:#fff;border-radius:14px;padding:8px;min-height:44px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
+.person .av{font-size:1.7rem;line-height:1}
+.person .nm{font-weight:800;font-size:.92rem}
+.person .who{font-size:.76rem;color:var(--soft);line-height:1.25}
+.person .rel{display:none;margin-top:4px;font-weight:800;color:var(--leaf);font-size:.86rem;line-height:1.2}
+.person .rel .ru{font-size:.76rem}
+.person.open{border-color:var(--leaf)}
+.person.open .rel{display:block}
+.person.me{background:var(--ink);color:#fff}.person.me .who{color:#D6D8E8}
+/* word list */
+.wl{display:grid;gap:8px;margin-top:8px}
+.wrow{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;border:2px solid var(--line);border-radius:14px;padding:8px 10px}
+.wrow .em{font-size:1.5rem;text-align:center}
+.wrow b{font-size:1.05rem}
+.wrow .tr{color:var(--ru);font-weight:600}
+.wrow .ex{font-size:.88rem;color:var(--soft);font-style:italic}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.cf{border-left:4px solid var(--sun);background:var(--sun-bg);border-radius:0 12px 12px 0;padding:10px 12px;margin-top:8px}
+.cf .x{color:var(--bad);text-decoration:line-through}.cf .v{color:var(--good);font-weight:800}
+.qbox{border:2px dashed var(--plum);background:var(--plum-bg);border-radius:16px;padding:14px;margin-top:6px}
+.qbox .q1{font-family:Unbounded,sans-serif;font-weight:800;font-size:1.1rem;color:var(--plum)}
+/* grammar */
+.form{width:100%;border-collapse:separate;border-spacing:0;margin:8px 0}
+.form td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.form td:first-child{font-weight:800;width:34px;color:var(--soft);font-size:1.1rem}
+.k{color:var(--leaf);font-weight:800}.kn{color:var(--terra);font-weight:800}.kq{color:var(--sky);font-weight:800}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:7px 0}
+.mist div{padding:9px 12px;border-radius:12px}
+.mist .x{background:var(--bad-bg);color:#8B2B24}.mist .x::before{content:"✗ ";font-weight:800}
+.mist .v{background:var(--good-bg);color:#155E3E;font-weight:700}.mist .v::before{content:"✓ ";font-weight:800}
+.machine{background:linear-gradient(160deg,var(--leaf-bg),var(--sky-bg));border-radius:18px;padding:14px;margin-top:10px}
+.mrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.mrow .lab{width:100%;font-size:.8rem;font-weight:800;color:var(--soft)}
+.chip{border:2px solid var(--line2);background:#fff;border-radius:999px;padding:6px 12px;min-height:44px;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.out{background:#fff;border-radius:14px;padding:14px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.out .en{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(1.05rem,4.5vw,1.35rem)}
+.out .sa{font-size:.92rem;color:var(--soft);margin-top:4px}
+/* flashcards */
+.fcwrap{perspective:1200px;margin:14px auto 10px;max-width:540px}
+.fc{position:relative;width:100%;min-height:250px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);cursor:pointer;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:8px}
+.front{background:linear-gradient(150deg,#fff,var(--leaf-bg))}
+.back{background:linear-gradient(150deg,#fff,var(--sun-bg));transform:rotateY(180deg)}
+.face .em{font-size:2.6rem}
+.face .ph{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(1.3rem,6vw,1.8rem);line-height:1.15}
+.face .rt{font-size:1.15rem;font-weight:700;color:#6B5A86}
+.face .fex{font-style:italic;color:var(--soft);font-size:.95rem;max-width:420px}
+.face .tap{position:absolute;bottom:10px;font-size:.72rem;color:var(--soft);font-weight:700;letter-spacing:.05em}
+.face .fsay{position:absolute;top:12px;right:12px;background:#fff}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.fcmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;max-width:540px;margin:0 auto;font-weight:700;font-size:.88rem;color:var(--soft)}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700}
+.chk input{width:20px;height:20px;accent-color:var(--leaf)}
+.knowbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;max-width:540px;margin:6px auto 0}
+.knowbar div{height:100%;background:var(--leaf);width:0;transition:width .4s}
+.state-k{color:var(--good)}.state-l{color:#B07A12}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.g{background:var(--leaf)}.btn.s{background:var(--sun);color:var(--ink)}.btn.p{background:var(--plum)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf)}
+.ex-head h3{font-size:1.15rem;margin:4px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--leaf-bg);color:var(--leaf);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.item{border:2px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.06rem}
+.mark-y{color:var(--good);font-weight:800}.mark-n{color:var(--bad);font-weight:800}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.opt{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:48px;font-weight:700}
+.opts.row .opt{text-align:center}
+.opt:hover:not(:disabled){border-color:var(--leaf);background:#FAFEFB}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--leaf);color:var(--leaf);font-weight:800;line-height:1.2}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.rowi{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.inp:focus{border-color:var(--leaf);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;text-align:left}
+.ruq{font-size:1.1rem;font-weight:700}
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;min-height:52px;text-align:left;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.mi.r{font-weight:600;color:#5B4F72}
+.mi.sel{border-color:var(--leaf);background:var(--leaf-bg)}
+.mi.done{border-color:#A4D9BF;background:var(--good-bg);color:#155E3E;cursor:default}
+.mi.done.late{border-color:#F0D392;background:var(--sun-bg);color:#7A5200}
+.mi.miss{border-color:#EDB5AE}
+.mi.shake{animation:shake .35s}
+.mi .tagn{font-size:.7rem;background:var(--good);color:#fff;border-radius:6px;padding:1px 6px}
+.mi.late .tagn{background:var(--sun);color:var(--ink)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* tiles */
+.build{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:1.04rem}
+.build .fx{font-weight:700}
+.zone{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;min-width:150px;flex:1 1 200px;padding:4px 6px;border:2px dashed var(--line2);border-radius:12px;align-items:center}
+.zone .ph{color:#A9A2B6;font-size:.88rem;padding:0 6px}
+.tile{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 12px;min-height:46px;font-weight:800}
+.zone .tile{background:var(--ink);color:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.story{background:var(--sun-bg);border-radius:16px;padding:14px 16px;margin-top:10px;line-height:1.7}
+/* results */
+.score-big{font-family:Unbounded,sans-serif;font-size:2.8rem;font-weight:800;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--plum)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:640px){ .hero{grid-template-columns:1fr} .tree{max-width:280px} }
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.ex{padding:15px}
+  .mist{grid-template-columns:1fr}
+  .mi{font-size:.9rem;padding:8px}
+  .wrow{grid-template-columns:34px 1fr auto;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">ELEMENTARY · VOCABULARY + GRAMMAR</span>
+    <h1>My family <span>can!</span></h1>
+    <p class="sub">Family words and <b>can / can't</b> — homework for <b id="nameOut">Vika</b><span class="ru">Слова о семье и can / can't — домашнее задание</span></p>
+  </div>
+  <svg class="tree" viewBox="0 0 340 210" aria-hidden="true">
+    <path d="M170 205 V120 M170 150 L120 110 M170 140 L222 104" stroke="#8A6A45" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <circle cx="170" cy="78" r="66" fill="#3E9A6B" opacity=".9"/><circle cx="105" cy="96" r="46" fill="#55B07F"/><circle cx="238" cy="92" r="48" fill="#55B07F"/>
+    <g font-size="27" text-anchor="middle" font-family="Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,sans-serif">
+      <circle cx="170" cy="40" r="22" fill="#FDF2D8"/><text x="170" y="50">👵</text>
+      <circle cx="112" cy="88" r="22" fill="#FCE9E1"/><text x="112" y="98">👩</text>
+      <circle cx="230" cy="84" r="22" fill="#E4EFFB"/><text x="230" y="94">👨</text>
+      <circle cx="170" cy="104" r="22" fill="#F2E9FA"/><text x="170" y="114">👧</text>
+    </g>
+    <path d="M60 205h220" stroke="#C9B48F" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <div class="howto">
+    <p>Go tab by tab: learn the words, practise with the flashcards, do the exercises, then send your results.<span class="ru">Иди по вкладкам: выучи слова, потренируйся с карточками, сделай упражнения и отправь результат.</span></p>
+    <div class="namebox"><label for="nameIn">Name · Имя</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 On</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<!-- 0 WORDS -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">Meet Kate's family · Познакомься с семьёй Кейт</div>
+    <h2>Who is who?<span class="ru">Кто есть кто?</span></h2>
+    <p>Hi, I'm Kate! Tap a person to see who they are to me.<span class="ru">Привет, я Кейт! Нажми на человека, чтобы узнать, кем он мне приходится.</span></p>
+    <div class="groups" id="album"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Word list · Список слов</div>
+    <h2>Family words<span class="ru">Слова о семье</span></h2>
+    <div class="wl" id="wlFamily"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Activities · Занятия</div>
+    <h2>What can you do?<span class="ru">Что ты умеешь делать?</span></h2>
+    <div class="wl" id="wlAct"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Careful! · Осторожно!</div>
+    <h3>Easy to mix up<span class="ru">Легко перепутать</span></h3>
+    <div class="cf"><b>half-brother</b> = you have the same mum <i>or</i> the same dad. <b>stepbrother</b> = your stepmum's or stepdad's son — no parents in common.<span class="ru">half-brother — у вас общий папа или общая мама. stepbrother — сын отчима или мачехи, общих родителей нет. По-русски оба часто называют «сводный брат».</span></div>
+    <div class="cf"><b>mother-in-law</b> = свекровь (мать мужа) <i>and</i> тёща (мать жены). One English word for both!<span class="ru">В английском одно слово для обеих. Так же: father-in-law = свёкор и тесть.</span></div>
+    <div class="cf"><b>niece</b> — spelling: <span class="v">ie</span>: n-<b>ie</b>-ce. <b>nephew</b> — <i>ph</i> sounds like <i>f</i>: /ˈnefjuː/.<span class="ru">niece пишется с ie. В nephew буквы ph читаются как «ф».</span></div>
+    <div class="cf"><span class="v">take photos</span> — not <span class="x">make photos</span>. <span class="v">ride a bike</span> — not <span class="x">drive a bike</span>. <span class="v">play chess</span> — no <i>the</i>.<span class="ru">Фото «берут» (take), а не «делают». На велосипеде «едут верхом» (ride). Перед chess артикль не нужен.</span></div>
+    <div class="cf"><b>siblings</b> = brothers and sisters. <b>cousin</b> = двоюродный брат <i>or</i> двоюродная сестра — the same word.<span class="ru">siblings — братья и сёстры вместе. cousin — одно слово и для брата, и для сестры.</span></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Useful question · Полезный вопрос</div>
+    <div class="qbox">
+      <div class="q1">Do you have any siblings? <button class="say" data-say="Do you have any siblings?" aria-label="Listen">🔊</button></div>
+      <span class="ru">У тебя есть братья или сёстры?</span>
+      <p>— Yes, I do. I have one brother and two sisters. <button class="say" data-say="Yes, I do. I have one brother and two sisters." aria-label="Listen">🔊</button><span class="ru">Да. У меня один брат и две сестры.</span></p>
+      <p>— No, I don't. I'm an only child. <button class="say" data-say="No, I don't. I'm an only child." aria-label="Listen">🔊</button><span class="ru">Нет. Я единственный ребёнок.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 1 FLASHCARDS -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Flashcards · Карточки</div>
+    <h2>Learn the words<span class="ru">Учим слова</span></h2>
+    <p class="small">Tap the card to flip it. Mark each word: <b>I know it</b> or <b>Still learning</b>.<span class="ru">Нажми на карточку, чтобы перевернуть. Отмечай: «Знаю» или «Ещё учу».</span></p>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcDir">⇄</button>
+      <button class="btn ghost" id="fcShuffle">🔀 Shuffle · Перемешать</button>
+    </div>
+    <div class="fcbar"><label class="chk"><input type="checkbox" id="fcFilter"> Only words I'm learning · Только те, что учу</label></div>
+    <div class="fcwrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Flashcard, press to flip"></div></div>
+    <div class="fcmeta"><span id="fcPos"></span><span id="fcState"></span></div>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcPrev" aria-label="Previous">←</button>
+      <button class="btn s" id="fcLearn">Still learning · Ещё учу</button>
+      <button class="btn g" id="fcKnow">I know it · Знаю ✓</button>
+      <button class="btn ghost" id="fcNext" aria-label="Next">→</button>
+    </div>
+    <div class="fcmeta"><span id="fcKnown"></span></div>
+    <div class="knowbar"><div id="fcKnowBar"></div></div>
+  </div>
+</section>
+
+<!-- 2 WORD PRACTICE -->
+<section class="page" data-page="2">
+  <div class="card"><div class="kicker">Word practice · Тренируем слова</div><h2>Family words in action<span class="ru">Слова о семье в деле</span></h2></div>
+</section>
+
+<!-- 3 CAN -->
+<section class="page" data-page="3">
+  <div class="card">
+    <div class="kicker">Grammar · Грамматика</div>
+    <h2>can / can't<span class="ru">умею / не умею, могу / не могу</span></h2>
+    <p><b>can</b> = I know how to do it, I am able to do it.<span class="ru"><b>can</b> — «умею» или «могу». <b>can't</b> (= <b>cannot</b>) — «не умею», «не могу».</span></p>
+    <table class="form">
+      <tr><td>+</td><td>I / you / he / she / we / they <span class="k">can</span> <b>swim</b>.<span class="ru">Я умею плавать. Она умеет плавать.</span></td></tr>
+      <tr><td>−</td><td>I / you / he / she / we / they <span class="kn">can't</span> <b>swim</b>.<span class="ru">can't = cannot (пишется слитно!)</span></td></tr>
+      <tr><td>?</td><td><span class="kq">Can</span> you <b>swim</b>? — Yes, I <span class="k">can</span>. / No, I <span class="kn">can't</span>.<span class="ru">В вопросе can ставим на первое место. Коротко отвечаем: Yes, I can. / No, I can't.</span></td></tr>
+    </table>
+    <div class="cf"><b>Three golden rules · Три золотых правила</b>
+      <span class="ru" style="color:var(--ink)">1. После can глагол не меняется: <b>She can sing</b> (не sings).<br>2. can не меняется после he / she / it: <b>He can</b> (не cans).<br>3. После can нет <b>to</b>: <b>I can drive</b> (не can to drive).</span></div>
+    <h3 style="margin-top:14px">Watch out<span class="ru">Типичные ошибки</span></h3>
+    <div class="mist"><div class="x">She cans sing.</div><div class="v">She can sing.</div></div>
+    <div class="mist"><div class="x">He can draws.</div><div class="v">He can draw.</div></div>
+    <div class="mist"><div class="x">I can to drive.</div><div class="v">I can drive.</div></div>
+    <div class="mist"><div class="x">I don't can cook.</div><div class="v">I can't cook.</div></div>
+    <div class="mist"><div class="x">Do you can swim?</div><div class="v">Can you swim?</div></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Try it · Попробуй</div>
+    <h3>The can machine<span class="ru">Машина для can — собери предложение</span></h3>
+    <div class="machine">
+      <div class="mrow" id="mWho"><span class="lab">Who? · Кто?</span></div>
+      <div class="mrow" id="mMode"><span class="lab">+ / − / ?</span></div>
+      <div class="mrow" id="mAct"><span class="lab">What? · Что?</span></div>
+      <div class="out"><div><div class="en" id="mEn"></div><span class="ru" id="mRu"></span><div class="sa" id="mSa"></div></div><button class="say" id="mSay" aria-label="Listen">🔊</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 MIX -->
+<section class="page" data-page="4">
+  <div class="card"><div class="kicker">Mix · Всё вместе</div><h2>Words + can<span class="ru">Слова + can вместе</span></h2></div>
+</section>
+
+<!-- 5 RESULTS -->
+<section class="page" data-page="5">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher · Отправь учителю</div>
+    <h3>Send your results<span class="ru">Отправь результаты</span></h3>
+    <p class="small">Choose any way. <b>Copy text</b> always has the full report.<span class="ru">Выбери любой способ. «Скопировать текст» — всегда полный отчёт.</span></p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email · Почта учителя: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again<span class="ru">Начать заново</span></h3>
+    <p class="small">This deletes all your answers on this device.<span class="ru">Все ответы на этом устройстве удалятся.</span></p>
+    <button class="btn ghost" id="resetBtn">↺ Start again · Заново</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers? · Удалить все ответы?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes · Да</button> <button class="btn ghost" id="resetNo">No · Нет</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="My family can! — family words + can / can't";
+const SUBJECT_TOPIC="Family words + can";
+const STORE_KEY="vika-family-can-v1";
+const DEFAULT_NAME="Vika";
+const STEPS=[["👨‍👩‍👧 Words","Слова"],["🗂️ Flashcards","Карточки"],["🌳 Word practice","Слова: упражнения"],["💪 can / can't","Грамматика"],["🧩 Mix","Всё вместе"],["📊 Results","Итоги"]];
+
+/* Family words: [word, Russian, example, emoji] */
+const FAMILY=[
+  ["stepfather","отчим","Peter is my stepfather. He's my mum's husband.","👨"],
+  ["stepmother","мачеха","Olga is my stepmother. She's my dad's wife.","👩"],
+  ["stepbrother","сводный брат (сын отчима или мачехи)","Nick is my stepbrother — he's Olga's son.","👦"],
+  ["stepsister","сводная сестра (дочь отчима или мачехи)","Lucy is my stepsister — she's Peter's daughter.","👧"],
+  ["half-brother","брат по одному из родителей","Sam is my half-brother. We have the same mum.","👶"],
+  ["half-sister","сестра по одному из родителей","Zoe is my half-sister. We have the same dad.","👧"],
+  ["nephew","племянник","My brother's son is my nephew.","👦"],
+  ["niece","племянница","My brother's daughter is my niece.","👧"],
+  ["wife","жена","Anna is Tom's wife.","👰"],
+  ["husband","муж","Daniel is my husband.","🤵"],
+  ["in-laws","родственники мужа (или жены)","I visit my in-laws every Sunday.","👪"],
+  ["mother-in-law","свекровь (мать мужа) / тёща (мать жены)","My husband's mother is my mother-in-law.","👵"],
+  ["father-in-law","свёкор (отец мужа) / тесть (отец жены)","My husband's father is my father-in-law.","👴"],
+  ["brother-in-law","брат мужа или жены; муж сестры","Jack is my husband's brother — my brother-in-law.","🧑"],
+  ["sister-in-law","сестра мужа или жены; жена брата","Anna is my brother's wife — my sister-in-law.","👩"],
+  ["cousin","двоюродный брат / двоюродная сестра","Alex is my aunt's son. He's my cousin.","🧑"],
+  ["siblings","братья и сёстры","Do you have any siblings?","👫"]
+];
+/* Activities: [phrase, Russian, example, emoji] */
+const ACTS=[
+  ["drive a car","водить машину","My stepfather can drive a car.","🚗"],
+  ["play chess","играть в шахматы","Can you play chess?","♟️"],
+  ["draw pictures","рисовать картины","My niece can draw pictures.","🎨"],
+  ["ride a bike","кататься на велосипеде","My nephew can ride a bike.","🚲"],
+  ["take photos","фотографировать","Peter can take great photos.","📷"],
+  ["bake cakes","печь торты","I can bake great cakes.","🎂"],
+  ["sing","петь","My friend Ali can sing very well.","🎤"],
+  ["cook","готовить","My son can't cook.","🍳"],
+  ["play basketball","играть в баскетбол","My friends can't play basketball.","🏀"]
+];
+/* Kate's family album: [group EN, group RU, colour, people: [name, emoji, who (EN), relation EN, relation RU]] */
+const ALBUM=[
+  ["Mum's new family","Новая семья мамы","var(--terra-bg)",[["Peter","👨","Mum's husband","stepfather","отчим"],["Lucy","👧","Peter's daughter","stepsister","сводная сестра"],["Sam","👶","Mum and Peter's son","half-brother","брат по маме"]]],
+  ["Dad's new family","Новая семья папы","var(--sky-bg)",[["Olga","👩","Dad's wife","stepmother","мачеха"],["Nick","👦","Olga's son","stepbrother","сводный брат"],["Zoe","👧","Dad and Olga's daughter","half-sister","сестра по папе"]]],
+  ["My brother's family","Семья моего брата","var(--leaf-bg)",[["Tom","🧔","my brother","brother","брат"],["Anna","👩","Tom's wife","sister-in-law","невестка (жена брата)"],["Ben","👦","Tom's son","nephew","племянник"],["Mia","👧","Tom's daughter","niece","племянница"]]],
+  ["My husband's family — my in-laws","Семья мужа","var(--plum-bg)",[["Daniel","🤵","me + Daniel ❤️","husband","муж"],["Ruth","👵","Daniel's mum","mother-in-law","свекровь"],["George","👴","Daniel's dad","father-in-law","свёкор"],["Jack","🧑","Daniel's brother","brother-in-law","деверь (брат мужа)"]]],
+  ["My aunt's family","Семья моей тёти","var(--sun-bg)",[["Alex","🧑","my aunt's son","cousin","двоюродный брат"]]]
+];
+/* can machine */
+const WHO=[["I","Я","умею","I"],["You","Ты","умеешь","I"],["Vika","Вика","умеет","she"],["Tom","Том","умеет","he"],["My friends","Мои друзья","умеют","they"]];
+const ACT_RU_INF=["водить машину","играть в шахматы","рисовать картины","кататься на велосипеде","фотографировать","печь торты","петь","готовить","играть в баскетбол"];
+
+const GAP='<span class="slot">___</span>';
+const Y='<span class="mark-y">✓</span>', N='<span class="mark-n">✗</span>';
+const EX=[
+  { id:"match", step:2, kind:"match", title:"Match the words", ru:"Соедини слово и перевод",
+    instr:"Tap an English word, then its Russian translation.", instrRu:"Нажми на английское слово, потом на перевод.",
+    items:[["stepfather","отчим"],["stepmother","мачеха"],["nephew","племянник"],["niece","племянница"],["husband","муж"],["wife","жена"],["cousin","двоюродный брат / сестра"],["siblings","братья и сёстры"]].map(([l,r])=>({l,r,q:l}))},
+  { id:"puzzle", step:2, kind:"choice", title:"Family puzzle", ru:"Семейная головоломка",
+    instr:"Who is it? Choose the right word.", instrRu:"Кто это? Выбери правильное слово.",
+    items:[
+      {p:`My mum's new husband is my ${GAP}.`, opts:["stepfather","father-in-law","half-brother"], a:0, why:"Mum's husband (not my dad) = <b>stepfather</b>.<span class='ru'>Муж мамы (не папа) — отчим.</span>"},
+      {p:`My dad's new wife is my ${GAP}.`, opts:["mother-in-law","stepmother","stepsister"], a:1, why:"Dad's wife (not my mum) = <b>stepmother</b>.<span class='ru'>Жена папы (не мама) — мачеха.</span>"},
+      {p:`My brother's son is my ${GAP}.`, opts:["cousin","niece","nephew"], a:2, why:"Brother's or sister's son = <b>nephew</b>.<span class='ru'>Сын брата или сестры — племянник.</span>"},
+      {p:`My sister's daughter is my ${GAP}.`, opts:["niece","nephew","cousin"], a:0, why:"Brother's or sister's daughter = <b>niece</b>.<span class='ru'>Дочь брата или сестры — племянница.</span>"},
+      {p:`My husband's mother is my ${GAP}.`, opts:["stepmother","mother-in-law","sister-in-law"], a:1, why:"Husband's mother = <b>mother-in-law</b>.<span class='ru'>Мать мужа — свекровь.</span>"},
+      {p:`My husband's father is my ${GAP}.`, opts:["father-in-law","stepfather","brother-in-law"], a:0, why:"Husband's father = <b>father-in-law</b>.<span class='ru'>Отец мужа — свёкор.</span>"},
+      {p:`My aunt's son is my ${GAP}.`, opts:["nephew","cousin","half-brother"], a:1, why:"Aunt's or uncle's child = <b>cousin</b>.<span class='ru'>Ребёнок тёти или дяди — двоюродный брат или сестра.</span>"},
+      {p:`My mum and her new husband have a baby boy. He is my ${GAP}.`, opts:["stepbrother","cousin","half-brother"], a:2, why:"We have the same mum → <b>half-brother</b>.<span class='ru'>У нас общая мама — значит half-brother.</span>"},
+      {p:`My stepfather has a daughter from before. She is my ${GAP}.`, opts:["stepsister","half-sister","niece"], a:0, why:"No parents in common → <b>stepsister</b>.<span class='ru'>Общих родителей нет — stepsister.</span>"},
+      {p:`My husband's sister is my ${GAP}.`, opts:["stepsister","sister-in-law","cousin"], a:1, why:"Husband's sister = <b>sister-in-law</b>.<span class='ru'>Сестра мужа — золовка, по-английски sister-in-law.</span>"},
+      {p:`My sister's husband is my ${GAP}.`, opts:["brother-in-law","stepbrother","father-in-law"], a:0, why:"Sister's husband = <b>brother-in-law</b>.<span class='ru'>Муж сестры — зять, по-английски brother-in-law.</span>"}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  { id:"verbs", step:2, kind:"choice", title:"Which verb?", ru:"Какой глагол?",
+    instr:"Choose the verb that goes with the word.", instrRu:"Выбери глагол, который подходит к слову.",
+    items:[
+      {p:`${GAP} a car 🚗`, a:0, why:"<b>drive</b> a car.<span class='ru'>водить машину</span>"},
+      {p:`${GAP} chess ♟️`, a:2, why:"<b>play</b> chess — no <i>the</i>.<span class='ru'>играть в шахматы</span>"},
+      {p:`${GAP} pictures 🎨`, a:4, why:"<b>draw</b> pictures.<span class='ru'>рисовать картины</span>"},
+      {p:`${GAP} a bike 🚲`, a:1, why:"<b>ride</b> a bike — not <i>drive</i>.<span class='ru'>кататься на велосипеде — ride</span>"},
+      {p:`${GAP} photos 📷`, a:3, why:"<b>take</b> photos — not <i>make</i>!<span class='ru'>фотографировать — take photos, не make</span>"},
+      {p:`${GAP} basketball 🏀`, a:2, why:"<b>play</b> basketball.<span class='ru'>играть в баскетбол</span>"},
+      {p:`${GAP} cakes 🎂`, a:5, why:"<b>bake</b> cakes.<span class='ru'>печь торты</span>"}
+    ].map(o=>Object.assign(o,{opts:["drive","ride","play","take","draw","bake"], chips:true, say:strip(o.p).replace("___",["drive","ride","play","take","draw","bake"][o.a]).replace(/\s*[^\x00-\x7F]+\s*$/,""), q:strip(o.p)}))},
+  { id:"spell", step:2, kind:"type", title:"Write the word", ru:"Напиши слово",
+    instr:"Write the English word.", instrRu:"Напиши английское слово.",
+    items:[
+      {ruw:"племянница", acc:["niece"], hint:"n _ _ _ e (ie!)"},
+      {ruw:"муж", acc:["husband"], hint:"h _ _ _ _ _ _ d"},
+      {ruw:"отчим", acc:["stepfather","step-father","step father"], hint:"step + …"},
+      {ruw:"свекровь (мать мужа)", acc:["mother-in-law","mother in law"], hint:"mother - _ _ - _ _ _"},
+      {ruw:"двоюродный брат", acc:["cousin"], hint:"c _ _ _ _ n"},
+      {ruw:"братья и сёстры", acc:["siblings"], hint:"s _ _ _ _ _ _ s"},
+      {ruw:"жена", acc:["wife"], hint:"w _ _ e"},
+      {ruw:"племянник", acc:["nephew"], hint:"n e _ _ _ w (ph = f)"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:`<b>${o.acc[0]}</b>`, q:o.ruw, single:true}))},
+  { id:"canpick", step:3, kind:"choice", title:"can or can't?", ru:"can или can't?",
+    instr:`Look at the sign: ${Y} = can, ${N} = can't.`, instrRu:`Посмотри на знак: ${Y} = can, ${N} = can't.`,
+    items:[
+      {p:`Vika ${GAP} ride a bike. ${Y}`, a:0},
+      {p:`My nephew ${GAP} drive a car. ${N}`, a:1},
+      {p:`My mother-in-law ${GAP} bake great cakes. ${Y}`, a:0},
+      {p:`My husband ${GAP} play chess. ${N}`, a:1},
+      {p:`My niece ${GAP} draw pictures. ${Y}`, a:0},
+      {p:`My cousins ${GAP} play basketball. ${N}`, a:1}
+    ].map(o=>Object.assign(o,{opts:["can","can't"], say:strip(o.p).replace("___",["can","can't"][o.a]).replace(/\s*[✓✗]\s*$/,""), why:o.a===0?"✓ → <b>can</b><span class='ru'>умеет</span>":"✗ → <b>can't</b><span class='ru'>не умеет</span>", q:strip(o.p)}))},
+  { id:"right", step:3, kind:"choice", title:"Which sentence is correct?", ru:"Какое предложение правильное?",
+    instr:"Choose the correct sentence.", instrRu:"Выбери правильное предложение.",
+    items:[
+      {opts:["She cans sing.","She can sing.","She can sings."], a:1, why:"can doesn't change, the verb doesn't change.<span class='ru'>can и глагол не меняются: She can sing.</span>"},
+      {opts:["I don't can swim.","I can't swim."], a:1, why:"No <i>don't</i> with can.<span class='ru'>С can не нужен don't: I can't.</span>"},
+      {opts:["Do you can drive a car?","Can you drive a car?"], a:1, why:"Question: <b>Can</b> + you + verb.<span class='ru'>В вопросе can — на первом месте, без do.</span>"},
+      {opts:["My friends can to play basketball.","My friends can play basketball."], a:1, why:"No <i>to</i> after can.<span class='ru'>После can нет to.</span>"},
+      {opts:["He can draws pictures.","He can draw pictures."], a:1, why:"After can — the verb without -s.<span class='ru'>После can глагол без -s.</span>"},
+      {opts:["We cannot ride a bike.","We not can ride a bike."], a:0, why:"<b>cannot</b> = can't, one word.<span class='ru'>cannot пишется слитно и стоит после подлежащего.</span>"},
+      {opts:["Can play your brother chess?","Can your brother play chess?"], a:1, why:"<b>Can</b> + who + verb: Can your brother play…?<span class='ru'>Порядок: Can + кто + глагол.</span>"}
+    ].map(o=>Object.assign(o,{p:"", say:o.opts[o.a], q:o.opts.join(" / ")}))},
+  { id:"short", step:3, kind:"choice", title:"Short answers", ru:"Короткие ответы",
+    instr:`Choose the short answer. ${Y} = yes, ${N} = no.`, instrRu:`Выбери короткий ответ. ${Y} = да, ${N} = нет.`,
+    items:[
+      {p:`Can you play chess? ${N}`, opts:["No, I don't.","No, I can't.","No, I can."], a:1},
+      {p:`Can your sister drive a car? ${Y}`, opts:["Yes, she can.","Yes, she cans.","Yes, she does."], a:0},
+      {p:`Can your nephew ride a bike? ${Y}`, opts:["Yes, he is.","Yes, he do.","Yes, he can."], a:2},
+      {p:`Can your in-laws cook? ${N}`, opts:["No, they can't.","No, they don't can.","No, they aren't."], a:0},
+      {p:`Do you have any siblings? ${Y}`, opts:["Yes, I can.","Yes, I do.","Yes, I am."], a:1},
+      {p:`Can you take good photos? ${Y}`, opts:["Yes, I can.","Yes, I do.","Yes, I take."], a:0}
+    ].map((o,i)=>Object.assign(o,{say:strip(o.p).replace(/\s*[✓✗]\s*$/,"")+" "+o.opts[o.a], why: i===4?"<b>Do</b> you have…? → Yes, I <b>do</b>.<span class='ru'>Вопрос с do — ответ с do.</span>":"<b>Can</b> …? → Yes, … <b>can</b>. / No, … <b>can't</b>.<span class='ru'>Вопрос с can — ответ с can.</span>", q:strip(o.p)}))},
+  { id:"build", step:3, kind:"tiles", title:"Make a sentence", ru:"Составь предложение",
+    instr:"Tap the words in the right order.", instrRu:"Нажимай на слова в правильном порядке.",
+    items:[
+      {post:"?", tiles:["drive","your sister","Can","a car"], a:["Can","your sister","drive","a car"], hint:"Start with <b>Can</b>.<span class='ru'>Начни с Can.</span>"},
+      {post:".", tiles:["can't","My nephew","chess","play"], a:["My nephew","can't","play","chess"], hint:"Who? → can't → verb.<span class='ru'>Кто? → can't → глагол.</span>"},
+      {post:".", tiles:["can","pictures","draw","My niece"], a:["My niece","can","draw","pictures"], hint:"Who? → can → verb.<span class='ru'>Кто? → can → глагол.</span>"},
+      {post:"?", tiles:["any","you","have","Do","siblings"], a:["Do","you","have","any","siblings"], hint:"Do + you + have + any…<span class='ru'>Do + you + have + any…</span>"},
+      {post:".", tiles:["take","My stepfather","great photos","can"], a:["My stepfather","can","take","great photos"], hint:"Who? → can → take → what?<span class='ru'>Кто? → can → take → что?</span>"}
+    ].map(o=>Object.assign(o,{why:"",q:o.a.join(" ")+o.post}))},
+  { id:"story", step:4, kind:"choice", title:"Read about Kate's family", ru:"Прочитай о семье Кейт",
+    instr:"Read the text. True or false?", instrRu:"Прочитай текст. Верно или неверно?",
+    text:"Hi! I'm Kate. I have one brother, Tom. Tom has two children, Ben and Mia. Ben can ride a bike, but he can't drive a car — he's only ten! Mia can draw beautiful pictures. My husband, Daniel, can bake great cakes, and his mother — my mother-in-law — can play chess very well. My stepfather, Peter, can take amazing photos. My cousin Alex can sing, but he can't cook!",
+    items:[
+      {s:"Ben is Kate's nephew.", a:0, why:"Ben is Tom's son → Kate's nephew.<span class='ru'>Бен — сын её брата, значит племянник.</span>"},
+      {s:"Mia is Kate's niece.", a:0, why:"Mia is Tom's daughter → niece.<span class='ru'>Мия — дочь брата, племянница.</span>"},
+      {s:"Ben can drive a car.", a:1, why:"He <b>can't</b> drive a car — he's only ten.<span class='ru'>Он не умеет водить — ему всего десять.</span>"},
+      {s:"Kate's husband can bake cakes.", a:0, why:"Daniel <b>can</b> bake great cakes.<span class='ru'>Даниэль умеет печь торты.</span>"},
+      {s:"Kate's mother-in-law can't play chess.", a:1, why:"She <b>can</b> play chess very well.<span class='ru'>Она отлично играет в шахматы.</span>"},
+      {s:"Peter is Kate's father.", a:1, why:"Peter is her <b>stepfather</b>.<span class='ru'>Питер — её отчим.</span>"},
+      {s:"Alex can cook.", a:1, why:"Alex <b>can't</b> cook.<span class='ru'>Алекс не умеет готовить.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.s}</span>`, opts:["True · Верно","False · Неверно"], say:o.s, q:o.s}))},
+  { id:"translate", step:4, kind:"type", title:"Translate into English", ru:"Переведи на английский",
+    instr:"Write the sentence in English.", instrRu:"Напиши предложение по-английски.",
+    items:[
+      {ruw:"Мой отчим умеет водить машину.", acc:["My stepfather can drive a car","My stepfather can drive"], hint:"My stepfather can …<span class='ru'>Начни: My stepfather can …</span>"},
+      {ruw:"Моя племянница не умеет кататься на велосипеде.", acc:["My niece can't ride a bike","My niece cannot ride a bike","My niece can not ride a bike"], hint:"My niece can't …<span class='ru'>Начни: My niece can't …</span>"},
+      {ruw:"Ты умеешь играть в шахматы?", acc:["Can you play chess"], hint:"Can you …?<span class='ru'>Начни с Can.</span>"},
+      {ruw:"Мой муж умеет печь торты.", acc:["My husband can bake cakes","My husband can bake a cake"], hint:"My husband can …<span class='ru'>печь торты — bake cakes</span>"},
+      {ruw:"У тебя есть братья или сёстры?", acc:["Do you have any siblings","Have you got any siblings","Do you have siblings"], hint:"Do you have any …?<span class='ru'>Используй siblings.</span>"},
+      {ruw:"Мой двоюродный брат не умеет рисовать.", acc:["My cousin can't draw","My cousin cannot draw","My cousin can't draw pictures","My cousin cannot draw pictures"], hint:"My cousin can't …<span class='ru'>двоюродный брат — cousin</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:"", q:o.ruw, sentence:true}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+const PRAISE=["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Yes! · Да!"];
+const OOPS=["Not quite. · Не совсем.","Almost! · Почти!","Not this one. · Не то."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CARDS=[...FAMILY.map(w=>({w:w[0],ru:w[1],ex:w[2],em:w[3]})),...ACTS.map(w=>({w:w[0],ru:w[1],ex:w[2],em:w[3]}))];
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, fc:{order:CARDS.map((_,i)=>i), pos:0, dir:"en", only:false, mark:{}}, mach:{w:2,m:0,a:3}}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.fc) state.fc=freshState().fc; if(!state.mach) state.mach={w:2,m:0,a:3};
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text) return;
+  try{
+    if(!("speechSynthesis" in window)) return;
+    const u=new SpeechSynthesisUtterance(strip(text));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.85;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bcan not\b/g,"cannot").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have").replace(/\b(he|she|it)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function evalTyped(it,raw){ const n=norm(raw); return it.acc.map(norm).includes(n); }
+function fbHTML(kind,msg,body,say){ return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`; }
+
+/* ---------- words tab ---------- */
+function buildWords(){
+  document.getElementById("album").innerHTML=ALBUM.map(([g,gr,c,ppl])=>`<div class="grp" style="--gb:${c}"><h4>${g}<span class="ru">${gr}</span></h4><div class="people">${ppl.map(([n,em,who,re,rr],k)=>`<button class="person" data-rel="${esc(re)}" aria-expanded="false"><span class="av">${em}</span><span class="nm">${n}</span><span class="who">${who}</span><span class="rel">my ${re}<span class="ru">${rr}</span></span></button>`).join("")}</div></div>`).join("");
+  document.querySelectorAll(".person").forEach(b=>b.addEventListener("click",()=>{ const o=!b.classList.contains("open"); b.classList.toggle("open",o); b.setAttribute("aria-expanded",o); if(o) speak(b.querySelector(".nm").textContent+" is my "+b.dataset.rel+"."); }));
+  const row=([w,ru,ex,em])=>`<div class="wrow"><span class="em">${em}</span><div><b>${esc(w)}</b> — <span class="tr">${esc(ru)}</span><div class="ex">${esc(ex)}</div></div><button class="say" data-say="${esc(w+". "+ex)}" aria-label="Listen to ${esc(w)}">🔊</button></div>`;
+  document.getElementById("wlFamily").innerHTML=FAMILY.map(row).join("");
+  document.getElementById("wlAct").innerHTML=ACTS.map(row).join("");
+}
+
+/* ---------- can machine ---------- */
+function buildMachine(){
+  const mk=(id,list,key)=>{ const box=document.getElementById(id); list.forEach((t,k)=>{ const b=document.createElement("button"); b.className="chip"; b.textContent=t; b.addEventListener("click",()=>{ state.mach[key]=k; saveState(); renderMachine(); speak(document.getElementById("mEn").textContent); }); box.appendChild(b); }); };
+  mk("mWho",WHO.map(w=>w[0]),"w"); mk("mMode",["+ can","− can't","? Can …?"],"m"); mk("mAct",ACTS.map(a=>a[3]+" "+a[0]),"a");
+  document.getElementById("mSay").addEventListener("click",()=>speakForce(document.getElementById("mEn").textContent+" "+document.getElementById("mSa").textContent));
+  renderMachine();
+}
+function renderMachine(){
+  const m=state.mach, w=WHO[m.w], act=ACTS[m.a][0], ru=ACT_RU_INF[m.a];
+  [["mWho","w"],["mMode","m"],["mAct","a"]].forEach(([id,k])=>document.querySelectorAll(`#${id} .chip`).forEach((b,i)=>b.setAttribute("aria-pressed",i===m[k])));
+  const subj=w[0], subjQ=m.w===0?"I":m.w===1?"you":subj==="My friends"?"your friends":subj;
+  let en, rus, sa="";
+  if(m.m===0){ en=`${subj} can ${act}.`; rus=`${w[1]} ${w[2]} ${ru}.`; }
+  else if(m.m===1){ en=`${subj} can't ${act}.`; rus=`${w[1]} не ${w[2]} ${ru}.`; }
+  else { en=`Can ${subjQ} ${act}?`; rus=`${m.w===4?"Твои друзья":w[1]} ${w[2]} ${ru}?`; const p=w[3]; sa=`Yes, ${p} can. / No, ${p} can't.`; }
+  if(m.m===2&&m.w===0){ sa="Yes, you can. / No, you can't."; }
+  document.getElementById("mEn").innerHTML=esc(en).replace(/\b(can't|Can|can)\b/,m.m===1?'<span class="kn">$1</span>':m.m===2?'<span class="kq">$1</span>':'<span class="k">$1</span>');
+  document.getElementById("mRu").textContent=rus;
+  document.getElementById("mSa").textContent=sa;
+}
+
+/* ---------- flashcards ---------- */
+function fcList(){ const f=state.fc; return f.order.filter(i=>!f.only||f.mark[i]!=="k"); }
+function renderFC(){
+  const f=state.fc, list=fcList(), card=document.getElementById("fc");
+  document.getElementById("fcDir").textContent=f.dir==="en"?"⇄ English → Русский":"⇄ Русский → English";
+  document.getElementById("fcFilter").checked=!!f.only;
+  const known=Object.values(f.mark).filter(v=>v==="k").length;
+  document.getElementById("fcKnown").textContent=`Known · Знаю: ${known} / ${CARDS.length}`;
+  document.getElementById("fcKnowBar").style.width=(known/CARDS.length*100)+"%";
+  card.classList.remove("flip");
+  if(!list.length){ card.innerHTML=`<div class="face front"><div class="em">🎉</div><div class="ph">You know them all!</div><div class="rt">Ты знаешь все слова!</div></div>`; document.getElementById("fcPos").textContent=""; document.getElementById("fcState").textContent=""; return; }
+  if(f.pos>=list.length) f.pos=0; if(f.pos<0) f.pos=list.length-1;
+  const i=list[f.pos], c=CARDS[i];
+  const fr=f.dir==="en"?`<div class="em">${c.em}</div><div class="ph">${esc(c.w)}</div><button class="say fsay" data-say="${esc(c.w)}" aria-label="Listen">🔊</button>`:`<div class="em">${c.em}</div><div class="rt">${esc(c.ru)}</div>`;
+  const bk=f.dir==="en"?`<div class="rt">${esc(c.ru)}</div><div class="fex">“${esc(c.ex)}”</div>`:`<div class="ph">${esc(c.w)}</div><div class="fex">“${esc(c.ex)}”</div>`;
+  card.innerHTML=`<div class="face front">${fr}<span class="tap">TAP TO FLIP · НАЖМИ</span></div><div class="face back">${bk}<button class="say fsay" data-say="${esc(c.w+". "+c.ex)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP BACK</span></div>`;
+  document.getElementById("fcPos").textContent=`${f.pos+1} / ${list.length}`;
+  const m=f.mark[i];
+  document.getElementById("fcState").innerHTML=m==="k"?'<span class="state-k">✓ I know it · Знаю</span>':m==="l"?'<span class="state-l">● Still learning · Учу</span>':"";
+}
+function buildFC(){
+  const card=document.getElementById("fc"), f=()=>state.fc;
+  const flip=e=>{ if(e&&e.target&&e.target.closest&&e.target.closest("[data-say]")) return; card.classList.toggle("flip"); };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); flip(); } });
+  document.getElementById("fcPrev").addEventListener("click",()=>{ f().pos--; renderFC(); saveState(); });
+  document.getElementById("fcNext").addEventListener("click",()=>{ f().pos++; renderFC(); saveState(); });
+  document.getElementById("fcDir").addEventListener("click",()=>{ f().dir=f().dir==="en"?"ru":"en"; renderFC(); saveState(); });
+  document.getElementById("fcShuffle").addEventListener("click",()=>{ const o=f().order; for(let k=o.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [o[k],o[j]]=[o[j],o[k]]; } f().pos=0; renderFC(); saveState(); });
+  document.getElementById("fcFilter").addEventListener("change",e=>{ f().only=e.target.checked; f().pos=0; renderFC(); saveState(); });
+  const mark=v=>{ const list=fcList(); if(!list.length) return; const i=list[f().pos]; f().mark[i]=v; if(!(f().only&&v==="k")) f().pos++; renderFC(); saveState(); if(state.tab===5) renderResults(); };
+  document.getElementById("fcKnow").addEventListener("click",()=>mark("k"));
+  document.getElementById("fcLearn").addEventListener("click",()=>mark("l"));
+  renderFC();
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):ex.kind==="tiles"?renderTiles(ex,i):renderType(ex,i); }
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const rowCls=it.opts.every(o=>o.length<16)?" row":"";
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp">${it.p?`<div class="sent">${it.p}</div>`:""}<div class="opts${rowCls}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick]; st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i); }));
+  return d;
+}
+function renderTiles(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  if(!st.cur) st.cur=[];
+  const full=it.a.join(" ")+it.post;
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="build"><div class="zone">`;
+  if(st.done) h+=(st.correct?it.a:String(st.given||"").split("|")).map(w=>`<span class="tile" style="pointer-events:none">${esc(w)}</span>`).join("");
+  else h+=st.cur.length?st.cur.map((k,pos)=>`<button class="tile" data-pos="${pos}">${esc(it.tiles[k])}</button>`).join(""):'<span class="ph">tap the words · нажимай на слова</span>';
+  h+=`</div><span class="fx">${esc(it.post)}</span></div>`;
+  if(!st.done){
+    h+=`<div class="pool">${it.tiles.map((w,k)=>st.cur.includes(k)?"":`<button class="tile" data-k="${k}">${esc(w)}</button>`).join("")}</div>`;
+    h+=`<div class="rowi"><button class="btn g chkb">Check · Проверить</button><button class="btn ghost clr">Clear · Очистить</button></div>`;
+    if(st.warn) h+=fbHTML("hint","",st.warn); else if(st.tries===1) h+=fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  } else h+=st.correct?fbHTML("good",st.msg,"",full):fbHTML("bad",st.msg,`Correct · Правильно: <span class="model">${esc(full)}</span>`,full);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done){
+    d.querySelectorAll(".pool .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.push(+b.dataset.k); st.warn=""; refresh(ex,i); }));
+    d.querySelectorAll(".zone .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.splice(+b.dataset.pos,1); refresh(ex,i); }));
+    d.querySelector(".clr").addEventListener("click",()=>{ st.cur=[]; st.warn=""; refresh(ex,i); });
+    d.querySelector(".chkb").addEventListener("click",()=>{
+      if(st.cur.length<it.tiles.length){ st.warn="Use all the words first. · Сначала используй все слова."; refresh(ex,i); return; }
+      st.warn=""; const ans=st.cur.map(k=>it.tiles[k]); st.tries++;
+      if(ans.join("|")===it.a.join("|")){ st.done=true; st.correct=true; st.given=ans.join("|"); st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!"; speak(full); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=ans.join("|"); st.msg="Not this time. · В этот раз не вышло."; }
+      else st.cur=[];
+      refresh(ex,i);
+    });
+  }
+  return d;
+}
+function typedFB(it,st){
+  const model=it.acc[0]+(it.sentence?(/^(can|do|have)\b/i.test(it.acc[0])?"?":"."):"");
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>Marked as correct — your teacher will check. · Ты отметила ответ как верный — учитель проверит.</i>":""; return fbHTML("good",st.self?"Marked as correct · Отмечено как верное":st.msg,(it.sentence?`<span class="model">${esc(model)}</span>`:it.why)+(st.note?"<br>"+st.note:"")+extra,model); }
+    return fbHTML("bad",st.msg,`Your answer · Твой ответ: <span class="given">${esc(st.given)}</span><br>Correct · Правильно: <span class="model">${esc(model)}</span>`,model)+(it.sentence?`<button class="selfmark" data-self="1">My answer is also correct ✓ · Мой ответ тоже верный</button>`:"");
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  return "";
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="rowi"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.sentence?"Type the sentence · Напиши предложение":"Type the word · Напиши слово"}"><button class="btn g chkb">Check · Проверить</button></div>`;
+  h+=typedFB(it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{
+      const val=inp.value;
+      if(!val.trim()){ st.warn="Type your answer first. · Сначала напиши ответ."; refresh(ex,i); return; }
+      st.warn=""; st.tries++;
+      if(evalTyped(it,val)){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!";
+        if(it.sentence&&/^(can|do|have)\b/i.test(it.acc[0])&&!/\?\s*$/.test(val)) st.note="Remember the question mark ? · Не забудь знак вопроса.";
+        speak(it.acc[0]); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time. · В этот раз не вышло."; }
+      st.draft=st.done?"":val;
+      refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus();
+    };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+/* match */
+let matchSel=null;
+function seeded(n,seed){ const a=[...Array(n).keys()]; let s=seed; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderMatch(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  const order=seeded(ex.items.length,11);
+  let h=`<div class="match"><div class="mcol">`;
+  ex.items.forEach((it,i)=>{ const st=S(ex,i); h+=`<button class="mi${st.done?" done":""}${st.done&&!st.correct?" late":""}${matchSel===i?" sel":""}${!st.done&&st.tries?" miss":""}" data-l="${i}">${esc(it.l)}${st.done?` <span class="tagn">${st.correct?"✓":"2+"}</span>`:""}</button>`; });
+  h+=`</div><div class="mcol">`;
+  order.forEach(i=>{ const st=S(ex,i); h+=`<button class="mi r${st.done?" done":""}" data-r="${i}">${esc(ex.items[i].r)}</button>`; });
+  h+=`</div></div><p class="small" id="matchMsg" aria-live="polite">${matchSel==null?"Tap an English word first. · Сначала нажми на английское слово.":"Now tap the translation. · Теперь нажми на перевод."}</p>`;
+  d.innerHTML=h;
+  d.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.l; if(S(ex,i).done) return; matchSel=i; speak(ex.items[i].l); refreshMatch(ex); }));
+  d.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const r=+b.dataset.r; if(S(ex,r).done) return;
+    if(matchSel==null){ document.getElementById("matchMsg").textContent="Tap an English word first. · Сначала нажми на английское слово."; return; }
+    const st=S(ex,matchSel);
+    if(r===matchSel){ st.done=true; st.correct=st.tries===0; st.given=st.given||ex.items[r].r; matchSel=null; refreshMatch(ex); }
+    else { if(st.tries===0) st.given=ex.items[r].r; st.tries++; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),400); document.getElementById("matchMsg").textContent="Not this one — try again. · Не то — попробуй ещё."; const lb=d.querySelector(`[data-l="${matchSel}"]`); if(lb) lb.classList.add("miss"); afterChange(); }
+  }));
+  return d;
+}
+function refreshMatch(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderMatch(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n} · Упражнение ${ex.n}</span><h3>${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></h3><p class="instr">${ex.instr}<span class="ru">${ex.instrRu}</span></p></div><span class="ex-score" id="sc-${ex.id}"></span></div>${ex.text?`<div class="story">${esc(ex.text)} <button class="say" data-say="${esc(ex.text)}" aria-label="Listen to the text">🔊</button></div>`:""}<div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="match") box.appendChild(renderMatch(ex)); else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<5;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next · Дальше: ${STEPS[p+1][0].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n}`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} · ✓ ${t.c}`;
+  renderTabs(); if(state.tab===5) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map(([en,ru],k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(en)}${badge}<small>${esc(ru)}</small></button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===5) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){ if(ex.kind==="choice") return it.opts[it.a]; if(ex.kind==="match") return it.r; if(ex.kind==="tiles") return it.a.join(" ")+it.post; return it.acc[0]; }
+function givenText(ex,st){ return ex.kind==="tiles"?String(st.given||"").split("|").join(" "):st.given; }
+function knownCount(){ return Object.values(state.fc.mark).filter(v=>v==="k").length; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (Elementary)`); L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`); L.push(`Flashcards known: ${knownCount()}/${CARDS.length}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return; const q=it.q;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" (model: "${correctText(ex,it)}")`); }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type"||e.kind==="tiles").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${givenText(ex,st)}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED / BUILT ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Start with the Words tab!<span class='ru'>Начни с вкладки «Слова»!</span>":pct>=90?`Brilliant, ${nm}! Your English family is growing!<span class='ru'>Блестяще, ${nm}! Отличная работа!</span>`:pct>=75?"Great work! Look at your mistakes below.<span class='ru'>Отличная работа! Посмотри ошибки ниже.</span>":pct>=55?"Good effort! Review the flashcards and the can rules.<span class='ru'>Хорошая попытка! Повтори карточки и правила can.</span>":"Keep going! Read the rules again and try once more.<span class='ru'>Не сдавайся! Перечитай правила и попробуй ещё раз.</span>";
+  let h=`<div class="kicker">Results · Итоги</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered · отвечено ${t.d} / ${t.n} · flashcards · карточки ${knownCount()} / ${CARDS.length}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer · Твой ответ: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again · Посмотри ещё раз</div><h3>Your mistakes<span class="ru">Твои ошибки</span></h3><ol class="mlist">${mist.join("")}</ol>`:`<h3>No mistakes so far 🎉<span class="ru">Пока без ошибок!</span></h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share · Поделиться</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email · Почта</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text · Скопировать</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message. · Скопировано! Вставь в сообщение учителю."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Please copy the text by hand. · Скопируй текст вручную."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===5) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 On · Звук":"🔇 Off · Без звука"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildWords(); buildMachine(); buildFC(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound); matchSel=null;
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderFC(); renderMachine();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if("speechSynthesis" in window) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
