@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Switch off — stress & healthy habits — Nika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F7F5; --paper:#FFFFFF; --ink:#1F3A3D; --soft:#5F7376; --ru:#7C7896; --line:#E1EAE6; --line2:#CBD9D3;
+  --leaf:#2E8B76; --leaf-bg:#E0F2EC; --sky:#4F7FD1; --sky-bg:#E5EEFB; --lav:#8566C4; --lav-bg:#EFE8FA;
+  --peach:#E9805A; --peach-bg:#FCEBE3; --sun:#EDB548; --sun-bg:#FDF3DB;
+  --good:#22805A; --good-bg:#E2F5EA; --bad:#C6453A; --bad-bg:#FCE8E5; --hint-bg:#FFF4D6;
+  --r:20px; --shadow:0 1px 2px rgba(31,58,61,.05),0 8px 26px rgba(40,90,80,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background-image:radial-gradient(circle at 6% 3%,rgba(46,139,118,.12),transparent 30%),radial-gradient(circle at 96% 22%,rgba(133,102,196,.12),transparent 28%);background-attachment:fixed}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--lav);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:Prata,Georgia,serif;line-height:1.2;margin:0;font-weight:400}
+.ru{display:block;color:var(--ru);font-weight:500;font-size:.92em}
+h2 .ru,h3 .ru{font-family:Manrope,sans-serif;font-weight:600;font-size:.62em;margin-top:4px}
+/* hero */
+.hero{padding-top:26px;padding-bottom:16px;display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:center}
+.badge{display:inline-block;background:var(--leaf);color:#fff;font-weight:800;letter-spacing:.12em;font-size:.72rem;padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(2.2rem,8vw,3.4rem);margin:14px 0 6px}
+.hero h1 span{color:var(--leaf)}
+.hero .sub{margin:0;color:var(--soft)}
+.art{width:100%;max-width:300px;justify-self:center}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px}
+.howto .ru{font-size:.9rem}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:130px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--lav);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(243,247,245,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px 12px;min-height:48px;font-weight:800;font-size:.88rem;white-space:nowrap;line-height:1.2;text-align:left}
+.tab small{display:block;font-weight:600;font-size:.74rem;color:var(--ru)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab[aria-selected="true"] small{color:#C6D6D3}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.72rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 7px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--leaf),var(--sky),var(--lav));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.3rem,5vw,1.7rem);margin-bottom:8px}
+.card h3{font-size:1.1rem;margin-bottom:6px}
+.card p{margin:.45em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);margin-bottom:6px}
+.small{font-size:.88rem;color:var(--soft)}
+/* word list */
+.wl{display:grid;gap:8px;margin-top:10px}
+.wrow{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;border:2px solid var(--line);border-radius:14px;padding:8px 10px;background:#fff}
+.wrow .em{font-size:1.5rem;text-align:center;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--gb,var(--leaf-bg))}
+.wrow b{font-size:1.05rem}
+.wrow .tr{color:var(--ru);font-weight:600}
+.wrow .def{font-size:.86rem;color:var(--soft)}
+.wrow .wex{font-size:.9rem;color:var(--sky);font-style:italic}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.cf{border-left:4px solid var(--sun);background:var(--sun-bg);border-radius:0 12px 12px 0;padding:10px 12px;margin-top:8px}
+.cf .x{color:var(--bad);text-decoration:line-through}.cf .v{color:var(--good);font-weight:800}
+.edful{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.edful div{border-radius:16px;padding:12px 14px}
+.edful .p1{background:var(--sky-bg)}.edful .p2{background:var(--peach-bg)}
+.edful b.h{display:block;font-size:1.05rem}
+/* flashcards */
+.fcwrap{perspective:1200px;margin:14px auto 10px;max-width:540px}
+.fc{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);cursor:pointer;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:8px}
+.front{background:linear-gradient(150deg,#fff,var(--leaf-bg))}
+.back{background:linear-gradient(150deg,#fff,var(--lav-bg));transform:rotateY(180deg)}
+.face .em{font-size:2.6rem}
+.face .ph{font-family:Prata,serif;font-size:clamp(1.4rem,6.5vw,1.9rem);line-height:1.15}
+.face .rt{font-size:1.15rem;font-weight:700;color:#5E4B8C}
+.face .fex{font-style:italic;color:var(--soft);font-size:.95rem;max-width:420px}
+.face .tap{position:absolute;bottom:10px;font-size:.72rem;color:var(--soft);font-weight:700;letter-spacing:.05em}
+.face .fsay{position:absolute;top:12px;right:12px;background:#fff}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.fcmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;max-width:540px;margin:0 auto;font-weight:700;font-size:.88rem;color:var(--soft)}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700}
+.chk input{width:20px;height:20px;accent-color:var(--leaf)}
+.knowbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;max-width:540px;margin:6px auto 0}
+.knowbar div{height:100%;background:var(--leaf);width:0;transition:width .4s}
+.state-k{color:var(--good)}.state-l{color:#B07A12}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.g{background:var(--leaf)}.btn.s{background:var(--sun);color:var(--ink)}.btn.p{background:var(--lav)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf)}
+.ex-head h3{font-size:1.2rem;margin:4px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--leaf-bg);color:var(--leaf);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.wbank{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding:10px;border-radius:14px;background:var(--lav-bg)}
+.wbank span{background:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.92rem}
+.item{border:2px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.06rem}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.opt{overflow-wrap:anywhere;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:48px;font-weight:700}
+.opts.row .opt{text-align:center}
+.opts.row.many{grid-template-columns:repeat(auto-fit,minmax(84px,1fr))}
+.opts.row.many .opt{padding:8px 6px}
+.opt:hover:not(:disabled){border-color:var(--leaf);background:#FAFEFC}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--leaf);color:var(--leaf);font-weight:800;line-height:1.2}
+.listen{border:0;background:var(--sky);color:#fff;border-radius:14px;min-height:52px;padding:8px 18px;font-weight:800;font-size:1.05rem}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.rowi{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.inp:focus{border-color:var(--leaf);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;text-align:left}
+.ruq{font-size:1.1rem;font-weight:700}
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;min-height:52px;text-align:left;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.mi.r{font-weight:600;color:#55497A}
+.mi.sel{border-color:var(--leaf);background:var(--leaf-bg)}
+.mi.done{border-color:#A4D9BF;background:var(--good-bg);color:#155E3E;cursor:default}
+.mi.done.late{border-color:#F0D392;background:var(--sun-bg);color:#7A5200}
+.mi.miss{border-color:#EDB5AE}
+.mi.shake{animation:shake .35s}
+.mi .tagn{font-size:.7rem;background:var(--good);color:#fff;border-radius:6px;padding:1px 6px}
+.mi.late .tagn{background:var(--sun);color:var(--ink)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* tiles */
+.build{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:1.04rem}
+.build .fx{font-weight:700}
+.zone{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;min-width:150px;flex:1 1 200px;padding:4px 6px;border:2px dashed var(--line2);border-radius:12px;align-items:center}
+.zone .ph{color:#9AA8A6;font-size:.88rem;padding:0 6px}
+.tile{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 12px;min-height:46px;font-weight:800}
+.zone .tile{background:var(--ink);color:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.story{background:var(--leaf-bg);border-radius:16px;padding:14px 16px;margin-top:10px;line-height:1.7}
+/* results */
+.score-big{font-family:Prata,serif;font-size:2.8rem;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--lav)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:640px){ .hero{grid-template-columns:1fr} .art{max-width:230px} }
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.ex{padding:15px}
+  .edful{grid-template-columns:1fr}
+  .mi{font-size:.9rem;padding:8px}
+  .wrow{grid-template-columns:38px 1fr auto;gap:8px}
+  .wrow .em{width:38px;height:38px;font-size:1.3rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">PRE-INTERMEDIATE · VOCABULARY</span>
+    <h1>Switch <span>off</span></h1>
+    <p class="sub">Stress, healthy habits and modern life — 23 words. Homework for <b id="nameOut">Nika</b><span class="ru">Стресс, полезные привычки и современная жизнь — 23 слова. Домашнее задание</span></p>
+  </div>
+  <svg class="art" viewBox="0 0 300 220" aria-hidden="true">
+    <circle cx="150" cy="112" r="96" fill="#E0F2EC"/>
+    <path d="M60 170c20-40 52-58 90-58s70 18 90 58" fill="#C9E7DC"/>
+    <rect x="112" y="42" width="76" height="136" rx="16" fill="#1F3A3D"/>
+    <rect x="120" y="54" width="60" height="108" rx="8" fill="#2B4C50"/>
+    <circle cx="150" cy="104" r="20" fill="none" stroke="#EDB548" stroke-width="6" stroke-linecap="round" stroke-dasharray="100 26" transform="rotate(-62 150 104)"/>
+    <path d="M150 80v22" stroke="#EDB548" stroke-width="6" stroke-linecap="round"/>
+    <path d="M206 64c22-4 38 10 38 30-20 4-36-8-38-30z" fill="#2E8B76"/><path d="M208 66c10 10 20 18 34 26" stroke="#E0F2EC" stroke-width="2" fill="none"/>
+    <path d="M94 136c-22-2-36 14-34 32 20 2 34-12 34-32z" fill="#8566C4" opacity=".85"/>
+    <circle cx="74" cy="66" r="14" fill="#EDB548" opacity=".9"/>
+    <text x="226" y="160" font-size="22" font-family="Manrope,sans-serif" font-weight="800" fill="#4F7FD1">z</text><text x="240" y="142" font-size="16" font-family="Manrope,sans-serif" font-weight="800" fill="#4F7FD1">z</text>
+  </svg>
+  <div class="howto">
+    <p>Go tab by tab: learn the words, practise with the flashcards, do the exercises, then send your results.<span class="ru">Иди по вкладкам: выучи слова, потренируйся с карточками, сделай упражнения и отправь результат.</span></p>
+    <div class="namebox"><label for="nameIn">Name · Имя</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 On</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<!-- 0 WORDS -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">Word list 1 · Слова 1</div>
+    <h2>Stress<span class="ru">Стресс</span></h2>
+    <div class="wl" id="wl0"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Word list 2 · Слова 2</div>
+    <h2>Healthy habits<span class="ru">Полезные привычки</span></h2>
+    <div class="wl" id="wl1"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Word list 3 · Слова 3</div>
+    <h2>Modern life and balance<span class="ru">Современная жизнь и баланс</span></h2>
+    <div class="wl" id="wl2"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Important · Важно</div>
+    <h3>stress · stressed · stressful<span class="ru">Три слова — три роли</span></h3>
+    <div class="edful">
+      <div class="p1"><b class="h">stressed 😣</b>how a <b>person</b> feels<span class="ru">как чувствует себя человек</span><i>I'm stressed. She feels stressed.</i></div>
+      <div class="p2"><b class="h">stressful ⚡</b>what a <b>situation</b> is like<span class="ru">какая ситуация (вызывает стресс)</span><i>Exams are stressful. A stressful day.</i></div>
+    </div>
+    <p><b>stress</b> is the noun: <i>Too much stress is bad for you.</i><span class="ru">stress — существительное («стресс»). ✗ I am stress. ✓ I am stressed.</span></p>
+  </div>
+  <div class="card">
+    <div class="kicker">Careful! · Осторожно!</div>
+    <h3>Easy to get wrong<span class="ru">Легко ошибиться</span></h3>
+    <div class="cf"><span class="v">take a break</span> — not <span class="x">make a break</span>. In British English also: <b>have a break</b>.<span class="ru">«Сделать перерыв» — take (или have) a break, но не make.</span></div>
+    <div class="cf"><span class="v">get enough sleep</span> = высыпаться. <i>I don't get enough sleep.</i><span class="ru">Отдельного глагола «высыпаться» нет — говорим get enough sleep.</span></div>
+    <div class="cf"><b>work out</b> (verb, 2 words): <i>I work out at the gym.</i> → <b>a workout</b> (noun, 1 word).<br><b>burn out</b> (verb): <i>You'll burn out.</i> → <b>burnout</b> (noun): <i>Burnout is a big problem.</i><span class="ru">Глагол пишется в два слова, существительное — в одно.</span></div>
+    <div class="cf"><b>breathe</b> /briːð/ — verb (дышать) · <b>breath</b> /breθ/ — noun (дыхание). <i>Breathe deeply!</i><span class="ru">Глагол — с буквой e на конце, и звучит иначе.</span></div>
+    <div class="cf"><b>switch off</b> has two meanings: 1) turn off a phone or a light; 2) stop thinking about work and relax.<span class="ru">1) выключить; 2) отключиться, перестать думать о работе: <i>I can't switch off at the weekend.</i></span></div>
+    <div class="cf"><span class="v">go for a walk</span> — not <span class="x">go to a walk</span>. <span class="v">scroll through</span> social media — with <b>through</b>.<span class="ru">Пойти погулять — go FOR a walk. Листать ленту — scroll THROUGH.</span></div>
+  </div>
+</section>
+
+<!-- 1 FLASHCARDS -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Flashcards · Карточки</div>
+    <h2>Learn the words<span class="ru">Учим слова</span></h2>
+    <p class="small">Tap the card to flip it. Mark each word: <b>I know it</b> or <b>Still learning</b>.<span class="ru">Нажми на карточку, чтобы перевернуть. Отмечай: «Знаю» или «Ещё учу».</span></p>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcDir">⇄</button>
+      <button class="btn ghost" id="fcShuffle">🔀 Shuffle · Перемешать</button>
+    </div>
+    <div class="fcbar"><label class="chk"><input type="checkbox" id="fcFilter"> Only words I'm learning · Только те, что учу</label></div>
+    <div class="fcwrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Flashcard, press to flip"></div></div>
+    <div class="fcmeta"><span id="fcPos"></span><span id="fcState"></span></div>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcPrev" aria-label="Previous">←</button>
+      <button class="btn s" id="fcLearn">Still learning · Ещё учу</button>
+      <button class="btn g" id="fcKnow">I know it · Знаю ✓</button>
+      <button class="btn ghost" id="fcNext" aria-label="Next">→</button>
+    </div>
+    <div class="fcmeta"><span id="fcKnown"></span></div>
+    <div class="knowbar"><div id="fcKnowBar"></div></div>
+  </div>
+</section>
+
+<!-- 2 STRESS WORDS -->
+<section class="page" data-page="2">
+  <div class="card"><div class="kicker">Practice 1 · Тренировка 1</div><h2>Stress and modern life<span class="ru">Стресс и современная жизнь</span></h2></div>
+</section>
+
+<!-- 3 HABITS -->
+<section class="page" data-page="3">
+  <div class="card"><div class="kicker">Practice 2 · Тренировка 2</div><h2>Healthy habits and balance<span class="ru">Полезные привычки и баланс</span></h2></div>
+</section>
+
+<!-- 4 MIX -->
+<section class="page" data-page="4">
+  <div class="card"><div class="kicker">Mix · Всё вместе</div><h2>All the words together<span class="ru">Все слова вместе</span></h2></div>
+</section>
+
+<!-- 5 RESULTS -->
+<section class="page" data-page="5">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher · Отправь учителю</div>
+    <h3>Send your results<span class="ru">Отправь результаты</span></h3>
+    <p class="small">Choose any way. <b>Copy text</b> always has the full report.<span class="ru">Выбери любой способ. «Скопировать текст» — всегда полный отчёт.</span></p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email · Почта учителя: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again<span class="ru">Начать заново</span></h3>
+    <p class="small">This deletes all your answers on this device.<span class="ru">Все ответы на этом устройстве удалятся.</span></p>
+    <button class="btn ghost" id="resetBtn">↺ Start again · Заново</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers? · Удалить все ответы?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes · Да</button> <button class="btn ghost" id="resetNo">No · Нет</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="Switch off — stress, healthy habits & modern life (vocabulary)";
+const LEVEL="Pre-Intermediate";
+const SUBJECT_TOPIC="Stress & healthy habits";
+const STORE_KEY="nika-stress-healthy-habits-v1";
+const DEFAULT_NAME="Nika";
+const STEPS=[["📖 Words","Слова"],["🗂️ Flashcards","Карточки"],["⚡ Practice 1","Стресс"],["🌿 Practice 2","Привычки"],["🧩 Mix","Всё вместе"],["📊 Results","Итоги"]];
+
+/* Word groups: [word, Russian, English definition, example, emoji] */
+const GROUPS=[
+ { bg:"var(--sky-bg)", words:[
+  ["stress (n)","стресс","a feeling of worry and pressure","Too much stress is bad for your health.","🌡️"],
+  ["stressed (adj)","в стрессе, напряжённый (о человеке)","how a person feels","I feel stressed before exams.","😣"],
+  ["stressful (adj)","напряжённый, тяжёлый (о ситуации)","a situation that causes stress","Moving house is very stressful.","⚡"],
+  ["a deadline","крайний срок, дедлайн","a time when you must finish something","My deadline is on Friday.","📅"],
+  ["workload","рабочая нагрузка, объём работы","how much work you have","My workload is huge this month.","🗂️"],
+  ["overwhelmed","перегруженный, «не справляюсь»","you have too much to deal with","I feel overwhelmed by all my emails.","🤯"],
+  ["burn out / burnout","выгореть / выгорание","be completely exhausted from work","Work less, or you'll burn out.","🪫"],
+  ["screen time","экранное время","time you spend looking at screens","My screen time is six hours a day!","📱"]]},
+ { bg:"var(--leaf-bg)", words:[
+  ["get enough sleep","высыпаться","sleep the hours you need","Try to get enough sleep — 7 to 9 hours.","😴"],
+  ["take a break","сделать перерыв","stop working for a short time","Take a break every hour.","☕"],
+  ["go for a walk","пойти погулять","walk outside for fun","Let's go for a walk after lunch.","🚶"],
+  ["work out","тренироваться","do exercise, often at a gym","I work out three times a week.","💪"],
+  ["eat a balanced diet","сбалансированно питаться","eat different healthy foods","A balanced diet gives you energy.","🥗"],
+  ["drink enough water","пить достаточно воды","drink the water your body needs","I drink enough water at work.","💧"],
+  ["meditate","медитировать","sit quietly and calm your mind","She meditates for ten minutes every morning.","🧘"],
+  ["breathe deeply","глубоко дышать","take long, slow breaths","When you're nervous, breathe deeply.","🌬️"]]},
+ { bg:"var(--lav-bg)", words:[
+  ["notifications","уведомления","messages that pop up on your phone","I get 200 notifications a day!","🔔"],
+  ["scroll through","листать, пролистывать","move down a screen to see more","I scroll through social media in bed.","👆"],
+  ["switch off","выключить; отключиться (не думать о работе)","turn off; also: stop thinking about work","Switch off your phone at 10 pm.","📴"],
+  ["a digital detox","цифровой детокс","a time with no phones or screens","I'm doing a digital detox this weekend.","🌿"],
+  ["work-life balance","баланс работы и личной жизни","time for work AND for your life","A four-day week gives better work-life balance.","⚖️"],
+  ["a to-do list","список дел","a list of things you need to do","I write a to-do list every morning.","📝"],
+  ["spend time outdoors","проводить время на свежем воздухе","be outside, in nature","Spending time outdoors makes me happy.","🌳"]]}
+];
+
+const GAP='<span class="slot">___</span>';
+const EX=[
+  /* ---------- Practice 1 ---------- */
+  { id:"match1", step:2, kind:"match", title:"Match the stress words", ru:"Соедини слово и перевод",
+    instr:"Tap an English word, then its Russian translation.", instrRu:"Нажми на английское слово, потом на перевод.",
+    items:[["stress","стресс"],["stressful","напряжённый (о ситуации)"],["a deadline","крайний срок"],["workload","рабочая нагрузка"],["overwhelmed","перегруженный"],["burnout","выгорание"],["screen time","экранное время"],["notifications","уведомления"]].map(([l,r])=>({l,r,q:l}))},
+  { id:"forms", step:2, kind:"choice", title:"stress, stressed or stressful?", ru:"stress, stressed или stressful?",
+    instr:"Person → stressed. Situation → stressful. Noun → stress.", instrRu:"Человек → stressed. Ситуация → stressful. Существительное → stress.",
+    items:[
+      {p:`Moving house is very ${GAP}.`, a:2, why:"Moving house is a situation → <b>stressful</b>.<span class='ru'>Переезд — ситуация → stressful.</span>"},
+      {p:`I feel ${GAP} before exams.`, a:1, why:"How I feel → <b>stressed</b>.<span class='ru'>Как я себя чувствую → stressed.</span>"},
+      {p:`Too much ${GAP} is bad for your health.`, a:0, why:"We need a noun → <b>stress</b>.<span class='ru'>Нужно существительное → stress.</span>"},
+      {p:`Monday mornings at work are always ${GAP}.`, a:2, why:"Monday mornings = a situation → <b>stressful</b>.<span class='ru'>Утро понедельника — ситуация → stressful.</span>"},
+      {p:`Why are you so ${GAP}? — I have three deadlines this week!`, a:1, why:"A person (you) → <b>stressed</b>.<span class='ru'>О человеке → stressed.</span>"},
+      {p:`Yoga helps me deal with ${GAP}.`, a:0, why:"deal with + noun → <b>stress</b>.<span class='ru'>После deal with — существительное → stress.</span>"}
+    ].map(o=>Object.assign(o,{opts:["stress","stressed","stressful"], say:strip(o.p).replace("___",["stress","stressed","stressful"][o.a]), q:strip(o.p)}))},
+  { id:"which", step:2, kind:"choice", title:"Which word fits?", ru:"Какое слово подходит?",
+    instr:"Choose the best word for the gap.", instrRu:"Выбери слово, которое лучше всего подходит.",
+    items:[
+      {p:`I get a lot of ${GAP} on my phone, so I turned them off.`, opts:["notifications","deadlines","breaks"], a:0, why:"Messages that pop up on your phone = <b>notifications</b>.<span class='ru'>Уведомления на телефоне — notifications.</span>"},
+      {p:`My ${GAP} is on Friday, so I must finish the report by then.`, opts:["workload","deadline","burnout"], a:1, why:"The time when you must finish = <b>deadline</b>.<span class='ru'>Крайний срок — deadline.</span>"},
+      {p:`I have 300 emails and three projects. I feel ${GAP}.`, opts:["overwhelmed","balanced","outdoors"], a:0, why:"Too much to deal with → <b>overwhelmed</b>.<span class='ru'>Слишком много всего → overwhelmed.</span>"},
+      {p:`My ${GAP} is six hours a day — I'm always on my phone!`, opts:["work-life balance","screen time","deadline"], a:1, why:"Time on screens = <b>screen time</b>.<span class='ru'>Время у экрана — screen time.</span>"},
+      {p:`She works 12 hours a day, every day. She's going to ${GAP}.`, opts:["burn out","work out","switch off"], a:0, why:"Completely exhausted from work → <b>burn out</b>.<span class='ru'>Полностью выгореть от работы — burn out.</span>"},
+      {p:`Every morning I write a ${GAP}: call Mum, buy milk, email my boss.`, opts:["digital detox","to-do list","notification"], a:1, why:"A list of things to do = <b>to-do list</b>.<span class='ru'>Список дел — to-do list.</span>"},
+      {p:`No phone, no laptop, no TV for a whole weekend — it's a ${GAP}.`, opts:["deadline","digital detox","workload"], a:1, why:"A time with no screens = <b>digital detox</b>.<span class='ru'>Время без экранов — digital detox.</span>"},
+      {p:`I finish work at five and never answer emails at the weekend. I have a good ${GAP}.`, opts:["work-life balance","burnout","screen time"], a:0, why:"Time for work AND for life = <b>work-life balance</b>.<span class='ru'>Баланс работы и жизни — work-life balance.</span>"}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  /* ---------- Practice 2 ---------- */
+  { id:"verbs", step:3, kind:"choice", title:"Which verb?", ru:"Какой глагол?",
+    instr:"Choose the verb that goes with the words.", instrRu:"Выбери глагол, который подходит к словам.",
+    items:[
+      {p:`${GAP} enough sleep 😴`, a:0, why:"<b>get</b> enough sleep.<span class='ru'>высыпаться</span>"},
+      {p:`${GAP} a break ☕`, a:1, why:"<b>take</b> a break — not <i>make</i>!<span class='ru'>сделать перерыв — take, не make</span>"},
+      {p:`${GAP} a walk 🚶`, a:2, why:"<b>go for</b> a walk.<span class='ru'>пойти погулять</span>"},
+      {p:`${GAP} out at the gym 💪`, a:3, why:"<b>work</b> out.<span class='ru'>тренироваться</span>"},
+      {p:`${GAP} a balanced diet 🥗`, a:4, why:"<b>eat</b> a balanced diet.<span class='ru'>сбалансированно питаться</span>"},
+      {p:`${GAP} enough water 💧`, a:5, why:"<b>drink</b> enough water.<span class='ru'>пить достаточно воды</span>"},
+      {p:`${GAP} time outdoors 🌳`, a:6, why:"<b>spend</b> time outdoors.<span class='ru'>проводить время на свежем воздухе</span>"},
+      {p:`${GAP} deeply 🌬️`, a:7, why:"<b>breathe</b> deeply (verb with -e).<span class='ru'>глубоко дышать — breathe, с e на конце</span>"}
+    ].map(o=>{ const V=["get","take","go for","work","eat","drink","spend","breathe"]; return Object.assign(o,{opts:V, say:strip(o.p).replace("___",V[o.a]).replace(/\s*[^\x00-\x7F]+\s*$/,""), q:strip(o.p)}); })},
+  { id:"match2", step:3, kind:"match", title:"Match the phrases", ru:"Соедини фразу и перевод",
+    instr:"Tap an English phrase, then its Russian translation.", instrRu:"Нажми на английскую фразу, потом на перевод.",
+    items:[["scroll through","листать"],["switch off","выключить"],["a digital detox","цифровой детокс"],["work-life balance","баланс работы и жизни"],["a to-do list","список дел"],["meditate","медитировать"],["get enough sleep","высыпаться"]].map(([l,r])=>({l,r,q:l}))},
+  { id:"listen", step:3, kind:"choice", title:"Listen and choose", ru:"Послушай и выбери",
+    instr:"Press 🔊, listen and choose the word you hear.", instrRu:"Нажми 🔊, послушай и выбери слово, которое слышишь.",
+    items:[
+      {w:"workload", opts:["workout","workload","word list"], a:1},
+      {w:"deadline", opts:["headline","bedtime","deadline"], a:2},
+      {w:"meditate", opts:["medicate","meditate","mediate"], a:1},
+      {w:"overwhelmed", opts:["overwhelmed","overworked","overpaid"], a:0},
+      {w:"scroll through", opts:["stroll through","school through","scroll through"], a:2},
+      {w:"breathe deeply", opts:["breathe deeply","breath deeply","bring deeply"], a:0}
+    ].map(o=>Object.assign(o,{listen:true, say:o.w, q:"Listening: "+o.w, why:`You heard: <b>${o.w}</b>.<span class='ru'>Ты услышала: ${o.w}.</span>`}))},
+  { id:"spell", step:3, kind:"type", title:"Write the word", ru:"Напиши слово",
+    instr:"Write the English word or phrase.", instrRu:"Напиши английское слово или фразу.",
+    items:[
+      {ruw:"выгорание", acc:["burnout","burn-out","burn out"], hint:"b _ _ _ o _ _ (1 word)"},
+      {ruw:"крайний срок, дедлайн", acc:["deadline","a deadline","dead line"], hint:"d _ _ _ l _ _ e"},
+      {ruw:"медитировать", acc:["meditate"], hint:"m e d _ _ _ _ e"},
+      {ruw:"уведомления", acc:["notifications"], hint:"n o t _ _ _ _ _ _ _ _ _ s"},
+      {ruw:"глубоко дышать", acc:["breathe deeply"], hint:"br _ _ th _  d _ _ p l y"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:`<b>${o.acc[0]}</b>`, q:o.ruw}))},
+  /* ---------- Mix ---------- */
+  { id:"gaps", step:4, kind:"type", title:"Complete the sentences", ru:"Дополни предложения",
+    instr:"Write a word or phrase from the box. Use each one once.", instrRu:"Впиши слово или фразу из рамки. Каждую — один раз.",
+    bank:["overwhelmed","take a break","screen time","switch off","workload","go for a walk","scroll through"],
+    items:[
+      {s:"I'm so tired. Let's stop for ten minutes and ___.", acc:["take a break","have a break"], hint:"t _ _ _  a  b _ _ _ _"},
+      {s:"After dinner we often ___ in the park.", acc:["go for a walk"], hint:"go f _ _  a  w _ _ _"},
+      {s:"Please ___ your phone in the cinema.", acc:["switch off","turn off"], hint:"s _ _ _ _ _  o _ _"},
+      {s:"I ___ social media in bed for hours. Bad habit!", acc:["scroll through"], hint:"s _ _ _ _ _  through"},
+      {s:"My ___ is three hours a day — not bad!", acc:["screen time"], hint:"s _ _ _ _ _  t _ _ _"},
+      {s:"Ten projects and nobody to help me — my ___ is crazy!", acc:["workload"], hint:"w _ _ _ l _ _ d"},
+      {s:"I have too many things to do and I feel ___.", acc:["overwhelmed"], hint:"o v e r _ _ _ _ _ _ d"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.s).replace("___",GAP)}</span>`, why:`<b>${o.s.replace("___",o.acc[0])}</b>`, sayFull:o.s.replace("___",o.acc[0]), q:o.s}))},
+  { id:"build", step:4, kind:"tiles", title:"Make a sentence", ru:"Составь предложение",
+    instr:"Tap the words in the right order.", instrRu:"Нажимай на слова в правильном порядке.",
+    items:[
+      {post:".", tiles:["get","You","enough sleep","should"], a:["You","should","get","enough sleep"], hint:"Who? → should → verb.<span class='ru'>Кто? → should → глагол.</span>"},
+      {post:".", tiles:["three times","I","a week","work out"], a:["I","work out","three times","a week"], hint:"I → work out → how often?<span class='ru'>I → work out → как часто?</span>"},
+      {post:"?", tiles:["take","every hour","Do","you","a break"], a:["Do","you","take","a break","every hour"], hint:"Start with <b>Do</b>.<span class='ru'>Начни с Do.</span>"},
+      {post:".", tiles:["every morning","sister","meditates","My"], a:["My","sister","meditates","every morning"], hint:"My sister → verb → when?<span class='ru'>My sister → глагол → когда?</span>"},
+      {post:".", tiles:["at night","your notifications","Switch off"], a:["Switch off","your notifications","at night"], hint:"Start with the verb: <b>Switch off</b>.<span class='ru'>Начни с глагола: Switch off.</span>"}
+    ].map(o=>Object.assign(o,{why:"",q:o.a.join(" ")+o.post}))},
+  { id:"story", step:4, kind:"choice", title:"Read about Mark", ru:"Прочитай о Марке",
+    instr:"Read the text. True or false?", instrRu:"Прочитай текст. Верно или неверно?",
+    text:"Last month Mark felt really stressed. His workload was huge, he had a big deadline every week, and his screen time was nine hours a day! He couldn't sleep, and he felt overwhelmed. His doctor said, 'You're going to burn out. You need a better work-life balance.' So Mark made some changes. Now he switches off his phone at 9 pm and gets enough sleep — about eight hours. He takes a break every hour and goes for a walk at lunchtime. On Saturdays he does a digital detox: no phone, no laptop — he spends time outdoors with his friends. He feels much better!",
+    items:[
+      {s:"Mark's screen time was nine hours a day.", a:0, why:"'his screen time was nine hours a day'<span class='ru'>Да, девять часов в день.</span>"},
+      {s:"Mark slept very well last month.", a:1, why:"He <b>couldn't sleep</b>.<span class='ru'>Он не мог спать.</span>"},
+      {s:"His doctor said he needed a better work-life balance.", a:0, why:"'You need a better work-life balance.'<span class='ru'>Да, так сказал врач.</span>"},
+      {s:"Now he switches off his phone at 11 pm.", a:1, why:"He switches it off at <b>9 pm</b>.<span class='ru'>Он выключает телефон в 9 вечера.</span>"},
+      {s:"He goes for a walk in the evening.", a:1, why:"He goes for a walk <b>at lunchtime</b>.<span class='ru'>Он гуляет в обед.</span>"},
+      {s:"On Saturdays he doesn't use his phone.", a:0, why:"Saturday = digital detox: <b>no phone</b>.<span class='ru'>По субботам — цифровой детокс, без телефона.</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${o.s}</span>`, opts:["True · Верно","False · Неверно"], say:o.s, q:o.s}))},
+  { id:"translate", step:4, kind:"type", title:"Translate into English", ru:"Переведи на английский",
+    instr:"Write the sentence in English.", instrRu:"Напиши предложение по-английски.",
+    items:[
+      {ruw:"Я сегодня в стрессе.", acc:["I'm stressed today","I am stressed today","I feel stressed today","Today I'm stressed","Today I am stressed","I'm feeling stressed today"], hint:"I'm … today.<span class='ru'>О человеке — stressed.</span>"},
+      {ruw:"Сделай перерыв!", acc:["Take a break","Have a break"], hint:"T… a break!<span class='ru'>Не make!</span>"},
+      {ruw:"Я не высыпаюсь.", acc:["I don't get enough sleep","I do not get enough sleep","I don't sleep enough","I do not sleep enough"], hint:"I don't get …<span class='ru'>высыпаться — get enough sleep</span>"},
+      {ruw:"У меня огромная нагрузка на этой неделе.", acc:["My workload is huge this week","My workload this week is huge","I have a huge workload this week","I've got a huge workload this week","This week my workload is huge","This week I have a huge workload"], hint:"My workload is …<span class='ru'>нагрузка — workload, огромная — huge</span>"},
+      {ruw:"Выключи уведомления.", acc:["Switch off notifications","Switch off your notifications","Switch off the notifications","Switch your notifications off","Switch the notifications off","Turn off notifications","Turn off your notifications","Turn off the notifications"], hint:"Switch off …<span class='ru'>уведомления — notifications</span>"},
+      {ruw:"Давай пойдём погуляем после обеда.", acc:["Let's go for a walk after lunch","Let us go for a walk after lunch"], hint:"Let's go for …<span class='ru'>пойти погулять — go for a walk</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:"", q:o.ruw, sentence:true}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+const PRAISE=["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Yes! · Да!"];
+const OOPS=["Not quite. · Не совсем.","Almost! · Почти!","Not this one. · Не то."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const CARDS=GROUPS.flatMap(g=>g.words.map(w=>({w:w[0],ru:w[1],def:w[2],ex:w[3],em:w[4]})));
+const HAS_TTS=(()=>{ try{ return "speechSynthesis" in window; }catch(e){ return false; } })();
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, fc:{order:CARDS.map((_,i)=>i), pos:0, dir:"en", only:false, mark:{}}}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.fc) state.fc=freshState().fc;
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text||!HAS_TTS) return;
+  try{
+    const u=new SpeechSynthesisUtterance(strip(text).replace(/\s*\((n|adj)\)/g,""));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.85;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\b(do|does|did|is|are|was|were|have|has|could|should)nt\b/g,"$1n't").replace(/\bcant\b/g,"can't").replace(/\bim\b/g,"i am");
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bcan not\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have").replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'ll\b/g,"$1 will").replace(/\blet's\b/g,"let us").replace(/\b(he|she|it|that|what)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function evalTyped(it,raw){ const n=norm(raw); return it.acc.map(norm).includes(n); }
+function fbHTML(kind,msg,body,say){ return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`; }
+
+/* ---------- words tab ---------- */
+function buildWords(){
+  GROUPS.forEach((g,k)=>{
+    document.getElementById("wl"+k).innerHTML=g.words.map(([w,ru,def,ex,em])=>`<div class="wrow" style="--gb:${g.bg}"><span class="em">${em}</span><div><b>${esc(w)}</b> — <span class="tr">${esc(ru)}</span><div class="def">${esc(def)}</div><div class="wex">${esc(ex)}</div></div><button class="say" data-say="${esc(w+". "+ex)}" aria-label="Listen to ${esc(w)}">🔊</button></div>`).join("");
+  });
+}
+
+/* ---------- flashcards ---------- */
+function fcList(){ const f=state.fc; return f.order.filter(i=>!f.only||f.mark[i]!=="k"); }
+function renderFC(){
+  const f=state.fc, list=fcList(), card=document.getElementById("fc");
+  document.getElementById("fcDir").textContent=f.dir==="en"?"⇄ English → Русский":"⇄ Русский → English";
+  document.getElementById("fcFilter").checked=!!f.only;
+  const known=Object.values(f.mark).filter(v=>v==="k").length;
+  document.getElementById("fcKnown").textContent=`Known · Знаю: ${known} / ${CARDS.length}`;
+  document.getElementById("fcKnowBar").style.width=(known/CARDS.length*100)+"%";
+  card.classList.remove("flip");
+  if(!list.length){ card.innerHTML=`<div class="face front"><div class="em">🎉</div><div class="ph">You know them all!</div><div class="rt">Ты знаешь все слова!</div></div>`; document.getElementById("fcPos").textContent=""; document.getElementById("fcState").textContent=""; return; }
+  if(f.pos>=list.length) f.pos=0; if(f.pos<0) f.pos=list.length-1;
+  const i=list[f.pos], c=CARDS[i];
+  const fr=f.dir==="en"?`<div class="em">${c.em}</div><div class="ph">${esc(c.w)}</div><button class="say fsay" data-say="${esc(c.w)}" aria-label="Listen">🔊</button>`:`<div class="em">${c.em}</div><div class="rt">${esc(c.ru)}</div>`;
+  const bk=f.dir==="en"?`<div class="rt">${esc(c.ru)}</div><div class="fex">“${esc(c.ex)}”</div>`:`<div class="ph">${esc(c.w)}</div><div class="fex">“${esc(c.ex)}”</div>`;
+  card.innerHTML=`<div class="face front">${fr}<span class="tap">TAP TO FLIP · НАЖМИ</span></div><div class="face back">${bk}<button class="say fsay" data-say="${esc(c.w+". "+c.ex)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP BACK</span></div>`;
+  document.getElementById("fcPos").textContent=`${f.pos+1} / ${list.length}`;
+  const m=f.mark[i];
+  document.getElementById("fcState").innerHTML=m==="k"?'<span class="state-k">✓ I know it · Знаю</span>':m==="l"?'<span class="state-l">● Still learning · Учу</span>':"";
+}
+function buildFC(){
+  const card=document.getElementById("fc"), f=()=>state.fc;
+  const flip=e=>{ if(e&&e.target&&e.target.closest&&e.target.closest("[data-say]")) return; card.classList.toggle("flip"); };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); flip(); } });
+  document.getElementById("fcPrev").addEventListener("click",()=>{ f().pos--; renderFC(); saveState(); });
+  document.getElementById("fcNext").addEventListener("click",()=>{ f().pos++; renderFC(); saveState(); });
+  document.getElementById("fcDir").addEventListener("click",()=>{ f().dir=f().dir==="en"?"ru":"en"; renderFC(); saveState(); });
+  document.getElementById("fcShuffle").addEventListener("click",()=>{ const o=f().order; for(let k=o.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [o[k],o[j]]=[o[j],o[k]]; } f().pos=0; renderFC(); saveState(); });
+  document.getElementById("fcFilter").addEventListener("change",e=>{ f().only=e.target.checked; f().pos=0; renderFC(); saveState(); });
+  const mark=v=>{ const list=fcList(); if(!list.length) return; const i=list[f().pos]; f().mark[i]=v; if(!(f().only&&v==="k")) f().pos++; renderFC(); saveState(); if(state.tab===5) renderResults(); };
+  document.getElementById("fcKnow").addEventListener("click",()=>mark("k"));
+  document.getElementById("fcLearn").addEventListener("click",()=>mark("l"));
+  renderFC();
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):ex.kind==="tiles"?renderTiles(ex,i):renderType(ex,i); }
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const rowCls=it.listen?"":it.opts.every(o=>o.length<16)?(it.opts.length>4?" row many":" row"):"";
+  let top=it.p?`<div class="sent">${it.p}</div>`:"";
+  if(it.listen) top=`<button class="listen" data-say="${esc(it.w)}" aria-label="Listen">🔊 Listen · Слушай</button>${HAS_TTS?"":`<p class="small">No sound on this device. The word is: <b>${esc(it.w)}</b><span class="ru">На этом устройстве нет звука — слово: ${esc(it.w)}</span></p>`}`;
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp">${top}<div class="opts${rowCls}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick]; st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i); }));
+  return d;
+}
+function renderTiles(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  if(!st.cur) st.cur=[];
+  const full=it.a.join(" ")+it.post;
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="build"><div class="zone">`;
+  if(st.done) h+=(st.correct?it.a:String(st.given||"").split("|")).map(w=>`<span class="tile" style="pointer-events:none">${esc(w)}</span>`).join("");
+  else h+=st.cur.length?st.cur.map((k,pos)=>`<button class="tile" data-pos="${pos}">${esc(it.tiles[k])}</button>`).join(""):'<span class="ph">tap the words · нажимай на слова</span>';
+  h+=`</div><span class="fx">${esc(it.post)}</span></div>`;
+  if(!st.done){
+    h+=`<div class="pool">${it.tiles.map((w,k)=>st.cur.includes(k)?"":`<button class="tile" data-k="${k}">${esc(w)}</button>`).join("")}</div>`;
+    h+=`<div class="rowi"><button class="btn g chkb">Check · Проверить</button><button class="btn ghost clr">Clear · Очистить</button></div>`;
+    if(st.warn) h+=fbHTML("hint","",st.warn); else if(st.tries===1) h+=fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  } else h+=st.correct?fbHTML("good",st.msg,"",full):fbHTML("bad",st.msg,`Correct · Правильно: <span class="model">${esc(full)}</span>`,full);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done){
+    d.querySelectorAll(".pool .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.push(+b.dataset.k); st.warn=""; refresh(ex,i); }));
+    d.querySelectorAll(".zone .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.splice(+b.dataset.pos,1); refresh(ex,i); }));
+    d.querySelector(".clr").addEventListener("click",()=>{ st.cur=[]; st.warn=""; refresh(ex,i); });
+    d.querySelector(".chkb").addEventListener("click",()=>{
+      if(st.cur.length<it.tiles.length){ st.warn="Use all the words first. · Сначала используй все слова."; refresh(ex,i); return; }
+      st.warn=""; const ans=st.cur.map(k=>it.tiles[k]); st.tries++;
+      if(ans.join("|")===it.a.join("|")){ st.done=true; st.correct=true; st.given=ans.join("|"); st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!"; speak(full); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=ans.join("|"); st.msg="Not this time. · В этот раз не вышло."; }
+      else st.cur=[];
+      refresh(ex,i);
+    });
+  }
+  return d;
+}
+function modelOf(it){ return it.sentence?it.acc[0]+(/^(do|can|have|are|is)\b/i.test(it.acc[0])?"?":/^(take|have) a break$/i.test(it.acc[0])?"!":"."):it.acc[0]; }
+function typedFB(it,st){
+  const model=modelOf(it), sayM=it.sayFull||model;
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>Marked as correct — your teacher will check. · Ты отметила ответ как верный — учитель проверит.</i>":""; return fbHTML("good",st.self?"Marked as correct · Отмечено как верное":st.msg,(it.sentence?`<span class="model">${esc(model)}</span>`:it.why)+(st.note?"<br>"+st.note:"")+extra,sayM); }
+    return fbHTML("bad",st.msg,`Your answer · Твой ответ: <span class="given">${esc(st.given)}</span><br>Correct · Правильно: <span class="model">${esc(it.sayFull||model)}</span>`,sayM)+(it.sentence?`<button class="selfmark" data-self="1">My answer is also correct ✓ · Мой ответ тоже верный</button>`:"");
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  return "";
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="rowi"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.sentence?"Type the sentence · Напиши предложение":"Type here · Напиши здесь"}"><button class="btn g chkb">Check · Проверить</button></div>`;
+  h+=typedFB(it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{
+      const val=inp.value;
+      if(!val.trim()){ st.warn="Type your answer first. · Сначала напиши ответ."; refresh(ex,i); return; }
+      st.warn=""; st.tries++;
+      if(evalTyped(it,val)){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!"; speak(it.sayFull||it.acc[0]); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time. · В этот раз не вышло."; }
+      st.draft=st.done?"":val;
+      refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus();
+    };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+/* match (one selection per exercise) */
+const matchSel={};
+function seeded(n,seed){ const a=[...Array(n).keys()]; let s=seed; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderMatch(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  const order=seeded(ex.items.length,ex.id.length*7+3), sel=matchSel[ex.id];
+  let h=`<div class="match"><div class="mcol">`;
+  ex.items.forEach((it,i)=>{ const st=S(ex,i); h+=`<button class="mi${st.done?" done":""}${st.done&&!st.correct?" late":""}${sel===i?" sel":""}${!st.done&&st.tries?" miss":""}" data-l="${i}">${esc(it.l)}${st.done?` <span class="tagn">${st.correct?"✓":"2+"}</span>`:""}</button>`; });
+  h+=`</div><div class="mcol">`;
+  order.forEach(i=>{ const st=S(ex,i); h+=`<button class="mi r${st.done?" done":""}" data-r="${i}">${esc(ex.items[i].r)}</button>`; });
+  h+=`</div></div><p class="small mmsg" aria-live="polite">${sel==null?"Tap an English word first. · Сначала нажми на английское слово.":"Now tap the translation. · Теперь нажми на перевод."}</p>`;
+  d.innerHTML=h;
+  const msg=d.querySelector(".mmsg");
+  d.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.l; if(S(ex,i).done) return; matchSel[ex.id]=i; speak(ex.items[i].l); refreshMatch(ex); }));
+  d.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const r=+b.dataset.r, cur=matchSel[ex.id]; if(S(ex,r).done) return;
+    if(cur==null){ msg.textContent="Tap an English word first. · Сначала нажми на английское слово."; return; }
+    const st=S(ex,cur);
+    if(r===cur){ st.done=true; st.correct=st.tries===0; st.given=st.given||ex.items[r].r; matchSel[ex.id]=null; refreshMatch(ex); }
+    else { if(st.tries===0) st.given=ex.items[r].r; st.tries++; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),400); msg.textContent="Not this one — try again. · Не то — попробуй ещё."; const lb=d.querySelector(`[data-l="${cur}"]`); if(lb) lb.classList.add("miss"); afterChange(); }
+  }));
+  return d;
+}
+function refreshMatch(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderMatch(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n} · Упражнение ${ex.n}</span><h3>${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></h3><p class="instr">${ex.instr}<span class="ru">${ex.instrRu}</span></p></div><span class="ex-score" id="sc-${ex.id}"></span></div>${ex.bank?`<div class="wbank">${ex.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`:""}${ex.text?`<div class="story">${esc(ex.text)} <button class="say" data-say="${esc(ex.text)}" aria-label="Listen to the text">🔊</button></div>`:""}<div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="match") box.appendChild(renderMatch(ex)); else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<5;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next · Дальше: ${STEPS[p+1][0].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n}`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} · ✓ ${t.c}`;
+  renderTabs(); if(state.tab===5) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map(([en,ru],k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(en)}${badge}<small>${esc(ru)}</small></button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===5) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){ if(ex.kind==="choice") return it.opts[it.a]; if(ex.kind==="match") return it.r; if(ex.kind==="tiles") return it.a.join(" ")+it.post; return it.acc[0]; }
+function givenText(ex,st){ return ex.kind==="tiles"?String(st.given||"").split("|").join(" "):st.given; }
+function knownCount(){ return Object.values(state.fc.mark).filter(v=>v==="k").length; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (${LEVEL})`); L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`); L.push(`Flashcards known: ${knownCount()}/${CARDS.length}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return; const q=it.q;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" (model: "${correctText(ex,it)}")`); }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type"||e.kind==="tiles").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${givenText(ex,st)}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED / BUILT ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Start with the Words tab!<span class='ru'>Начни с вкладки «Слова»!</span>":pct>=90?`Brilliant, ${nm}! Time to switch off and relax 😌<span class='ru'>Блестяще, ${nm}! Теперь можно отдохнуть.</span>`:pct>=75?"Great work! Look at your mistakes below.<span class='ru'>Отличная работа! Посмотри ошибки ниже.</span>":pct>=55?"Good effort! Review the flashcards and try again.<span class='ru'>Хорошая попытка! Повтори карточки и попробуй ещё раз.</span>":"Keep going! Learn the words with the flashcards and try once more.<span class='ru'>Не сдавайся! Повтори слова по карточкам и попробуй ещё раз.</span>";
+  let h=`<div class="kicker">Results · Итоги</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered · отвечено ${t.d} / ${t.n} · flashcards · карточки ${knownCount()} / ${CARDS.length}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer · Твой ответ: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again · Посмотри ещё раз</div><h3>Your mistakes<span class="ru">Твои ошибки</span></h3><ol class="mlist">${mist.join("")}</ol>`:`<h3>No mistakes so far 🎉<span class="ru">Пока без ошибок!</span></h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share · Поделиться</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email · Почта</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text · Скопировать</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message. · Скопировано! Вставь в сообщение учителю."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Please copy the text by hand. · Скопируй текст вручную."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===5) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 On · Звук":"🔇 Off · Без звука"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildWords(); buildFC(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound); Object.keys(matchSel).forEach(k=>delete matchSel[k]);
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderFC();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if(HAS_TTS) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
