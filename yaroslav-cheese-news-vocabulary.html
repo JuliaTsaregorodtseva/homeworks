@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Words from the news: the cheese crisis — Yaroslav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F1E3; --paper:#FFFDF8; --ink:#22201C; --soft:#6B655A; --line:#E9DFC9; --line2:#D9CBAE;
+  --cheese:#E9B530; --cheese-bg:#FBF0CF; --rind:#B4562F; --rind-bg:#F8E4DA; --herb:#4F7D4A; --herb-bg:#E5EFDF;
+  --blue:#2F5C8F; --blue-bg:#E3EBF5;
+  --good:#22805A; --good-bg:#E2F5EA; --bad:#C6453A; --bad-bg:#FCE8E5; --hint-bg:#FFF4D6;
+  --r:18px; --shadow:0 1px 2px rgba(34,32,28,.06),0 8px 24px rgba(120,95,40,.12);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background-image:radial-gradient(circle at 10% 5%,rgba(233,181,48,.16),transparent 30%),radial-gradient(circle at 92% 30%,rgba(180,86,47,.10),transparent 28%);background-attachment:fixed}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;line-height:1.15;margin:0;font-weight:900}
+/* masthead */
+.mast{padding-top:22px;padding-bottom:14px}
+.mast-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;border-bottom:3px double var(--ink);padding-bottom:6px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.mast h1{font-size:clamp(2.1rem,8.5vw,3.6rem);margin:14px 0 4px;letter-spacing:-.01em}
+.mast h1 span{color:var(--rind)}
+.mast .dek{margin:0;font-size:1.05rem;color:var(--soft)}
+.mast-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:center}
+.art{width:100%;max-width:280px;justify-self:center}
+.howto{margin-top:14px;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:130px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--blue);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(247,241,227,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:12px;padding:6px 12px;min-height:46px;font-weight:800;font-size:.9rem;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.72rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 7px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--cheese),var(--rind));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.35rem,5vw,1.75rem);margin-bottom:8px}
+.card h3{font-size:1.15rem;margin-bottom:6px}
+.card p{margin:.45em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rind);margin-bottom:6px}
+.small{font-size:.88rem;color:var(--soft)}
+/* story */
+.story{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;line-height:1.75;column-gap:28px}
+.story p:first-child::first-letter{float:left;font-family:"Playfair Display",serif;font-weight:900;font-size:3.1rem;line-height:.9;padding:4px 8px 0 0;color:var(--rind)}
+.w{border:0;background:var(--cheese-bg);border-bottom:2px solid var(--cheese);border-radius:4px;padding:0 3px;font:inherit;font-weight:700;min-height:0}
+.w[aria-expanded="true"]{background:var(--cheese);color:var(--ink)}
+.gloss{display:none;margin:10px 0 0;background:var(--blue-bg);border-radius:12px;padding:10px 14px;font-family:"Work Sans",sans-serif;font-size:.95rem}
+.gloss.on{display:block}
+/* word cards */
+.wl{display:grid;gap:12px;margin-top:10px}
+.wc{border:2px solid var(--line);border-radius:16px;padding:14px;background:#fff;position:relative}
+.wc .hd{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;padding-right:50px}
+.wc .wd{font-family:"Playfair Display",serif;font-weight:900;font-size:1.35rem}
+.wc .pos{font-size:.8rem;font-weight:800;color:#fff;background:var(--rind);border-radius:6px;padding:1px 7px}
+.wc .ipa{color:var(--soft);font-size:.92rem}
+.wc .def{margin:6px 0 4px;font-weight:600}
+.wc .wex{font-style:italic;color:var(--blue)}
+.wc .col{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.wc .col span{background:var(--herb-bg);color:#2F5A2B;border-radius:999px;padding:3px 10px;font-size:.86rem;font-weight:700}
+.wc .fam{margin-top:6px;font-size:.88rem;color:var(--soft)}
+.wc .say{position:absolute;top:12px;right:12px}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.cf{border-left:4px solid var(--cheese);background:var(--cheese-bg);border-radius:0 12px 12px 0;padding:10px 12px;margin-top:8px}
+.cf .x{color:var(--bad);text-decoration:line-through}.cf .v{color:var(--good);font-weight:800}
+/* flashcards */
+.fcwrap{perspective:1200px;margin:14px auto 10px;max-width:560px}
+.fc{position:relative;width:100%;min-height:290px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);cursor:pointer;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 22px 30px;gap:8px}
+.front{background:linear-gradient(150deg,#fff,var(--cheese-bg))}
+.back{background:linear-gradient(150deg,#fff,var(--blue-bg));transform:rotateY(180deg)}
+.face .em{font-size:2.4rem}
+.face .ph{font-family:"Playfair Display",serif;font-weight:900;font-size:clamp(1.5rem,7vw,2.1rem);line-height:1.1}
+.face .rt{font-size:1.06rem;font-weight:700;color:#2B4A72;max-width:440px}
+.face .fex{font-style:italic;color:var(--soft);font-size:.95rem;max-width:440px}
+.face .fcol{font-size:.86rem;color:#2F5A2B;font-weight:700;max-width:440px}
+.face .tap{position:absolute;bottom:10px;font-size:.72rem;color:var(--soft);font-weight:700;letter-spacing:.05em}
+.face .fsay{position:absolute;top:12px;right:12px;background:#fff}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.fcmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;max-width:560px;margin:0 auto;font-weight:700;font-size:.88rem;color:var(--soft)}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700}
+.chk input{width:20px;height:20px;accent-color:var(--herb)}
+.knowbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;max-width:560px;margin:6px auto 0}
+.knowbar div{height:100%;background:var(--herb);width:0;transition:width .4s}
+.state-k{color:var(--good)}.state-l{color:#B07A12}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.g{background:var(--herb)}.btn.s{background:var(--cheese);color:var(--ink)}.btn.p{background:var(--blue)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rind)}
+.ex-head h3{font-size:1.25rem;margin:4px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--herb-bg);color:var(--herb);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.wbank{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding:10px;border-radius:14px;background:var(--cheese-bg)}
+.wbank span{background:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.92rem}
+.item{border:2px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.06rem}
+.quote{font-family:Georgia,serif;font-style:italic;font-size:1.08rem}
+.key{display:inline-block;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;font-weight:800;letter-spacing:.06em;font-size:.86rem;margin:4px 0}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.opts.row.many{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}
+.opts.row.many .opt{padding:8px 6px}
+.opt{overflow-wrap:anywhere;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:48px;font-weight:700}
+.opts.row .opt{text-align:center}
+.opt:hover:not(:disabled){border-color:var(--herb);background:#FBFDF9}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--rind);color:var(--rind);font-weight:800;line-height:1.2}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.rowi{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.inp:focus{border-color:var(--herb);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;text-align:left}
+/* match */
+.match{display:grid;grid-template-columns:.8fr 1.2fr;gap:8px;margin-top:12px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;min-height:56px;text-align:left;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.mi.r{font-weight:500;font-size:.94rem;color:#4B463D}
+.mi.sel{border-color:var(--herb);background:var(--herb-bg)}
+.mi.done{border-color:#A4D9BF;background:var(--good-bg);color:#155E3E;cursor:default}
+.mi.done.late{border-color:#F0D392;background:var(--cheese-bg);color:#7A5200}
+.mi.miss{border-color:#EDB5AE}
+.mi.shake{animation:shake .35s}
+.mi .tagn{font-size:.7rem;background:var(--good);color:#fff;border-radius:6px;padding:1px 6px}
+.mi.late .tagn{background:var(--cheese);color:var(--ink)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* results */
+.score-big{font-family:"Playfair Display",serif;font-weight:900;font-size:2.8rem;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--blue)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (min-width:760px){ .story{columns:2} }
+@media (max-width:640px){ .mast-grid{grid-template-columns:1fr} .art{max-width:210px} }
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.ex{padding:15px}
+  .match{grid-template-columns:1fr 1.25fr}
+  .mi{font-size:.9rem;padding:8px}
+  .mi.r{font-size:.86rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap mast">
+  <div class="mast-top"><span>Upper-Intermediate · Vocabulary</span><span>Words from the news</span></div>
+  <div class="mast-grid">
+    <div>
+      <h1>The <span>cheese</span> crisis</h1>
+      <p class="dek">Seven words Yaroslav found in the news — learn them, test them and use them. Homework for <b id="nameOut">Yaroslav</b>.</p>
+    </div>
+    <svg class="art" viewBox="0 0 280 200" aria-hidden="true">
+      <ellipse cx="140" cy="168" rx="118" ry="16" fill="#E9DFC9"/>
+      <path d="M40 120 L210 60 L240 130 L70 168 Z" fill="#F4D06B"/>
+      <path d="M40 120 L70 168 L240 130 L240 145 L72 184 L40 136 Z" fill="#E9B530"/>
+      <path d="M40 120 L210 60 L240 130" fill="none" stroke="#B4562F" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="110" cy="122" r="11" fill="#E9B530"/><circle cx="160" cy="110" r="7" fill="#E9B530"/><circle cx="190" cy="128" r="9" fill="#E9B530"/><circle cx="135" cy="146" r="6" fill="#E9B530"/>
+      <rect x="168" y="14" width="96" height="62" rx="6" fill="#FFFDF8" stroke="#22201C" stroke-width="3"/>
+      <path d="M180 30h72M180 42h72M180 54h48" stroke="#6B655A" stroke-width="4" stroke-linecap="round"/>
+      <rect x="180" y="62" width="30" height="6" rx="3" fill="#B4562F"/>
+    </svg>
+  </div>
+  <div class="howto">
+    <p>Read the news story, study the word cards, practise with the flashcards, then work through the exercises and send your results.</p>
+    <div class="namebox"><label for="nameIn">Name</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 On</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<!-- 0 WORDS -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">The story · Tap the highlighted words</div>
+    <h2>Is camembert on the verge of extinction?</h2>
+    <div class="story" id="story"></div>
+    <div class="gloss" id="gloss" aria-live="polite"></div>
+    <p class="small" style="margin-top:12px">A short text written for this homework, inspired by the article Yaroslav read.</p>
+  </div>
+  <div class="card">
+    <div class="kicker">Word cards</div>
+    <h2>Your seven words</h2>
+    <p class="small">Each card has the meaning, an example, typical word partners (collocations) and related forms.</p>
+    <div class="wl" id="wl"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Check your definitions</div>
+    <h3>Small but important details</h3>
+    <div class="cf"><b>exacerbate</b> is not just "to spoil". It means to make something that is <b>already bad</b> even worse: <span class="v">exacerbate the problem / tensions / pain</span>. You can't <span class="x">exacerbate a holiday</span> — but you can <b>spoil</b> one.</div>
+    <div class="cf"><b>connoisseur</b> doesn't have to be a professional. It's anyone with expert knowledge and good taste who can judge quality: <span class="v">a connoisseur <b>of</b> wine</span>, <span class="v">a cheese connoisseur</span>. Pronunciation: /ˌkɒnəˈsɜː/ — the stress is at the end.</div>
+    <div class="cf">Spelling: <span class="v">arduous</span> — not <span class="x">arduouse</span>. Like <i>famous, dangerous, ubiquitous</i>: adjectives end in <b>-ous</b>.</div>
+    <div class="cf"><b>dwindle</b> has no object: <span class="v">Our savings dwindled.</span> — not <span class="x">We dwindled our savings.</span> The <b>-ing</b> form is often an adjective: <span class="v">dwindling supplies</span>.</div>
+    <div class="cf"><b>on the verge of</b> + noun / -ing: <span class="v">on the verge of tears</span>, <span class="v">on the verge of giving up</span> — not <span class="x">on the verge to give up</span>.</div>
+    <div class="cf"><b>know-how</b> is uncountable: <span class="v">a lot of know-how</span>, <span class="v">the know-how to do something</span> — not <span class="x">a know-how</span> or <span class="x">know-hows</span>.</div>
+  </div>
+</section>
+
+<!-- 1 FLASHCARDS -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Flashcards</div>
+    <h2>Learn the words</h2>
+    <p class="small">Tap the card to flip it. Mark each word <b>I know it</b> or <b>Still learning</b>. Switch the direction to go from definition to word.</p>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcDir">⇄</button>
+      <button class="btn ghost" id="fcShuffle">🔀 Shuffle</button>
+    </div>
+    <div class="fcbar"><label class="chk"><input type="checkbox" id="fcFilter"> Only words I'm learning</label></div>
+    <div class="fcwrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Flashcard, press to flip"></div></div>
+    <div class="fcmeta"><span id="fcPos"></span><span id="fcState"></span></div>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcPrev" aria-label="Previous">←</button>
+      <button class="btn s" id="fcLearn">Still learning</button>
+      <button class="btn g" id="fcKnow">I know it ✓</button>
+      <button class="btn ghost" id="fcNext" aria-label="Next">→</button>
+    </div>
+    <div class="fcmeta"><span id="fcKnown"></span></div>
+    <div class="knowbar"><div id="fcKnowBar"></div></div>
+  </div>
+</section>
+
+<!-- 2 MEANING -->
+<section class="page" data-page="2">
+  <div class="card"><div class="kicker">Part 1</div><h2>Meaning</h2><p class="small">Make sure you know exactly what each word means.</p></div>
+</section>
+
+<!-- 3 USE -->
+<section class="page" data-page="3">
+  <div class="card"><div class="kicker">Part 2</div><h2>Form and word partners</h2><p class="small">Collocations, word forms, grammar and spelling.</p></div>
+</section>
+
+<!-- 4 IN CONTEXT -->
+<section class="page" data-page="4">
+  <div class="card"><div class="kicker">Part 3</div><h2>In context</h2><p class="small">Use the words in a text and in sentence transformations.</p></div>
+</section>
+
+<!-- 5 RESULTS -->
+<section class="page" data-page="5">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher</div>
+    <h3>Send your results</h3>
+    <p class="small">Choose any way. <b>Copy text</b> always contains the full report.</p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again</h3>
+    <p class="small">This deletes all your answers on this device.</p>
+    <button class="btn ghost" id="resetBtn">↺ Start again</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes</button> <button class="btn ghost" id="resetNo">No</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="The cheese crisis — words from the news";
+const LEVEL="Upper-Intermediate";
+const SUBJECT_TOPIC="Words from the news";
+const STORE_KEY="yaroslav-cheese-news-vocabulary-v1";
+const DEFAULT_NAME="Yaroslav";
+const STEPS=["📰 Words","🗂️ Flashcards","🔍 Meaning","🧩 Form & partners","✍️ In context","📊 Results"];
+
+/* Words: word, part of speech, IPA, definition, example, collocations, related forms, emoji */
+const WORDS=[
+  {w:"ubiquitous", pos:"adj", ipa:"/juːˈbɪkwɪtəs/", def:"seeming to be everywhere at the same time; very common", ex:"Smartphones have become ubiquitous — even my grandmother has one.", col:["become ubiquitous","the ubiquitous smartphone","almost ubiquitous"], fam:"noun: ubiquity", em:"🌍"},
+  {w:"(on the) verge (of)", pos:"noun", ipa:"/vɜːdʒ/", def:"very close to something happening, often something important or bad", ex:"Some traditional cheeses are on the verge of disappearing.", col:["on the verge of tears","on the verge of collapse","on the verge of a breakthrough","on the verge of giving up"], fam:"verb: verge on (= be very close to being): His confidence verges on arrogance.", em:"🧗", say:"on the verge of"},
+  {w:"arduous", pos:"adj", ipa:"/ˈɑːdjuəs/", def:"needing a lot of effort and energy; difficult and tiring", ex:"Making cheese by hand is an arduous process.", col:["an arduous journey","an arduous task","an arduous climb","an arduous process"], fam:"similar: gruelling, laborious, exhausting", em:"⛰️"},
+  {w:"dwindling", pos:"adj / verb -ing", ipa:"/ˈdwɪndlɪŋ/", def:"becoming gradually smaller or fewer", ex:"The number of small dairy farms is dwindling.", col:["dwindling supplies","dwindling numbers","dwindling support","dwindle to almost nothing"], fam:"verb: dwindle (no object): Our savings dwindled.", em:"📉"},
+  {w:"connoisseur", pos:"noun", ipa:"/ˌkɒnəˈsɜː/", def:"a person with expert knowledge of food, drink, art, etc. who can judge quality", ex:"A cheese connoisseur can tell a real camembert from a factory copy.", col:["a connoisseur of wine","a cheese connoisseur","an art connoisseur"], fam:"not necessarily a professional — an expert with good taste", em:"🧀"},
+  {w:"exacerbate", pos:"verb", ipa:"/ɪɡˈzæsəbeɪt/", def:"to make a bad situation, problem or feeling worse", ex:"The heatwave exacerbated the shortage of milk.", col:["exacerbate the problem","exacerbate tensions","exacerbate symptoms","exacerbate a crisis"], fam:"noun: exacerbation · similar: aggravate, worsen", em:"🔥"},
+  {w:"know-how", pos:"noun, uncountable", ipa:"/ˈnəʊ haʊ/", def:"practical knowledge and skill that lets you do something", ex:"Small producers have the know-how but not the money.", col:["technical know-how","practical know-how","the know-how to do something"], fam:"uncountable: a lot of know-how (not a know-how)", em:"🛠️"}
+];
+/* story: [text before, word index, text] … */
+const STORY=[
+  "Walk into any French supermarket and you'll see that camembert and brie are {0}. But scientists warn that these famous soft cheeses may be {1} extinction. Almost all of them are made with a single strain of white mould, and producers have copied that one strain for decades. Now the mould is losing its ability to reproduce, and supplies of it are {3}.",
+  "Traditional camembert de Normandie is still made the old way, and it is an {2} process: the curd is ladled into moulds by hand, layer by layer. {4} insist that it tastes completely different from the factory version. Climate change could {5} the problem, as hotter summers mean less grass for the cows. The {6} still exists in a few small farms — but for how long?"
+];
+const STORY_FORMS=["ubiquitous","on the verge of","arduous","dwindling","Connoisseurs","exacerbate","know-how"];
+
+const GAP='<span class="slot">___</span>';
+const WLIST=["ubiquitous","verge","arduous","dwindling","connoisseur","exacerbate","know-how"];
+const EX=[
+  /* ---------- Part 1: meaning ---------- */
+  { id:"match", step:2, kind:"match", title:"Match the words and definitions",
+    instr:"Tap a word, then its definition.",
+    items:[["ubiquitous","seeming to be everywhere; very common"],["on the verge of","very close to something happening"],["arduous","needing a lot of effort; difficult and tiring"],["dwindling","becoming gradually smaller or fewer"],["connoisseur","an expert who can judge quality, e.g. of food or art"],["exacerbate","to make a bad situation worse"],["know-how","practical knowledge and skill"]].map(([l,r])=>({l,r,q:l}))},
+  { id:"closest", step:2, kind:"choice", title:"What does it mean?",
+    instr:"Choose the sentence that is closest in meaning.",
+    items:[
+      {s:"Coffee shops are ubiquitous in this city.", opts:["There are coffee shops everywhere.","The coffee shops are very expensive.","Coffee shops are quite hard to find."], a:0, why:"<b>ubiquitous</b> = you see it everywhere."},
+      {s:"The species is on the verge of extinction.", opts:["It has already died out.","It will very soon die out.","It is slowly recovering."], a:1, why:"<b>on the verge of</b> = very close to happening, but it hasn't happened yet."},
+      {s:"It was an arduous journey.", opts:["It was short but expensive.","It was dangerous but fun.","It was long and exhausting."], a:2, why:"<b>arduous</b> = needing a lot of effort and energy."},
+      {s:"Public support for the plan is dwindling.", opts:["Fewer and fewer people support it.","Support has suddenly disappeared.","Support is growing quickly."], a:0, why:"<b>dwindle</b> = become smaller <i>gradually</i>, not suddenly."},
+      {s:"She's a connoisseur of modern art.", opts:["She sells modern art for a living.","She knows a lot about it and can judge its quality.","She doesn't like modern art."], a:1, why:"A <b>connoisseur</b> has expert knowledge and good taste — they don't have to be a professional."},
+      {s:"The new rules exacerbated tensions between the two groups.", opts:["They created tensions for the first time.","They reduced the tensions.","They made the existing tensions worse."], a:2, why:"<b>exacerbate</b> = make something that is <i>already</i> bad worse."},
+      {s:"They have the know-how.", opts:["They have the practical skills and knowledge.","They have enough money.","They have official permission."], a:0, why:"<b>know-how</b> = practical knowledge and skill."}
+    ].map(o=>Object.assign(o,{p:`<span class="quote">“${o.s}”</span>`, say:o.opts[o.a], q:o.s}))},
+  { id:"which", step:2, kind:"choice", title:"Which word fits?",
+    instr:"Choose the best word for the gap.",
+    items:[
+      {p:`Plastic bottles are so ${GAP} that they are now found even in the deepest oceans.`, opts:["ubiquitous","arduous","dwindling"], a:0, why:"Found everywhere → <b>ubiquitous</b>."},
+      {p:`After hours of arguing, she was on the ${GAP} of tears.`, opts:["know-how","verge","connoisseur"], a:1, why:"<b>on the verge of tears</b> = about to cry."},
+      {p:`The ${GAP} climb to the summit took us nine hours.`, opts:["dwindling","ubiquitous","arduous"], a:2, why:"Long and exhausting → <b>arduous</b>."},
+      {p:`With ${GAP} supplies of water, the town introduced strict rules.`, opts:["dwindling","arduous","ubiquitous"], a:0, why:"Supplies getting smaller → <b>dwindling</b>."},
+      {p:`He's a real coffee ${GAP} — he can name the country just from the smell.`, opts:["know-how","connoisseur","verge"], a:1, why:"An expert who can judge quality → <b>connoisseur</b>."},
+      {p:`Cutting the number of buses will only ${GAP} the traffic problem.`, opts:["dwindle","verge","exacerbate"], a:2, why:"Make an existing problem worse → <b>exacerbate</b>. (<i>dwindle</i> has no object.)"},
+      {p:`We have the money, but we lack the technical ${GAP} to build the app ourselves.`, opts:["know-how","connoisseur","verge"], a:0, why:"Practical skills → <b>technical know-how</b>."}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  /* ---------- Part 2: form & partners ---------- */
+  { id:"partners", step:3, kind:"choice", title:"Word partners",
+    instr:"Which word goes with all three?",
+    items:[
+      {p:`${GAP} numbers · ${GAP} supplies · ${GAP} support`, a:3, say:"dwindling numbers, dwindling supplies, dwindling support"},
+      {p:`${GAP} the problem · ${GAP} tensions · ${GAP} symptoms`, a:5, say:"exacerbate the problem, exacerbate tensions, exacerbate symptoms"},
+      {p:`on the ${GAP} of tears · of collapse · of a breakthrough`, a:1, say:"on the verge of tears, on the verge of collapse, on the verge of a breakthrough"},
+      {p:`an ${GAP} task · an ${GAP} journey · an ${GAP} climb`, a:2, say:"an arduous task, an arduous journey, an arduous climb"},
+      {p:`a wine ${GAP} · an art ${GAP} · a cheese ${GAP}`, a:4, say:"a wine connoisseur, an art connoisseur, a cheese connoisseur"},
+      {p:`technical ${GAP} · practical ${GAP} · business ${GAP}`, a:6, say:"technical know-how, practical know-how, business know-how"},
+      {p:`become ${GAP} · the ${GAP} smartphone · almost ${GAP}`, a:0, say:"become ubiquitous, the ubiquitous smartphone, almost ubiquitous"}
+    ].map(o=>Object.assign(o,{opts:WLIST, why:o.say, q:strip(o.p)}))},
+  { id:"forms", step:3, kind:"type", title:"Word forms",
+    instr:"Write the correct form of the word in CAPITALS.",
+    items:[
+      {s:"Smartphones are everywhere, and their ___ has changed the way we read.", key:"UBIQUITOUS", acc:["ubiquity"], hint:"You need a noun: ubiqu…"},
+      {s:"Our savings have ___ to almost nothing.", key:"DWINDLE", acc:["dwindled"], hint:"have + past participle"},
+      {s:"Last summer's drought ___ the shortage of milk.", key:"EXACERBATE", acc:["exacerbated"], hint:"Past simple: last summer"},
+      {s:"Wine ___ from all over the world come to Bordeaux every year.", key:"CONNOISSEUR", acc:["connoisseurs"], hint:"More than one person"},
+      {s:"Stress can lead to an ___ of skin problems.", key:"EXACERBATE", acc:["exacerbation"], hint:"You need a noun ending in -ation"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.s).replace("___",GAP)}</span><br><span class="key">${o.key}</span>`, why:`<b>${o.s.replace("___",o.acc[0])}</b>`, sayFull:o.s.replace("___",o.acc[0]), q:`${o.s} (${o.key})`}))},
+  { id:"correct", step:3, kind:"choice", title:"Which sentence is correct?",
+    instr:"Choose the correct sentence.",
+    items:[
+      {opts:["She has a marketing know-how.","She has a lot of marketing know-how.","She has many marketing know-hows."], a:1, why:"<b>know-how</b> is uncountable: no <i>a</i>, no plural."},
+      {opts:["The company is on the verge to collapse.","The company is in the verge of collapse.","The company is on the verge of collapse."], a:2, why:"<b>on the verge of</b> + noun / -ing."},
+      {opts:["Our savings have dwindled.","We have dwindled our savings."], a:0, why:"<b>dwindle</b> has no object — things dwindle by themselves."},
+      {opts:["The heavy rain exacerbated our holiday.","The heavy rain exacerbated the flooding."], a:1, why:"You exacerbate a <b>problem</b> (the flooding). A holiday isn't a problem — the rain <i>spoilt</i> it."},
+      {opts:["He's a connoisseur in jazz.","He's a connoisseur of jazz."], a:1, why:"a connoisseur <b>of</b> something."},
+      {opts:["It was an arduouse task.","It was a arduous task.","It was an arduous task."], a:2, why:"Spelling <b>-ous</b>, and <b>an</b> before a vowel sound."}
+    ].map(o=>Object.assign(o,{p:"", say:o.opts[o.a], q:o.opts.join(" / ")}))},
+  { id:"spell", step:3, kind:"type", title:"Write the word",
+    instr:"Read the definition and write the word. Watch the spelling!",
+    items:[
+      {d:"very common; seeming to be everywhere", acc:["ubiquitous"], hint:"u _ _ _ _ _ _ _ _ s (10 letters, ends in -ous)"},
+      {d:"needing a lot of effort; difficult and tiring", acc:["arduous"], hint:"a r d _ _ _ s"},
+      {d:"to make a bad situation even worse", acc:["exacerbate"], hint:"e x a _ _ _ _ _ _ e"},
+      {d:"an expert who can judge the quality of wine, art, food…", acc:["connoisseur"], hint:"c o n n _ _ _ _ _ _ r (double n, double s)"},
+      {d:"practical knowledge and skill (hyphenated)", acc:["know-how"], hint:"k _ _ w - h _ w"},
+      {d:"becoming gradually smaller or fewer (-ing form)", acc:["dwindling"], hint:"d w _ _ _ _ _ _ g"},
+      {d:"on the ___ of = very close to something happening", acc:["verge"], hint:"v _ _ _ e"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.d).replace("___",GAP)}</span>`, why:`<b>${o.acc[0]}</b>`, q:o.d}))},
+  /* ---------- Part 3: in context ---------- */
+  { id:"text", step:4, kind:"type", title:"A cheesemaker's story",
+    instr:"Complete the text with the words in the box. Use each word once.",
+    bank:["ubiquitous","verge","arduous","dwindling","connoisseur","exacerbated","know-how"],
+    items:[
+      {s:"Our village used to have ten dairies, but the number has been ___ for years.", acc:["dwindling"], hint:"becoming fewer"},
+      {s:"Last spring we were on the ___ of closing for good.", acc:["verge"], hint:"on the v… of"},
+      {s:"Making cheese by hand is an ___ job — we start at four every morning.", acc:["arduous"], hint:"difficult and tiring"},
+      {s:"Then rising energy prices ___ our problems.", acc:["exacerbated"], hint:"made them worse (past)"},
+      {s:"Cheap factory cheese is ___ — you can find it in every corner shop.", acc:["ubiquitous"], hint:"everywhere"},
+      {s:"Luckily, a famous cheese ___ wrote about us in a food magazine.", acc:["connoisseur"], hint:"an expert"},
+      {s:"Now young people come to learn our ___ before it disappears for ever.", acc:["know-how"], hint:"practical skill"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.s).replace("___",GAP)}</span>`, why:`<b>${o.s.replace("___",o.acc[0])}</b>`, sayFull:o.s.replace("___",o.acc[0]), q:o.s}))},
+  { id:"kwt", step:4, kind:"type", title:"Say it another way",
+    instr:"Complete the second sentence so it means the same as the first. Use the word given.",
+    items:[
+      {s1:"You can buy bubble tea in almost every café in town now.", key:"UBIQUITOUS", s2:"Bubble tea ___ in town now.", acc:["is ubiquitous","has become ubiquitous","is almost ubiquitous","has become almost ubiquitous"], hint:"Bubble tea is / has become …"},
+      {s1:"The talks very nearly collapsed.", key:"VERGE", s2:"The talks were ___ collapse.", acc:["on the verge of","on the very verge of"], hint:"on the … of"},
+      {s1:"Fewer and fewer tourists come here every year.", key:"DWINDLING", s2:"The number of tourists here ___ every year.", acc:["is dwindling","has been dwindling","keeps dwindling"], hint:"The number … is …"},
+      {s1:"The new tax made the crisis even worse.", key:"EXACERBATED", s2:"The new tax ___.", acc:["exacerbated the crisis","exacerbated the crisis even more","further exacerbated the crisis"], hint:"exacerbated + what?"},
+      {s1:"They don't have the practical skills to repair it.", key:"KNOW-HOW", s2:"They don't have ___ to repair it.", acc:["the know-how","the practical know-how","the necessary know-how","enough know-how"], hint:"the … (no 'a')"},
+      {s1:"The trip to the village took two days and was extremely tiring.", key:"ARDUOUS", s2:"It was ___ to the village.", acc:["an arduous journey","an arduous trip","a very arduous journey","a very arduous trip","an extremely arduous journey","an extremely arduous trip"], hint:"It was an … journey"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.s1)}</span><br><span class="key">${o.key}</span><br><span class="sent">${esc(o.s2).replace("___",GAP)}</span>`, why:"", sentenceGap:true, self:true, sayFull:o.s2.replace("___",o.acc[0]), q:`${o.s1} → ${o.s2} (${o.key})`}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+const PRAISE=["Correct!","Spot on!","Well done!","Exactly!","Nicely done!","Perfect!"];
+const OOPS=["Not quite.","Not this one.","Close, but no."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const CARDS=WORDS;
+const HAS_TTS=(()=>{ try{ return "speechSynthesis" in window; }catch(e){ return false; } })();
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, fc:{order:CARDS.map((_,i)=>i), pos:0, dir:"en", only:false, mark:{}}}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.fc) state.fc=freshState().fc;
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text||!HAS_TTS) return;
+  try{
+    const u=new SpeechSynthesisUtterance(strip(text));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.88;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+const sayWord=w=>w.say||w.w;
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[‐‑–—]/g,"-").replace(/\s*-\s*/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\b(do|does|did|is|are|was|were|have|has|could|should)nt\b/g,"$1n't").replace(/\bcant\b/g,"can't");
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bcan not\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have").replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'ll\b/g,"$1 will").replace(/\b(he|she|it|that|what|there)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function evalTyped(it,raw){ const n=norm(raw); return it.acc.map(norm).includes(n); }
+function fbHTML(kind,msg,body,say){ return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`; }
+
+/* ---------- words tab ---------- */
+function buildWords(){
+  const st=document.getElementById("story"), gl=document.getElementById("gloss");
+  st.innerHTML=STORY.map(par=>`<p>${esc(par).replace(/\{(\d)\}/g,(_,k)=>`<button class="w" data-wi="${k}" aria-expanded="false">${esc(STORY_FORMS[+k])}</button>`)}</p>`).join("");
+  st.querySelectorAll(".w").forEach(b=>b.addEventListener("click",()=>{
+    const open=b.getAttribute("aria-expanded")==="true";
+    st.querySelectorAll(".w").forEach(x=>x.setAttribute("aria-expanded","false"));
+    if(open){ gl.classList.remove("on"); return; }
+    b.setAttribute("aria-expanded","true"); const w=WORDS[+b.dataset.wi];
+    gl.innerHTML=`<b>${esc(w.w)}</b> <span class="small">${esc(w.pos)}</span> — ${esc(w.def)}`; gl.classList.add("on"); speak(sayWord(w));
+  }));
+  document.getElementById("wl").innerHTML=WORDS.map(w=>`<div class="wc"><div class="hd"><span class="wd">${esc(w.w)}</span><span class="pos">${esc(w.pos)}</span><span class="ipa">${esc(w.ipa)}</span></div><div class="def">${esc(w.def)}</div><div class="wex">${esc(w.ex)}</div><div class="col">${w.col.map(c=>`<span>${esc(c)}</span>`).join("")}</div><div class="fam">${esc(w.fam)}</div><button class="say" data-say="${esc(sayWord(w)+". "+w.ex)}" aria-label="Listen to ${esc(w.w)}">🔊</button></div>`).join("");
+}
+
+/* ---------- flashcards ---------- */
+function fcList(){ const f=state.fc; return f.order.filter(i=>!f.only||f.mark[i]!=="k"); }
+function renderFC(){
+  const f=state.fc, list=fcList(), card=document.getElementById("fc");
+  document.getElementById("fcDir").textContent=f.dir==="en"?"⇄ Word → Definition":"⇄ Definition → Word";
+  document.getElementById("fcFilter").checked=!!f.only;
+  const known=Object.values(f.mark).filter(v=>v==="k").length;
+  document.getElementById("fcKnown").textContent=`Known: ${known} / ${CARDS.length}`;
+  document.getElementById("fcKnowBar").style.width=(known/CARDS.length*100)+"%";
+  card.classList.remove("flip");
+  if(!list.length){ card.innerHTML=`<div class="face front"><div class="em">🎉</div><div class="ph">You know them all!</div></div>`; document.getElementById("fcPos").textContent=""; document.getElementById("fcState").textContent=""; return; }
+  if(f.pos>=list.length) f.pos=0; if(f.pos<0) f.pos=list.length-1;
+  const i=list[f.pos], c=CARDS[i];
+  const fr=f.dir==="en"?`<div class="em">${c.em}</div><div class="ph">${esc(c.w)}</div><div class="small">${esc(c.pos)} · ${esc(c.ipa)}</div><button class="say fsay" data-say="${esc(sayWord(c))}" aria-label="Listen">🔊</button>`:`<div class="em">${c.em}</div><div class="rt">${esc(c.def)}</div><div class="small">${esc(c.pos)}</div>`;
+  const bk=f.dir==="en"?`<div class="rt">${esc(c.def)}</div><div class="fex">“${esc(c.ex)}”</div><div class="fcol">${esc(c.col.join(" · "))}</div>`:`<div class="ph">${esc(c.w)}</div><div class="fex">“${esc(c.ex)}”</div><div class="fcol">${esc(c.col.join(" · "))}</div>`;
+  card.innerHTML=`<div class="face front">${fr}<span class="tap">TAP TO FLIP</span></div><div class="face back">${bk}<button class="say fsay" data-say="${esc(sayWord(c)+". "+c.ex)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP BACK</span></div>`;
+  document.getElementById("fcPos").textContent=`${f.pos+1} / ${list.length}`;
+  const m=f.mark[i];
+  document.getElementById("fcState").innerHTML=m==="k"?'<span class="state-k">✓ I know it</span>':m==="l"?'<span class="state-l">● Still learning</span>':"";
+}
+function buildFC(){
+  const card=document.getElementById("fc"), f=()=>state.fc;
+  const flip=e=>{ if(e&&e.target&&e.target.closest&&e.target.closest("[data-say]")) return; card.classList.toggle("flip"); };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); flip(); } });
+  document.getElementById("fcPrev").addEventListener("click",()=>{ f().pos--; renderFC(); saveState(); });
+  document.getElementById("fcNext").addEventListener("click",()=>{ f().pos++; renderFC(); saveState(); });
+  document.getElementById("fcDir").addEventListener("click",()=>{ f().dir=f().dir==="en"?"def":"en"; renderFC(); saveState(); });
+  document.getElementById("fcShuffle").addEventListener("click",()=>{ const o=f().order; for(let k=o.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [o[k],o[j]]=[o[j],o[k]]; } f().pos=0; renderFC(); saveState(); });
+  document.getElementById("fcFilter").addEventListener("change",e=>{ f().only=e.target.checked; f().pos=0; renderFC(); saveState(); });
+  const mark=v=>{ const list=fcList(); if(!list.length) return; const i=list[f().pos]; f().mark[i]=v; if(!(f().only&&v==="k")) f().pos++; renderFC(); saveState(); if(state.tab===5) renderResults(); };
+  document.getElementById("fcKnow").addEventListener("click",()=>mark("k"));
+  document.getElementById("fcLearn").addEventListener("click",()=>mark("l"));
+  renderFC();
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):renderType(ex,i); }
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const rowCls=it.opts.every(o=>o.length<16)?(it.opts.length>4?" row many":" row"):"";
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp">${it.p?`<div class="sent">${it.p}</div>`:""}<div class="opts${rowCls}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick]; st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i); }));
+  return d;
+}
+function typedFB(it,st){
+  const model=it.acc[0], sayM=it.sayFull||model;
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>Your teacher will check this answer.</i>":""; return fbHTML("good",st.self?"Marked as correct":st.msg,(it.sentenceGap?`<span class="model">${esc(it.sayFull)}</span>`:it.why)+extra,sayM); }
+    return fbHTML("bad",st.msg,`Your answer: <span class="given">${esc(st.given)}</span><br>Correct: <span class="model">${esc(it.sayFull||model)}</span>`,sayM)+(it.self?`<button class="selfmark" data-self="1">My answer is also correct ✓</button>`:"");
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Try again!","Hint: "+esc(it.hint));
+  return "";
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="rowi"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.sentenceGap?"Type the missing words":"Type here"}"><button class="btn g chkb">Check</button></div>`;
+  h+=typedFB(it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{
+      const val=inp.value;
+      if(!val.trim()){ st.warn="Type your answer first."; refresh(ex,i); return; }
+      st.warn=""; st.tries++;
+      if(evalTyped(it,val)){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the second try!"; speak(it.sayFull||it.acc[0]); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time."; }
+      st.draft=st.done?"":val;
+      refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus();
+    };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+/* match */
+const matchSel={};
+function seeded(n,seed){ const a=[...Array(n).keys()]; let s=seed; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderMatch(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  const order=seeded(ex.items.length,17), sel=matchSel[ex.id];
+  let h=`<div class="match"><div class="mcol">`;
+  ex.items.forEach((it,i)=>{ const st=S(ex,i); h+=`<button class="mi${st.done?" done":""}${st.done&&!st.correct?" late":""}${sel===i?" sel":""}${!st.done&&st.tries?" miss":""}" data-l="${i}">${esc(it.l)}${st.done?` <span class="tagn">${st.correct?"✓":"2+"}</span>`:""}</button>`; });
+  h+=`</div><div class="mcol">`;
+  order.forEach(i=>{ const st=S(ex,i); h+=`<button class="mi r${st.done?" done":""}" data-r="${i}">${esc(ex.items[i].r)}</button>`; });
+  h+=`</div></div><p class="small mmsg" aria-live="polite">${sel==null?"Tap a word first.":"Now tap its definition."}</p>`;
+  d.innerHTML=h;
+  const msg=d.querySelector(".mmsg");
+  d.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.l; if(S(ex,i).done) return; matchSel[ex.id]=i; speak(ex.items[i].l); refreshMatch(ex); }));
+  d.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const r=+b.dataset.r, cur=matchSel[ex.id]; if(S(ex,r).done) return;
+    if(cur==null){ msg.textContent="Tap a word first."; return; }
+    const st=S(ex,cur);
+    if(r===cur){ st.done=true; st.correct=st.tries===0; st.given=st.given||ex.items[r].r; matchSel[ex.id]=null; refreshMatch(ex); }
+    else { if(st.tries===0) st.given=ex.items[r].r; st.tries++; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),400); msg.textContent="Not this one — try again."; const lb=d.querySelector(`[data-l="${cur}"]`); if(lb) lb.classList.add("miss"); afterChange(); }
+  }));
+  return d;
+}
+function refreshMatch(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderMatch(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n}</span><h3>${esc(ex.title)}</h3><p class="instr">${ex.instr}</p></div><span class="ex-score" id="sc-${ex.id}"></span></div>${ex.bank?`<div class="wbank">${ex.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`:""}<div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="match") box.appendChild(renderMatch(ex)); else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<5;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next: ${STEPS[p+1].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n}`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} · ✓ ${t.c}`;
+  renderTabs(); if(state.tab===5) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map((en,k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(en)}${badge}</button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===5) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){ if(ex.kind==="choice") return it.opts[it.a]; if(ex.kind==="match") return it.r; return it.acc[0]; }
+function knownCount(){ return Object.values(state.fc.mark).filter(v=>v==="k").length; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (${LEVEL})`); L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`); L.push(`Flashcards known: ${knownCount()}/${CARDS.length}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" (model: "${correctText(ex,it)}")`); }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${st.given}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Start with the story on the Words tab!":pct>=90?`Outstanding, ${nm} — a true word connoisseur! 🧀`:pct>=75?"Great work! Have a look at your mistakes below.":pct>=55?"Good effort! Review the word cards and the flashcards, then try the mistakes again.":"Keep going! Reread the word cards and the 'Check your definitions' box, then try once more.";
+  let h=`<div class="kicker">Results</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered ${t.d} / ${t.n} · flashcards known ${knownCount()} / ${CARDS.length}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}</span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer: <s>${esc(st.given)}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again</div><h3>Your mistakes</h3><ol class="mlist">${mist.join("")}</ol>`:`<h3>No mistakes so far 🎉</h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email app</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message to your teacher."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Please copy the text by hand."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===5) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 Sound on":"🔇 Sound off"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildWords(); buildFC(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound); Object.keys(matchSel).forEach(k=>delete matchSel[k]);
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderFC();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if(HAS_TTS) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
