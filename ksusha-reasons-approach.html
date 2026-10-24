@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Look from the outside — reasons & approach — Ksusha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700;800&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F4FB; --paper:#FFFFFF; --ink:#2A2950; --soft:#62627E; --ru:#86789A; --line:#E5E3F2; --line2:#CFCBE6;
+  --leaf:#2C9C8A; --leaf-bg:#DFF3EF; --sky:#4F7FD1; --sky-bg:#E5EEFB; --lav:#6C5CC7; --lav-bg:#ECE8FB;
+  --peach:#E46B55; --peach-bg:#FCE6E0; --sun:#F2B544; --sun-bg:#FDF3DB;
+  --good:#22805A; --good-bg:#E2F5EA; --bad:#C6453A; --bad-bg:#FCE8E5; --hint-bg:#FFF4D6;
+  --r:20px; --shadow:0 1px 2px rgba(42,41,80,.05),0 8px 26px rgba(70,60,140,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background-image:radial-gradient(circle at 6% 3%,rgba(108,92,199,.12),transparent 30%),radial-gradient(circle at 96% 22%,rgba(228,107,85,.10),transparent 28%);background-attachment:fixed}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--lav);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:"Montserrat Alternates",sans-serif;line-height:1.2;margin:0;font-weight:800}
+.ru{display:block;color:var(--ru);font-weight:500;font-size:.92em}
+h2 .ru,h3 .ru{font-family:"Golos Text",sans-serif;font-weight:600;font-size:.62em;margin-top:4px}
+/* hero */
+.hero{padding-top:26px;padding-bottom:16px;display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:center}
+.badge{display:inline-block;background:var(--leaf);color:#fff;font-weight:800;letter-spacing:.12em;font-size:.72rem;padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(2.2rem,8vw,3.4rem);margin:14px 0 6px}
+.hero h1 span{color:var(--leaf)}
+.hero .sub{margin:0;color:var(--soft)}
+.art{width:100%;max-width:300px;justify-self:center}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px}
+.howto .ru{font-size:.9rem}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:130px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--lav);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(245,244,251,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px 12px;min-height:48px;font-weight:800;font-size:.88rem;white-space:nowrap;line-height:1.2;text-align:left}
+.tab small{display:block;font-weight:600;font-size:.74rem;color:var(--ru)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab[aria-selected="true"] small{color:#C6D6D3}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.72rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 7px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--leaf),var(--sky),var(--lav));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.3rem,5vw,1.7rem);margin-bottom:8px}
+.card h3{font-size:1.1rem;margin-bottom:6px}
+.card p{margin:.45em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);margin-bottom:6px}
+.small{font-size:.88rem;color:var(--soft)}
+/* word list */
+.wl{display:grid;gap:8px;margin-top:10px}
+.wrow{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;border:2px solid var(--line);border-radius:14px;padding:8px 10px;background:#fff}
+.wrow .em{font-size:1.5rem;text-align:center;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--gb,var(--leaf-bg))}
+.wrow b{font-size:1.05rem}
+.wrow .tr{color:var(--ru);font-weight:600}
+.wrow .def{font-size:.86rem;color:var(--soft)}
+.wrow .wex{font-size:.9rem;color:var(--sky);font-style:italic}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.cf{border-left:4px solid var(--sun);background:var(--sun-bg);border-radius:0 12px 12px 0;padding:10px 12px;margin-top:8px}
+.cf .x{color:var(--bad);text-decoration:line-through}.cf .v{color:var(--good);font-weight:800}
+.edful{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.edful div{border-radius:16px;padding:12px 14px}
+.edful .p1{background:var(--sky-bg)}.edful .p2{background:var(--peach-bg)}
+.edful b.h{display:block;font-size:1.05rem}
+/* dialogue */
+.dlg{display:grid;gap:8px;margin-top:10px}
+.dl{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:start;border-radius:14px;padding:8px 10px;background:var(--bg)}
+.dl.k{background:var(--lav-bg)}
+.dl .who{font-weight:800;min-width:42px;color:var(--peach)}.dl.k .who{color:var(--lav)}
+.dl .tx .ru{display:none}.dl .tx.open .ru{display:block}
+.rub{border:2px solid var(--line2);background:#fff;border-radius:10px;min-width:44px;min-height:40px;font-weight:800;font-size:.78rem;color:var(--ru)}
+.rub[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dl .say{width:40px;height:40px;background:#fff}
+/* flashcards */
+.fcwrap{perspective:1200px;margin:14px auto 10px;max-width:540px}
+.fc{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);cursor:pointer;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:8px}
+.front{background:linear-gradient(150deg,#fff,var(--leaf-bg))}
+.back{background:linear-gradient(150deg,#fff,var(--lav-bg));transform:rotateY(180deg)}
+.face .em{font-size:2.6rem}
+.face .ph{font-family:"Montserrat Alternates",serif;font-size:clamp(1.4rem,6.5vw,1.9rem);line-height:1.15}
+.face .rt{font-size:1.15rem;font-weight:700;color:#5E4B8C}
+.face .fex{font-style:italic;color:var(--soft);font-size:.95rem;max-width:420px}
+.face .tap{position:absolute;bottom:10px;font-size:.72rem;color:var(--soft);font-weight:700;letter-spacing:.05em}
+.face .fsay{position:absolute;top:12px;right:12px;background:#fff}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.fcmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;max-width:540px;margin:0 auto;font-weight:700;font-size:.88rem;color:var(--soft)}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700}
+.chk input{width:20px;height:20px;accent-color:var(--leaf)}
+.knowbar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;max-width:540px;margin:6px auto 0}
+.knowbar div{height:100%;background:var(--leaf);width:0;transition:width .4s}
+.state-k{color:var(--good)}.state-l{color:#B07A12}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.g{background:var(--leaf)}.btn.s{background:var(--sun);color:var(--ink)}.btn.p{background:var(--lav)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf)}
+.ex-head h3{font-size:1.2rem;margin:4px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--leaf-bg);color:var(--leaf);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.wbank{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding:10px;border-radius:14px;background:var(--lav-bg)}
+.wbank span{background:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.92rem}
+.item{border:2px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.06rem}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.opt{overflow-wrap:anywhere;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:48px;font-weight:700}
+.opts.row .opt{text-align:center}
+.opts.row.many{grid-template-columns:repeat(auto-fit,minmax(84px,1fr))}
+.opts.row.many .opt{padding:8px 6px}
+.opt:hover:not(:disabled){border-color:var(--leaf);background:#FAFEFC}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--leaf);color:var(--leaf);font-weight:800;line-height:1.2}
+.listen{border:0;background:var(--sky);color:#fff;border-radius:14px;min-height:52px;padding:8px 18px;font-weight:800;font-size:1.05rem}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.rowi{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.inp:focus{border-color:var(--leaf);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;text-align:left}
+.ruq{font-size:1.1rem;font-weight:700}
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;min-height:52px;text-align:left;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.mi.r{font-weight:600;color:#55497A}
+.mi.sel{border-color:var(--leaf);background:var(--leaf-bg)}
+.mi.done{border-color:#A4D9BF;background:var(--good-bg);color:#155E3E;cursor:default}
+.mi.done.late{border-color:#F0D392;background:var(--sun-bg);color:#7A5200}
+.mi.miss{border-color:#EDB5AE}
+.mi.shake{animation:shake .35s}
+.mi .tagn{font-size:.7rem;background:var(--good);color:#fff;border-radius:6px;padding:1px 6px}
+.mi.late .tagn{background:var(--sun);color:var(--ink)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* tiles */
+.build{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:1.04rem}
+.build .fx{font-weight:700}
+.zone{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;min-width:150px;flex:1 1 200px;padding:4px 6px;border:2px dashed var(--line2);border-radius:12px;align-items:center}
+.zone .ph{color:#9AA8A6;font-size:.88rem;padding:0 6px}
+.tile{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 12px;min-height:46px;font-weight:800}
+.zone .tile{background:var(--ink);color:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.story{background:var(--leaf-bg);border-radius:16px;padding:14px 16px;margin-top:10px;line-height:1.7}
+/* results */
+.score-big{font-family:"Montserrat Alternates",serif;font-size:2.8rem;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--lav)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:640px){ .hero{grid-template-columns:1fr} .art{max-width:230px} }
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.ex{padding:15px}
+  .edful{grid-template-columns:1fr}
+  .mi{font-size:.9rem;padding:8px}
+  .wrow{grid-template-columns:38px 1fr auto;gap:8px}
+  .wrow .em{width:38px;height:38px;font-size:1.3rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">PRE-INTERMEDIATE · VOCABULARY</span>
+    <h1>Look from <span>the outside</span></h1>
+    <p class="sub">Reasons, causes, setbacks and a new approach to life — words from our lesson. Homework for <b id="nameOut">Ksusha</b><span class="ru">Причины, неудачи и новый подход к жизни — слова с нашего урока. Домашнее задание</span></p>
+  </div>
+  <svg class="art" viewBox="0 0 300 220" aria-hidden="true">
+    <circle cx="150" cy="112" r="96" fill="#ECE8FB"/>
+    <ellipse cx="128" cy="104" rx="52" ry="70" fill="#FFFFFF" stroke="#3B3A7A" stroke-width="8"/>
+    <ellipse cx="128" cy="104" rx="40" ry="58" fill="#DCEFF0"/>
+    <circle cx="128" cy="86" r="13" fill="#3B3A7A"/><path d="M106 132c4-18 40-18 44 0" fill="#3B3A7A"/>
+    <rect x="122" y="172" width="12" height="26" rx="5" fill="#3B3A7A"/><rect x="100" y="196" width="56" height="9" rx="4.5" fill="#3B3A7A"/>
+    <circle cx="214" cy="80" r="26" fill="none" stroke="#E46B55" stroke-width="8"/><path d="M232 98l24 24" stroke="#E46B55" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="214" cy="80" r="16" fill="#FCE6E0"/>
+    <path d="M206 80l6 6 11-12" stroke="#2C9C8A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="66" cy="60" r="8" fill="#F2B544"/><circle cx="246" cy="170" r="6" fill="#2C9C8A"/>
+  </svg>
+  <div class="howto">
+    <p>Go tab by tab: learn the words, practise with the flashcards, do the exercises, then send your results.<span class="ru">Иди по вкладкам: выучи слова, потренируйся с карточками, сделай упражнения и отправь результат.</span></p>
+    <div class="namebox"><label for="nameIn">Name · Имя</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 On</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<!-- 0 WORDS -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">Word list 1 · Слова 1</div>
+    <h2>Reasons and problems<span class="ru">Причины и проблемы</span></h2>
+    <div class="wl" id="wl0"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Word list 2 · Слова 2</div>
+    <h2>Behaviour and approach<span class="ru">Поведение и подход</span></h2>
+    <div class="wl" id="wl1"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Read · Прочитай</div>
+    <h2>A talk with a coach<span class="ru">Разговор с коучем</span></h2>
+    <p class="small">Mia has problems with her business. Read and listen. Tap <b>RU</b> to see the translation.<span class="ru">У Мии проблемы с бизнесом. Прочитай и послушай. Нажми RU, чтобы увидеть перевод.</span></p>
+    <div class="dlg" id="dlg"></div>
+  </div>
+  <div class="card">
+    <div class="kicker">Important · Важно</div>
+    <h3>reason or cause?<span class="ru">reason или cause?</span></h3>
+    <div class="edful">
+      <div class="p1"><b class="h">a reason</b>why somebody does something; an explanation<span class="ru">почему; объяснение, мотив</span><i>a reason <b>for</b> something · a reason <b>to</b> do · the reason <b>why</b>…</i></div>
+      <div class="p2"><b class="h">a cause</b>what makes something happen (often something bad)<span class="ru">то, что вызвало событие (часто плохое)</span><i>the cause <b>of</b> the fire · the cause <b>of</b> the losses</i></div>
+    </div>
+    <p><b>the reasons behind</b> something = the reasons that explain it.<span class="ru">the reasons behind the losses — причины, которые стоят за потерями.</span></p>
+  </div>
+  <div class="card">
+    <div class="kicker">Careful! · Осторожно!</div>
+    <h3>Easy to get wrong<span class="ru">Легко ошибиться</span></h3>
+    <div class="cf"><span class="v">You are right.</span> — not <span class="x">You have right.</span> <span class="v">I agree.</span> — not <span class="x">I am agree.</span><span class="ru">«Ты права» — по-английски «ты есть правая»: You are right.</span></div>
+    <div class="cf"><span class="v">There may be</span> another reason. (2 words: may + be) · <span class="v">Maybe</span> you're right. (1 word = возможно)<span class="ru">There may be — «может быть, есть». Maybe — одно слово, «возможно», стоит в начале.</span></div>
+    <div class="cf"><b>another</b> + one thing: <i>another cause</i> · <b>other</b> + many: <i>other causes</i>.<span class="ru">another — ещё один (с единственным числом), other — другие (со множественным).</span></div>
+    <div class="cf">an <b>approach to</b> life · an <b>attitude to</b> (or <b>towards</b>) work — always <b>to</b>.<span class="ru">Подход К, отношение К — в английском тоже to (не for, не of).</span></div>
+    <div class="cf">Spelling: <span class="v">attitude</span> (a-tt-i-tude), <span class="v">approach</span> (a-pp-roach), <span class="v">behaviour</span> (British; American: behavior).<span class="ru">behaviour — неисчисляемое: his behaviour <b>was</b> strange (не behaviours).</span></div>
+    <div class="cf"><b>lose</b> /luːz/ (verb) → <b>a loss</b>, <b>losses</b> (noun). <span class="x">loose</span> = свободный, болтающийся.<span class="ru">Потерять — lose, потеря — loss. Не путай с loose.</span></div>
+  </div>
+</section>
+
+<!-- 1 FLASHCARDS -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Flashcards · Карточки</div>
+    <h2>Learn the words<span class="ru">Учим слова</span></h2>
+    <p class="small">Tap the card to flip it. Mark each word: <b>I know it</b> or <b>Still learning</b>.<span class="ru">Нажми на карточку, чтобы перевернуть. Отмечай: «Знаю» или «Ещё учу».</span></p>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcDir">⇄</button>
+      <button class="btn ghost" id="fcShuffle">🔀 Shuffle · Перемешать</button>
+    </div>
+    <div class="fcbar"><label class="chk"><input type="checkbox" id="fcFilter"> Only words I'm learning · Только те, что учу</label></div>
+    <div class="fcwrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Flashcard, press to flip"></div></div>
+    <div class="fcmeta"><span id="fcPos"></span><span id="fcState"></span></div>
+    <div class="fcbar">
+      <button class="btn ghost" id="fcPrev" aria-label="Previous">←</button>
+      <button class="btn s" id="fcLearn">Still learning · Ещё учу</button>
+      <button class="btn g" id="fcKnow">I know it · Знаю ✓</button>
+      <button class="btn ghost" id="fcNext" aria-label="Next">→</button>
+    </div>
+    <div class="fcmeta"><span id="fcKnown"></span></div>
+    <div class="knowbar"><div id="fcKnowBar"></div></div>
+  </div>
+</section>
+
+<!-- 2 STRESS WORDS -->
+<section class="page" data-page="2">
+  <div class="card"><div class="kicker">Practice 1 · Тренировка 1</div><h2>Words and small words<span class="ru">Слова и предлоги</span></h2></div>
+</section>
+
+<!-- 3 HABITS -->
+<section class="page" data-page="3">
+  <div class="card"><div class="kicker">Practice 2 · Тренировка 2</div><h2>Grammar traps and spelling<span class="ru">Ловушки и написание</span></h2></div>
+</section>
+
+<!-- 4 MIX -->
+<section class="page" data-page="4">
+  <div class="card"><div class="kicker">Mix · Всё вместе</div><h2>All the words together<span class="ru">Все слова вместе</span></h2></div>
+</section>
+
+<!-- 5 RESULTS -->
+<section class="page" data-page="5">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher · Отправь учителю</div>
+    <h3>Send your results<span class="ru">Отправь результаты</span></h3>
+    <p class="small">Choose any way. <b>Copy text</b> always has the full report.<span class="ru">Выбери любой способ. «Скопировать текст» — всегда полный отчёт.</span></p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email · Почта учителя: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Start again<span class="ru">Начать заново</span></h3>
+    <p class="small">This deletes all your answers on this device.<span class="ru">Все ответы на этом устройстве удалятся.</span></p>
+    <button class="btn ghost" id="resetBtn">↺ Start again · Заново</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers? · Удалить все ответы?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes · Да</button> <button class="btn ghost" id="resetNo">No · Нет</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="Look from the outside — reasons, setbacks and approach (vocabulary)";
+const LEVEL="Pre-Intermediate";
+const SUBJECT_TOPIC="Reasons & approach";
+const STORE_KEY="ksusha-reasons-approach-v1";
+const DEFAULT_NAME="Ksusha";
+const STEPS=[["📖 Words","Слова"],["🗂️ Flashcards","Карточки"],["🔍 Practice 1","Тренировка 1"],["🧭 Practice 2","Тренировка 2"],["🧩 Mix","Всё вместе"],["📊 Results","Итоги"]];
+
+/* Word groups: [word, Russian, English definition, example, emoji] */
+const GROUPS=[
+ { bg:"var(--sky-bg)", words:[
+  ["a reason to live","причина жить, смысл жизни","something that makes your life important","My children are my reason to live.","💛"],
+  ["a reason for something","причина чего-то (объяснение)","why something happens","What's the reason for the delay?","❓"],
+  ["the reasons behind something","причины, которые стоят за чем-то","the reasons that explain something","Let's look at the reasons behind the losses.","🔎"],
+  ["the cause of something","причина (то, что вызвало)","what makes something happen","The cause of the fire is still unknown.","🔥"],
+  ["a loss / losses","потеря, убыток / потери","money or something you lose","The company had big losses this year.","📉"],
+  ["financial losses","финансовые потери","money that a person or company loses","Bad decisions led to financial losses.","💸"],
+  ["a setback","неудача, препятствие","a problem that stops your progress for a time","Losing that client was a big setback.","🚧"],
+  ["professional setbacks","профессиональные неудачи, неудачи в работе","problems in your career","Everyone has professional setbacks sometimes.","💼"],
+  ["there may be","возможно, есть","perhaps there is / there are","There may be another cause of financial losses.","🤔"]]},
+ { bg:"var(--lav-bg)", words:[
+  ["another","ещё один, другой","one more; a different one (+ singular)","There may be another reason.","➕"],
+  ["You are right.","Ты права / Вы правы.","what you say is true","You are right — I need more rest.","✅"],
+  ["observe","наблюдать","watch something carefully","Scientists observe how animals behave.","👀"],
+  ["behaviour","поведение","the way you act","His behaviour at the meeting was strange.","🧍"],
+  ["from the outside","со стороны","as another person sees it","You need to observe your own behaviour from the outside.","🪞"],
+  ["an approach to","подход к","a way of doing or thinking about something","I like your approach to learning.","🧭"],
+  ["an attitude to / towards","отношение к","what you think and feel about something","She has a positive attitude to work.","🙂"],
+  ["change your approach to life","изменить подход к жизни","start living or thinking in a new way","After the setback, she changed her approach to life.","🔄"]]}
+];
+
+/* Dialogue: [speaker, English, Russian] */
+const DIALOGUE=[
+  ["Mia","My business had big financial losses this year. I don't understand why.","В этом году у моего бизнеса были большие финансовые потери. Не понимаю почему."],
+  ["Kate","Let's look at the reasons behind the losses. What do you think is the main cause?","Давай посмотрим, какие причины стоят за потерями. Как ты думаешь, что главная причина?"],
+  ["Mia","The market is difficult, and prices went up.","Рынок сложный, и цены выросли."],
+  ["Kate","You're right, that's one reason. But there may be another cause.","Ты права, это одна причина. Но, возможно, есть и другая."],
+  ["Mia","Like what?","Например?"],
+  ["Kate","Sometimes we can't see our own mistakes. You need to observe your own behaviour from the outside.","Иногда мы не видим своих ошибок. Тебе нужно посмотреть на своё поведение со стороны."],
+  ["Mia","Hmm… I say yes to every client, and I never rest.","Хм… Я соглашаюсь с каждым клиентом и никогда не отдыхаю."],
+  ["Kate","That can lead to professional setbacks. Maybe it's time to change your approach to work.","Это может привести к неудачам в работе. Может, пора изменить подход к работе."],
+  ["Mia","And my attitude to rest, too!","И моё отношение к отдыху тоже!"],
+  ["Kate","Exactly. And remember your reason for starting this business.","Именно. И вспомни, ради чего ты начала этот бизнес."]
+];
+
+const GAP='<span class="slot">___</span>';
+const EX=[
+  /* ---------- Practice 1 ---------- */
+  { id:"match1", step:2, kind:"match", title:"Match the words", ru:"Соедини слово и перевод",
+    instr:"Tap an English word, then its Russian translation.", instrRu:"Нажми на английское слово, потом на перевод.",
+    items:[["a reason","причина, повод"],["a cause","причина (вызвавшая что-то)"],["a loss","потеря, убыток"],["a setback","неудача, препятствие"],["behaviour","поведение"],["an approach","подход"],["an attitude","отношение"],["observe","наблюдать"]].map(([l,r])=>({l,r,q:l}))},
+  { id:"which", step:2, kind:"choice", title:"Which word fits?", ru:"Какое слово подходит?",
+    instr:"Choose the best word for the gap.", instrRu:"Выбери слово, которое лучше всего подходит.",
+    items:[
+      {p:`The company had big financial ${GAP} last year.`, opts:["attitudes","losses","approaches"], a:1, why:"Money that a company loses = <b>losses</b>.<span class='ru'>Финансовые потери — financial losses.</span>"},
+      {p:`Losing my job was a big ${GAP}, but then I found a better one.`, opts:["setback","behaviour","attitude"], a:0, why:"A problem that stops your progress = <b>setback</b>.<span class='ru'>Неудача — setback.</span>"},
+      {p:`The police are trying to find the ${GAP} of the fire.`, opts:["approach","attitude","cause"], a:2, why:"What made the fire happen = <b>the cause of</b>.<span class='ru'>Причина пожара — the cause of the fire.</span>"},
+      {p:`She has a very positive ${GAP} to life — she's always smiling.`, opts:["attitude","loss","setback"], a:0, why:"What you think and feel about life = <b>attitude</b>.<span class='ru'>Отношение к жизни — attitude to life.</span>"},
+      {p:`His ${GAP} at the party was terrible — he shouted at everyone.`, opts:["reason","behaviour","approach"], a:1, why:"The way he acted = <b>behaviour</b>.<span class='ru'>Поведение — behaviour.</span>"},
+      {p:`We need a new ${GAP} to learning English: less grammar, more speaking.`, opts:["loss","behaviour","approach"], a:2, why:"A way of doing something = <b>approach</b>.<span class='ru'>Подход к изучению — approach to learning.</span>"},
+      {p:`Scientists ${GAP} how children play.`, opts:["observe","cause","lose"], a:0, why:"Watch carefully = <b>observe</b>.<span class='ru'>Наблюдать — observe.</span>"},
+      {p:`My children are my ${GAP} to live.`, opts:["cause","setback","reason"], a:2, why:"<b>a reason to live</b> (not <i>cause</i>).<span class='ru'>Смысл жизни — a reason to live.</span>"}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  { id:"preps", step:2, kind:"choice", title:"Small words", ru:"Маленькие слова",
+    instr:"Choose the word that is missing.", instrRu:"Выбери пропущенное слово.",
+    items:[
+      {p:`What's the reason ${GAP} the delay?`, opts:["for","of","to"], a:0, why:"a reason <b>for</b> + noun.<span class='ru'>Причина чего-то — reason FOR.</span>"},
+      {p:`My family is my reason ${GAP} live.`, opts:["for","to","of"], a:1, why:"a reason <b>to</b> + verb.<span class='ru'>Перед глаголом — reason TO.</span>"},
+      {p:`The cause ${GAP} the accident is still unknown.`, opts:["for","to","of"], a:2, why:"the cause <b>of</b> something.<span class='ru'>cause всегда с OF.</span>"},
+      {p:`Let's talk about the reasons ${GAP} these losses.`, opts:["behind","under","after"], a:0, why:"the reasons <b>behind</b> = the reasons that explain it.<span class='ru'>Причины, которые стоят ЗА чем-то — behind.</span>"},
+      {p:`I like her approach ${GAP} teaching.`, opts:["for","to","of"], a:1, why:"an approach <b>to</b>.<span class='ru'>Подход К — approach TO.</span>"},
+      {p:`He has a positive attitude ${GAP} work.`, opts:["of","in","to"], a:2, why:"an attitude <b>to</b> (or towards).<span class='ru'>Отношение К — attitude TO.</span>"},
+      {p:`Try to observe your behaviour ${GAP} the outside.`, opts:["from","of","on"], a:0, why:"<b>from the outside</b> = со стороны.<span class='ru'>Со стороны — from the outside.</span>"},
+      {p:`There may ${GAP} another cause.`, opts:["is","be","are"], a:1, why:"After <b>may</b> — the base form <b>be</b>.<span class='ru'>После may глагол без изменений: may be.</span>"}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  /* ---------- Practice 2 ---------- */
+  { id:"correct", step:3, kind:"choice", title:"Which sentence is correct?", ru:"Какое предложение правильное?",
+    instr:"Choose the correct sentence.", instrRu:"Выбери правильное предложение.",
+    items:[
+      {opts:["You have right.","You are right."], a:1, why:"<b>You are right.</b><span class='ru'>«Ты права» — You are right (не have).</span>"},
+      {opts:["There maybe another reason.","There may be another reason."], a:1, why:"<b>may be</b> = two words after <i>there</i>.<span class='ru'>После there — два слова: may be.</span>"},
+      {opts:["Maybe you're right.","May be you're right."], a:0, why:"<b>Maybe</b> (one word) = perhaps.<span class='ru'>«Возможно» в начале — одно слово maybe.</span>"},
+      {opts:["There may be another causes.","There may be other causes."], a:1, why:"<b>other</b> + plural; <b>another</b> + singular.<span class='ru'>another — с единственным числом, other — с множественным.</span>"},
+      {opts:["What's the reason of the losses?","What's the reason for the losses?"], a:1, why:"a reason <b>for</b>; a cause <b>of</b>.<span class='ru'>reason FOR, cause OF.</span>"},
+      {opts:["I like his approach to life.","I like his approach for life."], a:0, why:"an approach <b>to</b>.<span class='ru'>Подход к — approach TO.</span>"},
+      {opts:["His behaviours were strange.","His behaviour was strange."], a:1, why:"<b>behaviour</b> is uncountable → <b>was</b>.<span class='ru'>behaviour — неисчисляемое, без -s, глагол was.</span>"}
+    ].map(o=>Object.assign(o,{p:"", say:o.opts[o.a], q:o.opts.join(" / ")}))},
+  { id:"match2", step:3, kind:"match", title:"Match the phrases", ru:"Соедини фразу и перевод",
+    instr:"Tap an English phrase, then its Russian translation.", instrRu:"Нажми на английскую фразу, потом на перевод.",
+    items:[["a reason to live","смысл жизни, причина жить"],["financial losses","финансовые потери"],["professional setbacks","неудачи в работе"],["from the outside","со стороны"],["there may be","возможно, есть"],["change your approach to life","изменить подход к жизни"],["You are right.","Ты права."]].map(([l,r])=>({l,r,q:l}))},
+  { id:"spell", step:3, kind:"type", title:"Write the word", ru:"Напиши слово",
+    instr:"Write the English word. Watch the spelling!", instrRu:"Напиши английское слово. Следи за написанием!",
+    items:[
+      {ruw:"поведение", acc:["behaviour","behavior"], hint:"b e h a v _ _ _ r (British: -our)"},
+      {ruw:"отношение (к чему-то)", acc:["attitude","an attitude"], hint:"a t t _ _ _ d e"},
+      {ruw:"подход", acc:["approach","an approach"], hint:"a p p _ _ _ c h"},
+      {ruw:"потери, убытки", acc:["losses"], hint:"l o s _ _ s"},
+      {ruw:"неудача, препятствие", acc:["setback","a setback"], hint:"s e t _ _ _ k"},
+      {ruw:"наблюдать", acc:["observe"], hint:"o b s _ _ _ e"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:`<b>${o.acc[0]}</b>`, q:o.ruw}))},
+  /* ---------- Mix ---------- */
+  { id:"gaps", step:4, kind:"type", title:"Anna's café", ru:"Кафе Анны",
+    instr:"Complete the story with a word from the box. Use each word once.", instrRu:"Дополни историю словом из рамки. Каждое слово — один раз.",
+    bank:["losses","cause","observe","behaviour","setback","approach","attitude"],
+    items:[
+      {s:"Last year Anna's café had big financial ___.", acc:["losses"], hint:"l _ _ _ _ s"},
+      {s:"At first she thought the ___ of the problem was the high rent.", acc:["cause"], hint:"the c _ _ _ e of"},
+      {s:"Then she decided to ___ her own work from the outside.", acc:["observe"], hint:"o b _ _ _ _ e"},
+      {s:"She saw that her ___ with customers was often cold and tired.", acc:["behaviour","behavior"], hint:"b e h _ _ _ _ _ r"},
+      {s:"It was a ___, but she didn't give up.", acc:["setback"], hint:"s e t _ _ _ k"},
+      {s:"She changed her ___ to work: she hired a manager and started to take days off.", acc:["approach","attitude"], hint:"a p p _ _ _ c h"},
+      {s:"Now she feels positive and happy — she has a much better ___ to her job.", acc:["attitude","approach"], hint:"a t t _ _ _ d e"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.s).replace("___",GAP)}</span>`, why:`<b>${o.s.replace("___",o.acc[0])}</b>`, sayFull:o.s.replace("___",o.acc[0]), q:o.s}))},
+  { id:"build", step:4, kind:"tiles", title:"Make a sentence", ru:"Составь предложение",
+    instr:"Tap the words in the right order.", instrRu:"Нажимай на слова в правильном порядке.",
+    items:[
+      {post:".", tiles:["another cause","There","of financial losses","may be"], a:["There","may be","another cause","of financial losses"], hint:"Start with <b>There</b>.<span class='ru'>Начни с There.</span>"},
+      {post:".", tiles:["from the outside","You need to","your own behaviour","observe"], a:["You need to","observe","your own behaviour","from the outside"], hint:"You need to → verb → what? → how?<span class='ru'>You need to → глагол → что? → как?</span>"},
+      {post:"!", tiles:["to life","your approach","Change"], a:["Change","your approach","to life"], hint:"Start with the verb.<span class='ru'>Начни с глагола.</span>"},
+      {post:"?", tiles:["the reasons","What","behind the losses","are"], a:["What","are","the reasons","behind the losses"], hint:"What + are + …?<span class='ru'>Вопрос: What + are + …?</span>"},
+      {post:".", tiles:["a positive attitude","She","to work","has"], a:["She","has","a positive attitude","to work"], hint:"She → has → what? → to …<span class='ru'>She → has → что? → к чему?</span>"}
+    ].map(o=>Object.assign(o,{why:"",q:o.a.join(" ")+o.post}))},
+  { id:"translate", step:4, kind:"type", title:"Translate into English", ru:"Переведи на английский",
+    instr:"Write the sentence in English.", instrRu:"Напиши предложение по-английски.",
+    items:[
+      {ruw:"Возможно, есть другая причина.", acc:["There may be another reason","There may be another cause","There might be another reason","There might be another cause","Maybe there is another reason","Maybe there is another cause"], hint:"There may be …<span class='ru'>Начни: There may be another …</span>"},
+      {ruw:"Ты права.", acc:["You are right","You're right"], hint:"You … right.<span class='ru'>Не have!</span>"},
+      {ruw:"Мне нравится твой подход к жизни.", acc:["I like your approach to life"], hint:"I like your approach …<span class='ru'>подход к — approach to</span>"},
+      {ruw:"Посмотри на своё поведение со стороны.", acc:["Look at your behaviour from the outside","Look at your own behaviour from the outside","Observe your behaviour from the outside","Observe your own behaviour from the outside","Look at your behavior from the outside","Look at your own behavior from the outside","Observe your behavior from the outside","Observe your own behavior from the outside"], hint:"Look at your … from the outside.<span class='ru'>со стороны — from the outside</span>"},
+      {ruw:"Какая причина финансовых потерь?", acc:["What is the cause of the financial losses","What is the cause of financial losses","What is the reason for the financial losses","What is the reason for financial losses","What are the reasons for the financial losses","What are the causes of the financial losses","What are the reasons behind the financial losses"], hint:"What is the cause of …?<span class='ru'>cause OF, reason FOR</span>"},
+      {ruw:"У него хорошее отношение к работе.", acc:["He has a good attitude to work","He has a good attitude towards work","He has a good attitude to his work","He has a good attitude towards his work","He's got a good attitude to work","He has got a good attitude to work"], hint:"He has a good attitude …<span class='ru'>отношение к — attitude to</span>"}
+    ].map(o=>Object.assign(o,{p:`<span class="ruq">${o.ruw}</span>`, why:"", q:o.ruw, sentence:true}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+const PRAISE=["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Yes! · Да!"];
+const OOPS=["Not quite. · Не совсем.","Almost! · Почти!","Not this one. · Не то."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const CARDS=GROUPS.flatMap(g=>g.words.map(w=>({w:w[0],ru:w[1],def:w[2],ex:w[3],em:w[4]})));
+const HAS_TTS=(()=>{ try{ return "speechSynthesis" in window; }catch(e){ return false; } })();
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, fc:{order:CARDS.map((_,i)=>i), pos:0, dir:"en", only:false, mark:{}}}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.fc) state.fc=freshState().fc;
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text||!HAS_TTS) return;
+  try{
+    const u=new SpeechSynthesisUtterance(strip(text).replace(/\s*\((n|adj)\)/g,""));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.85;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\b(do|does|did|is|are|was|were|have|has|could|should)nt\b/g,"$1n't").replace(/\bcant\b/g,"can't").replace(/\bim\b/g,"i am");
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bcan not\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have").replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'ll\b/g,"$1 will").replace(/\blet's\b/g,"let us").replace(/\b(he|she|it|that|what)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function evalTyped(it,raw){ const n=norm(raw); return it.acc.map(norm).includes(n); }
+function fbHTML(kind,msg,body,say){ return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`; }
+
+/* ---------- words tab ---------- */
+function buildDialogue(){
+  const box=document.getElementById("dlg");
+  box.innerHTML=DIALOGUE.map(([who,en,ru],i)=>`<div class="dl${who==="Kate"?" k":""}"><span class="who">${who}</span><div class="tx" id="dt${i}">${esc(en)}<span class="ru">${esc(ru)}</span></div><button class="rub" data-rub="${i}" aria-pressed="false" aria-label="Show Russian translation">RU</button><button class="say" data-say="${esc(en)}" aria-label="Listen">🔊</button></div>`).join("");
+  box.querySelectorAll("[data-rub]").forEach(b=>b.addEventListener("click",()=>{ const t=document.getElementById("dt"+b.dataset.rub), o=!t.classList.contains("open"); t.classList.toggle("open",o); b.setAttribute("aria-pressed",o); }));
+}
+function buildWords(){
+  GROUPS.forEach((g,k)=>{
+    document.getElementById("wl"+k).innerHTML=g.words.map(([w,ru,def,ex,em])=>`<div class="wrow" style="--gb:${g.bg}"><span class="em">${em}</span><div><b>${esc(w)}</b> — <span class="tr">${esc(ru)}</span><div class="def">${esc(def)}</div><div class="wex">${esc(ex)}</div></div><button class="say" data-say="${esc(w+". "+ex)}" aria-label="Listen to ${esc(w)}">🔊</button></div>`).join("");
+  });
+}
+
+/* ---------- flashcards ---------- */
+function fcList(){ const f=state.fc; return f.order.filter(i=>!f.only||f.mark[i]!=="k"); }
+function renderFC(){
+  const f=state.fc, list=fcList(), card=document.getElementById("fc");
+  document.getElementById("fcDir").textContent=f.dir==="en"?"⇄ English → Русский":"⇄ Русский → English";
+  document.getElementById("fcFilter").checked=!!f.only;
+  const known=Object.values(f.mark).filter(v=>v==="k").length;
+  document.getElementById("fcKnown").textContent=`Known · Знаю: ${known} / ${CARDS.length}`;
+  document.getElementById("fcKnowBar").style.width=(known/CARDS.length*100)+"%";
+  card.classList.remove("flip");
+  if(!list.length){ card.innerHTML=`<div class="face front"><div class="em">🎉</div><div class="ph">You know them all!</div><div class="rt">Ты знаешь все слова!</div></div>`; document.getElementById("fcPos").textContent=""; document.getElementById("fcState").textContent=""; return; }
+  if(f.pos>=list.length) f.pos=0; if(f.pos<0) f.pos=list.length-1;
+  const i=list[f.pos], c=CARDS[i];
+  const fr=f.dir==="en"?`<div class="em">${c.em}</div><div class="ph">${esc(c.w)}</div><button class="say fsay" data-say="${esc(c.w)}" aria-label="Listen">🔊</button>`:`<div class="em">${c.em}</div><div class="rt">${esc(c.ru)}</div>`;
+  const bk=f.dir==="en"?`<div class="rt">${esc(c.ru)}</div><div class="fex">“${esc(c.ex)}”</div>`:`<div class="ph">${esc(c.w)}</div><div class="fex">“${esc(c.ex)}”</div>`;
+  card.innerHTML=`<div class="face front">${fr}<span class="tap">TAP TO FLIP · НАЖМИ</span></div><div class="face back">${bk}<button class="say fsay" data-say="${esc(c.w+". "+c.ex)}" aria-label="Listen">🔊</button><span class="tap">TAP TO FLIP BACK</span></div>`;
+  document.getElementById("fcPos").textContent=`${f.pos+1} / ${list.length}`;
+  const m=f.mark[i];
+  document.getElementById("fcState").innerHTML=m==="k"?'<span class="state-k">✓ I know it · Знаю</span>':m==="l"?'<span class="state-l">● Still learning · Учу</span>':"";
+}
+function buildFC(){
+  const card=document.getElementById("fc"), f=()=>state.fc;
+  const flip=e=>{ if(e&&e.target&&e.target.closest&&e.target.closest("[data-say]")) return; card.classList.toggle("flip"); };
+  card.addEventListener("click",flip);
+  card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); flip(); } });
+  document.getElementById("fcPrev").addEventListener("click",()=>{ f().pos--; renderFC(); saveState(); });
+  document.getElementById("fcNext").addEventListener("click",()=>{ f().pos++; renderFC(); saveState(); });
+  document.getElementById("fcDir").addEventListener("click",()=>{ f().dir=f().dir==="en"?"ru":"en"; renderFC(); saveState(); });
+  document.getElementById("fcShuffle").addEventListener("click",()=>{ const o=f().order; for(let k=o.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [o[k],o[j]]=[o[j],o[k]]; } f().pos=0; renderFC(); saveState(); });
+  document.getElementById("fcFilter").addEventListener("change",e=>{ f().only=e.target.checked; f().pos=0; renderFC(); saveState(); });
+  const mark=v=>{ const list=fcList(); if(!list.length) return; const i=list[f().pos]; f().mark[i]=v; if(!(f().only&&v==="k")) f().pos++; renderFC(); saveState(); if(state.tab===5) renderResults(); };
+  document.getElementById("fcKnow").addEventListener("click",()=>mark("k"));
+  document.getElementById("fcLearn").addEventListener("click",()=>mark("l"));
+  renderFC();
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):ex.kind==="tiles"?renderTiles(ex,i):renderType(ex,i); }
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const rowCls=it.listen?"":it.opts.every(o=>o.length<16)?(it.opts.length>4?" row many":" row"):"";
+  let top=it.p?`<div class="sent">${it.p}</div>`:"";
+  if(it.listen) top=`<button class="listen" data-say="${esc(it.w)}" aria-label="Listen">🔊 Listen · Слушай</button>${HAS_TTS?"":`<p class="small">No sound on this device. The word is: <b>${esc(it.w)}</b><span class="ru">На этом устройстве нет звука — слово: ${esc(it.w)}</span></p>`}`;
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp">${top}<div class="opts${rowCls}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick]; st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i); }));
+  return d;
+}
+function renderTiles(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  if(!st.cur) st.cur=[];
+  const full=it.a.join(" ")+it.post;
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div class="build"><div class="zone">`;
+  if(st.done) h+=(st.correct?it.a:String(st.given||"").split("|")).map(w=>`<span class="tile" style="pointer-events:none">${esc(w)}</span>`).join("");
+  else h+=st.cur.length?st.cur.map((k,pos)=>`<button class="tile" data-pos="${pos}">${esc(it.tiles[k])}</button>`).join(""):'<span class="ph">tap the words · нажимай на слова</span>';
+  h+=`</div><span class="fx">${esc(it.post)}</span></div>`;
+  if(!st.done){
+    h+=`<div class="pool">${it.tiles.map((w,k)=>st.cur.includes(k)?"":`<button class="tile" data-k="${k}">${esc(w)}</button>`).join("")}</div>`;
+    h+=`<div class="rowi"><button class="btn g chkb">Check · Проверить</button><button class="btn ghost clr">Clear · Очистить</button></div>`;
+    if(st.warn) h+=fbHTML("hint","",st.warn); else if(st.tries===1) h+=fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  } else h+=st.correct?fbHTML("good",st.msg,"",full):fbHTML("bad",st.msg,`Correct · Правильно: <span class="model">${esc(full)}</span>`,full);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done){
+    d.querySelectorAll(".pool .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.push(+b.dataset.k); st.warn=""; refresh(ex,i); }));
+    d.querySelectorAll(".zone .tile").forEach(b=>b.addEventListener("click",()=>{ st.cur.splice(+b.dataset.pos,1); refresh(ex,i); }));
+    d.querySelector(".clr").addEventListener("click",()=>{ st.cur=[]; st.warn=""; refresh(ex,i); });
+    d.querySelector(".chkb").addEventListener("click",()=>{
+      if(st.cur.length<it.tiles.length){ st.warn="Use all the words first. · Сначала используй все слова."; refresh(ex,i); return; }
+      st.warn=""; const ans=st.cur.map(k=>it.tiles[k]); st.tries++;
+      if(ans.join("|")===it.a.join("|")){ st.done=true; st.correct=true; st.given=ans.join("|"); st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!"; speak(full); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=ans.join("|"); st.msg="Not this time. · В этот раз не вышло."; }
+      else st.cur=[];
+      refresh(ex,i);
+    });
+  }
+  return d;
+}
+function modelOf(it){ return it.sentence?it.acc[0]+(/^(do|can|have|are|is|what|where|why|how)\b/i.test(it.acc[0])?"?":"."):it.acc[0]; }
+function typedFB(it,st){
+  const model=modelOf(it), sayM=it.sayFull||model;
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>Marked as correct — your teacher will check. · Ты отметила ответ как верный — учитель проверит.</i>":""; return fbHTML("good",st.self?"Marked as correct · Отмечено как верное":st.msg,(it.sentence?`<span class="model">${esc(model)}</span>`:it.why)+(st.note?"<br>"+st.note:"")+extra,sayM); }
+    return fbHTML("bad",st.msg,`Your answer · Твой ответ: <span class="given">${esc(st.given)}</span><br>Correct · Правильно: <span class="model">${esc(it.sayFull||model)}</span>`,sayM)+(it.sentence?`<button class="selfmark" data-self="1">My answer is also correct ✓ · Мой ответ тоже верный</button>`:"");
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Try again! · Попробуй ещё раз!","Hint · Подсказка: "+it.hint);
+  return "";
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="rowi"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.sentence?"Type the sentence · Напиши предложение":"Type here · Напиши здесь"}"><button class="btn g chkb">Check · Проверить</button></div>`;
+  h+=typedFB(it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{
+      const val=inp.value;
+      if(!val.trim()){ st.warn="Type your answer first. · Сначала напиши ответ."; refresh(ex,i); return; }
+      st.warn=""; st.tries++;
+      if(evalTyped(it,val)){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the 2nd try! · Верно со второй попытки!"; speak(it.sayFull||it.acc[0]); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time. · В этот раз не вышло."; }
+      st.draft=st.done?"":val;
+      refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus();
+    };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+/* match (one selection per exercise) */
+const matchSel={};
+function seeded(n,seed){ const a=[...Array(n).keys()]; let s=seed; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderMatch(ex){
+  const d=document.createElement("div"); d.id=`it-${ex.id}-all`;
+  const order=seeded(ex.items.length,ex.id.length*7+3), sel=matchSel[ex.id];
+  let h=`<div class="match"><div class="mcol">`;
+  ex.items.forEach((it,i)=>{ const st=S(ex,i); h+=`<button class="mi${st.done?" done":""}${st.done&&!st.correct?" late":""}${sel===i?" sel":""}${!st.done&&st.tries?" miss":""}" data-l="${i}">${esc(it.l)}${st.done?` <span class="tagn">${st.correct?"✓":"2+"}</span>`:""}</button>`; });
+  h+=`</div><div class="mcol">`;
+  order.forEach(i=>{ const st=S(ex,i); h+=`<button class="mi r${st.done?" done":""}" data-r="${i}">${esc(ex.items[i].r)}</button>`; });
+  h+=`</div></div><p class="small mmsg" aria-live="polite">${sel==null?"Tap an English word first. · Сначала нажми на английское слово.":"Now tap the translation. · Теперь нажми на перевод."}</p>`;
+  d.innerHTML=h;
+  const msg=d.querySelector(".mmsg");
+  d.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.l; if(S(ex,i).done) return; matchSel[ex.id]=i; speak(ex.items[i].l); refreshMatch(ex); }));
+  d.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const r=+b.dataset.r, cur=matchSel[ex.id]; if(S(ex,r).done) return;
+    if(cur==null){ msg.textContent="Tap an English word first. · Сначала нажми на английское слово."; return; }
+    const st=S(ex,cur);
+    if(r===cur){ st.done=true; st.correct=st.tries===0; st.given=st.given||ex.items[r].r; matchSel[ex.id]=null; refreshMatch(ex); }
+    else { if(st.tries===0) st.given=ex.items[r].r; st.tries++; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),400); msg.textContent="Not this one — try again. · Не то — попробуй ещё."; const lb=d.querySelector(`[data-l="${cur}"]`); if(lb) lb.classList.add("miss"); afterChange(); }
+  }));
+  return d;
+}
+function refreshMatch(ex){ document.getElementById(`it-${ex.id}-all`).replaceWith(renderMatch(ex)); afterChange(); }
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n} · Упражнение ${ex.n}</span><h3>${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></h3><p class="instr">${ex.instr}<span class="ru">${ex.instrRu}</span></p></div><span class="ex-score" id="sc-${ex.id}"></span></div>${ex.bank?`<div class="wbank">${ex.bank.map(w=>`<span>${esc(w)}</span>`).join("")}</div>`:""}${ex.text?`<div class="story">${esc(ex.text)} <button class="say" data-say="${esc(ex.text)}" aria-label="Listen to the text">🔊</button></div>`:""}<div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    if(ex.kind==="match") box.appendChild(renderMatch(ex)); else ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<5;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next · Дальше: ${STEPS[p+1][0].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n}`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} · ✓ ${t.c}`;
+  renderTabs(); if(state.tab===5) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map(([en,ru],k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(en)}${badge}<small>${esc(ru)}</small></button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===5) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){ if(ex.kind==="choice") return it.opts[it.a]; if(ex.kind==="match") return it.r; if(ex.kind==="tiles") return it.a.join(" ")+it.post; return it.acc[0]; }
+function givenText(ex,st){ return ex.kind==="tiles"?String(st.given||"").split("|").join(" "):st.given; }
+function knownCount(){ return Object.values(state.fc.mark).filter(v=>v==="k").length; }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (${LEVEL})`); L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`); L.push(`Flashcards known: ${knownCount()}/${CARDS.length}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return; const q=it.q;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" (model: "${correctText(ex,it)}")`); }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type"||e.kind==="tiles").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${givenText(ex,st)}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED / BUILT ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Start with the Words tab!<span class='ru'>Начни с вкладки «Слова»!</span>":pct>=90?`Brilliant, ${nm}! You're right about everything 😉<span class='ru'>Блестяще, ${nm}! Отличный результат!</span>`:pct>=75?"Great work! Look at your mistakes below.<span class='ru'>Отличная работа! Посмотри ошибки ниже.</span>":pct>=55?"Good effort! Review the flashcards and try again.<span class='ru'>Хорошая попытка! Повтори карточки и попробуй ещё раз.</span>":"Keep going! Learn the words with the flashcards and try once more.<span class='ru'>Не сдавайся! Повтори слова по карточкам и попробуй ещё раз.</span>";
+  let h=`<div class="kicker">Results · Итоги</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered · отвечено ${t.d} / ${t.n} · flashcards · карточки ${knownCount()} / ${CARDS.length}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}<span class="ru">${esc(ex.ru)}</span></span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer · Твой ответ: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again · Посмотри ещё раз</div><h3>Your mistakes<span class="ru">Твои ошибки</span></h3><ol class="mlist">${mist.join("")}</ol>`:`<h3>No mistakes so far 🎉<span class="ru">Пока без ошибок!</span></h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share · Поделиться</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email · Почта</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text · Скопировать</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message. · Скопировано! Вставь в сообщение учителю."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Please copy the text by hand. · Скопируй текст вручную."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===5) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 On · Звук":"🔇 Off · Без звука"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildWords(); buildDialogue(); buildFC(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound); Object.keys(matchSel).forEach(k=>delete matchSel[k]);
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderFC();
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if(HAS_TTS) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
