@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>It looks as if… — sense verbs + revision — Julia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F3EE; --paper:#FFFFFF; --ink:#2B1E2F; --soft:#6E6070; --line:#EDE3DA; --line2:#DCCDC0;
+  --plum:#7B2D5B; --plum-bg:#F5E6EF; --saffron:#E39B22; --saffron-bg:#FCF0D9; --sage:#4E8565; --sage-bg:#E3F0E7;
+  --sky:#3E73B5; --sky-bg:#E4EDF8; --rose:#D3566B; --rose-bg:#FBE6EA;
+  --good:#22805A; --good-bg:#E2F5EA; --bad:#C6453A; --bad-bg:#FCE8E5; --hint-bg:#FFF4D6;
+  --r:20px; --shadow:0 1px 2px rgba(43,30,47,.05),0 8px 26px rgba(123,45,91,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background-image:radial-gradient(circle at 8% 4%,rgba(227,155,34,.14),transparent 30%),radial-gradient(circle at 95% 25%,rgba(123,45,91,.10),transparent 28%);background-attachment:fixed}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:10px}
+.wrap{max-width:900px;margin:0 auto;padding-left:16px;padding-right:16px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0;font-weight:900}
+/* hero */
+.hero{padding-top:26px;padding-bottom:16px;display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:center}
+.badge{display:inline-block;background:var(--plum);color:#fff;font-weight:800;letter-spacing:.12em;font-size:.72rem;padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(2.1rem,8vw,3.3rem);margin:14px 0 6px}
+.hero h1 span{color:var(--saffron)}
+.hero .sub{margin:0;color:var(--soft)}
+.art{width:100%;max-width:290px;justify-self:center}
+.howto{grid-column:1/-1;background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.howto p{margin:0;flex:1 1 330px}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.namebox label{font-weight:800}
+.namebox input{border:2px solid var(--line);border-radius:12px;padding:8px 12px;width:130px;min-height:44px;background:#fff}
+.namebox input:focus{border-color:var(--sky);outline:none}
+.pill{border:2px solid var(--line);background:#fff;border-radius:999px;min-height:44px;padding:6px 14px;font-weight:800}
+/* bar */
+.bar{position:sticky;top:0;z-index:30;background:rgba(248,243,238,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:12px;padding:6px 12px;min-height:46px;font-weight:800;font-size:.9rem;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .tb{display:inline-block;margin-left:6px;font-size:.72rem;background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 7px}
+.prog{display:flex;align-items:center;gap:12px;padding:0 0 10px;font-size:.84rem;font-weight:800;color:var(--soft)}
+.track{flex:1;height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--saffron),var(--rose),var(--plum));border-radius:999px;transition:width .5s}
+/* layout */
+main{padding:18px 0 70px}
+.page{display:none}.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.card h2{font-size:clamp(1.35rem,5vw,1.75rem);margin-bottom:8px}
+.card h3{font-size:1.15rem;margin:12px 0 6px}
+.card p{margin:.45em 0}
+.kicker{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);margin-bottom:6px}
+.small{font-size:.88rem;color:var(--soft)}
+/* rules */
+.pat{display:grid;gap:10px;margin-top:10px}
+.pr{border-radius:16px;padding:12px 14px;background:var(--pb)}
+.pr .f{font-weight:800;font-size:1.02rem}
+.pr .f b{color:var(--pc)}
+.pr .eg{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.pr .eg i{flex:1}
+.say{flex:0 0 auto;border:0;background:var(--bg);border-radius:999px;width:44px;height:44px;font-size:1rem}
+.say:hover{background:var(--line)}
+.pr .say{background:#fff}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:7px 0}
+.mist div{padding:9px 12px;border-radius:12px}
+.mist .x{background:var(--bad-bg);color:#8B2B24}.mist .x::before{content:"✗ ";font-weight:800}
+.mist .v{background:var(--good-bg);color:#155E3E;font-weight:700}.mist .v::before{content:"✓ ";font-weight:800}
+.note{border-left:4px solid var(--saffron);background:var(--saffron-bg);border-radius:0 12px 12px 0;padding:10px 12px;margin-top:10px}
+.tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+.tbl th,.tbl td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.tbl b{color:var(--plum)}
+/* machine */
+.machine{background:linear-gradient(160deg,var(--saffron-bg),var(--plum-bg));border-radius:18px;padding:14px;margin-top:10px}
+.mrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.mrow .lab{width:100%;font-size:.8rem;font-weight:800;color:var(--soft)}
+.chip{border:2px solid var(--line2);background:#fff;border-radius:999px;padding:6px 14px;min-height:44px;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.out{background:#fff;border-radius:14px;padding:14px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.out .en{font-family:Fraunces,serif;font-weight:700;font-size:clamp(1.1rem,4.6vw,1.4rem)}
+.out .en b{color:var(--plum)}
+.out .sa{font-size:.9rem;color:var(--soft);margin-top:4px}
+/* buttons */
+.btn{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--ink);color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.g{background:var(--sage)}.btn.p{background:var(--plum)}
+/* exercises */
+.ex{background:var(--paper);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:0 0 16px}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.ex-num{font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
+.ex-head h3{font-size:1.22rem;margin:4px 0 4px}
+.instr{margin:0;color:var(--soft)}
+.ex-score{flex:0 0 auto;font-weight:800;background:var(--sage-bg);color:var(--sage);border-radius:999px;padding:4px 12px;font-size:.84rem;white-space:nowrap}
+.item{border:2px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;background:#fff;transition:border-color .2s}
+.item.ok{border-color:#A4D9BF}.item.no{border-color:#EDB5AE}
+.q{display:flex;gap:10px;align-items:flex-start}
+.qn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--bg);font-weight:800;font-size:.84rem;display:grid;place-items:center;margin-top:1px}
+.qp{flex:1;min-width:0}
+.sent{font-size:1.06rem}
+.ctx{color:var(--soft);font-size:.95rem}
+.wrongs{font-size:1.06rem;text-decoration:underline wavy var(--bad);text-underline-offset:4px}
+.prm{color:var(--plum);font-weight:700}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.opt{overflow-wrap:anywhere;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:48px;font-weight:700}
+.opts.row .opt{text-align:center}
+.opt:hover:not(:disabled){border-color:var(--sage);background:#FAFDFB}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:#155E3E;font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:#8B2B24}
+.opt.dim{opacity:.5}
+.slot{display:inline-block;min-width:54px;text-align:center;border-bottom:3px solid var(--plum);color:var(--plum);font-weight:800;line-height:1.2}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.fb .t{flex:1;min-width:0}
+.fb.good{background:var(--good-bg)}.fb.bad{background:var(--bad-bg)}.fb.hint{background:var(--hint-bg)}
+.fb b.m{display:block}
+.fb .say{background:#fff;width:40px;height:40px}
+.rowi{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.inp{flex:1 1 200px;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.inp:focus{border-color:var(--sage);outline:none}
+.model{font-weight:800;color:#155E3E}
+.given{font-weight:700}
+.selfmark{margin-top:8px;border:2px dashed var(--good);background:#fff;color:var(--good);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;text-align:left}
+/* results */
+.score-big{font-family:Fraunces,serif;font-weight:900;font-size:2.8rem;line-height:1}
+.res-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.res-row:last-child{border:0}
+.mlist{margin:0;padding-left:20px}.mlist li{margin:8px 0}
+.sendbtns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email{user-select:all;font-weight:800;color:var(--plum)}
+.confirm{display:none;margin-top:10px;padding:12px;border-radius:12px;background:var(--bad-bg)}
+.confirm.on{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:4px}
+@media (max-width:640px){ .hero{grid-template-columns:1fr} .art{max-width:220px} }
+@media (max-width:520px){ body{font-size:16px} .card,.ex{padding:15px} .mist{grid-template-columns:1fr} .tbl{font-size:.88rem} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div>
+    <span class="badge">UPPER-INTERMEDIATE · GRAMMAR</span>
+    <h1>It looks <span>as if…</span></h1>
+    <p class="sub">How things look, sound, taste, smell and feel — plus a revision of the passive, <i>have something done</i> and reporting verbs. Homework for <b id="nameOut">Julia</b>.</p>
+  </div>
+  <svg class="art" viewBox="0 0 290 210" aria-hidden="true">
+    <circle cx="145" cy="105" r="95" fill="#F5E6EF"/>
+    <g font-size="34" text-anchor="middle" font-family="Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,sans-serif">
+      <circle cx="145" cy="46" r="30" fill="#FCF0D9"/><text x="145" y="58">👀</text>
+      <circle cx="78" cy="92" r="30" fill="#E4EDF8"/><text x="78" y="104">👂</text>
+      <circle cx="212" cy="92" r="30" fill="#E3F0E7"/><text x="212" y="104">👅</text>
+      <circle cx="104" cy="164" r="30" fill="#FBE6EA"/><text x="104" y="176">👃</text>
+      <circle cx="186" cy="164" r="30" fill="#FCF0D9"/><text x="186" y="176">✋</text>
+    </g>
+  </svg>
+  <div class="howto">
+    <p>Work through the tabs in order: read each rule card, then do the exercises under it. Finish with the mixed text and send your results.</p>
+    <div class="namebox"><label for="nameIn">Name</label><input id="nameIn" autocomplete="off"><button class="pill" id="soundBtn" aria-pressed="true">🔊 On</button></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span id="progTxt">0 / 0</span></div>
+</div></div>
+
+<main class="wrap">
+<!-- 0 SENSE VERBS -->
+<section class="page" data-page="0">
+  <div class="card">
+    <div class="kicker">Rule 1 · Grammar focus</div>
+    <h2>look · sound · taste · smell · feel</h2>
+    <p>We use these verbs to describe <b>the impression</b> something gives us through our senses. They are followed by three different patterns — the choice depends on <b>what comes next</b>.</p>
+    <div class="pat">
+      <div class="pr" style="--pb:var(--saffron-bg);--pc:#A86A08"><div class="f">sense verb + <b>adjective</b></div><div class="eg"><i>This soup tastes horrible.</i><button class="say" data-say="This soup tastes horrible." aria-label="Listen">🔊</button></div><div class="eg"><i>You look exhausted.</i><button class="say" data-say="You look exhausted." aria-label="Listen">🔊</button></div></div>
+      <div class="pr" style="--pb:var(--sky-bg);--pc:var(--sky)"><div class="f">sense verb + <b>like + noun</b></div><div class="eg"><i>This meat tastes like beef.</i><button class="say" data-say="This meat tastes like beef." aria-label="Listen">🔊</button></div><div class="eg"><i>She looks like her mother.</i><button class="say" data-say="She looks like her mother." aria-label="Listen">🔊</button></div></div>
+      <div class="pr" style="--pb:var(--plum-bg);--pc:var(--plum)"><div class="f">sense verb + <b>as if / as though + clause</b></div><div class="eg"><i>It looks as if someone has been here.</i><button class="say" data-say="It looks as if someone has been here." aria-label="Listen">🔊</button></div><div class="eg"><i>You sound as though you've got a cold.</i><button class="say" data-say="You sound as though you've got a cold." aria-label="Listen">🔊</button></div></div>
+    </div>
+    <h3>How to choose</h3>
+    <table class="tbl">
+      <tr><th>Next comes…</th><th>Use</th><th>Example</th></tr>
+      <tr><td>an adjective</td><td><b>nothing</b> in between</td><td>It smells <b>delicious</b>.</td></tr>
+      <tr><td>a noun (phrase)</td><td><b>like</b></td><td>It smells <b>like</b> fresh bread.</td></tr>
+      <tr><td>a clause (subject + verb)</td><td><b>as if / as though</b></td><td>It smells <b>as if</b> something is burning.</td></tr>
+    </table>
+    <div class="note"><b>seem</b> works the same way: <i>He seems <b>tired</b>.</i> · <i>It seems <b>as if</b> nobody cares.</i> You can also say <i>He seems <b>to be</b> tired.</i></div>
+    <div class="note"><b>like + clause</b> (<i>It looks like it has been repaired</i>) is very common in conversation, but in writing and exams it's better to use <b>as if / as though</b>.</div>
+    <h3>Careful!</h3>
+    <div class="mist"><div class="x">He seems tiredly.</div><div class="v">He seems tired.</div></div>
+    <div class="mist"><div class="x">The music sounds beautifully.</div><div class="v">The music sounds beautiful.</div></div>
+    <div class="mist"><div class="x">This tastes as beef.</div><div class="v">This tastes like beef.</div></div>
+    <div class="mist"><div class="x">You look like tired.</div><div class="v">You look tired.</div></div>
+    <p class="small">Why an adjective, not an adverb? These verbs describe the <b>subject</b> (the soup is horrible), not <i>how</i> an action is done.</p>
+  </div>
+  <div class="card">
+    <div class="kicker">Try it</div>
+    <h3 style="margin-top:0">The sense machine</h3>
+    <p class="small">Choose a verb and a pattern to see an example.</p>
+    <div class="machine">
+      <div class="mrow" id="mVerb"><span class="lab">Verb</span></div>
+      <div class="mrow" id="mPat"><span class="lab">Pattern</span></div>
+      <div class="out"><div><div class="en" id="mEn"></div><div class="sa" id="mSa"></div></div><button class="say" id="mSay" aria-label="Listen">🔊</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 PASSIVE -->
+<section class="page" data-page="1">
+  <div class="card">
+    <div class="kicker">Rule 2 · Revision</div>
+    <h2>The passive and passive reporting</h2>
+    <p>Passive = <b>be</b> (in the right tense) + <b>past participle</b>. We use it when the action matters more than who does it.</p>
+    <table class="tbl">
+      <tr><th>Tense</th><th>Passive</th></tr>
+      <tr><td>present continuous</td><td>A new hospital <b>is being built</b>.</td></tr>
+      <tr><td>past continuous</td><td>The bridge <b>was being repaired</b> when we drove past.</td></tr>
+      <tr><td>present perfect</td><td>The documents <b>have been signed</b>.</td></tr>
+      <tr><td>future</td><td>The winners <b>will be announced</b> on Friday.</td></tr>
+    </table>
+    <h3>Passive reporting (formal, news style)</h3>
+    <table class="tbl">
+      <tr><th>Pattern</th><th>Example</th></tr>
+      <tr><td><b>It is said / thought / believed that</b> + clause</td><td>It is said that the castle is haunted.</td></tr>
+      <tr><td>subject + <b>is said to + infinitive</b> (now)</td><td>The castle <b>is said to be</b> haunted.</td></tr>
+      <tr><td>subject + <b>is said to have + past participle</b> (earlier)</td><td>The thief <b>is believed to have escaped</b> through the window.</td></tr>
+    </table>
+    <div class="note">Choose the infinitive by time: same time as the reporting → <b>to be / to do</b>; earlier → <b>to have done</b>; in progress → <b>to be doing</b>.</div>
+    <h3>have something done</h3>
+    <p><b>have + object + past participle</b> = someone else does it for you (usually you pay). In informal English, <b>get</b> is also used.</p>
+    <div class="pat">
+      <div class="pr" style="--pb:var(--sage-bg);--pc:var(--sage)"><div class="eg"><i>I <b>had my hair cut</b> yesterday.</i><button class="say" data-say="I had my hair cut yesterday." aria-label="Listen">🔊</button></div><div class="eg"><i>We're <b>having our flat painted</b> next week.</i><button class="say" data-say="We're having our flat painted next week." aria-label="Listen">🔊</button></div></div>
+    </div>
+    <div class="mist"><div class="x">I cut my hair at the hairdresser's.</div><div class="v">I had my hair cut at the hairdresser's.</div></div>
+    <div class="mist"><div class="x">I had cut my hair.</div><div class="v">I had my hair cut.</div></div>
+  </div>
+</section>
+
+<!-- 2 REPORTING VERBS -->
+<section class="page" data-page="2">
+  <div class="card">
+    <div class="kicker">Rule 3 · Revision</div>
+    <h2>Reporting verbs</h2>
+    <p>Each reporting verb has its own pattern. Learn them as chunks.</p>
+    <table class="tbl">
+      <tr><th>Pattern</th><th>Verbs</th><th>Example</th></tr>
+      <tr><td>verb + <b>sb to do</b></td><td>advise, warn, tell, persuade, remind</td><td>She <b>advised me to see</b> a lawyer.</td></tr>
+      <tr><td>verb + <b>to do</b></td><td>refuse, agree, promise, offer, threaten</td><td>He <b>refused to give</b> me a day off.</td></tr>
+      <tr><td>verb + <b>-ing</b></td><td>deny, admit, suggest, recommend</td><td>Tom <b>denied breaking</b> the vase.</td></tr>
+      <tr><td>verb + <b>preposition + -ing</b></td><td>apologise for, insist on, accuse sb of</td><td>Kate <b>apologised for being</b> late.</td></tr>
+    </table>
+    <div class="note">Negative: <b>warn / advise sb not to do</b> — <i>He warned us <b>not to swim</b> there.</i> · <b>suggest</b> never takes <i>sb to do</i>: <span style="color:var(--bad);text-decoration:line-through">She suggested me to go</span> → She suggested <b>going</b> / that I <b>(should) go</b>.</div>
+  </div>
+</section>
+
+<!-- 3 MIX -->
+<section class="page" data-page="3">
+  <div class="card"><div class="kicker">Mixed practice</div><h2>Everything together</h2><p class="small">A restaurant review that uses all the grammar from this homework.</p></div>
+</section>
+
+<!-- 4 RESULTS -->
+<section class="page" data-page="4">
+  <div class="card" id="resCard"></div>
+  <div class="card" id="mistCard"></div>
+  <div class="card">
+    <div class="kicker">Send to your teacher</div>
+    <h3 style="margin-top:0">Send your results</h3>
+    <p class="small">Choose any way. <b>Copy text</b> always contains the full report.</p>
+    <div class="sendbtns" id="sendBtns"></div>
+    <p class="small">Teacher's email: <span class="email">ulchik2211@gmail.com</span></p>
+    <p class="small" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Start again</h3>
+    <p class="small">This deletes all your answers on this device.</p>
+    <button class="btn ghost" id="resetBtn">↺ Start again</button>
+    <div class="confirm" id="confirmBox"><p style="margin-top:0"><b>Delete all answers?</b></p><button class="btn" id="resetYes" style="background:var(--bad)">Yes</button> <button class="btn ghost" id="resetNo">No</button></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* =========================================================
+   DATA (edit here)
+   ========================================================= */
+const TEACHER_EMAIL="ulchik2211@gmail.com";
+const HOMEWORK_TITLE="It looks as if… — sense verbs + passive, have sth done, reporting verbs";
+const LEVEL="Upper-Intermediate";
+const SUBJECT_TOPIC="Sense verbs + revision";
+const STORE_KEY="julia-senses-passive-reporting-v1";
+const DEFAULT_NAME="Julia";
+const STEPS=["👀 Sense verbs","🏗️ Passive","🗣️ Reporting verbs","🍽️ Mix","📊 Results"];
+
+/* sense machine: verb → [adjective, like + noun, as if + clause] */
+const MACHINE={
+  look:["You look exhausted.","You look like your dad.","You look as if you haven't slept for days."],
+  sound:["That sounds fantastic.","That sounds like a great plan.","It sounds as if they're having a party next door."],
+  taste:["This soup tastes horrible.","This meat tastes like beef.","It tastes as if someone has added too much salt."],
+  smell:["These roses smell lovely.","The kitchen smells like fresh bread.","It smells as if something is burning."],
+  feel:["This blanket feels soft.","This fabric feels like silk.","I feel as if I've known you for years."]
+};
+const PATS=["+ adjective","+ like + noun","+ as if / as though + clause"];
+
+const GAP='<span class="slot">___</span>';
+const EX=[
+  /* ---------- Step 1: sense verbs ---------- */
+  { id:"form", step:0, kind:"choice", title:"Adjective, adverb or like?",
+    instr:"Choose the correct option.",
+    items:[
+      {p:`This soup tastes ${GAP}.`, opts:["horrible","horribly","like horrible"], a:0, why:"sense verb + <b>adjective</b>. The soup <i>is</i> horrible."},
+      {p:`You look ${GAP} today. Did you sleep badly?`, opts:["tiredly","like tired","tired"], a:2, why:"look + <b>adjective</b> — no <i>like</i> before an adjective."},
+      {p:`That sounds ${GAP} a great idea!`, opts:["like","as","as if"], a:0, why:"<i>a great idea</i> is a noun phrase → <b>like</b>."},
+      {p:`This fabric feels ${GAP} silk.`, opts:["as","as if","like"], a:2, why:"<i>silk</i> is a noun → <b>like</b>. ✗ <i>feels as silk</i>."},
+      {p:`Your plan sounds ${GAP}.`, opts:["interestingly","interesting","like interesting"], a:1, why:"sound + <b>adjective</b>, never an adverb."},
+      {p:`He seems ${GAP} about the exam.`, opts:["nervous","nervously","like nervous"], a:0, why:"<b>seem + adjective</b>, never an adverb."},
+      {p:`The milk smells ${GAP} — I think it's gone off.`, opts:["badly","like bad","bad"], a:2, why:"smell + <b>adjective</b>: it smells <b>bad</b>. (<i>smells badly</i> would mean your nose doesn't work well!)"},
+      {p:`It smells ${GAP} someone has been baking bread.`, opts:["as if","as","so"], a:0, why:"A clause follows (<i>someone has been baking</i>) → <b>as if / as though</b>."}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  { id:"likeasif", step:0, kind:"choice", title:"Nothing, like or as if?",
+    instr:"Choose the best option for careful, written English.",
+    items:[
+      {p:`This cake tastes ${GAP} amazing.`, a:0, why:"<i>amazing</i> is an adjective → <b>nothing</b> in between."},
+      {p:`That noise sounds ${GAP} thunder.`, a:1, why:"<i>thunder</i> is a noun → <b>like</b>."},
+      {p:`You look ${GAP} you've seen a ghost.`, a:2, why:"A clause follows (<i>you've seen</i>) → <b>as if / as though</b>. (<i>like</i> is common in speech.)"},
+      {p:`The room smells ${GAP} fresh paint.`, a:1, why:"<i>fresh paint</i> is a noun phrase → <b>like</b>."},
+      {p:`He looks ${GAP} a famous actor.`, a:1, why:"<i>a famous actor</i> is a noun phrase → <b>like</b>."},
+      {p:`It feels ${GAP} it's going to rain.`, a:2, why:"A clause follows (<i>it's going to rain</i>) → <b>as if / as though</b>."},
+      {p:`Your idea sounds ${GAP} brilliant.`, a:0, why:"<i>brilliant</i> is an adjective → <b>nothing</b>."},
+      {p:`She sounded ${GAP} she was about to cry.`, a:2, why:"A clause follows (<i>she was about to cry</i>) → <b>as if / as though</b>."}
+    ].map(o=>{ const O=["— (nothing)","like","as if / as though"]; return Object.assign(o,{opts:O, say:strip(o.p).replace(" ___",[""," like"," as if"][o.a]), q:strip(o.p)}); })},
+  { id:"correct", step:0, kind:"type", title:"Find and correct the mistake",
+    instr:"Each sentence has one mistake. Write the correct sentence.",
+    items:[
+      {w:"He seems tiredly after the flight.", acc:["He seems tired after the flight"], hint:"seem + adjective"},
+      {w:"This tastes as beef.", acc:["This tastes like beef"], hint:"taste + ? + noun"},
+      {w:"You look like tired.", acc:["You look tired"], hint:"No word between look and an adjective."},
+      {w:"It smells as if fish.", acc:["It smells like fish","It smells like a fish"], hint:"fish is a noun"},
+      {w:"The music sounds beautifully.", acc:["The music sounds beautiful"], hint:"sound + adjective"},
+      {w:"She looks as her mother.", acc:["She looks like her mother"], hint:"look + ? + noun"}
+    ].map(o=>Object.assign(o,{p:`<span class="wrongs">${esc(o.w)}</span>`, sentence:true, self:true, why:"", q:o.w}))},
+  { id:"complete", step:0, kind:"type", title:"What's the impression?",
+    instr:"Complete with the verb in brackets and, if needed, like or as if / as though.",
+    items:[
+      {c:"Your friend's scarf is very soft.", s:"It ___ silk.", v:"feel", acc:["feels like"], hint:"feel + like + noun"},
+      {c:"There's smoke coming from the kitchen.", s:"It ___ something is burning.", v:"smell", acc:["smells as if","smells as though"], hint:"A clause follows → as if / as though"},
+      {c:"Your colleague has dark circles under her eyes.", s:"She ___ tired.", v:"look", acc:["looks"], hint:"look + adjective — no extra word"},
+      {c:"Your neighbour's dog is barking angrily.", s:"It ___ it wants to attack someone.", v:"sound", acc:["sounds as if","sounds as though"], hint:"A clause follows → as if / as though"},
+      {c:"A new fruit is sweet and a bit sour.", s:"It ___ a mix of mango and lemon.", v:"taste", acc:["tastes like"], hint:"taste + like + noun"},
+      {c:"The streets are wet.", s:"It ___ it has been raining.", v:"look", acc:["looks as if","looks as though"], hint:"A clause follows → as if / as though"},
+      {c:"You open a bag of freshly ground coffee.", s:"Mmm, this coffee ___ wonderful!", v:"smell", acc:["smells"], hint:"smell + adjective"}
+    ].map(o=>Object.assign(o,{p:`<span class="ctx">${esc(o.c)}</span><br><span class="sent">${esc(o.s).replace("___",GAP)} <span class="prm">(${o.v})</span></span>`, sentenceGap:true, tpl:o.s, sayFull:o.s.replace("___",o.acc[0]), why:"", q:`${o.c} ${o.s} (${o.v})`}))},
+  /* ---------- Step 2: passive ---------- */
+  { id:"passive", step:1, kind:"choice", title:"Passive forms",
+    instr:"Choose the correct form.",
+    items:[
+      {p:`When we drove past, the bridge ${GAP}.`, opts:["was repairing","was being repaired","has been repaired"], a:1, why:"An action in progress at a past moment → past continuous passive: <b>was being + past participle</b>."},
+      {p:`The winners ${GAP} next Friday.`, opts:["will be announced","will announce","are announcing"], a:0, why:"Future passive: <b>will be + past participle</b>. The winners don't announce — somebody announces them."},
+      {p:`My phone ${GAP} on the bus yesterday!`, opts:["has been stolen","was stolen","was stealing"], a:1, why:"Finished past time (<i>yesterday</i>) → past simple passive: <b>was stolen</b>."},
+      {p:`A new hospital ${GAP} in our town at the moment.`, opts:["is building","has built","is being built"], a:2, why:"In progress now → present continuous passive: <b>is being built</b>."},
+      {p:`Don't worry — the documents ${GAP} already.`, opts:["have been signed","have signed","were signing"], a:0, why:"<i>already</i>, result now → present perfect passive: <b>have been signed</b>."},
+      {p:`The suspect ${GAP} at the police station since Monday.`, opts:["is holding","has held","has been held"], a:2, why:"<i>since Monday</i> → present perfect passive: <b>has been held</b>."}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  { id:"reporting", step:1, kind:"type", title:"Passive reporting",
+    instr:"Complete the second sentence so it means the same as the first.",
+    items:[
+      {s1:"People say that the castle is haunted.", s2:"The castle ___ haunted.", acc:["is said to be"], hint:"is said to + infinitive"},
+      {s1:"It is thought that the painting is worth millions.", s2:"The painting ___ worth millions.", acc:["is thought to be"], hint:"is thought to …"},
+      {s1:"People believe that the thief escaped through the window.", s2:"The thief ___ through the window.", acc:["is believed to have escaped"], hint:"Earlier action → to have + past participle"},
+      {s1:"It is reported that the minister is resigning.", s2:"The minister ___ resigning.", acc:["is reported to be"], hint:"In progress → to be + -ing"},
+      {s1:"People say that he was a brilliant chef.", s2:"It ___ a brilliant chef.", acc:["is said that he was"], hint:"It is said that + clause"},
+      {s1:"Experts expect that prices will rise.", s2:"Prices ___ rise.", acc:["are expected to"], hint:"are expected to + infinitive"}
+    ].map(o=>Object.assign(o,{p:`<span class="ctx">${esc(o.s1)}</span><br><span class="sent">${esc(o.s2).replace("___",GAP)}</span>`, sentenceGap:true, self:true, tpl:o.s2, sayFull:o.s2.replace("___",o.acc[0]), why:"", q:`${o.s1} → ${o.s2}`}))},
+  { id:"havedone", step:1, kind:"type", title:"have something done",
+    instr:"Rewrite with have + object + past participle. Complete the gap.",
+    items:[
+      {s1:"A hairdresser cut my hair yesterday.", s2:"I ___ yesterday.", acc:["had my hair cut","got my hair cut"], hint:"had + my hair + past participle"},
+      {s1:"A mechanic is repairing my car at the moment.", s2:"I ___ at the moment.", acc:["am having my car repaired","am getting my car repaired"], hint:"am having + my car + past participle"},
+      {s1:"A company is going to deliver our new sofa tomorrow.", s2:"We ___ tomorrow.", acc:["are having our new sofa delivered","are going to have our new sofa delivered","will have our new sofa delivered","are getting our new sofa delivered","are going to get our new sofa delivered"], hint:"are having / are going to have + our new sofa + past participle"},
+      {s1:"A professional has painted our flat.", s2:"We ___.", acc:["have had our flat painted","have got our flat painted"], hint:"have had + our flat + past participle"},
+      {s1:"Does an optician check your eyes every year?", s2:"Do you ___ every year?", acc:["have your eyes checked","get your eyes checked"], hint:"have + your eyes + past participle"}
+    ].map(o=>Object.assign(o,{p:`<span class="ctx">${esc(o.s1)}</span><br><span class="sent">${esc(o.s2).replace("___",GAP)}</span>`, sentenceGap:true, self:true, tpl:o.s2, sayFull:o.s2.replace("___",o.acc[0]), why:"", q:`${o.s1} → ${o.s2}`}))},
+  /* ---------- Step 3: reporting verbs ---------- */
+  { id:"repverbs", step:2, kind:"choice", title:"Which pattern?",
+    instr:"Choose the correct form after the reporting verb.",
+    items:[
+      {p:`She advised me ${GAP} a lawyer.`, opts:["seeing","to see","see"], a:1, why:"<b>advise sb to do</b>."},
+      {p:`He denied ${GAP} the money.`, opts:["taking","to take","take"], a:0, why:"<b>deny doing</b>."},
+      {p:`They apologised ${GAP} late.`, opts:["to be","being","for being"], a:2, why:"<b>apologise for doing</b>."},
+      {p:`My boss refused ${GAP} me a day off.`, opts:["giving","to give","for giving"], a:1, why:"<b>refuse to do</b>."},
+      {p:`The guide warned us ${GAP} touch the paintings.`, opts:["not to","to don't","not"], a:0, why:"<b>warn sb not to do</b>."},
+      {p:`Anna suggested ${GAP} a taxi.`, opts:["us to take","to take","taking"], a:2, why:"<b>suggest doing</b> (or <i>suggest that we take</i>) — never <i>suggest sb to do</i>."},
+      {p:`He admitted ${GAP} the window.`, opts:["breaking","to break","for breaking"], a:0, why:"<b>admit doing</b>."}
+    ].map(o=>Object.assign(o,{say:strip(o.p).replace("___",o.opts[o.a]), q:strip(o.p)}))},
+  { id:"report", step:2, kind:"type", title:"Report it",
+    instr:"Complete the reported sentence.",
+    items:[
+      {s1:"“You should see a doctor,” she told me.", s2:"She advised ___ a doctor.", acc:["me to see"], hint:"advise + sb + to do"},
+      {s1:"“I didn't break the vase,” said Tom.", s2:"Tom denied ___ the vase.", acc:["breaking","having broken"], hint:"deny + -ing"},
+      {s1:"“I'm sorry I'm late,” said Kate.", s2:"Kate apologised ___ late.", acc:["for being"], hint:"apologise + for + -ing"},
+      {s1:"“Let's go to the beach,” said Max.", s2:"Max suggested ___ to the beach.", acc:["going","that we go","that we should go","we go","we should go"], hint:"suggest + -ing"},
+      {s1:"“Don't swim here — it's dangerous,” the lifeguard told us.", s2:"The lifeguard warned ___ there.", acc:["us not to swim"], hint:"warn + sb + not to do"}
+    ].map(o=>Object.assign(o,{p:`<span class="ctx">${esc(o.s1)}</span><br><span class="sent">${esc(o.s2).replace("___",GAP)}</span>`, sentenceGap:true, self:true, tpl:o.s2, sayFull:o.s2.replace("___",o.acc[0]), why:"", q:`${o.s1} → ${o.s2}`}))},
+  /* ---------- Step 4: mix ---------- */
+  { id:"review", step:3, kind:"type", title:"A restaurant review",
+    instr:"Complete each sentence with the correct form of the words in brackets.",
+    items:[
+      {s:"The new restaurant on King Street ___ to be the best in town, so we booked a table.", v:"say", acc:["is said"], hint:"passive reporting: is … to be"},
+      {s:"When we arrived, the building ___, but the restaurant was open.", v:"still / renovate", acc:["was still being renovated"], hint:"past continuous passive: was still being …"},
+      {s:"The dining room ___ amazing — just like a Paris café.", v:"look", acc:["looked"], hint:"look + adjective (past)"},
+      {s:"And the chocolate cake ___ heaven!", v:"taste", acc:["tasted like"], hint:"taste + ? + noun (past)"},
+      {s:"Unfortunately, the waiter brought the wrong main course, and the chef came out and apologised ___ us the wrong dish.", v:"serve", acc:["for serving","for having served"], hint:"apologise + for + -ing"},
+      {s:"He ___ he really cared about his guests.", v:"sound", acc:["sounded as if","sounded as though"], hint:"A clause follows → as if / as though (past)"},
+      {s:"He advised ___ the lamb next time.", v:"we / try", acc:["us to try"], hint:"advise + sb + to do"},
+      {s:"The menu ___ next month, so go soon!", v:"update", acc:["will be updated","is going to be updated","is being updated"], hint:"future passive"}
+    ].map(o=>Object.assign(o,{p:`<span class="sent">${esc(o.s).replace("___",GAP)} <span class="prm">(${o.v})</span></span>`, sentenceGap:true, self:true, tpl:o.s, sayFull:o.s.replace("___",o.acc[0]), why:"", q:`${o.s} (${o.v})`}))}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+function strip(s){ return String(s).replace(/<[^>]+>/g,""); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+const PRAISE=["Correct!","Spot on!","Well done!","Exactly!","Nicely done!","Perfect!"];
+const OOPS=["Not quite.","Not this one.","Close, but no."];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const HAS_TTS=(()=>{ try{ return "speechSynthesis" in window; }catch(e){ return false; } })();
+
+const MEM={};
+function loadState(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){ try{ if(MEM[STORE_KEY]) return JSON.parse(MEM[STORE_KEY]); }catch(_){} } return null; }
+function saveState(){ const s=JSON.stringify(state); MEM[STORE_KEY]=s; try{ localStorage.setItem(STORE_KEY,s); }catch(e){} }
+function clearState(){ delete MEM[STORE_KEY]; try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+function freshState(name,sound){ return {name:name||DEFAULT_NAME, tab:0, sound:sound!==false, ans:{}, mach:{v:"taste",p:0}}; }
+let state=loadState()||freshState();
+if(!state.ans) state.ans={}; if(!state.mach) state.mach={v:"taste",p:0};
+function S(ex,i){ const a=state.ans[ex.id]||(state.ans[ex.id]=[]); return a[i]||(a[i]={done:false,correct:false,tries:0}); }
+
+function speak(text){
+  if(!state.sound||!text||!HAS_TTS) return;
+  try{
+    const u=new SpeechSynthesisUtterance(strip(text));
+    const vs=speechSynthesis.getVoices()||[];
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v; u.lang=v?v.lang:"en-GB"; u.rate=0.88;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakForce(t){ const s=state.sound; state.sound=true; speak(t); state.sound=s; }
+
+function norm(s){
+  s=String(s||"").toLowerCase().replace(/[‘’`´]/g,"'").replace(/[“”]/g,'"').replace(/[‐‑–—]/g,"-").replace(/\s+/g," ").trim();
+  s=s.replace(/[.!?;:,]+$/,"").trim();
+  s=s.replace(/\b(do|does|did|is|are|was|were|have|has|could|should)nt\b/g,"$1n't").replace(/\bcant\b/g,"can't");
+  s=s.replace(/\bcan't\b/g,"cannot").replace(/\bcan not\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\b(\w+)n't\b/g,"$1 not");
+  s=s.replace(/\b(\w+)'m\b/g,"$1 am").replace(/\b(\w+)'ve\b/g,"$1 have").replace(/\b(\w+)'re\b/g,"$1 are").replace(/\b(\w+)'ll\b/g,"$1 will").replace(/\b(he|she|it|that|what|there)'s\b/g,"$1 is");
+  return s.replace(/\s+/g," ").trim();
+}
+function evalTyped(it,raw){ const n=norm(raw); if(it.acc.map(norm).includes(n)) return true;
+  /* gap items: also accept the whole sentence typed out */
+  return !!it.tpl && it.acc.some(a=>norm(it.tpl.replace("___",a))===n); }
+function fbHTML(kind,msg,body,say){ return `<div class="fb ${kind}"><div class="t">${msg?`<b class="m">${msg}</b>`:""}${body||""}</div>${say?`<button class="say" data-say="${esc(say)}" aria-label="Listen">🔊</button>`:""}</div>`; }
+
+/* ---------- sense machine ---------- */
+function buildMachine(){
+  const vb=document.getElementById("mVerb"), pt=document.getElementById("mPat");
+  Object.keys(MACHINE).forEach(v=>{ const b=document.createElement("button"); b.className="chip"; b.textContent=v; b.addEventListener("click",()=>{ state.mach.v=v; saveState(); renderMachine(true); }); vb.appendChild(b); });
+  PATS.forEach((t,k)=>{ const b=document.createElement("button"); b.className="chip"; b.textContent=t; b.addEventListener("click",()=>{ state.mach.p=k; saveState(); renderMachine(true); }); pt.appendChild(b); });
+  document.getElementById("mSay").addEventListener("click",()=>speakForce(MACHINE[state.mach.v][state.mach.p]));
+  renderMachine(false);
+}
+function renderMachine(talk){
+  const m=state.mach, s=MACHINE[m.v][m.p];
+  document.querySelectorAll("#mVerb .chip").forEach(b=>b.setAttribute("aria-pressed",b.textContent===m.v));
+  document.querySelectorAll("#mPat .chip").forEach((b,i)=>b.setAttribute("aria-pressed",i===m.p));
+  const key=["",""," like"," as if"][m.p+1];
+  let h=esc(s); const re=new RegExp("\\b("+m.v+"s?)\\b"); h=h.replace(re,"<b>$1</b>"); if(m.p===1) h=h.replace(/\blike\b/,"<b>like</b>"); if(m.p===2) h=h.replace(/\bas if\b/,"<b>as if</b>");
+  document.getElementById("mEn").innerHTML=h;
+  document.getElementById("mSa").textContent=["Next comes an adjective → no extra word.","Next comes a noun → like.","Next comes a clause (subject + verb) → as if / as though."][m.p];
+  if(talk) speak(s);
+}
+
+/* ---------- exercise renderers ---------- */
+function shell(ex,i,st){ const d=document.createElement("div"); d.className="item"+(st.done?(st.correct?" ok":" no"):""); d.id=`it-${ex.id}-${i}`; return d; }
+function renderItem(ex,i){ return ex.kind==="choice"?renderChoice(ex,i):renderType(ex,i); }
+function renderChoice(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  const rowCls=it.opts.every(o=>o.length<16)?" row":"";
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp">${it.p?`<div class="sent">${it.p}</div>`:""}<div class="opts${rowCls}">`;
+  it.opts.forEach((o,k)=>{ let c="opt"; if(st.done) c+=k===it.a?" right":(k===st.pick?" wrong":" dim"); h+=`<button class="${c}" data-k="${k}"${st.done?" disabled":""}>${esc(o)}</button>`; });
+  h+="</div>";
+  if(st.done) h+=fbHTML(st.correct?"good":"bad",st.msg,it.why,it.say);
+  h+="</div></div>";
+  d.innerHTML=h;
+  if(!st.done) d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ st.done=true; st.tries=1; st.pick=+b.dataset.k; st.correct=st.pick===it.a; st.given=it.opts[st.pick]; st.msg=st.correct?pick(PRAISE):pick(OOPS); if(st.correct) speak(it.say); refresh(ex,i); }));
+  return d;
+}
+function modelOf(it){ return it.sentence?it.acc[0]+".":it.acc[0]; }
+function typedFB(it,st){
+  const full=it.sayFull||modelOf(it);
+  if(st.done){
+    if(st.correct){ const extra=st.self?"<br><i>Your teacher will check this answer.</i>":""; return fbHTML("good",st.self?"Marked as correct":st.msg,`<span class="model">${esc(full)}</span>`+extra,full); }
+    return fbHTML("bad",st.msg,`Your answer: <span class="given">${esc(st.given)}</span><br>Correct: <span class="model">${esc(full)}</span>`,full)+(it.self?`<button class="selfmark" data-self="1">My answer is also correct ✓</button>`:"");
+  }
+  if(st.warn) return fbHTML("hint","",st.warn);
+  if(st.tries===1) return fbHTML("hint","Try again!","Hint: "+esc(it.hint));
+  return "";
+}
+function renderType(ex,i){
+  const it=ex.items[i], st=S(ex,i), d=shell(ex,i,st);
+  let h=`<div class="q"><span class="qn">${i+1}</span><div class="qp"><div>${it.p}</div>`;
+  if(!st.done) h+=`<div class="rowi"><input class="inp" aria-label="Your answer" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(st.draft||"")}" placeholder="${it.sentence?"Write the correct sentence":"Type the missing words"}"><button class="btn g chkb">Check</button></div>`;
+  h+=typedFB(it,st)+"</div></div>";
+  d.innerHTML=h;
+  const inp=d.querySelector(".inp");
+  if(inp){
+    inp.addEventListener("input",()=>{ st.draft=inp.value; saveSoon(); });
+    const go=()=>{
+      const val=inp.value;
+      if(!val.trim()){ st.warn="Type your answer first."; refresh(ex,i); return; }
+      st.warn=""; st.tries++;
+      if(evalTyped(it,val)){ st.done=true; st.correct=true; st.given=val; st.msg=st.tries===1?pick(PRAISE):"Correct on the second try!"; speak(it.sayFull||it.acc[0]); }
+      else if(st.tries>=2){ st.done=true; st.correct=false; st.given=val; st.msg="Not this time."; }
+      st.draft=st.done?"":val;
+      refresh(ex,i); const n=document.querySelector(`#it-${ex.id}-${i} .inp`); if(n) n.focus();
+    };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } });
+    d.querySelector(".chkb").addEventListener("click",go);
+  }
+  const sm=d.querySelector("[data-self]"); if(sm) sm.addEventListener("click",()=>{ st.correct=true; st.self=true; refresh(ex,i); });
+  return d;
+}
+function refresh(ex,i){ document.getElementById(`it-${ex.id}-${i}`).replaceWith(renderItem(ex,i)); afterChange(); }
+
+/* ---------- pages ---------- */
+function buildExercises(){
+  let n=0;
+  EX.forEach(ex=>{
+    ex.n=++n;
+    const sec=document.createElement("section"); sec.className="ex"; sec.id="ex-"+ex.id;
+    sec.innerHTML=`<div class="ex-head"><div><span class="ex-num">Exercise ${ex.n}</span><h3>${esc(ex.title)}</h3><p class="instr">${ex.instr}</p></div><span class="ex-score" id="sc-${ex.id}"></span></div><div class="items"></div>`;
+    const box=sec.querySelector(".items");
+    ex.items.forEach((_,i)=>box.appendChild(renderItem(ex,i)));
+    document.querySelector(`.page[data-page="${ex.step}"]`).appendChild(sec);
+  });
+  for(let p=0;p<4;p++){ const nx=document.createElement("div"); nx.className="next"; nx.innerHTML=`<button class="btn" data-go="${p+1}">Next: ${STEPS[p+1].replace(/^\S+ /,"")} →</button>`; document.querySelector(`.page[data-page="${p}"]`).appendChild(nx); }
+}
+function exScore(ex){ let c=0,d=0; ex.items.forEach((_,i)=>{ const s=S(ex,i); if(s.done){ d++; if(s.correct) c++; } }); return {c,d,n:ex.items.length}; }
+function totals(){ let c=0,d=0,n=0; EX.forEach(ex=>{ const s=exScore(ex); c+=s.c; d+=s.d; n+=s.n; }); return {c,d,n}; }
+let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,300); }
+function afterChange(){
+  saveState();
+  EX.forEach(ex=>{ const s=exScore(ex); const el=document.getElementById("sc-"+ex.id); if(el) el.textContent=s.d===s.n?`${s.c} / ${s.n}`:`${s.d} / ${s.n}`; });
+  const t=totals();
+  document.getElementById("fill").style.width=(t.n?t.d/t.n*100:0)+"%";
+  document.getElementById("progTxt").textContent=`${t.d}/${t.n} · ✓ ${t.c}`;
+  renderTabs(); if(state.tab===4) renderResults();
+}
+function renderTabs(){
+  const box=document.getElementById("tabs");
+  box.innerHTML=STEPS.map((en,k)=>{ let badge=""; const exs=EX.filter(e=>e.step===k); if(exs.length){ let c=0,d=0,n=0; exs.forEach(e=>{ const x=exScore(e); c+=x.c; d+=x.d; n+=x.n; }); if(d===n) badge=`<span class="tb">✓ ${c}/${n}</span>`; } return `<button class="tab" role="tab" aria-selected="${state.tab===k}" data-tab="${k}">${esc(en)}${badge}</button>`; }).join("");
+  box.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showTab(+b.dataset.tab)));
+}
+function showTab(k,scroll){
+  state.tab=k; saveState();
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",+p.dataset.page===k));
+  renderTabs(); if(k===4) renderResults();
+  if(scroll!==false){ const top=document.querySelector(".bar").offsetTop; window.scrollTo({top:Math.max(0,top-2),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); }
+  const t=document.querySelector(`.tab[data-tab="${k}"]`); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"});
+}
+
+/* ---------- results ---------- */
+function correctText(ex,it){ if(ex.kind==="choice") return it.opts[it.a]; return it.sayFull||modelOf(it); }
+function buildReport(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0;
+  const date=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const L=[];
+  L.push(`${HOMEWORK_TITLE} (${LEVEL})`); L.push(`Student: ${state.name||DEFAULT_NAME}`); L.push(`Date: ${date}`);
+  L.push(`Score: ${t.c}/${t.n} (${pct}%) · answered ${t.d}/${t.n}`); L.push("");
+  L.push("BY EXERCISE"); EX.forEach(ex=>{ const s=exScore(ex); L.push(`${ex.n}. ${ex.title}: ${s.c}/${s.n}${s.d<s.n?` (${s.n-s.d} not answered)`:""}`); }); L.push("");
+  const mist=[], self=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(!st.done) return;
+    if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" — correct: "${correctText(ex,it)}"`);
+    else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${it.q} — answer: "${st.given}" (model: "${correctText(ex,it)}")`); }));
+  L.push("MISTAKES"); L.push(mist.length?mist.join("\n"):"None 🎉"); L.push("");
+  if(self.length){ L.push("SELF-MARKED AS CORRECT (please check)"); L.push(self.join("\n")); L.push(""); }
+  const typed=EX.filter(e=>e.kind==="type").map(ex=>{ const lines=ex.items.map((it,i)=>{ const st=S(ex,i); if(!st.done) return null; return `${ex.n}.${i+1} ${st.given}${st.correct?(st.self?" (self-marked)":st.tries>1?" ✓ (2nd try)":" ✓"):" ✗"}`; }).filter(Boolean); return lines.length?`${ex.title}:\n`+lines.join("\n"):null; }).filter(Boolean);
+  if(typed.length){ L.push("ALL TYPED ANSWERS"); L.push(typed.join("\n\n")); }
+  return L.join("\n");
+}
+function shortReport(full){ return full.length>1500?full.slice(0,1500)+'\n\n…(shortened — the full report is under "Copy text")':full; }
+function subject(){ const t=totals(); return `${SUBJECT_TOPIC} — ${state.name||DEFAULT_NAME} — ${t.c}/${t.n}`; }
+function renderResults(){
+  const t=totals(), pct=t.n?Math.round(t.c/t.n*100):0, nm=esc(state.name||DEFAULT_NAME);
+  const msg=t.d===0?"Start with the Sense verbs tab!":pct>=90?`Excellent, ${nm}! That looks as if you've mastered it all. 👏`:pct>=75?"Great work! Have a look at your mistakes below.":pct>=55?"Good effort! Reread the rule cards and try your mistakes again.":"Keep going! Read the rule cards once more, then try again.";
+  let h=`<div class="kicker">Results</div><div class="score-big">${t.c} / ${t.n}</div><p><b>${pct}%</b> · answered ${t.d} / ${t.n}</p><p>${msg}</p>`;
+  h+=EX.map(ex=>{ const s=exScore(ex); return `<div class="res-row"><span>${ex.n}. ${esc(ex.title)}</span><b>${s.c}/${s.n}</b></div>`; }).join("");
+  document.getElementById("resCard").innerHTML=h;
+  const mist=[];
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q)}<br>Your answer: <s>${esc(st.given)}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  const mc=document.getElementById("mistCard"); mc.style.display=t.d?"":"none";
+  mc.innerHTML=mist.length?`<div class="kicker">Look again</div><h3 style="margin-top:0">Your mistakes</h3><ol class="mlist">${mist.join("")}</ol>`:`<h3 style="margin-top:0">No mistakes so far 🎉</h3>`;
+  buildSend();
+}
+function buildSend(){
+  const box=document.getElementById("sendBtns"), full=buildReport(), short=shortReport(full), sub=subject();
+  let h="";
+  if(navigator.share) h+=`<button class="btn p" id="sShare">📤 Share</button>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">✉️ Gmail</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(sub)}&text=${encodeURIComponent(short)}">✈️ Telegram</a>`;
+  h+=`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(sub+"\n\n"+short)}">💬 WhatsApp</a>`;
+  h+=`<a class="btn ghost" href="mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(short)}">📧 Email app</a>`;
+  h+=`<button class="btn" id="sCopy">📋 Copy text</button>`;
+  box.innerHTML=h;
+  const sh=document.getElementById("sShare"); if(sh) sh.addEventListener("click",()=>{ navigator.share({title:sub,text:buildReport()}).catch(()=>{}); });
+  document.getElementById("sCopy").addEventListener("click",()=>copyText(buildReport()));
+}
+function copyText(txt){
+  const msg=document.getElementById("copyMsg"), done=()=>{ msg.textContent="✓ Copied! Paste it into a message to your teacher."; };
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ msg.textContent="Please copy the text by hand."; } ta.remove(); };
+  try{ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(txt).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+}
+
+/* ---------- init ---------- */
+function init(){
+  const ni=document.getElementById("nameIn"); ni.value=state.name||DEFAULT_NAME; document.getElementById("nameOut").textContent=ni.value;
+  ni.addEventListener("input",()=>{ state.name=ni.value.trim()||DEFAULT_NAME; document.getElementById("nameOut").textContent=state.name; saveSoon(); if(state.tab===4) renderResults(); });
+  const sb=document.getElementById("soundBtn"), sbr=()=>{ sb.textContent=state.sound?"🔊 Sound on":"🔇 Sound off"; sb.setAttribute("aria-pressed",!!state.sound); };
+  sbr(); sb.addEventListener("click",()=>{ state.sound=!state.sound; sbr(); saveState(); });
+  document.addEventListener("click",e=>{ const s=e.target.closest("[data-say]"); if(s){ speakForce(s.dataset.say); return; } const g=e.target.closest("[data-go]"); if(g) showTab(+g.dataset.go); });
+  buildMachine(); buildExercises();
+  document.getElementById("resetBtn").addEventListener("click",()=>document.getElementById("confirmBox").classList.add("on"));
+  document.getElementById("resetNo").addEventListener("click",()=>document.getElementById("confirmBox").classList.remove("on"));
+  document.getElementById("resetYes").addEventListener("click",()=>{
+    clearState(); state=freshState(state.name,state.sound);
+    document.querySelectorAll("section.ex,.next").forEach(n=>n.remove());
+    buildExercises(); renderMachine(false);
+    document.getElementById("confirmBox").classList.remove("on");
+    afterChange(); showTab(0);
+  });
+  try{ if(HAS_TTS) speechSynthesis.getVoices(); }catch(e){}
+  afterChange(); showTab(state.tab||0,false);
+}
+init();
+</script>
+</body>
+</html>
