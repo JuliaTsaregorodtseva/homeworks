@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watch your language! Past modals · Daria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2B1D3A; --ink-2:#544A63; --muted:#7D7489;
+  --paper:#F7F4FA; --card:#FFFFFF; --line:#E4DEEC;
+  --violet:#5B3E8E; --violet-soft:#EEE8F7;
+  --coral:#E4572E; --coral-soft:#FCE9E3;
+  --mustard:#F3B33D; --mustard-soft:#FDF3DC;
+  --ok:#23845A; --ok-soft:#E3F4EB; --bad:#C0392B; --bad-soft:#FBE7E4;
+  --radius:16px; --shadow:0 2px 10px rgba(43,29,58,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Manrope',system-ui,-apple-system,Segoe UI,Arial,sans-serif;font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.15;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+
+/* header */
+header.hero{background:var(--ink);color:#fff;padding:28px 0 22px;position:relative;overflow:hidden}
+.hero .eyebrow{color:var(--mustard);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+.hero h1{font-size:clamp(30px,6vw,46px);margin:8px 0 6px}
+.hero p{color:#D6CFE3;margin:0 0 6px;max-width:640px}
+.bleeps{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.bleep{font-weight:800;border-radius:999px;padding:4px 14px;font-size:14px}
+.bleep.a{background:var(--coral);color:#fff}.bleep.b{background:var(--mustard);color:var(--ink)}.bleep.c{background:var(--violet);color:#fff}
+.namebox{margin-top:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:#D6CFE3;font-size:14px}
+.namebox input{background:#3A2950;border:1px solid #5A4870;color:#fff;border-radius:10px;padding:8px 10px;font:inherit;min-height:40px;width:180px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab .sc{font-weight:600;font-size:12px;margin-left:6px;opacity:.8}
+.progress{display:flex;align-items:center;gap:10px;padding:0 0 10px;font-size:13px;color:var(--ink-2);font-weight:600}
+.ptrack{flex:1;height:8px;background:var(--line);border-radius:999px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--coral));transition:width .3s}
+
+main{padding:22px 0 60px}
+section.panel{display:none}
+section.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:18px}
+.card h2{font-size:26px;margin-bottom:6px}
+.card h3{font-size:20px;margin:0 0 6px}
+.lead{color:var(--ink-2);margin:0 0 14px}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;padding:2px 8px;border-radius:999px;background:var(--mustard-soft);color:#7A5200;vertical-align:middle;margin-left:6px}
+.group-title{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin:18px 0 10px}
+
+/* word list */
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.word{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;display:flex;gap:10px}
+.word .body{flex:1;min-width:0}
+.word b{font-size:17px}
+.word .ipa{color:var(--muted);font-size:13px;margin-left:4px}
+.word .def{margin:4px 0 2px}
+.word .ex{color:var(--ink-2);font-style:italic;font-size:14px}
+.spk{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;font-size:18px}
+.spk:hover{background:var(--violet-soft)}
+.careful{background:var(--mustard-soft);border:1px solid #F1DDAE}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:6px 0}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:44px;font-weight:700}
+.btn.primary{background:var(--violet);border-color:var(--violet);color:#fff}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.warn{background:var(--coral);border-color:var(--coral);color:#fff}
+.btn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.scene{perspective:1200px;width:100%;max-width:560px;margin:0 auto;height:300px}
+.flip{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 8px 24px rgba(43,29,58,.15)}
+.front{background:var(--ink);color:#fff}
+.back{background:#fff;border:2px solid var(--violet);transform:rotateY(180deg)}
+.front .emo{font-size:40px;margin-bottom:8px}
+.front .w{font-family:'Fraunces',Georgia,serif;font-size:34px}
+.front .hint,.back .hint{font-size:13px;opacity:.7;margin-top:10px}
+.back .d{font-size:19px;font-weight:600}
+.back .e{font-style:italic;color:var(--ink-2);margin-top:10px}
+.face .spk{position:absolute;top:12px;right:12px}
+.front .spk{background:#3A2950;border-color:#5A4870;color:#fff}
+.fc-nav{display:flex;justify-content:center;align-items:center;gap:10px;margin:14px 0 6px;flex-wrap:wrap}
+.fc-count{font-weight:700;color:var(--ink-2);min-width:70px;text-align:center}
+.known-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.minibar{max-width:560px;margin:14px auto 0;font-size:13px;color:var(--ink-2);font-weight:600}
+.minibar .ptrack{margin-top:6px}
+
+/* exercises */
+.ex{margin-bottom:22px}
+.ex-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.ex-score{font-weight:800;font-size:14px;color:var(--violet);background:var(--violet-soft);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.item{border-top:1px solid var(--line);padding:14px 0}
+.item:first-of-type{border-top:none}
+.q{font-weight:600;margin-bottom:10px}
+.q .n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-size:13px;font-weight:800;margin-right:8px;vertical-align:middle}
+.orig{color:var(--ink-2);font-size:15px;margin-bottom:6px}
+.key{display:inline-block;background:var(--ink);color:#fff;font-weight:800;font-size:12px;letter-spacing:.06em;border-radius:999px;padding:3px 10px;margin-left:6px;vertical-align:middle}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;min-height:44px;font-weight:600;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--violet)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:#145a3c}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:#8a2318}
+.opt:disabled{cursor:default}
+.gapin{font:inherit;border:none;border-bottom:2px solid var(--violet);background:var(--violet-soft);border-radius:6px 6px 0 0;padding:4px 8px;min-width:120px;max-width:100%;color:var(--ink);min-height:36px}
+.gapin.right{background:var(--ok-soft);border-color:var(--ok)}
+.gapin.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.gapin:disabled{opacity:1}
+.fullin{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.fullin.right{border-color:var(--ok);background:var(--ok-soft)}
+.fullin.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.fb{margin-top:10px;border-radius:12px;padding:10px 12px;font-size:15px;display:none}
+.fb.show{display:block}
+.fb.good{background:var(--ok-soft);color:#145a3c}
+.fb.bad{background:var(--bad-soft);color:#7d2116}
+.fb.tip{background:var(--mustard-soft);color:#6b4800}
+.fb .why{display:block;margin-top:4px;color:var(--ink-2)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chip{border:none;background:var(--mustard);color:var(--ink);font-weight:800;border-radius:999px;padding:8px 14px;min-height:40px}
+.chip.used{opacity:.4;text-decoration:line-through}
+.story{line-height:2.3;font-size:17px}
+.story .gn{font-weight:800;color:var(--coral);font-size:13px;margin-right:2px}
+.story .prompt{color:var(--violet);font-weight:700;font-size:14px}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1.5fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:48px;text-align:left;font-weight:600;font-size:15px}
+.mbtn.sel{border-color:var(--violet);background:var(--violet-soft)}
+.mbtn.done{background:var(--ok-soft);border-color:var(--ok);color:#145a3c;cursor:default}
+.mbtn.shake{border-color:var(--bad);background:var(--bad-soft)}
+@media (max-width:520px){.match{grid-template-columns:1fr 1.3fr}.mbtn{font-size:14px;padding:8px 10px}}
+
+/* listen */
+.listen-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bigspk{width:52px;height:52px;border-radius:50%;border:none;background:var(--violet);color:#fff;font-size:22px}
+
+/* grammar */
+.step-label{display:inline-block;background:var(--coral);color:#fff;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 12px;margin-bottom:10px}
+.rule{background:var(--card)}
+.rule p{margin:8px 0}
+table.form{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}
+table.form th,table.form td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.form th{background:var(--violet-soft);font-weight:800}
+.hl{color:var(--coral);font-weight:800}
+.hl2{color:var(--violet);font-weight:800}
+.exline{display:flex;gap:8px;align-items:center;margin:6px 0}
+.exline .spk{width:36px;height:36px;font-size:15px}
+.scale{margin:14px 0 6px}
+.scale .track{height:14px;border-radius:999px;background:linear-gradient(90deg,var(--bad) 0%,var(--mustard) 50%,var(--ok) 100%)}
+.scale .labels{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:6px;gap:6px}
+.scale .labels span{flex:1;text-align:center}
+.scale .labels span:first-child{text-align:left}.scale .labels span:last-child{text-align:right}
+.demo{background:var(--ink);color:#fff;border-radius:16px;padding:18px;margin-top:14px}
+.demo .ctx{color:#D6CFE3;font-size:14px;min-height:42px}
+.demo .sent{font-family:'Fraunces',Georgia,serif;font-size:22px;margin:10px 0}
+.demo .sent b{color:var(--mustard)}
+.demo input[type=range]{width:100%;accent-color:var(--mustard);min-height:44px}
+.demo .ticks{display:flex;justify-content:space-between;font-size:12px;color:#D6CFE3;font-weight:700}
+.mist{display:grid;gap:8px;margin-top:8px}
+.mist div{border-radius:10px;padding:8px 12px;font-size:15px}
+.mist .x{background:var(--bad-soft)}
+.mist .v{background:var(--ok-soft)}
+
+/* results */
+.big{font-family:'Fraunces',Georgia,serif;font-size:52px;color:var(--violet)}
+.rtable{width:100%;border-collapse:collapse;font-size:15px}
+.rtable td{padding:8px 6px;border-bottom:1px solid var(--line)}
+.rtable td:last-child{text-align:right;font-weight:800}
+.mlist{font-size:14px}
+.mlist li{margin:8px 0}
+.send{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.send a.btn{text-decoration:none;display:inline-flex;align-items:center;color:var(--ink)}
+.email{user-select:all;font-weight:800;color:var(--violet)}
+.confirm{display:none;margin-top:10px;background:var(--bad-soft);border-radius:12px;padding:12px}
+.confirm.show{display:block}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
+.toast.show{opacity:1}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Upper-Intermediate · Vocabulary + Grammar</div>
+    <h1>Watch your language!</h1>
+    <p>Words for swearing, phrases from our lesson, tricky lookalikes, and past modals: <i>must have, can’t have, should have, needn’t have</i>.</p>
+    <p>Work in order: <b>Words → Cards → Practise words → Past modals → Mixed → Results</b>. Your answers save automatically.</p>
+    <div class="bleeps"><span class="bleep a">#@!%</span><span class="bleep b">****</span><span class="bleep c">must have…?!</span></div>
+    <div class="namebox"><label for="studentName">Homework for</label><input id="studentName" autocomplete="off" value="Daria"></div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+    <div class="progress"><span id="ptext">0 / 0 done</span><div class="ptrack"><div class="pfill" id="pfill"></div></div><span id="pscore">Score 0</span></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="panel" id="p-words"></section>
+  <section class="panel" id="p-cards"></section>
+  <section class="panel" id="p-vocab"></section>
+  <section class="panel" id="p-grammar"></section>
+  <section class="panel" id="p-mixed"></section>
+  <section class="panel" id="p-results"></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   DATA — words, rules and exercises (edit here)
+   ========================================================= */
+const TEACHER_EMAIL = 'ulchik2211@gmail.com';
+const HW_TITLE = 'Watch your language! Swearing vocabulary + past modals';
+const STORE_KEY = 'daria-past-modals-swearing-v1';
+
+const WORDS = [
+  {w:'an expletive', say:'expletive', group:'swear', reg:'formal', ipa:'/ɪkˈspliːtɪv/', def:'a rude word that you say when you are angry or in pain', ex:'He dropped the box on his foot and let out an expletive.'},
+  {w:'foul language', say:'foul language', group:'swear', reg:'', ipa:'/faʊl/', def:'rude and offensive words', ex:'The player was sent off for using foul language.'},
+  {w:'to curse', say:'curse', group:'swear', reg:'', ipa:'/kɜːs/', def:'to say rude words because you are angry', ex:'She cursed under her breath when the screen froze.'},
+  {w:'a profanity', say:'profanity', group:'swear', reg:'formal', ipa:'/prəˈfænəti/', def:'a swear word, especially one that shows no respect for religion', ex:'The driver yelled a profanity at the cyclist.'},
+  {w:'an obscenity', say:'obscenity', group:'swear', reg:'formal', ipa:'/əbˈsenəti/', def:'a very offensive word, often connected with sex', ex:'Somebody was shouting obscenities in the street.'},
+  {w:'a cuss word', say:'cuss word', group:'swear', reg:'US informal', ipa:'/kʌs/', def:'a swear word; to cuss = to swear', ex:'My grandmother never used a single cuss word.'},
+  {w:'effing and blinding', say:'effing and blinding', group:'swear', reg:'UK informal', ipa:'/ˈefɪŋ/', def:'using swear words again and again', ex:'He was effing and blinding about the traffic all morning.'},
+  {w:'idly', say:'idly', group:'phrase', reg:'', ipa:'/ˈaɪdli/', def:'without any real purpose or effort; casually', ex:'She was idly scrolling through her phone.'},
+  {w:'to sour (your day)', say:'sour', group:'phrase', reg:'', ipa:'/ˈsaʊə/', def:'to spoil something and make it less pleasant', ex:'One rude comment soured the whole evening.'},
+  {w:'too little, too late', say:'too little, too late', group:'phrase', reg:'', ipa:'', def:'not enough, and not soon enough, to solve a problem', ex:'The apology came a year later. It was too little, too late.'},
+  {w:'oblivious to', say:'oblivious', group:'phrase', reg:'', ipa:'/əˈblɪviəs/', def:'not noticing something that is happening around you', ex:'He carried on talking, oblivious to the silence in the room.'},
+  {w:'to pepper something with', say:'pepper', group:'phrase', reg:'', ipa:'/ˈpepə/', def:'to put a lot of something all the way through a speech or a text', ex:'Her emails are peppered with exclamation marks.'},
+  {w:'exploitative', say:'exploitative', group:'look', reg:'', ipa:'/ɪkˈsplɔɪtətɪv/', def:'treating people unfairly in order to make money or gain an advantage', ex:'The factory was accused of exploitative working conditions.', note:'not to be confused with “expletive”'},
+  {w:'faulty', say:'faulty', group:'look', reg:'', ipa:'/ˈfɔːlti/', def:'not working properly; not made correctly', ex:'The fire was caused by faulty wiring.', note:'not to be confused with “foul”'},
+  {w:'sanctity', say:'sanctity', group:'look', reg:'', ipa:'/ˈsæŋktəti/', def:'the quality of being very important and deserving respect; holiness', ex:'They believe in the sanctity of human life.', note:'almost the opposite of “profanity”'},
+  {w:'obscurity', say:'obscurity', group:'look', reg:'', ipa:'/əbˈskjʊərəti/', def:'the state of being unknown or forgotten', ex:'The band spent ten years in obscurity before their first hit.', note:'not to be confused with “obscenity”'},
+  {w:'to diss', say:'diss', group:'look', reg:'informal', ipa:'/dɪs/', def:'to speak about somebody without respect', ex:'Stop dissing my taste in music!', note:'not to be confused with “cuss”'},
+];
+const GROUPS = {swear:{title:'Words for swearing', emo:'🤬'}, phrase:{title:'Phrases from the lesson', emo:'💬'}, look:{title:'Lookalikes: don’t mix them up', emo:'👯'}};
+
+const CAREFUL = [
+  '<b>oblivious <u>to</u></b> something: <i>He was oblivious to the noise.</i>',
+  '<b>pepper something <u>with</u></b> / <b>be peppered <u>with</u></b>: <i>a speech peppered with jokes</i>',
+  'Collocations: <b>let out / shout</b> an expletive, <b>shout</b> obscenities, <b>curse under your breath</b>, <b>use</b> foul language.',
+  'Register: <b>expletive, profanity, obscenity</b> are formal (news, reports). <b>Cuss word</b> is American, <b>effing and blinding</b> is British.',
+  'Lookalikes: expletive ≠ <b>exploitative</b> · foul ≠ <b>faulty</b> · obscenity ≠ <b>obscurity</b> · cuss ≠ <b>diss</b>.',
+  'Irregular verb for today’s grammar: <b>swear – swore – sworn</b>. <i>He must have <u>sworn</u>.</i> (not <s>swore</s>)'
+];
+
+/* ---------- exercises ---------- */
+const EXERCISES = [
+  /* ===== VOCABULARY ===== */
+  {id:'v1', tab:'vocab', type:'match', title:'1. Match the words to their meanings', instr:'Tap a word, then tap its meaning.',
+   pairs:[
+    ['an expletive','a rude word you say when you are angry or in pain'],
+    ['foul language','rude and offensive words in general'],
+    ['to curse','to say rude words because you are angry'],
+    ['a profanity','a swear word that shows no respect for religion'],
+    ['an obscenity','a very offensive word, often connected with sex'],
+    ['a cuss word','an informal American word for a swear word'],
+    ['effing and blinding','using swear words again and again'],
+    ['to diss','to speak about somebody without respect']
+   ]},
+  {id:'v2', tab:'vocab', type:'mc', title:'2. Formal, neutral or informal?', instr:'Choose the register of each expression.',
+   items:[
+    {q:'an expletive', o:['formal','neutral','informal'], a:0, why:'“Expletive” is a formal word you see in news reports: “He let out an expletive.”'},
+    {q:'a swear word', o:['formal','neutral','informal'], a:1, why:'“Swear word” is the everyday neutral expression. It works almost anywhere.'},
+    {q:'effing and blinding', o:['formal','neutral','informal'], a:2, why:'“Effing and blinding” is informal British English.'},
+    {q:'a profanity', o:['formal','neutral','informal'], a:0, why:'“Profanity” is formal, often used in rules and reports: “Profanity will not be tolerated.”'},
+    {q:'foul language', o:['formal','neutral','informal'], a:1, why:'“Foul language” is neutral and very common: “sent off for using foul language”.'},
+    {q:'to diss', o:['formal','neutral','informal'], a:2, why:'“Diss” is informal slang (from “disrespect”).'},
+    {q:'an obscenity', o:['formal','neutral','informal'], a:0, why:'“Obscenity” is formal: “shouting obscenities”, “obscenity laws”.'},
+    {q:'a cuss word', o:['formal','neutral','informal'], a:2, why:'“Cuss word” is informal American English.'},
+    {q:'to curse', o:['formal','neutral','informal'], a:1, why:'“Curse” is neutral: “She cursed under her breath.”'}
+   ]},
+  {id:'v3', tab:'vocab', type:'mc', title:'3. Lookalikes: choose the correct word', instr:'These words look or sound similar. Choose the one that fits.',
+   items:[
+    {q:'Many fashion brands have been criticised for their ___ use of cheap labour.', o:['exploitative','expletive'], a:0, why:'Exploitative = treating people unfairly to make money.'},
+    {q:'When he trapped his finger in the door, he let out a loud ___.', o:['exploitative','expletive'], a:1, why:'You “let out an expletive”: a rude word said in pain or anger.'},
+    {q:'Don’t use that charger – it’s ___ and could start a fire.', o:['faulty','foul'], a:0, why:'Faulty = not working properly.'},
+    {q:'The coach warned his players that ___ language would not be tolerated.', o:['faulty','foul'], a:1, why:'The fixed phrase is “foul language”.'},
+    {q:'He wrote three brilliant novels, but died in ___.', o:['obscurity','obscenity'], a:0, why:'Obscurity = being unknown or forgotten. “Die / live in obscurity.”'},
+    {q:'The song was banned from the radio because of the ___ in the lyrics.', o:['obscurities','obscenities'], a:1, why:'Obscenities = very offensive words.'},
+    {q:'For my family, Sunday dinner has an almost religious ___.', o:['sanctity','profanity'], a:0, why:'Sanctity = being so important that it deserves respect.'},
+    {q:'My brother loves to ___ my cooking, but he always asks for more.', o:['diss','cuss'], a:0, why:'Diss = to criticise without respect. “Cuss” means “swear”.'},
+    {q:'She never uses a single ___ word, even when she’s furious.', o:['cuss','diss'], a:0, why:'A “cuss word” is a swear word (US informal).'}
+   ]},
+  {id:'v4', tab:'vocab', type:'gaptext', title:'4. The worst dinner party ever', instr:'Complete the story with words from the box. One word is extra. Tap a word to put it in the active gap, or type.',
+   bank:['idly','effing','peppered','oblivious','expletive','cursed','too little','soured','obscurity'],
+   text:'Tom was {1} stirring his soup when our neighbour Mark arrived late and in a terrible mood. His car had broken down, and he was {2} and blinding about it before he even took his coat off. Every story he told was {3} with complaints about mechanics, and he seemed completely {4} to the fact that my grandmother was sitting right next to him. When he spilt red wine on the tablecloth, he let out a loud {5}, and even my grandmother {6} quietly in Italian. Mark sent flowers the next day, but it was {7}, too late: he had already {8} the whole evening.',
+   gaps:[
+    {accept:['idly'], hint:'An adverb: without any real purpose.'},
+    {accept:['effing'], hint:'British informal: ___ and blinding.'},
+    {accept:['peppered'], hint:'Full of something all the way through: ___ with.'},
+    {accept:['oblivious'], hint:'Not noticing: ___ to.'},
+    {accept:['expletive'], hint:'You “let out” one of these.'},
+    {accept:['cursed'], hint:'Past simple of a verb meaning “swear”.'},
+    {accept:['too little'], hint:'The fixed phrase: ___, too late.'},
+    {accept:['soured'], hint:'Past participle: spoiled.'}
+   ]},
+  {id:'v5', tab:'vocab', type:'type', title:'5. Word formation', instr:'Change the word in capitals so that it fits the gap.',
+   items:[
+    {q:'The documentary exposed the ___ of child workers in mines.', key:'EXPLOIT', accept:['exploitation'], hint:'You need a noun.', why:'exploit (v) → exploitation (n) → exploitative (adj)'},
+    {q:'The judge described the messages as ___ and offensive.', key:'OBSCENITY', accept:['obscene'], hint:'You need an adjective.', why:'obscenity (n) → obscene (adj)'},
+    {q:'The company recalled thousands of ___ airbags.', key:'FAULT', accept:['faulty'], hint:'You need an adjective.', why:'fault (n) → faulty (adj)'},
+    {q:'After the scandal, the actor faded into ___.', key:'OBSCURE', accept:['obscurity'], hint:'You need a noun.', why:'obscure (adj) → obscurity (n)'},
+    {q:'He was so ___ to the danger that he kept walking towards the edge.', key:'OBLIVION', accept:['oblivious'], hint:'You need an adjective + to.', why:'oblivion (n) → oblivious (adj) to something'},
+    {q:'She ___ flicked through a magazine while she waited.', key:'IDLE', accept:['idly'], hint:'You need an adverb.', why:'idle (adj) → idly (adv). Note the spelling: no “e”.'},
+    {q:'The argument ___ relations between the two families for years.', key:'SOUR', accept:['soured'], hint:'You need a verb in the past.', why:'sour (adj / v) → soured (past simple)'},
+    {q:'The speech was so full of ___ that the TV channel bleeped most of it.', key:'PROFANE', accept:['profanities'], hint:'You need a plural noun.', why:'profane (adj) → profanity (n) → profanities (plural)'}
+   ]},
+  {id:'v6', tab:'vocab', type:'listen', title:'6. Listen and spell', instr:'Tap 🔊, listen and type the word you hear.',
+   items:[
+    {say:'expletive', accept:['expletive'], hint:'e _ _ _ _ _ _ _ _ (9 letters)'},
+    {say:'obscenity', accept:['obscenity'], hint:'o _ _ _ _ _ _ _ _ (9 letters)'},
+    {say:'oblivious', accept:['oblivious'], hint:'o _ _ _ _ _ _ _ _ (9 letters)'},
+    {say:'sanctity', accept:['sanctity'], hint:'s _ _ _ _ _ _ _ (8 letters)'},
+    {say:'exploitative', accept:['exploitative'], hint:'e _ _ _ _ _ _ _ _ _ _ _ (12 letters)'},
+    {say:'profanity', accept:['profanity'], hint:'p _ _ _ _ _ _ _ _ (9 letters)'}
+   ]},
+
+  /* ===== GRAMMAR ===== */
+  {id:'g1a', tab:'grammar', step:1, type:'mc', title:'Step 1 · A. Choose the best option', instr:'Look at the evidence. How sure are you?',
+   items:[
+    {q:'The neighbours called the police. The man in the street ___ obscenities for ages.', o:['must have been shouting','can’t have been shouting','must shout'], a:0, why:'There is strong evidence (the police were called), so we are almost sure: must have been + -ing for an activity in progress.'},
+    {q:'She ___ the expletive – she was asleep in the next room with earplugs in.', o:['must have heard','can’t have heard','mustn’t have heard'], a:1, why:'For “almost sure it did NOT happen” we use can’t have / couldn’t have. “Mustn’t have” is not used for deduction.'},
+    {q:'I’m not sure why he left the meeting early. He ___ offended by the jokes.', o:['might have been','must be','can’t have been'], a:0, why:'“I’m not sure” = it’s only a possibility, so might / may / could have + past participle.'},
+    {q:'Tom’s phone has a cracked screen and he’s in a terrible mood. He ___ it.', o:['must have dropped','might drop','can’t have dropped'], a:0, why:'The cracked screen is clear evidence, so must have + past participle.'},
+    {q:'“Who dissed my band online?” – “It ___ Anna. She isn’t even on social media.”', o:['must have been','couldn’t have been','may have been'], a:1, why:'It’s impossible: she isn’t on social media. couldn’t have / can’t have = almost sure it’s not true.'},
+    {q:'The email was peppered with typos. I suppose he ___ it in a hurry.', o:['may have written','may write','can’t have written'], a:0, why:'“I suppose” = a possible explanation, so may / might / could have + past participle.'}
+   ]},
+  {id:'g1b', tab:'grammar', step:1, type:'type', title:'Step 1 · B. Rewrite with a past modal', instr:'Complete the second sentence so it means the same as the first. Use must have, can’t have or might (not) have.',
+   items:[
+    {orig:'I’m sure he was furious.', q:'He ___ furious.', accept:['must have been'], hint:'Almost sure it’s true → must + have + past participle of “be”.', why:'must have been = I’m almost sure he was.'},
+    {orig:'It’s impossible that she said that – she’s always so polite.', q:'She ___ that.', accept:['cannot have said','couldn\'t have said','could not have said','can\'t have said'], hint:'Almost sure it’s NOT true → can’t / couldn’t have…', why:'can’t have said / couldn’t have said = it’s impossible that she said it.'},
+    {orig:'Perhaps they didn’t notice the sign.', q:'They ___ the sign.', accept:['might not have noticed','may not have noticed','mightn\'t have noticed'], hint:'A possible negative → might / may + not + have…', why:'might not / may not have noticed = perhaps they didn’t. (Not “couldn’t have”, which means “impossible”.)'},
+    {orig:'I’m certain the kids heard every word.', q:'The kids ___ every word.', accept:['must have heard'], hint:'must + have + past participle of “hear”.', why:'must have heard = I’m almost sure they heard.'},
+    {orig:'Maybe the charger was faulty.', q:'The charger ___ faulty.', accept:['might have been','may have been','could have been'], hint:'A possibility → might / may / could + have been.', why:'might / may / could have been = maybe it was.'},
+    {orig:'I’m sure he wasn’t listening – he was oblivious to everything.', q:'He ___ .', accept:['cannot have been listening','can\'t have been listening','couldn\'t have been listening','could not have been listening'], hint:'Almost sure NOT + an activity in progress → can’t have been + -ing.', why:'can’t / couldn’t have been listening = I’m sure he wasn’t listening.'}
+   ]},
+  {id:'g2a', tab:'grammar', step:2, type:'mc', title:'Step 2 · A. Choose the best option', instr:'Criticism, regret and missed chances.',
+   items:[
+    {q:'I ___ in front of my boss. Now he thinks I’m rude.', o:['shouldn’t have cursed','mustn’t have cursed','can’t have cursed'], a:0, why:'It happened and it was a mistake → shouldn’t have + past participle.'},
+    {q:'You ___ me the TV was faulty! I’ve just paid £400 for it.', o:['could have told','must have told','can’t have told'], a:0, why:'Angry criticism: it was possible to tell me, but you didn’t → could have told (should have told is also possible).'},
+    {q:'Their apology came months later. They ___ much sooner.', o:['should have apologised','must have apologised','might apologise'], a:0, why:'It was the right thing to do, but they didn’t → should have + past participle.'},
+    {q:'Luckily the car stopped just in time. Someone ___ killed.', o:['could have been','should have been','must have been'], a:0, why:'A possible result that didn’t happen (a lucky escape) → could have been.'},
+    {q:'If I’d known how sensitive he was, I ___ his taste in music.', o:['wouldn’t have dissed','mustn’t have dissed','can’t have dissed'], a:0, why:'An imagined past result (third conditional) → would / wouldn’t have + past participle.'},
+    {q:'The comedian’s show was peppered with obscenities. He ___ the audience first.', o:['should have warned','must warn','could warn'], a:0, why:'Criticism of a past action that didn’t happen → should have warned.'}
+   ]},
+  {id:'g2b', tab:'grammar', step:2, type:'type', title:'Step 2 · B. Rewrite with should have / could have', instr:'Complete the second sentence so it means the same as the first.',
+   items:[
+    {orig:'It was a mistake to swear at the referee.', q:'He ___ at the referee.', accept:['shouldn\'t have sworn','should not have sworn','ought not to have sworn','oughtn\'t to have sworn'], hint:'shouldn’t have + past participle. swear – swore – ?', why:'shouldn’t have sworn. Careful: the past participle of “swear” is “sworn”.'},
+    {orig:'It was wrong of you not to tell me.', q:'You ___ me.', accept:['should have told','ought to have told'], hint:'should have + past participle of “tell”.', why:'should have told = it was the right thing to do, but you didn’t.'},
+    {orig:'It was possible for us to win, but we didn’t.', q:'We ___ .', accept:['could have won'], hint:'could have + past participle of “win”.', why:'could have won = it was possible, but it didn’t happen.'},
+    {orig:'Why didn’t you call me? I was at home all evening!', q:'You ___ me!', accept:['could have called','should have called','might have called','ought to have called','could have phoned','should have phoned','could have rung','should have rung'], hint:'An annoyed criticism → could have / should have + past participle.', why:'could have called / should have called = it was possible and you didn’t (criticism).'},
+    {orig:'I regret reading the comments under my video.', q:'I ___ the comments under my video.', accept:['shouldn\'t have read','should not have read','ought not to have read'], hint:'Regret about something you did → shouldn’t have + past participle.', why:'shouldn’t have read = I did it and I regret it.'}
+   ]},
+  {id:'g3a', tab:'grammar', step:3, type:'mc', title:'Step 3 · Choose the best option', instr:'Was it necessary? Did it happen?',
+   items:[
+    {q:'I bought earplugs for the match, but the fans were surprisingly polite. I ___ them.', o:['needn’t have bought','didn’t need to buy','must have bought'], a:0, why:'I DID buy them, but it wasn’t necessary → needn’t have + past participle.'},
+    {q:'The film had subtitles, so I ___ the swear words for Grandad – he read them himself.', o:['didn’t need to translate','needn’t have translated','mustn’t have translated'], a:0, why:'It wasn’t necessary, so I didn’t do it → didn’t need to + infinitive.'},
+    {q:'Yesterday I ___ go back to the shop three times because the kettle was faulty.', o:['must','had to','must have'], a:1, why:'Past obligation = had to. “Must have” is for deduction, not obligation.'},
+    {q:'We ___ booked a table – the restaurant was half empty.', o:['needn’t have','didn’t need','mustn’t have'], a:0, why:'We booked, but it was unnecessary → needn’t have booked.'},
+    {q:'“Did you have to apologise?” – “No, I ___ . He didn’t even notice.”', o:['didn’t have to','needn’t have','mustn’t'], a:0, why:'Short answer about past necessity: No, I didn’t have to.'}
+   ]},
+
+  /* ===== MIXED ===== */
+  {id:'m1', tab:'mixed', type:'gaptext', title:'1. The mystery of the bleeped interview', instr:'Put the words in brackets into the correct past modal form.',
+   bank:[],
+   text:'Last night’s live interview with pop star Kira was cut off after just four minutes. Viewers heard a loud bleep, so she {1} <span class="prompt">(must / say)</span> something rude. Some fans think she {2} <span class="prompt">(may / not / realise)</span> that the microphone was on. Her manager insists she {3} <span class="prompt">(can’t / swear)</span> because “Kira never uses foul language”. But a sound engineer says the expletive {4} <span class="prompt">(could / come)</span> from someone else in the studio. Either way, the TV channel {5} <span class="prompt">(should / check)</span> the sound before going live. Kira’s team posted an apology the next morning, but fans said it {6} <span class="prompt">(should / come)</span> much earlier. “They {7} <span class="prompt">(could / avoid)</span> the whole scandal,” said one critic. “Now Kira is the one being dissed online, and she {8} <span class="prompt">(might / not / do)</span> anything wrong!”',
+   gaps:[
+    {accept:['must have said'], hint:'must + have + past participle of “say”.'},
+    {accept:['may not have realised','may not have realized'], hint:'may + not + have + past participle.'},
+    {accept:['cannot have sworn','can\'t have sworn'], hint:'can’t + have + past participle of “swear” (swear – swore – ?).'},
+    {accept:['could have come'], hint:'could + have + past participle of “come”.'},
+    {accept:['should have checked'], hint:'should + have + past participle.'},
+    {accept:['should have come'], hint:'should + have + past participle of “come”.'},
+    {accept:['could have avoided'], hint:'could + have + past participle.'},
+    {accept:['might not have done','mightn\'t have done'], hint:'might + not + have + past participle of “do”.'}
+   ]},
+  {id:'m2', tab:'mixed', type:'type', full:true, title:'2. Find and correct the mistake', instr:'Each sentence has ONE mistake. Edit the sentence and check.',
+   items:[
+    {q:'He must have swore at the referee.', accept:['He must have sworn at the referee.'], hint:'Check the past participle of “swear”.', why:'swear – swore – sworn: must have + past participle → must have sworn.'},
+    {q:'She mustn’t have heard the expletive – she was asleep.', accept:['She can\'t have heard the expletive – she was asleep.','She couldn\'t have heard the expletive – she was asleep.','She cannot have heard the expletive – she was asleep.','She could not have heard the expletive – she was asleep.'], hint:'Negative deduction about the past doesn’t use “mustn’t”.', why:'For “I’m sure it didn’t happen” use can’t have / couldn’t have.'},
+    {q:'You should of told me the charger was faulty.', accept:['You should have told me the charger was faulty.'], hint:'“should’ve” sounds like “should of”, but how do we write it?', why:'should’ve = should have. Never write “should of”.'},
+    {q:'The manager must apologise yesterday, but he didn’t.', accept:['The manager should have apologised yesterday, but he didn\'t.','The manager should have apologized yesterday, but he didn\'t.','The manager ought to have apologised yesterday, but he didn\'t.'], hint:'It was the right thing to do, but it didn’t happen.', why:'Criticism of the past → should have apologised.'},
+    {q:'I needn’t to have bought a new phone.', accept:['I needn\'t have bought a new phone.','I need not have bought a new phone.'], hint:'needn’t + have + past participle (no “to”).', why:'needn’t have bought (no “to”).'},
+    {q:'She might have been oblivious of the noise.', accept:['She might have been oblivious to the noise.'], hint:'Check the preposition after “oblivious” from our lesson.', why:'We learnt “oblivious to something”.'}
+   ]},
+  {id:'m3', tab:'mixed', type:'type', title:'3. Key word transformations', instr:'Complete the second sentence so it means the same as the first. Use the word given (2–5 words).',
+   items:[
+    {orig:'I’m sure the kids heard the expletive.', key:'MUST', q:'The kids ___ the expletive.', accept:['must have heard'], hint:'must + have + past participle.', why:'must have heard = I’m almost sure they heard.'},
+    {orig:'It was a mistake to diss his music in public.', key:'SHOULDN’T', q:'I ___ his music in public.', accept:['shouldn\'t have dissed','should not have dissed'], hint:'shouldn’t have + past participle of “diss”.', why:'shouldn’t have dissed = I did it and it was a mistake.'},
+    {orig:'It’s impossible that he wrote those obscenities.', key:'CAN’T', q:'He ___ those obscenities.', accept:['can\'t have written','cannot have written'], hint:'can’t + have + past participle of “write”.', why:'can’t have written = I’m sure he didn’t write them.'},
+    {orig:'It wasn’t necessary to bleep the interview, but they did.', key:'NEEDN’T', q:'They ___ the interview.', accept:['needn\'t have bleeped','need not have bleeped'], hint:'needn’t + have + past participle.', why:'needn’t have bleeped = they did it, but it wasn’t necessary.'},
+    {orig:'Perhaps she didn’t notice the faulty brakes.', key:'MIGHT', q:'She ___ the faulty brakes.', accept:['might not have noticed','mightn\'t have noticed'], hint:'might + not + have + past participle.', why:'might not have noticed = perhaps she didn’t notice.'},
+    {orig:'It was possible for the argument to sour the whole trip, but it didn’t.', key:'COULD', q:'The argument ___ the whole trip.', accept:['could have soured'], hint:'could + have + past participle.', why:'could have soured = it was possible, but it didn’t happen.'}
+   ]}
+];
+
+/* ---------- grammar explanations ---------- */
+const RULES = {
+intro: `
+<span class="step-label">Past modals</span>
+<h2>Looking back with modal verbs</h2>
+<p class="lead">We use <b>modal + have + past participle</b> to talk about the past: to guess what happened, to criticise, to regret, or to say something wasn’t necessary.</p>
+<table class="form">
+<tr><th></th><th>Form</th><th>Example</th></tr>
+<tr><td>Positive</td><td>subject + modal + <span class="hl">have</span> + <span class="hl2">past participle</span></td><td>She must <span class="hl">have</span> <span class="hl2">heard</span> him.</td></tr>
+<tr><td>Negative</td><td>subject + modal + <b>not</b> + <span class="hl">have</span> + <span class="hl2">past participle</span></td><td>He might not <span class="hl">have</span> <span class="hl2">noticed</span>.</td></tr>
+<tr><td>Continuous</td><td>modal + <span class="hl">have been</span> + <span class="hl2">-ing</span></td><td>They must <span class="hl">have been</span> <span class="hl2">arguing</span>.</td></tr>
+<tr><td>Passive</td><td>modal + <span class="hl">have been</span> + <span class="hl2">past participle</span></td><td>He can’t <span class="hl">have been</span> <span class="hl2">told</span>.</td></tr>
+<tr><td>Question</td><td>modal + subject + <span class="hl">have</span> + <span class="hl2">past participle</span>?</td><td>Could she <span class="hl">have</span> <span class="hl2">misheard</span>?</td></tr>
+</table>
+<p>In speech, <b>have</b> is weak: <i>must’ve</i> /ˈmʌstəv/, <i>should’ve</i>, <i>could’ve</i>. It sounds like “of”, but we never write <s>must of</s> or <s>should of</s>.</p>`,
+step1: `
+<span class="step-label">Step 1 · Detective mode</span>
+<h2>Deduction: what probably happened?</h2>
+<p class="lead">Look at the evidence and decide how sure you are.</p>
+<div class="scale"><div class="track"></div><div class="labels"><span>can’t / couldn’t have<br>≈ impossible</span><span>might / may / could have<br>≈ possible</span><span>must have<br>≈ almost certain</span></div></div>
+<div class="exline"><button class="spk" data-say="The whole room went silent. He must have said something terrible." aria-label="Listen">🔊</button><div>The whole room went silent. He <b>must have said</b> something terrible.</div></div>
+<div class="exline"><button class="spk" data-say="She can't have heard him. She was wearing headphones." aria-label="Listen">🔊</button><div>She <b>can’t have heard</b> him. She was wearing headphones.</div></div>
+<div class="exline"><button class="spk" data-say="He might have been joking, I'm not sure." aria-label="Listen">🔊</button><div>He <b>might have been</b> joking, I’m not sure.</div></div>
+<div class="exline"><button class="spk" data-say="They may not have noticed the sign." aria-label="Listen">🔊</button><div>They <b>may not have noticed</b> the sign. (perhaps they didn’t)</div></div>
+<div class="demo" id="demo">
+  <div style="font-weight:800;color:var(--mustard);font-size:13px;letter-spacing:.08em">TRY IT · MOVE THE SLIDER</div>
+  <div class="ctx" id="demoCtx"></div>
+  <div class="sent" id="demoSent"></div>
+  <input type="range" min="0" max="3" step="1" value="3" id="demoRange" aria-label="How sure are you?">
+  <div class="ticks"><span>0%</span><span>~40%</span><span>~50%</span><span>~95%</span></div>
+</div>
+<div class="mist">
+<div class="x">✗ She <b>mustn’t have</b> heard it.</div><div class="v">✓ She <b>can’t have / couldn’t have</b> heard it. (negative deduction)</div>
+<div class="x">✗ He <b>couldn’t have</b> noticed, but I’m not sure.</div><div class="v">✓ He <b>might not have</b> noticed. (couldn’t have = impossible, not “maybe not”)</div>
+</div>`,
+step2: `
+<span class="step-label">Step 2 · Looking back</span>
+<h2>Criticism, regret and missed chances</h2>
+<table class="form">
+<tr><th>Form</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><b>should have</b> / ought to have + pp</td><td>It was the right thing, but it didn’t happen.</td><td>You <b>should have apologised</b> sooner.</td></tr>
+<tr><td><b>shouldn’t have</b> + pp</td><td>It happened, but it was wrong. (regret)</td><td>I <b>shouldn’t have sworn</b> in front of the kids.</td></tr>
+<tr><td><b>could have</b> + pp</td><td>It was possible, but it didn’t happen.</td><td>You <b>could have been</b> hurt! / We <b>could have won</b>.</td></tr>
+<tr><td><b>could have</b> + pp (annoyed)</td><td>Criticism: you had the chance and didn’t do it.</td><td>You <b>could have told</b> me!</td></tr>
+<tr><td><b>would / wouldn’t have</b> + pp</td><td>An imagined past result (third conditional).</td><td>I <b>wouldn’t have dissed</b> his music if I’d known.</td></tr>
+</table>
+<div class="exline"><button class="spk" data-say="I shouldn't have sworn in front of the children." aria-label="Listen">🔊</button><div>I <b>shouldn’t have sworn</b> in front of the children.</div></div>
+<div class="exline"><button class="spk" data-say="You could have told me the TV was faulty!" aria-label="Listen">🔊</button><div>You <b>could have told</b> me the TV was faulty!</div></div>
+<div class="mist">
+<div class="x">✗ He <b>must apologise</b> yesterday.</div><div class="v">✓ He <b>should have apologised</b> yesterday.</div>
+<div class="x">✗ I shouldn’t have <b>swore</b>.</div><div class="v">✓ I shouldn’t have <b>sworn</b>. (swear – swore – sworn)</div>
+</div>`,
+step3: `
+<span class="step-label">Step 3 · Was it necessary?</span>
+<h2>needn’t have vs didn’t need to</h2>
+<table class="form">
+<tr><th>Form</th><th>Did it happen?</th><th>Example</th></tr>
+<tr><td><b>needn’t have</b> + pp</td><td><b>Yes</b>, but it wasn’t necessary.</td><td>I <b>needn’t have bleeped</b> the interview – nobody swore.</td></tr>
+<tr><td><b>didn’t need to</b> / didn’t have to + infinitive</td><td>Usually <b>no</b>: it wasn’t necessary, so we didn’t.</td><td>I <b>didn’t need to translate</b> the joke – everyone understood.</td></tr>
+<tr><td><b>had to</b> + infinitive</td><td>It was necessary (past obligation).</td><td>I <b>had to</b> take the kettle back.</td></tr>
+</table>
+<div class="exline"><button class="spk" data-say="We needn't have booked a table. The restaurant was half empty." aria-label="Listen">🔊</button><div>We <b>needn’t have booked</b> a table. The restaurant was half empty.</div></div>
+<div class="mist">
+<div class="x">✗ I <b>must have gone</b> to the dentist yesterday. (= obligation)</div><div class="v">✓ I <b>had to go</b> to the dentist yesterday. (must have = deduction only)</div>
+<div class="x">✗ I <b>needn’t to have</b> bought it.</div><div class="v">✓ I <b>needn’t have</b> bought it.</div>
+</div>`
+};
+
+const DEMO = [
+  {ctx:'Evidence: your neighbour was at work in another city all day.', sent:'My neighbour <b>can’t have heard</b> the expletive.'},
+  {ctx:'Evidence: she was at home, but she usually wears headphones.', sent:'My neighbour <b>might not have heard</b> the expletive.'},
+  {ctx:'Evidence: she was at home with the window open… maybe.', sent:'My neighbour <b>might have heard</b> the expletive.'},
+  {ctx:'Evidence: she knocked on the door and asked me to stop swearing.', sent:'My neighbour <b>must have heard</b> the expletive.'}
+];
+
+const PRAISE = ['Correct!','Exactly right.','Nice work!','Spot on.','Perfect.','Well done!','Great – that’s it.'];
+const NOTQUITE = ['Not quite.','Almost – try again.','Have another look.','Not this time.'];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const TABS = [
+  {id:'words', label:'Words'}, {id:'cards', label:'Cards'}, {id:'vocab', label:'Practise words'},
+  {id:'grammar', label:'Past modals'}, {id:'mixed', label:'Mixed'}, {id:'results', label:'Results'}
+];
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pick = a => a[Math.floor(Math.random()*a.length)];
+
+/* storage */
+let mem = null;
+function load(){ try{ const s = localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){} return mem; }
+function save(){ mem = state; try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+let state = load() || {name:'Daria', tab:'words', ans:{}, match:{}, cards:{known:{}, idx:0, dir:'en', onlyLearning:false, order:null}};
+state.ans = state.ans || {}; state.match = state.match || {}; state.cards = state.cards || {known:{}, idx:0, dir:'en'};
+
+/* speech */
+let voice = null;
+function pickVoice(){ if(!('speechSynthesis' in window)) return; const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){ try{ if(!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,'')); if(voice) u.voice = voice; u.lang = voice ? voice.lang : 'en-GB'; u.rate = 0.88; speechSynthesis.speak(u); }catch(e){} }
+
+/* normalising */
+function norm(s){
+  s = String(s||'').toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,'').trim();
+  s = s.replace(/\bcan't\b/g,'cannot').replace(/\bcan not\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+       .replace(/n't\b/g,' not').replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/\bi'm\b/g,'i am')
+       .replace(/\bit's\b/g,'it is').replace(/\bthat's\b/g,'that is').replace(/\bhe's\b/g,'he is').replace(/\bshe's\b/g,'she is');
+  s = s.replace(/realized/g,'realised').replace(/apologized/g,'apologised');
+  s = s.replace(/[.,!?;:—–\-()]/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+const isRight = (val, accept) => accept.some(a => norm(a) === norm(val));
+
+/* item registry */
+function itemsOf(ex){
+  if(ex.type==='match') return ex.pairs.map((p,i)=>({id:ex.id+'-'+i}));
+  if(ex.type==='gaptext') return ex.gaps.map((g,i)=>({id:ex.id+'-'+i}));
+  return ex.items.map((it,i)=>({id:ex.id+'-'+i}));
+}
+function itemCredit(ex, i){
+  const id = ex.id+'-'+i;
+  if(ex.type==='match'){ const m = state.match[ex.id]||{}; if(!(m.done||{})[i]) return null; return (m.wrong||{})[i] ? 0 : 1; }
+  const a = state.ans[id]; if(!a || !a.done) return null; return a.credit;
+}
+function exScore(ex){ let got=0, done=0; const n = itemsOf(ex).length; for(let i=0;i<n;i++){ const c = itemCredit(ex,i); if(c!==null){ done++; got+=c; } } return {got, done, n}; }
+function totals(){ let got=0, done=0, n=0; EXERCISES.forEach(ex=>{ const s=exScore(ex); got+=s.got; done+=s.done; n+=s.n; }); return {got, done, n}; }
+const fmt = x => (Math.round(x*10)/10).toString();
+
+function refreshBar(){
+  const t = totals();
+  $('#ptext').textContent = `${t.done} / ${t.n} done`;
+  $('#pfill').style.width = (t.n? t.done/t.n*100 : 0) + '%';
+  $('#pscore').textContent = `Score ${fmt(t.got)}`;
+  EXERCISES.forEach(ex => { const el = document.getElementById('sc-'+ex.id); if(el){ const s = exScore(ex); el.textContent = `${fmt(s.got)} / ${s.n}`; } });
+  TABS.forEach(tb => {
+    const exs = EXERCISES.filter(e=>e.tab===tb.id); const el = document.getElementById('tsc-'+tb.id);
+    if(!el || !exs.length) return;
+    let got=0,done=0,n=0; exs.forEach(e=>{const s=exScore(e); got+=s.got; done+=s.done; n+=s.n;});
+    el.textContent = done===n ? `${fmt(got)}/${n}` : '';
+  });
+}
+let toastT;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),1800); }
+
+/* tabs */
+function renderTabs(){
+  $('#tabs').innerHTML = TABS.map(t => `<button class="tab" role="tab" id="tab-${t.id}" aria-selected="${state.tab===t.id}" data-tab="${t.id}">${t.label}<span class="sc" id="tsc-${t.id}"></span></button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b => b.onclick = () => go(b.dataset.tab));
+}
+function go(id){
+  state.tab = id; save();
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id==='p-'+id));
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab===id));
+  if(id==='results') renderResults();
+  if(id==='cards') renderCard();
+  const tb = document.getElementById('tab-'+id); if(tb && tb.scrollIntoView) tb.scrollIntoView({block:'nearest', inline:'center'});
+  const barTop = document.querySelector('.bar').offsetTop; if(window.scrollY > barTop) window.scrollTo({top: barTop, behavior:'auto'});
+  refreshBar();
+}
+function nextBtn(to, label){ return `<div class="next"><button class="btn primary" data-go="${to}">${label} →</button></div>`; }
+function bindNext(root){ root.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go)); }
+function bindSpk(root){ root.querySelectorAll('[data-say]').forEach(b => b.onclick = (e) => { e.stopPropagation(); say(b.dataset.say); }); }
+
+/* WORDS */
+function renderWords(){
+  let h = `<div class="card"><h2>The words</h2><p class="lead">Tap 🔊 to hear each word, then say it aloud. Notice the labels: some words are formal, some informal, and some belong to one side of the Atlantic.</p>`;
+  Object.keys(GROUPS).forEach(g => {
+    h += `<div class="group-title">${GROUPS[g].emo} ${GROUPS[g].title}</div><div class="words">`;
+    WORDS.filter(w=>w.group===g).forEach(w => {
+      h += `<div class="word"><div class="body"><b>${esc(w.w)}</b>${w.ipa?`<span class="ipa">${esc(w.ipa)}</span>`:''}${w.reg?`<span class="tag">${esc(w.reg)}</span>`:''}
+      <div class="def">${esc(w.def)}</div><div class="ex">${esc(w.ex)}</div>${w.note?`<div class="ex" style="font-style:normal;color:var(--coral);font-weight:700;margin-top:4px">${esc(w.note)}</div>`:''}</div>
+      <button class="spk" data-say="${esc(w.say)}. ${esc(w.ex)}" aria-label="Listen to ${esc(w.w)}">🔊</button></div>`;
+    });
+    h += `</div>`;
+  });
+  h += `</div><div class="card careful"><h3>⚠️ Careful with these</h3><ul>${CAREFUL.map(c=>`<li>${c}</li>`).join('')}</ul></div>` + nextBtn('cards','Flashcards');
+  const p = $('#p-words'); p.innerHTML = h; bindSpk(p); bindNext(p);
+}
+
+/* FLASHCARDS */
+function deck(){
+  const c = state.cards;
+  if(!c.order || c.order.length!==WORDS.length) c.order = WORDS.map((_,i)=>i);
+  let d = c.order.slice();
+  if(c.onlyLearning) d = d.filter(i => !c.known[WORDS[i].w]);
+  return d;
+}
+function renderCardsShell(){
+  $('#p-cards').innerHTML = `<div class="card"><h2>Flashcards</h2><p class="lead">Tap the card to flip it. Mark each word “I know it” or “Still learning”.</p>
+  <div class="fc-tools">
+    <button class="btn" id="fcShuffle">🔀 Shuffle</button>
+    <button class="btn" id="fcDir"></button>
+    <button class="btn" id="fcOnly" aria-pressed="false">Only words I’m learning</button>
+  </div>
+  <div class="scene"><div class="flip" id="flip" tabindex="0" role="button" aria-label="Flip card">
+    <div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div></div>
+  <div class="fc-nav"><button class="btn" id="fcPrev" aria-label="Previous">←</button><span class="fc-count" id="fcCount"></span><button class="btn" id="fcNext" aria-label="Next">→</button></div>
+  <div class="known-row"><button class="btn ok" id="fcKnow">✓ I know it</button><button class="btn warn" id="fcLearn">↻ Still learning</button></div>
+  <div class="minibar"><span id="fcKnown"></span><div class="ptrack"><div class="pfill" id="fcFill"></div></div></div>
+  </div>` + nextBtn('vocab','Practise words');
+  const c = state.cards;
+  $('#fcShuffle').onclick = () => { const o=c.order; for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [o[i],o[j]]=[o[j],o[i]];} c.idx=0; save(); renderCard(); };
+  $('#fcDir').onclick = () => { c.dir = c.dir==='en'?'def':'en'; save(); renderCard(); };
+  $('#fcOnly').onclick = () => { c.onlyLearning = !c.onlyLearning; c.idx=0; save(); renderCard(); };
+  const flip = () => $('#flip').classList.toggle('turned');
+  $('#flip').onclick = flip; $('#flip').onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); flip(); } };
+  $('#fcPrev').onclick = () => { const d=deck(); if(!d.length) return; c.idx=(c.idx-1+d.length)%d.length; save(); renderCard(); };
+  $('#fcNext').onclick = () => { const d=deck(); if(!d.length) return; c.idx=(c.idx+1)%d.length; save(); renderCard(); };
+  const mark = k => { const d=deck(); if(!d.length) return; const w=WORDS[d[c.idx]].w; if(k) c.known[w]=true; else delete c.known[w]; save();
+    if(c.onlyLearning && k){ const nd=deck(); if(c.idx>=nd.length) c.idx=0; } else { c.idx=(c.idx+1)%Math.max(1,deck().length); } renderCard(); toast(k?'Marked as known':'Keep practising this one'); };
+  $('#fcKnow').onclick = () => mark(true); $('#fcLearn').onclick = () => mark(false);
+  bindNext($('#p-cards'));
+}
+function renderCard(){
+  if(!$('#flip')) return;
+  const c = state.cards, d = deck();
+  $('#fcDir').textContent = c.dir==='en' ? 'Word → meaning' : 'Meaning → word';
+  $('#fcOnly').setAttribute('aria-pressed', !!c.onlyLearning);
+  $('#flip').classList.remove('turned');
+  const knownN = Object.keys(c.known).filter(k=>WORDS.some(w=>w.w===k)).length;
+  $('#fcKnown').textContent = `Known: ${knownN} / ${WORDS.length}`; $('#fcFill').style.width = (knownN/WORDS.length*100)+'%';
+  if(!d.length){ $('#fcFront').innerHTML = `<div class="w">🎉</div><div>You know all the words!</div><div class="hint">Turn off the filter to see them all.</div>`; $('#fcBack').innerHTML=''; $('#fcCount').textContent='0 / 0'; return; }
+  if(c.idx>=d.length) c.idx=0;
+  const w = WORDS[d[c.idx]], emo = GROUPS[w.group].emo;
+  const tagH = w.reg ? `<div><span class="tag">${esc(w.reg)}</span></div>` : '';
+  const noteH = w.note ? `<div class="hint" style="opacity:1;color:var(--coral);font-weight:700">${esc(w.note)}</div>` : '';
+  const stem = w.say.split(/[ ,]/)[0].slice(0, Math.min(5, w.say.split(/[ ,]/)[0].length));
+  const blanked = w.ex.toLowerCase().includes(w.say.toLowerCase()) && w.say.includes(' ')
+    ? w.ex.replace(new RegExp(w.say.replace(/[,]/g,'\\,'), 'i'), '_____')
+    : w.ex.replace(new RegExp('\\b' + stem + '[a-z]*', 'i'), '_____');
+  if(c.dir==='en'){
+    $('#fcFront').innerHTML = `<button class="spk" data-say="${esc(w.say)}" aria-label="Listen">🔊</button><div class="emo">${emo}</div><div class="w">${esc(w.w)}</div>${tagH}<div class="hint">tap to flip</div>`;
+    $('#fcBack').innerHTML = `<button class="spk" data-say="${esc(w.ex)}" aria-label="Listen">🔊</button><div class="d">${esc(w.def)}</div><div class="e">${esc(w.ex)}</div>${noteH}<div class="hint">${esc(w.w)}</div>`;
+  } else {
+    $('#fcFront').innerHTML = `<button class="spk" data-say="${esc(w.def)}" aria-label="Listen">🔊</button><div class="emo">${emo}</div><div class="d">${esc(w.def)}</div><div class="e" style="color:#D6CFE3">${esc(blanked)}</div><div class="hint">tap to flip</div>`;
+    $('#fcBack').innerHTML = `<button class="spk" data-say="${esc(w.say)}. ${esc(w.ex)}" aria-label="Listen">🔊</button><div class="w" style="font-family:Fraunces,Georgia,serif;font-size:32px">${esc(w.w)}</div>${tagH}<div class="e">${esc(w.ex)}</div>${noteH}`;
+  }
+  $('#fcCount').textContent = `${c.idx+1} / ${d.length}`;
+  bindSpk($('#p-cards'));
+}
+
+/* EXERCISE RENDERING */
+function exHead(ex){ return `<div class="ex-head"><div><h3>${ex.title}</h3><p class="lead" style="margin-bottom:6px">${ex.instr}</p></div><span class="ex-score" id="sc-${ex.id}"></span></div>`; }
+
+function renderExercise(ex){
+  const box = document.createElement('div'); box.className = 'card ex'; box.id = 'ex-'+ex.id;
+  if(ex.type==='mc') box.innerHTML = exHead(ex) + ex.items.map((it,i)=>mcItemHTML(ex,it,i)).join('');
+  if(ex.type==='type') box.innerHTML = exHead(ex) + ex.items.map((it,i)=>typeItemHTML(ex,it,i)).join('');
+  if(ex.type==='listen') box.innerHTML = exHead(ex) + ex.items.map((it,i)=>listenItemHTML(ex,it,i)).join('');
+  if(ex.type==='gaptext') box.innerHTML = exHead(ex) + gapTextHTML(ex);
+  if(ex.type==='match') box.innerHTML = exHead(ex) + matchHTML(ex);
+  setTimeout(()=>bindExercise(ex, box), 0);
+  return box;
+}
+function qNum(i){ return `<span class="n">${i+1}</span>`; }
+
+/* MC */
+function mcItemHTML(ex,it,i){
+  const id = ex.id+'-'+i, a = state.ans[id];
+  return `<div class="item" data-id="${id}"><div class="q">${qNum(i)}${esc(it.q).replace('___','<b>_____</b>')}</div>
+  <div class="opts">${it.o.map((o,k)=>{ let cls=''; if(a&&a.done){ if(k===it.a) cls='right'; else if(k===a.first) cls='wrong'; } return `<button class="opt ${cls}" data-k="${k}" ${a&&a.done?'disabled':''}>${esc(o)}</button>`; }).join('')}</div>
+  <div class="fb ${a&&a.done?'show '+(a.credit?'good':'bad'):''}">${a&&a.done? fbHTML(a.credit, it.why, it.o[it.a]) : ''}</div></div>`;
+}
+function fbHTML(ok, why, right){ return ok ? `<b>${pick(PRAISE)}</b><span class="why">${esc(why||'')}</span>` : `<b>${pick(NOTQUITE).replace(' – try again','')} The answer is “${esc(right)}”.</b><span class="why">${esc(why||'')}</span>`; }
+
+/* TYPE */
+function inputHTML(id, a, cls='gapin', val){ const v = a ? a.val : (val||''); const st = a&&a.done ? (a.credit>0?'right':'wrong') : ''; return `<input class="${cls} ${st}" data-in="${id}" value="${esc(v)}" autocomplete="off" autocapitalize="off" spellcheck="false" ${a&&a.done?'disabled':''} aria-label="Your answer">`; }
+function typeItemHTML(ex,it,i){
+  const id = ex.id+'-'+i, a = state.ans[id];
+  let body;
+  if(ex.full){
+    body = `<div class="q">${qNum(i)}${esc(it.q)}</div>${inputHTML(id, a, 'fullin', it.q)}`;
+  } else {
+    const parts = esc(it.q).split('___');
+    body = `${it.orig?`<div class="orig">${qNum(i)}${esc(it.orig)}${it.key?`<span class="key">${esc(it.key)}</span>`:''}</div>`:''}
+    <div class="q" style="font-weight:500">${it.orig?'':qNum(i)}${parts[0]}${inputHTML(id,a)}${parts[1]||''}${!it.orig&&it.key?`<span class="key">${esc(it.key)}</span>`:''}</div>`;
+  }
+  return `<div class="item" data-id="${id}">${body}<div class="row">${a&&a.done?'':`<button class="btn dark" data-check="${id}">Check</button>`}</div>${fbTypeHTML(it,a)}</div>`;
+}
+function fbTypeHTML(it,a){
+  if(!a) return `<div class="fb"></div>`;
+  if(a.done && a.credit>0) return `<div class="fb show good"><b>${pick(PRAISE)}</b>${a.tries>1?' (second try)':''}<span class="why">${esc(it.why||'')}</span></div>`;
+  if(a.done) return `<div class="fb show bad"><b>Model answer: ${esc(it.accept[0])}</b><span class="why">${esc(it.why||'')}</span></div>`;
+  return `<div class="fb show tip"><b>${pick(NOTQUITE)}</b> <span class="why">Hint: ${esc(it.hint||'')}</span></div>`;
+}
+
+/* LISTEN */
+function listenItemHTML(ex,it,i){
+  const id = ex.id+'-'+i, a = state.ans[id];
+  return `<div class="item" data-id="${id}"><div class="listen-row">${qNum(i)}<button class="bigspk" data-say="${esc(it.say)}" aria-label="Listen">🔊</button>${inputHTML(id,a)}${a&&a.done?'':`<button class="btn dark" data-check="${id}">Check</button>`}</div>${fbTypeHTML({accept:it.accept, hint:it.hint, why:'“'+it.accept[0]+'”'},a)}</div>`;
+}
+
+/* GAP TEXT */
+function gapTextHTML(ex){
+  let h = '';
+  if(ex.bank && ex.bank.length) h += `<div class="bank">${ex.bank.map(b=>`<button class="chip" data-chip="${esc(b)}">${esc(b)}</button>`).join('')}</div>`;
+  const html = ex.text.replace(/\{(\d+)\}/g, (m, n) => { const i = +n-1, id = ex.id+'-'+i, a = state.ans[id]; return `<span class="gn">(${n})</span>${inputHTML(id,a)}`; });
+  h += `<div class="story">${html}</div><div class="row" style="margin-top:14px"><button class="btn dark" data-checkall="${ex.id}">Check answers</button></div><div class="fb" id="fb-${ex.id}"></div>`;
+  return h;
+}
+
+/* MATCH */
+function shuffled(n, seedKey){
+  state.match[seedKey] = state.match[seedKey] || {};
+  const m = state.match[seedKey];
+  if(!m.order || m.order.length!==n){ const o=[...Array(n).keys()]; for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [o[i],o[j]]=[o[j],o[i]];} m.order=o; save(); }
+  return m.order;
+}
+function matchHTML(ex){
+  const order = shuffled(ex.pairs.length, ex.id), m = state.match[ex.id]; m.done = m.done||{}; m.wrong = m.wrong||{};
+  return `<div class="match"><div class="col">${ex.pairs.map((p,i)=>`<button class="mbtn ${m.done[i]?'done':''}" data-l="${i}" ${m.done[i]?'disabled':''}>${esc(p[0])}</button>`).join('')}</div>
+  <div class="col">${order.map(i=>`<button class="mbtn ${m.done[i]?'done':''}" data-r="${i}" ${m.done[i]?'disabled':''}>${esc(ex.pairs[i][1])}</button>`).join('')}</div></div>`;
+}
+
+/* binding */
+function bindExercise(ex, box){
+  bindSpk(box);
+  if(ex.type==='mc') box.querySelectorAll('.item').forEach((el,i) => el.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+    const id = ex.id+'-'+i; if(state.ans[id] && state.ans[id].done) return;
+    const it = ex.items[i], k = +b.dataset.k, ok = k===it.a;
+    state.ans[id] = {done:true, first:k, credit: ok?1:0, val: it.o[k]}; save();
+    el.outerHTML = mcItemHTML(ex,it,i); bindExercise(ex, $('#ex-'+ex.id));
+    if(ok && it.q.includes('___')) say(it.q.replace('___', it.o[it.a]));
+    refreshBar();
+  }));
+  if(ex.type==='type' || ex.type==='listen'){
+    box.querySelectorAll('[data-check]').forEach(b => {
+      const id = b.dataset.check, i = +id.split('-').pop();
+      const run = () => checkTyped(ex, i);
+      b.onclick = run;
+      const inp = box.querySelector(`[data-in="${id}"]`); if(inp) inp.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); run(); } };
+    });
+  }
+  if(ex.type==='gaptext'){
+    let active = null;
+    box.querySelectorAll('[data-in]').forEach(inp => { inp.onfocus = () => active = inp; inp.onkeydown = e => { if(e.key==='Enter'){ e.preventDefault(); checkGaps(ex); } }; });
+    box.querySelectorAll('[data-chip]').forEach(c => c.onclick = () => {
+      let target = active && !active.disabled ? active : [...box.querySelectorAll('[data-in]')].find(x=>!x.disabled && !x.value.trim());
+      if(!target) return; target.value = c.dataset.chip; target.classList.remove('wrong'); active = target; target.focus();
+      const nextEmpty = [...box.querySelectorAll('[data-in]')].find(x=>!x.disabled && !x.value.trim()); if(nextEmpty) active = nextEmpty;
+    });
+    box.querySelector('[data-checkall]').onclick = () => checkGaps(ex);
+  }
+  if(ex.type==='match'){
+    const m = state.match[ex.id]; let L=null, R=null;
+    const tryPair = () => {
+      if(L===null || R===null) return;
+      const lb = box.querySelector(`[data-l="${L}"]`), rb = box.querySelector(`[data-r="${R}"]`);
+      if(L===R){ m.done[L]=true; save(); [lb,rb].forEach(b=>{b.classList.remove('sel'); b.classList.add('done'); b.disabled=true;}); toast(pick(PRAISE)); say(ex.pairs[L][0]); }
+      else { m.wrong[L]=true; save(); [lb,rb].forEach(b=>{b.classList.remove('sel'); b.classList.add('shake');}); setTimeout(()=>[lb,rb].forEach(b=>b.classList.remove('shake')),600); }
+      L=R=null; refreshBar();
+    };
+    box.querySelectorAll('[data-l]').forEach(b => b.onclick = () => { if(b.disabled) return; box.querySelectorAll('[data-l]').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); L=+b.dataset.l; tryPair(); });
+    box.querySelectorAll('[data-r]').forEach(b => b.onclick = () => { if(b.disabled) return; box.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); R=+b.dataset.r; tryPair(); });
+  }
+}
+function checkTyped(ex, i){
+  const id = ex.id+'-'+i, it = ex.items[i], box = $('#ex-'+ex.id), inp = box.querySelector(`[data-in="${id}"]`);
+  const val = inp.value.trim(); if(!val){ toast('Type your answer first'); inp.focus(); return; }
+  if(ex.full && norm(val)===norm(it.q)){ toast('Change one thing in the sentence first'); return; }
+  const prev = state.ans[id] || {tries:0}; const tries = (prev.tries||0) + 1; const ok = isRight(val, it.accept);
+  if(ok) state.ans[id] = {done:true, tries, credit: tries===1?1:0.5, val};
+  else if(tries>=2) state.ans[id] = {done:true, tries, credit:0, val};
+  else state.ans[id] = {done:false, tries, credit:0, val};
+  save();
+  const el = box.querySelector(`[data-id="${id}"]`);
+  el.outerHTML = ex.type==='listen' ? listenItemHTML(ex,it,i) : typeItemHTML(ex,it,i);
+  bindExercise(ex, $('#ex-'+ex.id));
+  if(ok){ say(ex.type==='listen' ? it.say : (ex.full ? it.accept[0] : (it.q.replace('___', val)))); }
+  else if(!state.ans[id].done){ const ni = $('#ex-'+ex.id).querySelector(`[data-in="${id}"]`); if(ni){ ni.classList.add('wrong'); ni.focus(); } }
+  refreshBar();
+}
+function checkGaps(ex){
+  const box = $('#ex-'+ex.id); let checked = 0, empty = 0, wrongNow = 0;
+  ex.gaps.forEach((g,i) => {
+    const id = ex.id+'-'+i, inp = box.querySelector(`[data-in="${id}"]`); if(!inp || inp.disabled) return;
+    const val = inp.value.trim(); if(!val){ empty++; return; }
+    checked++;
+    const prev = state.ans[id] || {tries:0}; const tries = (prev.tries||0)+1; const ok = isRight(val, g.accept);
+    if(ok) state.ans[id] = {done:true, tries, credit: tries===1?1:0.5, val};
+    else if(tries>=2) state.ans[id] = {done:true, tries, credit:0, val};
+    else { state.ans[id] = {done:false, tries, credit:0, val}; wrongNow++; }
+    inp.classList.remove('right','wrong');
+    if(state.ans[id].done){ inp.disabled = true; inp.classList.add(state.ans[id].credit>0?'right':'wrong'); if(!ok){ inp.value = g.accept[0]; } }
+    else inp.classList.add('wrong');
+  });
+  save();
+  const fb = $('#fb-'+ex.id);
+  const tips = ex.gaps.map((g,i)=>{ const a=state.ans[ex.id+'-'+i]; return a && !a.done ? `<span class="why">(${i+1}) ${esc(g.hint)}</span>` : ''; }).join('');
+  const revealed = ex.gaps.map((g,i)=>{ const a=state.ans[ex.id+'-'+i]; return a && a.done && a.credit===0 ? `(${i+1}) ${esc(g.accept[0])}` : ''; }).filter(Boolean).join(' · ');
+  if(!checked && empty){ fb.className='fb show tip'; fb.innerHTML='Fill in some gaps first.'; return; }
+  if(wrongNow){ fb.className='fb show tip'; fb.innerHTML = `<b>Some answers need another look.</b>${tips}`; }
+  else if(revealed){ fb.className='fb show bad'; fb.innerHTML = `<b>Correct answers shown:</b> ${revealed}`; }
+  else { fb.className='fb show good'; fb.innerHTML = `<b>${pick(PRAISE)}</b>${empty?` <span class="why">${empty} gap(s) still empty.</span>`:''}`; }
+  refreshBar();
+}
+
+/* panels */
+function renderVocab(){ const p=$('#p-vocab'); p.innerHTML=''; EXERCISES.filter(e=>e.tab==='vocab').forEach(ex=>p.appendChild(renderExercise(ex))); p.insertAdjacentHTML('beforeend', nextBtn('grammar','Past modals')); bindNext(p); }
+function renderGrammar(){
+  const p=$('#p-grammar'); p.innerHTML='';
+  const rule = html => { const d=document.createElement('div'); d.className='card rule'; d.innerHTML=html; p.appendChild(d); bindSpk(d); };
+  rule(RULES.intro);
+  [1,2,3].forEach(s => { rule(RULES['step'+s]); EXERCISES.filter(e=>e.tab==='grammar'&&e.step===s).forEach(ex=>p.appendChild(renderExercise(ex))); });
+  p.insertAdjacentHTML('beforeend', nextBtn('mixed','Mixed practice')); bindNext(p);
+  const r = $('#demoRange'); const upd = () => { const d = DEMO[+r.value]; $('#demoCtx').textContent = d.ctx; $('#demoSent').innerHTML = d.sent; };
+  r.oninput = upd; r.onchange = () => say($('#demoSent').textContent); upd();
+}
+function renderMixed(){
+  const p=$('#p-mixed'); p.innerHTML = `<div class="card"><h2>Mixed practice</h2><p class="lead" style="margin:0">Past modals and today’s vocabulary together.</p></div>`;
+  EXERCISES.filter(e=>e.tab==='mixed').forEach(ex=>p.appendChild(renderExercise(ex)));
+  p.insertAdjacentHTML('beforeend', nextBtn('results','See my results')); bindNext(p);
+}
+
+/* RESULTS + REPORT */
+function questionText(ex,i){
+  if(ex.type==='match') return ex.pairs[i][0];
+  if(ex.type==='gaptext') return `Gap ${i+1}`;
+  if(ex.type==='listen') return `Listening ${i+1}`;
+  const it = ex.items[i]; return (it.orig ? it.orig+' → ' : '') + it.q + (it.key? ` [${it.key}]` : '');
+}
+function rightText(ex,i){
+  if(ex.type==='match') return ex.pairs[i][1];
+  if(ex.type==='gaptext') return ex.gaps[i].accept[0];
+  if(ex.type==='mc') return ex.items[i].o[ex.items[i].a];
+  return ex.items[i].accept[0];
+}
+function mistakes(){
+  const out=[];
+  EXERCISES.forEach(ex => { const n = itemsOf(ex).length; for(let i=0;i<n;i++){ const c=itemCredit(ex,i); if(c!==null && c<1){
+    const a = state.ans[ex.id+'-'+i]; const yours = ex.type==='match' ? '(wrong first match)' : (a? a.val : '');
+    out.push({ex:ex.title, q:questionText(ex,i), yours, right:rightText(ex,i), half:c>0}); } } });
+  return out;
+}
+function studentName(){ return (state.name||'').trim() || 'Student'; }
+function report(){
+  const t = totals(); const pct = t.n? Math.round(t.got/t.n*100) : 0;
+  const knownN = Object.keys(state.cards.known||{}).length;
+  let r = `${HW_TITLE}\nStudent: ${studentName()}\nDate: ${new Date().toLocaleDateString('en-GB')}\nScore: ${fmt(t.got)} / ${t.n} (${pct}%) · answered ${t.done} of ${t.n}\nFlashcards known: ${knownN} / ${WORDS.length}\n\nBY EXERCISE\n`;
+  EXERCISES.forEach(ex => { const s=exScore(ex); r += `- ${ex.title}: ${fmt(s.got)}/${s.n}${s.done<s.n?` (${s.n-s.done} not done)`:''}\n`; });
+  const ms = mistakes();
+  r += `\nMISTAKES (${ms.length})\n` + (ms.length ? ms.map(m=>`- ${m.q}\n  wrote: ${m.yours}${m.half?' (right on 2nd try)':''}\n  correct: ${m.right}`).join('\n') : 'None!') + '\n';
+  r += `\nALL ANSWERS\n`;
+  EXERCISES.forEach(ex => { r += `${ex.title}\n`; const n=itemsOf(ex).length; for(let i=0;i<n;i++){ const a=state.ans[ex.id+'-'+i]; let v;
+    if(ex.type==='match'){ const m=state.match[ex.id]||{}; v = (m.done||{})[i] ? ((m.wrong||{})[i]?'matched after a mistake':'matched first time') : '—'; }
+    else v = a ? a.val + (a.done ? (a.credit===1?' ✓':a.credit>0?' ✓ (2nd try)':' ✗') : ' (not finished)') : '—';
+    r += `  ${i+1}. ${v}\n`; } });
+  return r;
+}
+function scoreMsg(p){ if(p>=90) return 'Outstanding! You’ve really mastered this.'; if(p>=75) return 'Great work – just a few things to review.'; if(p>=55) return 'Good effort. Look at your mistakes below and try them again in class.'; return 'Keep going – re-read the rules and have another try at the exercises.'; }
+function renderResults(){
+  const t = totals(); const pct = t.n? Math.round(t.got/t.n*100) : 0; const ms = mistakes();
+  const knownN = Object.keys(state.cards.known||{}).length;
+  const rep = report(); const subj = `${HW_TITLE} — ${studentName()} — ${fmt(t.got)}/${t.n}`;
+  const short = rep.length>1500 ? rep.slice(0,1500) + '\n…\n(Full report: use “Copy text” in the homework.)' : rep;
+  const enc = encodeURIComponent;
+  $('#p-results').innerHTML = `<div class="card"><h2>Your results</h2>
+  <div class="big">${fmt(t.got)} / ${t.n}</div><p class="lead"><b>${pct}%</b> · answered ${t.done} of ${t.n} · flashcards known: ${knownN} / ${WORDS.length}</p>
+  <p><b>${scoreMsg(pct)}</b></p>
+  <table class="rtable">${EXERCISES.map(ex=>{const s=exScore(ex); return `<tr><td>${ex.title}</td><td>${fmt(s.got)} / ${s.n}</td></tr>`;}).join('')}</table></div>
+  <div class="card"><h3>Mistakes to review (${ms.length})</h3>${ms.length? `<ul class="mlist">${ms.map(m=>`<li><b>${esc(m.q)}</b><br>You: ${esc(m.yours)}${m.half?' (right on 2nd try)':''}<br>Correct: <span style="color:var(--ok);font-weight:700">${esc(m.right)}</span></li>`).join('')}</ul>` : '<p>No mistakes so far. 🎉</p>'}</div>
+  <div class="card"><h3>Send to your teacher</h3><p class="lead">Send your results to <span class="email">${TEACHER_EMAIL}</span></p>
+  <div class="send">
+    ${navigator.share ? `<button class="btn primary" id="shareBtn">📤 Share</button>` : ''}
+    <a class="btn" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${enc(TEACHER_EMAIL)}&su=${enc(subj)}&body=${enc(short)}">Gmail</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://t.me/share/url?url=${enc(subj)}&text=${enc(short)}">Telegram</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${enc(subj+'\n\n'+short)}">WhatsApp</a>
+    <a class="btn" href="mailto:${TEACHER_EMAIL}?subject=${enc(subj)}&body=${enc(short)}">Email app</a>
+    <button class="btn dark" id="copyBtn">📋 Copy text</button>
+  </div></div>
+  <div class="card"><h3>Start again</h3><p class="lead">This clears all your answers and flashcard progress.</p><button class="btn warn" id="resetBtn">Start again</button>
+  <div class="confirm" id="confirmBox"><b>Delete all answers?</b><div class="row"><button class="btn warn" id="yesReset">Yes, delete</button><button class="btn" id="noReset">No</button></div></div></div>`;
+  if(navigator.share) $('#shareBtn').onclick = () => navigator.share({title: subj, text: rep}).catch(()=>{});
+  $('#copyBtn').onclick = () => copyText(rep);
+  $('#resetBtn').onclick = () => $('#confirmBox').classList.add('show');
+  $('#noReset').onclick = () => $('#confirmBox').classList.remove('show');
+  $('#yesReset').onclick = () => { try{ localStorage.removeItem(STORE_KEY); }catch(e){} mem=null; state = {name: state.name, tab:'words', ans:{}, match:{}, cards:{known:{}, idx:0, dir:'en', onlyLearning:false, order:null}}; save(); renderAll(); go('words'); toast('All answers deleted'); };
+}
+function copyText(t){
+  const done = () => toast('Copied! Paste it into a message to your teacher.');
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(t).then(done, () => fallback()); } else fallback();
+  function fallback(){ const ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ toast('Select and copy the text manually'); } ta.remove(); }
+}
+
+function renderAll(){ renderTabs(); renderWords(); renderCardsShell(); renderVocab(); renderGrammar(); renderMixed(); refreshBar(); }
+const nameInput = $('#studentName'); nameInput.value = state.name || 'Daria';
+nameInput.oninput = () => { state.name = nameInput.value; save(); };
+renderAll(); go(state.tab || 'words');
+</script>
+</body>
+</html>
