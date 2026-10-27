@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tamara · Things you wear · clothes &amp; accessories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3B2347; --ink2:#5A3768; --paper:#FBF6F3; --card:#FFFFFF; --tint:#F5EDF1;
+  --must:#F4B860; --must-soft:#FDF0DB; --crim:#D14D6B; --crim-soft:#FBE3E8;
+  --teal:#3E9C8C; --teal-soft:#DFF1EE; --pink:#D14D6B; --pink-soft:#FBE3E8;
+  --muted:#6E6275; --line:#E8DDE4; --ru:#857A8C;
+  --r:16px; --shadow:0 2px 10px rgba(59,35,71,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--must);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:"Unbounded","Nunito",sans-serif;line-height:1.2;margin:0}
+.ru{color:var(--ru);font-size:.88em;display:block;font-weight:600}
+.ru-i{color:var(--ru);font-weight:600}
+.muted{color:var(--muted)}
+
+/* header */
+header.hero{background:var(--ink);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+.hero .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--must);font-weight:800}
+.hero .ecg{position:absolute;left:0;bottom:0;width:100%;height:70px;opacity:.9;pointer-events:none}
+header.hero{padding-bottom:84px!important}
+.hero h1{font-size:clamp(24px,6vw,38px);margin:8px 0 6px}
+.hero p{margin:4px 0;color:#D5D9E6}
+.hero .ru{color:#AEB5C9}
+.hero .badge{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--teal);opacity:.25}
+.namebox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{background:#fff;color:var(--ink);border:0;border-radius:12px;padding:10px 14px;min-height:44px;width:200px}
+.howto{margin-top:12px;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.prog{display:flex;align-items:center;gap:12px;padding:10px 0 6px}
+.track{flex:1;height:12px;border-radius:99px;background:var(--tint);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--must));border-radius:99px;transition:width .4s}
+.score{font-weight:800;white-space:nowrap;font-size:15px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}
+nav.tabs button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px;line-height:1.1;text-align:center}
+nav.tabs button small{display:block;font-size:11px;color:var(--ru);font-weight:700}
+nav.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav.tabs button.on small{color:#C9CEDD}
+nav.tabs button .ts{display:inline-block;margin-left:6px;background:var(--teal);color:#fff;border-radius:99px;padding:0 7px;font-size:11px}
+
+main{padding:18px 0 60px}
+section.panel{display:none}
+section.panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ptitle{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.ptitle .ic{width:52px;height:52px;border-radius:50%;background:var(--ink);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+.ptitle h2{font-size:clamp(19px,4.6vw,26px)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;margin:0 0 16px}
+.card h3{font-size:17px;margin-bottom:8px}
+.case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.case-head h3{font-size:17px}
+.instr{margin:2px 0 12px;font-weight:700}
+.stamp{flex:0 0 auto;border:2.5px solid var(--crim);color:var(--crim);border-radius:8px;padding:2px 8px;font-family:"Unbounded";font-size:11px;transform:rotate(-6deg);display:none;white-space:nowrap}
+.stamp.show{display:inline-block}
+
+/* rules */
+.rule{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:#fff;box-shadow:var(--shadow)}
+.rule h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.rule p{margin:6px 0}
+table.form{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:16px}
+table.form td{padding:8px 10px;background:var(--tint);vertical-align:top}
+table.form td:first-child{border-radius:10px 0 0 10px;font-weight:800;width:42px;text-align:center}
+table.form td:last-child{border-radius:0 10px 10px 0}
+table.form.wide td:first-child{width:auto;white-space:nowrap;text-align:left;color:var(--ink2)}
+.hl{background:var(--must-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.hl2{background:var(--teal-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.say{border:0;background:var(--tint);border-radius:50%;width:36px;height:36px;min-width:36px;display:inline-grid;place-items:center;font-size:16px;vertical-align:middle;margin-left:4px}
+.exrow{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.mist{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}
+.mist div{background:var(--tint);border-radius:10px;padding:8px 12px;font-size:16px}
+.bad{color:var(--crim);text-decoration:line-through;text-decoration-thickness:1.5px}
+.good{color:var(--teal);font-weight:800}
+.machine{background:var(--ink);color:#fff;border-radius:var(--r);padding:16px 18px}
+.machine .out{font-size:clamp(20px,5vw,28px);font-weight:800;min-height:46px;margin:12px 0 6px}
+.machine .out .d{color:var(--must)} .machine .out .b{color:#8FE3CF;text-decoration:underline}
+.machine .btns{display:flex;gap:8px;flex-wrap:wrap}
+.machine button{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:#2E3A5C;color:#fff}
+.machine button.on{background:var(--must);color:var(--ink)}
+.machine .note{font-size:14px;color:#C9CEDD;margin-top:6px}
+
+/* words */
+.wgroup h3{font-size:16px;margin:0 0 10px}
+.wlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.w{display:flex;align-items:center;gap:10px;background:var(--tint);border-radius:12px;padding:8px 10px}
+.w .em{font-size:24px;width:32px;text-align:center}
+.w b{display:block}
+.careful{background:var(--must-soft);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
+.careful h3{font-size:16px;margin-bottom:6px}
+.careful ul{margin:4px 0;padding-left:20px}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.flip{perspective:1200px;height:270px;margin:6px 0 12px}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.face.front{background:#fff;border:2px solid var(--line)}
+.face.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:clamp(26px,7vw,38px);font-weight:900;font-family:"Unbounded"}
+.face .em{font-size:52px;line-height:1}
+.face .ex{margin-top:10px;font-size:16px;color:#D5D9E6}
+.face .hint{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.face.back .hint{color:#AEB5C9}
+.fc-nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.fc-nav button{flex:1;min-width:120px;min-height:48px;border-radius:14px;border:0;font-weight:800}
+.b-know{background:var(--teal);color:#fff}.b-learn{background:var(--must);color:var(--ink)}.b-plain{background:#fff;border:1.5px solid var(--line)!important}
+.fc-count{text-align:center;font-weight:800;margin:8px 0}
+
+/* items */
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.q{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.q .n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center;margin-top:1px}
+.gap{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--muted);margin:0 3px}
+.gap.ok{border-color:var(--teal);color:var(--teal);font-weight:900;min-width:0}
+.gap.suf{margin-left:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-left:40px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 16px;min-height:46px;font-weight:800;font-size:16px;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt.wrong{background:var(--crim-soft);border-color:var(--crim);color:var(--crim)}
+.opt[disabled]{cursor:default}
+.fb{margin:8px 0 0 40px;font-size:15px;border-radius:10px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--teal-soft)} .fb.no{background:var(--crim-soft)}
+.fb .why{display:block;color:var(--muted);margin-top:2px}
+.pic{margin-left:40px;margin-bottom:8px}
+.emo{font-size:56px;line-height:1}
+.tin{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+.tin input{flex:1;min-width:200px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.tin input.ok{border-color:var(--teal);background:var(--teal-soft)}
+.tin input.no{border-color:var(--crim);background:var(--crim-soft)}
+.btn{border:0;border-radius:12px;padding:10px 18px;min-height:46px;font-weight:800;background:var(--ink);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--must);color:var(--ink)}
+.btn.teal{background:var(--teal);color:#fff}
+.btn[disabled]{opacity:.45;cursor:default}
+.listen{border:0;background:var(--pink);color:#fff;border-radius:16px;min-height:56px;padding:8px 20px;font-weight:900;font-size:18px;margin-left:40px;margin-bottom:8px}
+.syl .opt{border-radius:10px;min-width:64px;font-family:"Unbounded",system-ui,sans-serif;font-weight:600}
+.syl{gap:4px}
+.sortw{display:flex;align-items:center;gap:8px;margin-left:40px;margin-bottom:8px;font-size:20px;font-weight:900}
+.mono{font-family:"Nunito",system-ui,sans-serif;font-weight:800}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:48px;font-weight:800;text-align:left}
+.mt.sel{border-color:var(--must);background:var(--must-soft)}
+.mt.done{border-color:var(--teal);background:var(--teal-soft);color:#155e55;cursor:default}
+.mt.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* tiles */
+.line{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px;background:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px}
+.tile{border:0;background:var(--ink2);color:#fff;border-radius:10px;padding:8px 12px;min-height:44px;font-weight:800}
+.line .tile{background:var(--must);color:var(--ink)}
+.tilebtns{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+
+/* story */
+.story{background:#FFFDF6;border:2px solid var(--must-soft);border-radius:var(--r);padding:16px 18px;font-size:17px;line-height:1.65}
+.story h3{font-family:"Unbounded";font-size:18px;margin-bottom:6px}
+.gl{border-bottom:2px dotted var(--must);cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;padding:0;font-weight:700;min-height:0}
+.gl .tip{display:none;font-size:13px;color:var(--ru);font-weight:700;margin-left:4px}
+.gl.open .tip{display:inline}
+
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;resize:vertical}
+.wc{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* results */
+.big-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) 0deg,var(--tint) 0deg);flex:0 0 auto}
+.ring span{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:"Unbounded";font-size:22px}
+.rank{font-family:"Unbounded";font-size:20px}
+.brk{width:100%;border-collapse:collapse;font-size:15px}
+.brk td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.brk td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.mlist div{background:var(--tint);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px}
+.send{display:flex;flex-wrap:wrap;gap:8px}
+.send a,.send button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none;border:0}
+.s-share{background:var(--ink);color:#fff}.s-gm{background:#EA4335;color:#fff}.s-tg{background:#229ED9;color:#fff}.s-wa{background:#25D366;color:#fff}.s-ml{background:#fff;color:var(--ink);border:2px solid var(--line)!important}.s-cp{background:var(--must);color:var(--ink)}
+.email{user-select:all;font-weight:800;background:var(--tint);padding:2px 8px;border-radius:6px}
+.confirm{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.confirm.show{display:flex}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-weight:800;display:none;z-index:50}
+.toast.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* preposition scenes */
+svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
+
+@media (max-width:520px){
+  .opts,.fb,.tin,.pic,.line,.pool,.tilebtns,.listen,.sortw{margin-left:0}
+  .match{grid-template-columns:1fr 1fr;gap:6px}
+  .mt{font-size:15px;padding:8px}
+  .card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge"></div>
+  <svg class="ecg" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+<line x1="0" y1="10" x2="1200" y2="10" stroke="#C9A8CF" stroke-width="4"/>
+<g fill="none" stroke="#C9A8CF" stroke-width="3"><path d="M120 10 q0 10 0 14"/><path d="M300 10 q0 10 0 14"/><path d="M480 10 q0 10 0 14"/><path d="M660 10 q0 10 0 14"/><path d="M840 10 q0 10 0 14"/><path d="M1020 10 q0 10 0 14"/></g>
+<path d="M90 30 L120 24 L150 30 L162 52 L148 56 L146 90 L94 90 L92 56 L78 52 Z" fill="#F4B860"/>
+<path d="M270 30 L300 24 L330 30 L322 90 L278 90 Z" fill="#D14D6B"/><path d="M262 90 L338 90 L330 62 L270 62 Z" fill="#D14D6B"/>
+<path d="M450 30 L480 24 L510 30 L524 60 L510 64 L508 90 L452 90 L450 64 L436 60 Z" fill="#3E9C8C"/>
+<path d="M630 30 L660 24 L690 30 L700 90 L620 90 Z" fill="#E9D3E6"/>
+<path d="M810 30 L840 24 L870 30 L884 58 L870 62 L868 90 L812 90 L810 62 L796 58 Z" fill="#F4B860"/>
+<path d="M990 30 L1020 24 L1050 30 L1046 60 L1056 90 L984 90 L994 60 Z" fill="#D14D6B"/>
+</svg>
+  <div class="wrap">
+    <div class="kick">👗 Things you wear · Pre-Intermediate</div>
+    <h1>What to wear?</h1>
+    <p>Homework for <b id="hname">Tamara</b>: clothes, shoes, accessories and the verbs that go with them.</p>
+    <span class="ru">Домашка: одежда, обувь, аксессуары и глаголы — wear, carry, put on, try on, fit, suit…</span>
+    <div class="namebox"><label for="nm">Name · Имя</label><input id="nm" value="Tamara" maxlength="30" autocomplete="off"></div>
+    <div class="howto">Words → Nuances → Cards → Steps 1–3 → Results &amp; send.
+      <span class="ru">Сначала слова и тонкости, потом карточки и задания по порядку. В конце отправь результат учителю.</span></div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 / 0</div></div>
+  <nav class="tabs" id="tabs"></nav>
+</div></div>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const TEACHER = "ulchik2211@gmail.com";
+const TOPIC = "Things you wear: clothes, accessories and verbs";
+const STORE = "tamara-clothes-accessories-v1";
+const DEFAULT_NAME = "Tamara";
+
+const WORDS = [
+  // clothes
+  {g:"clothes", en:"blouse", ru:"блузка", em:"👚", ex:"She's got a white silk blouse."},
+  {g:"clothes", en:"cardigan", ru:"кардиган, кофта на пуговицах", em:"🧷", ex:"I always take a cardigan in case it gets cold."},
+  {g:"clothes", en:"coat", ru:"пальто", em:"🧥", ex:"It's freezing! Where's my winter coat?"},
+  {g:"clothes", en:"dress", ru:"платье", em:"👗", ex:"She wore a red dress to the party."},
+  {g:"clothes", en:"jacket", ru:"куртка; пиджак", em:"🧥", ex:"Take a jacket. It might rain."},
+  {g:"clothes", en:"jeans", ru:"джинсы", em:"👖", ex:"I wear jeans almost every day."},
+  {g:"clothes", en:"leggings", ru:"леггинсы, лосины", em:"🧘", ex:"I wear leggings to yoga."},
+  {g:"clothes", en:"pyjamas", ru:"пижама", em:"🛌", ex:"On Sundays I stay in my pyjamas until 11!"},
+  {g:"clothes", en:"shirt", ru:"рубашка", em:"🧑‍💼", ex:"He wears a shirt and tie to work."},
+  {g:"clothes", en:"shorts", ru:"шорты", em:"🩳", ex:"In summer I live in shorts and T-shirts."},
+  {g:"clothes", en:"skirt", ru:"юбка", em:"💃", ex:"She's got a long green skirt."},
+  {g:"clothes", en:"socks", ru:"носки", em:"🧦", ex:"I can never find two socks that match."},
+  {g:"clothes", en:"suit", ru:"костюм (деловой)", em:"🤵", ex:"He bought a new suit for the wedding."},
+  {g:"clothes", en:"sweater / jumper", ru:"свитер", em:"🧶", ex:"My grandma made me this jumper."},
+  {g:"clothes", en:"tights", ru:"колготки", em:"🩰", ex:"It's cold. I need to wear tights with this dress."},
+  {g:"clothes", en:"top", ru:"топ, кофточка", em:"🎽", ex:"I love your top! Where did you get it?"},
+  {g:"clothes", en:"tracksuit", ru:"спортивный костюм", em:"🏃‍♀️", ex:"He goes to the gym in a tracksuit."},
+  {g:"clothes", en:"trousers", ru:"брюки", em:"👖", ex:"These trousers are too long."},
+  {g:"clothes", en:"T-shirt", ru:"футболка", em:"👕", ex:"I've got a T-shirt from every city I visit."},
+  {g:"clothes", en:"underwear", ru:"нижнее бельё", em:"🩲", ex:"Don't forget to pack your underwear!"},
+  {g:"clothes", en:"apron", ru:"фартук", em:"🧑‍🍳", ex:"The milkmaid in the painting is wearing a blue apron."},
+  // footwear
+  {g:"foot", en:"boots", ru:"ботинки, сапоги", em:"🥾", ex:"I need warm boots for the winter."},
+  {g:"foot", en:"flip-flops", ru:"шлёпанцы, вьетнамки", em:"🩴", ex:"I only wear flip-flops on the beach."},
+  {g:"foot", en:"sandals", ru:"сандалии, босоножки", em:"👡", ex:"These sandals are perfect for summer."},
+  {g:"foot", en:"shoes", ru:"туфли; обувь", em:"👞", ex:"Please take off your shoes."},
+  {g:"foot", en:"trainers", ru:"кроссовки", em:"👟", ex:"I wear trainers when I walk a lot."},
+  // accessories & jewellery
+  {g:"acc", en:"belt", ru:"ремень, пояс", em:"🪢", ex:"These jeans are too big. I need a belt."},
+  {g:"acc", en:"cap", ru:"кепка", em:"🧢", ex:"He always wears a baseball cap."},
+  {g:"acc", en:"hat", ru:"шляпа, шапка", em:"👒", ex:"Wear a hat. The sun is very strong."},
+  {g:"acc", en:"gloves", ru:"перчатки", em:"🧤", ex:"I lost one of my gloves on the bus."},
+  {g:"acc", en:"scarf", ru:"шарф; платок", em:"🧣", ex:"This scarf is really warm."},
+  {g:"acc", en:"tie", ru:"галстук", em:"👔", ex:"Do I need to wear a tie?"},
+  {g:"acc", en:"sunglasses", ru:"солнцезащитные очки", em:"🕶️", ex:"Where are my sunglasses?"},
+  {g:"acc", en:"bag", ru:"сумка", em:"👜", ex:"She always carries a big bag."},
+  {g:"acc", en:"bracelet", ru:"браслет", em:"🔗", ex:"He gave me a silver bracelet."},
+  {g:"acc", en:"earrings", ru:"серьги", em:"💎", ex:"These earrings were my mum's."},
+  {g:"acc", en:"necklace", ru:"ожерелье, цепочка", em:"📿", ex:"She's wearing a pearl necklace."},
+  {g:"acc", en:"ring", ru:"кольцо", em:"💍", ex:"He wears his wedding ring every day."},
+  // verbs & phrases
+  {g:"verbs", en:"wear", ru:"носить, быть одетым в", em:"👕", ex:"I usually wear jeans to work."},
+  {g:"verbs", en:"carry", ru:"нести; носить с собой (сумку)", em:"🛍️", ex:"I always carry an umbrella."},
+  {g:"verbs", en:"dress", ru:"одеваться (о стиле)", em:"🕴️", ex:"Italians dress very well."},
+  {g:"verbs", en:"get dressed", ru:"одеться (утром)", em:"🌅", ex:"I get up, have a shower and get dressed."},
+  {g:"verbs", en:"put on", ru:"надеть", em:"➕", ex:"Put on your coat. It's cold."},
+  {g:"verbs", en:"take off", ru:"снять", em:"➖", ex:"Take off your shoes, please."},
+  {g:"verbs", en:"try on", ru:"примерить", em:"🪞", ex:"Can I try on these jeans?"},
+  {g:"verbs", en:"fit", ru:"подходить по размеру", em:"📏", ex:"These shoes don't fit me. They're too small."},
+  {g:"verbs", en:"suit", ru:"идти, быть к лицу", em:"😍", ex:"Green really suits you."},
+  {g:"verbs", en:"go with / match", ru:"сочетаться с", em:"🎨", ex:"Does this bag go with my shoes?"},
+  {g:"verbs", en:"a pair of", ru:"пара (чего-то)", em:"👯", ex:"I need a new pair of trainers."},
+];
+const GROUPS = {clothes:["Clothes","Одежда"], foot:["Footwear","Обувь"], acc:["Accessories & jewellery","Аксессуары и украшения"], verbs:["Verbs & phrases","Глаголы и фразы"]};
+const CAREFUL = [
+  "<b>clothes</b> /kləʊðz/: один слог! Всегда множественное число: <i>My clothes <b>are</b>…</i> Нельзя <span class='bad'>a clothes</span>.",
+  "<b>suit</b> /suːt/ = деловой костюм. А <b>costume</b> = маскарадный или сценический костюм!",
+  "<b>jumper</b> (BrE) = <b>sweater</b> · <b>trainers</b> (BrE) = <b>sneakers</b> (AmE).",
+  "<b>pants</b>: в британском = трусы 🙈, в американском = брюки. Говорите <b>trousers</b>!",
+  "Произношение: <b>sweater</b> /ˈswetə/ · <b>gloves</b> /ɡlʌvz/ · <b>trousers</b> /ˈtraʊzəz/ · <b>earrings</b> /ˈɪərɪŋz/. Нажми 🔊!",
+];
+
+const EX = [
+  // ---------- STEP 1: recognise
+  {id:"r1", tab:"st1", type:"choice", title:"What is it?", ru:"Что это?", instr:"Look at the picture and choose. · Посмотри на картинку и выбери.", items:[
+    {pic:"🧤", q:"It's a pair of ___.", o:["socks","gloves","shoes"], a:1, why:"gloves · перчатки"},
+    {pic:"🧣", q:"It's a ___.", o:["tie","belt","scarf"], a:2, why:"scarf · шарф"},
+    {pic:"🩴", q:"It's a pair of ___.", o:["flip-flops","boots","trainers"], a:0, why:"flip-flops · шлёпанцы"},
+    {pic:"🧢", q:"It's a ___.", o:["hat","cap","ring"], a:1, why:"cap · кепка (hat · шляпа)"},
+    {pic:"💍", q:"It's a ___.", o:["bracelet","necklace","ring"], a:2, why:"ring · кольцо"},
+    {pic:"🥾", q:"It's a pair of ___.", o:["boots","sandals","tights"], a:0, why:"boots · ботинки, сапоги"},
+    {pic:"👗", q:"It's a ___.", o:["skirt","dress","blouse"], a:1, why:"dress · платье"},
+  ]},
+  {id:"r2", tab:"st1", type:"match", title:"Match the pairs", ru:"Найди пары", instr:"Tap a word, then its translation. · Нажми на слово, потом на перевод.", pairs:[
+    ["tights","колготки"],["blouse","блузка"],["suit","деловой костюм"],["tracksuit","спортивный костюм"],["underwear","нижнее бельё"],["necklace","ожерелье"],["bracelet","браслет"],["apron","фартук"],
+  ]},
+  {id:"r3", tab:"st1", type:"choice", listen:true, title:"Listen and choose", ru:"Послушай и выбери", instr:"Tap 🔊, listen and choose the word. · Послушай и выбери слово.", items:[
+    {word:"suit", o:["sweet","suit","shoot"], a:1, why:"suit /suːt/ · костюм"},
+    {word:"shirt", o:["skirt","short","shirt"], a:2, why:"shirt /ʃɜːt/ · рубашка (skirt · юбка)"},
+    {word:"trousers", o:["trousers","trainers","treasures"], a:0, why:"trousers /ˈtraʊzəz/ · брюки"},
+    {word:"gloves", o:["globes","gloves","cloves"], a:1, why:"gloves /ɡlʌvz/ · перчатки"},
+  ]},
+  // ---------- STEP 2: verbs & nuances
+  {id:"n1", tab:"st2", type:"choice", title:"wear, carry or dress?", ru:"wear, carry или dress?", instr:"Choose the right verb. · Выбери глагол.", items:[
+    {q:"She always ___ a big leather bag.", o:["wears","carries","dresses"], a:1, why:"Bags → carry. · Сумку мы «несём»: carry."},
+    {q:"He ___ glasses for reading.", o:["wears","carries","dresses"], a:0, why:"Clothes, jewellery, glasses → wear."},
+    {q:"Italians ___ very well.", o:["wear","carry","dress"], a:2, why:"dress (без дополнения) = одеваться, о стиле."},
+    {q:"I never ___ a watch. I use my phone.", o:["wear","carry","dress"], a:0, why:"A watch is like jewellery → wear."},
+    {q:"Can you ___ this box for me? It's heavy.", o:["wear","carry","dress"], a:1, why:"carry = нести в руках."},
+  ]},
+  {id:"n2", tab:"st2", type:"choice", title:"put on, take off or try on?", ru:"Надеть, снять или примерить?", instr:"Choose the right phrase. · Выбери фразу.", items:[
+    {q:"It's cold outside. ___ your coat!", o:["Put on","Take off","Try on"], a:0, why:"put on = надеть."},
+    {q:"Please ___ your shoes before you come into the flat.", o:["put on","take off","try on"], a:1, why:"take off = снять."},
+    {q:"Can I ___ these trousers? Where are the changing rooms?", o:["put on","take off","try on"], a:2, why:"try on = примерить (в магазине)."},
+    {q:"I get up at 7, have a shower and ___.", o:["get dressed","wear","put on"], a:0, why:"get dressed = одеться. put on и wear нужно дополнение: put on a dress."},
+    {q:"It's hot in here. Can I ___ my jumper?", o:["put on","take off","try on"], a:1, why:"Жарко → снять: take off."},
+  ]},
+  {id:"n3", tab:"st2", type:"choice", title:"fit, suit or go with?", ru:"По размеру, к лицу или сочетается?", instr:"Choose the right verb. · Выбери глагол.", items:[
+    {q:"These jeans are too small. They don't ___ me.", o:["fit","suit","go with"], a:0, why:"fit = подходить по размеру."},
+    {q:"That colour really ___ you. You look great!", o:["fits","suits","goes with"], a:1, why:"suit = идти, быть к лицу."},
+    {q:"Brown shoes don't ___ a black suit.", o:["fit","suit","go with"], a:2, why:"go with (= match) = сочетаться с."},
+    {q:"The jacket ___ perfectly. It's exactly my size.", o:["fits","suits","goes with"], a:0, why:"Size → fit."},
+    {q:"Does this tie ___ my shirt?", o:["fit","suit","go with"], a:2, why:"Две вещи вместе → go with."},
+  ]},
+  {id:"n4", tab:"st2", type:"choice", title:"Plural clothes & a pair of", ru:"Множественное число и «пара»", instr:"Choose the correct option. · Выбери правильный вариант.", items:[
+    {q:"My new jeans ___ really comfortable.", o:["is","are"], a:1, why:"jeans — всегда множественное число: are."},
+    {q:"I need ___ new trousers for work.", o:["a","some"], a:1, why:"trousers — множественное число, поэтому не a: some trousers / a pair of trousers."},
+    {q:"Where ___ my sunglasses?", o:["is","are"], a:1, why:"sunglasses — множественное число: are."},
+    {q:"I bought a new ___ of boots.", o:["pair","couple","two"], a:0, why:"a pair of boots / shoes / socks / gloves."},
+  ]},
+  // ---------- STEP 3: use the words
+  {id:"u1", tab:"st3", type:"typed", title:"Spell it", ru:"Напиши слово по-английски", instr:"Type the English word. · Напиши слово по-английски.", items:[
+    {q:"🇷🇺 свитер", accept:["sweater","jumper"], model:"sweater / jumper", hint:"s _ _ _ _ _ r or j _ _ _ _ r", why:"sweater = jumper (BrE)"},
+    {q:"🇷🇺 брюки", accept:["trousers"], model:"trousers", hint:"t _ _ _ _ _ _ s", why:"trousers (BrE) · pants (AmE, but in BrE pants = трусы!)"},
+    {q:"🇷🇺 перчатки", accept:["gloves"], model:"gloves", hint:"g _ _ _ _ s", why:"gloves /ɡlʌvz/"},
+    {q:"🇷🇺 серьги", accept:["earrings"], model:"earrings", hint:"e _ _ _ _ _ _ s (two r)", why:"ear + rings = earrings"},
+    {q:"🇷🇺 ремень", accept:["belt"], model:"belt", hint:"b _ _ t", why:"belt"},
+    {q:"🇷🇺 кроссовки", accept:["trainers","sneakers"], model:"trainers", hint:"t _ _ _ _ _ _ s", why:"trainers (BrE) · sneakers (AmE)"},
+  ]},
+  {id:"u2", tab:"st3", type:"typed", title:"Packing for a weekend in London", ru:"Собираем чемодан: впиши слово", instr:"Use a word from the list. · Используй слово из списка.", bank:["coat","trainers","dress","scarf","gloves","socks","pyjamas","earrings"], items:[
+    {q:"It's often cold and windy, so I take a warm ___ with a hood.", accept:["coat","jacket"], model:"coat", hint:"пальто", why:"coat · пальто"},
+    {q:"I wear comfortable ___ because we walk ten kilometres a day.", accept:["trainers","shoes","sneakers"], model:"trainers", hint:"кроссовки", why:"trainers · кроссовки"},
+    {q:"For dinner at a nice restaurant I take my little black ___.", accept:["dress"], model:"dress", hint:"платье", why:"dress · платье"},
+    {q:"I put a long, warm ___ around my neck.", accept:["scarf"], model:"scarf", hint:"шарф", why:"scarf · шарф"},
+    {q:"My hands always get cold, so I need a pair of ___.", accept:["gloves"], model:"gloves", hint:"перчатки", why:"gloves · перчатки"},
+    {q:"I need clean ___ for every day, so I take seven pairs.", accept:["socks"], model:"socks", hint:"носки", why:"socks · носки"},
+    {q:"I sleep in my favourite ___ with little stars on them.", accept:["pyjamas","pajamas"], model:"pyjamas", hint:"пижама", why:"pyjamas (BrE) · pajamas (AmE)"},
+    {q:"These gold ___ go with all my outfits.", accept:["earrings"], model:"earrings", hint:"серьги", why:"earrings · серьги"},
+  ]},
+  {id:"u3", tab:"st3", type:"tiles", title:"Build the sentence", ru:"Собери предложение", instr:"Tap the words in the right order. · Нажимай слова по порядку.", items:[
+    {a:"She always dresses very well.", ru:"Она всегда очень хорошо одевается."},
+    {a:"Can I try on these jeans?", ru:"Можно примерить эти джинсы?"},
+    {a:"This colour really suits you.", ru:"Этот цвет тебе очень идёт."},
+  ]},
+  {id:"u4", tab:"st3", type:"translate", title:"Translate into English", ru:"Переведи на английский", instr:"Write the sentence in English. · Напиши по-английски.", items:[
+    {q:"Сними куртку.", accept:["Take off your jacket","Take your jacket off","Please take off your jacket","Please take your jacket off","Take off the jacket"], model:"Take off your jacket.", hint:"Take off + your …"},
+    {q:"Эти туфли мне не подходят по размеру.", accept:["These shoes do not fit me","These shoes do not fit","The shoes do not fit me"], model:"These shoes don't fit me.", hint:"These shoes don't … me."},
+    {q:"Мне нужна новая пара перчаток.", accept:["I need a new pair of gloves","I need new gloves","I need some new gloves"], model:"I need a new pair of gloves.", hint:"I need a new pair of …"},
+    {q:"Красный шарф не сочетается с этим пальто.", accept:["The red scarf does not go with this coat","A red scarf does not go with this coat","The red scarf does not match this coat","The red scarf does not go with that coat","The red scarf does not match that coat","The red scarf does not go well with this coat"], model:"The red scarf doesn't go with this coat.", hint:"… doesn't go with …"},
+  ]},
+  {id:"w1", tab:"st3", type:"write", title:"My wardrobe", ru:"Мой гардероб", instr:"What do you usually wear at work, at the weekend and for a special occasion? Write 4–6 sentences. · Что ты обычно носишь на работу, в выходные и по особым случаям? Напиши 4–6 предложений.", prompt:"At work I usually wear… At the weekend I… For a special occasion I…"},
+];
+
+const STORY_TAB = "";
+const STORY_TITLE = "";
+const STORY = "";
+const GLOSS = {};
+
+const TABS = [
+  {id:"words", en:"Words", ru:"Слова", ic:"🗂️"},
+  {id:"rules", en:"Nuances", ru:"Тонкости", ic:"💡"},
+  {id:"cards", en:"Cards", ru:"Карточки", ic:"🃏"},
+  {id:"st1", en:"Step 1", ru:"Узнай", ic:"👀"},
+  {id:"st2", en:"Step 2", ru:"Глаголы", ic:"🧩"},
+  {id:"st3", en:"Step 3", ru:"Используй", ic:"✍️"},
+  {id:"res", en:"Results", ru:"Результат", ic:"🏆"},
+];
+const STEP_TABS = ["st1","st2","st3"];
+const CASE_TITLES = {
+  st1:["Step 1: What is it?","Шаг 1: узнай слово"],
+  st2:["Step 2: Verbs and nuances","Шаг 2: глаголы и тонкости"],
+  st3:["Step 3: Use the words","Шаг 3: используй слова"],
+};
+const PRAISE = ["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Стильно! · Stylish!","Ты молодец! · Brilliant!","Точно! · Spot on!"];
+const OOPS = ["Почти! · Not quite.","Не совсем · Nearly!","Ничего страшного · Don't worry!","Хорошая попытка · Good try!"];
+
+/* ================= STATE ================= */
+let mem = {};
+function load(){ try{ const s = localStorage.getItem(STORE); return s ? JSON.parse(s) : null; }catch(e){ return mem[STORE] || null; } }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(S)); }catch(e){ mem[STORE] = JSON.parse(JSON.stringify(S)); } }
+let S = load() || {name:DEFAULT_NAME, ans:{}, known:{}, write:{}, tab:TABS[0].id};
+if(!S.ans) S.ans = {}; if(!S.known) S.known = {}; if(!S.write) S.write = {};
+
+/* ================= HELPERS ================= */
+const $ = (s, r=document) => r.querySelector(s);
+function el(tag, attrs={}, ...kids){
+  const e = document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){
+    if(k === "class") e.className = v;
+    else if(k === "html") e.innerHTML = v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if(v !== false && v != null) e.setAttribute(k, v);
+  }
+  for(const k of kids.flat()){ if(k == null) continue; e.appendChild(typeof k === "string" ? document.createTextNode(k) : k); }
+  return e;
+}
+const pick = (a) => a[Math.floor(Math.random()*a.length)];
+function shuffle(a){ const b = a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(t){ const x = $("#toast"); x.textContent = t; x.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(()=>x.classList.remove("show"), 1800); }
+
+let VOICE = null;
+function pickVoice(){ if(!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t){
+  if(!("speechSynthesis" in window)) { toast("Audio is not available · Звук недоступен"); return; }
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"")); u.lang = "en-GB"; if(VOICE) u.voice = VOICE; u.rate = 0.87; speechSynthesis.speak(u); }catch(e){}
+}
+const sayBtn = (t) => el("button", {class:"say", "aria-label":"Listen", title:"Listen · Послушать", onclick:(e)=>{ e.stopPropagation(); speak(t); }}, "🔊");
+
+const CONTR = [[/\bdidn't\b/g,"did not"],[/\bdoesn't\b/g,"does not"],[/\bdon't\b/g,"do not"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],[/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bshouldn't\b/g,"should not"],[/\bi'll\b/g,"i will"],[/\byou're\b/g,"you are"],[/\bcan not\b/g,"cannot"],[/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bi'm\b/g,"i am"],[/\bi've\b/g,"i have"],[/\bhaven't\b/g,"have not"],[/\bwhat's\b/g,"what is"],[/\bshe's\b/g,"she is"],[/\bhe's\b/g,"he is"]];
+function norm(s){
+  let t = String(s).toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”"]/g,"").trim();
+  t = t.replace(/[.!?]+$/,"").replace(/,/g," ").replace(/\s+/g," ").trim();
+  for(const [r,v] of CONTR) t = t.replace(r, v);
+  return t.replace(/\s+/g," ").trim();
+}
+const matches = (given, accept) => accept.some(a => norm(a) === norm(given));
+
+/* ================= SCORING ================= */
+function scorable(ex){ return ex.type !== "write"; }
+function itemCount(ex){ return ex.type === "match" ? ex.pairs.length : (ex.items ? ex.items.length : 0); }
+function exScore(ex){
+  let ok = 0, done = 0; const n = itemCount(ex);
+  for(let i=0;i<n;i++){ const a = S.ans[ex.id+"-"+i]; if(a && a.done){ done++; if(a.ok) ok++; } }
+  return {ok, done, n};
+}
+function totals(){
+  let ok=0, done=0, n=0;
+  for(const ex of EX){ if(!scorable(ex)) continue; const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function tabScore(tabId){
+  let ok=0, done=0, n=0;
+  for(const ex of EX.filter(e=>e.tab===tabId && scorable(e))){ const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function refresh(){
+  const t = totals();
+  $("#fill").style.width = (t.n ? Math.round(t.done/t.n*100) : 0) + "%";
+  $("#score").textContent = `⭐ ${t.ok} / ${t.n}`;
+  for(const b of document.querySelectorAll("nav.tabs button")){
+    const id = b.dataset.id; const ts = b.querySelector(".ts");
+    if(ts) ts.remove();
+    if(STEP_TABS.includes(id)){ const s = tabScore(id); if(s.n && s.done === s.n) b.appendChild(el("span",{class:"ts"}, `${s.ok}/${s.n}`)); }
+  }
+  for(const ex of EX){ const st = document.getElementById("stamp-"+ex.id); if(!st) continue; const s = exScore(ex); if(scorable(ex) && s.n && s.done===s.n){ st.textContent = `✓ DONE · ГОТОВО ${s.ok}/${s.n}`; st.classList.add("show"); } }
+}
+function rec(id, data){ S.ans[id] = Object.assign(S.ans[id]||{}, data); save(); refresh(); }
+
+/* ================= RENDER: TABS ================= */
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach(t => nav.appendChild(el("button", {"data-id":t.id, class: S.tab===t.id ? "on":"", onclick:()=>go(t.id)}, `${t.ic} ${t.en}`, el("small",{}, t.ru))));
+}
+function go(id){
+  S.tab = id; save();
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+id));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  if(id === "res") renderResults();
+  const btn = document.querySelector(`nav.tabs button[data-id="${id}"]`); if(btn) btn.scrollIntoView({inline:"center", block:"nearest"});
+  window.scrollTo({top: $(".bar").offsetTop, behavior:"smooth"});
+  refresh();
+}
+function panel(id, icon, en, ru){
+  const p = el("section", {class:"panel", id:"p-"+id});
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, icon), el("div",{}, el("h2",{}, en), el("span",{class:"ru"}, ru))));
+  $("#main").appendChild(p); return p;
+}
+function nextBtn(p, toId){
+  const t = TABS.find(x=>x.id===toId);
+  p.appendChild(el("div",{class:"next"}, el("button",{class:"btn gold", onclick:()=>go(toId)}, `Next · Дальше: ${t.en} →`)));
+}
+
+/* ================= RULES ================= */
+function renderRules(){
+  const p = panel("rules","💡","Verbs and nuances","Тонкости: какой глагол выбрать");
+  const ex = (t) => el("div",{class:"exrow"}, el("span",{html:t}), sayBtn(t));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "1 · wear, carry or dress?"), el("span",{class:"ru"}, "В русском часто «носить» — в английском три разных глагола"),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"wear"), el("td",{html:"одежда, обувь, украшения, очки, часы: <i>She <span class='hl'>wears</span> glasses.</i>"})),
+      el("tr",{}, el("td",{},"carry"), el("td",{html:"сумки, зонт, чемодан — то, что в руках: <i>I <span class='hl'>carry</span> a big bag.</i>"})),
+      el("tr",{}, el("td",{},"dress"), el("td",{html:"одеваться (стиль), без дополнения: <i>Italians <span class='hl'>dress</span> very well.</i>"})),
+      el("tr",{}, el("td",{},"get dressed"), el("td",{html:"одеться (утром): <i>I <span class='hl'>get dressed</span> at 7.</i>"}))),
+    ex("She wears glasses and carries a red bag."), ex("Lucy always dresses in black.")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "2 · put on · take off · try on"), el("span",{class:"ru"}, "Надеть, снять, примерить"),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"put on ➕"), el("td",{html:"надеть: <i><span class='hl'>Put on</span> your coat.</i> = <i><span class='hl'>Put</span> your coat <span class='hl'>on</span>.</i>"})),
+      el("tr",{}, el("td",{},"take off ➖"), el("td",{html:"снять: <i><span class='hl'>Take off</span> your shoes, please.</i>"})),
+      el("tr",{}, el("td",{},"try on 🪞"), el("td",{html:"примерить (в магазине): <i>Can I <span class='hl'>try on</span> this dress?</i>"}))),
+    el("p",{html:"<b>Важно:</b> <b>put on</b> = действие (надеть), <b>wear</b> = состояние (быть одетым). <span class='bad'>I wear my coat and go out.</span> → <span class='good'>I put on my coat and go out.</span>"})));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "3 · fit, suit or go with?"), el("span",{class:"ru"}, "По-русски «подходит» и «идёт», но в английском разница большая"),
+    fitMachine(),
+    el("div",{class:"mist", style:"margin-top:10px"},
+      el("div",{html:"<span class='bad'>This dress goes you.</span> → <span class='good'>This dress suits you.</span>"}),
+      el("div",{html:"<span class='bad'>The shoes don't suit me, they're too big.</span> → <span class='good'>The shoes don't fit me.</span>"}))));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "4 · Plural clothes and a pair of"), el("span",{class:"ru"}, "Эти слова всегда во множественном числе"),
+    el("p",{html:"<b>trousers, jeans, shorts, leggings, tights, pyjamas, sunglasses</b> — как «брюки» и «очки» в русском: всегда множественное число."}),
+    el("div",{class:"mist"},
+      el("div",{html:"<span class='bad'>My jeans is new.</span> → <span class='good'>My jeans are new.</span>"}),
+      el("div",{html:"<span class='bad'>I bought a trousers.</span> → <span class='good'>I bought some trousers. / I bought a pair of trousers.</span>"})),
+    el("p",{html:"<b>a pair of</b> = пара: <i>a pair of shoes, two pairs of socks, a pair of gloves, a pair of earrings, a pair of jeans</i>."}),
+    ex("I need a new pair of trainers.")));
+  nextBtn(p, "cards");
+}
+function fitMachine(){
+  const V = {
+    fit:{t:"<span class='d'>fit</span> 📏 size · размер", s:"These shoes don't <span class='b'>fit</span> me. They're too small.", r:"подходить по размеру"},
+    suit:{t:"<span class='d'>suit</span> 😍 looks good on you · к лицу", s:"Red really <span class='b'>suits</span> you!", r:"идти, быть к лицу"},
+    go:{t:"<span class='d'>go with / match</span> 🎨 two things together · сочетаются", s:"This bag <span class='b'>goes with</span> my shoes.", r:"сочетаться с"},
+  };
+  let mode = "fit";
+  const out = el("div",{class:"out"}), sub = el("div",{class:"note"});
+  const btns = {};
+  const draw = () => { out.innerHTML = V[mode].s; sub.innerHTML = V[mode].t + " · " + V[mode].r; Object.entries(btns).forEach(([k,b]) => b.classList.toggle("on", k===mode)); };
+  const mk = (k, t) => (btns[k] = el("button",{onclick:()=>{ mode=k; draw(); speak(out.textContent); }}, t));
+  const box = el("div",{class:"machine", style:"margin-top:8px"},
+    el("b",{}, "👗 Which verb?"), el("span",{class:"ru", style:"color:#E9D3E6"}, "Нажми на кнопку и посмотри пример"),
+    out, sub,
+    el("div",{class:"btns", style:"margin-top:10px"}, mk("fit","fit"), mk("suit","suit"), mk("go","go with")));
+  draw(); return box;
+}
+
+/* ================= WORDS ================= */
+function renderWords(){
+  const p = panel("words","🗂️","Things you wear","Слова с урока: нажми 🔊 и послушай");
+  for(const g of Object.keys(GROUPS)){
+    const c = el("div",{class:"card wgroup"}, el("h3",{}, `${GROUPS[g][0]} · `, el("span",{class:"ru-i"}, GROUPS[g][1])));
+    const l = el("div",{class:"wlist"});
+    WORDS.filter(w=>w.g===g).forEach(w => l.appendChild(el("div",{class:"w"}, el("span",{class:"em"}, w.em), el("div",{style:"flex:1"}, el("b",{}, w.en), el("span",{class:"ru"}, w.ru)), sayBtn(w.en.replace(" / "," or ")))));
+    c.appendChild(l); p.appendChild(c);
+  }
+  p.appendChild(el("div",{class:"careful"}, el("h3",{}, "⚠️ Careful with these · Осторожно!"),
+    el("ul",{}, ...CAREFUL.map(t => el("li",{html:t})))));
+  nextBtn(p, "rules");
+}
+
+/* ================= FLASHCARDS ================= */
+let FC = {order:[], i:0, dir:"en", only:false};
+function fcDeck(){ return FC.order.filter(k => !FC.only || !S.known[WORDS[k].en]); }
+function renderCards(){
+  const p = panel("cards","🃏","Flashcards","Карточки: тапни, чтобы перевернуть");
+  FC.order = WORDS.map((_,i)=>i);
+  const tools = el("div",{class:"fc-tools"});
+  const bDir = el("button",{class:"chip", onclick:()=>{ FC.dir = FC.dir==="en"?"ru":"en"; bDir.textContent = FC.dir==="en" ? "EN → RU" : "RU → EN"; drawFC(); }}, "EN → RU");
+  const bShuf = el("button",{class:"chip", onclick:()=>{ FC.order = shuffle(FC.order); FC.i=0; drawFC(); toast("Shuffled · Перемешано"); }}, "🔀 Shuffle · Перемешать");
+  const bOnly = el("button",{class:"chip", onclick:()=>{ FC.only=!FC.only; bOnly.classList.toggle("on",FC.only); FC.i=0; drawFC(); }}, "Only words I'm learning · Только «учу»");
+  tools.append(bDir, bShuf, bOnly);
+  const flip = el("div",{class:"flip", tabindex:"0", role:"button", "aria-label":"Flip card"});
+  const inner = el("div",{class:"in"}); flip.appendChild(inner);
+  flip.addEventListener("click", ()=>flip.classList.toggle("turned"));
+  flip.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip.classList.toggle("turned"); } });
+  const count = el("div",{class:"fc-count"});
+  const known = el("div",{class:"track", style:"margin:4px 0 12px"}, el("div",{class:"fill", id:"fcfill"}));
+  const nav = el("div",{class:"fc-nav"},
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i-1+d.length)%d.length; drawFC(); }}, "← Back · Назад"),
+    el("button",{class:"b-learn", onclick:()=>{ markFC(false); }}, "Still learning · Учу"),
+    el("button",{class:"b-know", onclick:()=>{ markFC(true); }}, "I know it · Знаю ✓"),
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i+1)%d.length; drawFC(); }}, "Next · Дальше →"));
+  p.append(el("div",{class:"card"}, tools, flip, count, known, nav));
+  FC.els = {flip, inner, count};
+  drawFC();
+  nextBtn(p, "st1");
+}
+function markFC(k){
+  const d = fcDeck(); if(!d.length) return;
+  const w = WORDS[d[FC.i]]; if(k) S.known[w.en] = 1; else delete S.known[w.en]; save();
+  toast(k ? "Отлично! · Great!" : "Повторим ещё · We'll practise it");
+  const d2 = fcDeck(); if(FC.only){ if(FC.i >= d2.length) FC.i = 0; } else FC.i = (FC.i+1) % d2.length;
+  drawFC();
+}
+function drawFC(){
+  const {flip, inner, count} = FC.els; flip.classList.remove("turned");
+  const d = fcDeck(); const nk = Object.keys(S.known).length;
+  $("#fcfill").style.width = Math.round(nk/WORDS.length*100)+"%";
+  if(!d.length){ inner.innerHTML = ""; inner.appendChild(el("div",{class:"face front"}, el("div",{class:"big"}, "🎉"), el("p",{}, "You know all the words! · Ты знаешь все слова!"))); count.textContent = `Known · Знаю: ${nk} / ${WORDS.length}`; return; }
+  const w = WORDS[d[FC.i]];
+  const en = el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en), sayBtn(w.en.replace(" / "," or ")));
+  const ru = el("div",{}, el("div",{class:"big", style:"font-size:clamp(22px,6vw,30px)"}, w.ru));
+  const front = el("div",{class:"face front"}, FC.dir==="en" ? en : ru, el("div",{class:"hint"}, "tap to flip · тапни"));
+  const backC = FC.dir==="en" ? el("div",{}, el("div",{class:"big", style:"font-size:clamp(22px,6vw,30px)"}, w.ru)) : el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en));
+  const back = el("div",{class:"face back"}, backC, el("div",{class:"ex"}, w.ex, " ", sayBtn(w.ex)), el("div",{class:"hint"}, S.known[w.en] ? "✓ known · знаю" : "tap to flip back"));
+  inner.innerHTML = ""; inner.append(front, back);
+  count.textContent = `Card ${FC.i+1} / ${d.length} · Known · Знаю: ${nk} / ${WORDS.length}`;
+}
+
+/* ================= EXERCISES ================= */
+function renderCase(tabId, icon, next){
+  const p = panel(tabId, icon, CASE_TITLES[tabId][0], CASE_TITLES[tabId][1]);
+  if(tabId === STORY_TAB) p.appendChild(storyCard());
+  for(const ex of EX.filter(e=>e.tab===tabId)){
+    const c = el("div",{class:"card"});
+    c.appendChild(el("div",{class:"case-head"}, el("div",{}, el("h3",{}, ex.title), el("span",{class:"ru"}, ex.ru)), el("span",{class:"stamp", id:"stamp-"+ex.id})));
+    const [ie, ir] = ex.instr.split(" · ");
+    c.appendChild(el("p",{class:"instr"}, ie, ir ? el("span",{class:"ru"}, ir) : null));
+    if(ex.bank) c.appendChild(el("div",{class:"opts", style:"margin:0 0 6px"}, ...ex.bank.map(b => el("span",{class:"opt", style:"background:var(--must-soft);border-color:var(--must-soft);cursor:default"}, b))));
+    if(ex.type==="choice") ex.items.forEach((it,i)=>c.appendChild(choiceItem(ex,it,i)));
+    if(ex.type==="typed" || ex.type==="translate") ex.items.forEach((it,i)=>c.appendChild(typedItem(ex,it,i)));
+    if(ex.type==="tiles") ex.items.forEach((it,i)=>c.appendChild(tilesItem(ex,it,i)));
+    if(ex.type==="match") c.appendChild(matchEx(ex));
+    if(ex.type==="write") c.appendChild(writeEx(ex));
+    p.appendChild(c);
+  }
+  nextBtn(p, next);
+}
+function qLine(n, html){ return el("div",{class:"q"}, el("span",{class:"n"}, String(n)), el("span",{html})); }
+function gapHtml(q, fill){ const suf = /\w___/.test(q) ? " suf" : ""; return esc(q).replace("___", fill ? `<span class="gap ok${suf}">${esc(fill)}</span>` : `<span class="gap${suf}">&nbsp;</span>`); }
+function fbBox(){ return el("div",{class:"fb"}); }
+function showFb(fb, ok, why, extra){
+  fb.className = "fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? pick(PRAISE) : pick(OOPS)}</b>${extra ? " "+extra : ""}${why ? `<span class="why">${why}</span>` : ""}`;
+}
+
+function choiceItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const st = S.ans[id];
+  let qEl;
+  if(ex.sort) qEl = el("div",{class:"sortw"}, el("span",{class:"n", style:"width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center"}, String(i+1)), it.word, sayBtn(it.word));
+  else if(ex.syl) qEl = qLine(i+1, `<span class="mono">${esc(it.word)}</span>`);
+  else if(ex.listen) qEl = qLine(i+1, "Which word do you hear? · Какое слово ты слышишь?");
+  else qEl = qLine(i+1, gapHtml(it.q, st && st.done ? it.o[it.a].replace(/^-/,"") : null));
+  wrap.appendChild(qEl);
+  if(ex.syl) wrap.appendChild(el("div",{style:"margin:-2px 0 8px 40px"}, sayBtn(it.word)));
+  if(it.pic) wrap.appendChild(el("div",{class:"pic"}, el("span",{class:"emo"}, it.pic)));
+  if(ex.listen) wrap.appendChild(el("button",{class:"listen", onclick:()=>speak(it.word)}, "🔊 Listen · Слушать"));
+  const opts = el("div",{class:"opts" + (ex.syl ? " syl":"")});
+  const fb = fbBox();
+  const btns = it.o.map((o,j) => el("button",{class:"opt", onclick:()=>choose(j)}, o));
+  btns.forEach(b=>opts.appendChild(b));
+  wrap.append(opts, fb);
+  function paint(given){
+    btns.forEach((b,j)=>{ b.disabled = true; if(j===it.a) b.classList.add("right"); else if(j===given) b.classList.add("wrong"); });
+  }
+  function fullSentence(){ return it.q && it.q.includes("___") ? it.q.replace("___", it.o[it.a].replace(/^-/,"")) : (it.word || it.o[it.a]); }
+  function choose(j){
+    if(S.ans[id] && S.ans[id].done) return;
+    const ok = j === it.a;
+    rec(id, {done:true, ok, given:it.o[j]});
+    paint(j);
+    if(!ex.sort && !ex.syl && !ex.listen && it.q && it.q.includes("___")) qEl.querySelector("span:last-child").innerHTML = gapHtml(it.q, it.o[it.a].replace(/^-/,""));
+    showFb(fb, ok, it.why, ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`);
+    if(ok){ if(it.say) speak(it.say); else if(it.word) speak(it.word); else if(!ex.tf) speak(fullSentence()); }
+  }
+  if(st && st.done){ paint(it.o.indexOf(st.given)); showFb(fb, st.ok, it.why, st.ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`); }
+  return wrap;
+}
+
+function typedItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const isTr = ex.type === "translate";
+  wrap.appendChild(qLine(i+1, isTr ? `🇷🇺 ${esc(it.q)}` : it.q.includes("___") ? gapHtml(it.q) : it.q));
+  const inp = el("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"answer", placeholder: isTr ? "Write in English · Пиши по-английски" : "Type here · Пиши здесь"});
+  const btn = el("button",{class:"btn", onclick:()=>check()}, "Check · Проверить");
+  const fb = fbBox();
+  const selfRow = el("div",{class:"tilebtns", style:"display:none;margin-top:8px"});
+  wrap.append(el("div",{class:"tin"}, inp, btn), fb, selfRow);
+  inp.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+  function lock(ok, given, extra){
+    inp.disabled = true; btn.disabled = true; inp.value = given;
+    inp.classList.remove("ok","no"); inp.classList.add(ok ? "ok" : "no");
+    const modelShown = ok ? "" : `→ <b>${esc(it.model)}</b>`;
+    showFb(fb, ok, it.why || "", (extra||"") + modelShown);
+    if(ok) speak(it.q.includes("___") ? it.q.replace("___", it.model) : it.model);
+  }
+  function check(){
+    const st = S.ans[id] || {};
+    if(st.done) return;
+    const v = inp.value.trim(); if(!v){ toast("Write your answer · Напиши ответ"); return; }
+    const tries = (st.tries||0) + 1;
+    const ok = matches(v, it.accept);
+    let note = "";
+    if(ok && /\?$/.test(it.model) && !/\?\s*$/.test(v)) note = "(Don't forget the question mark ? · Не забудь «?») ";
+    if(ok){ rec(id,{done:true, ok:true, given:v, tries}); lock(true, v, note); return; }
+    if(tries < 2){ rec(id,{tries, given:v}); inp.classList.add("no"); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again · Попробуй ещё раз.<span class="why">💡 ${it.hint}</span>`; inp.focus(); setTimeout(()=>inp.classList.remove("no"), 700); return; }
+    if(isTr){
+      rec(id,{tries, given:v});
+      inp.disabled = true; btn.disabled = true;
+      fb.className="fb show no"; fb.innerHTML = `<b>Compare · Сравни:</b> ${esc(it.model)}<span class="why">Если твой вариант тоже правильный — нажми «My answer is also correct».</span>`;
+      selfRow.style.display = "flex"; selfRow.innerHTML = "";
+      selfRow.append(
+        el("button",{class:"btn teal", onclick:()=>{ rec(id,{done:true, ok:true, self:true, given:v}); selfRow.style.display="none"; lock(true, v, "(self-checked · проверила сама) "); }}, "My answer is also correct ✓ · Мой ответ тоже верный"),
+        el("button",{class:"btn alt", onclick:()=>{ rec(id,{done:true, ok:false, given:v}); selfRow.style.display="none"; lock(false, v); }}, "OK, I see · Понятно"));
+      return;
+    }
+    rec(id,{done:true, ok:false, given:v, tries}); lock(false, v);
+  }
+  const st = S.ans[id];
+  if(st && st.done) lock(st.ok, st.given, st.self ? "(self-checked · проверила сама) " : "");
+  else if(st && st.given) inp.value = st.given;
+  return wrap;
+}
+
+function tilesItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const words = it.a.split(" ");
+  wrap.appendChild(qLine(i+1, `<span class="ru-i">🇷🇺 ${esc(it.ru)}</span>`));
+  const line = el("div",{class:"line", "aria-label":"your sentence"}), pool = el("div",{class:"pool"}), fb = fbBox();
+  let order = shuffle(words.map((w,k)=>k)); if(order.every((k,j)=>k===j)) order = order.reverse();
+  const chosen = [];
+  const draw = () => {
+    line.innerHTML = ""; pool.innerHTML = "";
+    chosen.forEach((k,pos)=>line.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.splice(pos,1); draw(); }}, words[k])));
+    order.filter(k=>!chosen.includes(k)).forEach(k=>pool.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.push(k); draw(); }}, words[k])));
+  };
+  const done = () => S.ans[id] && S.ans[id].done;
+  const bCheck = el("button",{class:"btn", onclick:()=>check()}, "Check · Проверить");
+  const bClear = el("button",{class:"btn alt", onclick:()=>{ if(done()) return; chosen.length=0; draw(); }}, "Clear · Сбросить");
+  wrap.append(line, pool, el("div",{class:"tilebtns"}, bCheck, bClear), fb);
+  function finish(ok, given){
+    bCheck.disabled = true; bClear.disabled = true;
+    line.innerHTML = ""; it.a.split(" ").forEach(w=>line.appendChild(el("span",{class:"tile", style: ok ? "background:var(--teal);color:#fff" : ""}, w))); pool.innerHTML = "";
+    showFb(fb, ok, "", ok ? "" : `→ <b>${esc(it.a)}</b><span class="why">Your answer · Твой ответ: ${esc(given)}</span>`);
+    if(ok) speak(it.a);
+  }
+  function check(){
+    if(done()) return;
+    if(chosen.length !== words.length){ toast("Use all the words · Используй все слова"); return; }
+    const given = chosen.map(k=>words[k]).join(" ");
+    const tries = ((S.ans[id]||{}).tries||0) + 1;
+    if(norm(given) === norm(it.a)){ rec(id,{done:true, ok:true, given, tries}); finish(true, given); return; }
+    if(tries < 2){ rec(id,{tries, given}); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again · Попробуй ещё раз.<span class="why">💡 The first word is · Первое слово: <b>${esc(words[0])}</b></span>`; return; }
+    rec(id,{done:true, ok:false, given, tries}); finish(false, given);
+  }
+  if(done()) finish(S.ans[id].ok, S.ans[id].given); else draw();
+  return wrap;
+}
+
+function matchEx(ex){
+  const box = el("div",{class:"match"}), L = el("div",{class:"col"}), R = el("div",{class:"col"});
+  const fb = el("div",{class:"fb", style:"margin-left:0"});
+  let sel = null;
+  const rights = shuffle(ex.pairs.map((p,i)=>i));
+  const lb = ex.pairs.map((p,i)=>el("button",{class:"mt", onclick:()=>{ if(isDone(i)) return; sel=i; lb.forEach(b=>b.classList.remove("sel")); lb[i].classList.add("sel"); speak(p[0]); }}, "🔊 "+p[0]));
+  const rb = {};
+  rights.forEach(i=>{ rb[i] = el("button",{class:"mt", onclick:()=>tapR(i)}, ex.pairs[i][1]); });
+  const isDone = (i) => S.ans[ex.id+"-"+i] && S.ans[ex.id+"-"+i].done;
+  function tapR(i){
+    if(sel===null){ toast(ex.leftHint || "First tap an English word · Сначала английское слово"); return; }
+    if(isDone(i)) return;
+    const id = ex.id+"-"+sel, st = S.ans[id] || {};
+    if(i === sel){
+      rec(id,{done:true, ok:!st.wrong, given: ex.pairs[i][1]});
+      lb[sel].classList.remove("sel"); lb[sel].classList.add("done"); rb[i].classList.add("done");
+      showFb(fb, true, `${ex.pairs[i][0]}${ex.sep || " = "}${ex.pairs[i][1]}`); sel = null;
+    } else {
+      rec(id,{wrong:(st.wrong||0)+1, given: ex.pairs[i][1]});
+      rb[i].classList.add("shake"); setTimeout(()=>rb[i].classList.remove("shake"), 400);
+      showFb(fb, false, "Try another one · Попробуй другое");
+    }
+  }
+  lb.forEach((b,i)=>{ if(isDone(i)){ b.classList.add("done"); rb[i].classList.add("done"); } });
+  lb.forEach(b=>L.appendChild(b)); rights.forEach(i=>R.appendChild(rb[i]));
+  box.append(L,R);
+  return el("div",{}, box, fb);
+}
+
+function writeEx(ex){
+  const ta = el("textarea",{placeholder: ex.prompt, "aria-label":ex.title});
+  ta.value = S.write[ex.id] || "";
+  const wc = el("div",{class:"wc"});
+  const upd = () => { const n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; wc.textContent = `${n} words · слов — saved automatically · сохраняется автоматически`; };
+  ta.addEventListener("input", ()=>{ S.write[ex.id] = ta.value; save(); upd(); });
+  upd();
+  return el("div",{}, ta, wc);
+}
+
+function storyCard(){
+  const c = el("div",{class:"story"});
+  c.appendChild(el("div",{class:"case-head"}, el("h3",{}, STORY_TITLE), sayBtn(STORY.replace(/\n/g," "))));
+  c.appendChild(el("span",{class:"ru", style:"margin-bottom:8px"}, "Прочитай историю. Тапни на подчёркнутые слова — увидишь перевод."));
+  STORY.split("\n").forEach(par => {
+    const p = el("p",{});
+    let html = esc(par);
+    for(const [k,v] of Object.entries(GLOSS)) html = html.replace(new RegExp("\\b"+k+"\\b"), `<button class="gl" type="button">${k}<span class="tip">(${v})</span></button>`);
+    p.innerHTML = html;
+    p.querySelectorAll(".gl").forEach(b=>b.addEventListener("click", ()=>b.classList.toggle("open")));
+    c.appendChild(p);
+  });
+  return el("div",{class:"card", style:"padding:0;background:none;box-shadow:none"}, c);
+}
+
+/* ================= RESULTS & REPORT ================= */
+function rankFor(p){
+  if(p >= 95) return ["👑 Fashion icon!","Икона стиля! Блестяще!"];
+  if(p >= 80) return ["💃 Stylist","Стилист: отличная работа!"];
+  if(p >= 50) return ["🧵 Designer in training","Хорошо! Повтори ошибки."];
+  return ["🪡 Fashion student","Повтори слова и попробуй ещё раз!"];
+}
+function mistakes(){
+  const out = [];
+  for(const ex of EX){
+    if(ex.type === "write") continue;
+    const n = itemCount(ex);
+    for(let i=0;i<n;i++){
+      const a = S.ans[ex.id+"-"+i]; if(!a || !a.done || a.ok) continue;
+      let q, right;
+      if(ex.type==="match"){ q = ex.pairs[i][0]; right = ex.pairs[i][1]; }
+      else { const it = ex.items[i]; q = it.q || it.word || it.ru || ""; right = ex.type==="choice" ? it.o[it.a] : (it.model || it.a); }
+      out.push({ex:ex.title, q:q.replace(/<[^>]+>/g,""), given:a.given || "—", right});
+    }
+  }
+  return out;
+}
+function report(){
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0;
+  const L = [];
+  L.push(`HOMEWORK: ${TOPIC}`);
+  L.push(`Student: ${S.name}`);
+  L.push(`Date: ${new Date().toLocaleDateString("en-GB")}`);
+  L.push(`Score: ${t.ok}/${t.n} (${pct}%) — answered ${t.done}/${t.n}`);
+  L.push(`Flashcards known: ${Object.keys(S.known).length}/${WORDS.length}`);
+  L.push("");
+  L.push("BY EXERCISE:");
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); L.push(`- ${ex.title}: ${s.ok}/${s.n}${s.done<s.n ? ` (not finished: ${s.done}/${s.n})` : ""}`); }
+  const m = mistakes();
+  L.push(""); L.push(`MISTAKES (${m.length}):`);
+  m.forEach(x=>L.push(`- [${x.ex}] ${x.q} → wrote: ${x.given} | correct: ${x.right}`));
+  const selfs = Object.entries(S.ans).filter(([k,v])=>v.self);
+  if(selfs.length){ L.push(""); L.push("SELF-CHECKED TRANSLATIONS (please check):"); selfs.forEach(([k,v])=>{ const ex = EX.find(e=>k.startsWith(e.id+"-")); const it = ex.items[+k.split("-")[1]]; L.push(`- ${it.q} → ${v.given}`); }); }
+  L.push(""); L.push("ALL TYPED ANSWERS:");
+  for(const ex of EX.filter(e=>["typed","translate","tiles"].includes(e.type))){ ex.items.forEach((it,i)=>{ const a = S.ans[ex.id+"-"+i]; if(a && a.given) L.push(`- ${(it.q||it.ru).replace(/<[^>]+>/g,"")} → ${a.given}${a.done ? (a.ok ? " ✓" : " ✗") : ""}`); }); }
+  L.push(""); L.push("WRITING:");
+  for(const ex of EX.filter(e=>e.type==="write")){ L.push(`${ex.title}:`); L.push((S.write[ex.id]||"").trim() || "(empty)"); L.push(""); }
+  return L.join("\n");
+}
+function short(txt){ return txt.length <= 1500 ? txt : txt.slice(0,1450).replace(/\n[^\n]*$/,"") + "\n…\n(Full report: use “Copy text” · Полный отчёт — кнопка «Копировать»)"; }
+function renderResults(){
+  const p = $("#p-res"); p.innerHTML = "";
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, "🏆"), el("div",{}, el("h2",{}, "Your look is ready!"), el("span",{class:"ru"}, "Готово: твой результат"))));
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0, rk = rankFor(pct);
+  const ring = el("div",{class:"ring", style:`background:conic-gradient(var(--teal) ${pct*3.6}deg,var(--tint) 0deg)`}, el("span",{}, pct+"%"));
+  p.appendChild(el("div",{class:"card"}, el("div",{class:"big-score"}, ring, el("div",{},
+    el("div",{class:"rank"}, rk[0]), el("span",{class:"ru"}, rk[1]),
+    el("p",{}, `⭐ ${t.ok} / ${t.n} · answered · отвечено: ${t.done} / ${t.n}`),
+    el("p",{class:"muted", style:"margin:0"}, `🃏 Flashcards known · Знаю карточек: ${Object.keys(S.known).length} / ${WORDS.length}`)))));
+  if(t.done < t.n) p.appendChild(el("p",{class:"careful", style:"padding:10px 16px"}, `Some tasks are not finished yet (${t.n - t.done} left). · Ещё не всё сделано — осталось ${t.n - t.done}.`));
+  const tb = el("table",{class:"brk"});
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); tb.appendChild(el("tr",{}, el("td",{}, ex.title), el("td",{}, `${s.ok}/${s.n}`))); }
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "By exercise · По заданиям"), tb));
+  const m = mistakes();
+  const ml = el("div",{class:"mlist"});
+  if(!m.length) ml.appendChild(el("div",{}, t.done ? "No mistakes — amazing! · Ни одной ошибки!" : "Nothing here yet · Пока пусто"));
+  m.forEach(x=>ml.appendChild(el("div",{html:`<b>${esc(x.q)}</b><br><span class="bad">${esc(x.given)}</span> → <span class="good">${esc(x.right)}</span>`})));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Mistakes to remember · Ошибки, которые стоит запомнить"), ml));
+  const w = EX.filter(e=>e.type==="write").map(ex => el("div",{style:"margin-bottom:8px"}, el("b",{}, ex.title), el("div",{style:"white-space:pre-wrap"}, (S.write[ex.id]||"").trim() || "— (empty · пусто)")));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Your writing · Твои тексты"), ...w));
+  // send
+  const rep = report(), subj = `${TOPIC} — ${S.name} — ${t.ok}/${t.n}`, sh = short(rep);
+  const send = el("div",{class:"send"});
+  if(navigator.share) send.appendChild(el("button",{class:"s-share", onclick:()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); }}, "📤 Share · Поделиться"));
+  send.append(
+    el("a",{class:"s-gm", target:"_blank", rel:"noopener", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "Send in Gmail"),
+    el("a",{class:"s-tg", target:"_blank", rel:"noopener", href:`https://t.me/share/url?url=${encodeURIComponent(subj)}&text=${encodeURIComponent(sh)}`}, "Telegram"),
+    el("a",{class:"s-wa", target:"_blank", rel:"noopener", href:`https://wa.me/?text=${encodeURIComponent(subj+"\n"+sh)}`}, "WhatsApp"),
+    el("a",{class:"s-ml", href:`mailto:${TEACHER}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "✉️ Email app"),
+    el("button",{class:"s-cp", onclick:()=>copy(rep)}, "📋 Copy text · Копировать"));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Send to your teacher · Отправь учителю"),
+    el("p",{html:`Teacher's email · Почта учителя: <span class="email">${TEACHER}</span>`}),
+    el("p",{class:"muted", style:"font-size:14px"}, "Gmail, Telegram, WhatsApp and Email send a short version. “Share” and “Copy text” give the full report. · Полный отчёт — через «Поделиться» или «Копировать»."),
+    send, el("details",{style:"margin-top:10px"}, el("summary",{}, "Show the report · Показать отчёт"), el("pre",{style:"white-space:pre-wrap;font-size:13px;background:var(--tint);padding:10px;border-radius:10px"}, rep))));
+  // reset
+  const conf = el("div",{class:"confirm"}, el("b",{}, "Delete all answers? · Удалить все ответы?"),
+    el("button",{class:"btn", style:"background:var(--crim)", onclick:()=>{ S = {name:S.name, ans:{}, known:{}, write:{}, tab:TABS[0].id}; save(); location.reload(); }}, "Yes · Да"),
+    el("button",{class:"btn alt", onclick:()=>conf.classList.remove("show")}, "No · Нет"));
+  p.appendChild(el("div",{class:"card"}, el("button",{class:"btn alt", onclick:()=>conf.classList.add("show")}, "↺ Start again · Начать заново"), conf));
+}
+function copy(txt){
+  const ok = () => toast("Copied! · Скопировано!");
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok).catch(fallback); } else fallback();
+  function fallback(){ const ta = el("textarea",{style:"position:fixed;top:-1000px"}); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); ok(); }catch(e){ toast("Select and copy the report below · Выдели и скопируй отчёт"); } ta.remove(); }
+}
+
+/* ================= INIT ================= */
+function init(){
+  const nmI = $("#nm"); nmI.value = S.name || DEFAULT_NAME; $("#hname").textContent = nmI.value || DEFAULT_NAME;
+  nmI.addEventListener("input", ()=>{ S.name = nmI.value.trim() || DEFAULT_NAME; $("#hname").textContent = S.name; save(); });
+  renderTabs();
+  renderRules(); renderWords(); renderCards();
+  renderCase("st1","👀","st2"); renderCase("st2","🧩","st3"); renderCase("st3","✍️","res");
+  panel("res","🏆","Results","Результат");
+  const start = TABS.some(t=>t.id===S.tab) ? S.tab : TABS[0].id;
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+start));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === start));
+  if(start === "res") renderResults();
+  refresh();
+}
+init();
+</script>
+</body>
+</html>
