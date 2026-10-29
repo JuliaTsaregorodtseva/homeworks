@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get away &amp; unwind · Vlada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1F2A44; --ink2:#2E3B5E; --paper:#FBF6EF; --card:#FFFFFF; --tint:#F3ECE1;
+  --must:#F0C267; --must-soft:#FBF0D6; --crim:#B8473D; --crim-soft:#F5DEDA;
+  --teal:#0F7C78; --teal-soft:#D8EEEC; --pink:#B8473D; --pink-soft:#F5DEDA;
+  --muted:#5E6478; --line:#E6DED2; --ru:#6E7486;
+  --r:16px; --shadow:0 2px 10px rgba(31,42,68,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--must);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:"Unbounded","Nunito",sans-serif;line-height:1.2;margin:0}
+.ru{color:var(--ru);font-size:.88em;display:block;font-weight:600}
+.ru-i{color:var(--ru);font-weight:600}
+.muted{color:var(--muted)}
+
+/* header */
+header.hero{background:var(--ink);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+.hero .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:800}
+.hero .ecg{position:absolute;left:0;bottom:0;width:100%;height:64px;opacity:.95;pointer-events:none}
+header.hero{padding-bottom:76px!important}
+.cgap{display:inline-block;min-width:54px;border-bottom:2.5px solid var(--must);text-align:center;font-weight:800;color:var(--muted);padding:0 4px}
+.cgap.ok{color:var(--teal);border-color:var(--teal)}
+.cgap.no{color:var(--crim);border-color:var(--crim)}
+.vid{display:inline-flex;align-items:center;gap:6px;margin:4px 0 10px;font-weight:800;color:var(--crim);text-decoration:none;min-height:44px}
+.hero h1{font-size:clamp(24px,6vw,38px);margin:8px 0 6px}
+.hero p{margin:4px 0;color:#D5D9E6}
+.hero .ru{color:#AEB5C9}
+.hero .badge{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--teal);opacity:.25}
+.namebox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{background:#fff;color:var(--ink);border:0;border-radius:12px;padding:10px 14px;min-height:44px;width:200px}
+.howto{margin-top:12px;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.prog{display:flex;align-items:center;gap:12px;padding:10px 0 6px}
+.track{flex:1;height:12px;border-radius:99px;background:var(--tint);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--must));border-radius:99px;transition:width .4s}
+.score{font-weight:800;white-space:nowrap;font-size:15px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}
+nav.tabs button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px;line-height:1.1;text-align:center}
+nav.tabs button small{display:block;font-size:11px;color:var(--ru);font-weight:700}
+nav.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav.tabs button.on small{color:#C9CEDD}
+nav.tabs button .ts{display:inline-block;margin-left:6px;background:var(--teal);color:#fff;border-radius:99px;padding:0 7px;font-size:11px}
+
+main{padding:18px 0 60px}
+section.panel{display:none}
+section.panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ptitle{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.ptitle .ic{width:52px;height:52px;border-radius:50%;background:var(--ink);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+.ptitle h2{font-size:clamp(19px,4.6vw,26px)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;margin:0 0 16px}
+.card h3{font-size:17px;margin-bottom:8px}
+.case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.case-head h3{font-size:17px}
+.instr{margin:2px 0 12px;font-weight:700}
+.stamp{flex:0 0 auto;border:2.5px solid var(--crim);color:var(--crim);border-radius:8px;padding:2px 8px;font-family:"Unbounded";font-size:11px;transform:rotate(-6deg);display:none;white-space:nowrap}
+.stamp.show{display:inline-block}
+
+/* rules */
+.rule{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:#fff;box-shadow:var(--shadow)}
+.rule h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.rule p{margin:6px 0}
+table.form{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:16px}
+table.form td{padding:8px 10px;background:var(--tint);vertical-align:top}
+table.form td:first-child{border-radius:10px 0 0 10px;font-weight:800;width:42px;text-align:center}
+table.form td:last-child{border-radius:0 10px 10px 0}
+table.form.wide td:first-child{width:auto;white-space:nowrap;text-align:left;color:var(--ink2)}
+.hl{background:var(--must-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.hl2{background:var(--teal-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.say{border:0;background:var(--tint);border-radius:50%;width:36px;height:36px;min-width:36px;display:inline-grid;place-items:center;font-size:16px;vertical-align:middle;margin-left:4px}
+.exrow{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.mist{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}
+.mist div{background:var(--tint);border-radius:10px;padding:8px 12px;font-size:16px}
+.bad{color:var(--crim);text-decoration:line-through;text-decoration-thickness:1.5px}
+.good{color:var(--teal);font-weight:800}
+.machine{background:var(--ink);color:#fff;border-radius:var(--r);padding:16px 18px}
+.machine .out{font-size:clamp(20px,5vw,28px);font-weight:800;min-height:46px;margin:12px 0 6px}
+.machine .out .d{color:var(--must)} .machine .out .b{color:#8FE3CF;text-decoration:underline}
+.machine .btns{display:flex;gap:8px;flex-wrap:wrap}
+.machine button{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:#2E3A5C;color:#fff}
+.machine button.on{background:var(--must);color:var(--ink)}
+.machine .note{font-size:14px;color:#C9CEDD;margin-top:6px}
+
+/* words */
+.wgroup h3{font-size:16px;margin:0 0 10px}
+.wlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.w{display:flex;align-items:center;gap:10px;background:var(--tint);border-radius:12px;padding:8px 10px}
+.w .em{font-size:24px;width:32px;text-align:center}
+.w b{display:block}
+.careful{background:var(--must-soft);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
+.careful h3{font-size:16px;margin-bottom:6px}
+.careful ul{margin:4px 0;padding-left:20px}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.flip{perspective:1200px;height:270px;margin:6px 0 12px}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.face.front{background:#fff;border:2px solid var(--line)}
+.face.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:clamp(20px,5.6vw,32px);font-weight:900;font-family:"Unbounded",system-ui,sans-serif;overflow-wrap:anywhere}
+.face .em{font-size:52px;line-height:1}
+.face .ex{margin-top:10px;font-size:16px;color:#D5D9E6}
+.face .hint{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.face.back .hint{color:#AEB5C9}
+.fc-nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.fc-nav button{flex:1;min-width:120px;min-height:48px;border-radius:14px;border:0;font-weight:800}
+.b-know{background:var(--teal);color:#fff}.b-learn{background:var(--must);color:var(--ink)}.b-plain{background:#fff;border:1.5px solid var(--line)!important}
+.fc-count{text-align:center;font-weight:800;margin:8px 0}
+
+/* items */
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.q{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.q .n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center;margin-top:1px}
+.gap{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--muted);margin:0 3px}
+.gap.ok{border-color:var(--teal);color:var(--teal);font-weight:900;min-width:0}
+.gap.suf{margin-left:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-left:40px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 16px;min-height:46px;font-weight:800;font-size:16px;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt.wrong{background:var(--crim-soft);border-color:var(--crim);color:var(--crim)}
+.opt[disabled]{cursor:default}
+.fb{margin:8px 0 0 40px;font-size:15px;border-radius:10px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--teal-soft)} .fb.no{background:var(--crim-soft)}
+.fb .why{display:block;color:var(--muted);margin-top:2px}
+.pic{margin-left:40px;margin-bottom:8px}
+.emo{font-size:56px;line-height:1}
+.tin{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+.tin input{flex:1;min-width:200px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.tin input.ok{border-color:var(--teal);background:var(--teal-soft)}
+.tin input.no{border-color:var(--crim);background:var(--crim-soft)}
+.btn{border:0;border-radius:12px;padding:10px 18px;min-height:46px;font-weight:800;background:var(--ink);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--must);color:var(--ink)}
+.btn.teal{background:var(--teal);color:#fff}
+.btn[disabled]{opacity:.45;cursor:default}
+.listen{border:0;background:var(--pink);color:#fff;border-radius:16px;min-height:56px;padding:8px 20px;font-weight:900;font-size:18px;margin-left:40px;margin-bottom:8px}
+.syl .opt{border-radius:10px;min-width:64px;font-family:"Unbounded",system-ui,sans-serif;font-weight:600}
+.syl{gap:4px}
+.sortw{display:flex;align-items:center;gap:8px;margin-left:40px;margin-bottom:8px;font-size:20px;font-weight:900}
+.mono{font-family:"Nunito",system-ui,sans-serif;font-weight:800}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:48px;font-weight:800;text-align:left}
+.mt.sel{border-color:var(--must);background:var(--must-soft)}
+.mt.done{border-color:var(--teal);background:var(--teal-soft);color:#155e55;cursor:default}
+.mt.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* tiles */
+.line{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px;background:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px}
+.tile{border:0;background:var(--ink2);color:#fff;border-radius:10px;padding:8px 12px;min-height:44px;font-weight:800}
+.line .tile{background:var(--must);color:var(--ink)}
+.tilebtns{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+
+/* story */
+.story{background:#FFFDF6;border:2px solid var(--must-soft);border-radius:var(--r);padding:16px 18px;font-size:17px;line-height:1.65}
+.story h3{font-family:"Unbounded";font-size:18px;margin-bottom:6px}
+.gl{border-bottom:2px dotted var(--must);cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;padding:0;font-weight:700;min-height:0}
+.gl .tip{display:none;font-size:13px;color:var(--ru);font-weight:700;margin-left:4px}
+.gl.open .tip{display:inline}
+
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;resize:vertical}
+.wc{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* results */
+.big-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) 0deg,var(--tint) 0deg);flex:0 0 auto}
+.ring span{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:"Unbounded";font-size:22px}
+.rank{font-family:"Unbounded";font-size:20px}
+.brk{width:100%;border-collapse:collapse;font-size:15px}
+.brk td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.brk td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.mlist div{background:var(--tint);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px}
+.send{display:flex;flex-wrap:wrap;gap:8px}
+.send a,.send button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none;border:0}
+.s-share{background:var(--ink);color:#fff}.s-gm{background:#EA4335;color:#fff}.s-tg{background:#229ED9;color:#fff}.s-wa{background:#25D366;color:#fff}.s-ml{background:#fff;color:var(--ink);border:2px solid var(--line)!important}.s-cp{background:var(--must);color:var(--ink)}
+.email{user-select:all;font-weight:800;background:var(--tint);padding:2px 8px;border-radius:6px}
+.confirm{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.confirm.show{display:flex}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-weight:800;display:none;z-index:50}
+.toast.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* preposition scenes */
+svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
+
+@media (max-width:520px){
+  table.form.wide td:first-child{white-space:normal;width:32%}
+  .opts,.fb,.tin,.pic,.line,.pool,.tilebtns,.listen,.sortw{margin-left:0}
+  .match{grid-template-columns:1fr 1fr;gap:6px}
+  .mt{font-size:15px;padding:8px}
+  .card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge"></div>
+  <svg class="ecg" viewBox="0 0 1200 70" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+<g opacity=".95">
+<rect x="20" y="10" width="34" height="60" fill="#3A4870"/><rect x="60" y="0" width="26" height="70" fill="#4A5A86"/><rect x="92" y="18" width="40" height="52" fill="#3A4870"/><rect x="138" y="6" width="22" height="64" fill="#4A5A86"/><rect x="166" y="28" width="46" height="42" fill="#3A4870"/>
+<path d="M230 70 L330 22 L380 46 L470 4 L560 52 L620 30 L700 70 Z" fill="#0F7C78"/>
+<path d="M600 70 L720 14 L800 50 L880 20 L980 62 L1050 34 L1200 70 Z" fill="#0B5F5C"/>
+<path d="M455 12 L470 4 L486 13 Z M708 20 L720 14 L733 21 Z" fill="#FBF6EF"/>
+<circle cx="1110" cy="20" r="12" fill="#F0C267"/>
+</g></svg>
+  <div class="wrap">
+    <div class="kick">🏔️ Lesson vocabulary · Upper-Intermediate</div>
+    <h1>Get away &amp; unwind</h1>
+    <p>Vocabulary homework for <b id="hname">you</b>: looking alike, fainting, love and proposals, places and escaping the city.</p>
+    <div class="namebox"><label for="nm">Your name</label><input id="nm" value="" placeholder="Type your name" maxlength="30" autocomplete="off"></div>
+    <div class="howto">Words → Nuances → Cards → Steps 1–3 → Results &amp; send. About 35–40 minutes.</div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 / 0</div></div>
+  <nav class="tabs" id="tabs"></nav>
+</div></div>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const TEACHER = "ulchik2211@gmail.com";
+const TOPIC = "Get away & unwind: lesson vocabulary";
+const STORE = "vlada-get-away-unwind-v1";
+const DEFAULT_NAME = "Vlada";
+const VIDEO_URL = "";
+
+const WORDS = [
+  // looking alike
+  {g:"alike", en:"be like sb / sth", ru:"be similar in character or appearance · What is she like? = what kind of person is she?", em:"🪞", ex:"She's very like her sister: both of them are stubborn."},
+  {g:"alike", en:"be similar to sb / sth", ru:"almost the same, but not exactly (adj + to)", em:"🔁", ex:"Batumi is similar to Barcelona in some ways."},
+  {g:"alike", en:"resemble sb / sth", ru:"look like or be like (formal verb, NO preposition)", em:"👯", ex:"She strongly resembles her grandmother."},
+  {g:"alike", en:"take after sb", ru:"look or behave like an older member of your family", em:"👨‍👧", ex:"He takes after his dad: same nose, same temper."},
+  // when the body gives up
+  {g:"body", en:"faint", ru:"suddenly become unconscious for a short time (heat, shock, hunger) (v)", em:"😵", ex:"It was so hot on the metro that a woman fainted."},
+  {g:"body", en:"pass out", ru:"faint (more informal; also after too much alcohol)", em:"💫", ex:"I nearly passed out when I saw the bill."},
+  {g:"body", en:"lose consciousness", ru:"become unconscious (formal, medical) · NOT lose my consciousness", em:"🚑", ex:"The driver lost consciousness for a few seconds."},
+  {g:"body", en:"soaked", ru:"completely wet (adj) · get soaked", em:"🌧️", ex:"We got soaked walking back from the station."},
+  {g:"body", en:"soaked in sweat", ru:"completely wet because you have been sweating", em:"🥵", ex:"After the climb to the fortress, I was soaked in sweat."},
+  // people, feelings, love
+  {g:"people", en:"knowledgeable about sth", ru:"knowing a lot about a subject (adj)", em:"🎓", ex:"Our guide was really knowledgeable about local wine."},
+  {g:"people", en:"emotional", ru:"having strong feelings and showing them easily, e.g. crying (adj)", em:"😢", ex:"She always gets emotional at weddings."},
+  {g:"people", en:"be emotionally expressive", ru:"show your feelings openly: in your face, voice and gestures", em:"🎭", ex:"Italians are often described as emotionally expressive."},
+  {g:"people", en:"be (madly) in love with sb", ru:"love someone romantically · a person in love", em:"💘", ex:"He's been madly in love with her since school."},
+  {g:"people", en:"fall out (with sb)", ru:"argue with someone and stop being friendly", em:"💔", ex:"They fell out over money and haven't spoken since."},
+  {g:"people", en:"propose (to sb)", ru:"ask someone to marry you (v) · also: propose an idea", em:"💍", ex:"He proposed to her on top of a mountain."},
+  {g:"people", en:"pop the question", ru:"ask someone to marry you (informal idiom)", em:"🥂", ex:"When is he finally going to pop the question?"},
+  {g:"people", en:"make a proposal", ru:"formally suggest a plan, especially in business or politics", em:"📄", ex:"The city council made a proposal to build a new bridge."},
+  // tricky pairs
+  {g:"pairs", en:"an amount of + uncountable", ru:"how much: an amount of time, money, traffic, work", em:"💧", ex:"There was a huge amount of traffic on the way."},
+  {g:"pairs", en:"a number of + plural noun", ru:"how many: a number of people, tourists, problems", em:"🔢", ex:"A large number of tourists visit the old town every summer."},
+  {g:"pairs", en:"historic", ru:"important in history; famous because of the past (adj)", em:"🏛️", ex:"It was a historic moment for the country."},
+  {g:"pairs", en:"historical", ru:"connected with the past or with the study of history (adj)", em:"📜", ex:"The library keeps historical documents from the 18th century."},
+  // places
+  {g:"places", en:"pristine", ru:"perfectly clean, as if new (adj)", em:"✨", ex:"The beaches were pristine: white sand and crystal-clear water."},
+  {g:"places", en:"untouched", ru:"not changed or damaged by people (adj)", em:"🌲", ex:"This valley is one of the last untouched places in Europe."},
+  {g:"places", en:"a hidden gem", ru:"a great place that not many people know about", em:"💎", ex:"This little café is a real hidden gem."},
+  {g:"places", en:"infrastructure", ru:"roads, transport, water, electricity, shops, hospitals… (n, uncountable)", em:"🛣️", ex:"The city has invested a lot in its infrastructure."},
+  {g:"places", en:"a lack of infrastructure", ru:"not enough roads, services, transport etc.", em:"🚧", ex:"The village is beautiful, but there's a lack of infrastructure."},
+  {g:"places", en:"a skyscraper", ru:"a very tall modern building (n)", em:"🏙️", ex:"Dubai is famous for its skyscrapers."},
+  {g:"places", en:"a five-storey building", ru:"a building with five floors (BrE storey · AmE story)", em:"🏢", ex:"I grew up in a five-storey building with no lift."},
+  {g:"places", en:"walk around / wander the streets", ru:"walk slowly through a town without a plan", em:"🚶", ex:"I love wandering the streets of the old town at night."},
+  // getting away
+  {g:"escape", en:"get away (from the city)", ru:"leave a place to have a rest or a holiday (phrasal verb)", em:"🚗", ex:"We try to get away from the city every weekend."},
+  {g:"escape", en:"a getaway", ru:"a short holiday, or a place you go to escape (n, one word)", em:"🏡", ex:"Kakheti is a perfect weekend getaway."},
+  {g:"escape", en:"detach (yourself) from sth", ru:"separate yourself mentally from work, stress etc. (v)", em:"🔌", ex:"It's hard to detach from work when your boss texts you at night."},
+  {g:"escape", en:"recharge your batteries", ru:"rest so that you have energy again (idiom)", em:"🔋", ex:"A few days in the mountains to recharge my batteries: that's all I need."},
+  {g:"escape", en:"unwind", ru:"relax after work or stress (v) · unwind – unwound – unwound", em:"🛁", ex:"I usually unwind with a long walk and a good book."},
+];
+const GROUPS = {
+  alike:["Looking alike","similar people and places"],
+  body:["When the body gives up","heat, sweat and fainting"],
+  people:["People, feelings and love","who we are and who we love"],
+  pairs:["Tricky pairs","words people often mix up"],
+  places:["Places","cities, nature and hidden gems"],
+  escape:["Getting away","escape and recharge"],
+};
+
+const EX = [
+  // ---------- STEP 1: meaning
+  {id:"m1", tab:"st1", type:"match", sep:" = ", leftHint:"First tap a word on the left", title:"Words and meanings", ru:"Match each word to its definition", instr:"Tap a word, then its meaning.", pairs:[
+    ["pristine","perfectly clean, as if new"],["untouched","not changed by people"],["a hidden gem","a great place few people know"],["unwind","relax after stress"],["knowledgeable","knowing a lot"],["soaked","completely wet"],["fall out","argue and stop being friendly"],["take after","be like an older relative"],
+  ]},
+  {id:"m2", tab:"st1", type:"choice", title:"Which word is it?", ru:"Definition → word", instr:"Read the definition and choose the word.", items:[
+    {q:"roads, transport, electricity, water supply", o:["infrastructure","a skyscraper","a getaway"], a:0, why:"infrastructure = the basic systems a place needs to work."},
+    {q:"to relax after a period of work or stress", o:["detach","unwind","faint"], a:1, why:"unwind = relax. (detach = separate yourself mentally from something)"},
+    {q:"a short holiday, or a place you go to escape", o:["a hidden gem","a proposal","a getaway"], a:2, why:"a getaway (noun, one word): a weekend getaway, a romantic getaway."},
+    {q:"a very tall modern building", o:["a skyscraper","a five-storey building","a storey"], a:0, why:"a skyscraper literally “scrapes the sky”."},
+    {q:"to ask someone to marry you (informal idiom)", o:["make a proposal","pop the question","pop up"], a:1, why:"pop the question = propose. (pop up = appear suddenly)"},
+    {q:"to suddenly become unconscious for a short time", o:["faint","fall out","take after"], a:0, why:"faint = pass out = lose consciousness."},
+  ]},
+  {id:"m3", tab:"st1", type:"choice", title:"Words in context", ru:"Which word fits?", instr:"Choose the best option.", items:[
+    {q:"Kakheti is my favourite weekend ___: two hours from Tbilisi and you forget about work.", o:["getaway","get away","gem"], a:0, why:"After “my favourite weekend” we need a noun: a getaway."},
+    {q:"After a month of deadlines, I need a few days in the mountains to ___.", o:["pop the question","recharge my batteries","lose consciousness"], a:1, why:"recharge your batteries = rest and get your energy back."},
+    {q:"The beach was ___: white sand, clear water and not a single plastic bottle.", o:["historical","emotional","pristine"], a:2, why:"pristine = perfectly clean."},
+    {q:"I forgot my umbrella and got completely ___.", o:["soaked","unwound","detached"], a:0, why:"get soaked = get completely wet."},
+    {q:"This little café is a real ___: great coffee and no tourists.", o:["lack of infrastructure","hidden gem","skyscraper"], a:1, why:"a hidden gem = a great place that few people know about."},
+    {q:"My sister and I ___ when we were teenagers, but now we're best friends again.", o:["passed out","took after","fell out"], a:2, why:"fall out (with sb) = argue and stop being friendly."},
+  ]},
+  // ---------- STEP 2: nuances and patterns
+  {id:"c1", tab:"st2", type:"choice", title:"Nuances", ru:"Similar words, different meanings", instr:"Choose the correct option. Read the explanation after each answer.", items:[
+    {q:"It was a ___ day for the country: the first woman president was elected.", o:["historic","historical"], a:0, why:"historic = important in history, a moment people will remember."},
+    {q:"The museum has a collection of ___ documents from the 18th century.", o:["historic","historical"], a:1, why:"historical = connected with the past / history. The documents are old, not necessarily famous."},
+    {q:"A huge ___ of people visit Kazbegi every summer.", o:["amount","number"], a:1, why:"people is countable (plural) → a number of."},
+    {q:"You need a surprising ___ of patience to drive in a big city.", o:["amount","number"], a:0, why:"patience is uncountable → an amount of."},
+    {q:"She ___ her grandmother: the same eyes, the same laugh.", o:["resembles","resembles to","is resembling"], a:0, why:"resemble + object, no preposition, and not used in the continuous."},
+    {q:"Batumi ___ Barcelona in some ways: the sea, the palm trees, the boulevard.", o:["takes after","is similar to","resembles to"], a:1, why:"be similar to. take after is only for family members."},
+    {q:"“What's your new boss ___?” “Friendly, but very strict.”", o:["like","look like","similar"], a:0, why:"What is sb like? = asking about character. What does sb look like? = appearance."},
+    {q:"He ___ her on the beach at sunset, and she said yes!", o:["proposed to","popped up","made a proposal for"], a:0, why:"propose to sb = ask them to marry you."},
+    {q:"The mayor ___ to build a new metro line.", o:["popped the question","proposed to","made a proposal"], a:2, why:"make a proposal = formally suggest a plan. pop the question is only about marriage."},
+    {q:"She always gets ___ at weddings. She cries from start to finish.", o:["emotional","emotionally","expressive emotionally"], a:0, why:"get emotional = start to feel and show strong feelings, often crying."},
+    {q:"It was so hot in the queue that an old man ___.", o:["fainted","fell out","popped out"], a:0, why:"faint = suddenly become unconscious."},
+    {q:"The patient ___ consciousness for about a minute.", o:["lost","lost his","passed"], a:0, why:"lose consciousness, with no possessive: NOT lose my / his consciousness."},
+  ]},
+  {id:"c2", tab:"st2", type:"typed", title:"Prepositions and particles", ru:"One word in each gap", instr:"Type the missing word.", items:[
+    {q:"Is your accent similar ___ your mum's?", accept:["to"], model:"to", hint:"similar … sb / sth", why:"be similar to"},
+    {q:"Our guide was very knowledgeable ___ wine.", accept:["about"], model:"about", hint:"the same as with “know a lot …”", why:"knowledgeable about sth"},
+    {q:"Everyone says I take ___ my dad.", accept:["after"], model:"after", hint:"take … sb (a family member)", why:"take after sb = be like an older relative"},
+    {q:"Romeo was madly in love ___ Juliet.", accept:["with"], model:"with", hint:"in love … sb", why:"be in love with sb"},
+    {q:"Kate and I fell ___ over a stupid joke.", accept:["out"], model:"out", hint:"a phrasal verb: argue and stop being friends", why:"fall out (with sb)"},
+    {q:"He proposed ___ her in front of the whole restaurant.", accept:["to"], model:"to", hint:"propose … sb", why:"propose to sb"},
+    {q:"I really need to get away ___ the city for a few days.", accept:["from"], model:"from", hint:"get away … a place", why:"get away from sth"},
+    {q:"It's hard to detach ___ work when your boss texts you at night.", accept:["from"], model:"from", hint:"detach (yourself) … sth", why:"detach from sth"},
+    {q:"The village is beautiful, but there's a lack ___ infrastructure.", accept:["of"], model:"of", hint:"a lack … sth", why:"a lack of sth"},
+  ]},
+  {id:"c3", tab:"st2", type:"typed", title:"Say it another way", ru:"Key-word transformations", instr:"Complete the second sentence so it means the same as the first. Use the word in CAPITALS.", items:[
+    {q:"Dan looks and behaves just like his father. (TAKES) → Dan ___ his father.", accept:["takes after","really takes after","totally takes after"], model:"takes after", hint:"a phrasal verb for family", why:"take after sb = be like an older relative."},
+    {q:"Suddenly he fainted. (PASSED) → Suddenly he ___.", accept:["passed out"], model:"passed out", hint:"pass + a particle", why:"pass out = faint."},
+    {q:"Your flat looks a lot like mine. (SIMILAR) → Your flat ___ mine.", accept:["is similar to","is very similar to","is really similar to","looks similar to","is quite similar to"], model:"is very similar to", hint:"be + similar + preposition", why:"be similar to sth."},
+    {q:"She resembles a famous actress. (LOOKS) → She ___ a famous actress.", accept:["looks like","looks a bit like","looks a lot like"], model:"looks like", hint:"look + preposition", why:"resemble (formal) = look like (neutral)."},
+    {q:"He asked her to marry him in Paris. (PROPOSED) → He ___ her in Paris.", accept:["proposed to"], model:"proposed to", hint:"propose + preposition", why:"propose to sb."},
+    {q:"Anna and Max had an argument and stopped talking. (FELL) → Anna and Max ___.", accept:["fell out","fell out with each other"], model:"fell out", hint:"fall + a particle", why:"fall out (with sb)."},
+    {q:"Hardly anyone knows about this wonderful little restaurant. (GEM) → This restaurant is a ___.", accept:["hidden gem","real hidden gem","true hidden gem"], model:"hidden gem", hint:"… gem", why:"a hidden gem = a great place few people know."},
+  ]},
+  // ---------- STEP 3: the story
+  {id:"s1", tab:"st3", type:"choice", cloze:true, title:"Complete the story", ru:"15 gaps", instr:"Choose the missing word. Your answer appears in the story above.", items:[
+    {gap:1, q:"Last month I finally managed to ___ from the city.", o:["get away","getaway","go out"], a:0, why:"get away (verb). a getaway is the noun."},
+    {gap:2, q:"…a grey building surrounded by ___.", o:["skyscrapers","hidden gems","getaways"], a:0, why:"skyscrapers = very tall buildings."},
+    {gap:3, q:"My friend Lika, who is very ___ local history…", o:["knowledgeable about","knowledgeable of","knowledge about"], a:0, why:"knowledgeable about sth."},
+    {gap:4, q:"…a tiny village in the mountains, a real ___…", o:["skyscraper","hidden gem","proposal"], a:1, why:"a hidden gem = a great place few people know about."},
+    {gap:5, q:"The nature there is completely ___.", o:["untouched","emotional","historical"], a:0, why:"untouched = not changed by people."},
+    {gap:6, q:"…a ___ river so clean you could drink from it.", o:["knowledgeable","pristine","detached"], a:1, why:"pristine = perfectly clean."},
+    {gap:7, q:"Of course, there's a serious ___ infrastructure.", o:["number of","amount of","lack of"], a:2, why:"a lack of infrastructure = not enough roads, shops, services."},
+    {gap:8, q:"It was so hot that I was soaked ___ sweat…", o:["in","by","of"], a:0, why:"soaked in sweat."},
+    {gap:9, q:"…and Lika nearly ___ at the top!", o:["passed out","popped up","fell out"], a:0, why:"pass out = faint."},
+    {gap:10, q:"…a very emotionally ___ woman…", o:["expressive","emotional","expressed"], a:0, why:"be emotionally expressive = show feelings openly."},
+    {gap:11, q:"…her husband had ___ the question on that same hill…", o:["proposed","popped","popped up"], a:1, why:"pop the question. (propose to sb / pop up = appear suddenly)"},
+    {gap:12, q:"She got quite ___ telling the story.", o:["emotional","emotionally","expressive"], a:0, why:"get emotional = start showing strong feelings."},
+    {gap:13, q:"Their son clearly ___ her.", o:["resembles to","takes after","is similar"], a:1, why:"take after sb = be like an older relative."},
+    {gap:14, q:"…how quickly you can ___…", o:["unwind","unwound","fall out"], a:0, why:"can + base form: unwind. (unwound is the past form)"},
+    {gap:15, q:"…when you ___ from your phone for two days.", o:["detach","resemble","propose"], a:0, why:"detach from sth = separate yourself from it."},
+  ]},
+  {id:"s2", tab:"st3", type:"typed", title:"Fix the mistake", ru:"Each sentence has one mistake", instr:"Type the whole sentence correctly.", items:[
+    {q:"I lost my consciousness for a second.", accept:["I lost consciousness for a second","I passed out for a second","I fainted for a second"], model:"I lost consciousness for a second.", hint:"no possessive in this phrase", why:"lose consciousness, NOT lose my consciousness."},
+    {q:"She resembles to her grandmother.", accept:["She resembles her grandmother","She takes after her grandmother","She looks like her grandmother"], model:"She resembles her grandmother.", hint:"resemble has no preposition", why:"resemble sb, with no to."},
+    {q:"There was a huge number of traffic.", accept:["There was a huge amount of traffic"], model:"There was a huge amount of traffic.", hint:"traffic is uncountable", why:"an amount of + uncountable noun."},
+    {q:"He finally popped up the question.", accept:["He finally popped the question","He finally proposed"], model:"He finally popped the question.", hint:"pop up means “appear suddenly”", why:"pop the question = propose."},
+    {q:"Batumi is similar with Barcelona.", accept:["Batumi is similar to Barcelona"], model:"Batumi is similar to Barcelona.", hint:"check the preposition", why:"be similar to."},
+    {q:"We live in a five-storeys building.", accept:["We live in a five-storey building","We live in a five storey building","We live in a 5-storey building","We live in a 5 storey building"], model:"We live in a five-storey building.", hint:"compound adjectives before a noun have no plural -s", why:"a five-storey building (like a ten-minute walk)."},
+    {q:"It's a historical day for our city!", accept:["It's a historic day for our city","It is a historic day for our city"], model:"It's a historic day for our city!", hint:"important, will be remembered", why:"historic = important in history."},
+  ]},
+  {id:"w1", tab:"st3", type:"write", title:"Your perfect getaway (optional)", ru:"Use at least six words from the list", instr:"Describe a place where you go (or would like to go) to get away from the city. Write 80–120 words.", prompt:"When I need to recharge my batteries, I… It's a real hidden gem because… The only problem is…"},
+];
+
+const STORY_TAB = "st3";
+const STORY_TITLE = "A weekend away";
+const STORY_INTRO = "Read the story, then fill the gaps below. Your answers appear here.";
+const STORY = `Last month I finally managed to {1} from the city for a weekend. My flat is in a grey five-storey building surrounded by {2}, and after a long week at work I really needed to recharge my batteries.
+My friend Lika, who is very {3} local history, suggested a tiny village in the mountains, a real {4} that most tourists have never heard of. The nature there is completely {5}: no hotels, no traffic, just forests and a {6} river so clean you could drink from it.
+Of course, there's a serious {7} infrastructure: the road is terrible and there's only one shop. On the first day we hiked up to a historic church from the 12th century. It was so hot that I was soaked {8} sweat, and Lika nearly {9} at the top!
+In the evening, the owner of our guest house, a very emotionally {10} woman, told us how her husband had {11} the question on that same hill forty years ago. She got quite {12} telling the story. Their son clearly {13} her: he laughs exactly like she does.
+I came back home completely relaxed. It's amazing how quickly you can {14} when you {15} from your phone for two days.`;
+const GLOSS = {};
+
+const TABS = [
+  {id:"words", en:"Words", ru:"34 phrases", ic:"🗂️"},
+  {id:"rules", en:"Nuances", ru:"careful!", ic:"💡"},
+  {id:"cards", en:"Cards", ru:"flashcards", ic:"🃏"},
+  {id:"st1", en:"Step 1", ru:"meaning", ic:"🔍"},
+  {id:"st2", en:"Step 2", ru:"nuances", ic:"🔗"},
+  {id:"st3", en:"Step 3", ru:"the story", ic:"🏔️"},
+  {id:"res", en:"Results", ru:"send", ic:"🏆"},
+];
+const STEP_TABS = ["st1","st2","st3"];
+const CASE_TITLES = {
+  st1:["Step 1: What does it mean?","Meaning in context"],
+  st2:["Step 2: Nuances and patterns","Small differences, big impact"],
+  st3:["Step 3: A weekend away","The words in a story"],
+};
+const PRAISE = ["Correct!","Spot on!","Exactly!","Nailed it!","Perfect!","Well done!"];
+const OOPS = ["Not quite.","Nearly!","Close, but no.","Good try!"];
+
+/* ================= STATE ================= */
+let mem = {};
+function load(){ try{ const s = localStorage.getItem(STORE); return s ? JSON.parse(s) : null; }catch(e){ return mem[STORE] || null; } }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(S)); }catch(e){ mem[STORE] = JSON.parse(JSON.stringify(S)); } }
+let S = load() || {name:DEFAULT_NAME, ans:{}, known:{}, write:{}, tab:TABS[0].id};
+if(!S.ans) S.ans = {}; if(!S.known) S.known = {}; if(!S.write) S.write = {};
+
+/* ================= HELPERS ================= */
+const $ = (s, r=document) => r.querySelector(s);
+function el(tag, attrs={}, ...kids){
+  const e = document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){
+    if(k === "class") e.className = v;
+    else if(k === "html") e.innerHTML = v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if(v !== false && v != null) e.setAttribute(k, v);
+  }
+  for(const k of kids.flat()){ if(k == null) continue; e.appendChild(typeof k === "string" ? document.createTextNode(k) : k); }
+  return e;
+}
+const pick = (a) => a[Math.floor(Math.random()*a.length)];
+function shuffle(a){ const b = a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(t){ const x = $("#toast"); x.textContent = t; x.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(()=>x.classList.remove("show"), 1800); }
+
+let VOICE = null;
+function pickVoice(){ if(!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t){
+  if(!("speechSynthesis" in window)) { toast("Audio is not available"); return; }
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"")); u.lang = "en-GB"; if(VOICE) u.voice = VOICE; u.rate = 0.87; speechSynthesis.speak(u); }catch(e){}
+}
+const sayBtn = (t) => el("button", {class:"say", "aria-label":"Listen", title:"Listen", onclick:(e)=>{ e.stopPropagation(); speak(t); }}, "🔊");
+
+const CONTR = [[/\bdidn't\b/g,"did not"],[/\bdoesn't\b/g,"does not"],[/\bdon't\b/g,"do not"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],[/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bshouldn't\b/g,"should not"],[/\bi'll\b/g,"i will"],[/\byou're\b/g,"you are"],[/\bcan not\b/g,"cannot"],[/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bi'm\b/g,"i am"],[/\bi've\b/g,"i have"],[/\bhaven't\b/g,"have not"],[/\bwhat's\b/g,"what is"],[/\bshe's\b/g,"she is"],[/\bhe's\b/g,"he is"]];
+function norm(s){
+  let t = String(s).toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”"]/g,"").trim();
+  t = t.replace(/[.!?]+$/,"").replace(/,/g," ").replace(/\s+/g," ").trim();
+  for(const [r,v] of CONTR) t = t.replace(r, v);
+  return t.replace(/\s+/g," ").trim();
+}
+const matches = (given, accept) => accept.some(a => norm(a) === norm(given));
+
+/* ================= SCORING ================= */
+function scorable(ex){ return ex.type !== "write"; }
+function itemCount(ex){ return ex.type === "match" ? ex.pairs.length : (ex.items ? ex.items.length : 0); }
+function exScore(ex){
+  let ok = 0, done = 0; const n = itemCount(ex);
+  for(let i=0;i<n;i++){ const a = S.ans[ex.id+"-"+i]; if(a && a.done){ done++; if(a.ok) ok++; } }
+  return {ok, done, n};
+}
+function totals(){
+  let ok=0, done=0, n=0;
+  for(const ex of EX){ if(!scorable(ex)) continue; const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function tabScore(tabId){
+  let ok=0, done=0, n=0;
+  for(const ex of EX.filter(e=>e.tab===tabId && scorable(e))){ const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function refresh(){
+  const t = totals();
+  $("#fill").style.width = (t.n ? Math.round(t.done/t.n*100) : 0) + "%";
+  $("#score").textContent = `⭐ ${t.ok} / ${t.n}`;
+  for(const b of document.querySelectorAll("nav.tabs button")){
+    const id = b.dataset.id; const ts = b.querySelector(".ts");
+    if(ts) ts.remove();
+    if(STEP_TABS.includes(id)){ const s = tabScore(id); if(s.n && s.done === s.n) b.appendChild(el("span",{class:"ts"}, `${s.ok}/${s.n}`)); }
+  }
+  for(const ex of EX){ const st = document.getElementById("stamp-"+ex.id); if(!st) continue; const s = exScore(ex); if(scorable(ex) && s.n && s.done===s.n){ st.textContent = `✓ DONE ${s.ok}/${s.n}`; st.classList.add("show"); } }
+}
+function rec(id, data){ S.ans[id] = Object.assign(S.ans[id]||{}, data); save(); refresh(); }
+
+/* ================= RENDER: TABS ================= */
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach(t => nav.appendChild(el("button", {"data-id":t.id, class: S.tab===t.id ? "on":"", onclick:()=>go(t.id)}, `${t.ic} ${t.en}`, el("small",{}, t.ru))));
+}
+function go(id){
+  S.tab = id; save();
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+id));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  if(id === "res") renderResults();
+  const btn = document.querySelector(`nav.tabs button[data-id="${id}"]`); if(btn) btn.scrollIntoView({inline:"center", block:"nearest"});
+  window.scrollTo({top: $(".bar").offsetTop, behavior:"smooth"});
+  refresh();
+}
+function panel(id, icon, en, ru){
+  const p = el("section", {class:"panel", id:"p-"+id});
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, icon), el("div",{}, el("h2",{}, en), el("span",{class:"ru"}, ru))));
+  $("#main").appendChild(p); return p;
+}
+function nextBtn(p, toId){
+  const t = TABS.find(x=>x.id===toId);
+  p.appendChild(el("div",{class:"next"}, el("button",{class:"btn gold", onclick:()=>go(toId)}, `Next: ${t.en} →`)));
+}
+
+/* ================= RULES ================= */
+function renderRules(){
+  const p = panel("rules","💡","Nuances","small details that make you sound natural");
+  const ex = (t) => el("div",{class:"exrow"}, el("span",{html:t}), sayBtn(t.replace(/<[^>]+>/g,"")));
+  // 1 similarity
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "1 · Four ways to say “alike”"),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"be like"), el("td",{html:"neutral, spoken: <i>She's <b>like</b> her sister.</i>"})),
+      el("tr",{}, el("td",{},"be similar to"), el("td",{html:"almost the same: <i>My job <b>is similar to</b> yours.</i>"})),
+      el("tr",{}, el("td",{},"resemble"), el("td",{html:"formal, <b>no preposition</b>, no -ing: <i>She <b>resembles</b> her mother.</i>"})),
+      el("tr",{}, el("td",{},"take after"), el("td",{html:"<b>only</b> an older family member: <i>He <b>takes after</b> his grandad.</i>"}))),
+    el("p",{html:"Three questions people often confuse:"}),
+    el("div",{class:"mist"},
+      el("div",{html:"<b>What is she like?</b> → her character: <i>She's kind and a bit shy.</i>"}),
+      el("div",{html:"<b>What does she look like?</b> → her appearance: <i>She's tall, with curly hair.</i>"}),
+      el("div",{html:"<b>What does she like?</b> → her preferences: <i>She likes jazz and hiking.</i>"})),
+    ex("He really takes after his dad, but his flat is similar to mine.")));
+  // 2 fainting register
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "2 · Fainting: three registers"),
+    el("p",{html:"All three mean the same thing. Choose the one that fits the situation:"}),
+    registerMachine(),
+    el("div",{class:"mist", style:"margin-top:10px"},
+      el("div",{html:"<span class='bad'>I lost my consciousness.</span> → <span class='good'>I lost consciousness.</span>"}),
+      el("div",{html:"<b>soaked</b> = completely wet: <i>soaked to the skin, soaked in sweat, get soaked in the rain</i>"}))));
+  // 3 love and proposals
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "3 · Love and proposals"),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"propose to sb"), el("td",{html:"ask someone to marry you: <i>He <b>proposed to</b> her in Rome.</i>"})),
+      el("tr",{}, el("td",{},"pop the question"), el("td",{html:"the same, informal idiom: <i>He finally <b>popped the question</b>!</i>"})),
+      el("tr",{}, el("td",{},"make a proposal"), el("td",{html:"formally suggest a plan: <i>She <b>made a proposal</b> to cut costs.</i>"})),
+      el("tr",{}, el("td",{},"fall out (with sb)"), el("td",{html:"argue and stop being friendly: <i>We <b>fell out</b> last year.</i>"}))),
+    el("div",{class:"mist"},
+      el("div",{html:"<span class='bad'>He popped up the question.</span> → <span class='good'>He popped the question.</span> (<b>pop up</b> = appear suddenly: <i>A message popped up on my screen.</i>)"}),
+      el("div",{html:"<b>emotional</b> = feels strongly, may cry: <i>She got emotional.</i> · <b>emotionally expressive</b> = shows feelings openly with face, voice, hands."}))));
+  // 4 tricky pairs
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "4 · Tricky pairs"),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"historic"), el("td",{html:"important, remembered: <i>a <b>historic</b> moment, a <b>historic</b> victory</i>"})),
+      el("tr",{}, el("td",{},"historical"), el("td",{html:"about the past: <i><b>historical</b> documents, a <b>historical</b> novel</i>"})),
+      el("tr",{}, el("td",{},"an amount of"), el("td",{html:"+ uncountable: <i>a huge <b>amount</b> of traffic / time / money</i>"})),
+      el("tr",{}, el("td",{},"a number of"), el("td",{html:"+ plural: <i>a large <b>number</b> of tourists / problems</i>"})),
+      el("tr",{}, el("td",{},"get away"), el("td",{html:"verb: <i>I need to <b>get away</b> for a bit.</i>"})),
+      el("tr",{}, el("td",{},"a getaway"), el("td",{html:"noun, one word: <i>a weekend <b>getaway</b></i>"}))),
+    ex("It was a historic day, and a huge number of people came to the square.")));
+  p.appendChild(el("div",{class:"careful"}, el("h3",{}, "⚠️ Careful with these"),
+    el("ul",{},
+      el("li",{html:"<b>storey</b> (BrE) / <b>story</b> (AmE) = a floor of a building. Before a noun there's no plural: <i>a <b>five-storey</b> building</i> (like <i>a ten-minute walk</i>)."}),
+      el("li",{html:"<b>walk around / wander the streets</b> = go for a walk in town. But <b>live on the streets</b> = be homeless!"}),
+      el("li",{html:"Spelling: <b>skyscraper</b>, <b>infrastructure</b> (uncountable: <span class='bad'>infrastructures</span> is rare), <b>recharge your batteries</b>."}),
+      el("li",{html:"<b>unwind</b> /ʌnˈwaɪnd/ – <b>unwound</b> /ʌnˈwaʊnd/. Rhymes with <i>find – found</i>."}),
+      el("li",{html:"<b>detach from</b> sth = mentally switch off: <i>detach from work</i>. In everyday speech people also say <b>switch off</b>."}),
+      el("li",{html:"<b>pristine</b> /ˈprɪstiːn/: stress on the first syllable. 🔊 Listen below."}))),
+    ex("The beach was pristine and the village was completely untouched."));
+  nextBtn(p, "cards");
+}
+function registerMachine(){
+  const R = {
+    i:["👕 informal","I was so hungry I nearly <b>passed out</b>.","with friends; also after too much alcohol"],
+    n:["🙂 neutral","It was so hot that a woman <b>fainted</b> on the bus.","any situation"],
+    f:["🩺 formal","The patient <b>lost consciousness</b> for two minutes.","news, doctors, reports"],
+  };
+  let mode = "n";
+  const out = el("div",{class:"out"}), note = el("div",{class:"note"});
+  const btns = {};
+  const draw = () => { out.innerHTML = R[mode][1]; note.textContent = "Use it: " + R[mode][2]; Object.entries(btns).forEach(([k,b]) => b.classList.toggle("on", k===mode)); };
+  const box = el("div",{class:"machine", style:"margin-top:10px"},
+    el("b",{}, "🎚️ Register switch"), el("span",{class:"ru", style:"color:#D9DEEA"}, "Tap a register and listen"),
+    out,
+    el("div",{class:"btns"}, ...Object.keys(R).map(k => (btns[k] = el("button",{onclick:()=>{ mode=k; draw(); speak(out.textContent); }}, R[k][0])))),
+    note);
+  draw(); return box;
+}
+
+/* ================= WORDS ================= */
+function renderWords(){
+  const p = panel("words","🗂️","Words from the lesson","listen, read the example, then try the flashcards");
+  for(const g of Object.keys(GROUPS)){
+    const c = el("div",{class:"card wgroup"}, el("h3",{}, GROUPS[g][0], " · ", el("span",{class:"ru-i"}, GROUPS[g][1])));
+    const l = el("div",{class:"wlist"});
+    WORDS.filter(w=>w.g===g).forEach(w => l.appendChild(el("div",{class:"w"}, el("span",{class:"em"}, w.em), el("div",{style:"flex:1"}, el("b",{}, w.en), el("span",{class:"ru"}, w.ru)), sayBtn(w.en.replace(/sb/g,"somebody").replace(/sth/g,"something").replace(/[()]/g,"").replace(/ \/ /g,", ")))));
+    c.appendChild(l); p.appendChild(c);
+  }
+  nextBtn(p, "rules");
+}
+
+/* ================= FLASHCARDS ================= */
+let FC = {order:[], i:0, dir:"en", only:false};
+function fcDeck(){ return FC.order.filter(k => !FC.only || !S.known[WORDS[k].en]); }
+function renderCards(){
+  const p = panel("cards","🃏","Flashcards","tap a card to flip it");
+  FC.order = WORDS.map((_,i)=>i);
+  const tools = el("div",{class:"fc-tools"});
+  const bDir = el("button",{class:"chip", onclick:()=>{ FC.dir = FC.dir==="en"?"ru":"en"; bDir.textContent = FC.dir==="en" ? "Word → meaning" : "Meaning → word"; drawFC(); }}, "Word → meaning");
+  const bShuf = el("button",{class:"chip", onclick:()=>{ FC.order = shuffle(FC.order); FC.i=0; drawFC(); toast("Shuffled"); }}, "🔀 Shuffle");
+  const bOnly = el("button",{class:"chip", onclick:()=>{ FC.only=!FC.only; bOnly.classList.toggle("on",FC.only); FC.i=0; drawFC(); }}, "Only words I'm learning");
+  tools.append(bDir, bShuf, bOnly);
+  const flip = el("div",{class:"flip", tabindex:"0", role:"button", "aria-label":"Flip card"});
+  const inner = el("div",{class:"in"}); flip.appendChild(inner);
+  flip.addEventListener("click", ()=>flip.classList.toggle("turned"));
+  flip.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip.classList.toggle("turned"); } });
+  const count = el("div",{class:"fc-count"});
+  const known = el("div",{class:"track", style:"margin:4px 0 12px"}, el("div",{class:"fill", id:"fcfill"}));
+  const nav = el("div",{class:"fc-nav"},
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i-1+d.length)%d.length; drawFC(); }}, "← Back"),
+    el("button",{class:"b-learn", onclick:()=>{ markFC(false); }}, "Still learning"),
+    el("button",{class:"b-know", onclick:()=>{ markFC(true); }}, "I know it ✓"),
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i+1)%d.length; drawFC(); }}, "Next →"));
+  p.append(el("div",{class:"card"}, tools, flip, count, known, nav));
+  FC.els = {flip, inner, count};
+  drawFC();
+  nextBtn(p, "st1");
+}
+function markFC(k){
+  const d = fcDeck(); if(!d.length) return;
+  const w = WORDS[d[FC.i]]; if(k) S.known[w.en] = 1; else delete S.known[w.en]; save();
+  toast(k ? "Great!" : "We'll practise it");
+  const d2 = fcDeck(); if(FC.only){ if(FC.i >= d2.length) FC.i = 0; } else FC.i = (FC.i+1) % d2.length;
+  drawFC();
+}
+function drawFC(){
+  const {flip, inner, count} = FC.els; flip.classList.remove("turned");
+  const d = fcDeck(); const nk = Object.keys(S.known).length;
+  $("#fcfill").style.width = Math.round(nk/WORDS.length*100)+"%";
+  if(!d.length){ inner.innerHTML = ""; inner.appendChild(el("div",{class:"face front"}, el("div",{class:"big"}, "🎉"), el("p",{}, "You know all the words!"))); count.textContent = `Known: ${nk} / ${WORDS.length}`; return; }
+  const w = WORDS[d[FC.i]];
+  const en = el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en), sayBtn(w.en.replace(/sb/g,"somebody").replace(/sth/g,"something").replace(/[()]/g,"").replace(/ \/ /g,", ")));
+  const ru = el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru));
+  const front = el("div",{class:"face front"}, FC.dir==="en" ? en : ru, el("div",{class:"hint"}, "tap to flip"));
+  const backC = FC.dir==="en" ? el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru)) : el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en));
+  const back = el("div",{class:"face back"}, backC, el("div",{class:"ex"}, w.ex, " ", sayBtn(w.ex)), el("div",{class:"hint"}, S.known[w.en] ? "✓ known" : "tap to flip back"));
+  inner.innerHTML = ""; inner.append(front, back);
+  count.textContent = `Card ${FC.i+1} / ${d.length} · Known: ${nk} / ${WORDS.length}`;
+}
+
+/* ================= EXERCISES ================= */
+function renderCase(tabId, icon, next){
+  const p = panel(tabId, icon, CASE_TITLES[tabId][0], CASE_TITLES[tabId][1]);
+  if(tabId === STORY_TAB) p.appendChild(storyCard());
+  for(const ex of EX.filter(e=>e.tab===tabId)){
+    const c = el("div",{class:"card"});
+    c.appendChild(el("div",{class:"case-head"}, el("div",{}, el("h3",{}, ex.title), el("span",{class:"ru"}, ex.ru)), el("span",{class:"stamp", id:"stamp-"+ex.id})));
+    const [ie, ir] = ex.instr.split(" · ");
+    c.appendChild(el("p",{class:"instr"}, ie, ir ? el("span",{class:"ru"}, ir) : null));
+    if(ex.bank) c.appendChild(el("div",{class:"opts", style:"margin:0 0 6px"}, ...ex.bank.map(b => el("span",{class:"opt", style:"background:var(--must-soft);border-color:var(--must-soft);cursor:default"}, b))));
+    if(ex.type==="choice") ex.items.forEach((it,i)=>c.appendChild(choiceItem(ex,it,i)));
+    if(ex.type==="typed" || ex.type==="translate") ex.items.forEach((it,i)=>c.appendChild(typedItem(ex,it,i)));
+    if(ex.type==="tiles") ex.items.forEach((it,i)=>c.appendChild(tilesItem(ex,it,i)));
+    if(ex.type==="match") c.appendChild(matchEx(ex));
+    if(ex.type==="write") c.appendChild(writeEx(ex));
+    p.appendChild(c);
+  }
+  nextBtn(p, next);
+}
+function qLine(n, html){ return el("div",{class:"q"}, el("span",{class:"n"}, String(n)), el("span",{html})); }
+function gapHtml(q, fill){ const suf = /\w___/.test(q) ? " suf" : ""; return esc(q).replace("___", fill ? `<span class="gap ok${suf}">${esc(fill)}</span>` : `<span class="gap${suf}">&nbsp;</span>`); }
+function fbBox(){ return el("div",{class:"fb"}); }
+function showFb(fb, ok, why, extra){
+  fb.className = "fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? pick(PRAISE) : pick(OOPS)}</b>${extra ? " "+extra : ""}${why ? `<span class="why">${why}</span>` : ""}`;
+}
+
+function choiceItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const st = S.ans[id];
+  let qEl;
+  if(ex.sort) qEl = el("div",{class:"sortw"}, el("span",{class:"n", style:"width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center"}, String(i+1)), it.word, sayBtn(it.word));
+  else if(ex.syl) qEl = qLine(i+1, `<span class="mono">${esc(it.word)}</span>`);
+  else if(ex.listen) qEl = qLine(i+1, "Which word do you hear?");
+  else qEl = qLine(i+1, gapHtml(it.q, st && st.done ? it.o[it.a].replace(/^-/,"") : null));
+  wrap.appendChild(qEl);
+  if(ex.syl) wrap.appendChild(el("div",{style:"margin:-2px 0 8px 40px"}, sayBtn(it.word)));
+  if(it.pic) wrap.appendChild(el("div",{class:"pic"}, el("span",{class:"emo"}, it.pic)));
+  if(ex.listen) wrap.appendChild(el("button",{class:"listen", onclick:()=>speak(it.word)}, "🔊 Listen"));
+  const opts = el("div",{class:"opts" + (ex.syl ? " syl":"")});
+  const fb = fbBox();
+  const btns = it.o.map((o,j) => el("button",{class:"opt", onclick:()=>choose(j)}, o));
+  btns.forEach(b=>opts.appendChild(b));
+  wrap.append(opts, fb);
+  function paint(given){
+    btns.forEach((b,j)=>{ b.disabled = true; if(j===it.a) b.classList.add("right"); else if(j===given) b.classList.add("wrong"); });
+  }
+  function fullSentence(){ return it.q && it.q.includes("___") ? it.q.replace("___", it.o[it.a].replace(/^-/,"")) : (it.word || it.o[it.a]); }
+  function choose(j){
+    if(S.ans[id] && S.ans[id].done) return;
+    const ok = j === it.a;
+    rec(id, {done:true, ok, given:it.o[j]});
+    paint(j);
+    if(it.gap) fillGap(it, ok);
+    if(!ex.sort && !ex.syl && !ex.listen && it.q && it.q.includes("___")) qEl.querySelector("span:last-child").innerHTML = gapHtml(it.q, it.o[it.a].replace(/^-/,""));
+    showFb(fb, ok, it.why, ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`);
+    if(ok){ if(it.say) speak(it.say); else if(it.word) speak(it.word); else if(!ex.tf) speak(fullSentence()); }
+  }
+  if(st && st.done){ paint(it.o.indexOf(st.given)); showFb(fb, st.ok, it.why, st.ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`); }
+  return wrap;
+}
+
+function typedItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const isTr = ex.type === "translate";
+  wrap.appendChild(qLine(i+1, isTr ? `🇷🇺 ${esc(it.q)}` : it.q.includes("___") ? gapHtml(it.q) : it.q));
+  const inp = el("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"answer", placeholder: isTr ? "Write in English" : "Type here"});
+  const btn = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const fb = fbBox();
+  const selfRow = el("div",{class:"tilebtns", style:"display:none;margin-top:8px"});
+  wrap.append(el("div",{class:"tin"}, inp, btn), fb, selfRow);
+  inp.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+  function lock(ok, given, extra){
+    inp.disabled = true; btn.disabled = true; inp.value = given;
+    inp.classList.remove("ok","no"); inp.classList.add(ok ? "ok" : "no");
+    const modelShown = ok ? "" : `→ <b>${esc(it.model)}</b>`;
+    showFb(fb, ok, it.why || "", (extra||"") + modelShown);
+    if(ok) speak(it.q.includes("___") ? it.q.replace("___", it.model) : it.model);
+  }
+  function check(){
+    const st = S.ans[id] || {};
+    if(st.done) return;
+    const v = inp.value.trim(); if(!v){ toast("Write your answer"); return; }
+    const tries = (st.tries||0) + 1;
+    const ok = matches(v, it.accept);
+    let note = "";
+    if(ok && /\?$/.test(it.model) && !/\?\s*$/.test(v)) note = "(Don't forget the question mark.) ";
+    if(ok){ rec(id,{done:true, ok:true, given:v, tries}); lock(true, v, note); return; }
+    if(tries < 2){ rec(id,{tries, given:v}); inp.classList.add("no"); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 ${it.hint}</span>`; inp.focus(); setTimeout(()=>inp.classList.remove("no"), 700); return; }
+    if(isTr){
+      rec(id,{tries, given:v});
+      inp.disabled = true; btn.disabled = true;
+      fb.className="fb show no"; fb.innerHTML = `<b>Compare:</b> ${esc(it.model)}<span class="why">If your version is also correct, tap “My answer is also correct”.</span>`;
+      selfRow.style.display = "flex"; selfRow.innerHTML = "";
+      selfRow.append(
+        el("button",{class:"btn teal", onclick:()=>{ rec(id,{done:true, ok:true, self:true, given:v}); selfRow.style.display="none"; lock(true, v, "(self-checked) "); }}, "My answer is also correct ✓"),
+        el("button",{class:"btn alt", onclick:()=>{ rec(id,{done:true, ok:false, given:v}); selfRow.style.display="none"; lock(false, v); }}, "OK, I see"));
+      return;
+    }
+    rec(id,{done:true, ok:false, given:v, tries}); lock(false, v);
+  }
+  const st = S.ans[id];
+  if(st && st.done) lock(st.ok, st.given, st.self ? "(self-checked) " : "");
+  else if(st && st.given) inp.value = st.given;
+  return wrap;
+}
+
+function tilesItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const words = it.a.split(" ");
+  wrap.appendChild(qLine(i+1, `<span class="ru-i">🇷🇺 ${esc(it.ru)}</span>`));
+  const line = el("div",{class:"line", "aria-label":"your sentence"}), pool = el("div",{class:"pool"}), fb = fbBox();
+  let order = shuffle(words.map((w,k)=>k)); if(order.every((k,j)=>k===j)) order = order.reverse();
+  const chosen = [];
+  const draw = () => {
+    line.innerHTML = ""; pool.innerHTML = "";
+    chosen.forEach((k,pos)=>line.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.splice(pos,1); draw(); }}, words[k])));
+    order.filter(k=>!chosen.includes(k)).forEach(k=>pool.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.push(k); draw(); }}, words[k])));
+  };
+  const done = () => S.ans[id] && S.ans[id].done;
+  const bCheck = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const bClear = el("button",{class:"btn alt", onclick:()=>{ if(done()) return; chosen.length=0; draw(); }}, "Clear");
+  wrap.append(line, pool, el("div",{class:"tilebtns"}, bCheck, bClear), fb);
+  function finish(ok, given){
+    bCheck.disabled = true; bClear.disabled = true;
+    line.innerHTML = ""; it.a.split(" ").forEach(w=>line.appendChild(el("span",{class:"tile", style: ok ? "background:var(--teal);color:#fff" : ""}, w))); pool.innerHTML = "";
+    showFb(fb, ok, "", ok ? "" : `→ <b>${esc(it.a)}</b><span class="why">Your answer: ${esc(given)}</span>`);
+    if(ok) speak(it.a);
+  }
+  function check(){
+    if(done()) return;
+    if(chosen.length !== words.length){ toast("Use all the words"); return; }
+    const given = chosen.map(k=>words[k]).join(" ");
+    const tries = ((S.ans[id]||{}).tries||0) + 1;
+    if(norm(given) === norm(it.a)){ rec(id,{done:true, ok:true, given, tries}); finish(true, given); return; }
+    if(tries < 2){ rec(id,{tries, given}); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 The first word is: <b>${esc(words[0])}</b></span>`; return; }
+    rec(id,{done:true, ok:false, given, tries}); finish(false, given);
+  }
+  if(done()) finish(S.ans[id].ok, S.ans[id].given); else draw();
+  return wrap;
+}
+
+function matchEx(ex){
+  const box = el("div",{class:"match"}), L = el("div",{class:"col"}), R = el("div",{class:"col"});
+  const fb = el("div",{class:"fb", style:"margin-left:0"});
+  let sel = null;
+  const rights = shuffle(ex.pairs.map((p,i)=>i));
+  const lb = ex.pairs.map((p,i)=>el("button",{class:"mt", onclick:()=>{ if(isDone(i)) return; sel=i; lb.forEach(b=>b.classList.remove("sel")); lb[i].classList.add("sel"); speak(p[0]); }}, "🔊 "+p[0]));
+  const rb = {};
+  rights.forEach(i=>{ rb[i] = el("button",{class:"mt", onclick:()=>tapR(i)}, ex.pairs[i][1]); });
+  const isDone = (i) => S.ans[ex.id+"-"+i] && S.ans[ex.id+"-"+i].done;
+  function tapR(i){
+    if(sel===null){ toast(ex.leftHint || "First tap an English word"); return; }
+    if(isDone(i)) return;
+    const id = ex.id+"-"+sel, st = S.ans[id] || {};
+    if(i === sel){
+      rec(id,{done:true, ok:!st.wrong, given: ex.pairs[i][1]});
+      lb[sel].classList.remove("sel"); lb[sel].classList.add("done"); rb[i].classList.add("done");
+      showFb(fb, true, `${ex.pairs[i][0]}${ex.sep || " = "}${ex.pairs[i][1]}`); sel = null;
+    } else {
+      rec(id,{wrong:(st.wrong||0)+1, given: ex.pairs[i][1]});
+      rb[i].classList.add("shake"); setTimeout(()=>rb[i].classList.remove("shake"), 400);
+      showFb(fb, false, "Try another one");
+    }
+  }
+  lb.forEach((b,i)=>{ if(isDone(i)){ b.classList.add("done"); rb[i].classList.add("done"); } });
+  lb.forEach(b=>L.appendChild(b)); rights.forEach(i=>R.appendChild(rb[i]));
+  box.append(L,R);
+  return el("div",{}, box, fb);
+}
+
+function writeEx(ex){
+  const ta = el("textarea",{placeholder: ex.prompt, "aria-label":ex.title});
+  ta.value = S.write[ex.id] || "";
+  const wc = el("div",{class:"wc"});
+  const upd = () => { const n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; wc.textContent = `${n} words, saved automatically`; };
+  ta.addEventListener("input", ()=>{ S.write[ex.id] = ta.value; save(); upd(); });
+  upd();
+  return el("div",{}, ta, wc);
+}
+
+function storyCard(){
+  const c = el("div",{class:"story"});
+  c.appendChild(el("div",{class:"case-head"}, el("h3",{}, "🏔️ " + STORY_TITLE)));
+  c.appendChild(el("span",{class:"ru", style:"margin-bottom:4px"}, STORY_INTRO));
+  const cl = EX.find(e=>e.cloze);
+  STORY.split("\n").forEach(par => {
+    const p = el("p",{});
+    p.innerHTML = esc(par).replace(/\{(\d+)\}/g, (m,n) => `<span class="cgap" id="cg-${n}">(${n})</span>`);
+    c.appendChild(p);
+  });
+  if(cl) cl.items.forEach((it,k)=>{ const a = S.ans[cl.id+"-"+k]; if(a && a.done) setTimeout(()=>fillGap(it, a.ok), 0); });
+  return el("div",{class:"card", style:"padding:0;background:none;box-shadow:none"}, c);
+}
+function fillGap(it, ok){ const g = document.getElementById("cg-"+it.gap); if(!g) return; g.textContent = it.o[it.a]; g.className = "cgap " + (ok ? "ok" : "no"); }
+
+/* ================= RESULTS & REPORT ================= */
+function rankFor(p){
+  if(p >= 95) return ["🏆 Hidden gem","Brilliant. Time to unwind!"];
+  if(p >= 80) return ["🏔️ Mountain explorer","Excellent. Review the few slips below."];
+  if(p >= 50) return ["🚗 On the road","Good progress. Go over your mistakes and the flashcards."];
+  return ["🏙️ Still in the city","Review the words and nuances, then try again."];
+}
+function mistakes(){
+  const out = [];
+  for(const ex of EX){
+    if(ex.type === "write") continue;
+    const n = itemCount(ex);
+    for(let i=0;i<n;i++){
+      const a = S.ans[ex.id+"-"+i]; if(!a || !a.done || a.ok) continue;
+      let q, right;
+      if(ex.type==="match"){ q = ex.pairs[i][0]; right = ex.pairs[i][1]; }
+      else { const it = ex.items[i]; q = it.q || it.word || it.ru || ""; right = ex.type==="choice" ? it.o[it.a] : (it.model || it.a); }
+      out.push({ex:ex.title, q:q.replace(/<[^>]+>/g,""), given:a.given || "—", right});
+    }
+  }
+  return out;
+}
+function report(){
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0;
+  const L = [];
+  L.push(`HOMEWORK: ${TOPIC}`);
+  L.push(`Student: ${S.name}`);
+  L.push(`Date: ${new Date().toLocaleDateString("en-GB")}`);
+  L.push(`Score: ${t.ok}/${t.n} (${pct}%) — answered ${t.done}/${t.n}`);
+  L.push(`Flashcards known: ${Object.keys(S.known).length}/${WORDS.length}`);
+  L.push("");
+  L.push("BY EXERCISE:");
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); L.push(`- ${ex.title}: ${s.ok}/${s.n}${s.done<s.n ? ` (not finished: ${s.done}/${s.n})` : ""}`); }
+  const m = mistakes();
+  L.push(""); L.push(`MISTAKES (${m.length}):`);
+  m.forEach(x=>L.push(`- [${x.ex}] ${x.q} → wrote: ${x.given} | correct: ${x.right}`));
+  const selfs = Object.entries(S.ans).filter(([k,v])=>v.self);
+  if(selfs.length){ L.push(""); L.push("SELF-CHECKED TRANSLATIONS (please check):"); selfs.forEach(([k,v])=>{ const ex = EX.find(e=>k.startsWith(e.id+"-")); const it = ex.items[+k.split("-")[1]]; L.push(`- ${it.q} → ${v.given}`); }); }
+  L.push(""); L.push("ALL TYPED ANSWERS:");
+  for(const ex of EX.filter(e=>["typed","translate","tiles"].includes(e.type))){ ex.items.forEach((it,i)=>{ const a = S.ans[ex.id+"-"+i]; if(a && a.given) L.push(`- ${(it.q||it.ru).replace(/<[^>]+>/g,"")} → ${a.given}${a.done ? (a.ok ? " ✓" : " ✗") : ""}`); }); }
+  if(EX.some(e=>e.type==="write")){ L.push(""); L.push("WRITING:"); }
+  for(const ex of EX.filter(e=>e.type==="write")){ L.push(`${ex.title}:`); L.push((S.write[ex.id]||"").trim() || "(empty)"); L.push(""); }
+  return L.join("\n");
+}
+function short(txt){ return txt.length <= 1500 ? txt : txt.slice(0,1450).replace(/\n[^\n]*$/,"") + "\n…\n(Full report: use “Copy text”)"; }
+function renderResults(){
+  const p = $("#p-res"); p.innerHTML = "";
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, "🏆"), el("div",{}, el("h2",{}, "Your results"), el("span",{class:"ru"}, "Send them to your teacher at the bottom"))));
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0, rk = rankFor(pct);
+  const ring = el("div",{class:"ring", style:`background:conic-gradient(var(--teal) ${pct*3.6}deg,var(--tint) 0deg)`}, el("span",{}, pct+"%"));
+  p.appendChild(el("div",{class:"card"}, el("div",{class:"big-score"}, ring, el("div",{},
+    el("div",{class:"rank"}, rk[0]), el("span",{class:"ru"}, rk[1]),
+    el("p",{}, `⭐ ${t.ok} / ${t.n} · answered: ${t.done} / ${t.n}`),
+    el("p",{class:"muted", style:"margin:0"}, `🃏 Flashcards known: ${Object.keys(S.known).length} / ${WORDS.length}`)))));
+  if(t.done < t.n) p.appendChild(el("p",{class:"careful", style:"padding:10px 16px"}, `Some tasks are not finished yet (${t.n - t.done} left).`));
+  const tb = el("table",{class:"brk"});
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); tb.appendChild(el("tr",{}, el("td",{}, ex.title), el("td",{}, `${s.ok}/${s.n}`))); }
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "By exercise"), tb));
+  const m = mistakes();
+  const ml = el("div",{class:"mlist"});
+  if(!m.length) ml.appendChild(el("div",{}, t.done ? "No mistakes — amazing!" : "Nothing here yet"));
+  m.forEach(x=>ml.appendChild(el("div",{html:`<b>${esc(x.q)}</b><br><span class="bad">${esc(x.given)}</span> → <span class="good">${esc(x.right)}</span>`})));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Mistakes to remember"), ml));
+  const w = EX.filter(e=>e.type==="write").map(ex => el("div",{style:"margin-bottom:8px"}, el("b",{}, ex.title), el("div",{style:"white-space:pre-wrap"}, (S.write[ex.id]||"").trim() || "— (empty)")));
+  if(w.length) p.appendChild(el("div",{class:"card"}, el("h3",{}, "Your writing"), ...w));
+  // send
+  const rep = report(), subj = `${TOPIC} — ${S.name} — ${t.ok}/${t.n}`, sh = short(rep);
+  const send = el("div",{class:"send"});
+  if(navigator.share) send.appendChild(el("button",{class:"s-share", onclick:()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); }}, "📤 Share"));
+  send.append(
+    el("a",{class:"s-gm", target:"_blank", rel:"noopener", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "Send in Gmail"),
+    el("a",{class:"s-tg", target:"_blank", rel:"noopener", href:`https://t.me/share/url?url=${encodeURIComponent(subj)}&text=${encodeURIComponent(sh)}`}, "Telegram"),
+    el("a",{class:"s-wa", target:"_blank", rel:"noopener", href:`https://wa.me/?text=${encodeURIComponent(subj+"\n"+sh)}`}, "WhatsApp"),
+    el("a",{class:"s-ml", href:`mailto:${TEACHER}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "✉️ Email app"),
+    el("button",{class:"s-cp", onclick:()=>copy(rep)}, "📋 Copy text"));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Send to your teacher"),
+    el("p",{html:`Teacher's email: <span class="email">${TEACHER}</span>`}),
+    el("p",{class:"muted", style:"font-size:14px"}, "Gmail, Telegram, WhatsApp and Email send a short version. “Share” and “Copy text” give the full report."),
+    send, el("details",{style:"margin-top:10px"}, el("summary",{}, "Show the report"), el("pre",{style:"white-space:pre-wrap;font-size:13px;background:var(--tint);padding:10px;border-radius:10px"}, rep))));
+  // reset
+  const conf = el("div",{class:"confirm"}, el("b",{}, "Delete all answers?"),
+    el("button",{class:"btn", style:"background:var(--crim)", onclick:()=>{ S = {name:S.name, ans:{}, known:{}, write:{}, tab:TABS[0].id}; save(); location.reload(); }}, "Yes"),
+    el("button",{class:"btn alt", onclick:()=>conf.classList.remove("show")}, "No"));
+  p.appendChild(el("div",{class:"card"}, el("button",{class:"btn alt", onclick:()=>conf.classList.add("show")}, "↺ Start again"), conf));
+}
+function copy(txt){
+  const ok = () => toast("Copied!");
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok).catch(fallback); } else fallback();
+  function fallback(){ const ta = el("textarea",{style:"position:fixed;top:-1000px"}); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); ok(); }catch(e){ toast("Select and copy the report below"); } ta.remove(); }
+}
+
+/* ================= INIT ================= */
+function init(){
+  const nmI = $("#nm"); nmI.value = (S.name && S.name !== DEFAULT_NAME) ? S.name : ""; $("#hname").textContent = nmI.value || "you";
+  nmI.addEventListener("input", ()=>{ S.name = nmI.value.trim() || DEFAULT_NAME; $("#hname").textContent = nmI.value.trim() || "you"; save(); });
+  renderTabs();
+  renderRules(); renderWords(); renderCards();
+  renderCase("st1","🔍","st2"); renderCase("st2","🔗","st3"); renderCase("st3","🏔️","res");
+  panel("res","🏆","Results","");
+  const start = TABS.some(t=>t.id===S.tab) ? S.tab : TABS[0].id;
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+start));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === start));
+  if(start === "res") renderResults();
+  refresh();
+}
+init();
+</script>
+</body>
+</html>
