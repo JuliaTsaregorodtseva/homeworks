@@ -830,7 +830,7 @@ function buildReport(){
   const mist=[], self=[];
   EX.forEach(ex=>ex.items.forEach((it,i)=>{
     const st=S(ex,i); if(!st.done) return;
-    const q=it.q||strip(it.p).replace(/\s+/g," ");
+    const q=it.q||(it.p?strip(it.p).replace(/\s+/g," "):"Word order");
     if(!st.correct) mist.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" — correct: "${correctText(ex,it)}"`);
     else if(st.self) self.push(`[Ex ${ex.n}.${i+1}] ${q} — answer: "${givenText(ex,st)}" (model: "${correctText(ex,it)}")`);
   }));
@@ -858,7 +858,7 @@ function renderResults(){
   h+=`<div class="tot"><span><b style="font-size:1.1rem;font-family:Nunito,sans-serif">TOTAL</b><br><span class="small">${pct}% · answered ${t.d} of ${t.n}</span></span><b>${t.c} / ${t.n}</b></div><p class="thanks">${msg}</p>`;
   document.getElementById("bill").innerHTML=h;
   const mist=[];
-  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q||strip(it.p))}<br>Your answer: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
+  EX.forEach(ex=>ex.items.forEach((it,i)=>{ const st=S(ex,i); if(st.done&&!st.correct) mist.push(`<li><span class="small">Ex ${ex.n}.${i+1}</span> ${esc(it.q||(it.p?strip(it.p):"Word order"))}<br>Your answer: <s>${esc(givenText(ex,st))}</s> → <span class="model">${esc(correctText(ex,it))}</span></li>`); }));
   const mc=document.getElementById("mistCard");
   mc.style.display = t.d? "" : "none";
   mc.innerHTML = mist.length ? `<div class="kicker">Look again</div><h3>Your mistakes</h3><ol class="mlist">${mist.join("")}</ol>` : `<div class="kicker">Look again</div><h3>No mistakes so far 🎉</h3>`;
