@@ -216,6 +216,41 @@ svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
   .mt{font-size:15px;padding:8px}
   .card{padding:14px}
 }
+/* ===== desktop layout ===== */
+@media (min-width:1100px){
+  .wrap{max-width:1280px;padding:0 48px}
+  header.hero{padding-top:44px}
+  .hero h1{font-size:52px;margin:12px 0 10px}
+  .hero p{font-size:19px;max-width:820px}
+  .howto{display:inline-block;font-size:16px;padding:12px 18px}
+  .hero .badge{width:320px;height:320px;right:-80px;top:-90px}
+  nav.tabs{gap:10px;overflow:visible}
+  nav.tabs button{flex:1 1 0;font-size:15px;padding:10px 12px;min-height:54px}
+  nav.tabs button small{font-size:12px}
+  main{padding:30px 0 80px}
+  .ptitle{margin:8px 0 22px}
+  .ptitle h2{font-size:32px}
+  .ptitle .ic{width:60px;height:60px;font-size:30px}
+  .card,.rule{padding:24px 28px}
+  /* rules: two columns */
+  #p-rules.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  #p-rules.on > .ptitle, #p-rules.on > .next, #p-rules.on > .careful{grid-column:1/-1}
+  /* exercises: items side by side */
+  .card:has(> .item){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
+  .card:has(> .item) > :not(.item){grid-column:1/-1}
+  /* story steps: text sticky on the left, tasks on the right */
+  section.panel.on:has(.story){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:28px;align-items:start}
+  section.panel.on:has(.story) > *{grid-column:1/-1}
+  section.panel.on:has(.story) > .card:has(.story){grid-column:1;grid-row:3 / span 20;position:sticky;top:150px;align-self:start}
+  section.panel.on:has(.story) > .card:not(:has(.story)){grid-column:2}
+  section.panel.on:has(.story) > .next{grid-row:auto}
+  section.panel.on:has(.story) .card:has(> .item){display:block}
+  .story{font-size:18px;line-height:1.75}
+  /* writing: two tasks side by side */
+  section.panel.on:has(textarea){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  section.panel.on:has(textarea) > .ptitle, section.panel.on:has(textarea) > .rule, section.panel.on:has(textarea) > .next{grid-column:1/-1}
+  section.panel.on:has(textarea) textarea{min-height:220px}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
