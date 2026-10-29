@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meeting Words Warm-up</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a turn bar on top, then two boards side by side: the backlog of expressions and the "Guessed" column (stacked on phones) */
+:root{
+  --bg:#F2F0F6; --surface:#FFFFFF; --ink:#211B33; --muted:#686179; --line:#DDD7E7;
+  --pool:#E9E5F1; --done:#E1F1EB;
+  --p1:#E2A72E; --p1-soft:#FBEFD3; --on-p1:#2A1F05;
+  --p2:#B4235A; --p2-soft:#F8E1EA; --on-p2:#FFFFFF;
+  --jade:#17806A; --focus:#5B4BD6;
+  --shadow:0 1px 2px rgba(33,27,51,.07),0 8px 20px rgba(33,27,51,.08);
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15111E; --surface:#211B2F; --ink:#F1EDF8; --muted:#A99FBE; --line:#362D4A;
+  --pool:#1C1728; --done:#11241E;
+  --p1:#F2C15A; --p1-soft:#3A2E14; --on-p1:#231A04;
+  --p2:#F06A9A; --p2-soft:#3B1A2A; --on-p2:#25060F;
+  --jade:#4CCFA8; --focus:#9D92FF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.35); color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#15111E; --surface:#211B2F; --ink:#F1EDF8; --muted:#A99FBE; --line:#362D4A;
+  --pool:#1C1728; --done:#11241E;
+  --p1:#F2C15A; --p1-soft:#3A2E14; --on-p1:#231A04;
+  --p2:#F06A9A; --p2-soft:#3B1A2A; --on-p2:#25060F;
+  --jade:#4CCFA8; --focus:#9D92FF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.35); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.45}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:16px}
+
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,4.4vw,46px);line-height:1.02;margin:4px 0 6px;text-wrap:balance;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--p2)}
+.lede{margin:0;color:var(--muted);max-width:62ch}
+
+/* turn bar */
+.turnbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:var(--shadow)}
+.player{display:flex;align-items:center;gap:10px;border-radius:14px;padding:6px 8px 6px 12px;border:2px solid transparent;flex:1 1 220px;min-width:0;transition:background .2s,border-color .2s}
+.player.p1{background:var(--p1-soft)} .player.p2{background:var(--p2-soft)}
+.player.on.p1{border-color:var(--p1)} .player.on.p2{border-color:var(--p2)}
+.dot{width:14px;height:14px;border-radius:50%;flex:0 0 auto}
+.p1 .dot{background:var(--p1)} .p2 .dot{background:var(--p2)}
+.player input{border:0;background:transparent;font-weight:700;min-width:0;width:100%;padding:6px 2px;border-radius:8px}
+.player input:hover{background:color-mix(in srgb,var(--surface) 60%,transparent)}
+.score{font-family:var(--f-mono);font-weight:700;font-size:22px;font-variant-numeric:tabular-nums;min-width:2ch;text-align:right}
+.now{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:99px;white-space:nowrap;visibility:hidden}
+.player.on .now{visibility:visible}
+.p1 .now{background:var(--p1);color:var(--on-p1)} .p2 .now{background:var(--p2);color:var(--on-p2)}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 14px;min-height:44px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--muted)}
+.btn.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.small{min-height:38px;padding:6px 11px;font-size:14px}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);min-height:44px;padding:0 4px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--jade)}
+.timer{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:12px;padding:3px 4px 3px 10px;min-height:44px}
+.timer .t{font-family:var(--f-mono);font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;min-width:4.2ch}
+.timer select{border:0;background:transparent;font-size:14px;color:var(--muted);cursor:pointer}
+.timer.up{border-color:var(--p2);animation:blink .5s 6 alternate}
+.timer.up .t{color:var(--p2)}
+@keyframes blink{to{background:var(--p2-soft)}}
+
+/* boards */
+.boards{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px;align-items:start}
+.zone{border-radius:24px;padding:16px;min-height:62vh;display:flex;flex-direction:column;gap:12px;border:2px dashed transparent;transition:border-color .15s,background .15s}
+.zone.pool{background:var(--pool)} .zone.done{background:var(--done)}
+@media (min-width:781px){ .zone.done{position:sticky;top:calc(12px + env(safe-area-inset-top, 0px));max-height:calc(100vh - 24px);overflow-y:auto} }
+.zone.over{border-color:var(--jade)}
+.zone.pool.over{border-color:var(--focus)}
+.zhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.zhead h2{font-family:var(--f-display);font-weight:700;font-size:22px;margin:0;display:flex;align-items:baseline;gap:8px}
+.count{font-family:var(--f-mono);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:6px 10px;min-height:36px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.hint{font-size:13px;color:var(--muted);margin:0}
+
+.cards{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;padding:4px 2px 8px}
+.card{position:relative;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px 11px;box-shadow:var(--shadow);cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;transform:rotate(var(--r,0deg));transition:transform .15s,box-shadow .15s,opacity .15s;max-width:100%}
+.card:hover{transform:rotate(0deg) translateY(-2px)}
+.card .tag{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.card .ex{font-family:var(--f-display);font-weight:700;font-size:19px;line-height:1.15;overflow-wrap:anywhere}
+.card.dragging{opacity:.25}
+.card.sel{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 30%,transparent),var(--shadow)}
+.card.pulse{animation:pulse .9s ease-in-out 3}
+@keyframes pulse{50%{transform:rotate(0deg) scale(1.08)}}
+.card .go{display:none;margin-top:8px;border:0;border-radius:9px;padding:6px 10px;min-height:36px;font-size:13px;font-weight:700;background:var(--jade);color:var(--surface);cursor:pointer}
+.card.sel .go{display:inline-flex}
+.ghost{position:fixed;top:0;left:0;z-index:50;pointer-events:none;box-shadow:0 18px 40px rgba(0,0,0,.25);cursor:grabbing}
+
+.done .cards{flex-direction:column;flex-wrap:nowrap}
+.done .card{--r:0deg;width:100%;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:start}
+.done .card .dot{margin-top:6px}
+.done .card.by0{background:var(--p1-soft);border-color:color-mix(in srgb,var(--p1) 55%,transparent)}
+.done .card.by1{background:var(--p2-soft);border-color:color-mix(in srgb,var(--p2) 55%,transparent)}
+.done .card .meaning{grid-column:2;display:none;font-size:15px;line-height:1.4}
+.done .card .meaning i{display:block;color:var(--muted);margin-top:3px}
+.done .card.flip .meaning{display:block}
+.empty{margin:auto;text-align:center;color:var(--muted);max-width:30ch;padding:30px 10px}
+.empty b{display:block;font-family:var(--f-display);font-size:22px;color:var(--ink);margin-bottom:4px}
+
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.confirm{display:inline-flex;align-items:center;gap:8px}
+.confirm[hidden]{display:none!important}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;z-index:60;box-shadow:var(--shadow)}
+
+@media (max-width:780px){
+  .boards{grid-template-columns:1fr}
+  .zone{min-height:auto}
+  .zone.done{min-height:180px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Warm-up · expressions from our past two lessons</div>
+      <h1>Explain it, <em>drag it</em></h1>
+      <p class="lede">Take turns: one person explains an expression without saying it, the other guesses. Guessed it? Drag the card to <b>Guessed</b>.</p>
+    </div>
+  </header>
+
+  <section class="turnbar" aria-label="Players and turn">
+    <div class="player p1" id="pl0">
+      <span class="dot"></span>
+      <input id="name0" aria-label="Player 1 name" value="Teacher" maxlength="20">
+      <span class="now">explaining</span>
+      <span class="score" id="sc0">0</span>
+    </div>
+    <div class="player p2" id="pl1">
+      <span class="dot"></span>
+      <input id="name1" aria-label="Player 2 name" value="Student" maxlength="20">
+      <span class="now">explaining</span>
+      <span class="score" id="sc1">0</span>
+    </div>
+    <div class="controls">
+      <button class="btn solid" id="switch" type="button">⇄ Switch turn</button>
+      <label class="chk"><input type="checkbox" id="auto" checked> switch after each guess</label>
+      <div class="timer" id="timer">
+        <span class="t" id="tval">1:00</span>
+        <select id="tlen" aria-label="Timer length"><option value="30">30 s</option><option value="60" selected>60 s</option><option value="90">90 s</option></select>
+        <button class="btn small" id="tgo" type="button" aria-label="Start timer">▶</button>
+        <button class="btn small" id="treset" type="button" aria-label="Reset timer">↺</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="boards">
+    <section class="zone pool" id="zone-pool" data-zone="pool" aria-label="Expressions to explain">
+      <div class="zhead">
+        <h2>Expressions <span class="count" id="poolCount"></span></h2>
+        <div class="seg" role="group" aria-label="Which lesson">
+          <button type="button" data-f="all">All</button>
+          <button type="button" data-f="1">The talk</button>
+          <button type="button" data-f="2">The phrases</button>
+        </div>
+      </div>
+      <div class="zhead">
+        <p class="hint">Drag a card to Guessed, or tap it and press ✓ Guessed.</p>
+        <div class="controls">
+          <button class="btn small" id="random" type="button">🎲 Pick one for me</button>
+          <button class="btn small" id="shuffle" type="button">Shuffle</button>
+        </div>
+      </div>
+      <div class="cards" id="poolCards"></div>
+    </section>
+
+    <section class="zone done" id="zone-done" data-zone="done" aria-label="Guessed expressions">
+      <div class="zhead">
+        <h2>Guessed <span class="count" id="doneCount"></span></h2>
+      </div>
+      <p class="hint">Tap a card to check its meaning. Drag it back if it doesn't count.</p>
+      <div class="cards" id="doneCards"></div>
+    </section>
+  </div>
+
+  <div class="foot">
+    <span class="hint">Lesson 1 · “Own your calendar” talk (31) · Lesson 2 · meeting phrases (15)</span>
+    <div class="controls">
+      <button class="btn small" id="reset" type="button">Start a new game</button>
+      <span class="confirm" id="confirm" hidden>
+        <span class="hint">Move all cards back?</span>
+        <button class="btn small solid" id="yes" type="button">Yes</button>
+        <button class="btn small" id="no" type="button">No</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Expressions (edit here) ===== */
+const DATA = [
+  // Lesson 1 · the talk
+  [1,"gruelling","extremely tiring and demanding","It was a gruelling day: eight meetings and no lunch."],
+  [1,"calendar creep","the slow way meetings fill your calendar until there's no time left","Calendar creep starts with one “quick” meeting."],
+  [1,"a lean calendar","a calendar with only the meetings that really matter","Since I switched to a lean calendar, I actually finish my work."],
+  [1,"inevitable","certain to happen; impossible to avoid","Some delays are inevitable."],
+  [1,"evitable","possible to avoid (rare; we usually say avoidable)","Most of these problems were avoidable."],
+  [1,"(react to) sb's whims","sudden wishes or ideas, often without a good reason","We spend our days reacting to our boss's whims."],
+  [1,"customer demand(s)","what customers want, need or ask for","We can't control customer demands."],
+  [1,"be under the illusion (that)","wrongly believe that something is true","He's under the illusion that everyone enjoys his meetings."],
+  [1,"call / book / grab a meeting","arrange a meeting (grab = informal and quick)","I've got a quick question, so I'll grab a meeting."],
+  [1,"shoot sb a text / an email","send a short message quickly (informal)","Just shoot me a text when you're ready."],
+  [1,"give sb a ring","phone sb (informal, especially BrE)","If you need me, give me a ring."],
+  [1,"ahead of time","before the event; in advance","Send the slides out ahead of time."],
+  [1,"read the deck","read the presentation slides","Please read the deck before Monday's meeting."],
+  [1,"a purpose statement","one sentence that says what a meeting must achieve","Start every invitation with a clear purpose statement."],
+  [1,"come prepared","arrive ready, having done the reading or thinking","We're deciding on the budget. Come prepared."],
+  [1,"digest","think about information until you fully understand it","Give people time to digest the numbers."],
+  [1,"the least number of people","as few people as possible","Invite the least number of people possible."],
+  [1,"defensively","in a way that protects you from criticism or problems","Most of us invite people to meetings defensively."],
+  [1,"cranky","bad-tempered and easily annoyed (informal)","If he isn't invited, he'll get cranky."],
+  [1,"the decision maker","the person with the power to decide","Go directly to the decision maker."],
+  [1,"fear of missing out (FOMO)","worry that others are doing something important without you","We accept meetings out of fear of missing out."],
+  [1,"a subject matter expert","a person who knows a particular topic very well","Delegate the meeting to a subject matter expert."],
+  [1,"implement","put a plan or idea into action","Here are five easy-to-implement steps."],
+  [1,"put sth into practice","start actually doing something you planned or learned","Some leaders put the tips into practice."],
+  [1,"ditch","get rid of; stop using (informal)","Ditch the hour-long meeting."],
+  [1,"let go of sth","stop holding on to a feeling, idea or habit","It's time to let go of those old fears."],
+  [1,"delegate sth to sb","give a task or responsibility to someone else","Delegate the meeting to someone on your team."],
+  [1,"be ruthless with sth","be very firm and not let anything get in the way","Be ruthless with your time."],
+  [1,"uninterrupted","continuous, with no breaks or disturbances","Schedule blocks of uninterrupted time."],
+  [1,"in a vacuum","in isolation, without involving other people","Don't make these changes in a vacuum."],
+  [1,"vital (to)","absolutely necessary or important","Is my opinion vital to this meeting?"],
+  // Lesson 2 · the phrases
+  [2,"pass on sth","to politely say no to an invitation or offer","I think I'm going to pass on today's meeting."],
+  [2,"bow out (of sth)","to withdraw from something you were expected to take part in","I'll have to bow out of this session. My plate is full."],
+  [2,"sit sth out","to not take part in an activity and wait until it's over","Do you need me on this call, or should I sit this one out?"],
+  [2,"my plate is full","I already have too much work to take on anything else","I'd love to help, but my plate is full this month."],
+  [2,"juggle sth","to try to deal with several things at the same time","I'm juggling too many meetings at the moment."],
+  [2,"keep sth lean","to keep something small, with nothing unnecessary","I'm keeping my calendar lean to focus on delivery."],
+  [2,"suffice","to be enough (formal)","A shared document could suffice for this update."],
+  [2,"asynchronously","not at the same time; people contribute when it suits them","I'd prefer to contribute asynchronously."],
+  [2,"key outcomes","the most important results or decisions of a meeting","Just send me the key outcomes afterwards."],
+  [2,"keep sb in the loop","to keep someone informed about what is happening","Keep me in the loop on any key outcomes."],
+  [2,"loop sb in","to include someone in a conversation or email thread","I'll loop Anna in so she sees the update."],
+  [2,"bring sb up to speed (on sth)","to give someone all the latest information","Can someone bring me up to speed on the budget?"],
+  [2,"be on top of sth","to be in control of something and know what is happening","Tom is completely on top of the project timeline."],
+  [2,"thorough","careful and complete, paying attention to every detail","She did a thorough review of the contract."],
+  [2,"thoroughly","carefully and completely","I trust you will cover this thoroughly without me."],
+].map(([l,t,d,ex],i)=>({id:"e"+i,l,t,d,ex}));
+const BY_ID = Object.fromEntries(DATA.map(e=>[e.id,e]));
+const KEY = "meeting-words-warmup-v1";
+
+/* ===== state ===== */
+function fresh(){ return {names:["Teacher","Student"], turn:0, auto:true, filter:"all", order:shuffle(DATA.map(e=>e.id)), done:[], by:{}}; }
+let S;
+try{ S = JSON.parse(localStorage.getItem(KEY)) || fresh(); }catch(e){ S = fresh(); }
+if(!S.order || S.order.length !== DATA.length || S.order.some(id=>!BY_ID[id])) S = fresh();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const $ = s => document.querySelector(s);
+const tilt = id => { let h=0; for(const c of id) h=(h*31+c.charCodeAt(0))%997; return ((h%7)-3)*0.9; };
+let selected = null, flipped = new Set();
+
+/* ===== render ===== */
+function cardEl(e, zone){
+  const c = document.createElement("div");
+  c.className = "card"; c.dataset.id = e.id; c.tabIndex = 0; c.setAttribute("role","button");
+  if(zone==="pool"){
+    c.style.setProperty("--r", tilt(e.id)+"deg");
+    c.setAttribute("aria-label", e.t + ". Press Enter to mark as guessed.");
+    c.innerHTML = `<span class="tag">${e.l===1?"the talk":"the phrases"}</span><span class="ex"></span><br><button class="go" type="button">✓ Guessed</button>`;
+    c.querySelector(".ex").textContent = e.t;
+    if(selected===e.id) c.classList.add("sel");
+    c.querySelector(".go").addEventListener("pointerdown", ev=>ev.stopPropagation());
+    c.querySelector(".go").addEventListener("click", ev=>{ ev.stopPropagation(); moveTo(e.id,"done"); });
+  } else {
+    const by = S.by[e.id] ?? 0;
+    c.classList.add("by"+by);
+    if(flipped.has(e.id)) c.classList.add("flip");
+    c.setAttribute("aria-label", e.t + ". Press Enter to show the meaning, Delete to move back.");
+    c.innerHTML = `<span class="dot" title=""></span><span class="ex"></span><span class="meaning"></span>`;
+    c.querySelector(".dot").style.background = by ? "var(--p2)" : "var(--p1)";
+    c.querySelector(".ex").textContent = e.t;
+    const m = c.querySelector(".meaning"); m.textContent = e.d; const i = document.createElement("i"); i.textContent = e.ex; m.appendChild(i);
+  }
+  c.addEventListener("pointerdown", onDown);
+  c.addEventListener("keydown", ev=>{
+    if(zone==="pool" && (ev.key==="Enter"||ev.key===" ")){ ev.preventDefault(); moveTo(e.id,"done"); }
+    if(zone==="done" && (ev.key==="Enter"||ev.key===" ")){ ev.preventDefault(); toggleFlip(e.id); }
+    if(zone==="done" && (ev.key==="Delete"||ev.key==="Backspace")){ ev.preventDefault(); moveTo(e.id,"pool"); }
+  });
+  return c;
+}
+function render(){
+  const pool = $("#poolCards"), done = $("#doneCards");
+  pool.replaceChildren(); done.replaceChildren();
+  const doneSet = new Set(S.done);
+  const left = S.order.filter(id=>!doneSet.has(id));
+  const vis = left.filter(id=> S.filter==="all" || String(BY_ID[id].l)===S.filter);
+  vis.forEach(id=>pool.appendChild(cardEl(BY_ID[id],"pool")));
+  if(!vis.length){
+    const d = document.createElement("div"); d.className="empty";
+    d.innerHTML = left.length ? `<b>Nothing left in this lesson</b>Switch to “All” to keep playing.` : `<b>All ${DATA.length} guessed! 🎉</b><span id="final"></span>`;
+    pool.appendChild(d);
+  }
+  S.done.slice().reverse().forEach(id=>done.appendChild(cardEl(BY_ID[id],"done")));
+  if(!S.done.length){ const d=document.createElement("div"); d.className="empty"; d.innerHTML="<b>Nothing here yet</b>Guessed expressions land here."; done.appendChild(d); }
+  $("#poolCount").textContent = `${vis.length} left`;
+  $("#doneCount").textContent = `${S.done.length} / ${DATA.length}`;
+  const sc = [0,0]; S.done.forEach(id=>sc[S.by[id]??0]++);
+  $("#sc0").textContent = sc[0]; $("#sc1").textContent = sc[1];
+  const fin = $("#final"); if(fin) fin.textContent = `${S.names[0]} ${sc[0]} · ${S.names[1]} ${sc[1]}`;
+  [0,1].forEach(i=>$("#pl"+i).classList.toggle("on", S.turn===i));
+  document.querySelectorAll(".seg button").forEach(b=>b.classList.toggle("on", b.dataset.f===S.filter));
+  $("#auto").checked = S.auto;
+}
+
+/* ===== actions ===== */
+let toastT;
+function toast(msg){ let t=$(".toast"); if(!t){ t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,1600); }
+function moveTo(id, zone){
+  const inDone = S.done.includes(id);
+  if(zone==="done" && !inDone){
+    S.done.push(id); S.by[id]=S.turn; selected=null;
+    toast(`Point for ${S.names[S.turn]}!`);
+    if(S.auto) S.turn = 1-S.turn;
+  } else if(zone==="pool" && inDone){
+    S.done = S.done.filter(x=>x!==id); delete S.by[id]; flipped.delete(id);
+  }
+  save(); render();
+}
+function toggleFlip(id){ flipped.has(id) ? flipped.delete(id) : flipped.add(id); render(); const el=document.querySelector(`#doneCards [data-id="${id}"]`); if(el) el.focus(); }
+function selectCard(id){ selected = selected===id ? null : id; render(); const el=document.querySelector(`#poolCards [data-id="${id}"]`); if(el) el.focus(); }
+
+/* ===== drag & drop (mouse + touch) ===== */
+let drag = null;
+function zoneAt(x,y){ const el=document.elementFromPoint(x,y); return el && el.closest(".zone") ? el.closest(".zone").dataset.zone : null; }
+function onDown(e){
+  if(e.button!==undefined && e.button!==0) return;
+  const el = e.currentTarget;
+  drag = {id:el.dataset.id, el, sx:e.clientX, sy:e.clientY, moved:false, pid:e.pointerId, from: el.closest(".zone").dataset.zone};
+  el.setPointerCapture(e.pointerId);
+  el.addEventListener("pointermove", onMove); el.addEventListener("pointerup", onUp); el.addEventListener("pointercancel", cleanup);
+}
+function onMove(e){
+  if(!drag || e.pointerId!==drag.pid) return;
+  const dx=e.clientX-drag.sx, dy=e.clientY-drag.sy;
+  if(!drag.moved && Math.hypot(dx,dy)<6) return;
+  if(!drag.moved){
+    drag.moved = true;
+    const r = drag.el.getBoundingClientRect();
+    drag.ox = drag.sx-r.left; drag.oy = drag.sy-r.top;
+    const g = drag.el.cloneNode(true); g.classList.add("ghost"); g.classList.remove("sel"); g.style.width = r.width+"px";
+    document.body.appendChild(g); drag.ghost = g; drag.el.classList.add("dragging");
+  }
+  drag.ghost.style.transform = `translate(${e.clientX-drag.ox}px,${e.clientY-drag.oy}px) rotate(-3deg)`;
+  const z = zoneAt(e.clientX,e.clientY);
+  document.querySelectorAll(".zone").forEach(el=>el.classList.toggle("over", el.dataset.zone===z && z!==drag.from));
+}
+function onUp(e){
+  if(!drag) return;
+  const d = drag;
+  if(!d.moved){ cleanup(); d.from==="pool" ? selectCard(d.id) : toggleFlip(d.id); return; }
+  const z = zoneAt(e.clientX,e.clientY);
+  cleanup();
+  if(z && z!==d.from) moveTo(d.id, z); else render();
+}
+function cleanup(){
+  if(!drag) return;
+  drag.el.removeEventListener("pointermove", onMove); drag.el.removeEventListener("pointerup", onUp); drag.el.removeEventListener("pointercancel", cleanup);
+  if(drag.ghost) drag.ghost.remove();
+  drag.el.classList.remove("dragging");
+  document.querySelectorAll(".zone").forEach(el=>el.classList.remove("over"));
+  drag = null;
+}
+
+/* ===== controls ===== */
+[0,1].forEach(i=>{ const inp=$("#name"+i); inp.value=S.names[i]; inp.addEventListener("input",()=>{ S.names[i]=inp.value.trim()||(i?"Student":"Teacher"); save(); }); });
+$("#switch").addEventListener("click",()=>{ S.turn=1-S.turn; save(); render(); resetTimer(); });
+$("#auto").addEventListener("change",e=>{ S.auto=e.target.checked; save(); });
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{ S.filter=b.dataset.f; selected=null; save(); render(); }));
+$("#shuffle").addEventListener("click",()=>{ S.order=shuffle(S.order); save(); render(); });
+$("#random").addEventListener("click",()=>{
+  const cards=[...document.querySelectorAll("#poolCards .card")]; if(!cards.length) return;
+  const c=cards[Math.floor(Math.random()*cards.length)]; selected=c.dataset.id; render();
+  const el=document.querySelector(`#poolCards [data-id="${selected}"]`);
+  el.classList.add("pulse"); el.scrollIntoView({block:"center",behavior:"smooth"}); el.focus({preventScroll:true});
+});
+$("#reset").addEventListener("click",()=>{ $("#confirm").hidden=false; $("#reset").hidden=true; });
+$("#no").addEventListener("click",()=>{ $("#confirm").hidden=true; $("#reset").hidden=false; });
+$("#yes").addEventListener("click",()=>{ const n=S.names; S=fresh(); S.names=n; flipped.clear(); selected=null; save(); render(); $("#confirm").hidden=true; $("#reset").hidden=false; resetTimer(); });
+
+/* timer */
+let tLeft=60, tInt=null;
+const fmt = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+function showT(){ $("#tval").textContent=fmt(tLeft); $("#tgo").textContent = tInt ? "❚❚" : "▶"; $("#tgo").setAttribute("aria-label", tInt ? "Pause timer" : "Start timer"); }
+function resetTimer(){ clearInterval(tInt); tInt=null; tLeft=+$("#tlen").value; $("#timer").classList.remove("up"); showT(); }
+$("#tgo").addEventListener("click",()=>{
+  if(tInt){ clearInterval(tInt); tInt=null; showT(); return; }
+  if(tLeft<=0) resetTimer();
+  $("#timer").classList.remove("up");
+  tInt=setInterval(()=>{ tLeft--; if(tLeft<=0){ tLeft=0; clearInterval(tInt); tInt=null; $("#timer").classList.add("up"); toast("Time's up!"); } showT(); },1000);
+  showT();
+});
+$("#treset").addEventListener("click",resetTimer);
+$("#tlen").addEventListener("change",resetTimer);
+
+render(); showT();
+</script>
+
+</body>
+</html>
