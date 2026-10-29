@@ -216,7 +216,8 @@ svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
   .mt{font-size:15px;padding:8px}
   .card{padding:14px}
 }
-/* ===== desktop layout ===== */
+.cgap.gi{border:0;padding:0;min-width:0}\n.ginp{width:120px;max-width:40vw;border:0;border-bottom:2.5px solid var(--must);background:#fff;border-radius:6px 6px 0 0;font:inherit;font-weight:700;color:var(--ink);text-align:center;padding:2px 6px}\n.ginp:focus{outline:2px solid var(--must);outline-offset:1px}
+.ginp.bad{border-color:var(--crim);background:var(--crim-soft)}\n/* ===== desktop layout ===== */
 @media (min-width:1100px){
   .wrap{max-width:1280px;padding:0 48px}
   header.hero{padding-top:44px}
@@ -288,7 +289,7 @@ const GROUPS = {};
 
 const EX = [
   // ---------- STEP 1: stative or dynamic
-  {id:"a1", tab:"st1", type:"choice", sort:true, title:"Stative or dynamic?", ru:"The verbs from the lesson", instr:"Listen to each verb and decide: does it describe a state or an action?", items:[
+  {id:"a1", tab:"st1", type:"choice", sort:true, title:"Stative or dynamic?", ru:"The verbs from the lesson", instr:"Decide: does each verb describe a state or an action?", items:[
     {word:"believe", o:["stative","dynamic"], a:0, why:"A mental state (an opinion): <i>I don't believe you.</i>"},
     {word:"belong", o:["stative","dynamic"], a:0, why:"Possession: <i>This hat belongs to you.</i>"},
     {word:"depend", o:["stative","dynamic"], a:0, why:"A state: <i>It depends on the price.</i>"},
@@ -337,7 +338,7 @@ const EX = [
     {q:"Shh! The doctor ___ (feel) his pulse.", accept:["is feeling","'s feeling"], model:"is feeling", hint:"<i>Feel</i> = touch here.", why:"Touching → an action → <b>is feeling</b>."},
   ]},
   // ---------- STEP 3: the advert
-  {id:"c1", tab:"st3", type:"typed", title:"Complete the text", ru:"Stative or dynamic?", instr:"Type the verb in the present simple or continuous. Your answers appear in the text above.", items:[
+  {id:"c1", tab:"st3", type:"typed", cloze:true, title:"Complete the text", ru:"Stative or dynamic?", instr:"Type the verb in the present simple or continuous. Your answers appear in the text above.", items:[
     {gap:1, q:"It ___ (show) a dad who is driving his kids to school.", accept:["shows"], model:"shows", hint:"We describe ads, films and books in the present simple.", why:"Describing what happens in an ad → <b>shows</b>."},
     {gap:2, q:"At first he ___ (look) bored and tired…", accept:["looks","is looking","'s looking"], model:"looks", hint:"<i>Look</i> = appear.", why:"Appearance → <b>looks</b> (<i>is looking</i> is also possible)."},
     {gap:3, q:"The slogan, “Find your new”, ___ (mean) that…", accept:["means"], model:"means", hint:"<i>Mean</i> is stative.", why:"Stative → <b>means</b>."},
@@ -364,7 +365,7 @@ const EX = [
 
 const STORY_TAB = "st3";
 const STORY_TITLE = "The advert everyone is talking about";
-const STORY_INTRO = "Read the text first, then fill the gaps below. Your answers appear here.";
+const STORY_INTRO = "Type your answers straight into the gaps and press Enter to check, or use the answer boxes with hints.";
 const STORY = `Have you seen the new car advert everyone is talking about? It {1} a dad who is driving his kids to school. At first he {2} bored and tired, but then the kids start singing and everything changes. The slogan, “Find your new”, {3} that it's never too late to change your routine.
 I {4} the ad is brilliant. My sister {5}: she {6} that adverts like this {7} a dream, not a product. Personally, I {8} a car, but right now I {9} about buying one. It all {10} on the price!`;
 const GLOSS = {};
@@ -422,11 +423,11 @@ function toast(t){ const x = $("#toast"); x.textContent = t; x.classList.add("sh
 let VOICE = null;
 function pickVoice(){ if(!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
 if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
-function speak(t){
+function speak(t){ return;
   if(!("speechSynthesis" in window)) { toast("Audio is not available"); return; }
   try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"")); u.lang = "en-GB"; if(VOICE) u.voice = VOICE; u.rate = 0.87; speechSynthesis.speak(u); }catch(e){}
 }
-const sayBtn = (t) => el("button", {class:"say", "aria-label":"Listen", title:"Listen", onclick:(e)=>{ e.stopPropagation(); speak(t); }}, "🔊");
+const sayBtn = (t) => null;
 
 const CONTR = [[/\bdidn't\b/g,"did not"],[/\bdoesn't\b/g,"does not"],[/\bdon't\b/g,"do not"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],[/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bshouldn't\b/g,"should not"],[/\bi'll\b/g,"i will"],[/\byou're\b/g,"you are"],[/\bcan not\b/g,"cannot"],[/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bi'm\b/g,"i am"],[/\bi've\b/g,"i have"],[/\bhaven't\b/g,"have not"],[/\bwhat's\b/g,"what is"],[/\bshe's\b/g,"she is"],[/\bhe's\b/g,"he is"]];
 function norm(s){
@@ -660,6 +661,7 @@ function choiceItem(ex, it, i){
 
 function typedItem(ex, it, i){
   const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  if(it.gap) wrap.dataset.gap = it.gap;
   const isTr = ex.type === "translate";
   wrap.appendChild(qLine(i+1, isTr ? `🇷🇺 ${esc(it.q)}` : it.q.includes("___") ? gapHtml(it.q) : it.q));
   const inp = el("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"answer", placeholder: isTr ? "Write in English" : "Type here"});
@@ -668,6 +670,7 @@ function typedItem(ex, it, i){
   const selfRow = el("div",{class:"tilebtns", style:"display:none;margin-top:8px"});
   wrap.append(el("div",{class:"tin"}, inp, btn), fb, selfRow);
   inp.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+  if(it.gap) inp.addEventListener("input", ()=>{ const g = document.querySelector(`.ginp[data-gap="${it.gap}"]`); if(g) g.value = inp.value; });
   function lock(ok, given, extra){
     inp.disabled = true; btn.disabled = true; inp.value = given;
     inp.classList.remove("ok","no"); inp.classList.add(ok ? "ok" : "no");
@@ -785,7 +788,7 @@ function storyCard(){
   const cl = EX.find(e=>e.cloze);
   STORY.split("\n").forEach(par => {
     const p = el("p",{});
-    p.innerHTML = esc(par).replace(/\{(\d+)\}/g, (m,n) => `<span class="cgap" id="cg-${n}">(${n})</span>`);
+    p.innerHTML = esc(par).replace(/\{(\d+)\}/g, (m,n) => cl && cl.type==="typed" ? `<span class="cgap gi" id="cg-${n}"><input class="ginp" data-gap="${n}" placeholder="${n}" aria-label="gap ${n}" autocomplete="off" autocapitalize="off" spellcheck="false"></span>` : `<span class="cgap" id="cg-${n}">(${n})</span>`);
     c.appendChild(p);
   });
   if(cl) cl.items.forEach((it,k)=>{ const a = S.ans[cl.id+"-"+k]; if(a && a.done) setTimeout(()=>fillGap(it, a.ok), 0); });
@@ -793,6 +796,8 @@ function storyCard(){
 }
 function fillGap(it, ok){ const g = document.getElementById("cg-"+it.gap); if(!g) return; g.textContent = it.o ? it.o[it.a] : it.model; g.className = "cgap " + (ok ? "ok" : "no"); }
 
+document.addEventListener("input", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g) return; const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled) i.value = g.value; });
+document.addEventListener("keydown", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g || e.key !== "Enter") return; e.preventDefault(); const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled){ i.value = g.value; w.querySelector("button.btn").click(); if(!i.disabled){ g.classList.add("bad"); setTimeout(()=>g.classList.remove("bad"), 900); toast("Not quite: look at the hint for gap " + g.dataset.gap); } } });
 /* ================= RESULTS & REPORT ================= */
 function rankFor(p){
   if(p >= 95) return ["🏆 Award-winning","Your grammar is ready for prime time!"];
