@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Julia · The tricks of the trade · contrast and purpose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1C2E; --ink2:#2B2D45; --paper:#F7F4EF; --card:#FFFFFF; --tint:#EEEAE3;
+  --must:#E8A93C; --must-soft:#FBEFD6; --crim:#D64A4E; --crim-soft:#F9DEDF;
+  --teal:#3B7A72; --teal-soft:#DDEDEA; --pink:#D64A4E; --pink-soft:#F9DEDF;
+  --muted:#5F6074; --line:#E5DFD6; --ru:#66677A;
+  --r:16px; --shadow:0 2px 10px rgba(43,45,66,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--must);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:"Unbounded","Nunito",sans-serif;line-height:1.2;margin:0}
+.ru{color:var(--ru);font-size:.88em;display:block;font-weight:600}
+.ru-i{color:var(--ru);font-weight:600}
+.muted{color:var(--muted)}
+
+/* header */
+header.hero{background:var(--ink);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+.hero .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:800}
+.hero .ecg{position:absolute;left:0;bottom:0;width:100%;height:64px;opacity:.95;pointer-events:none}
+header.hero{padding-bottom:76px!important}
+.cgap{display:inline-block;min-width:54px;border-bottom:2.5px solid var(--must);text-align:center;font-weight:800;color:var(--muted);padding:0 4px}
+.cgap.ok{color:var(--teal);border-color:var(--teal)}
+.cgap.no{color:var(--crim);border-color:var(--crim)}
+.vid{display:inline-flex;align-items:center;gap:6px;margin:4px 0 10px;font-weight:800;color:var(--crim);text-decoration:none;min-height:44px}
+.hero h1{font-size:clamp(24px,6vw,38px);margin:8px 0 6px}
+.hero p{margin:4px 0;color:#D5D9E6}
+.hero .ru{color:#AEB5C9}
+.hero .badge{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--teal);opacity:.25}
+.namebox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{background:#fff;color:var(--ink);border:0;border-radius:12px;padding:10px 14px;min-height:44px;width:200px}
+.howto{margin-top:12px;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.prog{display:flex;align-items:center;gap:12px;padding:10px 0 6px}
+.track{flex:1;height:12px;border-radius:99px;background:var(--tint);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--must));border-radius:99px;transition:width .4s}
+.score{font-weight:800;white-space:nowrap;font-size:15px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}
+nav.tabs button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px;line-height:1.1;text-align:center}
+nav.tabs button small{display:block;font-size:11px;color:var(--ru);font-weight:700}
+nav.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav.tabs button.on small{color:#C9CEDD}
+nav.tabs button .ts{display:inline-block;margin-left:6px;background:var(--teal);color:#fff;border-radius:99px;padding:0 7px;font-size:11px}
+
+main{padding:18px 0 60px}
+section.panel{display:none}
+section.panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ptitle{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.ptitle .ic{width:52px;height:52px;border-radius:50%;background:var(--ink);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+.ptitle h2{font-size:clamp(19px,4.6vw,26px)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;margin:0 0 16px}
+.card h3{font-size:17px;margin-bottom:8px}
+.case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.case-head h3{font-size:17px}
+.instr{margin:2px 0 12px;font-weight:700}
+.stamp{flex:0 0 auto;border:2.5px solid var(--crim);color:var(--crim);border-radius:8px;padding:2px 8px;font-family:"Unbounded";font-size:11px;transform:rotate(-6deg);display:none;white-space:nowrap}
+.stamp.show{display:inline-block}
+
+/* rules */
+.rule{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:#fff;box-shadow:var(--shadow)}
+.rule h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.rule p{margin:6px 0}
+table.form{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:16px}
+table.form td{padding:8px 10px;background:var(--tint);vertical-align:top}
+table.form td:first-child{border-radius:10px 0 0 10px;font-weight:800;width:42px;text-align:center}
+table.form td:last-child{border-radius:0 10px 10px 0}
+table.form.wide td:first-child{width:auto;white-space:nowrap;text-align:left;color:var(--ink2)}
+.hl{background:var(--must-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.hl2{background:var(--teal-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.say{border:0;background:var(--tint);border-radius:50%;width:36px;height:36px;min-width:36px;display:inline-grid;place-items:center;font-size:16px;vertical-align:middle;margin-left:4px}
+.exrow{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.mist{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}
+.mist div{background:var(--tint);border-radius:10px;padding:8px 12px;font-size:16px}
+.bad{color:var(--crim);text-decoration:line-through;text-decoration-thickness:1.5px}
+.good{color:var(--teal);font-weight:800}
+.machine{background:var(--ink);color:#fff;border-radius:var(--r);padding:16px 18px}
+.machine .out{font-size:clamp(20px,5vw,28px);font-weight:800;min-height:46px;margin:12px 0 6px}
+.machine .out .d{color:var(--must)} .machine .out .b{color:#8FE3CF;text-decoration:underline}
+.machine .btns{display:flex;gap:8px;flex-wrap:wrap}
+.machine button{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:#2E3A5C;color:#fff}
+.machine button.on{background:var(--must);color:var(--ink)}
+.machine .note{font-size:14px;color:#C9CEDD;margin-top:6px}
+
+/* words */
+.wgroup h3{font-size:16px;margin:0 0 10px}
+.wlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.w{display:flex;align-items:center;gap:10px;background:var(--tint);border-radius:12px;padding:8px 10px}
+.w .em{font-size:24px;width:32px;text-align:center}
+.w b{display:block}
+.careful{background:var(--must-soft);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
+.careful h3{font-size:16px;margin-bottom:6px}
+.careful ul{margin:4px 0;padding-left:20px}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.flip{perspective:1200px;height:270px;margin:6px 0 12px}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.face.front{background:#fff;border:2px solid var(--line)}
+.face.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:clamp(20px,5.6vw,32px);font-weight:900;font-family:"Unbounded",system-ui,sans-serif;overflow-wrap:anywhere}
+.face .em{font-size:52px;line-height:1}
+.face .ex{margin-top:10px;font-size:16px;color:#D5D9E6}
+.face .hint{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.face.back .hint{color:#AEB5C9}
+.fc-nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.fc-nav button{flex:1;min-width:120px;min-height:48px;border-radius:14px;border:0;font-weight:800}
+.b-know{background:var(--teal);color:#fff}.b-learn{background:var(--must);color:var(--ink)}.b-plain{background:#fff;border:1.5px solid var(--line)!important}
+.fc-count{text-align:center;font-weight:800;margin:8px 0}
+
+/* items */
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.q{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.q .n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center;margin-top:1px}
+.gap{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--muted);margin:0 3px}
+.gap.ok{border-color:var(--teal);color:var(--teal);font-weight:900;min-width:0}
+.gap.suf{margin-left:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-left:40px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 16px;min-height:46px;font-weight:800;font-size:16px;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt.wrong{background:var(--crim-soft);border-color:var(--crim);color:var(--crim)}
+.opt[disabled]{cursor:default}
+.fb{margin:8px 0 0 40px;font-size:15px;border-radius:10px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--teal-soft)} .fb.no{background:var(--crim-soft)}
+.fb .why{display:block;color:var(--muted);margin-top:2px}
+.pic{margin-left:40px;margin-bottom:8px}
+.emo{font-size:56px;line-height:1}
+.tin{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+.tin input{flex:1;min-width:200px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.tin input.ok{border-color:var(--teal);background:var(--teal-soft)}
+.tin input.no{border-color:var(--crim);background:var(--crim-soft)}
+.btn{border:0;border-radius:12px;padding:10px 18px;min-height:46px;font-weight:800;background:var(--ink);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--must);color:var(--ink)}
+.btn.teal{background:var(--teal);color:#fff}
+.btn[disabled]{opacity:.45;cursor:default}
+.listen{border:0;background:var(--pink);color:#fff;border-radius:16px;min-height:56px;padding:8px 20px;font-weight:900;font-size:18px;margin-left:40px;margin-bottom:8px}
+.syl .opt{border-radius:10px;min-width:64px;font-family:"Unbounded",system-ui,sans-serif;font-weight:600}
+.syl{gap:4px}
+.sortw{display:flex;align-items:center;gap:8px;margin-left:40px;margin-bottom:8px;font-size:20px;font-weight:900}
+.mono{font-family:"Nunito",system-ui,sans-serif;font-weight:800}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:48px;font-weight:800;text-align:left}
+.mt.sel{border-color:var(--must);background:var(--must-soft)}
+.mt.done{border-color:var(--teal);background:var(--teal-soft);color:#155e55;cursor:default}
+.mt.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* tiles */
+.line{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px;background:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px}
+.tile{border:0;background:var(--ink2);color:#fff;border-radius:10px;padding:8px 12px;min-height:44px;font-weight:800}
+.line .tile{background:var(--must);color:var(--ink)}
+.tilebtns{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+
+/* story */
+.story{background:#FFFDF6;border:2px solid var(--must-soft);border-radius:var(--r);padding:16px 18px;font-size:17px;line-height:1.65}
+.story h3{font-family:"Unbounded";font-size:18px;margin-bottom:6px}
+.gl{border-bottom:2px dotted var(--must);cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;padding:0;font-weight:700;min-height:0}
+.gl .tip{display:none;font-size:13px;color:var(--ru);font-weight:700;margin-left:4px}
+.gl.open .tip{display:inline}
+
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;resize:vertical}
+.wc{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* results */
+.big-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) 0deg,var(--tint) 0deg);flex:0 0 auto}
+.ring span{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:"Unbounded";font-size:22px}
+.rank{font-family:"Unbounded";font-size:20px}
+.brk{width:100%;border-collapse:collapse;font-size:15px}
+.brk td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.brk td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.mlist div{background:var(--tint);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px}
+.send{display:flex;flex-wrap:wrap;gap:8px}
+.send a,.send button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none;border:0}
+.s-share{background:var(--ink);color:#fff}.s-gm{background:#EA4335;color:#fff}.s-tg{background:#229ED9;color:#fff}.s-wa{background:#25D366;color:#fff}.s-ml{background:#fff;color:var(--ink);border:2px solid var(--line)!important}.s-cp{background:var(--must);color:var(--ink)}
+.email{user-select:all;font-weight:800;background:var(--tint);padding:2px 8px;border-radius:6px}
+.confirm{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.confirm.show{display:flex}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-weight:800;display:none;z-index:50}
+.toast.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* preposition scenes */
+svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
+
+@media (max-width:520px){
+  table.form.wide td:first-child{white-space:normal;width:32%}
+  .opts,.fb,.tin,.pic,.line,.pool,.tilebtns,.listen,.sortw{margin-left:0}
+  .match{grid-template-columns:1fr 1fr;gap:6px}
+  .mt{font-size:15px;padding:8px}
+  .card{padding:14px}
+}
+.cgap.gi{border:0;padding:0;min-width:0}
+.ginp{width:140px;max-width:40vw;border:0;border-bottom:2.5px solid var(--must);background:#fff;border-radius:6px 6px 0 0;font:inherit;font-weight:700;color:var(--ink);text-align:center;padding:2px 6px}
+.ginp:focus{outline:2px solid var(--must);outline-offset:1px}
+.ginp.bad{border-color:var(--crim);background:var(--crim-soft)}
+/* ===== desktop layout ===== */
+@media (min-width:1100px){
+  .wrap{max-width:1280px;padding:0 48px}
+  header.hero{padding-top:44px}
+  .hero h1{font-size:52px;margin:12px 0 10px}
+  .hero p{font-size:19px;max-width:820px}
+  .howto{display:inline-block;font-size:16px;padding:12px 18px}
+  .hero .badge{width:320px;height:320px;right:-80px;top:-90px}
+  nav.tabs{gap:10px;overflow:visible}
+  nav.tabs button{flex:1 1 0;font-size:15px;padding:10px 12px;min-height:54px}
+  nav.tabs button small{font-size:12px}
+  main{padding:30px 0 80px}
+  .ptitle{margin:8px 0 22px}
+  .ptitle h2{font-size:32px}
+  .ptitle .ic{width:60px;height:60px;font-size:30px}
+  .card,.rule{padding:24px 28px}
+  /* rules: two columns */
+  #p-rules.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  #p-rules.on > .ptitle, #p-rules.on > .next, #p-rules.on > .careful{grid-column:1/-1}
+  /* exercises: items side by side */
+  .card:has(> .item){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
+  .card:has(> .item) > :not(.item){grid-column:1/-1}
+  /* story steps: text sticky on the left, tasks on the right */
+  section.panel.on:has(.story){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:28px;align-items:start}
+  section.panel.on:has(.story) > *{grid-column:1/-1}
+  section.panel.on:has(.story) > .card:has(.story){grid-column:1;grid-row:3 / span 20;position:sticky;top:150px;align-self:start}
+  section.panel.on:has(.story) > .card:not(:has(.story)){grid-column:2}
+  section.panel.on:has(.story) > .next{grid-row:auto}
+  section.panel.on:has(.story) .card:has(> .item){display:block}
+  .story{font-size:18px;line-height:1.75}
+  /* writing: two tasks side by side */
+  section.panel.on:has(textarea){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  section.panel.on:has(textarea) > .ptitle, section.panel.on:has(textarea) > .rule, section.panel.on:has(textarea) > .next{grid-column:1/-1}
+  section.panel.on:has(textarea) textarea{min-height:220px}
+}
+
+.road{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.road .stop{display:inline-flex;align-items:center;gap:6px;background:var(--tint);border-radius:999px;padding:6px 12px 6px 6px;font-weight:700;font-size:14px}
+.road .stop b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font-size:13px}
+.sgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+@media (min-width:640px){.sgrid{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.sgrid{grid-template-columns:1fr 1fr 1fr}}
+.scard{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;border-top:5px solid var(--c)}
+.shead{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--c)}
+.snum{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;letter-spacing:0}
+.sjob{font-size:14.5px;color:var(--muted);margin:4px 0 8px}
+.sph{display:flex;align-items:center;gap:8px;background:var(--tint);border-radius:10px;padding:8px 10px;margin-bottom:6px}
+.sph > div{flex:1}
+.sph b{display:block}
+.snote{display:block;font-size:13.5px;color:var(--muted)}
+.scard .exrow{font-size:15px}
+.sbtns{display:flex;flex-wrap:wrap;gap:8px}
+.sbtns button{background:#fff;color:var(--ink);border:2px solid var(--c);border-radius:999px;padding:8px 14px;min-height:44px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.sbtns button.on{background:var(--c);color:#fff}
+.spot{margin-top:12px;font-size:17px;line-height:1.75}
+.spot p{margin:0 0 10px}
+.spot mark{background:transparent;border-bottom:2px dotted var(--c);color:inherit;padding:0 2px;border-radius:4px;transition:background .2s}
+.spot mark.on{background:var(--c);color:#fff;border-bottom-color:transparent}
+.w .wex{display:block;font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+@media (min-width:1100px){ #p-rules.on > *{grid-column:1/-1} #p-rules.on .rule:first-of-type{max-width:none} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge"></div>
+  <svg class="ecg" viewBox="0 0 1200 70" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g opacity=".9"><rect x="10" y="38" width="150" height="22" rx="11" fill="#D64A4E"/><rect x="178" y="38" width="90" height="22" rx="11" fill="#E8A93C"/><rect x="286" y="38" width="120" height="22" rx="11" fill="#3B7A72"/><rect x="424" y="38" width="170" height="22" rx="11" fill="#D64A4E"/><rect x="612" y="38" width="80" height="22" rx="11" fill="#E8A93C"/><rect x="710" y="38" width="120" height="22" rx="11" fill="#3B7A72"/><rect x="848" y="38" width="140" height="22" rx="11" fill="#D64A4E"/><rect x="1006" y="38" width="100" height="22" rx="11" fill="#E8A93C"/><rect x="1124" y="38" width="90" height="22" rx="11" fill="#3B7A72"/></g></svg>
+  <div class="wrap">
+    <div class="kick">📺 Unit 9A · Upper-Intermediate</div>
+    <h1>The tricks of the trade</h1>
+    <p>Homework for <b id="hname">Julia</b>: advertising vocabulary (ads, commercials, gimmicks…) and clauses of contrast and purpose (although, despite, so that, so as not to…).</p>
+    <div class="namebox"><label for="nm">Your name</label><input id="nm" value="Julia" maxlength="30" autocomplete="off"></div>
+    <div class="howto">Grammar → Words → Cards → Steps 1–4 → Your turn → Results &amp; send. About 40 minutes.</div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 / 0</div></div>
+  <nav class="tabs" id="tabs"></nav>
+</div></div>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const TEACHER = "ulchik2211@gmail.com";
+const TOPIC = "The tricks of the trade: advertising, contrast and purpose";
+const STORE = "julia-ads-contrast-purpose-v1";
+const DEFAULT_NAME = "Julia";
+const VIDEO_URL = "";
+
+const WORDS = [
+  // advertising words
+  {g:"ads", en:"an ad / an advert / an advertisement", ru:"(n) a picture, notice or video that tries to sell something · ad = most common, advert = British, advertisement = full and more formal", em:"📰", ex:"I saw an advert for a new phone on the bus."},
+  {g:"ads", en:"a commercial", ru:"(n) an advert on TV or radio", em:"📺", ex:"The coffee commercial during the match was hilarious."},
+  {g:"ads", en:"advertise sth", ru:"(v) tell people about a product or service to make them buy it", em:"📣", ex:"They advertise the new car on every bus in town."},
+  {g:"ads", en:"advertising", ru:"(n, uncountable) the business or activity of making adverts", em:"💼", ex:"Companies spend billions on advertising every year."},
+  {g:"ads", en:"a marketing gimmick", ru:"(n) a trick or unusual idea used to attract attention and sell more", em:"🎪", ex:"The “free” gift is just a marketing gimmick."},
+  {g:"ads", en:"the tricks of the trade", ru:"clever methods used by people who know a job well", em:"🎩", ex:"Advertisers know all the tricks of the trade."},
+  {g:"ads", en:"two-part pricing (razors and blades)", ru:"selling one product cheaply so people keep buying an expensive second one", em:"🪒", ex:"Printers and ink use two-part pricing."},
+  // persuasion
+  {g:"persuade", en:"persuade sb to do sth", ru:"(v) make someone agree to do something by giving good reasons", em:"🗣️", ex:"The advert persuaded me to try the new toothpaste."},
+  {g:"persuade", en:"misleading", ru:"(adj) giving a wrong idea or impression", em:"🎭", ex:"The “before and after” photos were very misleading."},
+  {g:"persuade", en:"fall for sth", ru:"(phr v) be tricked into believing something that isn't true", em:"🪤", ex:"I can't believe I fell for that trick again!"},
+  {g:"persuade", en:"put sb off (sth / doing sth)", ru:"(phr v) make someone not like or not want something", em:"🚫", ex:"The terrible reviews put me off the hotel."},
+  {g:"persuade", en:"while stocks last", ru:"only until the shop sells everything it has", em:"⏳", ex:"Get a free mug, while stocks last!"},
+  {g:"persuade", en:"subscribe (to sth)", ru:"(v) pay regularly to receive a magazine or a service", em:"🗞️", ex:"Subscribe to our magazine for six months and get a free gift."},
+  // thinking clearly
+  {g:"think", en:"common sense", ru:"(n, uncountable) practical good judgement", em:"🧠", ex:"It's common sense: if a deal looks too good to be true, it probably is."},
+  {g:"think", en:"clarify sth", ru:"(v) make something clearer or easier to understand · clarification (n)", em:"🔍", ex:"Could you clarify what “free” means in this offer?"},
+  {g:"think", en:"the small print", ru:"the important details written in very small letters, often ignored", em:"🔎", ex:"Always read the small print before you sign."},
+];
+const GROUPS = {ads:["Advertising","ads, adverts and commercials"], persuade:["Persuasion","how ads work on us"], think:["Thinking clearly","how not to be tricked"]};
+const CAREFUL = [
+  "<b>advert / ad / advertisement</b> are countable (<i>an advert</i>); <b>advertising</b> is uncountable: <span class='bad'>an advertising</span>, <span class='bad'>advertisings</span>.",
+  "<b>a commercial</b> is only on TV or radio. In a magazine or online it's an <b>ad / advert</b>.",
+  "Stress: <b>ad<u>ver</u>tisement</b> (British) · <b><u>ad</u>vertise</b> · <b><u>ad</u>vert</b>.",
+  "<b>put sb off</b>: <i>The price put me off.</i> · <i>It put me off <b>buying</b> it</i> (+ -ing) · <i>I was put off <b>by</b> the reviews.</i>",
+  "<b>fall for</b> a trick (past: <b>fell</b> for): <span class='bad'>fall in a trick</span>",
+  "<b>common sense</b> has no article: <span class='bad'>a common sense</span> · <i>Use your common sense!</i>",
+  "<b>clarify</b> sth (no preposition): <span class='bad'>clarify about the price</span>",
+  "<b>persuade</b> sb <b>to do</b> sth: <span class='bad'>persuade me buy</span>",
+];
+
+const TECH = ["free gift","limited stock","before and after","“science”","expert / celebrity","everybody's doing it"];
+const EX = [
+  // ---------- STEP 1: words
+  {id:"v1", tab:"st1", type:"match", sep:" = ", leftHint:"First tap a word on the left", title:"Words and meanings", ru:"Match", instr:"Tap a word, then its meaning.", pairs:[
+    ["put sb off","make sb not want sth"],["marketing gimmick","a trick to attract attention and sell more"],["commercial","an advert on TV or radio"],["advertise","tell people about a product to sell it"],
+    ["common sense","practical good judgement"],["clarify","make sth clearer"],["misleading","giving a wrong impression"],["fall for","be tricked by"],
+  ]},
+  {id:"v2", tab:"st1", type:"choice", title:"Ad, advert, commercial or advertise?", ru:"Choose the right form", instr:"Choose the best word.", items:[
+    {q:"Did you see the new coffee ___ during the match on TV?", o:["commercial","advertise","advertising"], a:0, why:"On TV → a <b>commercial</b> (noun)."},
+    {q:"Companies spend billions on ___ every year.", o:["advertise","an advert","advertising"], a:2, why:"The activity / business → <b>advertising</b> (uncountable)."},
+    {q:"They ___ the new phone on every bus in town.", o:["advertisement","advertised","commercial"], a:1, why:"A verb is needed → <b>advertised</b>."},
+    {q:"Look at this ___ for a free gym membership!", o:["advertise","advertising","advert"], a:2, why:"One single notice → an <b>advert</b> (countable)."},
+    {q:"I'd like to ___ my flat for rent online.", o:["advertise","advert","advertising"], a:0, why:"to + verb → <b>advertise</b>."},
+    {q:"The government banned ___ for cigarettes years ago.", o:["a commercial","advertising","an advertise"], a:1, why:"In general → <b>advertising</b> for something."},
+  ]},
+  {id:"v3", tab:"st1", type:"typed", title:"Complete the phrases", ru:"One word in each gap", instr:"Type the missing word.", items:[
+    {q:"The terrible reviews really put me ___ the hotel.", accept:["off"], model:"off", hint:"put sb … sth", why:"put sb <b>off</b> sth"},
+    {q:"Don't be put off ___ the price. It's worth every penny.", accept:["by"], model:"by", hint:"passive: be put off … sth", why:"be put off <b>by</b> sth"},
+    {q:"The smell put me off ___ the cheese. (eat)", accept:["eating"], model:"eating", hint:"put sb off + -ing", why:"put sb off <b>eating</b>"},
+    {q:"Could you ___ what you mean by “free”? (make clear)", accept:["clarify"], model:"clarify", hint:"c l a r…", why:"<b>clarify</b> sth"},
+    {q:"It's just common ___: if a deal looks too good to be true, it probably is.", accept:["sense"], model:"sense", hint:"practical good judgement", why:"common <b>sense</b>"},
+    {q:"“Buy one, get one free” is often just a marketing ___.", accept:["gimmick"], model:"gimmick", hint:"g i m…", why:"a marketing <b>gimmick</b>"},
+    {q:"I can't believe I ___ for that trick again! (fall)", accept:["fell"], model:"fell", hint:"past simple of fall", why:"<b>fell</b> for (fall – fell – fallen)"},
+  ]},
+  {id:"v4", tab:"st1", type:"choice", tf:true, title:"Which technique is it?", ru:"The six messages", instr:"Which advertising technique does each message use?", items:[
+    {q:"Only 3 left! Buy now while stocks last!", o:TECH, a:1, why:"<b>Limited stock</b>: we're afraid of missing out."},
+    {q:"Get a FREE tote bag when you subscribe for six months.", o:TECH, a:0, why:"<b>Free gift</b>: but you pay for six months!"},
+    {q:"Your skin can look like this in just four weeks.", o:TECH, a:2, why:"<b>Before and after</b>: the photos are often edited."},
+    {q:"A recent study found that our toothpaste cleans your teeth better than any other brand.", o:TECH, a:3, why:"<b>“Science”</b>: who paid for the study?"},
+    {q:"Trust me, I'm a doctor.", o:TECH, a:4, why:"<b>Expert / celebrity</b>: often an actor in a white coat."},
+    {q:"Join the millions who've already switched!", o:TECH, a:5, why:"<b>Everybody's doing it</b>: we like to follow the crowd."},
+  ]},
+  // ---------- STEP 2: contrast
+  {id:"c1", tab:"st2", type:"choice", title:"Choose the linker", ru:"Clauses of contrast", instr:"Choose the correct option.", items:[
+    {q:"___ the advert said it would last for years, my dishwasher broke down after two months.", o:["Although","Despite","In spite of"], a:0, why:"A full clause follows (subject + verb) → <b>Although</b>."},
+    {q:"___ the bad reviews, the film was a huge success.", o:["Although","Despite","Even though"], a:1, why:"A noun follows → <b>Despite</b>."},
+    {q:"She bought the cream ___ knowing it probably wouldn't work.", o:["although","in spite of","even though"], a:1, why:"An -ing form follows → <b>in spite of</b>."},
+    {q:"I hardly ever watch TV. I saw that commercial, ___.", o:["though","although","despite"], a:0, why:"At the end, after a comma → <b>though</b> (= however)."},
+    {q:"___ of the high price, the phone sold out in a day.", o:["Despite","In spite","Although"], a:1, why:"<b>In spite of</b> + noun. (Never <i>despite of</i>.)"},
+    {q:"We ran the campaign ___ the fact that the budget was tiny.", o:["although","despite","even though"], a:1, why:"<b>despite the fact that</b> + subject + verb."},
+    {q:"He still fell for it, ___ he knew exactly how the trick worked!", o:["even though","despite","in spite of"], a:0, why:"A big, surprising contrast + clause → <b>even though</b>."},
+    {q:"___ being 85, my mother is still very active.", o:["Although","Despite","Even though"], a:1, why:"An -ing form follows → <b>Despite</b>."},
+  ]},
+  {id:"c2", tab:"st2", type:"translate", title:"Say it another way", ru:"Contrast transformations", instr:"Complete the second sentence so it means the same as the first.", items:[
+    {q:"It was raining, but we went out. → Despite ___, we went out.", accept:["the rain","the fact that it was raining","the fact it was raining","it raining","the rainy weather","the weather"], model:"the rain", hint:"a noun (or the fact that…)"},
+    {q:"She's 85, but she's still very active. → In spite of ___, she's still very active.", accept:["being 85","her age","the fact that she's 85","the fact that she is 85","being eighty-five"], model:"being 85", hint:"-ing form, a noun, or the fact that…"},
+    {q:"I didn't trust the advert, but I bought the product. → Although ___, I bought the product.", accept:["I didn't trust the advert","I did not trust the advert"], model:"I didn't trust the advert", hint:"a full clause"},
+    {q:"He knew it was a gimmick, but he still subscribed. → He still subscribed even ___ it was a gimmick.", accept:["though he knew","though he realised","though he realized","though he understood","though he knew that"], model:"though he knew", hint:"even … + subject + verb"},
+    {q:"There was a free gift. I didn't subscribe. → I didn't subscribe, ___ there was a free gift.", accept:["although","even though","though","despite the fact that","in spite of the fact that"], model:"even though", hint:"a linker + clause"},
+    {q:"The commercial was very short. It was memorable, though. → ___ being very short, the commercial was memorable.", accept:["Despite","In spite of"], model:"Despite", hint:"+ -ing form"},
+  ]},
+  // ---------- STEP 3: purpose
+  {id:"p1", tab:"st3", type:"choice", title:"Choose the linker", ru:"Clauses of purpose", instr:"Choose the correct option.", items:[
+    {q:"I went to the bank ___ ask for a loan.", o:["to","for","so that"], a:0, why:"+ infinitive → <b>to</b>."},
+    {q:"I went to the bank ___ a meeting with my manager.", o:["to","for","so as"], a:1, why:"+ noun → <b>for</b>."},
+    {q:"We bought a bigger car ___ the children would have more space.", o:["to","in order to","so that"], a:2, why:"Change of subject (we → the children) → <b>so that</b> + subject + modal."},
+    {q:"I wrote down what he said ___ forget it.", o:["to not","so as not to","for not"], a:1, why:"Negative purpose → <b>so as not to</b> / <b>in order not to</b>."},
+    {q:"This liquid is ___ cleaning metal.", o:["to","for","so that"], a:1, why:"The function of a thing → <b>for</b> + -ing."},
+    {q:"Companies give free gifts ___ persuade us to subscribe.", o:["in order to","so that","for"], a:0, why:"+ infinitive → <b>in order to</b> (more formal than <i>to</i>)."},
+    {q:"She whispered ___ wake the baby.", o:["so that not","for not","in order not to"], a:2, why:"Negative purpose → <b>in order not to</b>."},
+    {q:"They sell printers cheaply ___ customers will keep buying expensive ink.", o:["to","so that","for"], a:1, why:"Change of subject → <b>so that</b> + subject + modal."},
+  ]},
+  {id:"p2", tab:"st3", type:"typed", title:"Complete the sentences", ru:"to, for, so that, so as not to…", instr:"Type one to four words.", items:[
+    {q:"I set two alarms ___ I wouldn't oversleep.", accept:["so that","so"], model:"so that", hint:"subject + modal follows", why:"<b>so that</b> + subject + would"},
+    {q:"She called the company ___ clarify the price.", accept:["to","in order to","so as to"], model:"to", hint:"+ infinitive", why:"<b>to / in order to / so as to</b> + infinitive"},
+    {q:"We stopped at a café ___ a quick coffee.", accept:["for"], model:"for", hint:"+ noun", why:"<b>for</b> + noun"},
+    {q:"I unsubscribed ___ get any more spam.", accept:["so as not to","in order not to"], model:"so as not to", hint:"negative purpose (4 words)", why:"<b>so as not to / in order not to</b> + infinitive"},
+    {q:"Read the small print ___ you know exactly what you're paying for.", accept:["so that","so"], model:"so that", hint:"a subject follows", why:"<b>so that</b> + subject + verb"},
+    {q:"Advertisers use celebrities ___ make products look glamorous.", accept:["to","in order to","so as to"], model:"to", hint:"+ infinitive", why:"<b>to</b> + infinitive"},
+  ]},
+  // ---------- STEP 4: mixed
+  {id:"m1", tab:"st4", type:"typed", cloze:true, title:"Complete the text", ru:"Contrast and purpose together", instr:"Type a linker in each gap (1–4 words). You can type straight into the text.", items:[
+    {gap:1, q:"Companies sell the first product cheaply ___ customers will keep buying the second one.", accept:["so that","so"], model:"so that", hint:"Change of subject + will.", why:"<b>so that</b> + subject + will"},
+    {gap:2, q:"Gillette sold razors at a low price ___ sell expensive blades for years.", accept:["to","in order to","so as to"], model:"to", hint:"+ infinitive", why:"<b>to / in order to</b> + infinitive"},
+    {gap:3, q:"___ printers are cheap, the ink can cost more than champagne!", accept:["Although","Though","Even though","While"], model:"Although", hint:"+ clause", why:"<b>Although</b> + clause"},
+    {gap:4, q:"___ the high price of ink, most people keep buying the original brand…", accept:["Despite","In spite of"], model:"Despite", hint:"+ noun", why:"<b>Despite / In spite of</b> + noun"},
+    {gap:5, q:"…___ cheaper alternatives exist.", accept:["even though","although","though"], model:"even though", hint:"a surprising contrast + clause", why:"<b>even though</b> + clause"},
+    {gap:6, q:"Some companies even put chips in their cartridges ___ stop customers from using other brands.", accept:["to","in order to","so as to"], model:"to", hint:"+ infinitive", why:"<b>to</b> + infinitive"},
+    {gap:7, q:"It's common sense, really. Many of us still fall for it, ___.", accept:["though"], model:"though", hint:"one word at the end, after a comma", why:"<b>though</b> at the end = however"},
+    {gap:8, q:"Do the maths before you buy, ___ pay more in the long run.", accept:["so as not to","in order not to"], model:"so as not to", hint:"negative purpose", why:"<b>so as not to</b> + infinitive"},
+  ]},
+  {id:"m2", tab:"st4", type:"translate", title:"Find and correct the mistake", ru:"One mistake in each sentence", instr:"Write the whole sentence correctly.", items:[
+    {q:"Despite of the rain, we went to the beach.", accept:["Despite the rain, we went to the beach.","In spite of the rain, we went to the beach."], model:"Despite the rain, we went to the beach.", hint:"No “of” after despite."},
+    {q:"Although the price, I bought it.", accept:["Despite the price, I bought it.","In spite of the price, I bought it."], model:"Despite the price, I bought it.", hint:"A noun follows → not although."},
+    {q:"I went to the shop for buy some milk.", accept:["I went to the shop to buy some milk.","I went to the shop in order to buy some milk.","I went to the shop so as to buy some milk."], model:"I went to the shop to buy some milk.", hint:"+ infinitive → not for."},
+    {q:"I took notes to not forget anything.", accept:["I took notes so as not to forget anything.","I took notes in order not to forget anything."], model:"I took notes so as not to forget anything.", hint:"Negative purpose."},
+    {q:"We left early in order to the children could sleep.", accept:["We left early so that the children could sleep.","We left early so the children could sleep."], model:"We left early so that the children could sleep.", hint:"Change of subject."},
+    {q:"Even the advert was misleading, millions of people believed it.", accept:["Even though the advert was misleading, millions of people believed it.","Although the advert was misleading, millions of people believed it.","Though the advert was misleading, millions of people believed it."], model:"Even though the advert was misleading, millions of people believed it.", hint:"A word is missing."},
+    {q:"In spite of she knew it was a gimmick, she bought it.", accept:["In spite of knowing it was a gimmick, she bought it.","Although she knew it was a gimmick, she bought it.","Even though she knew it was a gimmick, she bought it.","In spite of the fact that she knew it was a gimmick, she bought it.","Despite knowing it was a gimmick, she bought it."], model:"Although she knew it was a gimmick, she bought it.", hint:"In spite of + noun / -ing / the fact that."},
+  ]},
+  // ---------- STEP 5: your turn
+  {id:"w1", tab:"st5", type:"write", title:"A marketing gimmick that worked on me", ru:"100–150 words", instr:"Write about an advert or marketing gimmick that persuaded you to buy something (or put you off!). Use at least 2 contrast linkers, 2 purpose linkers and 4 words from the list (e.g. put off, commercial, common sense, fall for, misleading).", prompt:"A few years ago, I saw a commercial for… Although I knew…, I… I bought it so that… Despite…"},
+  {id:"w2", tab:"st5", type:"write", title:"Do we know we're being persuaded?", ru:"Answer in 2–3 sentences each", instr:"1) Which of the six techniques might make YOU buy the product? 2) Are there any that would actively put you off buying? 3) Why do we keep falling for these tricks, even when we know what's going on?", prompt:"1) …\n2) …\n3) …"},
+];
+
+const STORY_TAB = "st4";
+const STORY_TITLE = "Razors and blades";
+const STORY_INTRO = "Read about two-part pricing. Type your answers straight into the gaps and press Enter, or use the boxes below with hints.";
+const STORY = `The razors and blades model, also called two-part pricing, is one of the oldest tricks of the trade. Companies sell the first product cheaply {1} customers will keep buying the second one. Gillette sold razors at a low price {2} sell expensive blades for years.
+Printers work in the same way. {3} printers are cheap, the ink can cost more than champagne! {4} the high price of ink, most people keep buying the original brand, {5} cheaper alternatives exist. Some companies even put chips in their cartridges {6} stop customers from using other brands.
+It's common sense, really. Many of us still fall for it, {7}. My advice? Do the maths before you buy, {8} pay more in the long run.`;
+const GLOSS = {};
+
+const TABS = [
+  {id:"rules", en:"Grammar", ru:"contrast & purpose", ic:"📒"},
+  {id:"words", en:"Words", ru:"16 items", ic:"🗂️"},
+  {id:"cards", en:"Cards", ru:"flashcards", ic:"🃏"},
+  {id:"st1", en:"Step 1", ru:"ad words", ic:"📺"},
+  {id:"st2", en:"Step 2", ru:"contrast", ic:"⚖️"},
+  {id:"st3", en:"Step 3", ru:"purpose", ic:"🎯"},
+  {id:"st4", en:"Step 4", ru:"razors & blades", ic:"🪒"},
+  {id:"st5", en:"Your turn", ru:"writing", ic:"✍️"},
+  {id:"res", en:"Results", ru:"send", ic:"🏆"},
+];
+const STEP_TABS = ["st1","st2","st3","st4","st5"];
+const STEP_ICONS = ["📺","⚖️","🎯","🪒","✍️"];
+const CASE_TITLES = {
+  st1:["Step 1: Advertising words","meaning, form and the six techniques"],
+  st2:["Step 2: Clauses of contrast","although, though, even though, despite, in spite of"],
+  st3:["Step 3: Clauses of purpose","to, in order to, so as to, for, so that"],
+  st4:["Step 4: Razors and blades","contrast and purpose together"],
+  st5:["Your turn","write about the tricks of the trade"],
+};
+const STEP_RULES = {
+  st1:"<b>an ad / an advert / an advertisement</b> (countable) · <b>a commercial</b> (TV / radio) · <b>advertise</b> (verb) · <b>advertising</b> (uncountable). <b>put sb off sth / doing sth</b> · <b>fall for</b> a trick.",
+  st2:"<b>although / though / even though</b> + subject + verb · <b>despite / in spite of</b> + noun / -ing / the fact that + clause · <b>though</b> at the end = however. Never <i>despite of</i>.",
+  st3:"<b>to / in order to / so as to</b> + infinitive · <b>for</b> + noun (or + -ing for a thing's function) · <b>so that</b> + subject + can / could / would (always when the subject changes) · <b>so as not to / in order not to</b> for a negative purpose.",
+  st4:"For each gap, ask: is it <b>contrast</b> or <b>purpose</b>? Then look at what follows: a clause, a noun / -ing, or an infinitive?",
+  st5:"<b>Example opening</b><br><i>A few years ago, I saw a commercial for a “miracle” face cream. Although I knew the before and after photos were probably edited, I fell for it and ordered two jars so as not to miss the special price. Despite the glowing reviews, it didn't work at all, and the experience really put me off buying anything from Instagram ads…</i>",
+};
+const PRAISE = ["Correct!","Spot on!","Exactly!","Nailed it!","Perfect!","Well done!"];
+const OOPS = ["Not quite.","Nearly!","Close, but no.","Good try!"];
+
+/* ================= STATE ================= */
+let mem = {};
+function load(){ try{ const s = localStorage.getItem(STORE); return s ? JSON.parse(s) : null; }catch(e){ return mem[STORE] || null; } }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(S)); }catch(e){ mem[STORE] = JSON.parse(JSON.stringify(S)); } }
+let S = load() || {name:DEFAULT_NAME, ans:{}, known:{}, write:{}, tab:TABS[0].id};
+if(!S.ans) S.ans = {}; if(!S.known) S.known = {}; if(!S.write) S.write = {};
+
+/* ================= HELPERS ================= */
+const $ = (s, r=document) => r.querySelector(s);
+function el(tag, attrs={}, ...kids){
+  const e = document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){
+    if(k === "class") e.className = v;
+    else if(k === "html") e.innerHTML = v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if(v !== false && v != null) e.setAttribute(k, v);
+  }
+  for(const k of kids.flat()){ if(k == null) continue; e.appendChild(typeof k === "string" ? document.createTextNode(k) : k); }
+  return e;
+}
+const pick = (a) => a[Math.floor(Math.random()*a.length)];
+function shuffle(a){ const b = a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(t){ const x = $("#toast"); x.textContent = t; x.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(()=>x.classList.remove("show"), 1800); }
+
+let VOICE = null;
+function pickVoice(){ if(!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t){
+  if(!("speechSynthesis" in window)) { toast("Audio is not available"); return; }
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"")); u.lang = "en-GB"; if(VOICE) u.voice = VOICE; u.rate = 0.87; speechSynthesis.speak(u); }catch(e){}
+}
+const sayBtn = (t) => el("button", {class:"say", "aria-label":"Listen", title:"Listen", onclick:(e)=>{ e.stopPropagation(); speak(t); }}, "🔊");
+
+const CONTR = [[/\bdidn't\b/g,"did not"],[/\bdoesn't\b/g,"does not"],[/\bdon't\b/g,"do not"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],[/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bshouldn't\b/g,"should not"],[/\bi'll\b/g,"i will"],[/\byou're\b/g,"you are"],[/\bcan not\b/g,"cannot"],[/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bi'm\b/g,"i am"],[/\bi've\b/g,"i have"],[/\bhaven't\b/g,"have not"],[/\bwhat's\b/g,"what is"],[/\bshe's\b/g,"she is"],[/\bhe's\b/g,"he is"],[/\bwho's\b/g,"who is"],[/\byou've\b/g,"you have"],[/\bwe're\b/g,"we are"],[/\bthey're\b/g,"they are"],[/\bhasn't\b/g,"has not"],[/\bmark's\b/g,"mark is"]];
+function norm(s){
+  let t = String(s).toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”"]/g,"").trim();
+  t = t.replace(/[.!?]+$/,"").replace(/,/g," ").replace(/\s+/g," ").trim();
+  for(const [r,v] of CONTR) t = t.replace(r, v);
+  return t.replace(/\s+/g," ").trim();
+}
+const matches = (given, accept) => accept.some(a => norm(a) === norm(given));
+
+/* ================= SCORING ================= */
+function scorable(ex){ return ex.type !== "write"; }
+function itemCount(ex){ return ex.type === "match" ? ex.pairs.length : (ex.items ? ex.items.length : 0); }
+function exScore(ex){
+  let ok = 0, done = 0; const n = itemCount(ex);
+  for(let i=0;i<n;i++){ const a = S.ans[ex.id+"-"+i]; if(a && a.done){ done++; if(a.ok) ok++; } }
+  return {ok, done, n};
+}
+function totals(){
+  let ok=0, done=0, n=0;
+  for(const ex of EX){ if(!scorable(ex)) continue; const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function tabScore(tabId){
+  let ok=0, done=0, n=0;
+  for(const ex of EX.filter(e=>e.tab===tabId && scorable(e))){ const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function refresh(){
+  const t = totals();
+  $("#fill").style.width = (t.n ? Math.round(t.done/t.n*100) : 0) + "%";
+  $("#score").textContent = `⭐ ${t.ok} / ${t.n}`;
+  for(const b of document.querySelectorAll("nav.tabs button")){
+    const id = b.dataset.id; const ts = b.querySelector(".ts");
+    if(ts) ts.remove();
+    if(STEP_TABS.includes(id)){ const s = tabScore(id); if(s.n && s.done === s.n) b.appendChild(el("span",{class:"ts"}, `${s.ok}/${s.n}`)); }
+  }
+  for(const ex of EX){ const st = document.getElementById("stamp-"+ex.id); if(!st) continue; const s = exScore(ex); if(scorable(ex) && s.n && s.done===s.n){ st.textContent = `✓ DONE ${s.ok}/${s.n}`; st.classList.add("show"); } }
+}
+function rec(id, data){ S.ans[id] = Object.assign(S.ans[id]||{}, data); save(); refresh(); }
+
+/* ================= RENDER: TABS ================= */
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach(t => nav.appendChild(el("button", {"data-id":t.id, class: S.tab===t.id ? "on":"", onclick:()=>go(t.id)}, `${t.ic} ${t.en}`, el("small",{}, t.ru))));
+}
+function go(id){
+  S.tab = id; save();
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+id));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  if(id === "res") renderResults();
+  const btn = document.querySelector(`nav.tabs button[data-id="${id}"]`); if(btn) btn.scrollIntoView({inline:"center", block:"nearest"});
+  window.scrollTo({top: $(".bar").offsetTop, behavior:"smooth"});
+  refresh();
+}
+function panel(id, icon, en, ru){
+  const p = el("section", {class:"panel", id:"p-"+id});
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, icon), el("div",{}, el("h2",{}, en), el("span",{class:"ru"}, ru))));
+  $("#main").appendChild(p); return p;
+}
+function nextBtn(p, toId){
+  const t = TABS.find(x=>x.id===toId);
+  p.appendChild(el("div",{class:"next"}, el("button",{class:"btn gold", onclick:()=>go(toId)}, `Next: ${t.en} →`)));
+}
+
+/* ================= RULES ================= */
+function renderRules(){
+  const p = panel("rules","📒","Clauses of contrast and purpose","how to say “but…” and “why” in a more advanced way");
+  const ex = (t) => el("div",{class:"exrow"}, el("span",{html:t}), sayBtn(t.replace(/<[^>]+>/g,"")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "🎛️ The linker machine"),
+    el("p",{html:"Choose a linker and see how the rest of the sentence changes. Look at what comes <b>after</b> each linker."}),
+    machine()));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "1 · Contrast: although, though, even though"),
+    el("p",{html:"Use them to show a contrast between two ideas. They are followed by a <b>clause</b> (subject + verb), at the beginning or in the middle of a sentence."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"although / though"), el("td",{html:"<span class='hl'>Although</span> the advert said it would last for years, my dishwasher broke down after two months. <i>(though is more informal)</i>"})),
+      el("tr",{}, el("td",{},"even though"), el("td",{html:"My dishwasher broke down again, <span class='hl'>even though</span> I'd had it repaired the week before. <i>(a stronger, more surprising contrast)</i>"})),
+      el("tr",{}, el("td",{},"…, though."), el("td",{html:"My dishwasher has never broken down. I hardly ever use it, <span class='hl'>though</span>. <i>(at the end = however)</i>"}))),
+    ex("Although the advert was clever, I didn't buy the product.")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "2 · Contrast: despite, in spite of"),
+    el("p",{html:"After <b>despite</b> and <b>in spite of</b>, use a <b>noun</b>, an <b>-ing form</b>, or <b>the fact that</b> + subject + verb."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"+ noun"), el("td",{html:"<span class='hl'>In spite of</span> <span class='hl2'>her age</span>, my mother is still very active."})),
+      el("tr",{}, el("td",{},"+ -ing"), el("td",{html:"<span class='hl'>Despite</span> <span class='hl2'>being 85</span>, my mother is still very active."})),
+      el("tr",{}, el("td",{},"+ the fact that"), el("td",{html:"<span class='hl'>Despite</span> <span class='hl2'>the fact that she's 85</span>, my mother is still very active."}))),
+    el("div",{class:"mist"},
+      el("div",{html:"<span class='bad'>Despite of the rain…</span> → <span class='good'>Despite the rain… / In spite of the rain…</span>"}),
+      el("div",{html:"<span class='bad'>Despite it was raining…</span> → <span class='good'>Although it was raining… / Despite the fact that it was raining…</span>"})),
+    ex("Despite the bad reviews, the film was a huge success.")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "3 · Purpose: to, in order to, so as to, for"),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"+ infinitive"), el("td",{html:"I went to the bank <span class='hl'>to / in order to / so as to</span> ask for a loan. <i>(in order to and so as to are more formal)</i>"})),
+      el("tr",{}, el("td",{},"for + noun"), el("td",{html:"I went to the bank <span class='hl'>for</span> a meeting with my bank manager."})),
+      el("tr",{}, el("td",{},"for + -ing"), el("td",{html:"This liquid is <span class='hl'>for</span> cleaning metal. <i>(the exact purpose of a thing)</i>"}))),
+    el("div",{class:"mist"}, el("div",{html:"<span class='bad'>I went there for buy milk.</span> → <span class='good'>I went there to buy milk.</span>"})),
+    ex("I went to the bank to ask for a loan.")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "4 · Purpose: so that · negative purpose"),
+    el("p",{html:"After <b>so that</b>, use a <b>subject + modal verb</b> (can, could, will, would). When the <b>subject changes</b>, <i>so that</i> is the only option."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"so that"), el("td",{html:"I went to the bank <span class='hl'>so that</span> I <span class='hl2'>could</span> talk to the manager in person."})),
+      el("tr",{}, el("td",{},"new subject"), el("td",{html:"We bought a new car <span class='hl'>so that</span> <span class='hl2'>the children would</span> have more space."})),
+      el("tr",{}, el("td",{},"negative"), el("td",{html:"I wrote down what he said <span class='hl'>so as not to / in order not to</span> forget it."}))),
+    el("div",{class:"mist"},
+      el("div",{html:"<span class='bad'>…in order to the children have more space.</span> → <span class='good'>…so that the children would have more space.</span>"}),
+      el("div",{html:"<span class='bad'>…to not forget it.</span> → <span class='good'>…so as not to forget it.</span>"})),
+    ex("We bought a new car so that the children would have more space.")));
+  nextBtn(p, "words");
+}
+function machine(){
+  const M = {
+    although:"Although the advert was clever, I didn't buy the product.",
+    "even though":"Even though the advert was clever, I didn't buy the product.",
+    despite:"Despite the clever advert, I didn't buy the product.",
+    "in spite of":"In spite of the advert being clever, I didn't buy the product.",
+    "though (end)":"The advert was clever. I didn't buy the product, though.",
+    "to":"I read the small print to understand the deal.",
+    "in order to":"I read the small print in order to understand the deal.",
+    "so that":"I read the small print so that I would understand the deal.",
+    "so as not to":"I read the small print so as not to be tricked.",
+    "for":"I read the small print for a better understanding of the deal.",
+  };
+  const NOTE = {although:"+ clause", "even though":"+ clause (stronger)", despite:"+ noun", "in spite of":"+ noun / -ing", "though (end)":"at the end = however", "to":"+ infinitive", "in order to":"+ infinitive (formal)", "so that":"+ subject + modal", "so as not to":"negative + infinitive", "for":"+ noun"};
+  let k = "although";
+  const out = el("div",{class:"out", style:"font-size:clamp(18px,4.6vw,25px)"});
+  const note = el("div",{class:"note"});
+  const b = {};
+  const row = (keys, label) => el("div",{}, el("div",{class:"note", style:"margin-top:8px"}, label), el("div",{class:"btns"}, ...keys.map(x => (b[x] = el("button",{onclick:()=>{ k = x; draw(); speak(M[k]); }}, x)))));
+  const draw = () => { out.textContent = M[k]; note.textContent = "→ " + k + ": " + NOTE[k]; Object.entries(b).forEach(([x,bt]) => bt.classList.toggle("on", x===k)); };
+  const box = el("div",{class:"machine", style:"margin-top:10px"},
+    row(["although","even though","despite","in spite of","though (end)"], "⚖️ CONTRAST"),
+    row(["to","in order to","so that","so as not to","for"], "🎯 PURPOSE"),
+    out, note);
+  draw(); return box;
+}
+function stepRule(p, tabId){
+  if(STEP_RULES[tabId]) p.appendChild(el("div",{class:"rule"}, el("h3",{}, tabId === "st5" ? "📝 Example" : "💡 Remember"), el("p",{html:STEP_RULES[tabId]})));
+}
+
+/* ================= WORDS ================= */
+function renderWords(){
+  const p = panel("words","🗂️","Words from the lesson","listen, read the example, then try the flashcards");
+  for(const g of Object.keys(GROUPS)){
+    const c = el("div",{class:"card wgroup"}, el("h3",{}, GROUPS[g][0], " · ", el("span",{class:"ru-i"}, GROUPS[g][1])));
+    const l = el("div",{class:"wlist"});
+    WORDS.filter(w=>w.g===g).forEach(w => l.appendChild(el("div",{class:"w"}, el("span",{class:"em"}, w.em), el("div",{style:"flex:1"}, el("b",{}, w.en), el("span",{class:"ru"}, w.ru), el("span",{class:"wex"}, w.ex)), sayBtn(w.en.replace(/\bsb\b/g,"somebody").replace(/\bsth\b/g,"something").replace(/\(.*?\)/g,"").replace(/ \/ /g,", ")))));
+    c.appendChild(l); p.appendChild(c);
+  }
+  p.appendChild(el("div",{class:"careful"}, el("h3",{}, "⚠️ Careful with these"),
+    el("ul",{}, ...CAREFUL.map(t => el("li",{html:t})))));
+  nextBtn(p, "cards");
+}
+
+/* ================= FLASHCARDS ================= */
+let FC = {order:[], i:0, dir:"en", only:false};
+function fcDeck(){ return FC.order.filter(k => !FC.only || !S.known[WORDS[k].en]); }
+function renderCards(){
+  const p = panel("cards","🃏","Flashcards","tap a card to flip it");
+  FC.order = WORDS.map((_,i)=>i);
+  const tools = el("div",{class:"fc-tools"});
+  const bDir = el("button",{class:"chip", onclick:()=>{ FC.dir = FC.dir==="en"?"ru":"en"; bDir.textContent = FC.dir==="en" ? "Word → meaning" : "Meaning → word"; drawFC(); }}, "Word → meaning");
+  const bShuf = el("button",{class:"chip", onclick:()=>{ FC.order = shuffle(FC.order); FC.i=0; drawFC(); toast("Shuffled"); }}, "🔀 Shuffle");
+  const bOnly = el("button",{class:"chip", onclick:()=>{ FC.only=!FC.only; bOnly.classList.toggle("on",FC.only); FC.i=0; drawFC(); }}, "Only words I'm learning");
+  tools.append(bDir, bShuf, bOnly);
+  const flip = el("div",{class:"flip", tabindex:"0", role:"button", "aria-label":"Flip card"});
+  const inner = el("div",{class:"in"}); flip.appendChild(inner);
+  flip.addEventListener("click", ()=>flip.classList.toggle("turned"));
+  flip.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip.classList.toggle("turned"); } });
+  const count = el("div",{class:"fc-count"});
+  const known = el("div",{class:"track", style:"margin:4px 0 12px"}, el("div",{class:"fill", id:"fcfill"}));
+  const nav = el("div",{class:"fc-nav"},
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i-1+d.length)%d.length; drawFC(); }}, "← Back"),
+    el("button",{class:"b-learn", onclick:()=>{ markFC(false); }}, "Still learning"),
+    el("button",{class:"b-know", onclick:()=>{ markFC(true); }}, "I know it ✓"),
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i+1)%d.length; drawFC(); }}, "Next →"));
+  p.append(el("div",{class:"card"}, tools, flip, count, known, nav));
+  FC.els = {flip, inner, count};
+  drawFC();
+  nextBtn(p, "st1");
+}
+function markFC(k){
+  const d = fcDeck(); if(!d.length) return;
+  const w = WORDS[d[FC.i]]; if(k) S.known[w.en] = 1; else delete S.known[w.en]; save();
+  toast(k ? "Great!" : "We'll practise it");
+  const d2 = fcDeck(); if(FC.only){ if(FC.i >= d2.length) FC.i = 0; } else FC.i = (FC.i+1) % d2.length;
+  drawFC();
+}
+function drawFC(){
+  const {flip, inner, count} = FC.els; flip.classList.remove("turned");
+  const d = fcDeck(); const nk = Object.keys(S.known).length;
+  $("#fcfill").style.width = Math.round(nk/WORDS.length*100)+"%";
+  if(!d.length){ inner.innerHTML = ""; inner.appendChild(el("div",{class:"face front"}, el("div",{class:"big"}, "🎉"), el("p",{}, "You know all the words!"))); count.textContent = `Known: ${nk} / ${WORDS.length}`; return; }
+  const w = WORDS[d[FC.i]];
+  const en = el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en), sayBtn(w.en.replace(/sb/g,"somebody").replace(/sth/g,"something").replace(/[()]/g,"").replace(/ \/ /g,", ")));
+  const ru = el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru));
+  const front = el("div",{class:"face front"}, FC.dir==="en" ? en : ru, el("div",{class:"hint"}, "tap to flip"));
+  const backC = FC.dir==="en" ? el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru)) : el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en));
+  const back = el("div",{class:"face back"}, backC, el("div",{class:"ex"}, w.ex, " ", sayBtn(w.ex)), el("div",{class:"hint"}, S.known[w.en] ? "✓ known" : "tap to flip back"));
+  inner.innerHTML = ""; inner.append(front, back);
+  count.textContent = `Card ${FC.i+1} / ${d.length} · Known: ${nk} / ${WORDS.length}`;
+}
+
+/* ================= EXERCISES ================= */
+function renderCase(tabId, icon, next){
+  const p = panel(tabId, icon, CASE_TITLES[tabId][0], CASE_TITLES[tabId][1]);
+  stepRule(p, tabId);
+  if(tabId === STORY_TAB) p.appendChild(storyCard());
+  for(const ex of EX.filter(e=>e.tab===tabId)){
+    const c = el("div",{class:"card"});
+    c.appendChild(el("div",{class:"case-head"}, el("div",{}, el("h3",{}, ex.title), el("span",{class:"ru"}, ex.ru)), el("span",{class:"stamp", id:"stamp-"+ex.id})));
+    const [ie, ir] = ex.instr.split(" · ");
+    c.appendChild(el("p",{class:"instr"}, ie, ir ? el("span",{class:"ru"}, ir) : null));
+    if(ex.bank) c.appendChild(el("div",{class:"opts", style:"margin:0 0 6px"}, ...ex.bank.map(b => el("span",{class:"opt", style:"background:var(--must-soft);border-color:var(--must-soft);cursor:default"}, b))));
+    if(ex.type==="choice") ex.items.forEach((it,i)=>c.appendChild(choiceItem(ex,it,i)));
+    if(ex.type==="typed" || ex.type==="translate") ex.items.forEach((it,i)=>c.appendChild(typedItem(ex,it,i)));
+    if(ex.type==="tiles") ex.items.forEach((it,i)=>c.appendChild(tilesItem(ex,it,i)));
+    if(ex.type==="match") c.appendChild(matchEx(ex));
+    if(ex.type==="write") c.appendChild(writeEx(ex));
+    p.appendChild(c);
+  }
+  nextBtn(p, next);
+}
+function qLine(n, html){ return el("div",{class:"q"}, el("span",{class:"n"}, String(n)), el("span",{html})); }
+function gapHtml(q, fill){ const suf = /\w___/.test(q) ? " suf" : ""; return esc(q).replace("___", fill ? `<span class="gap ok${suf}">${esc(fill)}</span>` : `<span class="gap${suf}">&nbsp;</span>`); }
+function fbBox(){ return el("div",{class:"fb"}); }
+function showFb(fb, ok, why, extra){
+  fb.className = "fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? pick(PRAISE) : pick(OOPS)}</b>${extra ? " "+extra : ""}${why ? `<span class="why">${why}</span>` : ""}`;
+}
+
+function choiceItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const st = S.ans[id];
+  let qEl;
+  if(ex.sort) qEl = el("div",{class:"sortw"}, el("span",{class:"n", style:"width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center"}, String(i+1)), it.word, sayBtn(it.word));
+  else if(ex.syl) qEl = qLine(i+1, `<span class="mono">${esc(it.word)}</span>`);
+  else if(ex.listen) qEl = qLine(i+1, "Which word do you hear?");
+  else qEl = qLine(i+1, gapHtml(it.q, st && st.done ? it.o[it.a].replace(/^-/,"") : null));
+  wrap.appendChild(qEl);
+  if(ex.syl) wrap.appendChild(el("div",{style:"margin:-2px 0 8px 40px"}, sayBtn(it.word)));
+  if(it.pic) wrap.appendChild(el("div",{class:"pic"}, el("span",{class:"emo"}, it.pic)));
+  if(ex.listen) wrap.appendChild(el("button",{class:"listen", onclick:()=>speak(it.word)}, "🔊 Listen"));
+  const opts = el("div",{class:"opts" + (ex.syl ? " syl":"")});
+  const fb = fbBox();
+  const btns = it.o.map((o,j) => el("button",{class:"opt", onclick:()=>choose(j)}, o));
+  btns.forEach(b=>opts.appendChild(b));
+  wrap.append(opts, fb);
+  function paint(given){
+    btns.forEach((b,j)=>{ b.disabled = true; if(j===it.a) b.classList.add("right"); else if(j===given) b.classList.add("wrong"); });
+  }
+  function fullSentence(){ return it.q && it.q.includes("___") ? it.q.replace("___", it.o[it.a].replace(/^-/,"")) : (it.word || it.o[it.a]); }
+  function choose(j){
+    if(S.ans[id] && S.ans[id].done) return;
+    const ok = j === it.a;
+    rec(id, {done:true, ok, given:it.o[j]});
+    paint(j);
+    if(it.gap) fillGap(it, ok);
+    if(!ex.sort && !ex.syl && !ex.listen && it.q && it.q.includes("___")) qEl.querySelector("span:last-child").innerHTML = gapHtml(it.q, it.o[it.a].replace(/^-/,""));
+    showFb(fb, ok, it.why, ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`);
+    if(ok){ if(it.say) speak(it.say); else if(it.word) speak(it.word); else if(!ex.tf) speak(fullSentence()); }
+  }
+  if(st && st.done){ paint(it.o.indexOf(st.given)); showFb(fb, st.ok, it.why, st.ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`); }
+  return wrap;
+}
+
+function typedItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  if(it.gap) wrap.dataset.gap = it.gap;
+  const isTr = ex.type === "translate";
+  wrap.appendChild(qLine(i+1, isTr ? `✏️ ${esc(it.q)}` : it.q.includes("___") ? gapHtml(it.q) : it.q));
+  const inp = el("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"answer", placeholder: isTr ? "Write in English" : "Type here"});
+  const btn = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const fb = fbBox();
+  const selfRow = el("div",{class:"tilebtns", style:"display:none;margin-top:8px"});
+  wrap.append(el("div",{class:"tin"}, inp, btn), fb, selfRow);
+  inp.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+  if(it.gap) inp.addEventListener("input", ()=>{ const g = document.querySelector(`.ginp[data-gap="${it.gap}"]`); if(g) g.value = inp.value; });
+  function lock(ok, given, extra){
+    inp.disabled = true; btn.disabled = true; inp.value = given;
+    inp.classList.remove("ok","no"); inp.classList.add(ok ? "ok" : "no");
+    const modelShown = ok ? "" : `→ <b>${esc(it.model)}</b>`;
+    showFb(fb, ok, it.why || "", (extra||"") + modelShown);
+    if(it.gap) fillGap(it, ok);
+    if(ok) speak(it.q.includes("___") ? it.q.replace("___", it.model) : it.model);
+  }
+  function check(){
+    const st = S.ans[id] || {};
+    if(st.done) return;
+    const v = inp.value.trim(); if(!v){ toast("Write your answer"); return; }
+    const tries = (st.tries||0) + 1;
+    const ok = matches(v, it.accept);
+    let note = "";
+    if(ok && /\?$/.test(it.model) && !/\?\s*$/.test(v)) note = "(Don't forget the question mark.) ";
+    if(ok){ rec(id,{done:true, ok:true, given:v, tries}); lock(true, v, note); return; }
+    if(tries < 2){ rec(id,{tries, given:v}); inp.classList.add("no"); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 ${it.hint}</span>`; inp.focus(); setTimeout(()=>inp.classList.remove("no"), 700); return; }
+    if(isTr){
+      rec(id,{tries, given:v});
+      inp.disabled = true; btn.disabled = true;
+      fb.className="fb show no"; fb.innerHTML = `<b>Compare:</b> ${esc(it.model)}<span class="why">If your version is also correct, tap “My answer is also correct”.</span>`;
+      selfRow.style.display = "flex"; selfRow.innerHTML = "";
+      selfRow.append(
+        el("button",{class:"btn teal", onclick:()=>{ rec(id,{done:true, ok:true, self:true, given:v}); selfRow.style.display="none"; lock(true, v, "(self-checked) "); }}, "My answer is also correct ✓"),
+        el("button",{class:"btn alt", onclick:()=>{ rec(id,{done:true, ok:false, given:v}); selfRow.style.display="none"; lock(false, v); }}, "OK, I see"));
+      return;
+    }
+    rec(id,{done:true, ok:false, given:v, tries}); lock(false, v);
+  }
+  const st = S.ans[id];
+  if(st && st.done) lock(st.ok, st.given, st.self ? "(self-checked) " : "");
+  else if(st && st.given) inp.value = st.given;
+  return wrap;
+}
+
+function tilesItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const words = it.a.split(" ");
+  wrap.appendChild(qLine(i+1, `<span class="ru-i">💡 ${esc(it.ru)}</span>`));
+  const line = el("div",{class:"line", "aria-label":"your sentence"}), pool = el("div",{class:"pool"}), fb = fbBox();
+  let order = shuffle(words.map((w,k)=>k)); if(order.every((k,j)=>k===j)) order = order.reverse();
+  const chosen = [];
+  const draw = () => {
+    line.innerHTML = ""; pool.innerHTML = "";
+    chosen.forEach((k,pos)=>line.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.splice(pos,1); draw(); }}, words[k])));
+    order.filter(k=>!chosen.includes(k)).forEach(k=>pool.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.push(k); draw(); }}, words[k])));
+  };
+  const done = () => S.ans[id] && S.ans[id].done;
+  const bCheck = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const bClear = el("button",{class:"btn alt", onclick:()=>{ if(done()) return; chosen.length=0; draw(); }}, "Clear");
+  wrap.append(line, pool, el("div",{class:"tilebtns"}, bCheck, bClear), fb);
+  function finish(ok, given){
+    bCheck.disabled = true; bClear.disabled = true;
+    line.innerHTML = ""; it.a.split(" ").forEach(w=>line.appendChild(el("span",{class:"tile", style: ok ? "background:var(--teal);color:#fff" : ""}, w))); pool.innerHTML = "";
+    showFb(fb, ok, "", ok ? "" : `→ <b>${esc(it.a)}</b><span class="why">Your answer: ${esc(given)}</span>`);
+    if(ok) speak(it.a);
+  }
+  function check(){
+    if(done()) return;
+    if(chosen.length !== words.length){ toast("Use all the words"); return; }
+    const given = chosen.map(k=>words[k]).join(" ");
+    const tries = ((S.ans[id]||{}).tries||0) + 1;
+    if(norm(given) === norm(it.a)){ rec(id,{done:true, ok:true, given, tries}); finish(true, given); return; }
+    if(tries < 2){ rec(id,{tries, given}); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 The first word is: <b>${esc(words[0])}</b></span>`; return; }
+    rec(id,{done:true, ok:false, given, tries}); finish(false, given);
+  }
+  if(done()) finish(S.ans[id].ok, S.ans[id].given); else draw();
+  return wrap;
+}
+
+function matchEx(ex){
+  const box = el("div",{class:"match"}), L = el("div",{class:"col"}), R = el("div",{class:"col"});
+  const fb = el("div",{class:"fb", style:"margin-left:0"});
+  let sel = null;
+  const rights = shuffle(ex.pairs.map((p,i)=>i));
+  const lb = ex.pairs.map((p,i)=>el("button",{class:"mt", onclick:()=>{ if(isDone(i)) return; sel=i; lb.forEach(b=>b.classList.remove("sel")); lb[i].classList.add("sel"); speak(p[0]); }}, "🔊 "+p[0]));
+  const rb = {};
+  rights.forEach(i=>{ rb[i] = el("button",{class:"mt", onclick:()=>tapR(i)}, ex.pairs[i][1]); });
+  const isDone = (i) => S.ans[ex.id+"-"+i] && S.ans[ex.id+"-"+i].done;
+  function tapR(i){
+    if(sel===null){ toast(ex.leftHint || "First tap an English word"); return; }
+    if(isDone(i)) return;
+    const id = ex.id+"-"+sel, st = S.ans[id] || {};
+    if(i === sel){
+      rec(id,{done:true, ok:!st.wrong, given: ex.pairs[i][1]});
+      lb[sel].classList.remove("sel"); lb[sel].classList.add("done"); rb[i].classList.add("done");
+      showFb(fb, true, `${ex.pairs[i][0]}${ex.sep || " = "}${ex.pairs[i][1]}`); sel = null;
+    } else {
+      rec(id,{wrong:(st.wrong||0)+1, given: ex.pairs[i][1]});
+      rb[i].classList.add("shake"); setTimeout(()=>rb[i].classList.remove("shake"), 400);
+      showFb(fb, false, "Try another one");
+    }
+  }
+  lb.forEach((b,i)=>{ if(isDone(i)){ b.classList.add("done"); rb[i].classList.add("done"); } });
+  lb.forEach(b=>L.appendChild(b)); rights.forEach(i=>R.appendChild(rb[i]));
+  box.append(L,R);
+  return el("div",{}, box, fb);
+}
+
+function writeEx(ex){
+  const ta = el("textarea",{placeholder: ex.prompt, "aria-label":ex.title});
+  ta.value = S.write[ex.id] || "";
+  const wc = el("div",{class:"wc"});
+  const upd = () => { const n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; wc.textContent = `${n} words, saved automatically`; };
+  ta.addEventListener("input", ()=>{ S.write[ex.id] = ta.value; save(); upd(); });
+  upd();
+  return el("div",{}, ta, wc);
+}
+
+function storyCard(){
+  const c = el("div",{class:"story"});
+  c.appendChild(el("div",{class:"case-head"}, el("h3",{}, "🪒 " + STORY_TITLE)));
+  c.appendChild(el("span",{class:"ru", style:"margin-bottom:4px"}, STORY_INTRO));
+  const cl = EX.find(e=>e.cloze);
+  STORY.split("\n").forEach(par => {
+    const p = el("p",{});
+    p.innerHTML = esc(par).replace(/\{(\d+)\}/g, (m,n) => cl && cl.type==="typed" ? `<span class="cgap gi" id="cg-${n}"><input class="ginp" data-gap="${n}" placeholder="${n}" aria-label="gap ${n}" autocomplete="off" autocapitalize="off" spellcheck="false"></span>` : `<span class="cgap" id="cg-${n}">(${n})</span>`);
+    c.appendChild(p);
+  });
+  if(cl) cl.items.forEach((it,k)=>{ const a = S.ans[cl.id+"-"+k]; if(a && a.done) setTimeout(()=>fillGap(it, a.ok), 0); });
+  return el("div",{class:"card", style:"padding:0;background:none;box-shadow:none"}, c);
+}
+function fillGap(it, ok){ const g = document.getElementById("cg-"+it.gap); if(!g) return; g.textContent = it.o ? it.o[it.a] : it.model; g.className = "cgap " + (ok ? "ok" : "no"); }
+
+document.addEventListener("input", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g) return; const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled) i.value = g.value; });
+document.addEventListener("keydown", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g || e.key !== "Enter") return; e.preventDefault(); const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled){ i.value = g.value; w.querySelector("button.btn").click(); if(!i.disabled){ g.classList.add("bad"); setTimeout(()=>g.classList.remove("bad"), 900); toast("Not quite: look at the hint for gap " + g.dataset.gap); } } });
+/* ================= RESULTS & REPORT ================= */
+function rankFor(p){
+  if(p >= 95) return ["🏆 Advertising genius","Nobody can trick you now!"];
+  if(p >= 80) return ["📺 Prime-time","Excellent. Look at the few slips below."];
+  if(p >= 50) return ["🎪 Good campaign","Good progress. Re-read the rules and your mistakes."];
+  return ["🔁 Back to the drawing board","Read the rules again, then start again."];
+}
+function mistakes(){
+  const out = [];
+  for(const ex of EX){
+    if(ex.type === "write") continue;
+    const n = itemCount(ex);
+    for(let i=0;i<n;i++){
+      const a = S.ans[ex.id+"-"+i]; if(!a || !a.done || a.ok) continue;
+      let q, right;
+      if(ex.type==="match"){ q = ex.pairs[i][0]; right = ex.pairs[i][1]; }
+      else { const it = ex.items[i]; q = it.q || it.word || it.ru || ""; right = ex.type==="choice" ? it.o[it.a] : (it.model || it.a); }
+      out.push({ex:ex.title, q:q.replace(/<[^>]+>/g,""), given:a.given || "—", right});
+    }
+  }
+  return out;
+}
+function report(){
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0;
+  const L = [];
+  L.push(`HOMEWORK: ${TOPIC}`);
+  L.push(`Student: ${S.name}`);
+  L.push(`Date: ${new Date().toLocaleDateString("en-GB")}`);
+  L.push(`Score: ${t.ok}/${t.n} (${pct}%) — answered ${t.done}/${t.n}`);
+  L.push(`Flashcards known: ${Object.keys(S.known).length}/${WORDS.length}`);
+  L.push("");
+  L.push("BY EXERCISE:");
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); L.push(`- ${ex.title}: ${s.ok}/${s.n}${s.done<s.n ? ` (not finished: ${s.done}/${s.n})` : ""}`); }
+  const m = mistakes();
+  L.push(""); L.push(`MISTAKES (${m.length}):`);
+  m.forEach(x=>L.push(`- [${x.ex}] ${x.q} → wrote: ${x.given} | correct: ${x.right}`));
+  const selfs = Object.entries(S.ans).filter(([k,v])=>v.self);
+  if(selfs.length){ L.push(""); L.push("SELF-CHECKED TRANSLATIONS (please check):"); selfs.forEach(([k,v])=>{ const ex = EX.find(e=>k.startsWith(e.id+"-")); const it = ex.items[+k.split("-")[1]]; L.push(`- ${it.q} → ${v.given}`); }); }
+  L.push(""); L.push("ALL TYPED ANSWERS:");
+  for(const ex of EX.filter(e=>["typed","translate","tiles"].includes(e.type))){ ex.items.forEach((it,i)=>{ const a = S.ans[ex.id+"-"+i]; if(a && a.given) L.push(`- ${(it.q||it.ru).replace(/<[^>]+>/g,"")} → ${a.given}${a.done ? (a.ok ? " ✓" : " ✗") : ""}`); }); }
+  if(EX.some(e=>e.type==="write")){ L.push(""); L.push("WRITING:"); }
+  for(const ex of EX.filter(e=>e.type==="write")){ L.push(`${ex.title}:`); L.push((S.write[ex.id]||"").trim() || "(empty)"); L.push(""); }
+  return L.join("\n");
+}
+function short(txt){ return txt.length <= 1500 ? txt : txt.slice(0,1450).replace(/\n[^\n]*$/,"") + "\n…\n(Full report: use “Copy text”)"; }
+function renderResults(){
+  const p = $("#p-res"); p.innerHTML = "";
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, "🏆"), el("div",{}, el("h2",{}, "Your results"), el("span",{class:"ru"}, "Send them to your teacher at the bottom"))));
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0, rk = rankFor(pct);
+  const ring = el("div",{class:"ring", style:`background:conic-gradient(var(--teal) ${pct*3.6}deg,var(--tint) 0deg)`}, el("span",{}, pct+"%"));
+  p.appendChild(el("div",{class:"card"}, el("div",{class:"big-score"}, ring, el("div",{},
+    el("div",{class:"rank"}, rk[0]), el("span",{class:"ru"}, rk[1]),
+    el("p",{}, `⭐ ${t.ok} / ${t.n} · answered: ${t.done} / ${t.n}`),
+    el("p",{class:"muted", style:"margin:0"}, `🃏 Flashcards known: ${Object.keys(S.known).length} / ${WORDS.length}`)))));
+  if(t.done < t.n) p.appendChild(el("p",{class:"careful", style:"padding:10px 16px"}, `Some tasks are not finished yet (${t.n - t.done} left).`));
+  const tb = el("table",{class:"brk"});
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); tb.appendChild(el("tr",{}, el("td",{}, ex.title), el("td",{}, `${s.ok}/${s.n}`))); }
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "By exercise"), tb));
+  const m = mistakes();
+  const ml = el("div",{class:"mlist"});
+  if(!m.length) ml.appendChild(el("div",{}, t.done ? "No mistakes — amazing!" : "Nothing here yet"));
+  m.forEach(x=>ml.appendChild(el("div",{html:`<b>${esc(x.q)}</b><br><span class="bad">${esc(x.given)}</span> → <span class="good">${esc(x.right)}</span>`})));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Mistakes to remember"), ml));
+  const w = EX.filter(e=>e.type==="write").map(ex => el("div",{style:"margin-bottom:8px"}, el("b",{}, ex.title), el("div",{style:"white-space:pre-wrap"}, (S.write[ex.id]||"").trim() || "— (empty)")));
+  if(w.length) p.appendChild(el("div",{class:"card"}, el("h3",{}, "Your writing"), ...w));
+  // send
+  const rep = report(), subj = `${TOPIC} — ${S.name} — ${t.ok}/${t.n}`, sh = short(rep);
+  const send = el("div",{class:"send"});
+  if(navigator.share) send.appendChild(el("button",{class:"s-share", onclick:()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); }}, "📤 Share"));
+  send.append(
+    el("a",{class:"s-gm", target:"_blank", rel:"noopener", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "Send in Gmail"),
+    el("a",{class:"s-tg", target:"_blank", rel:"noopener", href:`https://t.me/share/url?url=${encodeURIComponent(subj)}&text=${encodeURIComponent(sh)}`}, "Telegram"),
+    el("a",{class:"s-wa", target:"_blank", rel:"noopener", href:`https://wa.me/?text=${encodeURIComponent(subj+"\n"+sh)}`}, "WhatsApp"),
+    el("a",{class:"s-ml", href:`mailto:${TEACHER}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "✉️ Email app"),
+    el("button",{class:"s-cp", onclick:()=>copy(rep)}, "📋 Copy text"));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Send to your teacher"),
+    el("p",{html:`Teacher's email: <span class="email">${TEACHER}</span>`}),
+    el("p",{class:"muted", style:"font-size:14px"}, "Gmail, Telegram, WhatsApp and Email send a short version. “Share” and “Copy text” give the full report."),
+    send, el("details",{style:"margin-top:10px"}, el("summary",{}, "Show the report"), el("pre",{style:"white-space:pre-wrap;font-size:13px;background:var(--tint);padding:10px;border-radius:10px"}, rep))));
+  // reset
+  const conf = el("div",{class:"confirm"}, el("b",{}, "Delete all answers?"),
+    el("button",{class:"btn", style:"background:var(--crim)", onclick:()=>{ S = {name:S.name, ans:{}, known:{}, write:{}, tab:TABS[0].id}; save(); location.reload(); }}, "Yes"),
+    el("button",{class:"btn alt", onclick:()=>conf.classList.remove("show")}, "No"));
+  p.appendChild(el("div",{class:"card"}, el("button",{class:"btn alt", onclick:()=>conf.classList.add("show")}, "↺ Start again"), conf));
+}
+function copy(txt){
+  const ok = () => toast("Copied!");
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok).catch(fallback); } else fallback();
+  function fallback(){ const ta = el("textarea",{style:"position:fixed;top:-1000px"}); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); ok(); }catch(e){ toast("Select and copy the report below"); } ta.remove(); }
+}
+
+/* ================= INIT ================= */
+function init(){
+  const nmI = $("#nm"); nmI.value = S.name || DEFAULT_NAME; $("#hname").textContent = nmI.value;
+  nmI.addEventListener("input", ()=>{ S.name = nmI.value.trim() || DEFAULT_NAME; $("#hname").textContent = S.name; save(); });
+  renderTabs();
+  renderRules(); renderWords(); renderCards();
+  STEP_TABS.forEach((t,k)=>renderCase(t, STEP_ICONS[k], STEP_TABS[k+1] || "res"));
+  panel("res","🏆","Results","");
+  const start = TABS.some(t=>t.id===S.tab) ? S.tab : TABS[0].id;
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+start));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === start));
+  if(start === "res") renderResults();
+  refresh();
+}
+init();
+</script>
+</body>
+</html>
