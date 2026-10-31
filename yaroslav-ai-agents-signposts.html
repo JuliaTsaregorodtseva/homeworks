@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yaroslav · IELTS Speaking · AI agents and signposts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16213A; --ink2:#24335A; --paper:#F2F4F8; --card:#FFFFFF; --tint:#E9EDF4;
+  --must:#E0703A; --must-soft:#FBE4D8; --crim:#D24B4B; --crim-soft:#F9DEDE;
+  --teal:#1F7A6D; --teal-soft:#D9EEEA; --pink:#D24B4B; --pink-soft:#F9DEDE;
+  --muted:#5A6178; --line:#DDE2EC; --ru:#5F6680;
+  --r:16px; --shadow:0 2px 10px rgba(22,33,58,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--must);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:"Unbounded","Nunito",sans-serif;line-height:1.2;margin:0}
+.ru{color:var(--ru);font-size:.88em;display:block;font-weight:600}
+.ru-i{color:var(--ru);font-weight:600}
+.muted{color:var(--muted)}
+
+/* header */
+header.hero{background:var(--ink);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+.hero .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:800}
+.hero .ecg{position:absolute;left:0;bottom:0;width:100%;height:64px;opacity:.95;pointer-events:none}
+header.hero{padding-bottom:76px!important}
+.cgap{display:inline-block;min-width:54px;border-bottom:2.5px solid var(--must);text-align:center;font-weight:800;color:var(--muted);padding:0 4px}
+.cgap.ok{color:var(--teal);border-color:var(--teal)}
+.cgap.no{color:var(--crim);border-color:var(--crim)}
+.vid{display:inline-flex;align-items:center;gap:6px;margin:4px 0 10px;font-weight:800;color:var(--crim);text-decoration:none;min-height:44px}
+.hero h1{font-size:clamp(24px,6vw,38px);margin:8px 0 6px}
+.hero p{margin:4px 0;color:#D5D9E6}
+.hero .ru{color:#AEB5C9}
+.hero .badge{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--teal);opacity:.25}
+.namebox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{background:#fff;color:var(--ink);border:0;border-radius:12px;padding:10px 14px;min-height:44px;width:200px}
+.howto{margin-top:12px;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.prog{display:flex;align-items:center;gap:12px;padding:10px 0 6px}
+.track{flex:1;height:12px;border-radius:99px;background:var(--tint);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--must));border-radius:99px;transition:width .4s}
+.score{font-weight:800;white-space:nowrap;font-size:15px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}
+nav.tabs button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px;line-height:1.1;text-align:center}
+nav.tabs button small{display:block;font-size:11px;color:var(--ru);font-weight:700}
+nav.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav.tabs button.on small{color:#C9CEDD}
+nav.tabs button .ts{display:inline-block;margin-left:6px;background:var(--teal);color:#fff;border-radius:99px;padding:0 7px;font-size:11px}
+
+main{padding:18px 0 60px}
+section.panel{display:none}
+section.panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ptitle{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.ptitle .ic{width:52px;height:52px;border-radius:50%;background:var(--ink);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+.ptitle h2{font-size:clamp(19px,4.6vw,26px)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;margin:0 0 16px}
+.card h3{font-size:17px;margin-bottom:8px}
+.case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.case-head h3{font-size:17px}
+.instr{margin:2px 0 12px;font-weight:700}
+.stamp{flex:0 0 auto;border:2.5px solid var(--crim);color:var(--crim);border-radius:8px;padding:2px 8px;font-family:"Unbounded";font-size:11px;transform:rotate(-6deg);display:none;white-space:nowrap}
+.stamp.show{display:inline-block}
+
+/* rules */
+.rule{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:#fff;box-shadow:var(--shadow)}
+.rule h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.rule p{margin:6px 0}
+table.form{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:16px}
+table.form td{padding:8px 10px;background:var(--tint);vertical-align:top}
+table.form td:first-child{border-radius:10px 0 0 10px;font-weight:800;width:42px;text-align:center}
+table.form td:last-child{border-radius:0 10px 10px 0}
+table.form.wide td:first-child{width:auto;white-space:nowrap;text-align:left;color:var(--ink2)}
+.hl{background:var(--must-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.hl2{background:var(--teal-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.say{border:0;background:var(--tint);border-radius:50%;width:36px;height:36px;min-width:36px;display:inline-grid;place-items:center;font-size:16px;vertical-align:middle;margin-left:4px}
+.exrow{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.mist{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}
+.mist div{background:var(--tint);border-radius:10px;padding:8px 12px;font-size:16px}
+.bad{color:var(--crim);text-decoration:line-through;text-decoration-thickness:1.5px}
+.good{color:var(--teal);font-weight:800}
+.machine{background:var(--ink);color:#fff;border-radius:var(--r);padding:16px 18px}
+.machine .out{font-size:clamp(20px,5vw,28px);font-weight:800;min-height:46px;margin:12px 0 6px}
+.machine .out .d{color:var(--must)} .machine .out .b{color:#8FE3CF;text-decoration:underline}
+.machine .btns{display:flex;gap:8px;flex-wrap:wrap}
+.machine button{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:#2E3A5C;color:#fff}
+.machine button.on{background:var(--must);color:var(--ink)}
+.machine .note{font-size:14px;color:#C9CEDD;margin-top:6px}
+
+/* words */
+.wgroup h3{font-size:16px;margin:0 0 10px}
+.wlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.w{display:flex;align-items:center;gap:10px;background:var(--tint);border-radius:12px;padding:8px 10px}
+.w .em{font-size:24px;width:32px;text-align:center}
+.w b{display:block}
+.careful{background:var(--must-soft);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
+.careful h3{font-size:16px;margin-bottom:6px}
+.careful ul{margin:4px 0;padding-left:20px}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.flip{perspective:1200px;height:270px;margin:6px 0 12px}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.face.front{background:#fff;border:2px solid var(--line)}
+.face.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:clamp(20px,5.6vw,32px);font-weight:900;font-family:"Unbounded",system-ui,sans-serif;overflow-wrap:anywhere}
+.face .em{font-size:52px;line-height:1}
+.face .ex{margin-top:10px;font-size:16px;color:#D5D9E6}
+.face .hint{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.face.back .hint{color:#AEB5C9}
+.fc-nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.fc-nav button{flex:1;min-width:120px;min-height:48px;border-radius:14px;border:0;font-weight:800}
+.b-know{background:var(--teal);color:#fff}.b-learn{background:var(--must);color:var(--ink)}.b-plain{background:#fff;border:1.5px solid var(--line)!important}
+.fc-count{text-align:center;font-weight:800;margin:8px 0}
+
+/* items */
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.q{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.q .n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center;margin-top:1px}
+.gap{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--muted);margin:0 3px}
+.gap.ok{border-color:var(--teal);color:var(--teal);font-weight:900;min-width:0}
+.gap.suf{margin-left:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-left:40px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 16px;min-height:46px;font-weight:800;font-size:16px;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt.wrong{background:var(--crim-soft);border-color:var(--crim);color:var(--crim)}
+.opt[disabled]{cursor:default}
+.fb{margin:8px 0 0 40px;font-size:15px;border-radius:10px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--teal-soft)} .fb.no{background:var(--crim-soft)}
+.fb .why{display:block;color:var(--muted);margin-top:2px}
+.pic{margin-left:40px;margin-bottom:8px}
+.emo{font-size:56px;line-height:1}
+.tin{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+.tin input{flex:1;min-width:200px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.tin input.ok{border-color:var(--teal);background:var(--teal-soft)}
+.tin input.no{border-color:var(--crim);background:var(--crim-soft)}
+.btn{border:0;border-radius:12px;padding:10px 18px;min-height:46px;font-weight:800;background:var(--ink);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--must);color:var(--ink)}
+.btn.teal{background:var(--teal);color:#fff}
+.btn[disabled]{opacity:.45;cursor:default}
+.listen{border:0;background:var(--pink);color:#fff;border-radius:16px;min-height:56px;padding:8px 20px;font-weight:900;font-size:18px;margin-left:40px;margin-bottom:8px}
+.syl .opt{border-radius:10px;min-width:64px;font-family:"Unbounded",system-ui,sans-serif;font-weight:600}
+.syl{gap:4px}
+.sortw{display:flex;align-items:center;gap:8px;margin-left:40px;margin-bottom:8px;font-size:20px;font-weight:900}
+.mono{font-family:"Nunito",system-ui,sans-serif;font-weight:800}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:48px;font-weight:800;text-align:left}
+.mt.sel{border-color:var(--must);background:var(--must-soft)}
+.mt.done{border-color:var(--teal);background:var(--teal-soft);color:#155e55;cursor:default}
+.mt.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* tiles */
+.line{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px;background:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px}
+.tile{border:0;background:var(--ink2);color:#fff;border-radius:10px;padding:8px 12px;min-height:44px;font-weight:800}
+.line .tile{background:var(--must);color:var(--ink)}
+.tilebtns{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+
+/* story */
+.story{background:#FFFDF6;border:2px solid var(--must-soft);border-radius:var(--r);padding:16px 18px;font-size:17px;line-height:1.65}
+.story h3{font-family:"Unbounded";font-size:18px;margin-bottom:6px}
+.gl{border-bottom:2px dotted var(--must);cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;padding:0;font-weight:700;min-height:0}
+.gl .tip{display:none;font-size:13px;color:var(--ru);font-weight:700;margin-left:4px}
+.gl.open .tip{display:inline}
+
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;resize:vertical}
+.wc{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* results */
+.big-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) 0deg,var(--tint) 0deg);flex:0 0 auto}
+.ring span{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:"Unbounded";font-size:22px}
+.rank{font-family:"Unbounded";font-size:20px}
+.brk{width:100%;border-collapse:collapse;font-size:15px}
+.brk td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.brk td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.mlist div{background:var(--tint);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px}
+.send{display:flex;flex-wrap:wrap;gap:8px}
+.send a,.send button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none;border:0}
+.s-share{background:var(--ink);color:#fff}.s-gm{background:#EA4335;color:#fff}.s-tg{background:#229ED9;color:#fff}.s-wa{background:#25D366;color:#fff}.s-ml{background:#fff;color:var(--ink);border:2px solid var(--line)!important}.s-cp{background:var(--must);color:var(--ink)}
+.email{user-select:all;font-weight:800;background:var(--tint);padding:2px 8px;border-radius:6px}
+.confirm{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.confirm.show{display:flex}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-weight:800;display:none;z-index:50}
+.toast.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* preposition scenes */
+svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
+
+@media (max-width:520px){
+  table.form.wide td:first-child{white-space:normal;width:32%}
+  .opts,.fb,.tin,.pic,.line,.pool,.tilebtns,.listen,.sortw{margin-left:0}
+  .match{grid-template-columns:1fr 1fr;gap:6px}
+  .mt{font-size:15px;padding:8px}
+  .card{padding:14px}
+}
+.cgap.gi{border:0;padding:0;min-width:0}
+.ginp{width:140px;max-width:40vw;border:0;border-bottom:2.5px solid var(--must);background:#fff;border-radius:6px 6px 0 0;font:inherit;font-weight:700;color:var(--ink);text-align:center;padding:2px 6px}
+.ginp:focus{outline:2px solid var(--must);outline-offset:1px}
+.ginp.bad{border-color:var(--crim);background:var(--crim-soft)}
+/* ===== desktop layout ===== */
+@media (min-width:1100px){
+  .wrap{max-width:1280px;padding:0 48px}
+  header.hero{padding-top:44px}
+  .hero h1{font-size:52px;margin:12px 0 10px}
+  .hero p{font-size:19px;max-width:820px}
+  .howto{display:inline-block;font-size:16px;padding:12px 18px}
+  .hero .badge{width:320px;height:320px;right:-80px;top:-90px}
+  nav.tabs{gap:10px;overflow:visible}
+  nav.tabs button{flex:1 1 0;font-size:15px;padding:10px 12px;min-height:54px}
+  nav.tabs button small{font-size:12px}
+  main{padding:30px 0 80px}
+  .ptitle{margin:8px 0 22px}
+  .ptitle h2{font-size:32px}
+  .ptitle .ic{width:60px;height:60px;font-size:30px}
+  .card,.rule{padding:24px 28px}
+  /* rules: two columns */
+  #p-rules.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  #p-rules.on > .ptitle, #p-rules.on > .next, #p-rules.on > .careful{grid-column:1/-1}
+  /* exercises: items side by side */
+  .card:has(> .item){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
+  .card:has(> .item) > :not(.item){grid-column:1/-1}
+  /* story steps: text sticky on the left, tasks on the right */
+  section.panel.on:has(.story){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:28px;align-items:start}
+  section.panel.on:has(.story) > *{grid-column:1/-1}
+  section.panel.on:has(.story) > .card:has(.story){grid-column:1;grid-row:3 / span 20;position:sticky;top:150px;align-self:start}
+  section.panel.on:has(.story) > .card:not(:has(.story)){grid-column:2}
+  section.panel.on:has(.story) > .next{grid-row:auto}
+  section.panel.on:has(.story) .card:has(> .item){display:block}
+  .story{font-size:18px;line-height:1.75}
+  /* writing: two tasks side by side */
+  section.panel.on:has(textarea){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  section.panel.on:has(textarea) > .ptitle, section.panel.on:has(textarea) > .rule, section.panel.on:has(textarea) > .next{grid-column:1/-1}
+  section.panel.on:has(textarea) textarea{min-height:220px}
+}
+
+.road{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.road .stop{display:inline-flex;align-items:center;gap:6px;background:var(--tint);border-radius:999px;padding:6px 12px 6px 6px;font-weight:700;font-size:14px}
+.road .stop b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font-size:13px}
+.sgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+@media (min-width:640px){.sgrid{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.sgrid{grid-template-columns:1fr 1fr 1fr}}
+.scard{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;border-top:5px solid var(--c)}
+.shead{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--c)}
+.snum{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;letter-spacing:0}
+.sjob{font-size:14.5px;color:var(--muted);margin:4px 0 8px}
+.sph{display:flex;align-items:center;gap:8px;background:var(--tint);border-radius:10px;padding:8px 10px;margin-bottom:6px}
+.sph > div{flex:1}
+.sph b{display:block}
+.snote{display:block;font-size:13.5px;color:var(--muted)}
+.scard .exrow{font-size:15px}
+.sbtns{display:flex;flex-wrap:wrap;gap:8px}
+.sbtns button{background:#fff;color:var(--ink);border:2px solid var(--c);border-radius:999px;padding:8px 14px;min-height:44px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.sbtns button.on{background:var(--c);color:#fff}
+.spot{margin-top:12px;font-size:17px;line-height:1.75}
+.spot p{margin:0 0 10px}
+.spot mark{background:transparent;border-bottom:2px dotted var(--c);color:inherit;padding:0 2px;border-radius:4px;transition:background .2s}
+.spot mark.on{background:var(--c);color:#fff;border-bottom-color:transparent}
+.w .wex{display:block;font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+@media (min-width:1100px){ #p-rules.on > *{grid-column:1/-1} #p-rules.on .rule:first-of-type{max-width:none} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge"></div>
+  <svg class="ecg" viewBox="0 0 1200 70" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g opacity=".9"><rect x="10" y="38" width="150" height="22" rx="11" fill="#E0703A"/><rect x="178" y="38" width="90" height="22" rx="11" fill="#1F7A6D"/><rect x="286" y="38" width="120" height="22" rx="11" fill="#3B6FA8"/><rect x="424" y="38" width="170" height="22" rx="11" fill="#C98A12"/><rect x="612" y="38" width="80" height="22" rx="11" fill="#A0447A"/><rect x="710" y="38" width="120" height="22" rx="11" fill="#5D5A8A"/><rect x="848" y="38" width="140" height="22" rx="11" fill="#E0703A"/><rect x="1006" y="38" width="100" height="22" rx="11" fill="#1F7A6D"/><rect x="1124" y="38" width="90" height="22" rx="11" fill="#3B6FA8"/></g></svg>
+  <div class="wrap">
+    <div class="kick">🎤 IELTS Speaking · Upper-Intermediate</div>
+    <h1>AI agents: helpful or harmful?</h1>
+    <p>Homework for <b id="hname">Yaroslav</b>: words from the article, topic phrases for all three parts, and signposts that guide your listener through Part 2.</p>
+    <div class="namebox"><label for="nm">Your name</label><input id="nm" value="Yaroslav" maxlength="30" autocomplete="off"></div>
+    <div class="howto">Words → Signposts → Cards → Steps 1–4 → Your turn → Results &amp; send. About 45 minutes.</div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 / 0</div></div>
+  <nav class="tabs" id="tabs"></nav>
+</div></div>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const TEACHER = "ulchik2211@gmail.com";
+const TOPIC = "IELTS Speaking: AI agents, topic vocabulary and signposts";
+const STORE = "yaroslav-ai-agents-signposts-v1";
+const DEFAULT_NAME = "Yaroslav";
+const VIDEO_URL = "";
+
+const WORDS = [
+  // technology and risk
+  {g:"tech", en:"an AI agent", ru:"(noun) a program that acts on its own to finish tasks for you", em:"🤖", ex:"Muse is an AI agent with its own web browser."},
+  {g:"tech", en:"unsupervised", ru:"(adjective) done without anyone watching or checking", em:"🙈", ex:"Agents go out into the world for unsupervised tasks."},
+  {g:"tech", en:"a vulnerability", ru:"(noun) a weak point that attackers can use · vulnerable (adj)", em:"🕳️", ex:"An expert found a critical vulnerability in the app."},
+  {g:"tech", en:"exploit sb / sth", ru:"(verb) use someone unfairly for your own benefit · exploitation (n)", em:"🦈", ex:"Letting an agent choose for you can leave you open to being exploited."},
+  {g:"tech", en:"opt out (of sth)", ru:"(phrasal verb) choose not to take part in something", em:"🚪", ex:"You can opt out of AI training in the settings."},
+  {g:"tech", en:"a paradigm shift", ru:"(noun) a complete change in how things are done", em:"🔄", ex:"Selling everything by lottery would be a paradigm shift."},
+  // money and behaviour
+  {g:"money", en:"haggle (over sth)", ru:"(verb) argue about a price to make it lower", em:"🤝", ex:"Muse can haggle with customer service for you."},
+  {g:"money", en:"a scalper", ru:"(noun) someone who buys tickets to resell them for more", em:"🎟️", ex:"Scalpers pushed ticket prices sky-high."},
+  {g:"money", en:"a mark-up", ru:"(noun) the extra amount added to the original price · mark sth up (v)", em:"🏷️", ex:"They resold the tickets at a huge mark-up."},
+  {g:"money", en:"hoard sth", ru:"(verb) collect and keep far more than you need", em:"🐿️", ex:"Some people may hoard appointments, booking five just in case."},
+  {g:"money", en:"pester sb", ru:"(verb) annoy someone with repeated requests", em:"🐝", ex:"Small businesses could drown in bots pestering them."},
+  {g:"money", en:"crumble", ru:"(verb) slowly break apart or fail", em:"🧱", ex:"Websites that rely on ads are already crumbling."},
+  // topic phrases
+  {g:"phrases", en:"grant sb access to sth", ru:"let a person or app use your accounts or data", em:"🔑", ex:"I'd never grant an app access to my bank account."},
+  {g:"phrases", en:"raise privacy concerns", ru:"make people worried about their personal data", em:"🔒", ex:"Smart speakers raise serious privacy concerns."},
+  {g:"phrases", en:"a double-edged sword", ru:"something with clear benefits and clear risks", em:"🗡️", ex:"Social media is a double-edged sword."},
+  {g:"phrases", en:"take the hassle out of sth", ru:"make a boring or annoying job easy", em:"😌", ex:"Online banking takes the hassle out of paying bills."},
+  {g:"phrases", en:"be at the mercy of sth", ru:"have no control over what happens to you", em:"🌊", ex:"Without a backup, you're at the mercy of your laptop."},
+  {g:"phrases", en:"fall into the wrong hands", ru:"be used by criminals or dishonest people", em:"🕵️", ex:"Your passport data could fall into the wrong hands."},
+  {g:"phrases", en:"put safeguards in place", ru:"create rules or tools that protect people", em:"🛡️", ex:"Banks have put safeguards in place against fraud."},
+  {g:"phrases", en:"strike a balance between X and Y", ru:"find a sensible middle point between two needs", em:"⚖️", ex:"We need to strike a balance between convenience and privacy."},
+  // Part 2 signposts
+  {g:"signs", en:"The first thing that springs to mind is…", ru:"START: introduce your topic naturally", em:"1️⃣", ex:"The first thing that springs to mind is the day my phone was hacked."},
+  {g:"signs", en:"At the time, I was…", ru:"SET THE SCENE: give the background", em:"2️⃣", ex:"At the time, I was working from home."},
+  {g:"signs", en:"As for what went wrong, …", ru:"MOVE ON: change to the next point", em:"3️⃣", ex:"As for what went wrong, the app charged me twice."},
+  {g:"signs", en:"What made it worse was that…", ru:"ADD DETAIL: add a bigger problem", em:"4️⃣", ex:"What made it worse was that nobody answered the phone."},
+  {g:"signs", en:"I was absolutely fuming.", ru:"DESCRIBE FEELINGS: = extremely angry", em:"5️⃣", ex:"When I saw the bill, I was absolutely fuming."},
+  {g:"signs", en:"That's why it has stuck with me.", ru:"ROUND OFF: explain why you remember it", em:"6️⃣", ex:"It changed how I use apps. That's why it has stuck with me."},
+];
+const GROUPS = {tech:["Technology and risk","words from the article · 1"], money:["Money and behaviour","words from the article · 2"], phrases:["Talking about technology naturally","topic phrases for all three parts"], signs:["Part 2 signposts","phrases that guide your listener"]};
+const CAREFUL = [
+  "<b>opt out of</b> sth: <span class='bad'>opt out from</span> · <b>haggle over / about</b> the price",
+  "<b>grant</b> sb <b>access to</b> sth: <span class='bad'>grant access for my data</span> · <i>access</i> is uncountable: <span class='bad'>an access</span>",
+  "<b>strike a balance between</b> X <b>and</b> Y: <span class='bad'>between X with Y</span>, <span class='bad'>among</span>",
+  "<b>fall into <u>the</u> wrong hands</b> and <b>be at <u>the</u> mercy of</b>: don't drop <i>the</i>.",
+  "<b>What made it worse was that…</b> (comparative: <span class='bad'>worst</span>) · <b>Moving on to</b> + noun / <i>how…</i>: <span class='bad'>Moving to</span>",
+  "<b>As for</b> + noun or <i>what-clause</i>: <i>As for the price, …</i> / <i>As for what went wrong, …</i>",
+  "<b>vulnerable</b> (adj) → <b>vulnerability</b> (n) · <b>exploit</b> (v) → <b>exploitation</b> (n) · <b>supervise</b> → <b>unsupervised</b> (adj)",
+  "<b>a mark-up</b> (noun, hyphen) vs <b>mark up</b> (verb, two words): <i>They <b>mark up</b> the tickets. The <b>mark-up</b> is huge.</i>",
+];
+
+const SIGN_OPTS = ["Start","Set the scene","Move on","Add detail","Describe feelings","Round off"];
+const EX = [
+  // ---------- STEP 1: words from the article
+  {id:"m1", tab:"st1", type:"match", sep:" = ", leftHint:"First tap a word on the left", title:"Words and definitions", ru:"12 words from the article", instr:"Tap a word, then its definition.", pairs:[
+    ["AI agent","a program that acts on its own"],["unsupervised","without anyone watching"],["vulnerability","a weak point attackers can use"],["exploit","use someone unfairly"],
+    ["opt out","choose not to take part"],["paradigm shift","a complete change in how things are done"],["haggle","argue to get a lower price"],["scalper","buys tickets to resell them"],
+    ["mark-up","the extra added to the price"],["hoard","keep far more than you need"],["pester","annoy with repeated requests"],["crumble","slowly break apart or fail"],
+  ]},
+  {id:"m2", tab:"st1", type:"choice", title:"Words in new contexts", ru:"Which word fits?", instr:"Choose the best word.", items:[
+    {q:"The bank fixed a serious security ___ after hackers found it.", o:["vulnerability","mark-up","paradigm shift"], a:0, why:"a security <b>vulnerability</b> = a weak point attackers can use."},
+    {q:"Never leave young children ___ near a swimming pool.", o:["vulnerable","unsupervised","exploited"], a:1, why:"<b>unsupervised</b> = with nobody watching them."},
+    {q:"At the flea market everyone ___s, so nobody pays the first price.", o:["hoard","pester","haggle"], a:2, why:"<b>haggle</b> = argue about the price to make it lower."},
+    {q:"My little brother kept ___ me to lend him my laptop.", o:["pestering","hoarding","exploiting"], a:0, why:"<b>pester</b> sb = annoy them with repeated requests."},
+    {q:"When the pandemic started, people began to ___ pasta and toilet paper.", o:["crumble","hoard","haggle"], a:1, why:"<b>hoard</b> = collect and keep far more than you need."},
+    {q:"Remote work was a real ___ for many companies.", o:["scalper","vulnerability","paradigm shift"], a:2, why:"a <b>paradigm shift</b> = a complete change in how things are done."},
+    {q:"Without new investment, the old business model began to ___.", o:["crumble","opt out","exploit"], a:0, why:"<b>crumble</b> = slowly break apart or fail."},
+    {q:"You can ___ of personalised ads in your account settings.", o:["opt out","haggle","pester"], a:0, why:"<b>opt out of</b> sth = choose not to take part."},
+  ]},
+  {id:"m3", tab:"st1", type:"typed", title:"Word families", ru:"Change the form", instr:"Complete with the correct form of the word in brackets.", items:[
+    {q:"Older people are often more ___ to online scams. (VULNERABILITY)", accept:["vulnerable"], model:"vulnerable", hint:"You need an adjective.", why:"vulnerability (n) → <b>vulnerable</b> (adj)"},
+    {q:"The report criticised the ___ of delivery drivers. (EXPLOIT)", accept:["exploitation"], model:"exploitation", hint:"You need a noun: -ation.", why:"exploit (v) → <b>exploitation</b> (n)"},
+    {q:"A senior engineer ___ the interns during their first month. (UNSUPERVISED)", accept:["supervises","supervised"], model:"supervises", hint:"You need a verb.", why:"unsupervised (adj) → <b>supervise(s)</b> (v)"},
+    {q:"Ticket ___ is illegal for some concerts in the UK. (SCALPER)", accept:["scalping"], model:"scalping", hint:"The activity: -ing.", why:"scalper (person) → <b>scalping</b> (the activity)"},
+    {q:"Some shops ___ their prices by 40% before a sale. (MARK-UP)", accept:["mark up"], model:"mark up", hint:"The verb is two words.", why:"a mark-up (n) → <b>mark up</b> (v)"},
+  ]},
+  // ---------- STEP 2: topic phrases
+  {id:"p1", tab:"st2", type:"choice", title:"Which phrase fits?", ru:"Topic phrases in context", instr:"Choose the phrase that completes the sentence.", items:[
+    {q:"Social media is ___: it connects people, but it also spreads fake news.", o:["a double-edged sword","a paradigm shift","a safeguard"], a:0, why:"<b>a double-edged sword</b> = clear benefits and clear risks."},
+    {q:"Before you ___ your contacts, read the privacy policy.", o:["take the hassle out of","grant an app access to","strike a balance between"], a:1, why:"<b>grant</b> sb/sth <b>access to</b> sth."},
+    {q:"Doorbell cameras that film the whole street ___.", o:["raise privacy concerns","fall into the wrong hands","put safeguards in place"], a:0, why:"<b>raise privacy concerns</b> = make people worried about their data."},
+    {q:"Online banking really ___ paying bills.", o:["is at the mercy of","takes the hassle out of","grants access to"], a:1, why:"<b>take the hassle out of</b> sth = make an annoying job easy."},
+    {q:"If you never back up your files, you're ___ your laptop.", o:["at the mercy of","in the wrong hands of","the balance of"], a:0, why:"<b>be at the mercy of</b> = have no control."},
+    {q:"Passwords written on sticky notes can easily ___.", o:["raise concerns","fall into the wrong hands","opt out"], a:1, why:"<b>fall into the wrong hands</b> = be used by dishonest people."},
+    {q:"Governments must ___ before AI agents can spend our money.", o:["put safeguards in place","take the hassle out","be at the mercy"], a:0, why:"<b>put safeguards in place</b> = create rules that protect people."},
+    {q:"Good apps ___ convenience and privacy.", o:["strike a balance between","grant access to","fall into"], a:0, why:"<b>strike a balance between</b> X <b>and</b> Y."},
+  ]},
+  {id:"p2", tab:"st2", type:"typed", title:"Complete the collocation", ru:"One word in each gap", instr:"Type the missing word.", items:[
+    {q:"Never grant a stranger ___ to your email account.", accept:["access"], model:"access", hint:"grant sb a… to sth", why:"grant sb <b>access</b> to sth"},
+    {q:"Face recognition in shops raises privacy ___.", accept:["concerns"], model:"concerns", hint:"= worries (plural)", why:"raise privacy <b>concerns</b>"},
+    {q:"AI in schools is a double-___ sword.", accept:["edged"], model:"edged", hint:"A sword that cuts on both sides.", why:"a double-<b>edged</b> sword"},
+    {q:"This app takes the ___ out of splitting a restaurant bill.", accept:["hassle"], model:"hassle", hint:"= stress, annoying effort", why:"take the <b>hassle</b> out of sth"},
+    {q:"Small sellers are at the ___ of the platform's algorithm.", accept:["mercy"], model:"mercy", hint:"at the m… of", why:"be at the <b>mercy</b> of"},
+    {q:"If this database falls into the wrong ___, millions of people will suffer.", accept:["hands"], model:"hands", hint:"part of the body, plural", why:"fall into the wrong <b>hands</b>"},
+    {q:"The company has put new safeguards in ___ to protect children.", accept:["place"], model:"place", hint:"put sth in p…", why:"put safeguards in <b>place</b>"},
+    {q:"Parents have to strike a ___ between freedom and safety online.", accept:["balance"], model:"balance", hint:"strike a b… between X and Y", why:"strike a <b>balance</b> between X and Y"},
+  ]},
+  {id:"p3", tab:"st2", type:"translate", title:"Say it in a more natural way", ru:"Rewrite with the phrase in brackets", instr:"Rewrite the sentence using the phrase in brackets. Keep the meaning.", items:[
+    {q:"AI agents have clear benefits but also clear risks. (double-edged sword)", accept:["AI agents are a double-edged sword","AI agents are a double edged sword"], model:"AI agents are a double-edged sword.", hint:"AI agents are a…"},
+    {q:"This app makes booking a table really easy. (hassle)", accept:["This app takes the hassle out of booking a table","The app takes the hassle out of booking a table"], model:"This app takes the hassle out of booking a table.", hint:"This app takes the… out of…"},
+    {q:"Criminals could use this data. (wrong hands)", accept:["This data could fall into the wrong hands","The data could fall into the wrong hands"], model:"This data could fall into the wrong hands.", hint:"This data could fall…"},
+    {q:"We have no control over what the algorithm decides. (mercy)", accept:["We are at the mercy of the algorithm","We're at the mercy of the algorithm"], model:"We're at the mercy of the algorithm.", hint:"We're at the… of…"},
+  ]},
+  // ---------- STEP 3: signposts
+  {id:"s1", tab:"st3", type:"choice", tf:true, title:"What does each signpost do?", ru:"Six moves of a Part 2 answer", instr:"Choose the job of each phrase. Three of them are new.", items:[
+    {q:"The first thing that springs to mind is…", o:SIGN_OPTS, a:0, why:"<b>Start</b>: introduce your topic."},
+    {q:"At the time, I was…", o:SIGN_OPTS, a:1, why:"<b>Set the scene</b>: give the background."},
+    {q:"As for what went wrong, …", o:SIGN_OPTS, a:2, why:"<b>Move on</b>: change to the next point."},
+    {q:"What made it worse was that…", o:SIGN_OPTS, a:3, why:"<b>Add detail</b>: add a bigger problem."},
+    {q:"I felt completely powerless.", o:SIGN_OPTS, a:4, why:"<b>Describe feelings</b>."},
+    {q:"That's why it has stuck with me.", o:SIGN_OPTS, a:5, why:"<b>Round off</b>: explain why you remember it."},
+    {q:"It all started when… (new)", o:SIGN_OPTS, a:1, why:"<b>Set the scene</b>: the background of the story."},
+    {q:"I was over the moon. (new)", o:SIGN_OPTS, a:4, why:"<b>Describe feelings</b>: = extremely happy."},
+    {q:"All in all, … (new)", o:SIGN_OPTS, a:5, why:"<b>Round off</b>: a summary at the end."},
+  ]},
+  {id:"s2", tab:"st3", type:"choice", title:"Choose the best signpost", ru:"Small pieces of a Part 2 answer", instr:"Choose the option that fits best.", items:[
+    {q:"___ how I felt, I was absolutely fuming.", o:["Moving on to","Looking back at","What made it worse was"], a:0, why:"<b>Moving on to</b> + noun / <i>how</i>-clause."},
+    {q:"The app crashed in the middle of the payment. ___, it deleted my saved cards.", o:["Looking back","On top of that","At the time"], a:1, why:"<b>On top of that</b> = and an extra problem."},
+    {q:"___, I'm actually glad it happened. I learned to read the small print.", o:["On top of that","As for","Looking back"], a:2, why:"<b>Looking back</b> = thinking about it now."},
+    {q:"___, I was a first-year student and I had almost no money.", o:["At the time","That's why","Moving on to"], a:0, why:"<b>At the time</b> = background."},
+    {q:"___ the company never even apologised.", o:["What made it worse was that","I'd like to talk about","The first thing that springs to mind is"], a:0, why:"<b>What made it worse was that</b> + clause."},
+    {q:"I'd like to ___ a time when an app saved me a lot of money.", o:["tell about","talk about","say about"], a:1, why:"<b>talk about</b> sth (<i>tell about</i> needs a person: tell <b>you</b> about)."},
+  ]},
+  {id:"s3", tab:"st3", type:"tiles", title:"Build the sentence", ru:"Put the words in order", instr:"Tap the words in the right order.", items:[
+    {ru:"Round off: why you remember it", a:"Looking back, it taught me a valuable lesson."},
+    {ru:"Add detail: a bigger problem", a:"What made it worse was that nobody answered the phone."},
+    {ru:"Start: introduce the topic", a:"The first thing that springs to mind is my old laptop."},
+  ]},
+  // ---------- STEP 4: model answer
+  {id:"t1", tab:"st4", type:"typed", cloze:true, title:"Complete the model answer", ru:"Signposts + vocabulary", instr:"Type one word in each gap. You can type straight into the text.", items:[
+    {gap:1, q:"The first thing that ___ to mind is the time an AI agent let me down.", accept:["springs"], model:"springs", hint:"… to mind", why:"The first thing that <b>springs</b> to mind is…"},
+    {gap:2, q:"…a new app that promised to take the ___ out of booking…", accept:["hassle"], model:"hassle", hint:"take the h… out of", why:"take the <b>hassle</b> out of sth"},
+    {gap:3, q:"…so I granted it ___ to my bank card…", accept:["access"], model:"access", hint:"grant sb a… to sth", why:"grant sb <b>access</b> to sth"},
+    {gap:4, q:"…and let it work completely ___.", accept:["unsupervised"], model:"unsupervised", hint:"= without anyone checking", why:"<b>unsupervised</b>"},
+    {gap:5, q:"As ___ what went wrong, scalpers had already bought most of the tickets…", accept:["for"], model:"for", hint:"As … what went wrong", why:"<b>As for</b> + what-clause"},
+    {gap:6, q:"…and my agent happily paid a huge ___ without checking with me.", accept:["mark-up","markup","mark up"], model:"mark-up", hint:"the extra amount added to the price", why:"a huge <b>mark-up</b>"},
+    {gap:7, q:"What made it ___ was that it booked three pairs of tickets, just in case.", accept:["worse"], model:"worse", hint:"comparative of bad", why:"What made it <b>worse</b> was that…"},
+    {gap:8, q:"…so I had to ___ them for weeks.", accept:["pester"], model:"pester", hint:"annoy with repeated requests", why:"<b>pester</b> sb"},
+    {gap:9, q:"I was absolutely fuming, and I felt completely ___.", accept:["powerless"], model:"powerless", hint:"= with no power to change anything", why:"I felt completely <b>powerless</b>."},
+    {gap:10, q:"…I was at the ___ of a program I didn't really understand.", accept:["mercy"], model:"mercy", hint:"at the m… of", why:"be at the <b>mercy</b> of sth"},
+  ]},
+  {id:"t2", tab:"st4", type:"typed", title:"Fix the mistake", ru:"One mistake in each sentence", instr:"Write the whole sentence correctly.", items:[
+    {q:"Moving to how I felt, I was really upset.", accept:["Moving on to how I felt, I was really upset"], model:"Moving on to how I felt, I was really upset.", hint:"A word is missing.", why:"<b>Moving on to</b>…"},
+    {q:"What made it worst was that the app crashed.", accept:["What made it worse was that the app crashed"], model:"What made it worse was that the app crashed.", hint:"Comparative, not superlative.", why:"What made it <b>worse</b>…"},
+    {q:"I opted out from the newsletter.", accept:["I opted out of the newsletter"], model:"I opted out of the newsletter.", hint:"Check the preposition.", why:"opt out <b>of</b>"},
+    {q:"Our data could fall into wrong hands.", accept:["Our data could fall into the wrong hands"], model:"Our data could fall into the wrong hands.", hint:"A small word is missing.", why:"fall into <b>the</b> wrong hands"},
+  ]},
+  // ---------- STEP 5: your turn
+  {id:"w1", tab:"st5", type:"write", title:"Part 2: your long turn", ru:"Speak, then write (about 150–200 words)", instr:"Cue card: Describe a time when a piece of technology let you down. You should say: what the technology was · when and where it happened · what went wrong · and explain how you felt about it. Use one signpost from each of the six moves and at least four topic phrases. Record yourself first (2 minutes), then write your answer.", prompt:"I'd like to talk about…\nThis happened about…, when…\nAs for what went wrong, …\nWhat made it worse was that…\nI was absolutely…\nLooking back, … That's why it has stuck with me."},
+  {id:"w2", tab:"st5", type:"write", title:"Part 3: discussion", ru:"Two short answers, 3–4 sentences each", instr:"1) Should AI agents be allowed to spend money for us? 2) Who should protect people from scams and bots: companies, governments or users? Use the topic phrases (double-edged sword, put safeguards in place, strike a balance between…).", prompt:"1) In my view, AI agents are a double-edged sword…\n2) I think the responsibility lies with… because…"},
+];
+
+const STORY_TAB = "st4";
+const STORY_TITLE = "Model answer: technology that let me down";
+const STORY_INTRO = "Read the Part 2 answer. Type your answers straight into the gaps and press Enter, or use the boxes below with hints.";
+const STORY = `The first thing that {1} to mind is the time an AI agent let me down. This happened about a year ago, when I was trying to get tickets for a big concert. At the time, I was using a new app that promised to take the {2} out of booking, so I granted it {3} to my bank card and let it work completely {4}.
+As {5} what went wrong, scalpers had already bought most of the tickets, and my agent happily paid a huge {6} without checking with me. What made it {7} was that it booked three pairs of tickets, just in case. On top of that, the company ignored my emails, so I had to {8} them for weeks.
+Moving on to how I felt, I was absolutely fuming, and I felt completely {9}: I was at the {10} of a program I didn't really understand. Looking back, it showed me that AI agents are a double-edged sword. That's why it has stuck with me.`;
+const GLOSS = {};
+
+const TABS = [
+  {id:"words", en:"Words", ru:"26 items", ic:"🗂️"},
+  {id:"rules", en:"Signposts", ru:"Part 2 linkers", ic:"🧭"},
+  {id:"cards", en:"Cards", ru:"flashcards", ic:"🃏"},
+  {id:"st1", en:"Step 1", ru:"article words", ic:"🤖"},
+  {id:"st2", en:"Step 2", ru:"topic phrases", ic:"🔑"},
+  {id:"st3", en:"Step 3", ru:"signposts", ic:"🧭"},
+  {id:"st4", en:"Step 4", ru:"model answer", ic:"🎤"},
+  {id:"st5", en:"Your turn", ru:"speak & write", ic:"✍️"},
+  {id:"res", en:"Results", ru:"send", ic:"🏆"},
+];
+const STEP_TABS = ["st1","st2","st3","st4","st5"];
+const STEP_ICONS = ["🤖","🔑","🧭","🎤","✍️"];
+const CASE_TITLES = {
+  st1:["Step 1: Words from the article","Meaning, context and word families"],
+  st2:["Step 2: Topic phrases","Talking about technology naturally"],
+  st3:["Step 3: Signposts","Guide your listener through Part 2"],
+  st4:["Step 4: A model Part 2 answer","Signposts and vocabulary together"],
+  st5:["Your turn: Parts 2 and 3","Speak first, then write"],
+};
+const STEP_RULES = {
+  st1:"Remember the patterns: <b>opt out of</b> sth · <b>haggle over</b> the price · <b>pester</b> sb (to do sth) · <b>vulnerable to</b> sth · <b>mark up</b> (v) / <b>a mark-up</b> (n).",
+  st2:"Most of these phrases are fixed. Keep every word, including articles and prepositions: grant sb <b>access to</b> · at <b>the</b> mercy <b>of</b> · into <b>the</b> wrong hands · <b>between</b> X <b>and</b> Y.",
+  st3:"A strong Part 2 answer moves through six stages: <b>start → set the scene → move on → add detail → describe feelings → round off</b>. One signpost per stage is enough; don't overload every sentence.",
+  st4:"Notice how each paragraph opens with a signpost, and how the topic phrases make the story sound natural rather than memorised.",
+  st5:"<b>Example opening</b><br><i>I'd like to talk about my smart watch. This happened about six months ago, when I was training for a half marathon. At the time, I was relying on it to track my pace… As for what went wrong, it stopped syncing the day before the race. On top of that, …</i>",
+};
+const PRAISE = ["Correct!","Spot on!","Exactly!","Nailed it!","Perfect!","Well done!"];
+const OOPS = ["Not quite.","Nearly!","Close, but no.","Good try!"];
+
+/* ================= STATE ================= */
+let mem = {};
+function load(){ try{ const s = localStorage.getItem(STORE); return s ? JSON.parse(s) : null; }catch(e){ return mem[STORE] || null; } }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(S)); }catch(e){ mem[STORE] = JSON.parse(JSON.stringify(S)); } }
+let S = load() || {name:DEFAULT_NAME, ans:{}, known:{}, write:{}, tab:TABS[0].id};
+if(!S.ans) S.ans = {}; if(!S.known) S.known = {}; if(!S.write) S.write = {};
+
+/* ================= HELPERS ================= */
+const $ = (s, r=document) => r.querySelector(s);
+function el(tag, attrs={}, ...kids){
+  const e = document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){
+    if(k === "class") e.className = v;
+    else if(k === "html") e.innerHTML = v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if(v !== false && v != null) e.setAttribute(k, v);
+  }
+  for(const k of kids.flat()){ if(k == null) continue; e.appendChild(typeof k === "string" ? document.createTextNode(k) : k); }
+  return e;
+}
+const pick = (a) => a[Math.floor(Math.random()*a.length)];
+function shuffle(a){ const b = a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(t){ const x = $("#toast"); x.textContent = t; x.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(()=>x.classList.remove("show"), 1800); }
+
+let VOICE = null;
+function pickVoice(){ if(!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t){
+  if(!("speechSynthesis" in window)) { toast("Audio is not available"); return; }
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"")); u.lang = "en-GB"; if(VOICE) u.voice = VOICE; u.rate = 0.87; speechSynthesis.speak(u); }catch(e){}
+}
+const sayBtn = (t) => el("button", {class:"say", "aria-label":"Listen", title:"Listen", onclick:(e)=>{ e.stopPropagation(); speak(t); }}, "🔊");
+
+const CONTR = [[/\bdidn't\b/g,"did not"],[/\bdoesn't\b/g,"does not"],[/\bdon't\b/g,"do not"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],[/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bshouldn't\b/g,"should not"],[/\bi'll\b/g,"i will"],[/\byou're\b/g,"you are"],[/\bcan not\b/g,"cannot"],[/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bi'm\b/g,"i am"],[/\bi've\b/g,"i have"],[/\bhaven't\b/g,"have not"],[/\bwhat's\b/g,"what is"],[/\bshe's\b/g,"she is"],[/\bhe's\b/g,"he is"]];
+function norm(s){
+  let t = String(s).toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”"]/g,"").trim();
+  t = t.replace(/[.!?]+$/,"").replace(/,/g," ").replace(/\s+/g," ").trim();
+  for(const [r,v] of CONTR) t = t.replace(r, v);
+  return t.replace(/\s+/g," ").trim();
+}
+const matches = (given, accept) => accept.some(a => norm(a) === norm(given));
+
+/* ================= SCORING ================= */
+function scorable(ex){ return ex.type !== "write"; }
+function itemCount(ex){ return ex.type === "match" ? ex.pairs.length : (ex.items ? ex.items.length : 0); }
+function exScore(ex){
+  let ok = 0, done = 0; const n = itemCount(ex);
+  for(let i=0;i<n;i++){ const a = S.ans[ex.id+"-"+i]; if(a && a.done){ done++; if(a.ok) ok++; } }
+  return {ok, done, n};
+}
+function totals(){
+  let ok=0, done=0, n=0;
+  for(const ex of EX){ if(!scorable(ex)) continue; const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function tabScore(tabId){
+  let ok=0, done=0, n=0;
+  for(const ex of EX.filter(e=>e.tab===tabId && scorable(e))){ const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function refresh(){
+  const t = totals();
+  $("#fill").style.width = (t.n ? Math.round(t.done/t.n*100) : 0) + "%";
+  $("#score").textContent = `⭐ ${t.ok} / ${t.n}`;
+  for(const b of document.querySelectorAll("nav.tabs button")){
+    const id = b.dataset.id; const ts = b.querySelector(".ts");
+    if(ts) ts.remove();
+    if(STEP_TABS.includes(id)){ const s = tabScore(id); if(s.n && s.done === s.n) b.appendChild(el("span",{class:"ts"}, `${s.ok}/${s.n}`)); }
+  }
+  for(const ex of EX){ const st = document.getElementById("stamp-"+ex.id); if(!st) continue; const s = exScore(ex); if(scorable(ex) && s.n && s.done===s.n){ st.textContent = `✓ DONE ${s.ok}/${s.n}`; st.classList.add("show"); } }
+}
+function rec(id, data){ S.ans[id] = Object.assign(S.ans[id]||{}, data); save(); refresh(); }
+
+/* ================= RENDER: TABS ================= */
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach(t => nav.appendChild(el("button", {"data-id":t.id, class: S.tab===t.id ? "on":"", onclick:()=>go(t.id)}, `${t.ic} ${t.en}`, el("small",{}, t.ru))));
+}
+function go(id){
+  S.tab = id; save();
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+id));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  if(id === "res") renderResults();
+  const btn = document.querySelector(`nav.tabs button[data-id="${id}"]`); if(btn) btn.scrollIntoView({inline:"center", block:"nearest"});
+  window.scrollTo({top: $(".bar").offsetTop, behavior:"smooth"});
+  refresh();
+}
+function panel(id, icon, en, ru){
+  const p = el("section", {class:"panel", id:"p-"+id});
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, icon), el("div",{}, el("h2",{}, en), el("span",{class:"ru"}, ru))));
+  $("#main").appendChild(p); return p;
+}
+function nextBtn(p, toId){
+  const t = TABS.find(x=>x.id===toId);
+  p.appendChild(el("div",{class:"next"}, el("button",{class:"btn gold", onclick:()=>go(toId)}, `Next: ${t.en} →`)));
+}
+
+/* ================= RULES ================= */
+const STAGES = [
+  {k:"start", n:"1", name:"Start", col:"#E0703A", job:"Introduce your topic naturally, without repeating the cue card word for word.",
+   ph:[["I'd like to talk about…","+ noun / the time when…"],["The first thing that springs to mind is…","+ noun; = the first idea that comes to you"]],
+   ex:"The first thing that springs to mind is the day my phone was hacked."},
+  {k:"scene", n:"2", name:"Set the scene", col:"#C98A12", job:"Say when and where it happened and what your situation was.",
+   ph:[["This happened about a year ago, when…","+ past simple / past continuous"],["At the time, I was…","+ -ing / a job / a place"]],
+   ex:"At the time, I was working from home and relying on my laptop for everything."},
+  {k:"move", n:"3", name:"Move on", col:"#3E8A72", job:"Tell the examiner you're changing to the next point on the card.",
+   ph:[["As for what went wrong, …","As for + noun / what-clause"],["Moving on to how I felt, …","Moving on to + noun / how-clause"]],
+   ex:"As for what went wrong, the update deleted all my files."},
+  {k:"detail", n:"4", name:"Add detail", col:"#3B6FA8", job:"Add another, often bigger, problem. This shows range and keeps you talking.",
+   ph:[["What made it worse was that…","+ full clause (comparative: worse)"],["On top of that, …","= in addition (often something negative)"]],
+   ex:"What made it worse was that the support team never replied."},
+  {k:"feel", n:"5", name:"Describe feelings", col:"#A0447A", job:"Use strong, precise adjectives instead of “angry” or “sad”.",
+   ph:[["I was absolutely fuming.","fuming = extremely angry; use absolutely, not very"],["I felt completely powerless.","= unable to do anything about it"]],
+   ex:"I was absolutely fuming, and I felt completely powerless."},
+  {k:"round", n:"6", name:"Round off", col:"#5D5A8A", job:"Finish with a reflection, so your answer has a clear ending.",
+   ph:[["Looking back, …","= thinking about it now"],["That's why it has stuck with me.","present perfect: you still remember it"]],
+   ex:"Looking back, it taught me to read the small print. That's why it has stuck with me."},
+];
+const SPOT = [
+  ["start","The first thing that springs to mind is"]," the time an AI agent let me down. ",["scene","This happened about a year ago, when"]," I was trying to get tickets for a big concert. ",["scene","At the time, I was"]," using a new app that promised to take the hassle out of booking.\n",
+  ["move","As for what went wrong,"]," scalpers had already bought most of the tickets, and my agent paid a huge mark-up. ",["detail","What made it worse was that"]," it booked three pairs of tickets, just in case. ",["detail","On top of that,"]," the company ignored my emails.\n",
+  ["move","Moving on to how I felt,"]," ",["feel","I was absolutely fuming"],", and ",["feel","I felt completely powerless"],". ",["round","Looking back,"]," it showed me that AI agents are a double-edged sword. ",["round","That's why it has stuck with me."],
+];
+function renderRules(){
+  const p = panel("rules","🧭","Signposts for IELTS Part 2","phrases that guide your listener through your story");
+  const ex = (t) => el("div",{class:"exrow"}, el("span",{html:t}), sayBtn(t.replace(/<[^>]+>/g,"")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "Why signposts?"),
+    el("p",{html:"In Part 2 you speak for up to two minutes without help. Signposts are like road signs: they tell the examiner <b>where you are in your story</b> and <b>what's coming next</b>. That improves your <b>Fluency and Coherence</b> score, and it gives <i>you</i> a plan, so you don't dry up."}),
+    el("div",{class:"road"}, ...STAGES.map(s => el("span",{class:"stop", style:`--c:${s.col}`}, el("b",{}, s.n), s.name)))));
+  const grid = el("div",{class:"sgrid"});
+  STAGES.forEach(s => {
+    grid.appendChild(el("div",{class:"scard", style:`--c:${s.col}`},
+      el("div",{class:"shead"}, el("span",{class:"snum"}, s.n), el("b",{}, s.name)),
+      el("p",{class:"sjob"}, s.job),
+      ...s.ph.map(([a,b]) => el("div",{class:"sph"}, el("div",{}, el("b",{}, a), el("span",{class:"snote"}, b)), sayBtn(a.replace(/…/g,"")))),
+      ex("<i>" + s.ex + "</i>")));
+  });
+  p.appendChild(grid);
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "🔦 Signpost spotter"),
+    el("p",{html:"Here is a model answer. Tap a stage to light up its signposts."}),
+    spotter()));
+  p.appendChild(el("div",{class:"careful"}, el("h3",{}, "⚠️ Typical slips"),
+    el("ul",{},
+      el("li",{html:"<span class='bad'>Moving to how I felt</span> → <b>Moving on to</b> how I felt"}),
+      el("li",{html:"<span class='bad'>What made it worst</span> → What made it <b>worse</b> was that…"}),
+      el("li",{html:"<span class='bad'>I was very fuming</span> → I was <b>absolutely</b> fuming (extreme adjectives take <i>absolutely / completely</i>)"}),
+      el("li",{html:"<span class='bad'>I'd like to tell about</span> → I'd like to <b>talk about</b> (or <i>tell you about</i>)"}),
+      el("li",{html:"Don't use all twelve! One signpost per stage sounds natural; too many sounds memorised."}))));
+  nextBtn(p, "cards");
+}
+function spotter(){
+  let cur = null;
+  const box = el("div",{class:"spot"});
+  const marks = [];
+  const draw = () => {
+    box.innerHTML = "";
+    let para = el("p",{});
+    SPOT.forEach(seg => {
+      if(typeof seg === "string"){
+        seg.split("\n").forEach((part, j, arr) => { if(part) para.appendChild(document.createTextNode(part)); if(j < arr.length-1){ box.appendChild(para); para = el("p",{}); } });
+      } else {
+        const st = STAGES.find(s=>s.k===seg[0]);
+        const on = cur === null || cur === seg[0];
+        para.appendChild(el("mark",{class: on && cur !== null ? "on" : "", style:`--c:${st.col}`}, seg[1]));
+      }
+    });
+    box.appendChild(para);
+    Object.entries(btns).forEach(([k,b]) => b.classList.toggle("on", k===cur));
+  };
+  const btns = {};
+  const bar = el("div",{class:"btns sbtns"}, ...STAGES.map(s => (btns[s.k] = el("button",{style:`--c:${s.col}`, onclick:()=>{ cur = cur===s.k ? null : s.k; draw(); }}, `${s.n} ${s.name}`))));
+  const wrap = el("div",{}, bar, box);
+  draw();
+  return wrap;
+}
+function stepRule(p, tabId){
+  if(STEP_RULES[tabId]) p.appendChild(el("div",{class:"rule"}, el("h3",{}, tabId === "st5" ? "📝 Example" : "💡 Remember"), el("p",{html:STEP_RULES[tabId]})));
+}
+
+/* ================= WORDS ================= */
+function renderWords(){
+  const p = panel("words","🗂️","Words and phrases from the lesson","listen, read the example, then try the flashcards");
+  for(const g of Object.keys(GROUPS)){
+    const c = el("div",{class:"card wgroup"}, el("h3",{}, GROUPS[g][0], " · ", el("span",{class:"ru-i"}, GROUPS[g][1])));
+    const l = el("div",{class:"wlist"});
+    WORDS.filter(w=>w.g===g).forEach(w => l.appendChild(el("div",{class:"w"}, el("span",{class:"em"}, w.em), el("div",{style:"flex:1"}, el("b",{}, w.en), el("span",{class:"ru"}, w.ru), el("span",{class:"wex"}, w.ex)), sayBtn(w.en.replace(/\bsb\b/g,"somebody").replace(/\bsth\b/g,"something").replace(/\(.*?\)/g,"").replace(/…/g,"")))));
+    c.appendChild(l); p.appendChild(c);
+  }
+  p.appendChild(el("div",{class:"careful"}, el("h3",{}, "⚠️ Careful with these"),
+    el("ul",{}, ...CAREFUL.map(t => el("li",{html:t})))));
+  nextBtn(p, "rules");
+}
+
+/* ================= FLASHCARDS ================= */
+let FC = {order:[], i:0, dir:"en", only:false};
+function fcDeck(){ return FC.order.filter(k => !FC.only || !S.known[WORDS[k].en]); }
+function renderCards(){
+  const p = panel("cards","🃏","Flashcards","tap a card to flip it");
+  FC.order = WORDS.map((_,i)=>i);
+  const tools = el("div",{class:"fc-tools"});
+  const bDir = el("button",{class:"chip", onclick:()=>{ FC.dir = FC.dir==="en"?"ru":"en"; bDir.textContent = FC.dir==="en" ? "Word → meaning" : "Meaning → word"; drawFC(); }}, "Word → meaning");
+  const bShuf = el("button",{class:"chip", onclick:()=>{ FC.order = shuffle(FC.order); FC.i=0; drawFC(); toast("Shuffled"); }}, "🔀 Shuffle");
+  const bOnly = el("button",{class:"chip", onclick:()=>{ FC.only=!FC.only; bOnly.classList.toggle("on",FC.only); FC.i=0; drawFC(); }}, "Only words I'm learning");
+  tools.append(bDir, bShuf, bOnly);
+  const flip = el("div",{class:"flip", tabindex:"0", role:"button", "aria-label":"Flip card"});
+  const inner = el("div",{class:"in"}); flip.appendChild(inner);
+  flip.addEventListener("click", ()=>flip.classList.toggle("turned"));
+  flip.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip.classList.toggle("turned"); } });
+  const count = el("div",{class:"fc-count"});
+  const known = el("div",{class:"track", style:"margin:4px 0 12px"}, el("div",{class:"fill", id:"fcfill"}));
+  const nav = el("div",{class:"fc-nav"},
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i-1+d.length)%d.length; drawFC(); }}, "← Back"),
+    el("button",{class:"b-learn", onclick:()=>{ markFC(false); }}, "Still learning"),
+    el("button",{class:"b-know", onclick:()=>{ markFC(true); }}, "I know it ✓"),
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i+1)%d.length; drawFC(); }}, "Next →"));
+  p.append(el("div",{class:"card"}, tools, flip, count, known, nav));
+  FC.els = {flip, inner, count};
+  drawFC();
+  nextBtn(p, "st1");
+}
+function markFC(k){
+  const d = fcDeck(); if(!d.length) return;
+  const w = WORDS[d[FC.i]]; if(k) S.known[w.en] = 1; else delete S.known[w.en]; save();
+  toast(k ? "Great!" : "We'll practise it");
+  const d2 = fcDeck(); if(FC.only){ if(FC.i >= d2.length) FC.i = 0; } else FC.i = (FC.i+1) % d2.length;
+  drawFC();
+}
+function drawFC(){
+  const {flip, inner, count} = FC.els; flip.classList.remove("turned");
+  const d = fcDeck(); const nk = Object.keys(S.known).length;
+  $("#fcfill").style.width = Math.round(nk/WORDS.length*100)+"%";
+  if(!d.length){ inner.innerHTML = ""; inner.appendChild(el("div",{class:"face front"}, el("div",{class:"big"}, "🎉"), el("p",{}, "You know all the words!"))); count.textContent = `Known: ${nk} / ${WORDS.length}`; return; }
+  const w = WORDS[d[FC.i]];
+  const en = el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en), sayBtn(w.en.replace(/sb/g,"somebody").replace(/sth/g,"something").replace(/[()]/g,"").replace(/ \/ /g,", ")));
+  const ru = el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru));
+  const front = el("div",{class:"face front"}, FC.dir==="en" ? en : ru, el("div",{class:"hint"}, "tap to flip"));
+  const backC = FC.dir==="en" ? el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru)) : el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en));
+  const back = el("div",{class:"face back"}, backC, el("div",{class:"ex"}, w.ex, " ", sayBtn(w.ex)), el("div",{class:"hint"}, S.known[w.en] ? "✓ known" : "tap to flip back"));
+  inner.innerHTML = ""; inner.append(front, back);
+  count.textContent = `Card ${FC.i+1} / ${d.length} · Known: ${nk} / ${WORDS.length}`;
+}
+
+/* ================= EXERCISES ================= */
+function renderCase(tabId, icon, next){
+  const p = panel(tabId, icon, CASE_TITLES[tabId][0], CASE_TITLES[tabId][1]);
+  stepRule(p, tabId);
+  if(tabId === STORY_TAB) p.appendChild(storyCard());
+  for(const ex of EX.filter(e=>e.tab===tabId)){
+    const c = el("div",{class:"card"});
+    c.appendChild(el("div",{class:"case-head"}, el("div",{}, el("h3",{}, ex.title), el("span",{class:"ru"}, ex.ru)), el("span",{class:"stamp", id:"stamp-"+ex.id})));
+    const [ie, ir] = ex.instr.split(" · ");
+    c.appendChild(el("p",{class:"instr"}, ie, ir ? el("span",{class:"ru"}, ir) : null));
+    if(ex.bank) c.appendChild(el("div",{class:"opts", style:"margin:0 0 6px"}, ...ex.bank.map(b => el("span",{class:"opt", style:"background:var(--must-soft);border-color:var(--must-soft);cursor:default"}, b))));
+    if(ex.type==="choice") ex.items.forEach((it,i)=>c.appendChild(choiceItem(ex,it,i)));
+    if(ex.type==="typed" || ex.type==="translate") ex.items.forEach((it,i)=>c.appendChild(typedItem(ex,it,i)));
+    if(ex.type==="tiles") ex.items.forEach((it,i)=>c.appendChild(tilesItem(ex,it,i)));
+    if(ex.type==="match") c.appendChild(matchEx(ex));
+    if(ex.type==="write") c.appendChild(writeEx(ex));
+    p.appendChild(c);
+  }
+  nextBtn(p, next);
+}
+function qLine(n, html){ return el("div",{class:"q"}, el("span",{class:"n"}, String(n)), el("span",{html})); }
+function gapHtml(q, fill){ const suf = /\w___/.test(q) ? " suf" : ""; return esc(q).replace("___", fill ? `<span class="gap ok${suf}">${esc(fill)}</span>` : `<span class="gap${suf}">&nbsp;</span>`); }
+function fbBox(){ return el("div",{class:"fb"}); }
+function showFb(fb, ok, why, extra){
+  fb.className = "fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? pick(PRAISE) : pick(OOPS)}</b>${extra ? " "+extra : ""}${why ? `<span class="why">${why}</span>` : ""}`;
+}
+
+function choiceItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const st = S.ans[id];
+  let qEl;
+  if(ex.sort) qEl = el("div",{class:"sortw"}, el("span",{class:"n", style:"width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center"}, String(i+1)), it.word, sayBtn(it.word));
+  else if(ex.syl) qEl = qLine(i+1, `<span class="mono">${esc(it.word)}</span>`);
+  else if(ex.listen) qEl = qLine(i+1, "Which word do you hear?");
+  else qEl = qLine(i+1, gapHtml(it.q, st && st.done ? it.o[it.a].replace(/^-/,"") : null));
+  wrap.appendChild(qEl);
+  if(ex.syl) wrap.appendChild(el("div",{style:"margin:-2px 0 8px 40px"}, sayBtn(it.word)));
+  if(it.pic) wrap.appendChild(el("div",{class:"pic"}, el("span",{class:"emo"}, it.pic)));
+  if(ex.listen) wrap.appendChild(el("button",{class:"listen", onclick:()=>speak(it.word)}, "🔊 Listen"));
+  const opts = el("div",{class:"opts" + (ex.syl ? " syl":"")});
+  const fb = fbBox();
+  const btns = it.o.map((o,j) => el("button",{class:"opt", onclick:()=>choose(j)}, o));
+  btns.forEach(b=>opts.appendChild(b));
+  wrap.append(opts, fb);
+  function paint(given){
+    btns.forEach((b,j)=>{ b.disabled = true; if(j===it.a) b.classList.add("right"); else if(j===given) b.classList.add("wrong"); });
+  }
+  function fullSentence(){ return it.q && it.q.includes("___") ? it.q.replace("___", it.o[it.a].replace(/^-/,"")) : (it.word || it.o[it.a]); }
+  function choose(j){
+    if(S.ans[id] && S.ans[id].done) return;
+    const ok = j === it.a;
+    rec(id, {done:true, ok, given:it.o[j]});
+    paint(j);
+    if(it.gap) fillGap(it, ok);
+    if(!ex.sort && !ex.syl && !ex.listen && it.q && it.q.includes("___")) qEl.querySelector("span:last-child").innerHTML = gapHtml(it.q, it.o[it.a].replace(/^-/,""));
+    showFb(fb, ok, it.why, ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`);
+    if(ok){ if(it.say) speak(it.say); else if(it.word) speak(it.word); else if(!ex.tf) speak(fullSentence()); }
+  }
+  if(st && st.done){ paint(it.o.indexOf(st.given)); showFb(fb, st.ok, it.why, st.ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`); }
+  return wrap;
+}
+
+function typedItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  if(it.gap) wrap.dataset.gap = it.gap;
+  const isTr = ex.type === "translate";
+  wrap.appendChild(qLine(i+1, isTr ? `✏️ ${esc(it.q)}` : it.q.includes("___") ? gapHtml(it.q) : it.q));
+  const inp = el("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"answer", placeholder: isTr ? "Write in English" : "Type here"});
+  const btn = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const fb = fbBox();
+  const selfRow = el("div",{class:"tilebtns", style:"display:none;margin-top:8px"});
+  wrap.append(el("div",{class:"tin"}, inp, btn), fb, selfRow);
+  inp.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+  if(it.gap) inp.addEventListener("input", ()=>{ const g = document.querySelector(`.ginp[data-gap="${it.gap}"]`); if(g) g.value = inp.value; });
+  function lock(ok, given, extra){
+    inp.disabled = true; btn.disabled = true; inp.value = given;
+    inp.classList.remove("ok","no"); inp.classList.add(ok ? "ok" : "no");
+    const modelShown = ok ? "" : `→ <b>${esc(it.model)}</b>`;
+    showFb(fb, ok, it.why || "", (extra||"") + modelShown);
+    if(it.gap) fillGap(it, ok);
+    if(ok) speak(it.q.includes("___") ? it.q.replace("___", it.model) : it.model);
+  }
+  function check(){
+    const st = S.ans[id] || {};
+    if(st.done) return;
+    const v = inp.value.trim(); if(!v){ toast("Write your answer"); return; }
+    const tries = (st.tries||0) + 1;
+    const ok = matches(v, it.accept);
+    let note = "";
+    if(ok && /\?$/.test(it.model) && !/\?\s*$/.test(v)) note = "(Don't forget the question mark.) ";
+    if(ok){ rec(id,{done:true, ok:true, given:v, tries}); lock(true, v, note); return; }
+    if(tries < 2){ rec(id,{tries, given:v}); inp.classList.add("no"); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 ${it.hint}</span>`; inp.focus(); setTimeout(()=>inp.classList.remove("no"), 700); return; }
+    if(isTr){
+      rec(id,{tries, given:v});
+      inp.disabled = true; btn.disabled = true;
+      fb.className="fb show no"; fb.innerHTML = `<b>Compare:</b> ${esc(it.model)}<span class="why">If your version is also correct, tap “My answer is also correct”.</span>`;
+      selfRow.style.display = "flex"; selfRow.innerHTML = "";
+      selfRow.append(
+        el("button",{class:"btn teal", onclick:()=>{ rec(id,{done:true, ok:true, self:true, given:v}); selfRow.style.display="none"; lock(true, v, "(self-checked) "); }}, "My answer is also correct ✓"),
+        el("button",{class:"btn alt", onclick:()=>{ rec(id,{done:true, ok:false, given:v}); selfRow.style.display="none"; lock(false, v); }}, "OK, I see"));
+      return;
+    }
+    rec(id,{done:true, ok:false, given:v, tries}); lock(false, v);
+  }
+  const st = S.ans[id];
+  if(st && st.done) lock(st.ok, st.given, st.self ? "(self-checked) " : "");
+  else if(st && st.given) inp.value = st.given;
+  return wrap;
+}
+
+function tilesItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const words = it.a.split(" ");
+  wrap.appendChild(qLine(i+1, `<span class="ru-i">💡 ${esc(it.ru)}</span>`));
+  const line = el("div",{class:"line", "aria-label":"your sentence"}), pool = el("div",{class:"pool"}), fb = fbBox();
+  let order = shuffle(words.map((w,k)=>k)); if(order.every((k,j)=>k===j)) order = order.reverse();
+  const chosen = [];
+  const draw = () => {
+    line.innerHTML = ""; pool.innerHTML = "";
+    chosen.forEach((k,pos)=>line.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.splice(pos,1); draw(); }}, words[k])));
+    order.filter(k=>!chosen.includes(k)).forEach(k=>pool.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.push(k); draw(); }}, words[k])));
+  };
+  const done = () => S.ans[id] && S.ans[id].done;
+  const bCheck = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const bClear = el("button",{class:"btn alt", onclick:()=>{ if(done()) return; chosen.length=0; draw(); }}, "Clear");
+  wrap.append(line, pool, el("div",{class:"tilebtns"}, bCheck, bClear), fb);
+  function finish(ok, given){
+    bCheck.disabled = true; bClear.disabled = true;
+    line.innerHTML = ""; it.a.split(" ").forEach(w=>line.appendChild(el("span",{class:"tile", style: ok ? "background:var(--teal);color:#fff" : ""}, w))); pool.innerHTML = "";
+    showFb(fb, ok, "", ok ? "" : `→ <b>${esc(it.a)}</b><span class="why">Your answer: ${esc(given)}</span>`);
+    if(ok) speak(it.a);
+  }
+  function check(){
+    if(done()) return;
+    if(chosen.length !== words.length){ toast("Use all the words"); return; }
+    const given = chosen.map(k=>words[k]).join(" ");
+    const tries = ((S.ans[id]||{}).tries||0) + 1;
+    if(norm(given) === norm(it.a)){ rec(id,{done:true, ok:true, given, tries}); finish(true, given); return; }
+    if(tries < 2){ rec(id,{tries, given}); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 The first word is: <b>${esc(words[0])}</b></span>`; return; }
+    rec(id,{done:true, ok:false, given, tries}); finish(false, given);
+  }
+  if(done()) finish(S.ans[id].ok, S.ans[id].given); else draw();
+  return wrap;
+}
+
+function matchEx(ex){
+  const box = el("div",{class:"match"}), L = el("div",{class:"col"}), R = el("div",{class:"col"});
+  const fb = el("div",{class:"fb", style:"margin-left:0"});
+  let sel = null;
+  const rights = shuffle(ex.pairs.map((p,i)=>i));
+  const lb = ex.pairs.map((p,i)=>el("button",{class:"mt", onclick:()=>{ if(isDone(i)) return; sel=i; lb.forEach(b=>b.classList.remove("sel")); lb[i].classList.add("sel"); speak(p[0]); }}, "🔊 "+p[0]));
+  const rb = {};
+  rights.forEach(i=>{ rb[i] = el("button",{class:"mt", onclick:()=>tapR(i)}, ex.pairs[i][1]); });
+  const isDone = (i) => S.ans[ex.id+"-"+i] && S.ans[ex.id+"-"+i].done;
+  function tapR(i){
+    if(sel===null){ toast(ex.leftHint || "First tap an English word"); return; }
+    if(isDone(i)) return;
+    const id = ex.id+"-"+sel, st = S.ans[id] || {};
+    if(i === sel){
+      rec(id,{done:true, ok:!st.wrong, given: ex.pairs[i][1]});
+      lb[sel].classList.remove("sel"); lb[sel].classList.add("done"); rb[i].classList.add("done");
+      showFb(fb, true, `${ex.pairs[i][0]}${ex.sep || " = "}${ex.pairs[i][1]}`); sel = null;
+    } else {
+      rec(id,{wrong:(st.wrong||0)+1, given: ex.pairs[i][1]});
+      rb[i].classList.add("shake"); setTimeout(()=>rb[i].classList.remove("shake"), 400);
+      showFb(fb, false, "Try another one");
+    }
+  }
+  lb.forEach((b,i)=>{ if(isDone(i)){ b.classList.add("done"); rb[i].classList.add("done"); } });
+  lb.forEach(b=>L.appendChild(b)); rights.forEach(i=>R.appendChild(rb[i]));
+  box.append(L,R);
+  return el("div",{}, box, fb);
+}
+
+function writeEx(ex){
+  const ta = el("textarea",{placeholder: ex.prompt, "aria-label":ex.title});
+  ta.value = S.write[ex.id] || "";
+  const wc = el("div",{class:"wc"});
+  const upd = () => { const n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; wc.textContent = `${n} words, saved automatically`; };
+  ta.addEventListener("input", ()=>{ S.write[ex.id] = ta.value; save(); upd(); });
+  upd();
+  return el("div",{}, ta, wc);
+}
+
+function storyCard(){
+  const c = el("div",{class:"story"});
+  c.appendChild(el("div",{class:"case-head"}, el("h3",{}, "🎤 " + STORY_TITLE)));
+  c.appendChild(el("span",{class:"ru", style:"margin-bottom:4px"}, STORY_INTRO));
+  const cl = EX.find(e=>e.cloze);
+  STORY.split("\n").forEach(par => {
+    const p = el("p",{});
+    p.innerHTML = esc(par).replace(/\{(\d+)\}/g, (m,n) => cl && cl.type==="typed" ? `<span class="cgap gi" id="cg-${n}"><input class="ginp" data-gap="${n}" placeholder="${n}" aria-label="gap ${n}" autocomplete="off" autocapitalize="off" spellcheck="false"></span>` : `<span class="cgap" id="cg-${n}">(${n})</span>`);
+    c.appendChild(p);
+  });
+  if(cl) cl.items.forEach((it,k)=>{ const a = S.ans[cl.id+"-"+k]; if(a && a.done) setTimeout(()=>fillGap(it, a.ok), 0); });
+  return el("div",{class:"card", style:"padding:0;background:none;box-shadow:none"}, c);
+}
+function fillGap(it, ok){ const g = document.getElementById("cg-"+it.gap); if(!g) return; g.textContent = it.o ? it.o[it.a] : it.model; g.className = "cgap " + (ok ? "ok" : "no"); }
+
+document.addEventListener("input", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g) return; const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled) i.value = g.value; });
+document.addEventListener("keydown", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g || e.key !== "Enter") return; e.preventDefault(); const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled){ i.value = g.value; w.querySelector("button.btn").click(); if(!i.disabled){ g.classList.add("bad"); setTimeout(()=>g.classList.remove("bad"), 900); toast("Not quite: look at the hint for gap " + g.dataset.gap); } } });
+/* ================= RESULTS & REPORT ================= */
+function rankFor(p){
+  if(p >= 95) return ["🏆 Band 8 material","Your vocabulary and signposts are exam-ready!"];
+  if(p >= 80) return ["🎤 Confident speaker","Excellent. Review the few slips below."];
+  if(p >= 50) return ["🧭 On the right track","Good progress. Re-read the signposts and look at your mistakes."];
+  return ["📝 Warming up","Go through the words and signposts again, then start again."];
+}
+function mistakes(){
+  const out = [];
+  for(const ex of EX){
+    if(ex.type === "write") continue;
+    const n = itemCount(ex);
+    for(let i=0;i<n;i++){
+      const a = S.ans[ex.id+"-"+i]; if(!a || !a.done || a.ok) continue;
+      let q, right;
+      if(ex.type==="match"){ q = ex.pairs[i][0]; right = ex.pairs[i][1]; }
+      else { const it = ex.items[i]; q = it.q || it.word || it.ru || ""; right = ex.type==="choice" ? it.o[it.a] : (it.model || it.a); }
+      out.push({ex:ex.title, q:q.replace(/<[^>]+>/g,""), given:a.given || "—", right});
+    }
+  }
+  return out;
+}
+function report(){
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0;
+  const L = [];
+  L.push(`HOMEWORK: ${TOPIC}`);
+  L.push(`Student: ${S.name}`);
+  L.push(`Date: ${new Date().toLocaleDateString("en-GB")}`);
+  L.push(`Score: ${t.ok}/${t.n} (${pct}%) — answered ${t.done}/${t.n}`);
+  L.push(`Flashcards known: ${Object.keys(S.known).length}/${WORDS.length}`);
+  L.push("");
+  L.push("BY EXERCISE:");
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); L.push(`- ${ex.title}: ${s.ok}/${s.n}${s.done<s.n ? ` (not finished: ${s.done}/${s.n})` : ""}`); }
+  const m = mistakes();
+  L.push(""); L.push(`MISTAKES (${m.length}):`);
+  m.forEach(x=>L.push(`- [${x.ex}] ${x.q} → wrote: ${x.given} | correct: ${x.right}`));
+  const selfs = Object.entries(S.ans).filter(([k,v])=>v.self);
+  if(selfs.length){ L.push(""); L.push("SELF-CHECKED TRANSLATIONS (please check):"); selfs.forEach(([k,v])=>{ const ex = EX.find(e=>k.startsWith(e.id+"-")); const it = ex.items[+k.split("-")[1]]; L.push(`- ${it.q} → ${v.given}`); }); }
+  L.push(""); L.push("ALL TYPED ANSWERS:");
+  for(const ex of EX.filter(e=>["typed","translate","tiles"].includes(e.type))){ ex.items.forEach((it,i)=>{ const a = S.ans[ex.id+"-"+i]; if(a && a.given) L.push(`- ${(it.q||it.ru).replace(/<[^>]+>/g,"")} → ${a.given}${a.done ? (a.ok ? " ✓" : " ✗") : ""}`); }); }
+  if(EX.some(e=>e.type==="write")){ L.push(""); L.push("WRITING:"); }
+  for(const ex of EX.filter(e=>e.type==="write")){ L.push(`${ex.title}:`); L.push((S.write[ex.id]||"").trim() || "(empty)"); L.push(""); }
+  return L.join("\n");
+}
+function short(txt){ return txt.length <= 1500 ? txt : txt.slice(0,1450).replace(/\n[^\n]*$/,"") + "\n…\n(Full report: use “Copy text”)"; }
+function renderResults(){
+  const p = $("#p-res"); p.innerHTML = "";
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, "🏆"), el("div",{}, el("h2",{}, "Your results"), el("span",{class:"ru"}, "Send them to your teacher at the bottom"))));
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0, rk = rankFor(pct);
+  const ring = el("div",{class:"ring", style:`background:conic-gradient(var(--teal) ${pct*3.6}deg,var(--tint) 0deg)`}, el("span",{}, pct+"%"));
+  p.appendChild(el("div",{class:"card"}, el("div",{class:"big-score"}, ring, el("div",{},
+    el("div",{class:"rank"}, rk[0]), el("span",{class:"ru"}, rk[1]),
+    el("p",{}, `⭐ ${t.ok} / ${t.n} · answered: ${t.done} / ${t.n}`),
+    el("p",{class:"muted", style:"margin:0"}, `🃏 Flashcards known: ${Object.keys(S.known).length} / ${WORDS.length}`)))));
+  if(t.done < t.n) p.appendChild(el("p",{class:"careful", style:"padding:10px 16px"}, `Some tasks are not finished yet (${t.n - t.done} left).`));
+  const tb = el("table",{class:"brk"});
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); tb.appendChild(el("tr",{}, el("td",{}, ex.title), el("td",{}, `${s.ok}/${s.n}`))); }
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "By exercise"), tb));
+  const m = mistakes();
+  const ml = el("div",{class:"mlist"});
+  if(!m.length) ml.appendChild(el("div",{}, t.done ? "No mistakes — amazing!" : "Nothing here yet"));
+  m.forEach(x=>ml.appendChild(el("div",{html:`<b>${esc(x.q)}</b><br><span class="bad">${esc(x.given)}</span> → <span class="good">${esc(x.right)}</span>`})));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Mistakes to remember"), ml));
+  const w = EX.filter(e=>e.type==="write").map(ex => el("div",{style:"margin-bottom:8px"}, el("b",{}, ex.title), el("div",{style:"white-space:pre-wrap"}, (S.write[ex.id]||"").trim() || "— (empty)")));
+  if(w.length) p.appendChild(el("div",{class:"card"}, el("h3",{}, "Your writing"), ...w));
+  // send
+  const rep = report(), subj = `${TOPIC} — ${S.name} — ${t.ok}/${t.n}`, sh = short(rep);
+  const send = el("div",{class:"send"});
+  if(navigator.share) send.appendChild(el("button",{class:"s-share", onclick:()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); }}, "📤 Share"));
+  send.append(
+    el("a",{class:"s-gm", target:"_blank", rel:"noopener", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "Send in Gmail"),
+    el("a",{class:"s-tg", target:"_blank", rel:"noopener", href:`https://t.me/share/url?url=${encodeURIComponent(subj)}&text=${encodeURIComponent(sh)}`}, "Telegram"),
+    el("a",{class:"s-wa", target:"_blank", rel:"noopener", href:`https://wa.me/?text=${encodeURIComponent(subj+"\n"+sh)}`}, "WhatsApp"),
+    el("a",{class:"s-ml", href:`mailto:${TEACHER}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "✉️ Email app"),
+    el("button",{class:"s-cp", onclick:()=>copy(rep)}, "📋 Copy text"));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Send to your teacher"),
+    el("p",{html:`Teacher's email: <span class="email">${TEACHER}</span>`}),
+    el("p",{class:"muted", style:"font-size:14px"}, "Gmail, Telegram, WhatsApp and Email send a short version. “Share” and “Copy text” give the full report."),
+    send, el("details",{style:"margin-top:10px"}, el("summary",{}, "Show the report"), el("pre",{style:"white-space:pre-wrap;font-size:13px;background:var(--tint);padding:10px;border-radius:10px"}, rep))));
+  // reset
+  const conf = el("div",{class:"confirm"}, el("b",{}, "Delete all answers?"),
+    el("button",{class:"btn", style:"background:var(--crim)", onclick:()=>{ S = {name:S.name, ans:{}, known:{}, write:{}, tab:TABS[0].id}; save(); location.reload(); }}, "Yes"),
+    el("button",{class:"btn alt", onclick:()=>conf.classList.remove("show")}, "No"));
+  p.appendChild(el("div",{class:"card"}, el("button",{class:"btn alt", onclick:()=>conf.classList.add("show")}, "↺ Start again"), conf));
+}
+function copy(txt){
+  const ok = () => toast("Copied!");
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok).catch(fallback); } else fallback();
+  function fallback(){ const ta = el("textarea",{style:"position:fixed;top:-1000px"}); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); ok(); }catch(e){ toast("Select and copy the report below"); } ta.remove(); }
+}
+
+/* ================= INIT ================= */
+function init(){
+  const nmI = $("#nm"); nmI.value = S.name || DEFAULT_NAME; $("#hname").textContent = nmI.value;
+  nmI.addEventListener("input", ()=>{ S.name = nmI.value.trim() || DEFAULT_NAME; $("#hname").textContent = S.name; save(); });
+  renderTabs();
+  renderRules(); renderWords(); renderCards();
+  STEP_TABS.forEach((t,k)=>renderCase(t, STEP_ICONS[k], STEP_TABS[k+1] || "res"));
+  panel("res","🏆","Results","");
+  const start = TABS.some(t=>t.id===S.tab) ? S.tab : TABS[0].id;
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+start));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === start));
+  if(start === "res") renderResults();
+  refresh();
+}
+init();
+</script>
+</body>
+</html>
