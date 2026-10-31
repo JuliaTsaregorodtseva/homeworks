@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Julia · Questions and answers · question formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2B2D42; --ink2:#3D405B; --paper:#F8F5F0; --card:#FFFFFF; --tint:#EFEBE4;
+  --must:#E9B949; --must-soft:#FBF0D5; --crim:#E76F51; --crim-soft:#FBE5DF;
+  --teal:#2A9D8F; --teal-soft:#DFF1EE; --pink:#E76F51; --pink-soft:#FBE5DF;
+  --muted:#5F6074; --line:#E5DFD6; --ru:#66677A;
+  --r:16px; --shadow:0 2px 10px rgba(43,45,66,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.45}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--must);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:"Unbounded","Nunito",sans-serif;line-height:1.2;margin:0}
+.ru{color:var(--ru);font-size:.88em;display:block;font-weight:600}
+.ru-i{color:var(--ru);font-weight:600}
+.muted{color:var(--muted)}
+
+/* header */
+header.hero{background:var(--ink);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+.hero .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:800}
+.hero .ecg{position:absolute;left:0;bottom:0;width:100%;height:64px;opacity:.95;pointer-events:none}
+header.hero{padding-bottom:76px!important}
+.cgap{display:inline-block;min-width:54px;border-bottom:2.5px solid var(--must);text-align:center;font-weight:800;color:var(--muted);padding:0 4px}
+.cgap.ok{color:var(--teal);border-color:var(--teal)}
+.cgap.no{color:var(--crim);border-color:var(--crim)}
+.vid{display:inline-flex;align-items:center;gap:6px;margin:4px 0 10px;font-weight:800;color:var(--crim);text-decoration:none;min-height:44px}
+.hero h1{font-size:clamp(24px,6vw,38px);margin:8px 0 6px}
+.hero p{margin:4px 0;color:#D5D9E6}
+.hero .ru{color:#AEB5C9}
+.hero .badge{position:absolute;right:-30px;top:-30px;width:170px;height:170px;border-radius:50%;background:var(--teal);opacity:.25}
+.namebox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{background:#fff;color:var(--ink);border:0;border-radius:12px;padding:10px 14px;min-height:44px;width:200px}
+.howto{margin-top:12px;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,245,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.prog{display:flex;align-items:center;gap:12px;padding:10px 0 6px}
+.track{flex:1;height:12px;border-radius:99px;background:var(--tint);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--must));border-radius:99px;transition:width .4s}
+.score{font-weight:800;white-space:nowrap;font-size:15px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}
+nav.tabs button{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px;line-height:1.1;text-align:center}
+nav.tabs button small{display:block;font-size:11px;color:var(--ru);font-weight:700}
+nav.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav.tabs button.on small{color:#C9CEDD}
+nav.tabs button .ts{display:inline-block;margin-left:6px;background:var(--teal);color:#fff;border-radius:99px;padding:0 7px;font-size:11px}
+
+main{padding:18px 0 60px}
+section.panel{display:none}
+section.panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ptitle{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.ptitle .ic{width:52px;height:52px;border-radius:50%;background:var(--ink);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+.ptitle h2{font-size:clamp(19px,4.6vw,26px)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;margin:0 0 16px}
+.card h3{font-size:17px;margin-bottom:8px}
+.case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.case-head h3{font-size:17px}
+.instr{margin:2px 0 12px;font-weight:700}
+.stamp{flex:0 0 auto;border:2.5px solid var(--crim);color:var(--crim);border-radius:8px;padding:2px 8px;font-family:"Unbounded";font-size:11px;transform:rotate(-6deg);display:none;white-space:nowrap}
+.stamp.show{display:inline-block}
+
+/* rules */
+.rule{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:#fff;box-shadow:var(--shadow)}
+.rule h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.rule p{margin:6px 0}
+table.form{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:16px}
+table.form td{padding:8px 10px;background:var(--tint);vertical-align:top}
+table.form td:first-child{border-radius:10px 0 0 10px;font-weight:800;width:42px;text-align:center}
+table.form td:last-child{border-radius:0 10px 10px 0}
+table.form.wide td:first-child{width:auto;white-space:nowrap;text-align:left;color:var(--ink2)}
+.hl{background:var(--must-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.hl2{background:var(--teal-soft);border-radius:5px;padding:0 3px;font-weight:800}
+.say{border:0;background:var(--tint);border-radius:50%;width:36px;height:36px;min-width:36px;display:inline-grid;place-items:center;font-size:16px;vertical-align:middle;margin-left:4px}
+.exrow{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.mist{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}
+.mist div{background:var(--tint);border-radius:10px;padding:8px 12px;font-size:16px}
+.bad{color:var(--crim);text-decoration:line-through;text-decoration-thickness:1.5px}
+.good{color:var(--teal);font-weight:800}
+.machine{background:var(--ink);color:#fff;border-radius:var(--r);padding:16px 18px}
+.machine .out{font-size:clamp(20px,5vw,28px);font-weight:800;min-height:46px;margin:12px 0 6px}
+.machine .out .d{color:var(--must)} .machine .out .b{color:#8FE3CF;text-decoration:underline}
+.machine .btns{display:flex;gap:8px;flex-wrap:wrap}
+.machine button{border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:800;background:#2E3A5C;color:#fff}
+.machine button.on{background:var(--must);color:var(--ink)}
+.machine .note{font-size:14px;color:#C9CEDD;margin-top:6px}
+
+/* words */
+.wgroup h3{font-size:16px;margin:0 0 10px}
+.wlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.w{display:flex;align-items:center;gap:10px;background:var(--tint);border-radius:12px;padding:8px 10px}
+.w .em{font-size:24px;width:32px;text-align:center}
+.w b{display:block}
+.careful{background:var(--must-soft);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
+.careful h3{font-size:16px;margin-bottom:6px}
+.careful ul{margin:4px 0;padding-left:20px}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;min-height:44px;font-weight:700;font-size:14px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.flip{perspective:1200px;height:270px;margin:6px 0 12px}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.face.front{background:#fff;border:2px solid var(--line)}
+.face.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:clamp(20px,5.6vw,32px);font-weight:900;font-family:"Unbounded",system-ui,sans-serif;overflow-wrap:anywhere}
+.face .em{font-size:52px;line-height:1}
+.face .ex{margin-top:10px;font-size:16px;color:#D5D9E6}
+.face .hint{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.face.back .hint{color:#AEB5C9}
+.fc-nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.fc-nav button{flex:1;min-width:120px;min-height:48px;border-radius:14px;border:0;font-weight:800}
+.b-know{background:var(--teal);color:#fff}.b-learn{background:var(--must);color:var(--ink)}.b-plain{background:#fff;border:1.5px solid var(--line)!important}
+.fc-count{text-align:center;font-weight:800;margin:8px 0}
+
+/* items */
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.q{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.q .n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center;margin-top:1px}
+.gap{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--muted);margin:0 3px}
+.gap.ok{border-color:var(--teal);color:var(--teal);font-weight:900;min-width:0}
+.gap.suf{margin-left:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-left:40px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 16px;min-height:46px;font-weight:800;font-size:16px;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt.wrong{background:var(--crim-soft);border-color:var(--crim);color:var(--crim)}
+.opt[disabled]{cursor:default}
+.fb{margin:8px 0 0 40px;font-size:15px;border-radius:10px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--teal-soft)} .fb.no{background:var(--crim-soft)}
+.fb .why{display:block;color:var(--muted);margin-top:2px}
+.pic{margin-left:40px;margin-bottom:8px}
+.emo{font-size:56px;line-height:1}
+.tin{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+.tin input{flex:1;min-width:200px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;background:#fff}
+.tin input.ok{border-color:var(--teal);background:var(--teal-soft)}
+.tin input.no{border-color:var(--crim);background:var(--crim-soft)}
+.btn{border:0;border-radius:12px;padding:10px 18px;min-height:46px;font-weight:800;background:var(--ink);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--must);color:var(--ink)}
+.btn.teal{background:var(--teal);color:#fff}
+.btn[disabled]{opacity:.45;cursor:default}
+.listen{border:0;background:var(--pink);color:#fff;border-radius:16px;min-height:56px;padding:8px 20px;font-weight:900;font-size:18px;margin-left:40px;margin-bottom:8px}
+.syl .opt{border-radius:10px;min-width:64px;font-family:"Unbounded",system-ui,sans-serif;font-weight:600}
+.syl{gap:4px}
+.sortw{display:flex;align-items:center;gap:8px;margin-left:40px;margin-bottom:8px;font-size:20px;font-weight:900}
+.mono{font-family:"Nunito",system-ui,sans-serif;font-weight:800}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;min-height:48px;font-weight:800;text-align:left}
+.mt.sel{border-color:var(--must);background:var(--must-soft)}
+.mt.done{border-color:var(--teal);background:var(--teal-soft);color:#155e55;cursor:default}
+.mt.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* tiles */
+.line{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px;background:#fff}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px 40px}
+.tile{border:0;background:var(--ink2);color:#fff;border-radius:10px;padding:8px 12px;min-height:44px;font-weight:800}
+.line .tile{background:var(--must);color:var(--ink)}
+.tilebtns{display:flex;gap:8px;margin-left:40px;flex-wrap:wrap}
+
+/* story */
+.story{background:#FFFDF6;border:2px solid var(--must-soft);border-radius:var(--r);padding:16px 18px;font-size:17px;line-height:1.65}
+.story h3{font-family:"Unbounded";font-size:18px;margin-bottom:6px}
+.gl{border-bottom:2px dotted var(--must);cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;padding:0;font-weight:700;min-height:0}
+.gl .tip{display:none;font-size:13px;color:var(--ru);font-weight:700;margin-left:4px}
+.gl.open .tip{display:inline}
+
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;resize:vertical}
+.wc{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* results */
+.big-score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--teal) 0deg,var(--tint) 0deg);flex:0 0 auto}
+.ring span{width:94px;height:94px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:"Unbounded";font-size:22px}
+.rank{font-family:"Unbounded";font-size:20px}
+.brk{width:100%;border-collapse:collapse;font-size:15px}
+.brk td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.brk td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.mlist div{background:var(--tint);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px}
+.send{display:flex;flex-wrap:wrap;gap:8px}
+.send a,.send button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none;border:0}
+.s-share{background:var(--ink);color:#fff}.s-gm{background:#EA4335;color:#fff}.s-tg{background:#229ED9;color:#fff}.s-wa{background:#25D366;color:#fff}.s-ml{background:#fff;color:var(--ink);border:2px solid var(--line)!important}.s-cp{background:var(--must);color:var(--ink)}
+.email{user-select:all;font-weight:800;background:var(--tint);padding:2px 8px;border-radius:6px}
+.confirm{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.confirm.show{display:flex}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-weight:800;display:none;z-index:50}
+.toast.show{display:block}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* preposition scenes */
+svg.scene{width:170px;height:120px;background:var(--tint);border-radius:14px}
+
+@media (max-width:520px){
+  table.form.wide td:first-child{white-space:normal;width:32%}
+  .opts,.fb,.tin,.pic,.line,.pool,.tilebtns,.listen,.sortw{margin-left:0}
+  .match{grid-template-columns:1fr 1fr;gap:6px}
+  .mt{font-size:15px;padding:8px}
+  .card{padding:14px}
+}
+.cgap.gi{border:0;padding:0;min-width:0}
+.ginp{width:140px;max-width:40vw;border:0;border-bottom:2.5px solid var(--must);background:#fff;border-radius:6px 6px 0 0;font:inherit;font-weight:700;color:var(--ink);text-align:center;padding:2px 6px}
+.ginp:focus{outline:2px solid var(--must);outline-offset:1px}
+.ginp.bad{border-color:var(--crim);background:var(--crim-soft)}
+/* ===== desktop layout ===== */
+@media (min-width:1100px){
+  .wrap{max-width:1280px;padding:0 48px}
+  header.hero{padding-top:44px}
+  .hero h1{font-size:52px;margin:12px 0 10px}
+  .hero p{font-size:19px;max-width:820px}
+  .howto{display:inline-block;font-size:16px;padding:12px 18px}
+  .hero .badge{width:320px;height:320px;right:-80px;top:-90px}
+  nav.tabs{gap:10px;overflow:visible}
+  nav.tabs button{flex:1 1 0;font-size:15px;padding:10px 12px;min-height:54px}
+  nav.tabs button small{font-size:12px}
+  main{padding:30px 0 80px}
+  .ptitle{margin:8px 0 22px}
+  .ptitle h2{font-size:32px}
+  .ptitle .ic{width:60px;height:60px;font-size:30px}
+  .card,.rule{padding:24px 28px}
+  /* rules: two columns */
+  #p-rules.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  #p-rules.on > .ptitle, #p-rules.on > .next, #p-rules.on > .careful{grid-column:1/-1}
+  /* exercises: items side by side */
+  .card:has(> .item){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
+  .card:has(> .item) > :not(.item){grid-column:1/-1}
+  /* story steps: text sticky on the left, tasks on the right */
+  section.panel.on:has(.story){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:28px;align-items:start}
+  section.panel.on:has(.story) > *{grid-column:1/-1}
+  section.panel.on:has(.story) > .card:has(.story){grid-column:1;grid-row:3 / span 20;position:sticky;top:150px;align-self:start}
+  section.panel.on:has(.story) > .card:not(:has(.story)){grid-column:2}
+  section.panel.on:has(.story) > .next{grid-row:auto}
+  section.panel.on:has(.story) .card:has(> .item){display:block}
+  .story{font-size:18px;line-height:1.75}
+  /* writing: two tasks side by side */
+  section.panel.on:has(textarea){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start}
+  section.panel.on:has(textarea) > .ptitle, section.panel.on:has(textarea) > .rule, section.panel.on:has(textarea) > .next{grid-column:1/-1}
+  section.panel.on:has(textarea) textarea{min-height:220px}
+}
+
+.road{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.road .stop{display:inline-flex;align-items:center;gap:6px;background:var(--tint);border-radius:999px;padding:6px 12px 6px 6px;font-weight:700;font-size:14px}
+.road .stop b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font-size:13px}
+.sgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+@media (min-width:640px){.sgrid{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.sgrid{grid-template-columns:1fr 1fr 1fr}}
+.scard{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;border-top:5px solid var(--c)}
+.shead{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--c)}
+.snum{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;letter-spacing:0}
+.sjob{font-size:14.5px;color:var(--muted);margin:4px 0 8px}
+.sph{display:flex;align-items:center;gap:8px;background:var(--tint);border-radius:10px;padding:8px 10px;margin-bottom:6px}
+.sph > div{flex:1}
+.sph b{display:block}
+.snote{display:block;font-size:13.5px;color:var(--muted)}
+.scard .exrow{font-size:15px}
+.sbtns{display:flex;flex-wrap:wrap;gap:8px}
+.sbtns button{background:#fff;color:var(--ink);border:2px solid var(--c);border-radius:999px;padding:8px 14px;min-height:44px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.sbtns button.on{background:var(--c);color:#fff}
+.spot{margin-top:12px;font-size:17px;line-height:1.75}
+.spot p{margin:0 0 10px}
+.spot mark{background:transparent;border-bottom:2px dotted var(--c);color:inherit;padding:0 2px;border-radius:4px;transition:background .2s}
+.spot mark.on{background:var(--c);color:#fff;border-bottom-color:transparent}
+.w .wex{display:block;font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+@media (min-width:1100px){ #p-rules.on > *{grid-column:1/-1} #p-rules.on .rule:first-of-type{max-width:none} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge"></div>
+  <svg class="ecg" viewBox="0 0 1200 70" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g opacity=".9"><rect x="10" y="38" width="150" height="22" rx="11" fill="#E76F51"/><rect x="178" y="38" width="90" height="22" rx="11" fill="#2A9D8F"/><rect x="286" y="38" width="120" height="22" rx="11" fill="#E9B949"/><rect x="424" y="38" width="170" height="22" rx="11" fill="#457B9D"/><rect x="612" y="38" width="80" height="22" rx="11" fill="#8E5572"/><rect x="710" y="38" width="120" height="22" rx="11" fill="#E76F51"/><rect x="848" y="38" width="140" height="22" rx="11" fill="#E76F51"/><rect x="1006" y="38" width="100" height="22" rx="11" fill="#2A9D8F"/><rect x="1124" y="38" width="90" height="22" rx="11" fill="#E9B949"/></g></svg>
+  <div class="wrap">
+    <div class="kick">🎤 1A Questions and answers · Upper-Intermediate</div>
+    <h1>Questions are never indiscreet…</h1>
+    <p>Homework for <b id="hname">Julia</b> after our Q&amp;A lesson: auxiliaries, subject questions, prepositions at the end, negative questions and indirect questions.</p>
+    <div class="namebox"><label for="nm">Your name</label><input id="nm" value="Julia" maxlength="30" autocomplete="off"></div>
+    <div class="howto">Grammar → Phrases → Cards → Steps 1–5 → Results &amp; send. About 40 minutes.</div>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 / 0</div></div>
+  <nav class="tabs" id="tabs"></nav>
+</div></div>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const TEACHER = "ulchik2211@gmail.com";
+const TOPIC = "Questions and answers: question formation";
+const STORE = "julia-question-formation-v1";
+const DEFAULT_NAME = "Julia";
+const VIDEO_URL = "";
+
+const WORDS = [
+  // polite openers
+  {g:"open", en:"Could you tell me…?", ru:"a polite way to ask for information; then subject + verb", em:"🙏", ex:"Could you tell me what time the shop opens?"},
+  {g:"open", en:"Do you know…?", ru:"asks if someone has the information; use if / whether for yes / no questions", em:"🤔", ex:"Do you know if Mark's coming to the meeting?"},
+  {g:"open", en:"Do you have any idea…?", ru:"a softer way to ask; you're not sure they know", em:"💭", ex:"Do you have any idea how many people live here?"},
+  {g:"open", en:"Would you mind telling me…?", ru:"very polite, good for personal or sensitive questions", em:"🎩", ex:"Would you mind telling me how old you are?"},
+  {g:"open", en:"Can you remember…?", ru:"asks someone to recall information", em:"🧠", ex:"Can you remember where we parked the car?"},
+  {g:"open", en:"I wonder…", ru:"a statement, not a question, but with the same word order", em:"✨", ex:"I wonder why they didn't come."},
+  {g:"open", en:"I'm not sure…", ru:"use it when you don't know; same word order", em:"🤷", ex:"I'm not sure what time it starts."},
+  {g:"open", en:"I'd like to know…", ru:"a direct but polite request for information", em:"📝", ex:"I'd like to know what time you're coming home."},
+  // refusing politely
+  {g:"refuse", en:"I'd prefer not to answer that.", ru:"a polite way to refuse to answer a question", em:"🙅‍♀️", ex:"Your salary? I'd prefer not to answer that."},
+  {g:"refuse", en:"I'd rather not answer that, if you don't mind.", ru:"an even softer way to refuse", em:"🤐", ex:"My love life? I'd rather not answer that, if you don't mind."},
+  // words from the interviews
+  {g:"qa", en:"discreet", ru:"careful not to cause embarrassment or attract too much attention", em:"🤫", ex:"Don't worry, she's very discreet."},
+  {g:"qa", en:"indiscreet", ru:"saying things that should be secret or that embarrass people", em:"📢", ex:"Questions are never indiscreet; answers sometimes are."},
+  {g:"qa", en:"a treasured possession", ru:"something you own that is very precious to you", em:"💎", ex:"My most treasured possession is my grandmother's ring."},
+  {g:"qa", en:"a guilty pleasure", ru:"something you enjoy but feel a little bad about", em:"🍰", ex:"Reality TV is my guilty pleasure."},
+  {g:"qa", en:"an embarrassing moment", ru:"a situation that made you feel stupid or uncomfortable", em:"😳", ex:"My most embarrassing moment was falling over on stage."},
+  {g:"qa", en:"overuse sth", ru:"use something too often", em:"🔁", ex:"I overuse the word “basically”."},
+  {g:"qa", en:"self-centred", ru:"thinking only about yourself, not about other people", em:"🪞", ex:"I can be very self-centred."},
+  {g:"qa", en:"headline (a festival)", ru:"(verb) be the main performer at a concert or festival", em:"🎤", ex:"She has headlined at the Glastonbury Festival."},
+];
+const GROUPS = {open:["Polite openers","for indirect questions"], refuse:["Refusing politely","when you don't want to answer"], qa:["Words from the Q&A interviews","Florence Welch and Dan Stevens"]};
+const CAREFUL = [
+  "After a polite opener, use <b>statement word order</b>: <span class='bad'>Could you tell me where is the station?</span> → <i>Could you tell me where <b>the station is</b>?</i>",
+  "No <b>do / does / did</b> after the opener: <span class='bad'>Do you know where does he live?</span> → <i>Do you know where he <b>lives</b>?</i>",
+  "Yes / no question → use <b>if</b> or <b>whether</b>: <span class='bad'>Do you know is she coming?</span> → <i>Do you know <b>if</b> she's coming?</i>",
+  "<b>I wonder…, I'm not sure…, I'd like to know…</b> are statements, so they end with a full stop, not a question mark.",
+  "<b>Would you mind telling me…?</b> → the answer <i>No, not at all</i> means “I'm happy to tell you”.",
+  "<b>discreet</b> (careful) vs <b>discrete</b> (separate): same pronunciation, different meaning!",
+];
+
+const EX = [
+  // ---------- STEP 1: auxiliaries
+  {id:"a1", tab:"st1", type:"choice", title:"Which auxiliary?", ru:"Questions with auxiliaries and modals", instr:"Choose the word that completes the question.", items:[
+    {q:"How many children ___ your sister have?", o:["has","does","is"], a:1, why:"Present simple with <i>she</i> → <b>does</b> + base form (have)."},
+    {q:"Where ___ you born?", o:["did","were","was"], a:1, why:"<i>Be born</i> is a passive form with <i>be</i>: Where <b>were</b> you born?"},
+    {q:"What ___ you doing when I called?", o:["did","were","have"], a:1, why:"Past continuous: <b>were</b> you doing."},
+    {q:"___ we buy her a present?", o:["Should","Do we should","Are"], a:0, why:"With modals, just invert: <b>Should we</b>…? Never <i>do</i> + modal."},
+    {q:"How long ___ you known each other?", o:["did","have","are"], a:1, why:"Present perfect: <b>have</b> you known."},
+    {q:"What time ___ the film start?", o:["does","is","do"], a:0, why:"Present simple, <i>the film</i> = it → <b>does</b> … start."},
+    {q:"How often ___ you go to the gym?", o:["are","do","does"], a:1, why:"Present simple with <i>you</i> → <b>do</b>."},
+    {q:"What ___ your superpower be?", o:["would","is","did"], a:0, why:"An imaginary situation → <b>would</b>… be (from Florence's Q&A)."},
+  ]},
+  {id:"a2", tab:"st1", type:"typed", title:"Complete the questions", ru:"Use the words in brackets", instr:"Type the missing words. Contractions are fine.", items:[
+    {q:"Where ___ on holiday last summer? (you / go)", accept:["did you go"], model:"did you go", hint:"Past simple: did + subject + base form.", why:"Past simple → <b>did you go</b>"},
+    {q:"How long ___ English? (you / study)", accept:["have you been studying","have you studied"], model:"have you been studying", hint:"From the past until now: present perfect (continuous).", why:"Unfinished time → <b>have you been studying</b> (or <i>have you studied</i>)."},
+    {q:"What ___ when you were a child? (you / want to be)", accept:["did you want to be"], model:"did you want to be", hint:"Past simple question.", why:"<b>did you want to be</b>"},
+    {q:"___ to answer every question? (you / have to)", accept:["do you have to"], model:"Do you have to", hint:"<i>Have to</i> works like a normal verb: do + subject + have to.", why:"<b>Do you have to</b>…? (not <i>Have you to</i>)"},
+    {q:"What ___ right now? (your brother / do)", accept:["is your brother doing"], model:"is your brother doing", hint:"<i>Right now</i> → present continuous.", why:"<b>is your brother doing</b>"},
+    {q:"How many languages ___? (your parents / speak)", accept:["do your parents speak"], model:"do your parents speak", hint:"Present simple, plural subject.", why:"<b>do your parents speak</b>"},
+    {q:"___ “I love you” and not meant it? (you / ever / say)", accept:["have you ever said"], model:"Have you ever said", hint:"Experience in your life → present perfect.", why:"<b>Have you ever said</b>… (from Florence's Q&A)"},
+    {q:"Where ___ if you could live anywhere? (you / live)", accept:["would you live"], model:"would you live", hint:"Imaginary situation.", why:"<b>would you live</b>"},
+  ]},
+  // ---------- STEP 2: prepositions and subject questions
+  {id:"b1", tab:"st2", type:"choice", title:"Subject or object question?", ru:"Do you need do / did?", instr:"Choose the correct option.", items:[
+    {q:"Who ___ this song?", o:["wrote","did write","did wrote"], a:0, why:"<i>Who</i> is the subject (somebody wrote it) → no <i>did</i>: <b>Who wrote</b>…?"},
+    {q:"Who ___ last night?", o:["did you call","you called","called you"], a:0, why:"<i>Who</i> is the object (you called somebody) → <b>did you call</b>."},
+    {q:"What ___ you awake at night?", o:["keeps","does keep","do keep"], a:0, why:"<i>What</i> is the subject → <b>keeps</b> (from Dan's Q&A)."},
+    {q:"Which team ___ the World Cup in 2026?", o:["did win","won","win"], a:1, why:"<i>Which team</i> is the subject → past simple without <i>did</i>: <b>won</b>. (It was Spain!)"},
+    {q:"How many people ___ the party?", o:["came to","did come to","did they come"], a:0, why:"<i>How many people</i> is the subject → <b>came to</b>."},
+    {q:"What ___ about your job?", o:["do you like","you like","likes you"], a:0, why:"<i>What</i> is the object (you like something) → <b>do you like</b>."},
+    {q:"Who ___ the housework in your family?", o:["does","do","is doing"], a:0, why:"Subject question in the present simple → <b>does</b> (the main verb <i>do</i> + s)."},
+    {q:"What ___ you most like to say sorry for?", o:["would","did","do"], a:0, why:"<b>Would</b> you most like… (a modal, so just invert)."},
+  ]},
+  {id:"b2", tab:"st2", type:"choice", title:"Where does the preposition go?", ru:"Choose the natural question", instr:"Choose the correct question.", items:[
+    {q:"(talk about sth)", o:["About what are you talking?","What are you talking about?","What are you talking?"], a:1, why:"The preposition goes at the <b>end</b>: What are you talking <b>about</b>?"},
+    {q:"(belong to sb)", o:["Who does this bag belong to?","To who does this bag belong?","Who belongs this bag to?"], a:0, why:"Who does this bag belong <b>to</b>?"},
+    {q:"(be worried about sth)", o:["What are you worried?","About what are you worried?","What are you worried about?"], a:2, why:"What are you worried <b>about</b>?"},
+    {q:"(come from)", o:["Where do you come from?","From where do you come?","Where do you come?"], a:0, why:"Where do you come <b>from</b>?"},
+    {q:"A: I'm thinking. B: ___", o:["About what?","What about?","What you think?"], a:1, why:"Short questions: question word + preposition → <b>What about?</b>"},
+    {q:"(look forward to sth)", o:["What are you looking forward?","What are you looking forward to?","To what are you looking forward?"], a:1, why:"What are you looking forward <b>to</b>?"},
+  ]},
+  {id:"b3", tab:"st2", type:"typed", title:"Ask about the underlined part", ru:"Subject and object questions", instr:"Write the whole question. Use a question mark.", items:[
+    {q:"<u>My grandmother</u> taught me to cook.", accept:["Who taught you to cook?"], model:"Who taught you to cook?", hint:"The underlined part is the subject → no <i>did</i>.", why:"Subject question → <b>Who taught</b>…?"},
+    {q:"I'm worried about <u>my exam</u>.", accept:["What are you worried about?"], model:"What are you worried about?", hint:"Keep the preposition at the end.", why:"What are you worried <b>about</b>?"},
+    {q:"<u>A loud noise</u> woke me up.", accept:["What woke you up?"], model:"What woke you up?", hint:"Subject question.", why:"<b>What woke</b> you up?"},
+    {q:"She's waiting for <u>her sister</u>.", accept:["Who is she waiting for?","Who's she waiting for?"], model:"Who is she waiting for?", hint:"Object question + preposition at the end.", why:"Who is she waiting <b>for</b>?"},
+    {q:"I went to the concert with <u>Tom</u>.", accept:["Who did you go to the concert with?","Who did you go with?"], model:"Who did you go to the concert with?", hint:"Object question, past simple, preposition at the end.", why:"Who <b>did</b> you go to the concert <b>with</b>?"},
+    {q:"<u>Three people</u> applied for the job.", accept:["How many people applied for the job?","How many people applied?"], model:"How many people applied for the job?", hint:"How many… is the subject.", why:"<b>How many people applied</b>…? (no <i>did</i>)"},
+  ]},
+  {id:"b4", tab:"st2", type:"tiles", title:"Build the question", ru:"Word order", instr:"Tap the words in the right order.", items:[
+    {ru:"preposition at the end", a:"What kind of music are you into?"},
+    {ru:"a subject question", a:"Who does the housework in your family?"},
+    {ru:"from Dan's Q&A", a:"What single thing would improve the quality of your life?"},
+    {ru:"preposition at the end", a:"Who would you most like to have dinner with?"},
+  ]},
+  // ---------- STEP 3: negative questions
+  {id:"c1", tab:"st3", type:"choice", tf:true, title:"Why a negative question?", ru:"Surprise, agreement or checking", instr:"Why is the speaker using a negative question?", items:[
+    {q:"Isn't this a beautiful place?", o:["surprise","expecting agreement","checking something"], a:1, why:"The speaker thinks it's beautiful and expects you to agree."},
+    {q:"Haven't you finished yet? It's been three hours!", o:["surprise","expecting agreement","checking something"], a:0, why:"Surprise (and some annoyance)."},
+    {q:"Didn't we meet at Anna's party last year?", o:["surprise","expecting agreement","checking something"], a:2, why:"The speaker thinks it's true and wants to check."},
+    {q:"Wasn't that film amazing?", o:["surprise","expecting agreement","checking something"], a:1, why:"The speaker loved it and expects you to agree."},
+    {q:"Aren't you Tom's sister?", o:["surprise","expecting agreement","checking something"], a:2, why:"Checking something the speaker believes."},
+    {q:"Why didn't you like the film? Everyone loved it!", o:["surprise","expecting agreement","checking something"], a:0, why:"Surprise: the speaker expected the opposite."},
+  ]},
+  {id:"c2", tab:"st3", type:"typed", title:"React with a negative question", ru:"Sound surprised!", instr:"React to each statement with a short negative question (e.g. <i>Don't you?</i>).", items:[
+    {q:"I've never been abroad. → ___", accept:["Haven't you?","Have you not?"], model:"Haven't you?", hint:"Present perfect → have.", why:"I've never been… → <b>Haven't you?</b>"},
+    {q:"I don't like chocolate. → ___", accept:["Don't you?","Do you not?"], model:"Don't you?", hint:"Present simple → do.", why:"<b>Don't you?</b>"},
+    {q:"Tom didn't come to the party. → ___", accept:["Didn't he?","Did he not?"], model:"Didn't he?", hint:"Past simple; Tom = he.", why:"<b>Didn't he?</b>"},
+    {q:"I can't drive. → ___", accept:["Can't you?","Can you not?"], model:"Can't you?", hint:"Modal → repeat the modal.", why:"<b>Can't you?</b>"},
+    {q:"Maria isn't coming tonight. → ___", accept:["Isn't she?","Is she not?"], model:"Isn't she?", hint:"Be → is; Maria = she.", why:"<b>Isn't she?</b>"},
+    {q:"___ be at work today? (you / not have to)", accept:["Don't you have to"], model:"Don't you have to", hint:"Have to → do + not.", why:"<b>Don't you have to</b> be at work today? (checking / surprise)"},
+    {q:"Why ___ the present you gave her? (your sister / not like)", accept:["didn't your sister like"], model:"didn't your sister like", hint:"Past simple negative question.", why:"Why <b>didn't your sister like</b>…?"},
+  ]},
+  // ---------- STEP 4: indirect questions
+  {id:"d1", tab:"st4", type:"typed", title:"Make it polite", ru:"Direct → indirect", instr:"Complete the indirect question. Remember: statement word order, no do / did.", items:[
+    {q:"Where is the station? → Could you tell me ___?", accept:["where the station is"], model:"where the station is", hint:"Subject + verb: the station + is.", why:"…where <b>the station is</b>?"},
+    {q:"What time does the shop open? → Do you know ___?", accept:["what time the shop opens"], model:"what time the shop opens", hint:"No <i>does</i>; add -s to the verb.", why:"…what time <b>the shop opens</b>?"},
+    {q:"Is Mark coming to the meeting? → Do you know ___?", accept:["if Mark is coming to the meeting","whether Mark is coming to the meeting","if Mark's coming to the meeting","whether Mark's coming to the meeting","if Mark is coming","whether Mark is coming","if Mark's coming"], model:"if Mark is coming to the meeting", hint:"Yes / no question → if or whether.", why:"…<b>if (whether) Mark is coming</b>…?"},
+    {q:"Where did I leave my keys? → I can't remember ___.", accept:["where I left my keys"], model:"where I left my keys", hint:"No <i>did</i>; past simple verb.", why:"…where <b>I left</b> my keys."},
+    {q:"How much does this jacket cost? → Could you tell me ___?", accept:["how much this jacket costs"], model:"how much this jacket costs", hint:"No <i>does</i>; costs.", why:"…how much <b>this jacket costs</b>?"},
+    {q:"Why didn't they come? → I wonder ___.", accept:["why they didn't come","why they did not come"], model:"why they didn't come", hint:"In negatives, keep <i>didn't</i>, but after the subject.", why:"…why <b>they didn't come</b>. (negative <i>didn't</i> stays)"},
+    {q:"Do you have any allergies? → Would you mind telling me ___?", accept:["if you have any allergies","whether you have any allergies","if you've got any allergies","whether you've got any allergies"], model:"if you have any allergies", hint:"Yes / no question → if; no <i>do</i>.", why:"…<b>if you have</b> any allergies?"},
+    {q:"When will the results be ready? → Do you have any idea ___?", accept:["when the results will be ready"], model:"when the results will be ready", hint:"Subject + will + be.", why:"…when <b>the results will be</b> ready?"},
+  ]},
+  {id:"d2", tab:"st4", type:"typed", title:"Find and correct the mistake", ru:"All question types", instr:"Write the whole question correctly.", items:[
+    {q:"Can you tell me where is the bank?", accept:["Can you tell me where the bank is?"], model:"Can you tell me where the bank is?", hint:"Indirect question → statement word order.", why:"…where <b>the bank is</b>?"},
+    {q:"Do you know where does he live?", accept:["Do you know where he lives?"], model:"Do you know where he lives?", hint:"No <i>does</i> after the opener.", why:"…where <b>he lives</b>?"},
+    {q:"Who did write this report?", accept:["Who wrote this report?"], model:"Who wrote this report?", hint:"Subject question.", why:"<b>Who wrote</b>…? (no <i>did</i>)"},
+    {q:"About what are you talking?", accept:["What are you talking about?"], model:"What are you talking about?", hint:"Preposition at the end.", why:"What are you talking <b>about</b>?"},
+    {q:"How long you have worked here?", accept:["How long have you worked here?","How long have you been working here?"], model:"How long have you worked here?", hint:"Invert the auxiliary and the subject.", why:"How long <b>have you</b> worked here?"},
+    {q:"I'm not sure what time does it start.", accept:["I'm not sure what time it starts.","I am not sure what time it starts."], model:"I'm not sure what time it starts.", hint:"Same word order as indirect questions.", why:"…what time <b>it starts</b>."},
+    {q:"Do you know is she coming?", accept:["Do you know if she is coming?","Do you know whether she is coming?","Do you know if she's coming?","Do you know whether she's coming?"], model:"Do you know if she's coming?", hint:"Yes / no → if / whether.", why:"…<b>if</b> she's coming?"},
+  ]},
+  // ---------- STEP 5: interview + your turn
+  {id:"e1", tab:"st5", type:"typed", cloze:true, title:"Q&A with a travel blogger", ru:"All question types together", instr:"Complete the interview. Type in the text or in the boxes below.", items:[
+    {gap:1, q:"___ your most treasured possession?", accept:["What's","What is"], model:"What's", hint:"Question word + be.", why:"<b>What's</b> your most treasured possession?"},
+    {gap:2, q:"What ___ you want to be when you were a child?", accept:["did"], model:"did", hint:"Past simple auxiliary.", why:"What <b>did</b> you want to be…?"},
+    {gap:3, q:"Who ___ you to travel? (inspire)", accept:["inspired"], model:"inspired", hint:"Subject question in the past → no <i>did</i>.", why:"Who <b>inspired</b> you? (subject question)"},
+    {gap:4, q:"What are you most afraid ___?", accept:["of"], model:"of", hint:"be afraid … sth", why:"afraid <b>of</b> – at the end"},
+    {gap:5, q:"___ you ever lost your luggage?", accept:["Have"], model:"Have", hint:"Experience → present perfect.", why:"<b>Have</b> you ever lost…?"},
+    {gap:6, q:"Which country ___ you the most? (surprise)", accept:["surprised"], model:"surprised", hint:"<i>Which country</i> is the subject.", why:"Which country <b>surprised</b> you? (subject question)"},
+    {gap:7, q:"___ you ever get tired of living out of a suitcase? (negative auxiliary)", accept:["Don't"], model:"Don't", hint:"Negative, present simple.", why:"<b>Don't</b> you ever get tired…? (expecting agreement)"},
+    {gap:8, q:"What do you spend most of your money ___?", accept:["on"], model:"on", hint:"spend money … sth", why:"spend money <b>on</b> – at the end"},
+    {gap:9, q:"Do you know how many countries ___ in the world? (there / be)", accept:["there are"], model:"there are", hint:"Indirect question → statement order.", why:"…how many countries <b>there are</b>"},
+    {gap:10, q:"Could you tell me where ___ next? (you / go)", accept:["you are going","you're going"], model:"you're going", hint:"Indirect: subject + verb; future plan.", why:"…where <b>you're going</b> next?"},
+  ]},
+  {id:"w1", tab:"st5", type:"write", title:"Your own Q&A", ru:"Write 8 questions and answer them", instr:"Choose 8 questions from Florence's and Dan's interviews (or your own) and answer them about yourself, in 1–3 sentences each. You can use “I'd rather not answer that” once!", prompt:"1) What's your most treasured possession?\n…\n2) When were you happiest?\n…"},
+  {id:"w2", tab:"st5", type:"write", title:"Interview someone you admire", ru:"5 questions, 5 different types", instr:"Write five questions for a famous person you admire: one direct question with an auxiliary, one subject question, one ending with a preposition, one negative question and one indirect question. Label each type.", prompt:"Person: …\n1 (auxiliary) …\n2 (subject) …\n3 (preposition) …\n4 (negative) …\n5 (indirect) …"},
+];
+
+const STORY_TAB = "st5";
+const STORY_TITLE = "Q&A: Maya Clark, travel blogger";
+const STORY_INTRO = "Maya has visited 60 countries. Type your answers straight into the gaps and press Enter, or use the boxes below with hints.";
+const STORY = `{1} your most treasured possession? — My old passport, full of stamps.
+What {2} you want to be when you were a child? — A pilot.
+Who {3} (inspire) you to travel? — My grandfather. He took me everywhere.
+What are you most afraid {4}? — Flying, ironically!
+{5} you ever lost your luggage? — Twice, in the same week.
+Which country {6} (surprise) you the most? — Japan. Everything is so well organised.
+{7} you ever get tired of living out of a suitcase? — Sometimes, but I'd never stop.
+What do you spend most of your money {8}? — Train tickets.
+Do you know how many countries {9} in the world? — Officially 195, I think. I've got a long way to go!
+Could you tell me where {10} next? — I'd rather not answer that, if you don't mind. It's a secret!`;
+const GLOSS = {};
+
+const TABS = [
+  {id:"rules", en:"Grammar", ru:"question types", ic:"📒"},
+  {id:"words", en:"Phrases", ru:"18 items", ic:"🗂️"},
+  {id:"cards", en:"Cards", ru:"flashcards", ic:"🃏"},
+  {id:"st1", en:"Step 1", ru:"auxiliaries", ic:"🔁"},
+  {id:"st2", en:"Step 2", ru:"subject & prepositions", ic:"🎯"},
+  {id:"st3", en:"Step 3", ru:"negative questions", ic:"😮"},
+  {id:"st4", en:"Step 4", ru:"indirect questions", ic:"🎩"},
+  {id:"st5", en:"Step 5", ru:"Q&A + your turn", ic:"🎤"},
+  {id:"res", en:"Results", ru:"send", ic:"🏆"},
+];
+const STEP_TABS = ["st1","st2","st3","st4","st5"];
+const STEP_ICONS = ["🔁","🎯","😮","🎩","🎤"];
+const CASE_TITLES = {
+  st1:["Step 1: Auxiliary before the subject","be, have, modals, do / does / did"],
+  st2:["Step 2: Subject questions and prepositions","Who wrote…? · What are you talking about?"],
+  st3:["Step 3: Negative questions","surprise, agreement, checking"],
+  st4:["Step 4: Indirect questions","polite questions with statement word order"],
+  st5:["Step 5: A Q&A interview and your turn","all question types together"],
+};
+const STEP_RULES = {
+  st1:"<b>Question word + auxiliary / modal + subject + verb.</b> If there is no auxiliary (present / past simple), add <b>do / does / did</b>: <i>How long <b>have you</b> been waiting? <b>Should we</b> buy her a present? How many children <b>does your sister</b> have?</i>",
+  st2:"If <b>who / what / which / how many</b> is the <b>subject</b>, don't use do / did: <i><b>Who wrote</b> this?</i> If the verb has a preposition, it goes at the <b>end</b>: <i>What are they talking <b>about</b>?</i>",
+  st3:"Negative questions show <b>surprise</b> (<i>Haven't you finished yet?</i>), expect <b>agreement</b> (<i>Isn't this a beautiful place?</i>) or <b>check</b> something you believe (<i>Don't you have to be at school today?</i>).",
+  st4:"<b>Opener + question word / if + subject + verb.</b> No inversion, no do / did: <i>Could you tell me what time <b>the shop opens</b>? Do you know <b>if</b> Mark's coming?</i>",
+  st5:"<b>Example (person: Florence Welch)</b><br>1 (auxiliary) <i>Have you ever forgotten the words on stage?</i><br>2 (subject) <i>What inspires your lyrics?</i><br>3 (preposition) <i>Who do you most enjoy working with?</i><br>4 (negative) <i>Don't you get tired of touring?</i><br>5 (indirect) <i>Could you tell me what your next album will be about?</i>",
+};
+const PRAISE = ["Correct!","Spot on!","Exactly!","Nailed it!","Perfect!","Well done!"];
+const OOPS = ["Not quite.","Nearly!","Close, but no.","Good try!"];
+
+/* ================= STATE ================= */
+let mem = {};
+function load(){ try{ const s = localStorage.getItem(STORE); return s ? JSON.parse(s) : null; }catch(e){ return mem[STORE] || null; } }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(S)); }catch(e){ mem[STORE] = JSON.parse(JSON.stringify(S)); } }
+let S = load() || {name:DEFAULT_NAME, ans:{}, known:{}, write:{}, tab:TABS[0].id};
+if(!S.ans) S.ans = {}; if(!S.known) S.known = {}; if(!S.write) S.write = {};
+
+/* ================= HELPERS ================= */
+const $ = (s, r=document) => r.querySelector(s);
+function el(tag, attrs={}, ...kids){
+  const e = document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){
+    if(k === "class") e.className = v;
+    else if(k === "html") e.innerHTML = v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if(v !== false && v != null) e.setAttribute(k, v);
+  }
+  for(const k of kids.flat()){ if(k == null) continue; e.appendChild(typeof k === "string" ? document.createTextNode(k) : k); }
+  return e;
+}
+const pick = (a) => a[Math.floor(Math.random()*a.length)];
+function shuffle(a){ const b = a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(t){ const x = $("#toast"); x.textContent = t; x.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(()=>x.classList.remove("show"), 1800); }
+
+let VOICE = null;
+function pickVoice(){ if(!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t){
+  if(!("speechSynthesis" in window)) { toast("Audio is not available"); return; }
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"")); u.lang = "en-GB"; if(VOICE) u.voice = VOICE; u.rate = 0.87; speechSynthesis.speak(u); }catch(e){}
+}
+const sayBtn = (t) => el("button", {class:"say", "aria-label":"Listen", title:"Listen", onclick:(e)=>{ e.stopPropagation(); speak(t); }}, "🔊");
+
+const CONTR = [[/\bdidn't\b/g,"did not"],[/\bdoesn't\b/g,"does not"],[/\bdon't\b/g,"do not"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],[/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bshouldn't\b/g,"should not"],[/\bi'll\b/g,"i will"],[/\byou're\b/g,"you are"],[/\bcan not\b/g,"cannot"],[/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bi'm\b/g,"i am"],[/\bi've\b/g,"i have"],[/\bhaven't\b/g,"have not"],[/\bwhat's\b/g,"what is"],[/\bshe's\b/g,"she is"],[/\bhe's\b/g,"he is"],[/\bwho's\b/g,"who is"],[/\byou've\b/g,"you have"],[/\bwe're\b/g,"we are"],[/\bthey're\b/g,"they are"],[/\bhasn't\b/g,"has not"],[/\bmark's\b/g,"mark is"]];
+function norm(s){
+  let t = String(s).toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”"]/g,"").trim();
+  t = t.replace(/[.!?]+$/,"").replace(/,/g," ").replace(/\s+/g," ").trim();
+  for(const [r,v] of CONTR) t = t.replace(r, v);
+  return t.replace(/\s+/g," ").trim();
+}
+const matches = (given, accept) => accept.some(a => norm(a) === norm(given));
+
+/* ================= SCORING ================= */
+function scorable(ex){ return ex.type !== "write"; }
+function itemCount(ex){ return ex.type === "match" ? ex.pairs.length : (ex.items ? ex.items.length : 0); }
+function exScore(ex){
+  let ok = 0, done = 0; const n = itemCount(ex);
+  for(let i=0;i<n;i++){ const a = S.ans[ex.id+"-"+i]; if(a && a.done){ done++; if(a.ok) ok++; } }
+  return {ok, done, n};
+}
+function totals(){
+  let ok=0, done=0, n=0;
+  for(const ex of EX){ if(!scorable(ex)) continue; const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function tabScore(tabId){
+  let ok=0, done=0, n=0;
+  for(const ex of EX.filter(e=>e.tab===tabId && scorable(e))){ const s = exScore(ex); ok+=s.ok; done+=s.done; n+=s.n; }
+  return {ok, done, n};
+}
+function refresh(){
+  const t = totals();
+  $("#fill").style.width = (t.n ? Math.round(t.done/t.n*100) : 0) + "%";
+  $("#score").textContent = `⭐ ${t.ok} / ${t.n}`;
+  for(const b of document.querySelectorAll("nav.tabs button")){
+    const id = b.dataset.id; const ts = b.querySelector(".ts");
+    if(ts) ts.remove();
+    if(STEP_TABS.includes(id)){ const s = tabScore(id); if(s.n && s.done === s.n) b.appendChild(el("span",{class:"ts"}, `${s.ok}/${s.n}`)); }
+  }
+  for(const ex of EX){ const st = document.getElementById("stamp-"+ex.id); if(!st) continue; const s = exScore(ex); if(scorable(ex) && s.n && s.done===s.n){ st.textContent = `✓ DONE ${s.ok}/${s.n}`; st.classList.add("show"); } }
+}
+function rec(id, data){ S.ans[id] = Object.assign(S.ans[id]||{}, data); save(); refresh(); }
+
+/* ================= RENDER: TABS ================= */
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach(t => nav.appendChild(el("button", {"data-id":t.id, class: S.tab===t.id ? "on":"", onclick:()=>go(t.id)}, `${t.ic} ${t.en}`, el("small",{}, t.ru))));
+}
+function go(id){
+  S.tab = id; save();
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+id));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  if(id === "res") renderResults();
+  const btn = document.querySelector(`nav.tabs button[data-id="${id}"]`); if(btn) btn.scrollIntoView({inline:"center", block:"nearest"});
+  window.scrollTo({top: $(".bar").offsetTop, behavior:"smooth"});
+  refresh();
+}
+function panel(id, icon, en, ru){
+  const p = el("section", {class:"panel", id:"p-"+id});
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, icon), el("div",{}, el("h2",{}, en), el("span",{class:"ru"}, ru))));
+  $("#main").appendChild(p); return p;
+}
+function nextBtn(p, toId){
+  const t = TABS.find(x=>x.id===toId);
+  p.appendChild(el("div",{class:"next"}, el("button",{class:"btn gold", onclick:()=>go(toId)}, `Next: ${t.en} →`)));
+}
+
+/* ================= RULES ================= */
+function renderRules(){
+  const p = panel("rules","📒","Question formation","five types of questions from our lesson");
+  const ex = (t) => el("div",{class:"exrow"}, el("span",{html:t}), sayBtn(t.replace(/<[^>]+>/g,"")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "🎛️ The question machine"),
+    el("p",{html:"Choose a statement, then a question type, and watch how the sentence changes."}),
+    machine()));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "1 · Auxiliary before the subject"),
+    el("p",{html:"With tenses that have an auxiliary (<b>be, have</b>) and with modals (<b>should, can, would</b>…), swap the subject and the auxiliary. With the present and past simple, add <b>do / does / did</b>."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"be / have"), el("td",{html:"How long <span class='hl'>have you</span> been waiting? · What <span class='hl'>were you</span> doing?"})),
+      el("tr",{}, el("td",{},"modals"), el("td",{html:"<span class='hl'>Should we</span> buy her a present? · What <span class='hl'>would your superpower</span> be?"})),
+      el("tr",{}, el("td",{},"do / does / did"), el("td",{html:"How many children <span class='hl'>does your sister</span> have? · Where <span class='hl'>did you</span> go?"}))),
+    ex("How many children does your sister have?")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "2 · Subject questions: no do / did"),
+    el("p",{html:"When <b>who, what, which, how many</b> is the <b>subject</b> (the person or thing that does the action), the word order is the same as in a statement, with no auxiliary."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"subject"), el("td",{html:"<span class='hl2'>Who wrote</span> this? (Somebody wrote this.) · <span class='hl2'>What keeps</span> you awake at night?"})),
+      el("tr",{}, el("td",{},"object"), el("td",{html:"Who <span class='hl'>did you</span> call? (You called somebody.) · What <span class='hl'>do you</span> owe your parents?"}))),
+    el("div",{class:"mist"}, el("div",{html:"<span class='bad'>Who did write this?</span> → <span class='good'>Who wrote this?</span>"})),
+    ex("Who lives in that house? Who did you see there?")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "3 · Prepositions at the end"),
+    el("p",{html:"If a verb or adjective normally takes a preposition (<i>talk about, belong to, be afraid of</i>), the preposition goes at the <b>end</b> of the question. In short replies, use question word + preposition: <i>A: I'm thinking. B: <b>What about?</b></i>"}),
+    el("div",{class:"mist"},
+      el("div",{html:"<span class='bad'>About what are you talking?</span> → <span class='good'>What are you talking about?</span>"}),
+      el("div",{html:"<span class='bad'>To who does this bag belong?</span> → <span class='good'>Who does this bag belong to?</span>"})),
+    ex("What are you looking forward to?")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "4 · Negative questions"),
+    el("p",{html:"Use a negative auxiliary to show <b>surprise</b>, when you <b>expect agreement</b>, or to <b>check</b> something you think is true."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"surprise"), el("td",{html:"Why <span class='hl'>didn't you</span> like the film? · <span class='hl'>Haven't you</span> finished yet?"})),
+      el("tr",{}, el("td",{},"agreement"), el("td",{html:"<span class='hl'>Isn't this</span> a beautiful place?"})),
+      el("tr",{}, el("td",{},"checking"), el("td",{html:"<span class='hl'>Don't you</span> have to be at school today?"}))),
+    ex("Isn't this a beautiful place?")));
+  p.appendChild(el("div",{class:"rule"},
+    el("h3",{}, "5 · Indirect questions"),
+    el("p",{html:"Indirect questions are more <b>polite</b>. Start with a phrase like <i>Could you tell me…? Do you know…? Do you have any idea…? Would you mind telling me…?</i> After it, use <b>statement word order</b> and <b>no do / did</b>. For yes / no questions, use <b>if</b> or <b>whether</b>."}),
+    el("table",{class:"form wide"},
+      el("tr",{}, el("td",{},"direct"), el("td",{html:"What time <span class='hl'>does the post office open</span>?"})),
+      el("tr",{}, el("td",{},"indirect"), el("td",{html:"Could you tell me what time <span class='hl2'>the post office opens</span>?"})),
+      el("tr",{}, el("td",{},"yes / no"), el("td",{html:"Do you know <span class='hl2'>if (whether) Mark's coming</span> to the meeting?"}))),
+    el("p",{html:"The same word order follows <b>I wonder…, I'm not sure…, I can't remember…, I'd like to know…</b>: <i>I wonder why they didn't come.</i>"}),
+    el("div",{class:"mist"},
+      el("div",{html:"<span class='bad'>Can you tell me where is it?</span> → <span class='good'>Can you tell me where it is?</span>"}),
+      el("div",{html:"<span class='bad'>Do you know where does he live?</span> → <span class='good'>Do you know where he lives?</span>"})),
+    ex("Could you tell me what time the shop next door opens?")));
+  nextBtn(p, "words");
+}
+function machine(){
+  const M = [
+    {s:"Anna wrote this song in 2019.", yn:"Did Anna write this song in 2019?", wh:"When did Anna write this song?", sub:"Who wrote this song in 2019?", neg:"Didn't Anna write this song in 2019?", ind:"Do you know when Anna wrote this song?"},
+    {s:"Tom is waiting for his sister.", yn:"Is Tom waiting for his sister?", wh:"Who is Tom waiting for?", sub:"Who is waiting for his sister?", neg:"Isn't Tom waiting for his sister?", ind:"Could you tell me who Tom is waiting for?"},
+    {s:"The shop opens at nine.", yn:"Does the shop open at nine?", wh:"What time does the shop open?", sub:"What opens at nine?", neg:"Doesn't the shop open at nine?", ind:"Do you know what time the shop opens?"},
+  ];
+  const T = [["yn","Yes / no"],["wh","Wh- question"],["sub","Subject question"],["neg","Negative"],["ind","Indirect"]];
+  let k = 0, t = "yn";
+  const base = el("div",{class:"note", style:"font-size:16px;color:#E3E6F0;margin-top:8px"});
+  const out = el("div",{class:"out", style:"font-size:clamp(18px,4.6vw,25px)"});
+  const tb = {};
+  const draw = () => { base.innerHTML = "Statement: <b>" + M[k].s + "</b>"; out.textContent = M[k][t]; Object.entries(tb).forEach(([x,b]) => b.classList.toggle("on", x===t)); };
+  const box = el("div",{class:"machine", style:"margin-top:10px"},
+    el("div",{class:"btns"}, ...T.map(([x,l]) => (tb[x] = el("button",{onclick:()=>{ t = x; draw(); speak(M[k][t]); }}, l)))),
+    base, out,
+    el("div",{class:"btns"}, el("button",{onclick:()=>{ k = (k+1) % M.length; draw(); speak(M[k][t]); }}, "↻ new statement")));
+  draw(); return box;
+}
+function stepRule(p, tabId){
+  if(STEP_RULES[tabId]) p.appendChild(el("div",{class:"rule"}, el("h3",{}, "💡 Remember"), el("p",{html:STEP_RULES[tabId]})));
+}
+
+/* ================= WORDS ================= */
+function renderWords(){
+  const p = panel("words","🗂️","Useful phrases from the lesson","listen, read the example, then try the flashcards");
+  for(const g of Object.keys(GROUPS)){
+    const c = el("div",{class:"card wgroup"}, el("h3",{}, GROUPS[g][0], " · ", el("span",{class:"ru-i"}, GROUPS[g][1])));
+    const l = el("div",{class:"wlist"});
+    WORDS.filter(w=>w.g===g).forEach(w => l.appendChild(el("div",{class:"w"}, el("span",{class:"em"}, w.em), el("div",{style:"flex:1"}, el("b",{}, w.en), el("span",{class:"ru"}, w.ru), el("span",{class:"wex"}, w.ex)), sayBtn(w.en.replace(/\bsth\b/g,"something").replace(/\(.*?\)/g,"").replace(/…/g,"")))));
+    c.appendChild(l); p.appendChild(c);
+  }
+  p.appendChild(el("div",{class:"careful"}, el("h3",{}, "⚠️ Careful with these"),
+    el("ul",{}, ...CAREFUL.map(t => el("li",{html:t})))));
+  nextBtn(p, "cards");
+}
+
+/* ================= FLASHCARDS ================= */
+let FC = {order:[], i:0, dir:"en", only:false};
+function fcDeck(){ return FC.order.filter(k => !FC.only || !S.known[WORDS[k].en]); }
+function renderCards(){
+  const p = panel("cards","🃏","Flashcards","tap a card to flip it");
+  FC.order = WORDS.map((_,i)=>i);
+  const tools = el("div",{class:"fc-tools"});
+  const bDir = el("button",{class:"chip", onclick:()=>{ FC.dir = FC.dir==="en"?"ru":"en"; bDir.textContent = FC.dir==="en" ? "Word → meaning" : "Meaning → word"; drawFC(); }}, "Word → meaning");
+  const bShuf = el("button",{class:"chip", onclick:()=>{ FC.order = shuffle(FC.order); FC.i=0; drawFC(); toast("Shuffled"); }}, "🔀 Shuffle");
+  const bOnly = el("button",{class:"chip", onclick:()=>{ FC.only=!FC.only; bOnly.classList.toggle("on",FC.only); FC.i=0; drawFC(); }}, "Only words I'm learning");
+  tools.append(bDir, bShuf, bOnly);
+  const flip = el("div",{class:"flip", tabindex:"0", role:"button", "aria-label":"Flip card"});
+  const inner = el("div",{class:"in"}); flip.appendChild(inner);
+  flip.addEventListener("click", ()=>flip.classList.toggle("turned"));
+  flip.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); flip.classList.toggle("turned"); } });
+  const count = el("div",{class:"fc-count"});
+  const known = el("div",{class:"track", style:"margin:4px 0 12px"}, el("div",{class:"fill", id:"fcfill"}));
+  const nav = el("div",{class:"fc-nav"},
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i-1+d.length)%d.length; drawFC(); }}, "← Back"),
+    el("button",{class:"b-learn", onclick:()=>{ markFC(false); }}, "Still learning"),
+    el("button",{class:"b-know", onclick:()=>{ markFC(true); }}, "I know it ✓"),
+    el("button",{class:"b-plain", onclick:()=>{ const d=fcDeck(); if(!d.length) return; FC.i=(FC.i+1)%d.length; drawFC(); }}, "Next →"));
+  p.append(el("div",{class:"card"}, tools, flip, count, known, nav));
+  FC.els = {flip, inner, count};
+  drawFC();
+  nextBtn(p, "st1");
+}
+function markFC(k){
+  const d = fcDeck(); if(!d.length) return;
+  const w = WORDS[d[FC.i]]; if(k) S.known[w.en] = 1; else delete S.known[w.en]; save();
+  toast(k ? "Great!" : "We'll practise it");
+  const d2 = fcDeck(); if(FC.only){ if(FC.i >= d2.length) FC.i = 0; } else FC.i = (FC.i+1) % d2.length;
+  drawFC();
+}
+function drawFC(){
+  const {flip, inner, count} = FC.els; flip.classList.remove("turned");
+  const d = fcDeck(); const nk = Object.keys(S.known).length;
+  $("#fcfill").style.width = Math.round(nk/WORDS.length*100)+"%";
+  if(!d.length){ inner.innerHTML = ""; inner.appendChild(el("div",{class:"face front"}, el("div",{class:"big"}, "🎉"), el("p",{}, "You know all the words!"))); count.textContent = `Known: ${nk} / ${WORDS.length}`; return; }
+  const w = WORDS[d[FC.i]];
+  const en = el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en), sayBtn(w.en.replace(/sb/g,"somebody").replace(/sth/g,"something").replace(/[()]/g,"").replace(/ \/ /g,", ")));
+  const ru = el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru));
+  const front = el("div",{class:"face front"}, FC.dir==="en" ? en : ru, el("div",{class:"hint"}, "tap to flip"));
+  const backC = FC.dir==="en" ? el("div",{}, el("div",{class:"big", style:"font-size:clamp(18px,4.8vw,24px);font-family:Nunito,system-ui,sans-serif"}, w.ru)) : el("div",{}, el("div",{class:"em"}, w.em), el("div",{class:"big"}, w.en));
+  const back = el("div",{class:"face back"}, backC, el("div",{class:"ex"}, w.ex, " ", sayBtn(w.ex)), el("div",{class:"hint"}, S.known[w.en] ? "✓ known" : "tap to flip back"));
+  inner.innerHTML = ""; inner.append(front, back);
+  count.textContent = `Card ${FC.i+1} / ${d.length} · Known: ${nk} / ${WORDS.length}`;
+}
+
+/* ================= EXERCISES ================= */
+function renderCase(tabId, icon, next){
+  const p = panel(tabId, icon, CASE_TITLES[tabId][0], CASE_TITLES[tabId][1]);
+  stepRule(p, tabId);
+  if(tabId === STORY_TAB) p.appendChild(storyCard());
+  for(const ex of EX.filter(e=>e.tab===tabId)){
+    const c = el("div",{class:"card"});
+    c.appendChild(el("div",{class:"case-head"}, el("div",{}, el("h3",{}, ex.title), el("span",{class:"ru"}, ex.ru)), el("span",{class:"stamp", id:"stamp-"+ex.id})));
+    const [ie, ir] = ex.instr.split(" · ");
+    c.appendChild(el("p",{class:"instr"}, ie, ir ? el("span",{class:"ru"}, ir) : null));
+    if(ex.bank) c.appendChild(el("div",{class:"opts", style:"margin:0 0 6px"}, ...ex.bank.map(b => el("span",{class:"opt", style:"background:var(--must-soft);border-color:var(--must-soft);cursor:default"}, b))));
+    if(ex.type==="choice") ex.items.forEach((it,i)=>c.appendChild(choiceItem(ex,it,i)));
+    if(ex.type==="typed" || ex.type==="translate") ex.items.forEach((it,i)=>c.appendChild(typedItem(ex,it,i)));
+    if(ex.type==="tiles") ex.items.forEach((it,i)=>c.appendChild(tilesItem(ex,it,i)));
+    if(ex.type==="match") c.appendChild(matchEx(ex));
+    if(ex.type==="write") c.appendChild(writeEx(ex));
+    p.appendChild(c);
+  }
+  nextBtn(p, next);
+}
+function qLine(n, html){ return el("div",{class:"q"}, el("span",{class:"n"}, String(n)), el("span",{html})); }
+function gapHtml(q, fill){ const suf = /\w___/.test(q) ? " suf" : ""; return esc(q).replace("___", fill ? `<span class="gap ok${suf}">${esc(fill)}</span>` : `<span class="gap${suf}">&nbsp;</span>`); }
+function fbBox(){ return el("div",{class:"fb"}); }
+function showFb(fb, ok, why, extra){
+  fb.className = "fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? pick(PRAISE) : pick(OOPS)}</b>${extra ? " "+extra : ""}${why ? `<span class="why">${why}</span>` : ""}`;
+}
+
+function choiceItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const st = S.ans[id];
+  let qEl;
+  if(ex.sort) qEl = el("div",{class:"sortw"}, el("span",{class:"n", style:"width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;display:grid;place-items:center"}, String(i+1)), it.word, sayBtn(it.word));
+  else if(ex.syl) qEl = qLine(i+1, `<span class="mono">${esc(it.word)}</span>`);
+  else if(ex.listen) qEl = qLine(i+1, "Which word do you hear?");
+  else qEl = qLine(i+1, gapHtml(it.q, st && st.done ? it.o[it.a].replace(/^-/,"") : null));
+  wrap.appendChild(qEl);
+  if(ex.syl) wrap.appendChild(el("div",{style:"margin:-2px 0 8px 40px"}, sayBtn(it.word)));
+  if(it.pic) wrap.appendChild(el("div",{class:"pic"}, el("span",{class:"emo"}, it.pic)));
+  if(ex.listen) wrap.appendChild(el("button",{class:"listen", onclick:()=>speak(it.word)}, "🔊 Listen"));
+  const opts = el("div",{class:"opts" + (ex.syl ? " syl":"")});
+  const fb = fbBox();
+  const btns = it.o.map((o,j) => el("button",{class:"opt", onclick:()=>choose(j)}, o));
+  btns.forEach(b=>opts.appendChild(b));
+  wrap.append(opts, fb);
+  function paint(given){
+    btns.forEach((b,j)=>{ b.disabled = true; if(j===it.a) b.classList.add("right"); else if(j===given) b.classList.add("wrong"); });
+  }
+  function fullSentence(){ return it.q && it.q.includes("___") ? it.q.replace("___", it.o[it.a].replace(/^-/,"")) : (it.word || it.o[it.a]); }
+  function choose(j){
+    if(S.ans[id] && S.ans[id].done) return;
+    const ok = j === it.a;
+    rec(id, {done:true, ok, given:it.o[j]});
+    paint(j);
+    if(it.gap) fillGap(it, ok);
+    if(!ex.sort && !ex.syl && !ex.listen && it.q && it.q.includes("___")) qEl.querySelector("span:last-child").innerHTML = gapHtml(it.q, it.o[it.a].replace(/^-/,""));
+    showFb(fb, ok, it.why, ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`);
+    if(ok){ if(it.say) speak(it.say); else if(it.word) speak(it.word); else if(!ex.tf) speak(fullSentence()); }
+  }
+  if(st && st.done){ paint(it.o.indexOf(st.given)); showFb(fb, st.ok, it.why, st.ok ? "" : `→ <b>${esc(it.o[it.a])}</b>`); }
+  return wrap;
+}
+
+function typedItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  if(it.gap) wrap.dataset.gap = it.gap;
+  const isTr = ex.type === "translate";
+  wrap.appendChild(qLine(i+1, isTr ? `✏️ ${esc(it.q)}` : it.q.includes("___") ? gapHtml(it.q) : it.q));
+  const inp = el("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"answer", placeholder: isTr ? "Write in English" : "Type here"});
+  const btn = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const fb = fbBox();
+  const selfRow = el("div",{class:"tilebtns", style:"display:none;margin-top:8px"});
+  wrap.append(el("div",{class:"tin"}, inp, btn), fb, selfRow);
+  inp.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+  if(it.gap) inp.addEventListener("input", ()=>{ const g = document.querySelector(`.ginp[data-gap="${it.gap}"]`); if(g) g.value = inp.value; });
+  function lock(ok, given, extra){
+    inp.disabled = true; btn.disabled = true; inp.value = given;
+    inp.classList.remove("ok","no"); inp.classList.add(ok ? "ok" : "no");
+    const modelShown = ok ? "" : `→ <b>${esc(it.model)}</b>`;
+    showFb(fb, ok, it.why || "", (extra||"") + modelShown);
+    if(it.gap) fillGap(it, ok);
+    if(ok) speak(it.q.includes("___") ? it.q.replace("___", it.model) : it.model);
+  }
+  function check(){
+    const st = S.ans[id] || {};
+    if(st.done) return;
+    const v = inp.value.trim(); if(!v){ toast("Write your answer"); return; }
+    const tries = (st.tries||0) + 1;
+    const ok = matches(v, it.accept);
+    let note = "";
+    if(ok && /\?$/.test(it.model) && !/\?\s*$/.test(v)) note = "(Don't forget the question mark.) ";
+    if(ok){ rec(id,{done:true, ok:true, given:v, tries}); lock(true, v, note); return; }
+    if(tries < 2){ rec(id,{tries, given:v}); inp.classList.add("no"); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 ${it.hint}</span>`; inp.focus(); setTimeout(()=>inp.classList.remove("no"), 700); return; }
+    if(isTr){
+      rec(id,{tries, given:v});
+      inp.disabled = true; btn.disabled = true;
+      fb.className="fb show no"; fb.innerHTML = `<b>Compare:</b> ${esc(it.model)}<span class="why">If your version is also correct, tap “My answer is also correct”.</span>`;
+      selfRow.style.display = "flex"; selfRow.innerHTML = "";
+      selfRow.append(
+        el("button",{class:"btn teal", onclick:()=>{ rec(id,{done:true, ok:true, self:true, given:v}); selfRow.style.display="none"; lock(true, v, "(self-checked) "); }}, "My answer is also correct ✓"),
+        el("button",{class:"btn alt", onclick:()=>{ rec(id,{done:true, ok:false, given:v}); selfRow.style.display="none"; lock(false, v); }}, "OK, I see"));
+      return;
+    }
+    rec(id,{done:true, ok:false, given:v, tries}); lock(false, v);
+  }
+  const st = S.ans[id];
+  if(st && st.done) lock(st.ok, st.given, st.self ? "(self-checked) " : "");
+  else if(st && st.given) inp.value = st.given;
+  return wrap;
+}
+
+function tilesItem(ex, it, i){
+  const id = ex.id+"-"+i, wrap = el("div",{class:"item"});
+  const words = it.a.split(" ");
+  wrap.appendChild(qLine(i+1, `<span class="ru-i">💡 ${esc(it.ru)}</span>`));
+  const line = el("div",{class:"line", "aria-label":"your sentence"}), pool = el("div",{class:"pool"}), fb = fbBox();
+  let order = shuffle(words.map((w,k)=>k)); if(order.every((k,j)=>k===j)) order = order.reverse();
+  const chosen = [];
+  const draw = () => {
+    line.innerHTML = ""; pool.innerHTML = "";
+    chosen.forEach((k,pos)=>line.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.splice(pos,1); draw(); }}, words[k])));
+    order.filter(k=>!chosen.includes(k)).forEach(k=>pool.appendChild(el("button",{class:"tile", onclick:()=>{ if(done()) return; chosen.push(k); draw(); }}, words[k])));
+  };
+  const done = () => S.ans[id] && S.ans[id].done;
+  const bCheck = el("button",{class:"btn", onclick:()=>check()}, "Check");
+  const bClear = el("button",{class:"btn alt", onclick:()=>{ if(done()) return; chosen.length=0; draw(); }}, "Clear");
+  wrap.append(line, pool, el("div",{class:"tilebtns"}, bCheck, bClear), fb);
+  function finish(ok, given){
+    bCheck.disabled = true; bClear.disabled = true;
+    line.innerHTML = ""; it.a.split(" ").forEach(w=>line.appendChild(el("span",{class:"tile", style: ok ? "background:var(--teal);color:#fff" : ""}, w))); pool.innerHTML = "";
+    showFb(fb, ok, "", ok ? "" : `→ <b>${esc(it.a)}</b><span class="why">Your answer: ${esc(given)}</span>`);
+    if(ok) speak(it.a);
+  }
+  function check(){
+    if(done()) return;
+    if(chosen.length !== words.length){ toast("Use all the words"); return; }
+    const given = chosen.map(k=>words[k]).join(" ");
+    const tries = ((S.ans[id]||{}).tries||0) + 1;
+    if(norm(given) === norm(it.a)){ rec(id,{done:true, ok:true, given, tries}); finish(true, given); return; }
+    if(tries < 2){ rec(id,{tries, given}); fb.className="fb show no"; fb.innerHTML = `<b>${pick(OOPS)}</b> Try again.<span class="why">💡 The first word is: <b>${esc(words[0])}</b></span>`; return; }
+    rec(id,{done:true, ok:false, given, tries}); finish(false, given);
+  }
+  if(done()) finish(S.ans[id].ok, S.ans[id].given); else draw();
+  return wrap;
+}
+
+function matchEx(ex){
+  const box = el("div",{class:"match"}), L = el("div",{class:"col"}), R = el("div",{class:"col"});
+  const fb = el("div",{class:"fb", style:"margin-left:0"});
+  let sel = null;
+  const rights = shuffle(ex.pairs.map((p,i)=>i));
+  const lb = ex.pairs.map((p,i)=>el("button",{class:"mt", onclick:()=>{ if(isDone(i)) return; sel=i; lb.forEach(b=>b.classList.remove("sel")); lb[i].classList.add("sel"); speak(p[0]); }}, "🔊 "+p[0]));
+  const rb = {};
+  rights.forEach(i=>{ rb[i] = el("button",{class:"mt", onclick:()=>tapR(i)}, ex.pairs[i][1]); });
+  const isDone = (i) => S.ans[ex.id+"-"+i] && S.ans[ex.id+"-"+i].done;
+  function tapR(i){
+    if(sel===null){ toast(ex.leftHint || "First tap an English word"); return; }
+    if(isDone(i)) return;
+    const id = ex.id+"-"+sel, st = S.ans[id] || {};
+    if(i === sel){
+      rec(id,{done:true, ok:!st.wrong, given: ex.pairs[i][1]});
+      lb[sel].classList.remove("sel"); lb[sel].classList.add("done"); rb[i].classList.add("done");
+      showFb(fb, true, `${ex.pairs[i][0]}${ex.sep || " = "}${ex.pairs[i][1]}`); sel = null;
+    } else {
+      rec(id,{wrong:(st.wrong||0)+1, given: ex.pairs[i][1]});
+      rb[i].classList.add("shake"); setTimeout(()=>rb[i].classList.remove("shake"), 400);
+      showFb(fb, false, "Try another one");
+    }
+  }
+  lb.forEach((b,i)=>{ if(isDone(i)){ b.classList.add("done"); rb[i].classList.add("done"); } });
+  lb.forEach(b=>L.appendChild(b)); rights.forEach(i=>R.appendChild(rb[i]));
+  box.append(L,R);
+  return el("div",{}, box, fb);
+}
+
+function writeEx(ex){
+  const ta = el("textarea",{placeholder: ex.prompt, "aria-label":ex.title});
+  ta.value = S.write[ex.id] || "";
+  const wc = el("div",{class:"wc"});
+  const upd = () => { const n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; wc.textContent = `${n} words, saved automatically`; };
+  ta.addEventListener("input", ()=>{ S.write[ex.id] = ta.value; save(); upd(); });
+  upd();
+  return el("div",{}, ta, wc);
+}
+
+function storyCard(){
+  const c = el("div",{class:"story"});
+  c.appendChild(el("div",{class:"case-head"}, el("h3",{}, "🎤 " + STORY_TITLE)));
+  c.appendChild(el("span",{class:"ru", style:"margin-bottom:4px"}, STORY_INTRO));
+  const cl = EX.find(e=>e.cloze);
+  STORY.split("\n").forEach(par => {
+    const p = el("p",{});
+    p.innerHTML = esc(par).replace(/\{(\d+)\}/g, (m,n) => cl && cl.type==="typed" ? `<span class="cgap gi" id="cg-${n}"><input class="ginp" data-gap="${n}" placeholder="${n}" aria-label="gap ${n}" autocomplete="off" autocapitalize="off" spellcheck="false"></span>` : `<span class="cgap" id="cg-${n}">(${n})</span>`);
+    c.appendChild(p);
+  });
+  if(cl) cl.items.forEach((it,k)=>{ const a = S.ans[cl.id+"-"+k]; if(a && a.done) setTimeout(()=>fillGap(it, a.ok), 0); });
+  return el("div",{class:"card", style:"padding:0;background:none;box-shadow:none"}, c);
+}
+function fillGap(it, ok){ const g = document.getElementById("cg-"+it.gap); if(!g) return; g.textContent = it.o ? it.o[it.a] : it.model; g.className = "cgap " + (ok ? "ok" : "no"); }
+
+document.addEventListener("input", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g) return; const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled) i.value = g.value; });
+document.addEventListener("keydown", e=>{ const g = e.target.closest && e.target.closest(".ginp"); if(!g || e.key !== "Enter") return; e.preventDefault(); const w = document.querySelector(`.item[data-gap="${g.dataset.gap}"]`); if(!w) return; const i = w.querySelector("input"); if(i && !i.disabled){ i.value = g.value; w.querySelector("button.btn").click(); if(!i.disabled){ g.classList.add("bad"); setTimeout(()=>g.classList.remove("bad"), 900); toast("Not quite: look at the hint for gap " + g.dataset.gap); } } });
+/* ================= RESULTS & REPORT ================= */
+function rankFor(p){
+  if(p >= 95) return ["🏆 Star interviewer","The Guardian would hire you!"];
+  if(p >= 80) return ["🎤 Great questions","Excellent. Look at the few slips below."];
+  if(p >= 50) return ["📝 Good draft","Good progress. Re-read the rules and your mistakes."];
+  return ["🔁 Try again","Read the five rules again, then start again."];
+}
+function mistakes(){
+  const out = [];
+  for(const ex of EX){
+    if(ex.type === "write") continue;
+    const n = itemCount(ex);
+    for(let i=0;i<n;i++){
+      const a = S.ans[ex.id+"-"+i]; if(!a || !a.done || a.ok) continue;
+      let q, right;
+      if(ex.type==="match"){ q = ex.pairs[i][0]; right = ex.pairs[i][1]; }
+      else { const it = ex.items[i]; q = it.q || it.word || it.ru || ""; right = ex.type==="choice" ? it.o[it.a] : (it.model || it.a); }
+      out.push({ex:ex.title, q:q.replace(/<[^>]+>/g,""), given:a.given || "—", right});
+    }
+  }
+  return out;
+}
+function report(){
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0;
+  const L = [];
+  L.push(`HOMEWORK: ${TOPIC}`);
+  L.push(`Student: ${S.name}`);
+  L.push(`Date: ${new Date().toLocaleDateString("en-GB")}`);
+  L.push(`Score: ${t.ok}/${t.n} (${pct}%) — answered ${t.done}/${t.n}`);
+  L.push(`Flashcards known: ${Object.keys(S.known).length}/${WORDS.length}`);
+  L.push("");
+  L.push("BY EXERCISE:");
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); L.push(`- ${ex.title}: ${s.ok}/${s.n}${s.done<s.n ? ` (not finished: ${s.done}/${s.n})` : ""}`); }
+  const m = mistakes();
+  L.push(""); L.push(`MISTAKES (${m.length}):`);
+  m.forEach(x=>L.push(`- [${x.ex}] ${x.q} → wrote: ${x.given} | correct: ${x.right}`));
+  const selfs = Object.entries(S.ans).filter(([k,v])=>v.self);
+  if(selfs.length){ L.push(""); L.push("SELF-CHECKED TRANSLATIONS (please check):"); selfs.forEach(([k,v])=>{ const ex = EX.find(e=>k.startsWith(e.id+"-")); const it = ex.items[+k.split("-")[1]]; L.push(`- ${it.q} → ${v.given}`); }); }
+  L.push(""); L.push("ALL TYPED ANSWERS:");
+  for(const ex of EX.filter(e=>["typed","translate","tiles"].includes(e.type))){ ex.items.forEach((it,i)=>{ const a = S.ans[ex.id+"-"+i]; if(a && a.given) L.push(`- ${(it.q||it.ru).replace(/<[^>]+>/g,"")} → ${a.given}${a.done ? (a.ok ? " ✓" : " ✗") : ""}`); }); }
+  if(EX.some(e=>e.type==="write")){ L.push(""); L.push("WRITING:"); }
+  for(const ex of EX.filter(e=>e.type==="write")){ L.push(`${ex.title}:`); L.push((S.write[ex.id]||"").trim() || "(empty)"); L.push(""); }
+  return L.join("\n");
+}
+function short(txt){ return txt.length <= 1500 ? txt : txt.slice(0,1450).replace(/\n[^\n]*$/,"") + "\n…\n(Full report: use “Copy text”)"; }
+function renderResults(){
+  const p = $("#p-res"); p.innerHTML = "";
+  p.appendChild(el("div",{class:"ptitle"}, el("div",{class:"ic"}, "🏆"), el("div",{}, el("h2",{}, "Your results"), el("span",{class:"ru"}, "Send them to your teacher at the bottom"))));
+  const t = totals(), pct = t.n ? Math.round(t.ok/t.n*100) : 0, rk = rankFor(pct);
+  const ring = el("div",{class:"ring", style:`background:conic-gradient(var(--teal) ${pct*3.6}deg,var(--tint) 0deg)`}, el("span",{}, pct+"%"));
+  p.appendChild(el("div",{class:"card"}, el("div",{class:"big-score"}, ring, el("div",{},
+    el("div",{class:"rank"}, rk[0]), el("span",{class:"ru"}, rk[1]),
+    el("p",{}, `⭐ ${t.ok} / ${t.n} · answered: ${t.done} / ${t.n}`),
+    el("p",{class:"muted", style:"margin:0"}, `🃏 Flashcards known: ${Object.keys(S.known).length} / ${WORDS.length}`)))));
+  if(t.done < t.n) p.appendChild(el("p",{class:"careful", style:"padding:10px 16px"}, `Some tasks are not finished yet (${t.n - t.done} left).`));
+  const tb = el("table",{class:"brk"});
+  for(const ex of EX.filter(scorable)){ const s = exScore(ex); tb.appendChild(el("tr",{}, el("td",{}, ex.title), el("td",{}, `${s.ok}/${s.n}`))); }
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "By exercise"), tb));
+  const m = mistakes();
+  const ml = el("div",{class:"mlist"});
+  if(!m.length) ml.appendChild(el("div",{}, t.done ? "No mistakes — amazing!" : "Nothing here yet"));
+  m.forEach(x=>ml.appendChild(el("div",{html:`<b>${esc(x.q)}</b><br><span class="bad">${esc(x.given)}</span> → <span class="good">${esc(x.right)}</span>`})));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Mistakes to remember"), ml));
+  const w = EX.filter(e=>e.type==="write").map(ex => el("div",{style:"margin-bottom:8px"}, el("b",{}, ex.title), el("div",{style:"white-space:pre-wrap"}, (S.write[ex.id]||"").trim() || "— (empty)")));
+  if(w.length) p.appendChild(el("div",{class:"card"}, el("h3",{}, "Your writing"), ...w));
+  // send
+  const rep = report(), subj = `${TOPIC} — ${S.name} — ${t.ok}/${t.n}`, sh = short(rep);
+  const send = el("div",{class:"send"});
+  if(navigator.share) send.appendChild(el("button",{class:"s-share", onclick:()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); }}, "📤 Share"));
+  send.append(
+    el("a",{class:"s-gm", target:"_blank", rel:"noopener", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER)}&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "Send in Gmail"),
+    el("a",{class:"s-tg", target:"_blank", rel:"noopener", href:`https://t.me/share/url?url=${encodeURIComponent(subj)}&text=${encodeURIComponent(sh)}`}, "Telegram"),
+    el("a",{class:"s-wa", target:"_blank", rel:"noopener", href:`https://wa.me/?text=${encodeURIComponent(subj+"\n"+sh)}`}, "WhatsApp"),
+    el("a",{class:"s-ml", href:`mailto:${TEACHER}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(sh)}`}, "✉️ Email app"),
+    el("button",{class:"s-cp", onclick:()=>copy(rep)}, "📋 Copy text"));
+  p.appendChild(el("div",{class:"card"}, el("h3",{}, "Send to your teacher"),
+    el("p",{html:`Teacher's email: <span class="email">${TEACHER}</span>`}),
+    el("p",{class:"muted", style:"font-size:14px"}, "Gmail, Telegram, WhatsApp and Email send a short version. “Share” and “Copy text” give the full report."),
+    send, el("details",{style:"margin-top:10px"}, el("summary",{}, "Show the report"), el("pre",{style:"white-space:pre-wrap;font-size:13px;background:var(--tint);padding:10px;border-radius:10px"}, rep))));
+  // reset
+  const conf = el("div",{class:"confirm"}, el("b",{}, "Delete all answers?"),
+    el("button",{class:"btn", style:"background:var(--crim)", onclick:()=>{ S = {name:S.name, ans:{}, known:{}, write:{}, tab:TABS[0].id}; save(); location.reload(); }}, "Yes"),
+    el("button",{class:"btn alt", onclick:()=>conf.classList.remove("show")}, "No"));
+  p.appendChild(el("div",{class:"card"}, el("button",{class:"btn alt", onclick:()=>conf.classList.add("show")}, "↺ Start again"), conf));
+}
+function copy(txt){
+  const ok = () => toast("Copied!");
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok).catch(fallback); } else fallback();
+  function fallback(){ const ta = el("textarea",{style:"position:fixed;top:-1000px"}); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); ok(); }catch(e){ toast("Select and copy the report below"); } ta.remove(); }
+}
+
+/* ================= INIT ================= */
+function init(){
+  const nmI = $("#nm"); nmI.value = S.name || DEFAULT_NAME; $("#hname").textContent = nmI.value;
+  nmI.addEventListener("input", ()=>{ S.name = nmI.value.trim() || DEFAULT_NAME; $("#hname").textContent = S.name; save(); });
+  renderTabs();
+  renderRules(); renderWords(); renderCards();
+  STEP_TABS.forEach((t,k)=>renderCase(t, STEP_ICONS[k], STEP_TABS[k+1] || "res"));
+  panel("res","🏆","Results","");
+  const start = TABS.some(t=>t.id===S.tab) ? S.tab : TABS[0].id;
+  document.querySelectorAll("section.panel").forEach(p => p.classList.toggle("on", p.id === "p-"+start));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.id === start));
+  if(start === "res") renderResults();
+  refresh();
+}
+init();
+</script>
+</body>
+</html>
