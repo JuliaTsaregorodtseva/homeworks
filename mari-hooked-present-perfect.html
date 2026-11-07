@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hooked! — Mari · Present perfect simple &amp; continuous (B2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brick:#8e3b6e; --brick2:#5b2346; --brickbg:#f6e6f0;
+  --teal:#2f6fb0; --tealbg:#e3eefa;
+  --leaf:#3f7d4e; --leafbg:#e2f2e6;
+  --gold:#e0a63a; --cream:#fbf6ef; --paper:#ffffff; --ink:#1f1a17; --soft:#6b5f57; --ru:#6b5f57;
+  --ok:#1f9d6b; --okbg:#e3f7ee; --bad:#d24a5c; --badbg:#fde8ec; --try:#fff4dc; --line:#eadfd3; --r:16px;
+  --will:#15803d; --might:#d97706; --wont:#dc2626; --pp:#c2593a; --ppbg:#fbe9e2; --ppc:#2f6fb0; --ppcbg:#e3eefa;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);font-size:16px;line-height:1.5;overflow-x:hidden;
+  background-color:var(--cream);
+  background-image:radial-gradient(circle at 10px 10px,rgba(79,70,229,.06) 2px,transparent 2.5px);background-size:28px 28px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:400;line-height:1.2;margin:0 0 .35em}
+h2{font-size:23px} h3{font-size:18px}
+.ru{color:var(--ru);font-weight:500}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.if{color:var(--brick);font-weight:800}
+.wd{color:var(--teal);font-weight:800}
+.vc{color:var(--leaf);font-weight:800}
+
+/* hero */
+.hero{position:relative;color:#fff;padding:22px 0 24px;background:linear-gradient(135deg,#c2593a 0%,#8e3b6e 55%,#2f6fb0 100%);overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:44px 22px;pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.roofline{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.roofline svg{flex:none}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.badges span{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3)}
+.hero h1{font-size:clamp(30px,8vw,46px)}
+.hero .sub{font-size:17px;font-weight:600;margin:0 0 12px}
+.hero .ru{color:#fde7d9}
+.for{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-weight:700}
+.for input{font:inherit;font-weight:700;font-size:17px;min-height:44px;width:11em;max-width:100%;padding:6px 12px;border-radius:12px;border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff}
+.how{margin:0;font-size:15px}
+
+/* sticky nav */
+nav.top{position:sticky;top:0;z-index:30;background:rgba(251,246,238,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px 0 6px}
+.tab{min-height:52px;border:0;border-radius:12px;background:#fff;box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;padding:4px 1px;line-height:1.15;min-width:0}
+.tab .tr{font-size:10px;color:var(--ru);font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tab .tb{font-size:10.5px;background:var(--gold);color:var(--ink);border-radius:99px;padding:0 5px;margin-top:2px}
+.tab.on{background:var(--brick);color:#fff}
+.tab.on .tr{color:#ffe0c9}
+.prog{display:flex;align-items:center;gap:10px;padding:0 0 8px;font-size:13px;font-weight:700}
+.bar{flex:1;height:8px;background:#efe3d3;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brick),var(--gold),var(--teal));transition:width .4s}
+
+/* sections & cards */
+section{display:none;padding-bottom:40px}
+section.on{display:block}
+.card{background:var(--paper);border-radius:var(--r);padding:18px;box-shadow:0 2px 0 var(--line),0 8px 24px rgba(90,50,30,.06);margin:16px 0}
+.card.brick{border-top:6px solid var(--brick)}
+.card.teal{border-top:6px solid var(--teal)}
+.card.leaf{border-top:6px solid var(--leaf)}
+.lead{margin:.2em 0 0}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+
+/* words */
+.wl{display:grid;gap:8px;margin-top:10px}
+@media(min-width:720px){.wl{grid-template-columns:1fr 1fr}}
+.w{display:grid;grid-template-columns:34px 1fr 44px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.w .em{font-size:24px;text-align:center}
+.w .en{font-weight:800;font-size:16.5px}
+.w .ipa{font-size:13px;color:var(--soft);margin-left:4px}
+.w .tr{color:var(--ru);font-weight:600;font-size:15px}
+.spk{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff4ea;font-size:17px;cursor:pointer;padding:0 8px;font-weight:700}
+.spk.wide{padding:0 14px;font-size:15px}
+.inon{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.inon div{border-radius:14px;padding:12px;background:var(--leafbg)}
+.inon b.big{font-family:Fraunces,serif;font-size:28px;color:var(--leaf);display:block;line-height:1}
+.house-wrap{max-width:420px;margin:12px auto 0}
+.house-wrap svg{width:100%;height:auto;display:block;border-radius:14px}
+.hb{cursor:pointer}
+.hb:focus-visible circle{stroke:var(--gold);stroke-width:4}
+.hl circle{animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{r:13}50%{r:15}}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:12px}
+.legend button{display:flex;align-items:center;gap:8px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:4px 10px;cursor:pointer;text-align:left;font-weight:700}
+.legend .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--tealbg);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.careful{border:2px dashed var(--brick);background:#fffaf5}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:0 0 10px}
+.x{color:var(--bad);font-weight:800} .v{color:var(--ok);font-weight:800}
+
+/* buttons */
+.btn{min-height:46px;padding:8px 18px;border-radius:12px;border:0;background:var(--teal);color:#fff;font-weight:700;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.brick{background:var(--brick)}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.small{padding:6px 14px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:12px 0 0;font-weight:700}
+.fc-scene{perspective:1200px;max-width:520px;margin:14px auto 0}
+.fc{position:relative;height:300px;transform-style:preserve-3d;transition:transform .55s;cursor:pointer;border-radius:20px}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center;overflow:hidden}
+.front{color:#fff;background:linear-gradient(160deg,var(--brick2),var(--brick));background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(160deg,var(--brick2),var(--brick));background-size:40px 20px,40px 20px,auto}
+.back{background:#fff;border:2px solid var(--line);transform:rotateY(180deg)}
+.face .fe{font-size:44px;line-height:1}
+.face .fw{font-family:Fraunces,serif;font-size:clamp(23px,7vw,32px);line-height:1.2}
+.face .fp{font-size:13px;opacity:.85;font-weight:600}
+.face .fx{font-size:15px}
+.face .fxr{font-size:14px;color:var(--ru)}
+.face .tap{font-size:12px;opacity:.75;margin-top:6px}
+.fc-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:520px;margin:12px auto 0}
+.fc-nav .btn{line-height:1.2}
+.fc-nav small{font-size:11px;font-weight:600}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:520px;margin:8px auto 0}
+.btn.know{background:var(--ok)} .btn.learn{background:#fff;color:var(--bad);border:2px solid var(--bad)}
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px;margin:12px auto 0}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:600;cursor:pointer}
+.chk input{width:22px;height:22px}
+.kbar{height:10px;background:#efe3d3;border-radius:99px;overflow:hidden;max-width:520px;margin:6px auto 0}
+.kbar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+/* grammar */
+.step-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;margin-right:8px;font-family:"DM Sans",sans-serif;font-size:15px;vertical-align:middle}
+.formula{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:800;font-size:17px;margin:12px 0}
+.formula span{padding:8px 12px;border-radius:12px}
+.formula .f-if{background:var(--brickbg);color:var(--brick)}
+.formula .f-wd{background:var(--tealbg);color:var(--teal)}
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px;margin-top:8px}
+.tbl th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft);padding:6px 4px;border-bottom:2px solid var(--line)}
+.tbl td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:700;white-space:nowrap;padding-right:8px}
+.exl{list-style:none;padding:0;margin:8px 0 0}
+.exl li{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line)}
+.exl li .spk{flex:none}
+.machine{border-radius:16px;background:#fff;border:2px solid var(--line);padding:14px;margin-top:12px}
+.m-real,.m-dream{padding:12px;border-radius:12px;font-size:17px;font-weight:600;min-height:52px}
+.m-real{background:#f3efe9}
+.m-dream{background:var(--tealbg);margin-top:8px;opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
+.m-dream.on{opacity:1;transform:none}
+.m-lab{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:2px}
+.vs{display:grid;gap:10px;margin-top:10px}
+@media(min-width:720px){.vs{grid-template-columns:1fr 1fr}}
+.vs > div{border-radius:14px;padding:12px}
+.vs .one{background:var(--leafbg)} .vs .two{background:var(--tealbg)}
+.mist{list-style:none;padding:0;margin:8px 0 0}
+.mist li{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rule{border-radius:12px;background:var(--tealbg);padding:10px 12px;margin-top:10px;font-size:15px}
+.rule.v{background:var(--leafbg)}
+
+/* exercises */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.chip{flex:none;min-height:44px;min-width:46px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:800;cursor:pointer;padding:3px 8px;font-size:14px;line-height:1.1}
+.chip.g{border-color:#bfe0de}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.chip.done{border-color:var(--ok)}
+.chip.done:not(.on){background:var(--okbg)}
+.chip small{display:block;font-size:10px;font-weight:600}
+.exhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exscore{flex:none;font-weight:800;background:#fff4ea;color:var(--brick);border-radius:99px;padding:3px 10px;font-size:14px}
+.ins{margin:.4em 0 0}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fff}
+.item.is-ok{border-color:#9fdcc2}
+.item.is-bad{border-color:#f1aab8}
+.q{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:17px}
+.q > span:last-child{min-width:0}
+.num{flex:none;width:28px;height:28px;border-radius:50%;background:#fff1e4;color:var(--brick);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.ruq{font-weight:700;color:var(--ru);font-size:17.5px}
+.qsmall{display:block;font-size:14px;color:var(--soft);margin-top:2px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:46px;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.inp{flex:1 1 200px;min-width:0;min-height:46px;font:inherit;font-size:17px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.inp:disabled{background:#faf6f0}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:15px}
+.fb.ok{background:var(--okbg)} .fb.bad{background:var(--badbg)} .fb.try{background:var(--try)}
+.fb .why{margin-top:4px}
+.fb .spk{margin-top:8px;min-height:40px}
+.note{margin-top:4px;font-size:14px;color:#8a5b00;font-weight:700}
+.self{margin-top:8px;min-height:44px;border-radius:12px;border:2px solid var(--ok);background:#fff;color:var(--ok);font-weight:700;padding:6px 12px;cursor:pointer}
+.mini-house{max-width:260px;margin:0 auto 10px}
+.mini-house svg{width:100%;height:auto;display:block;border-radius:12px}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.bank span{padding:4px 10px;border-radius:99px;background:var(--leafbg);font-weight:700;font-size:14px;color:var(--leaf)}
+.gtext{font-size:17px;line-height:2.4}
+.gtext p{margin:0 0 .4em}
+.gnum{font-size:12px;font-weight:800;color:var(--brick);vertical-align:super;margin-right:1px}
+.ginp{font:inherit;font-size:16px;width:8.5em;max-width:100%;min-height:40px;padding:2px 8px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);vertical-align:middle}
+.ginp.try{border-color:#e5a54a;background:var(--try)}
+.gf{font-weight:700;padding:1px 6px;border-radius:8px}
+.gf.ok{background:var(--okbg);color:var(--ok)}
+.gf.bad{background:var(--badbg)}
+.gf.bad s{color:var(--bad)}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:8px;border:2px dashed var(--line);border-radius:12px;align-items:center}
+.tiles.ans{background:#fffaf4;margin-bottom:8px}
+.tile{min-height:44px;padding:6px 12px;border-radius:10px;background:var(--tealbg);border:1px solid #b9dcd9;font-weight:700;cursor:pointer}
+.tile:disabled{cursor:default}
+.endp{font-weight:800;font-size:20px}
+textarea{width:100%;min-height:220px;font:inherit;font-size:16px;padding:12px;border:2px solid var(--line);border-radius:12px;resize:vertical;color:var(--ink)}
+.found{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.found span{font-size:13px;font-weight:700;padding:3px 9px;border-radius:99px;background:#f3eee8;color:#a89c92}
+.found span.on{background:var(--okbg);color:var(--ok)}
+
+/* results */
+.card.dark{background:var(--ink);color:#fff}
+.score-big{font-family:Fraunces,serif;font-size:42px;color:var(--gold)}
+.rt{width:100%;border-collapse:collapse;font-size:15px}
+.rt td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.rt td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.rt tr.grp td{font-weight:800;color:var(--soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:14px}
+.mlist{margin:0;padding-left:18px}
+.mlist li{margin-bottom:8px}
+.mlist s{color:var(--bad)} .mlist b{color:var(--ok)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;font-weight:700;text-decoration:none;border:0;cursor:pointer;padding:6px 10px;text-align:center}
+.s-share{background:var(--teal);color:#fff;grid-column:1/-1}
+.s-gm{background:#ea4335;color:#fff}.s-tg{background:#229ed9;color:#fff}.s-wa{background:#25d366;color:#0b3d1f}.s-ml{background:#fff;border:2px solid var(--line)!important;color:var(--ink)}.s-cp{background:var(--gold);color:var(--ink)}
+.mail{user-select:all;-webkit-user-select:all;font-weight:800;color:var(--teal);word-break:break-all}
+.confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:10px;border-radius:12px;background:var(--badbg)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.foot{text-align:center;color:var(--soft);font-size:13px;padding:10px 0 30px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.hero .panel{background:rgba(31,29,58,.82);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.signs{display:flex;gap:8px;margin-bottom:6px}
+.signs span{background:#fff;color:var(--ink);font-weight:800;font-size:13px;padding:4px 10px;border-radius:6px}
+.signs span:first-child{clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%)}
+.signs span:last-child{clip-path:polygon(12% 0,100% 0,100% 100%,12% 100%,0 50%);padding-left:16px}
+.cw{color:var(--will);font-weight:800} .mt{color:var(--might);font-weight:800} .wn{color:var(--wont);font-weight:800}
+.card.lilac{border-top:6px solid var(--brick)} .card.amber{border-top:6px solid var(--gold)}
+.small{font-size:13.5px}
+table.nv{width:100%;border-collapse:collapse;margin-top:10px}
+table.nv th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft);padding:6px 4px;border-bottom:2px solid var(--line)}
+table.nv td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.nv td .spk{min-height:36px;min-width:40px;margin-top:4px;font-size:14px}
+table.nv tr.grp td{font-size:12px;font-weight:800;color:var(--brick);text-transform:uppercase;letter-spacing:.06em;padding-top:14px;background:none}
+.nvw{font-size:18px;font-weight:600}
+.nvw b{color:var(--brick);text-decoration:underline;text-underline-offset:3px}
+td.arr{color:var(--soft);font-size:20px;text-align:center;width:30px}
+.qz{margin:12px 0}
+.qzq{font-weight:700;margin-bottom:6px}
+.quizres{margin-top:12px;padding:12px;border-radius:12px;background:var(--brickbg);min-height:20px}
+.quizres:empty{display:none}
+.diph{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(min-width:680px){.diph{grid-template-columns:repeat(4,1fr)}}
+.dp{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:64px;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;text-align:left}
+.dp b{font-size:18px;color:var(--brick)}
+.dp span{font-size:14px}
+.meter{height:18px;border-radius:99px;background:linear-gradient(90deg,#fee2e2,#fef3c7,#dcfce7);overflow:hidden;margin-top:10px;border:1px solid var(--line)}
+.meter i{display:block;height:100%;width:0;transition:width .5s;border-radius:99px}
+.meter i.cw{background:var(--will)} .meter i.mt{background:var(--might)} .meter i.wn{background:var(--wont)}
+.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(min-width:680px){.mbtns{grid-template-columns:repeat(4,1fr)}}
+.mbtns .btn.cw{color:var(--will)} .mbtns .btn.mt{color:var(--might)} .mbtns .btn.wn{color:var(--wont)}
+.mout{margin-top:10px;padding:12px;border-radius:12px;border:2px solid var(--line);background:#fff;min-height:60px;font-size:18px;font-weight:600}
+.vs .ok{background:var(--okbg)} .vs .no{background:var(--badbg)}
+@media(min-width:720px){.vs.three{grid-template-columns:1fr 1fr 1fr}}
+.round-t{font-weight:700;margin:14px 0 8px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mb{min-height:50px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left;font-size:16px;line-height:1.25}
+.mb.en{font-weight:800}
+.mb.sel{border-color:var(--brick);background:var(--brickbg);box-shadow:0 0 0 3px rgba(79,70,229,.15)}
+.mb.done{background:var(--okbg);border-color:var(--ok);opacity:.75;cursor:default}
+.mb.late{background:#fff3e0;border-color:#e5a54a}
+.mb.shake{animation:shake .35s;border-color:var(--bad);background:var(--badbg)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.msg{min-height:24px;font-weight:600;color:var(--bad);margin-top:8px;font-size:14px}
+.f-if{background:var(--tealbg)!important;color:var(--might)!important}
+.f-wd{background:var(--brickbg)!important;color:var(--brick)!important}
+
+.hero .panel{background:rgba(31,26,23,.55)}
+.hook{font-size:40px;line-height:1}
+.pp{color:var(--pp);font-weight:800} .ppc{color:var(--ppc);font-weight:800}
+.pp-bg{background:var(--pp)!important} .ppc-bg{background:var(--ppc)!important}
+.sm{font-size:14px;color:var(--soft)}
+.card.set{border-top:6px solid var(--brick)}
+.w{grid-template-columns:34px 1fr 44px}
+.w .wex{font-size:14px;color:var(--soft);font-style:italic;margin-top:2px}
+.two{display:grid;gap:10px;margin-top:10px}
+@media(min-width:680px){.two{grid-template-columns:1fr 1fr}}
+.two > div{border-radius:14px;padding:14px}
+.two .s{background:var(--ppbg)} .two .c{background:var(--ppcbg)}
+.uses{display:grid;gap:12px;margin-top:12px}
+@media(min-width:760px){.uses{grid-template-columns:1fr 1fr}}
+.use{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.use-h{display:flex;align-items:center;gap:8px;font-size:17px}
+.use-n{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.use p{margin:6px 0 0;font-size:15.5px}
+.tlw svg{width:100%;max-width:360px;height:auto;display:block;margin:6px 0 0}
+.keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.keys span{font-size:13px;font-weight:700;padding:2px 9px;border-radius:99px;background:#f4ede6}
+.pps{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:12px}
+.ppv{min-height:44px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:14px;cursor:pointer;text-align:left;padding:4px 8px}
+.ppv b{color:var(--pp)}
+.conv{display:grid;gap:8px;margin-top:8px}
+.conv > div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:99px;padding:1px 8px;margin-left:4px}
+.pp-t{background:var(--ppbg);color:var(--pp)} .ps-t{background:#eee;color:#444}
+.guide{display:grid;gap:8px;margin-top:8px}
+.gq{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.gbtns{display:flex;gap:6px}
+.gout{margin-top:10px;padding:12px;border-radius:12px;background:#fff8ef;border:2px dashed var(--gold);font-size:17px}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap"><div class="panel">
+    <div class="badges"><span>Upper-Intermediate · B2</span><span>Hobbies, home &amp; how long</span><span>Vocabulary + Grammar</span></div>
+    <div class="hook" aria-hidden="true">🪝🍜🐈📚</div>
+    <h1>Hooked!</h1>
+    <p class="sub">50 words for hobbies, cooking, pets, stories &amp; home life<br>Present perfect · present perfect continuous · past simple</p>
+    <p class="for"><label for="nameIn">for</label> <input id="nameIn" type="text" autocomplete="off" aria-label="Your name"></p>
+    <p class="how">Work in this order: Words → Cards → Grammar → Practice → Results, then send your results to your teacher. It's a big homework, but your answers are saved automatically, so you can come back to it as often as you like.</p>
+  </div></div>
+</header>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="prog"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreTxt"></span></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="tab-words"></section>
+  <section id="tab-cards"></section>
+  <section id="tab-grammar"></section>
+  <section id="tab-practice"></section>
+  <section id="tab-results"></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="foot">Made for Mari · English homework</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   DATA — edit words, items and answers here (English only: B2 level)
+   ===================================================================== */
+const TEACHER = "ulchik2211@gmail.com";
+const HW = { title: "Hooked! — hobbies vocabulary & present perfect (simple and continuous)", short: "Hooked!", level: "Upper-Intermediate (B2)", unit: "Hobbies, home & how long" };
+const KEY = "mari-hooked-v1";
+const DEFAULT_NAME = "Mari";
+
+/* sets: h hobbies · k kitchen · p pets · s stories · l home life · e everyday English
+   ru = definition (kept in this field so the shared engine works); exRu left empty */
+const WORDS = [
+ {g:"h", en:"take up", pos:"phrasal verb", ru:"start a new hobby or activity", em:"🧶", ex:"Last year I took up rock climbing."},
+ {g:"h", en:"get into", pos:"phrasal verb", ru:"become interested in something", em:"🎧", ex:"I got into jazz through my grandad's records."},
+ {g:"h", en:"be hooked on", pos:"phrase", ru:"like something so much you can't stop", em:"🪝", ex:"We're completely hooked on this baking show."},
+ {g:"h", en:"have a knack for", pos:"phrase", ru:"be naturally good at something", em:"✨", ex:"She has a knack for finding great second-hand books."},
+ {g:"h", en:"dabble in", pos:"phrasal verb", ru:"try an activity casually, not seriously", em:"🎨", ex:"He dabbles in photography at the weekends."},
+ {g:"h", en:"pick (something) back up", pos:"phrasal verb", ru:"start doing something again after a break", em:"🔁", ex:"I stopped playing the piano at 15, but I've picked it back up."},
+ {g:"h", en:"a guilty pleasure", pos:"noun", ru:"something you enjoy but feel slightly embarrassed about", em:"🙈", ex:"Cheesy 90s pop is my guilty pleasure."},
+ {g:"h", en:"unwind", pos:"verb", ru:"relax after a period of work or stress", em:"🛁", ex:"A long bath is the best way to unwind."},
+ {g:"k", en:"from scratch", pos:"phrase", ru:"from basic ingredients, not ready-made", em:"🥣", ex:"Have you ever made pizza dough from scratch?"},
+ {g:"k", en:"whip up", pos:"phrasal verb", ru:"make food quickly", em:"🍳", ex:"She whipped up a salad in five minutes."},
+ {g:"k", en:"a go-to recipe", pos:"noun", ru:"a dish you always rely on", em:"📒", ex:"Chilli is my go-to recipe for parties."},
+ {g:"k", en:"simmer", pos:"verb", ru:"cook gently, just below boiling", em:"🍲", ex:"Leave the stew to simmer for an hour."},
+ {g:"k", en:"season", pos:"verb", ru:"add salt, pepper, herbs or spices", em:"🧂", ex:"Don't forget to season the vegetables."},
+ {g:"k", en:"a staple", pos:"noun", ru:"a basic food you always have", em:"🍚", ex:"Bread is a staple in most European homes."},
+ {g:"k", en:"leftovers", pos:"noun (plural)", ru:"food that is kept and eaten later", em:"🥡", ex:"I'm taking the leftovers to work tomorrow."},
+ {g:"k", en:"an acquired taste", pos:"noun", ru:"something you only learn to like slowly", em:"🧀", ex:"Olives are an acquired taste for many children."},
+ {g:"p", en:"adopt / a rescue", pos:"verb / noun", ru:"take an animal from a shelter / an animal taken from a shelter", em:"🐕", ex:"Our dog is a rescue — we adopted him at two."},
+ {g:"p", en:"low- / high-maintenance", pos:"adjective", ru:"needing little / a lot of care", em:"🪴", ex:"Rabbits are more high-maintenance than people think."},
+ {g:"p", en:"house-trained", pos:"adjective", ru:"(of a pet) knowing where to go to the toilet", em:"🚪", ex:"Is your puppy house-trained yet?"},
+ {g:"p", en:"mischievous", pos:"adjective", ru:"playful in a slightly naughty way", em:"😼", ex:"The mischievous kitten hid my socks again."},
+ {g:"p", en:"spoil", pos:"verb", ru:"give too many treats or too much attention", em:"🍖", ex:"My parents spoil their cat with fresh fish."},
+ {g:"p", en:"groom", pos:"verb", ru:"brush and clean an animal's fur", em:"🪮", ex:"Long-haired cats need to be groomed every day."},
+ {g:"p", en:"curl up", pos:"phrasal verb", ru:"lie or sit with your body in a ball", em:"🐈", ex:"The dog curled up by the fire."},
+ {g:"p", en:"a companion", pos:"noun", ru:"someone (or an animal) that keeps you company", em:"🤝", ex:"For my grandma, her parrot is a real companion."},
+ {g:"s", en:"a page-turner", pos:"noun", ru:"a very exciting book you can't stop reading", em:"📖", ex:"Her new thriller is a real page-turner."},
+ {g:"s", en:"gripping", pos:"adjective", ru:"so exciting that it holds your attention", em:"🫣", ex:"The last three episodes are absolutely gripping."},
+ {g:"s", en:"a plot twist", pos:"noun", ru:"an unexpected change in a story", em:"🌀", ex:"Nobody saw that plot twist coming."},
+ {g:"s", en:"a cliffhanger", pos:"noun", ru:"an ending that leaves you in suspense", em:"🧗", ex:"Every chapter ends on a cliffhanger."},
+ {g:"s", en:"binge-watch", pos:"verb", ru:"watch many episodes in one go", em:"📺", ex:"We binge-watched the whole season on Sunday."},
+ {g:"s", en:"a spoiler", pos:"noun", ru:"information that reveals what happens in a story", em:"🤐", ex:"Careful — that review is full of spoilers."},
+ {g:"s", en:"underrated / overrated", pos:"adjective", ru:"better / worse than people say", em:"⚖️", ex:"I think that film is really overrated."},
+ {g:"s", en:"an adaptation", pos:"noun", ru:"a film or series made from a book, manga or game", em:"🎬", ex:"The TV adaptation is better than the novel."},
+ {g:"s", en:"a cult classic", pos:"noun", ru:"a work loved by a small, very passionate group", em:"📼", ex:"That 80s horror film is now a cult classic."},
+ {g:"s", en:"a fandom", pos:"noun", ru:"the community of fans of something", em:"💜", ex:"The fandom went wild when the trailer came out."},
+ {g:"l", en:"a homebody", pos:"noun", ru:"someone who loves staying at home", em:"🏡", ex:"I'm a homebody — Friday night in is perfect for me."},
+ {g:"l", en:"cosy", pos:"adjective", ru:"warm, comfortable and relaxing", em:"🕯️", ex:"The café has a really cosy atmosphere."},
+ {g:"l", en:"potter about", pos:"phrasal verb (BrE)", ru:"do small, relaxed jobs at home", em:"🪴", ex:"On Sundays I just potter about the house."},
+ {g:"l", en:"declutter", pos:"verb", ru:"get rid of things you don't need", em:"📦", ex:"We decluttered the kitchen cupboards last weekend."},
+ {g:"l", en:"me-time", pos:"noun", ru:"time just for yourself", em:"🧘", ex:"An evening walk is my me-time."},
+ {g:"l", en:"recharge (your batteries)", pos:"phrase", ru:"rest and get your energy back", em:"🔋", ex:"I need a week by the sea to recharge my batteries."},
+ {g:"l", en:"a creature of habit", pos:"noun", ru:"someone who likes the same routine", em:"🔂", ex:"My dad is a creature of habit — porridge every morning."},
+ {g:"l", en:"put your feet up", pos:"phrase", ru:"sit down and relax", em:"🛋️", ex:"You've worked hard — put your feet up!"},
+ {g:"e", en:"It's been ages!", pos:"phrase", ru:"We haven't seen each other for a long time.", em:"👋", ex:"Tom! It's been ages! How are you?"},
+ {g:"e", en:"What have you been up to?", pos:"phrase", ru:"What have you been doing recently?", em:"❓", ex:"So, what have you been up to since the summer?"},
+ {g:"e", en:"I've been run off my feet.", pos:"phrase", ru:"I've been extremely busy.", em:"🏃‍♀️", ex:"Sorry I didn't call — I've been run off my feet."},
+ {g:"e", en:"I've been meaning to…", pos:"phrase", ru:"I've wanted to do it, but I haven't done it yet.", em:"📝", ex:"I've been meaning to read that book for months."},
+ {g:"e", en:"I haven't had a chance to…", pos:"phrase", ru:"I haven't had time to…", em:"⏳", ex:"I haven't had a chance to watch the final yet."},
+ {g:"e", en:"I've been dying to…", pos:"phrase", ru:"I really, really want to…", em:"🤩", ex:"I've been dying to try that new bakery."},
+ {g:"e", en:"Same old, same old.", pos:"phrase", ru:"Nothing much has changed.", em:"😌", ex:"“How's work?” “Same old, same old.”"},
+ {g:"e", en:"You haven't changed a bit!", pos:"phrase", ru:"You look exactly the same.", em:"😊", ex:"Wow, you haven't changed a bit since school!"}
+];
+WORDS.forEach(w => {
+  w.exRu = ""; w.ipa = w.pos;
+  const key = w.en.replace(/^(a|an|be|have) /, "").replace(/[!?.…]/g, "").split(/ \/ |\(/)[0].trim().split(" ").slice(0, 2).join(" ").replace(/[-]/g, "[- ]?");
+  w.rx = new RegExp("\\b" + key, "i");
+});
+const SETS = {h:["Getting hooked","hobby phrases"], k:["In the kitchen","cooking words"], p:["Pets & animal companions","pet words"], s:["Books, films & anime","story words"], l:["Home life & downtime","home words"], e:["Everyday English","catching up with a friend"]};
+
+const CAREFUL = [
+ "<b>from scratch</b>, not <span class='x'>from zero</span> — for cooking and building something from the beginning.",
+ "<b>be hooked on</b> something / <b>have a knack for</b> something / <b>dabble in</b> something — learn the prepositions with the phrase.",
+ "<b>pick it back up</b> — with a pronoun, the object goes in the middle: <i>pick <b>it</b> back up</i> (<span class='x'>✗ pick back up it</span>).",
+ "<b>spoil</b> a pet = give it too much · <b>a spoiler</b> = information that ruins a story · <b>spoilt / spoiled</b> = adjective (a spoilt cat).",
+ "<b>season</b> (verb) = add salt and spices · <b>a season</b> (noun) = a set of TV episodes. Same word, different meaning!",
+ "<b>mischievous</b> /ˈmɪstʃɪvəs/ — three syllables. <span class='x'>✗ mischievious</span>",
+ "<b>leftovers</b> is usually plural: <i>There are some leftovers in the fridge.</i>",
+ "<b>potter about / around</b> is British; Americans say <b>putter around</b>."
+];
+
+/* ---------- exercises ---------- */
+const EX = [
+ /* ===================== VOCABULARY ===================== */
+ {id:"v1", kind:"v", type:"match", en:"Getting hooked: match", ins:"Tap a phrase, then its meaning.",
+  rounds:[
+   [{en:"take up",ru:"start a new hobby"},{en:"get into",ru:"become interested in something"},{en:"be hooked on",ru:"love something so much you can't stop"},{en:"have a knack for",ru:"be naturally good at something"}],
+   [{en:"dabble in",ru:"try something casually, not seriously"},{en:"pick it back up",ru:"start again after a break"},{en:"a guilty pleasure",ru:"something you love but feel a bit silly about"},{en:"unwind",ru:"relax after stress or work"}]
+  ]},
+ {id:"v2", kind:"v", type:"choice", en:"In the kitchen", ins:"Choose the best word or phrase.",
+  items:[
+   {q:"These dumplings aren't from a packet — I made them ___.", o:["from scratch","from zero","from nothing"], a:0, why:"<b>from scratch</b> = from basic ingredients. “From zero” isn't used for cooking."},
+   {q:"Friends are arriving in twenty minutes, but I can ___ a quick pasta dish.", o:["whip up","take up","pick up"], a:0, why:"<b>whip up</b> = make food quickly. <i>Take up</i> is for hobbies."},
+   {q:"Bring the soup to the boil, then let it ___ gently for half an hour.", o:["simmer","season","spoil"], a:0, why:"<b>simmer</b> = cook gently, just below boiling."},
+   {q:"It tastes a bit bland. Have you ___ it?", o:["seasoned","simmered","groomed"], a:0, why:"<b>season</b> = add salt, pepper, herbs or spices."},
+   {q:"Lasagne is my ___ when I'm cooking for a crowd — it never fails.", o:["go-to recipe","acquired taste","guilty pleasure"], a:0, why:"<b>a go-to recipe</b> = a dish you always rely on."},
+   {q:"Rice and tinned tomatoes are ___ in my cupboard — I always have them.", o:["staples","leftovers","spoilers"], a:0, why:"<b>a staple</b> = a basic food you always have."},
+   {q:"Coffee was ___ for me — I hated it at fifteen, and now I drink four cups a day.", o:["an acquired taste","a staple","a go-to recipe"], a:0, why:"<b>an acquired taste</b> = something you learn to like slowly."},
+   {q:"We cooked far too much, so we'll have ___ for lunch tomorrow.", o:["leftovers","staples","scratch"], a:0, why:"<b>leftovers</b> = food kept and eaten later."}
+  ]},
+ {id:"v3", kind:"v", type:"type", en:"Pets: what's the word?", ins:"Read the definition and write the missing word.",
+  items:[
+   {q:"An animal that you take home from a shelter is a ______.", acc:["rescue"], word:true, hint:"r _ _ _ _ _", say:"a rescue"},
+   {q:"A puppy that knows it must go to the toilet outside is ______.", acc:["house-trained","house trained","housetrained"], hint:"h _ _ _ _ - t _ _ _ _ _ _", say:"house-trained"},
+   {q:"Playful in a slightly naughty way: my kitten is so ______.", acc:["mischievous"], hint:"m _ _ _ _ _ _ _ _ _ _ (three syllables!)", say:"mischievous"},
+   {q:"Stop ______ the dog! He's had ten treats today. (= giving too much)", acc:["spoiling"], hint:"s _ _ _ _ + -ing", say:"Stop spoiling the dog!"},
+   {q:"I ______ my cat every Sunday — her fur gets so tangled. (= brush and clean)", acc:["groom"], hint:"g _ _ _ _", say:"I groom my cat every Sunday."},
+   {q:"A pet that needs a lot of care and attention is ______.", acc:["high-maintenance","high maintenance"], hint:"h _ _ _ - m _ _ _ _ _ _ _ _ _ _", say:"high-maintenance"}
+  ]},
+ {id:"v4", kind:"v", type:"gap", en:"Books, films & anime: a review", ins:"Complete the review with the words in the box. Use each word once. Then press “Check”.",
+  bank:["adaptation","binge-watched","cliffhanger","cult classic","fandom","gripping","page-turner","plot twist","spoilers","underrated"],
+  text:"I've just finished a fantasy novel that a friend recommended, and wow — what a {0}! I read the last 300 pages in one night. The story is {1} from the very first chapter, and there's a huge {2} in the middle that changes everything.\n\nOf course, I immediately {3} the TV {4} — all eight episodes in one weekend. It isn't perfect, but I think it's really {5}: hardly anyone talks about it, and it deserves much more attention. The first season ends on a terrible {6}, and the {7} online has been waiting two years for season two. If you haven't seen it, I won't give you any {8}. It's not famous, but for its small group of devoted fans it's a real {9}.",
+  gaps:[
+   {acc:["page-turner","page turner"], hint:"a book you can't put down"},
+   {acc:["gripping"], hint:"adjective: it holds your attention"},
+   {acc:["plot twist"], hint:"an unexpected change in the story"},
+   {acc:["binge-watched","binge watched"], hint:"watched many episodes in one go"},
+   {acc:["adaptation"], hint:"the TV version of a book"},
+   {acc:["underrated"], hint:"better than people say"},
+   {acc:["cliffhanger"], hint:"an ending that leaves you in suspense"},
+   {acc:["fandom"], hint:"the community of fans"},
+   {acc:["spoilers"], hint:"information that reveals the story (plural)"},
+   {acc:["cult classic"], hint:"loved by a small, passionate group"}
+  ]},
+ {id:"v5", kind:"v", type:"choice", en:"Home life & downtime", ins:"Choose the best word or phrase.",
+  items:[
+   {q:"I'm a real ___ — I'd rather stay in with a book than go clubbing.", o:["homebody","companion","fandom"], a:0, why:"<b>a homebody</b> = someone who loves staying at home."},
+   {q:"I spent Sunday morning ___ in the garden, watering plants and tidying up.", o:["pottering about","curling up","whipping up"], a:0, why:"<b>potter about</b> = do small, relaxed jobs."},
+   {q:"My wardrobe is full of clothes I never wear. I really need to ___.", o:["declutter","recharge","unwind"], a:0, why:"<b>declutter</b> = get rid of things you don't need."},
+   {q:"After a stressful month, I spent a quiet weekend at home to ___ my batteries.", o:["recharge","declutter","season"], a:0, why:"<b>recharge your batteries</b> = get your energy back."},
+   {q:"I always sit in the same chair and drink the same tea — I'm a ___.", o:["creature of habit","guilty pleasure","cult classic"], a:0, why:"<b>a creature of habit</b> = someone who likes the same routine."},
+   {q:"The kids are asleep and the kitchen is clean — time to ___ and watch something.", o:["put my feet up","pick it back up","take it up"], a:0, why:"<b>put your feet up</b> = sit down and relax."},
+   {q:"Saturday mornings without my phone are my ___.", o:["me-time","leftovers","cliffhanger"], a:0, why:"<b>me-time</b> = time just for yourself."},
+   {q:"With a blanket, candles and a cup of cocoa, the room felt really ___.", o:["cosy","mischievous","gripping"], a:0, why:"<b>cosy</b> = warm, comfortable and relaxing."}
+  ]},
+ {id:"v6", kind:"v", type:"type", en:"Missing particles", ins:"Write the missing word (one word: up, into, on, for, in, about…).",
+  items:[
+   {q:"I've recently taken ______ the ukulele.", acc:["up"], hint:"take ___ = start a hobby", say:"I've recently taken up the ukulele."},
+   {q:"How did you first get ______ cooking?", acc:["into"], hint:"get ___ = become interested in", say:"How did you first get into cooking?"},
+   {q:"I'm totally hooked ______ this podcast.", acc:["on"], hint:"be hooked ___", say:"I'm totally hooked on this podcast."},
+   {q:"He has a real knack ______ telling stories.", acc:["for"], hint:"a knack ___ something", say:"He has a real knack for telling stories."},
+   {q:"I've dabbled ______ calligraphy, but nothing serious.", acc:["in"], hint:"dabble ___ something", say:"I've dabbled in calligraphy, but nothing serious."},
+   {q:"I stopped painting at school, but I've recently picked it back ______.", acc:["up"], hint:"pick it back ___", say:"I've recently picked it back up."},
+   {q:"The cat loves curling ______ on the sofa.", acc:["up"], hint:"curl ___ = lie in a ball", say:"The cat loves curling up on the sofa."},
+   {q:"I spent the afternoon pottering ______ the flat.", acc:["about","around"], hint:"potter ___ (British)", say:"I spent the afternoon pottering about the flat."}
+  ]},
+ {id:"v7", kind:"v", type:"match", en:"Everyday English: catching up", ins:"Tap a phrase, then its meaning.",
+  rounds:[
+   [{en:"It's been ages!",ru:"We haven't seen each other for a long time."},{en:"What have you been up to?",ru:"What have you been doing recently?"},{en:"I've been run off my feet.",ru:"I've been extremely busy."},{en:"I've been meaning to call you.",ru:"I wanted to call you, but I haven't done it yet."}],
+   [{en:"I haven't had a chance to…",ru:"I haven't had time to…"},{en:"I've been dying to try it.",ru:"I really, really want to try it."},{en:"Same old, same old.",ru:"Nothing much has changed."},{en:"You haven't changed a bit!",ru:"You look exactly the same."}]
+  ]},
+ {id:"v8", kind:"v", type:"choice", en:"A chance meeting", ins:"Two old friends meet in a café. Choose the best phrase.",
+  items:[
+   {q:"“Leo! I haven't seen you since university — ___!”", o:["it's been ages","same old, same old","I've been run off my feet"], a:0, why:"<b>It's been ages!</b> = we haven't seen each other for a long time."},
+   {q:"“I know! So, what ___ lately?”", o:["have you been up to","have you been run off","have you meaning"], a:0, why:"<b>What have you been up to?</b>"},
+   {q:"“Honestly, work has been crazy. I've been run ___ my feet.”", o:["off","of","out"], a:0, why:"<b>run off my feet</b> = extremely busy."},
+   {q:"“I've been ___ to text you for weeks, but I kept forgetting. Sorry!”", o:["meaning","having","going"], a:0, why:"<b>I've been meaning to…</b> = I wanted to, but haven't done it."},
+   {q:"“There's a new ramen place round the corner — it looks amazing. I've been ___ to try it!”", o:["dying","run off","changing"], a:0, why:"<b>I've been dying to…</b> = I really want to."},
+   {q:"“And you? Anything new?” “Not really — ___.”", o:["same old, same old","it's been ages","you haven't changed a bit"], a:0, why:"<b>Same old, same old.</b> = nothing much has changed."}
+  ]},
+ {id:"v9", kind:"v", type:"type", en:"Say it another way", ins:"Rewrite the sentence using the word in CAPITALS. If your answer is different from the model but correct, press “My answer is also correct”.",
+  items:[
+   {q:"I started doing yoga in January. <b>(TOOK)</b>", acc:["I took up yoga in January","In January I took up yoga"], self:true, hint:"took ___ yoga", say:"I took up yoga in January."},
+   {q:"I'm naturally good at remembering faces. <b>(KNACK)</b>", acc:["I have a knack for remembering faces","I've got a knack for remembering faces","I have got a knack for remembering faces"], self:true, hint:"I have a ___ for …", say:"I have a knack for remembering faces."},
+   {q:"My cat needs very little care. <b>(MAINTENANCE)</b>", acc:["My cat is {very |really |}low{-| }maintenance"], model:"My cat is very low-maintenance.", self:true, hint:"My cat is low-…", say:"My cat is very low-maintenance."},
+   {q:"We watched all ten episodes in one evening. <b>(BINGE)</b>", acc:["We binge{-| |}watched all ten episodes in one evening","We binged all ten episodes in one evening"], model:"We binge-watched all ten episodes in one evening.", self:true, hint:"We binge-…", say:"We binge-watched all ten episodes in one evening."},
+   {q:"I always cook this dish when I don't know what to make. <b>(GO-TO)</b>", acc:["This is my go{-| }to recipe","This dish is my go{-| }to recipe","This is my go{-| }to dish","It is my go{-| }to recipe"], model:"This is my go-to recipe.", self:true, hint:"This is my ___ recipe.", say:"This is my go-to recipe."}
+  ]},
+ {id:"v10", kind:"v", type:"choice", en:"Same word, different meaning", ins:"What does the word mean here?",
+  items:[
+   {q:"“Don't tell me the ending — no <b>spoilers</b>!”", o:["information that reveals the story","a pet that gets too many treats","food that has gone bad"], a:0, why:"<b>a spoiler</b> reveals what happens in a story."},
+   {q:"“Have you <b>seasoned</b> the soup?”", o:["added salt, pepper or herbs","watched a TV season","cooked it slowly"], a:0, why:"<b>season</b> (verb) = add salt, pepper, herbs or spices."},
+   {q:"“Grandma always <b>spoils</b> the cat.”", o:["gives it too many treats","tells it the end of a story","ruins its fur"], a:0, why:"<b>spoil</b> a pet = give it too much attention or too many treats."},
+   {q:"“Season two ended on a <b>cliffhanger</b>.”", o:["an ending that leaves you in suspense","a sad ending","a happy ending"], a:0, why:"<b>a cliffhanger</b> leaves you wanting to know what happens next."}
+  ]},
+
+ /* ===================== GRAMMAR ===================== */
+ {id:"g1", kind:"g", type:"choice", en:"Present perfect: which use?", ins:"Why is the present perfect used? Choose the use.",
+  rule:"<span class='pp'>have / has + past participle</span> · ① experience ② unfinished state ③ recent result ④ unfinished time",
+  items:[
+   {q:"I've never eaten durian.", o:["① life experience","② unfinished state (for / since)","③ recent action, result now","④ unfinished time period"], a:0, why:"<b>never</b> = at no time in my life → experience."},
+   {q:"We've had our dog since 2019.", o:["① life experience","② unfinished state (for / since)","③ recent action, result now","④ unfinished time period"], a:1, why:"Started in 2019 and still true → unfinished state."},
+   {q:"Oh no — I've burnt the toast!", o:["① life experience","② unfinished state (for / since)","③ recent action, result now","④ unfinished time period"], a:2, why:"It just happened and we can see (and smell!) the result now."},
+   {q:"I've watched four films this week.", o:["① life experience","② unfinished state (for / since)","③ recent action, result now","④ unfinished time period"], a:3, why:"<b>this week</b> isn't over → unfinished time period."},
+   {q:"Have you ever been to a cooking class?", o:["① life experience","② unfinished state (for / since)","③ recent action, result now","④ unfinished time period"], a:0, why:"<b>ever</b> = at any time in your life → experience."},
+   {q:"She's lived in Osaka all her life.", o:["① life experience","② unfinished state (for / since)","③ recent action, result now","④ unfinished time period"], a:1, why:"Still true now → unfinished state."}
+  ]},
+ {id:"g2", kind:"g", type:"type", en:"Past participles", ins:"Write the past participle (the third form).",
+  items:[
+   {q:"write – wrote – ______", acc:["written"], hint:"w _ _ _ _ _ _ (double t)", say:"written"},
+   {q:"eat – ate – ______", acc:["eaten"], hint:"e _ _ _ _", say:"eaten"},
+   {q:"begin – began – ______", acc:["begun"], hint:"b _ _ _ _ (with u)", say:"begun"},
+   {q:"choose – chose – ______", acc:["chosen"], hint:"ch _ _ _ _", say:"chosen"},
+   {q:"forget – forgot – ______", acc:["forgotten"], hint:"f _ _ _ _ _ _ _ _ (double t)", say:"forgotten"},
+   {q:"grow – grew – ______", acc:["grown"], hint:"g _ _ _ _", say:"grown"}
+  ]},
+ {id:"g3", kind:"g", type:"choice", en:"been or gone?", ins:"Choose <b>been</b> or <b>gone</b>.",
+  rule:"<b>been</b> = went and came back · <b>gone</b> = went and is still there",
+  items:[
+   {q:"“Where's Sam?” “He's ___ to the shop. He'll be back in ten minutes.”", o:["been","gone"], a:1, why:"He's still at the shop → <b>gone</b>."},
+   {q:"I've ___ to Kyoto twice — I loved it both times.", o:["been","gone"], a:0, why:"I went and came back → <b>been</b>."},
+   {q:"Have you ever ___ to a cat café?", o:["been","gone"], a:0, why:"Experience: <b>Have you ever been…?</b>"},
+   {q:"Mum isn't here — she's ___ to her yoga class.", o:["been","gone"], a:1, why:"She's there now → <b>gone</b>."}
+  ]},
+ {id:"g4", kind:"g", type:"type", en:"Present perfect: form", ins:"Write the verb in the present perfect. Use the words in brackets. Contractions are fine.",
+  rule:"<span class='pp'>have / has</span> + (never / just / already / ever) + <span class='pp'>past participle</span>",
+  items:[
+   {q:"I ______ sushi at home. <i>(never / make)</i>", acc:["have never made"], hint:"have + never + made", say:"I've never made sushi at home."},
+   {q:"She ______ the whole series twice. <i>(watch)</i>", acc:["has watched"], hint:"she → <b>has</b> + watched", say:"She's watched the whole series twice."},
+   {q:"______ the new Ghibli film? <i>(you / ever / see)</i>", acc:["Have you ever seen"], question:true, hint:"Have + you + ever + seen", say:"Have you ever seen the new Ghibli film?"},
+   {q:"My dog ______ his dinner — is he ill? <i>(not touch)</i>", acc:["has not touched"], hint:"hasn't + touched", say:"My dog hasn't touched his dinner."},
+   {q:"We ______ a new sofa! Come and see. <i>(just / buy)</i>", acc:["have just bought"], hint:"have + just + bought", say:"We've just bought a new sofa!"},
+   {q:"______ the book yet? <i>(your sister / finish)</i>", acc:["Has your sister finished"], question:true, hint:"Has + your sister + finished", say:"Has your sister finished the book yet?"},
+   {q:"I ______ my keys again! <i>(lose)</i>", acc:["have lost"], hint:"have + lost", say:"I've lost my keys again!"},
+   {q:"They ______ three cookbooks together. <i>(write)</i>", acc:["have written"], hint:"have + written", say:"They've written three cookbooks together."}
+  ]},
+ {id:"g5", kind:"g", type:"choice", en:"just, already, yet, still, ever, never", ins:"Choose the correct word.",
+  rule:"<b>just</b> = a moment ago · <b>already</b> = sooner than expected · <b>yet</b> = questions/negatives, at the end · <b>still</b> + negative = impatience · <b>ever</b> = at any time · <b>never</b> = at no time",
+  items:[
+   {q:"I've ___ finished the book — give me a minute to recover!", o:["just","yet","ever"], a:0, why:"<b>just</b> = a moment ago."},
+   {q:"Have you started the new season ___?", o:["already","yet","still"], a:1, why:"<b>yet</b> at the end of a question."},
+   {q:"Don't tell me! I've ___ seen that episode.", o:["already","yet","ever"], a:0, why:"<b>already</b> = it's done (sooner than you think)."},
+   {q:"Have you ___ cooked a whole turkey?", o:["ever","never","yet"], a:0, why:"<b>ever</b> = at any time in your life (questions)."},
+   {q:"I've ___ been good at drawing.", o:["never","ever","yet"], a:0, why:"<b>never</b> = at no time."},
+   {q:"We ___ haven't decided what to call the kitten!", o:["still","yet","already"], a:0, why:"<b>still</b> + negative before the verb = we expected it to happen."},
+   {q:"It's only 10 a.m. and you've ___ had three coffees!", o:["already","yet","ever"], a:0, why:"<b>already</b> = sooner than expected."},
+   {q:"She hasn't replied to my message ___.", o:["yet","still","just"], a:0, why:"<b>yet</b> at the end of a negative sentence."}
+  ]},
+ {id:"g6", kind:"g", type:"choice", en:"for or since?", ins:"Choose <b>for</b> or <b>since</b>.",
+  rule:"<b>for</b> + a period (three years, ages) · <b>since</b> + a starting point (2019, Monday, I was a kid)",
+  items:[
+   {q:"I've had my cat ___ three years.", o:["for","since"], a:0, why:"three years = a period → <b>for</b>."},
+   {q:"She's been vegetarian ___ last summer.", o:["for","since"], a:1, why:"last summer = a starting point → <b>since</b>."},
+   {q:"They've known each other ___ they were kids.", o:["for","since"], a:1, why:"a starting point (a clause) → <b>since</b>."},
+   {q:"We haven't been to the cinema ___ ages.", o:["for","since"], a:0, why:"ages = a period → <b>for</b>."},
+   {q:"It's been raining ___ Monday.", o:["for","since"], a:1, why:"Monday = a starting point → <b>since</b>."},
+   {q:"I've been learning to bake bread ___ a couple of months.", o:["for","since"], a:0, why:"a couple of months = a period → <b>for</b>."}
+  ]},
+ {id:"g7", kind:"g", type:"choice", en:"Present perfect or past simple?", ins:"Choose the correct form.",
+  rule:"Finished time (yesterday, in 2019, last week, When…?) → <b>past simple</b>. No finished time, connected to now → <span class='pp'>present perfect</span>.",
+  items:[
+   {q:"I ___ that anime last weekend.", o:["have watched","watched"], a:1, why:"<b>last weekend</b> = finished time → past simple."},
+   {q:"I ___ that anime three times — it never gets old.", o:["have watched","watched"], a:0, why:"Experience, no time given → present perfect."},
+   {q:"When ___ your dog?", o:["have you adopted","did you adopt"], a:1, why:"<b>When…?</b> asks for a finished time → past simple."},
+   {q:"She ___ to Japan in 2019.", o:["has been","went"], a:1, why:"<b>in 2019</b> → past simple."},
+   {q:"We ___ in this flat since 2020.", o:["have lived","lived"], a:0, why:"<b>since 2020</b>, still true → present perfect."},
+   {q:"I ___ the book last night, so you can borrow it now.", o:["have finished","finished"], a:1, why:"<b>last night</b> → past simple."},
+   {q:"How many books ___ this year?", o:["have you read","did you read"], a:0, why:"<b>this year</b> isn't over → present perfect."}
+  ]},
+ {id:"g8", kind:"g", type:"gap", en:"Dialogue: the cooking class", ins:"Write the verbs in the present perfect or the past simple. Contractions are fine. Then press “Check”.",
+  bank:["Use: present perfect or past simple"],
+  text:"A: {0} (you / ever / take) a cooking class?\nB: Yes! I {1} (do) a Thai cooking course last spring.\nA: Really? What {2} (you / learn) to make?\nB: We {3} (make) green curry from scratch. Since then I {4} (cook) it about ten times!\nA: Wow. I {5} (never / try) Thai food.\nB: Seriously? Then come for dinner tonight — I {6} (just / buy) all the ingredients!\nA: Great, thanks! I {7} (not / have) a home-cooked meal for weeks.",
+  gaps:[
+   {acc:["Have you ever taken"], hint:"experience question → present perfect"},
+   {acc:["did"], hint:"<b>last spring</b> = finished time → past simple of do"},
+   {acc:["did you learn"], hint:"details about a finished event → past simple question"},
+   {acc:["made"], hint:"details of the course → past simple"},
+   {acc:["have cooked"], hint:"<b>since then</b> + counting → present perfect"},
+   {acc:["have never tried"], hint:"experience: have + never + tried"},
+   {acc:["have just bought"], hint:"recent action, result now: have + just + bought"},
+   {acc:["have not had"], hint:"<b>for weeks</b>, still true: haven't + had"}
+  ]},
+ {id:"g9", kind:"g", type:"type", en:"Present perfect continuous: form", ins:"Write the verb in the present perfect continuous. Contractions are fine.",
+  rule:"<span class='ppc'>have / has + been + -ing</span> · <b>been</b> never changes",
+  items:[
+   {q:"I ______ Korean for a year. <i>(learn)</i>", acc:["have been learning"], hint:"have + been + learning", say:"I've been learning Korean for a year."},
+   {q:"You look tired. ______ well? <i>(you / sleep)</i>", acc:["Have you been sleeping"], question:true, hint:"Have + you + been + sleeping", say:"Have you been sleeping well?"},
+   {q:"The neighbours' dog ______ since 7 a.m.! <i>(bark)</i>", acc:["has been barking"], hint:"has + been + barking", say:"The neighbours' dog has been barking since 7 a.m.!"},
+   {q:"We ______ much TV lately. <i>(not watch)</i>", acc:["have not been watching"], hint:"haven't + been + watching", say:"We haven't been watching much TV lately."},
+   {q:"How long ______ for the bus? <i>(you / wait)</i>", acc:["have you been waiting"], question:true, hint:"have + you + been + waiting", say:"How long have you been waiting for the bus?"},
+   {q:"It ______ all morning, so the garden is flooded. <i>(rain)</i>", acc:["has been raining"], hint:"has + been + raining", say:"It's been raining all morning."}
+  ]},
+ {id:"g10", kind:"g", type:"choice", en:"Explain the evidence", ins:"Choose the best explanation.",
+  rule:"Evidence now → a longer activity that has just stopped: <span class='ppc'>I've been baking</span>.",
+  items:[
+   {q:"“Why is there flour on your nose?”", o:["I've been baking bread.","I've been watching anime.","I've been sleeping."], a:0, why:"flour → <span class='ppc'>I've been baking</span>."},
+   {q:"“Why are you so sunburnt?”", o:["I've been reading in bed.","I've been gardening all afternoon.","I've been simmering soup."], a:1, why:"sun → <span class='ppc'>I've been gardening</span> outside."},
+   {q:"“Why is the floor all muddy?”", o:["The cat has been sleeping.","I've been decluttering.","The dog has been playing in the garden."], a:2, why:"mud → <span class='ppc'>the dog has been playing</span> outside."},
+   {q:"“Why are your eyes so red?”", o:["I've been binge-watching until 3 a.m.","I've been whipping up a salad.","I've been pottering about."], a:0, why:"tired eyes → <span class='ppc'>I've been binge-watching</span>."},
+   {q:"“Why does the flat smell of garlic?”", o:["I've been reading.","I've been cooking dinner.","I've been grooming the cat."], a:1, why:"smell → <span class='ppc'>I've been cooking</span>."},
+   {q:"“Why is there cat hair all over your jumper?”", o:["It's been raining.","I've been baking.","I've been grooming Miso."], a:2, why:"fur → <span class='ppc'>I've been grooming</span> the cat."}
+  ]},
+ {id:"g11", kind:"g", type:"choice", en:"State verbs", ins:"Choose the correct form. Careful with state verbs!",
+  rule:"State verbs (know, like, love, want, own, understand, have = own…) don't usually take <b>-ing</b> → use the <span class='pp'>present perfect simple</span>.",
+  items:[
+   {q:"I ___ her since primary school.", o:["have known","have been knowing"], a:0, why:"<b>know</b> is a state verb → have known."},
+   {q:"We ___ this car for ten years.", o:["have had","have been having"], a:0, why:"<b>have</b> = own → state verb → have had."},
+   {q:"She ___ manga since she was eight.", o:["has loved","has been loving"], a:0, why:"<b>love</b> is a state verb → has loved."},
+   {q:"I ___ what he meant.", o:["have never understood","have never been understanding"], a:0, why:"<b>understand</b> is a state verb."},
+   {q:"How long ___ that bike?", o:["have you owned","have you been owning"], a:0, why:"<b>own</b> is a state verb."}
+  ]},
+ {id:"g12", kind:"g", type:"choice", en:"Simple or continuous?", ins:"Choose the present perfect simple or continuous.",
+  rule:"<span class='pp'>Simple</span>: the RESULT, how many, finished · <span class='ppc'>Continuous</span>: the ACTIVITY, how long, maybe not finished",
+  items:[
+   {q:"I ___ this jigsaw for three days, and it's still not finished.", o:["have done","have been doing"], a:1, why:"activity + how long, not finished → <span class='ppc'>continuous</span>."},
+   {q:"I ___ three jigsaws this month.", o:["have done","have been doing"], a:0, why:"counting (how many) → <span class='pp'>simple</span>."},
+   {q:"Sorry I'm covered in paint — I ___ the bathroom.", o:["have painted","have been painting"], a:1, why:"evidence of an activity → <span class='ppc'>continuous</span>."},
+   {q:"Come and look! I ___ the bathroom — what do you think?", o:["have painted","have been painting"], a:0, why:"finished, result to show → <span class='pp'>simple</span>."},
+   {q:"How many cakes ___ for the party?", o:["have you made","have you been making"], a:0, why:"<b>How many</b> → <span class='pp'>simple</span>."},
+   {q:"How long ___ for the party?", o:["have you cooked","have you been cooking"], a:1, why:"<b>How long</b> + activity → <span class='ppc'>continuous</span>."},
+   {q:"She ___ the same series three times.", o:["has watched","has been watching"], a:0, why:"<b>three times</b> = counting → <span class='pp'>simple</span>."},
+   {q:"My cat ___ on the new sofa — look at all the fur!", o:["has slept","has been sleeping"], a:1, why:"evidence (fur) of an activity → <span class='ppc'>continuous</span>."}
+  ]},
+ {id:"g13", kind:"g", type:"type", en:"Find and correct the mistakes", ins:"Write each sentence correctly. Careful: one sentence is already correct — just write it again.",
+  items:[
+   {q:"I've been knowing my neighbour for years.", acc:["I have known my neighbour for years"], model:"I've known my neighbour for years.", hint:"<b>know</b> is a state verb", say:"I've known my neighbour for years."},
+   {q:"We've lived here since six years.", acc:["We have lived here for six years","We have been living here for six years"], model:"We've lived here for six years.", hint:"six years = a period → for", say:"We've lived here for six years."},
+   {q:"I have seen that film last night.", acc:["I saw that film last night","Last night I saw that film"], model:"I saw that film last night.", hint:"last night = finished time → past simple", say:"I saw that film last night."},
+   {q:"How many pages have you been reading today?", acc:["How many pages have you read today"], model:"How many pages have you read today?", question:true, hint:"How many → simple", say:"How many pages have you read today?"},
+   {q:"He's been learning the piano since he was seven.", acc:["He has been learning the piano since he was seven","He has learnt the piano since he was seven","He has learned the piano since he was seven"], model:"He's been learning the piano since he was seven.", hint:"Look again — is anything wrong?", say:"He's been learning the piano since he was seven."},
+   {q:"I'm working here since 2021.", acc:["I have been working here since 2021","I have worked here since 2021"], model:"I've been working here since 2021.", hint:"since 2021 + still true → present perfect (continuous)", say:"I've been working here since 2021."}
+  ]},
+ {id:"g14", kind:"g", type:"gap", en:"Blog post: six months of book club", ins:"Put the verbs in the correct form: present perfect simple, present perfect continuous — or another tense if you need it! Then press “Check”.",
+  bank:["Use: present perfect simple / continuous (+ one present continuous!)"],
+  text:"I can't believe it, but I {0} (run) a little book club for six months now! Since January we {1} (read) seven novels, and we {2} (only / argue) about one of them. Lately we {3} (meet) at my flat, because our favourite café {4} (close) down.\n\nI {5} (bake) something for every single meeting, and the members say my lemon cake {6} (become) famous. Right now we {7} (read) a gripping thriller — I {8} (not / finish) it yet, so no spoilers, please! Some of you {9} (ask) how to join: just send me a message.",
+  gaps:[
+   {acc:["have been running","have run"], hint:"activity + how long (for six months)"},
+   {acc:["have read"], hint:"counting: seven novels"},
+   {acc:["have only argued"], hint:"have + only + past participle"},
+   {acc:["have been meeting"], hint:"repeated lately → continuous"},
+   {acc:["has closed","closed"], hint:"recent action with a result now"},
+   {acc:["have baked","have been baking"], hint:"for every meeting so far"},
+   {acc:["has become"], hint:"result now: has + become"},
+   {acc:["are reading"], hint:"<b>Right now</b> → present continuous!"},
+   {acc:["have not finished"], hint:"not … yet → haven't + past participle"},
+   {acc:["have asked"], hint:"recent action, result now (that's why I'm writing)"}
+  ]},
+ {id:"g15", kind:"g", type:"type", en:"Key word transformations", ins:"Complete the second sentence so it means the same as the first. Use the word in CAPITALS. Write only the missing words (2–4 words).",
+  items:[
+   {q:"I started learning Japanese two years ago. <b>(BEEN)</b><br>I ______ Japanese for two years.", acc:["have been learning"], hint:"have + been + learning", say:"I've been learning Japanese for two years."},
+   {q:"The last time I saw Ana was in March. <b>(SEEN)</b><br>I ______ Ana since March.", acc:["have not seen"], hint:"haven't + seen", say:"I haven't seen Ana since March."},
+   {q:"This is my first time at an anime convention. <b>(NEVER)</b><br>I ______ to an anime convention before.", acc:["have never been"], hint:"have + never + been", say:"I've never been to an anime convention before."},
+   {q:"We bought our cat five years ago. <b>(HAD)</b><br>We ______ our cat for five years.", acc:["have had"], hint:"have + had (state verb!)", say:"We've had our cat for five years."},
+   {q:"I started this book on Monday and I'm still reading it. <b>(READING)</b><br>I ______ this book since Monday.", acc:["have been reading"], hint:"have + been + reading", say:"I've been reading this book since Monday."}
+  ]},
+ {id:"g16", kind:"g", type:"type", en:"Make the questions", ins:"Write the question. Choose the present perfect simple or continuous. If your answer is different but correct, press “My answer is also correct”.",
+  items:[
+   {q:"how long / you / have / your bike?", acc:["How long have you had your bike"], question:true, self:true, model:"How long have you had your bike?", hint:"have = own → simple: How long have you had…?", say:"How long have you had your bike?"},
+   {q:"how many / cups of coffee / you / drink / today?", acc:["How many cups of coffee have you drunk today","How many cups of coffee have you had today"], question:true, self:true, model:"How many cups of coffee have you drunk today?", hint:"How many → simple: have you drunk", say:"How many cups of coffee have you drunk today?"},
+   {q:"you / ever / grow / your own vegetables?", acc:["Have you ever grown your own vegetables"], question:true, self:true, model:"Have you ever grown your own vegetables?", hint:"Have you ever + grown", say:"Have you ever grown your own vegetables?"},
+   {q:"what / you / read / lately?", acc:["What have you been reading lately","What have you read lately"], question:true, self:true, model:"What have you been reading lately?", hint:"lately + activity → continuous", say:"What have you been reading lately?"}
+  ]},
+ {id:"w", kind:"g", type:"write", en:"Blog post: what I've been up to lately", ins:"Write a blog post (150–200 words) called <b>“What I've been up to lately”</b>. Use the present perfect at least 5 times, the present perfect continuous at least 5 times, and at least 6 new words or phrases from this homework.",
+  items:[]}
+];
+
+const PRAISE = ["Correct!","Great!","Well done!","Perfect!","Exactly!","Spot on!"];
+const OOPS = ["Not quite","Oops!","Not this one","Almost"];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){
+    const v = attrs[k];
+    if (v === false || v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k.slice(0,2) === "on") e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()){ if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function strip(html){ const d = document.createElement("div"); d.innerHTML = html; return d.textContent.replace(/\s+/g," ").trim(); }
+function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(()=>el.classList.remove("on"), 2300); }
+
+/* storage */
+let MEM = null;
+function load(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }catch(e){ return MEM; } }
+function save(){ const j = JSON.stringify(S); try{ localStorage.setItem(KEY, j); }catch(e){ MEM = JSON.parse(j); } }
+function wipe(){ try{ localStorage.removeItem(KEY); }catch(e){} MEM = null; }
+const DEF = () => ({name:DEFAULT_NAME, ans:{}, mw:{}, known:{}, writing:"", tab:"words", ex:0, dir:"en", onlyL:false});
+let S = Object.assign(DEF(), load() || {});
+
+/* speech */
+let VOICE = null;
+const HAS_TTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if (HAS_TTS){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function say(t){ if (!HAS_TTS || !t) return; try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/\s*\/\s*/g, ", ")); u.lang = "en-GB"; if (VOICE) u.voice = VOICE; u.rate = 0.88; speechSynthesis.speak(u); }catch(e){} }
+function spk(t, label, cls){ return h("button", {class:"spk"+(cls?" "+cls:""), type:"button", "aria-label":"Listen: "+t, onclick:e=>{ e.stopPropagation(); say(t); }}, label || "🔊"); }
+
+/* checking */
+function normBase(s){
+  s = String(s || "").toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”]/g,'"');
+  return s.replace(/\bcan not\b/g,"cannot").replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\bshan't\b/g,"shall not")
+       .replace(/n't\b/g," not").replace(/\bi'm\b/g,"i am").replace(/'re\b/g," are").replace(/'ve\b/g," have").replace(/'ll\b/g," will").replace(/'d\b/g," would");
+}
+const fin = x => x.replace(/[.,!?;:"()—–…]/g," ").replace(/\s+-\s+/g," ").replace(/\s+/g," ").trim();
+function forms(s){ const b = normBase(s); return [fin(b.replace(/'s\b/g," is")), fin(b.replace(/'s\b/g," has"))]; }
+function norm(s){ return forms(s)[0]; }
+const normW = s => norm(s).replace(/^(a|an|the) /, "");
+function expand(t){ const m = t.match(/\{([^{}]*)\}/); if (!m) return [t]; const out = []; m[1].split("|").forEach(opt => expand(t.replace(m[0], opt)).forEach(x => out.push(x))); return out; }
+function matches(val, it){ const f = it.word ? (x => forms(x).map(y => y.replace(/^(a|an|the) /, ""))) : forms; const V = f(val); return it.acc.some(a => f(a).some(x => V.includes(x))); }
+
+/* registry */
+EX.forEach(ex => {
+  const list = ex.type === "match" ? ex.rounds.flat() : ex.type === "gap" ? ex.gaps : (ex.items || []);
+  list.forEach((it, i) => { it.id = ex.id + "-" + i; it.n_ = i + 1; if (it.acc){ it.model = it.model || it.acc[0]; it.acc = it.acc.flatMap(expand); } });
+  ex.list = list;
+});
+const VCOUNT = EX.filter(e => e.kind === "v").length;
+const LOCKED = ["ok","bad","self"];
+const stOf = id => (S.ans[id] || {}).st;
+const isDone = id => LOCKED.includes(stOf(id));
+const isRight = id => stOf(id) === "ok" || stOf(id) === "self";
+function exScore(ex){ const l = ex.list; return {got:l.filter(i=>isRight(i.id)).length, done:l.filter(i=>isDone(i.id)).length, total:l.length}; }
+function scoreAll(filter){ let got=0, done=0, total=0; EX.forEach(ex=>{ if (filter && ex.kind !== filter) return; const s = exScore(ex); got+=s.got; done+=s.done; total+=s.total; }); return {got, done, total}; }
+const knownCount = () => WORDS.filter(w => S.known[w.en]).length;
+const nm = () => (S.name || "").trim() || DEFAULT_NAME;
+
+const PART_NAME = n => "";
+/* ---------- tabs ---------- */
+const TABS = [["words","Words","50 items"],["cards","Cards","flashcards"],["grammar","Grammar","rules"],["practice","Practice","exercises"],["results","Results","score"]];
+function renderTabs(){
+  const t = $("#tabs"); t.innerHTML = "";
+  const s = scoreAll();
+  TABS.forEach(([id,en,ru]) => {
+    let badge = "";
+    if (id === "cards" && knownCount()) badge = knownCount() + "/" + WORDS.length;
+    if (id === "practice" && s.done) badge = s.got + "/" + s.total;
+    if (id === "results" && s.done === s.total) badge = Math.round(100 * s.got / s.total) + "%";
+    t.append(h("button", {class:"tab"+(S.tab===id?" on":""), type:"button", role:"tab", "aria-selected":S.tab===id?"true":"false", onclick:()=>go(id)},
+      h("span", null, en), h("span", {class:"tr"}, ru), badge ? h("span", {class:"tb"}, badge) : null));
+  });
+  $("#barFill").style.width = (100 * s.done / s.total) + "%";
+  $("#scoreTxt").textContent = "★ " + s.got + " · " + s.done + "/" + s.total;
+}
+function refresh(){ renderTabs(); if (S.tab === "practice") renderChips(); }
+function go(id){ S.tab = id; save(); show(); const hh = $("#hero").offsetHeight; if (window.scrollY > hh) window.scrollTo(0, hh); }
+function goEx(i){ S.ex = i; S.tab = "practice"; save(); show(); window.scrollTo(0, $("#hero").offsetHeight); }
+function show(){
+  TABS.forEach(([id]) => $("#tab-"+id).classList.toggle("on", S.tab === id));
+  if (S.tab === "cards") renderCards();
+  if (S.tab === "practice") renderPractice();
+  if (S.tab === "results") renderResults();
+  renderTabs();
+}
+
+/* =================== WORDS =================== */
+
+
+function wordRow(w){
+  return h("div", {class:"w"},
+    h("div", {class:"em", "aria-hidden":"true"}, w.em),
+    h("div", null, h("span", {class:"en"}, w.en), h("span", {class:"ipa"}, w.pos), h("div", {class:"tr"}, w.ru), h("div", {class:"wex"}, "“" + w.ex + "”")),
+    spk(w.en.replace(/\(.*?\)/g, "").replace(/…/g, "") + ". " + w.ex));
+}
+function renderWords(){
+  const root = $("#tab-words"); root.innerHTML = "";
+  root.append(h("div", {class:"card"},
+    h("h2", null, "50 words & phrases for your downtime"),
+    h("p", {class:"lead"}, "Six sets: hobbies, cooking, pets, stories, home life and everyday catch-up phrases. Press 🔊 to hear the word and the example. Then learn them with the flashcards.")));
+  Object.keys(SETS).forEach((g, i) => {
+    root.append(h("div", {class:"card set"},
+      h("div", {class:"kicker"}, "Set " + (i + 1) + " · " + SETS[g][1]),
+      h("h2", null, SETS[g][0]),
+      h("div", {class:"wl"}, WORDS.filter(w => w.g === g).map(wordRow))));
+  });
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Careful with these"),
+    h("ul", null, CAREFUL.map(c => h("li", {html:c})))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("cards")}, "Next: flashcards →")));
+}
+
+/* =================== FLASHCARDS =================== */
+let deck = [], ci = 0, flipped = false;
+function makeDeck(shuffle){
+  let idx = WORDS.map((_, i) => i);
+  if (S.onlyL) idx = idx.filter(i => !S.known[WORDS[i].en]);
+  if (shuffle) for (let i = idx.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  deck = idx; if (ci >= deck.length) ci = 0; flipped = false;
+}
+function renderCards(){
+  if (!deck.length && !S.onlyL) makeDeck(false);
+  const root = $("#tab-cards"); root.innerHTML = "";
+  const k = knownCount();
+  const box = h("div", {class:"card"});
+  box.append(h("h2", null, "Flashcards"));
+  box.append(h("p", {class:"lead"}, "Tap the card to turn it over. Then say if you know the word."));
+  box.append(h("div", {class:"fc-top"}, h("span", null, "I know: " + k + "/" + WORDS.length), h("span", null, deck.length ? (ci + 1) + " / " + deck.length : "")));
+  box.append(h("div", {class:"kbar"}, h("i", {style:"width:" + (100 * k / WORDS.length) + "%"})));
+  if (!deck.length){
+    box.append(h("div", {class:"fb ok", style:"text-align:center;margin-top:16px;font-size:17px"}, h("b", null, "🎉 You know all the words!"), h("br"), "Turn off the filter to see all cards."));
+  } else {
+    const w = WORDS[deck[ci]];
+    const exPart = [h("div", {class:"fx"}, w.ex), h("div", {class:"fxr"}, w.exRu), spk(w.ex, "🔊 example", "wide")];
+    let front, back;
+    if (S.dir === "en"){
+      front = h("div", {class:"face front"}, h("div", {class:"fe", "aria-hidden":"true"}, w.em), h("div", {class:"fw"}, w.en), h("div", {class:"fp"}, w.ipa + (w.verb ? "  ·  ← " + w.verb : "")), spk(w.en), h("div", {class:"tap"}, "tap to turn"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--ink);font-family:inherit;font-size:clamp(17px,4.6vw,21px);font-weight:600"}, w.ru), exPart);
+    } else {
+      front = h("div", {class:"face front"}, h("div", {class:"fe", "aria-hidden":"true"}, w.em), h("div", {class:"fw", style:"font-family:inherit;font-size:clamp(17px,4.6vw,21px);font-weight:600"}, w.ru), h("div", {class:"tap"}, "What's the word?"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--brick)"}, w.en), h("div", {class:"fp", style:"color:var(--soft)"}, w.ipa), spk(w.en), exPart);
+    }
+    const fc = h("div", {class:"fc" + (flipped ? " flip" : ""), role:"button", tabindex:"0", "aria-label":"Flashcard. Press to turn over"}, front, back);
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); };
+    fc.addEventListener("click", flip);
+    fc.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } });
+    box.append(h("div", {class:"fc-scene"}, fc));
+    const move = d => { ci = (ci + d + deck.length) % deck.length; flipped = false; renderCards(); };
+    box.append(h("div", {class:"fc-nav"},
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(-1)}, "◀ Back"),
+      h("button", {class:"btn ghost", type:"button", onclick:flip}, "↻ Turn"),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(1)}, "Next ▶")));
+    const mark = known => {
+      if (known) S.known[w.en] = true; else delete S.known[w.en];
+      save(); renderTabs();
+      if (S.onlyL && known){ deck.splice(ci, 1); if (ci >= deck.length) ci = 0; flipped = false; renderCards(); } else move(1);
+      toast(known ? "✓ " + w.en + " — I know it" : "↻ " + w.en + " — still learning");
+    };
+    box.append(h("div", {class:"fc-know"},
+      h("button", {class:"btn know", type:"button", onclick:()=>mark(true)}, "✓ I know it"),
+      h("button", {class:"btn learn", type:"button", onclick:()=>mark(false)}, "Still learning")));
+  }
+  const filt = h("input", {type:"checkbox"}); filt.checked = !!S.onlyL;
+  filt.addEventListener("change", () => { S.onlyL = filt.checked; save(); ci = 0; makeDeck(false); renderCards(); });
+  box.append(h("div", {class:"fc-tools"},
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ makeDeck(true); ci = 0; renderCards(); toast("Shuffled"); }}, "🔀 Shuffle"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ S.dir = S.dir === "en" ? "ru" : "en"; save(); flipped = false; renderCards(); }}, S.dir === "en" ? "⇄ Definition → word" : "⇄ Word → definition"),
+    h("label", {class:"chk"}, filt, "Only words I’m learning")));
+  root.append(box);
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("grammar")}, "Next: grammar")));
+}
+
+/* =================== GRAMMAR =================== */
+
+
+function exList(arr){ return h("ul", {class:"exl"}, arr.map(([html, s]) => h("li", null, h("span", {html}), spk(s || strip(html))))); }
+function practiseBtn(id){ const i = EX.findIndex(e => e.id === id); return h("button", {class:"btn small", type:"button", onclick:()=>goEx(i)}, "Practise → exercise " + (i + 1)); }
+function wave(x1, x2, y, col){ let d = "M" + x1 + " " + y; for (let x = x1; x < x2; x += 10) d += " q 2.5 -6 5 0 q 2.5 6 5 0"; return `<path d="${d}" fill="none" stroke="${col}" stroke-width="3"/>`; }
+function timeline(kind){
+  const PP = "#c2593a", PC = "#2f6fb0";
+  let g = "";
+  if (kind === "exp") g = [70,120,165].map(x => `<text x="${x}" y="34" font-size="18" font-weight="800" fill="${PP}" text-anchor="middle">✕</text>`).join("") + `<rect x="20" y="16" width="200" height="36" rx="8" fill="${PP}" opacity=".08"/><text x="120" y="68" font-size="11" fill="#6b5f57" text-anchor="middle">my life up to now — when? not important</text>`;
+  if (kind === "state") g = `<circle cx="80" cy="40" r="5" fill="${PP}"/><rect x="80" y="36" width="140" height="8" rx="4" fill="${PP}"/><text x="80" y="66" font-size="11" fill="#6b5f57" text-anchor="middle">2021</text><text x="150" y="26" font-size="11" fill="${PP}" text-anchor="middle">still true</text>`;
+  if (kind === "result") g = `<circle cx="196" cy="40" r="6" fill="${PP}"/><path d="M204 40 L214 40" stroke="${PP}" stroke-width="2" marker-end="url(#ar)"/><text x="196" y="26" font-size="11" fill="${PP}" text-anchor="middle">just</text><text x="250" y="26" font-size="11" fill="#6b5f57" text-anchor="middle">result now</text>`;
+  if (kind === "period") g = `<rect x="150" y="18" width="130" height="44" rx="8" fill="${PP}" opacity=".12"/><text x="185" y="36" font-size="16" fill="${PP}" text-anchor="middle">✕ ✕</text><text x="250" y="56" font-size="11" fill="${PP}" text-anchor="middle">this year</text>`;
+  if (kind === "still") g = wave(80, 260, 40, PC) + `<text x="150" y="24" font-size="11" fill="${PC}" text-anchor="middle">still happening</text>`;
+  if (kind === "evid") g = wave(120, 210, 40, PC) + `<text x="165" y="24" font-size="11" fill="${PC}" text-anchor="middle">just stopped</text><text x="255" y="64" font-size="11" fill="#6b5f57" text-anchor="middle">evidence now</text>`;
+  if (kind === "rep") g = wave(130, 150, 40, PC) + wave(165, 185, 40, PC) + wave(198, 214, 40, PC) + `<text x="170" y="24" font-size="11" fill="${PC}" text-anchor="middle">again and again lately</text>`;
+  return `<svg viewBox="0 0 300 76" class="tl" role="img" aria-label="timeline"><defs><marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="${PP}"/></marker></defs>
+  <line x1="8" y1="40" x2="292" y2="40" stroke="#b9ada3" stroke-width="2"/><text x="10" y="70" font-size="10" fill="#9a8f86">PAST</text><text x="262" y="70" font-size="10" fill="#9a8f86">FUTURE</text>
+  <line x1="220" y1="12" x2="220" y2="56" stroke="#1f1a17" stroke-width="2" stroke-dasharray="3 3"/><text x="220" y="10" font-size="10" font-weight="800" fill="#1f1a17" text-anchor="middle">NOW</text>${g}</svg>`;
+}
+function useCard(n, title, kind, text, exs, keys){
+  return h("div", {class:"use"},
+    h("div", {class:"use-h"}, h("span", {class:"use-n"}, String(n)), h("b", null, title)),
+    h("div", {class:"tlw", html:timeline(kind)}),
+    h("p", {html:text}),
+    exList(exs),
+    keys ? h("div", {class:"keys"}, keys.map(k => h("span", null, k))) : null);
+}
+function renderGrammar(){
+  const root = $("#tab-grammar"); root.innerHTML = "";
+  // intro
+  root.append(h("div", {class:"card"},
+    h("h2", null, "Two tenses, one big idea: past + now"),
+    h("p", {html:"Both tenses connect the past to <b>now</b>. They are present tenses that look back. We <b>never</b> use them with a finished time (yesterday, in 2019, last week)."}),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("b", {class:"pp"}, "Present perfect"), h("div", null, "have / has + past participle"), h("div", {class:"sm"}, "results · experiences · how many")),
+      h("div", {class:"c"}, h("b", {class:"ppc"}, "Present perfect continuous"), h("div", null, "have / has + been + -ing"), h("div", {class:"sm"}, "activities · duration · evidence")))));
+  // PP
+  root.append(h("div", {class:"card"},
+    h("div", {class:"kicker"}, "Part 1"),
+    h("h2", null, h("span", {class:"step-n pp-bg"}, "1"), h("span", {class:"pp"}, "Present perfect"), ": form"),
+    h("table", {class:"tbl"},
+      h("tr", null, h("td", null, "+"), h("td", {html:"I / you / we / they<span class='pp'>'ve (have) tried</span> sushi. · she / he / it<span class='pp'>'s (has) adopted</span> a cat."})),
+      h("tr", null, h("td", null, "−"), h("td", {html:"We <span class='pp'>haven't finished</span> the series. · He <span class='pp'>hasn't read</span> the book."})),
+      h("tr", null, h("td", null, "?"), h("td", {html:"<span class='pp'>Have</span> you <span class='pp'>seen</span> it? — Yes, I have. / No, I haven't.<br><span class='pp'>Has</span> the cat <span class='pp'>eaten</span>? — Yes, she has. / No, she hasn't."}))),
+    h("div", {class:"rule", html:"⚠️ <b>'s</b> can be <i>is</i> or <i>has</i>: <i>She's eaten</i> = she <b>has</b> eaten · <i>She's eating</i> = she <b>is</b> eating."}),
+    h("div", {class:"pps"}, [["read","read","read"],["write","wrote","written"],["see","saw","seen"],["eat","ate","eaten"],["take","took","taken"],["make","made","made"],["give","gave","given"],["begin","began","begun"],["grow","grew","grown"],["buy","bought","bought"],["find","found","found"],["fall","fell","fallen"],["forget","forgot","forgotten"],["choose","chose","chosen"],["be","was / were","been"],["go","went","gone / been"]].map(([a,b,c]) => h("button", {class:"ppv", type:"button", onclick:()=>say(a + ", " + b.replace(" / ", " or ") + ", " + c.replace(" / ", " or "))}, a + " · " + b + " · ", h("b", null, c)))),
+    h("div", {class:"rule", html:"<b>been vs gone:</b> She's <b>been</b> to Japan (she went and came back) · She's <b>gone</b> to Japan (she's there now!)"}),
+    h("div", {class:"btns"}, practiseBtn("g2"), practiseBtn("g3"), practiseBtn("g4"))));
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n pp-bg"}, "2"), h("span", {class:"pp"}, "Present perfect"), ": four uses"),
+    h("div", {class:"uses"},
+      useCard(1, "Life experiences", "exp", "Something happened at some time in your life. <b>When</b> isn't important — if you say when, use the past simple.", [["I<span class='pp'>'ve tried</span> making ramen from scratch.","I've tried making ramen from scratch."],["<span class='pp'>Have</span> you ever <span class='pp'>cried</span> at an anime?","Have you ever cried at an anime?"]], ["ever","never","before","three times"]),
+      useCard(2, "Unfinished states", "state", "A situation started in the past and is <b>still true now</b>. Don't use the present simple here!", [["I<span class='pp'>'ve had</span> Miso since 2021. <span class='x'>(✗ I have Miso since 2021)</span>","I've had Miso since 2021."],["We<span class='pp'>'ve known</span> each other for ages.","We've known each other for ages."]], ["for","since","How long…?","all my life"]),
+      useCard(3, "Recent actions, result now", "result", "Something happened recently and we can see or feel the <b>result now</b>.", [["I<span class='pp'>'ve just taken</span> the cake out — it smells amazing!","I've just taken the cake out. It smells amazing!"],["<span class='pp'>Have</span> you <span class='pp'>finished</span> the manga yet?","Have you finished the manga yet?"]], ["just","already","yet","recently"]),
+      useCard(4, "Unfinished time periods", "period", "The period (today, this week, this year) <b>isn't over</b>, so the number can still change.", [["I<span class='pp'>'ve read</span> eleven books this year.","I've read eleven books this year."],["Compare: I <b>read</b> thirty books last year. (finished)","I read thirty books last year."]], ["today","this week","this year","so far"])),
+    h("div", {class:"rule", html:"<b>Word order:</b> just / already / ever / never go <b>between</b> have and the participle (<i>I've <b>just</b> eaten</i>). <b>yet</b> goes at the <b>end</b> of questions and negatives. <b>still</b> goes <b>before</b> haven't (<i>We <b>still</b> haven't decided</i>)."}),
+    h("div", {class:"btns"}, practiseBtn("g1"), practiseBtn("g5"))));
+  // for/since + PS
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n pp-bg"}, "3"), "for / since · present perfect or past simple?"),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("b", null, "for"), h("div", null, "+ a period of time"), h("div", {class:"sm"}, "for three years · for ages · for a week")),
+      h("div", {class:"s"}, h("b", null, "since"), h("div", null, "+ a starting point"), h("div", {class:"sm"}, "since 2019 · since Monday · since I was a kid"))),
+    h("h3", {style:"margin-top:16px"}, "The conversation pattern"),
+    h("div", {class:"conv"},
+      h("div", null, h("b", null, "A: "), "Have you ever been to an anime convention? ", h("span", {class:"tag pp-t"}, "general → present perfect")),
+      h("div", null, h("b", null, "B: "), "Yes, I have! I went to one last year. ", h("span", {class:"tag ps-t"}, "details → past simple")),
+      h("div", null, h("b", null, "A: "), "Really? What did you do there? ", h("span", {class:"tag ps-t"}, "past simple"))),
+    h("div", {class:"rule", html:"If you say or ask <b>when</b> (yesterday, in 2019, when I was a child, What time…?), use the <b>past simple</b>."}),
+    h("div", {class:"btns"}, practiseBtn("g6"), practiseBtn("g7"), practiseBtn("g8"))));
+  // PPC
+  root.append(h("div", {class:"card"},
+    h("div", {class:"kicker"}, "Part 2"),
+    h("h2", null, h("span", {class:"step-n ppc-bg"}, "4"), h("span", {class:"ppc"}, "Present perfect continuous")),
+    h("table", {class:"tbl"},
+      h("tr", null, h("td", null, "+"), h("td", {html:"I<span class='ppc'>'ve been learning</span> Japanese for two years."})),
+      h("tr", null, h("td", null, "−"), h("td", {html:"We <span class='ppc'>haven't been sleeping</span> well."})),
+      h("tr", null, h("td", null, "?"), h("td", {html:"<span class='ppc'>Have</span> you <span class='ppc'>been waiting</span> long? — Yes, I have. / No, I haven't."}))),
+    h("div", {class:"uses"},
+      useCard(1, "Still happening", "still", "An activity started in the past and continues now. Focus: <b>how long</b>.", [["I<span class='ppc'>'ve been learning</span> Japanese for two years.","I've been learning Japanese for two years."]], ["for","since","How long…?","all day"]),
+      useCard(2, "Just stopped — evidence now", "evid", "A longer activity has just stopped and we can see the evidence.", [["Your eyes are red! <span class='ppc'>Have</span> you <span class='ppc'>been crying</span>?","Your eyes are red! Have you been crying?"]], ["evidence","that's why"]),
+      useCard(3, "Repeated lately", "rep", "Something you've done again and again recently.", [["I<span class='ppc'>'ve been watching</span> a lot of K-dramas lately.","I've been watching a lot of K-dramas lately."]], ["lately","recently"])),
+    h("div", {class:"rule", html:"🛑 <b>State verbs</b> don't like -ing: know, like, love, hate, want, need, believe, understand, own, belong, seem, have (= own). <span class='x'>✗ I've been knowing her for years</span> → <span class='v'>✓ I've known her for years</span>. But <i>have</i> as an activity is fine: <i>We've been having a lovely time.</i>"}),
+    h("div", {class:"btns"}, practiseBtn("g9"), practiseBtn("g10"), practiseBtn("g11"))));
+  // PP vs PPC + decision guide
+  const Q = ["Is it a state verb? (know, love, have = own, believe…)","Are you counting? (how many / how much / how many times)","Is the action finished, with a result to show?"];
+  const ans = [null, null, null];
+  const guideOut = h("div", {class:"gout", "aria-live":"polite"}, "Answer the questions ↑");
+  const guide = h("div", {class:"guide"});
+  const draw = () => {
+    guide.innerHTML = "";
+    for (let i = 0; i < 3; i++){
+      if (i > 0 && ans.slice(0, i).some(a => a !== false)) break;
+      guide.append(h("div", {class:"gq"}, h("span", null, (i + 1) + ". " + Q[i]),
+        h("span", {class:"gbtns"},
+          h("button", {class:"btn small" + (ans[i] === true ? "" : " ghost"), type:"button", onclick:()=>{ ans[i] = true; for (let j = i + 1; j < 3; j++) ans[j] = null; draw(); }}, "Yes"),
+          h("button", {class:"btn small" + (ans[i] === false ? "" : " ghost"), type:"button", onclick:()=>{ ans[i] = false; for (let j = i + 1; j < 3; j++) ans[j] = null; draw(); }}, "No"))));
+    }
+    const yes = ans.indexOf(true);
+    if (yes >= 0 && ans.slice(0, yes).every(a => a === false)){
+      const ex = ["I've known Ana for years.","I've watched it three times.","I've finished the cake!"][yes];
+      guideOut.innerHTML = "→ <b class='pp'>Present perfect simple</b> · <i>" + ex + "</i>";
+    } else if (ans.every(a => a === false)) guideOut.innerHTML = "→ <b class='ppc'>Present perfect continuous</b> · <i>I've been baking all day.</i>";
+    else guideOut.textContent = "Answer the questions ↑";
+  };
+  draw();
+  root.append(h("div", {class:"card"},
+    h("div", {class:"kicker"}, "Part 3"),
+    h("h2", null, h("span", {class:"step-n"}, "5"), "Simple or continuous?"),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("b", {class:"pp"}, "Simple: the RESULT"), h("div", {class:"sm"}, "how many · how much · finished"), exList([["I<span class='pp'>'ve read</span> Norwegian Wood. <span class='sm'>(I know the ending.)</span>","I've read Norwegian Wood."],["I<span class='pp'>'ve made</span> forty dumplings.","I've made forty dumplings."],["I<span class='pp'>'ve painted</span> the kitchen. Look!","I've painted the kitchen. Look!"]])),
+      h("div", {class:"c"}, h("b", {class:"ppc"}, "Continuous: the ACTIVITY"), h("div", {class:"sm"}, "how long · maybe not finished"), exList([["I<span class='ppc'>'ve been reading</span> Norwegian Wood. <span class='sm'>(Not finished.)</span>","I've been reading Norwegian Wood."],["I<span class='ppc'>'ve been making</span> dumplings all afternoon.","I've been making dumplings all afternoon."],["I<span class='ppc'>'ve been painting</span> the kitchen. <span class='sm'>(That's why I'm covered in paint.)</span>","I've been painting the kitchen."]]))),
+    h("h3", {style:"margin-top:16px"}, "🧭 Decision guide — try it"),
+    guide, guideOut,
+    h("div", {class:"rule", html:"Sometimes both are fine: with <b>live, work, study, teach, play</b> + for / since. <i>I've lived here for six years</i> (more permanent) · <i>I've been living with my sister since March</i> (more temporary). In duration questions the continuous sounds very natural: <i>How long have you been learning English?</i>"}),
+    h("div", {class:"btns"}, practiseBtn("g12"), practiseBtn("g14"), practiseBtn("g15"))));
+  const M = [
+   ["I have seen that anime yesterday.","I saw that anime yesterday.","finished time → past simple"],
+   ["I know my best friend since 2015.","I've known my best friend since 2015.","since + still true → present perfect"],
+   ["I have my cat for five years.","I've had my cat for five years.","for + still true → present perfect"],
+   ["She has gone to Japan twice.","She has been to Japan twice.","experience → been"],
+   ["I've been knowing her for years.","I've known her for years.","state verb → simple"],
+   ["How many episodes have you been watching today?","How many episodes have you watched today?","counting → simple"],
+   ["She's been cooking since three hours.","She's been cooking for three hours.","a period → for"],
+   ["I'm learning to knit since January.","I've been learning to knit since January.","since + still happening → PP continuous"]
+  ];
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Common mistakes"),
+    h("ul", {class:"mist"}, M.map(([x, v, r]) => h("li", null, h("div", {class:"x"}, "✗ " + x), h("div", {class:"v"}, "✓ " + v, " ", spk(v)), h("div", {class:"sm"}, r)))),
+    h("div", {class:"btns"}, practiseBtn("g13"))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>goEx(0)}, "Next: exercises →")));
+}
+
+/* =================== PRACTICE =================== */
+function renderChips(){
+  const c = $("#chips"); if (!c) return; c.innerHTML = "";
+  EX.forEach((ex, i) => {
+    const s = exScore(ex);
+    const done = ex.type === "write" ? S.writing.trim().length > 0 : s.done === s.total;
+    c.append(h("button", {class:"chip" + (ex.kind === "g" ? " g" : "") + (i === S.ex ? " on" : "") + (done ? " done" : ""), type:"button", "aria-label":"Exercise " + (i + 1) + ": " + ex.en, onclick:()=>{ S.ex = i; save(); renderPractice(); }},
+      String(i + 1), h("small", null, ex.type === "write" ? (done ? "✓" : "✍") : (s.done ? s.got + "/" + s.total : (ex.kind === "v" ? "voc" : "gr")))));
+  });
+  const on = c.children[S.ex]; if (on && on.scrollIntoView){ try{ on.scrollIntoView({block:"nearest", inline:"center"}); }catch(e){} }
+}
+function renderPractice(){
+  const root = $("#tab-practice"); root.innerHTML = "";
+  root.append(h("div", {class:"chips", id:"chips", "aria-label":"Exercises"}));
+  const ex = EX[S.ex], s = exScore(ex);
+  const card = h("div", {class:"card " + (ex.kind === "v" ? "leaf" : "teal")});
+  card.append(h("div", {class:"kicker"}, ex.kind === "v" ? "Vocabulary" : "Grammar"));
+  card.append(h("div", {class:"exhead"},
+    h("div", null, h("h2", null, (S.ex + 1) + ". " + ex.en)),
+    ex.type !== "write" ? h("span", {class:"exscore", id:"exscore"}, s.got + "/" + s.total) : null));
+  card.append(h("p", {class:"ins", html:ex.ins}));
+  if (ex.rule) card.append(h("div", {class:"rule" + (ex.kind === "v" ? " v" : ""), html:"📌 " + ex.rule}));
+  const body = h("div", {id:"exbody"});
+  card.append(body);
+  root.append(card);
+  ({choice:listEx, type:listEx, build:listEx, gap:gapEx, match:matchEx, write:writeEx})[ex.type](ex, body);
+  const nav = h("div", {class:"btns", style:"justify-content:space-between"});
+  const top = () => window.scrollTo(0, $("#hero").offsetHeight);
+  nav.append(S.ex > 0 ? h("button", {class:"btn ghost", type:"button", onclick:()=>{ S.ex--; save(); renderPractice(); top(); }}, "← Back") : h("span"));
+  nav.append(S.ex < EX.length - 1
+    ? h("button", {class:"btn", type:"button", onclick:()=>{ S.ex++; save(); renderPractice(); top(); }}, "Next")
+    : h("button", {class:"btn gold", type:"button", onclick:()=>go("results")}, "See results"));
+  root.append(nav);
+  renderChips();
+}
+function updExScore(ex){ const el = $("#exscore"); if (el){ const s = exScore(ex); el.textContent = s.got + "/" + s.total; } refresh(); }
+function listEx(ex, body){ const make = {choice:choiceItem, type:typeItem, build:buildItem}[ex.type]; ex.items.forEach((it, k) => body.append(make(ex, it, k))); }
+function fbBox(ok, k, why, sayText){
+  const d = h("div", {class:"fb " + (ok ? "ok" : "bad")}, h("b", null, ok ? PRAISE[k % PRAISE.length] : OOPS[k % OOPS.length]));
+  if (why) d.append(h("div", {class:"why", html:why}));
+  if (sayText) d.append(spk(sayText, "🔊 Listen", "wide"));
+  return d;
+}
+
+/* choice */
+function sentenceOf(ex, it){
+  if (it.say) return it.say;
+  if (ex.type === "choice" && it.n) return PART_NAME(it.n).replace(" / patio", "");
+  const q = strip(it.q); return q.includes("___") ? q.replace(/_{3,}/, it.o[it.a]) : it.o[it.a];
+}
+function choiceItem(ex, it, k){
+  const a = S.ans[it.id];
+  const box = h("div", {class:"item" + (a ? (a.st === "ok" ? " is-ok" : " is-bad") : "")});
+  if (ex.house){
+    box.append(h("div", {class:"mini-house", html:houseSVG(it.n)}));
+    box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", null, "What is number " + it.n + "?")));
+  } else {
+    const q = h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q}));
+    if (ex.sound) q.append(spk(it.say));
+    box.append(q);
+  }
+  const opts = h("div", {class:"opts"});
+  it.o.forEach((o, j) => {
+    const b = h("button", {class:"opt", type:"button"}, o);
+    if (a){ b.disabled = true; if (j === it.a) b.classList.add("right"); if (j === a.v && j !== it.a) b.classList.add("wrong"); }
+    else b.addEventListener("click", () => {
+      S.ans[it.id] = {v:j, st: j === it.a ? "ok" : "bad"}; save();
+      box.replaceWith(choiceItem(ex, it, k));
+      if (j === it.a) say(sentenceOf(ex, it));
+      updExScore(ex);
+    });
+    opts.append(b);
+  });
+  box.append(opts);
+  if (a){
+    const why = it.why || (it.n ? "<b>" + PART_NAME(it.n) + "</b> — " + WORDS.find(w => w.n === it.n).ru : "");
+    box.append(fbBox(a.st === "ok", k, (a.st === "ok" ? "" : "Correct answer: <b>" + it.o[it.a] + "</b><br>") + why, sentenceOf(ex, it)));
+  }
+  return box;
+}
+
+/* typed */
+function typeItem(ex, it, k){
+  const a = S.ans[it.id] || null;
+  const locked = a && LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q})));
+  const inp = h("input", {type:"text", class:"inp", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false", "aria-label":"Your answer", placeholder: ex.id === "g8" ? "Write in English" : "Your answer"});
+  inp.value = a && a.v ? a.v : "";
+  const check = () => {
+    const v = inp.value;
+    if (!v.trim()){ toast("Write an answer first"); inp.focus(); return; }
+    const cur = S.ans[it.id] || {tries:0, given:[]};
+    cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v.trim()); cur.v = v.trim();
+    const ok = matches(v, it);
+    cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+    S.ans[it.id] = cur; save();
+    const nb = typeItem(ex, it, k); box.replaceWith(nb);
+    if (cur.st === "try"){ const ni = nb.querySelector("input"); if (ni) ni.focus(); }
+    if (ok) say(it.say || it.model);
+    updExScore(ex);
+  };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); check(); } });
+  if (locked){ inp.disabled = true; box.append(h("div", {class:"row"}, inp)); }
+  else box.append(h("div", {class:"row"}, inp, h("button", {class:"btn small", type:"button", onclick:check}, "Check")));
+  if (a && a.st === "try"){
+    box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  } else if (a && a.st === "ok"){
+    const d = fbBox(true, k, a.tries > 1 ? "Right on the second try." : "", it.say || it.model);
+    if (it.question && !/\?\s*$/.test(a.v)) d.append(h("div", {class:"note"}, "Don’t forget the question mark “?”"));
+    if (ex.kind === "g" && /^[a-z]/.test(a.v) && /^(if|i|we|would|my|what)\b/i.test(a.v) && it.model.split(" ").length > 3) d.append(h("div", {class:"note"}, "Start a sentence with a capital letter."));
+    box.append(d);
+  } else if (a && a.st === "bad"){
+    const d = fbBox(false, k, "Correct answer: <b>" + it.model + "</b>", it.say || it.model);
+    if (it.self) d.append(h("button", {class:"self", type:"button", onclick:()=>{ a.st = "self"; save(); box.replaceWith(typeItem(ex, it, k)); updExScore(ex); }}, "✓ My answer is also correct"));
+    box.append(d);
+  } else if (a && a.st === "self"){
+    box.append(h("div", {class:"fb ok"}, h("b", null, "OK! You marked your answer as correct."), h("div", {class:"why"}, "Model answer: ", h("b", null, it.model)), h("div", {class:"why ru"}, "Your teacher will check it.")));
+  }
+  return box;
+}
+
+/* builder */
+function buildItem(ex, it, k){
+  const a = S.ans[it.id] || {pick:[], tries:0};
+  const pick = a.pick || [];
+  const locked = LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {class:"ruq"}, it.ru)));
+  const setPick = p => { S.ans[it.id] = Object.assign({}, S.ans[it.id] || {tries:0}, {pick:p}); save(); box.replaceWith(buildItem(ex, it, k)); };
+  const ansZone = h("div", {class:"tiles ans", "aria-label":"Your sentence"});
+  pick.forEach((ti, pi) => ansZone.append(h("button", {class:"tile", type:"button", disabled:locked, onclick:()=>{ const p = pick.slice(); p.splice(pi, 1); setPick(p); }}, it.t[ti])));
+  if (pick.length === it.t.length) ansZone.append(h("span", {class:"endp"}, it.end));
+  if (!pick.length) ansZone.append(h("span", {class:"ru", style:"font-size:14px"}, "Tap the words below"));
+  box.append(ansZone);
+  if (!locked){
+    const pool = h("div", {class:"tiles"});
+    it.t.forEach((w, ti) => { if (!pick.includes(ti)) pool.append(h("button", {class:"tile", type:"button", onclick:()=>setPick(pick.concat(ti))}, w)); });
+    box.append(pool);
+    box.append(h("div", {class:"btns"},
+      h("button", {class:"btn small", type:"button", onclick:()=>{
+        if (pick.length < it.t.length){ toast("Use all the words"); return; }
+        const sent = pick.map(i => it.t[i]).join(" ");
+        const cur = S.ans[it.id] || {tries:0};
+        cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(sent + it.end); cur.v = sent;
+        const ok = it.acc.some(x => norm(x) === norm(sent));
+        cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+        S.ans[it.id] = cur; save();
+        box.replaceWith(buildItem(ex, it, k));
+        if (ok) say(sent + it.end);
+        updExScore(ex);
+      }}, "Check"),
+      h("button", {class:"btn ghost small", type:"button", onclick:()=>setPick([])}, "Clear")));
+  }
+  if (a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  if (a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try." : "", a.v + it.end));
+  if (a.st === "bad") box.append(fbBox(false, k, "Correct answer: <b>" + it.model + it.end + "</b>", it.model + it.end));
+  return box;
+}
+
+/* gap text */
+function gapEx(ex, body){
+  body.innerHTML = "";
+  body.append(h("div", {class:"bank", "aria-label":"Word box"}, ex.bank.map(w => h("span", null, w))));
+  const txt = h("div", {class:"gtext"});
+  const inputs = [];
+  ex.text.split("\n\n").forEach(par => {
+    const p = h("p");
+    par.split(/\{(\d+)\}/).forEach((part, i) => {
+      if (i % 2 === 0){ p.append(part); return; }
+      const g = ex.gaps[+part], a = S.ans[g.id];
+      p.append(h("span", {class:"gnum"}, String(g.n_)));
+      if (a && (a.st === "ok" || a.st === "self")) p.append(h("span", {class:"gf ok"}, a.v));
+      else if (a && a.st === "bad") p.append(h("span", {class:"gf bad"}, h("s", null, a.v), " → ", h("b", null, g.model)));
+      else {
+        const inp = h("input", {class:"ginp" + (a && a.st === "try" ? " try" : ""), type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"Gap " + g.n_});
+        inp.value = a && a.v ? a.v : ""; inp.dataset.g = part;
+        inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); checkAll(); } });
+        inputs.push(inp); p.append(inp);
+      }
+    });
+    txt.append(p);
+  });
+  body.append(txt);
+  const checkAll = () => {
+    let any = false;
+    inputs.forEach(inp => {
+      const v = inp.value.trim(); if (!v) return;
+      const g = ex.gaps[+inp.dataset.g];
+      const cur = S.ans[g.id] || {tries:0, given:[]};
+      if (cur.st === "try" && cur.v === v) return;
+      any = true;
+      cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v); cur.v = v;
+      cur.st = matches(v, g) ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+      S.ans[g.id] = cur;
+    });
+    if (!any){ toast("Fill in a gap first"); return; }
+    save(); gapEx(ex, body); updExScore(ex);
+  };
+  if (inputs.length) body.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:checkAll}, "Check")));
+  const tries = ex.gaps.filter(g => stOf(g.id) === "try");
+  if (tries.length) body.append(h("div", {class:"fb try"}, h("b", null, "Some gaps are not right yet — try again!"),
+    tries.map(g => h("div", {class:"why", html:"<b>" + g.n_ + ".</b> 💡 " + g.hint}))));
+  const s = exScore(ex);
+  if (s.done === s.total) body.append(h("div", {class:"fb ok"}, h("b", null, "Done! " + s.got + "/" + s.total), h("br"),
+    spk(ex.text.replace(/\{(\d+)\}/g, (_, n) => ex.gaps[+n].model).replace(/\n+/g, " "), "🔊 Listen to the text", "wide")));
+}
+
+/* writing */
+
+function seeded(arr, seed){ const a = arr.slice(); let s = seed; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280; for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+let selL = null;
+function matchEx(ex, body){
+  body.innerHTML = "";
+  let offset = 0;
+  ex.rounds.forEach((round, r) => {
+    const pairs = round.map((p, i) => ex.list[offset + i]); offset += round.length;
+    const right = seeded(pairs, 17 + r * 7);
+    const allDone = pairs.every(p => isDone(p.id));
+    body.append(h("div", {class:"round-t"}, "Round " + (r + 1) + (allDone ? " ✓" : "")));
+    const L = h("div", {class:"mcol"}), R = h("div", {class:"mcol"});
+    const msg = h("div", {class:"msg", "aria-live":"polite"});
+    pairs.forEach(p => {
+      const a = S.ans[p.id];
+      L.append(h("button", {class:"mb en" + (a ? (a.st === "ok" ? " done" : " done late") : "") + (selL === p.id ? " sel" : ""), type:"button", disabled:!!a, "aria-pressed":selL === p.id ? "true" : "false", onclick:()=>{ selL = p.id; say(p.en); matchEx(ex, body); }}, p.en));
+    });
+    right.forEach(p => {
+      const a = S.ans[p.id];
+      const b = h("button", {class:"mb" + (a ? (a.st === "ok" ? " done" : " done late") : ""), type:"button", disabled:!!a}, p.ru);
+      b.addEventListener("click", () => {
+        if (!selL || !pairs.some(x => x.id === selL)){ msg.textContent = "Tap a phrase on the left first"; return; }
+        if (selL === p.id){
+          S.ans[p.id] = {st: S.mw[p.id] ? "bad" : "ok", v:p.ru}; selL = null; save();
+          matchEx(ex, body); updExScore(ex); say(p.ru);
+          toast("✓ " + p.en + " → " + p.ru);
+        } else {
+          const wrongFor = ex.list.find(x => x.id === selL);
+          S.mw[selL] = (S.mw[selL] || []).concat(p.ru); save();
+          b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+          msg.textContent = "Not “" + wrongFor.en + "”. Try again!";
+        }
+      });
+      R.append(b);
+    });
+    body.append(h("div", {class:"mgrid"}, L, R), msg);
+  });
+}
+
+
+function writeEx(ex, body){
+  const ta = h("textarea", {"aria-label":"Your text", placeholder:"It's been a busy month! I've been… Lately I've taken up… I've just finished…"});
+  ta.value = S.writing || "";
+  const info = h("div", {class:"sm", style:"margin-top:8px"});
+  const found = h("div", {class:"found"});
+  const upd = () => {
+    const t = ta.value;
+    const words = (t.match(/[A-Za-z’'-]+/g) || []).length;
+    const ppc = (t.match(/\b(have|has|haven['’]t|hasn['’]t|['’]ve|['’]s)\s+(not\s+|never\s+|just\s+|already\s+|always\s+)?been\s+[\w-]+ing\b/gi) || []).length;
+    const allp = (t.match(/\b(have|has|haven['’]t|hasn['’]t)\b|['’]ve\b/gi) || []).length;
+    const used = WORDS.filter(w => w.rx.test(t));
+    found.innerHTML = "";
+    WORDS.forEach(w => found.append(h("span", {class: used.includes(w) ? "on" : ""}, (used.includes(w) ? "✓ " : "") + w.en)));
+    info.textContent = "Words: " + words + " / 150–200  ·  present perfect continuous: " + ppc + "/5  ·  have / has / ’ve (all perfect forms, approx.): " + allp + "  ·  new words: " + used.length + "/6";
+  };
+  let tmr;
+  ta.addEventListener("input", () => { S.writing = ta.value; upd(); clearTimeout(tmr); tmr = setTimeout(() => { save(); refresh(); }, 400); });
+  body.append(h("div", {class:"item"}, ta, info, found,
+    h("p", {class:"sm", style:"margin:10px 0 0"}, "This task isn't marked automatically — your teacher will read it. The counters are only a guide.")));
+  upd();
+}
+
+/* =================== RESULTS =================== */
+function itemReport(ex, it){
+  const a = S.ans[it.id] || {};
+  if (ex.type === "match") return {q:it.en, your:(S.mw[it.id] || []).join(", "), right:it.ru};
+  if (ex.type === "choice"){
+    const q = ex.house ? "house № " + it.n : strip(it.q);
+    return {q, your: a.v != null ? it.o[a.v] : "—", right: it.o[it.a]};
+  }
+  if (ex.type === "build") return {q:it.ru, your:(a.given || []).join(" / ") || "—", right:it.model + it.end};
+  if (ex.type === "gap") return {q:"gap " + it.n_, your:(a.given || []).join(" / ") || "—", right:it.model};
+  return {q:strip(it.q), your:(a.given || []).join(" / ") || "—", right:it.model};
+}
+function bandMsg(p){
+  const n = nm();
+  if (p >= 90) return "Brilliant, " + n + "! You really know this topic. 🎯";
+  if (p >= 75) return "Great work, " + n + "! Look at your mistakes once more.";
+  if (p >= 50) return "Good effort, " + n + "! Read the grammar again and repeat the cards.";
+  return "Keep going, " + n + "! Read the Words and Grammar tabs again, then try the exercises once more.";
+}
+function buildReport(){
+  const s = scoreAll(), sv = scoreAll("v"), sg = scoreAll("g"), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const L = [];
+  L.push("🪝 Homework: " + HW.title + " (" + HW.level + ", " + HW.unit + ")");
+  L.push("Student: " + nm());
+  L.push("Date: " + new Date().toLocaleDateString("en-GB"));
+  L.push("Score: " + s.got + "/" + s.total + " (" + pct + "%)" + (s.done < s.total ? " — answered " + s.done + "/" + s.total : ""));
+  L.push("Vocabulary: " + sv.got + "/" + sv.total + " · Grammar: " + sg.got + "/" + sg.total);
+  L.push("Flashcards: I know " + knownCount() + "/" + WORDS.length + " words");
+  L.push(""); L.push("EXERCISES");
+  EX.forEach((ex, i) => { if (ex.type === "write") L.push((i + 1) + ". " + ex.en + ": " + (S.writing.trim() ? "done (see below)" : "not done")); else { const e = exScore(ex); L.push((i + 1) + ". " + ex.en + ": " + e.got + "/" + e.total + (e.done < e.total ? " (answered " + e.done + ")" : "")); } });
+  const mist = [], selfs = [];
+  EX.forEach((ex, i) => ex.list.forEach(it => {
+    const st = stOf(it.id), r = itemReport(ex, it);
+    if (st === "bad") mist.push("• [" + (i + 1) + "] " + r.q + " — answer: " + (r.your || "—") + " → correct: " + r.right);
+    if (st === "self") selfs.push("• [" + (i + 1) + "] " + r.q + " — answer: " + r.your + " (model: " + r.right + ")");
+  }));
+  L.push(""); L.push("MISTAKES (" + mist.length + ")"); L.push(mist.length ? mist.join("\n") : "none 🎉");
+  if (selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT — please check"); L.push(selfs.join("\n")); }
+  L.push(""); L.push("WRITING: WHAT I'VE BEEN UP TO LATELY"); L.push(S.writing.trim() || "(not done)");
+  L.push(""); L.push("ALL ANSWERS");
+  EX.forEach((ex, i) => {
+    if (ex.type === "write") return;
+    L.push("[" + (i + 1) + "] " + ex.en);
+    ex.list.forEach(it => {
+      const st = stOf(it.id), r = itemReport(ex, it);
+      const mark = st === "ok" ? "✓" : st === "self" ? "✓(self)" : "✗";
+      L.push("  " + it.n_ + ". " + r.q + " → " + (LOCKED.includes(st) ? (ex.type === "match" ? r.right + (r.your ? " (wrong first: " + r.your + ")" : "") : r.your) + " " + mark : "(not answered)"));
+    });
+  });
+  return L.join("\n");
+}
+function copyText(t){
+  const fallback = () => { const ta = h("textarea", {style:"position:fixed;left:-9999px;top:0"}); ta.value = t; document.body.append(ta); ta.select(); let ok = false; try{ ok = document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok ? "Copied!" : "Select the text below and copy it"); };
+  try{ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => toast("Copied! Now paste it in a message to your teacher."), fallback); else fallback(); }catch(e){ fallback(); }
+}
+function renderResults(){
+  const root = $("#tab-results"); root.innerHTML = "";
+  const s = scoreAll(), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const sv = scoreAll("v"), sg = scoreAll("g");
+  root.append(h("div", {class:"card dark"},
+    h("h2", null, "Your results"),
+    h("div", {class:"score-big"}, s.got + "/" + s.total + " · " + pct + "%"),
+    h("p", {style:"margin:4px 0 0"}, "Vocabulary: " + sv.got + "/" + sv.total + "  ·  Grammar: " + sg.got + "/" + sg.total),
+    h("p", {style:"margin:6px 0 0"}, s.done < s.total ? "You have answered " + s.done + " of " + s.total + " questions." : bandMsg(pct)),
+    h("p", {style:"margin:6px 0 0;color:#ffe0c9"}, "Flashcards: " + knownCount() + "/" + WORDS.length + " ✓")));
+  const tb = h("table", {class:"rt"});
+  EX.forEach((ex, i) => {
+    if (i === 0) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Vocabulary")));
+    if (i === VCOUNT) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Grammar")));
+    const val = ex.type === "write" ? (S.writing.trim() ? "✓" : "—") : (() => { const e = exScore(ex); return e.got + "/" + e.total; })();
+    tb.append(h("tr", null, h("td", null, (i + 1) + ". " + ex.en), h("td", null, val)));
+  });
+  root.append(h("div", {class:"card"}, h("h3", null, "Exercises"), tb));
+  const ml = h("ul", {class:"mlist"});
+  EX.forEach((ex, i) => ex.list.forEach(it => { if (stOf(it.id) !== "bad") return; const r = itemReport(ex, it); ml.append(h("li", null, "[" + (i + 1) + "] " + r.q + " — ", h("s", null, r.your || "—"), " → ", h("b", null, r.right))); }));
+  root.append(h("div", {class:"card"}, h("h3", null, "Mistakes"), ml.children.length ? ml : h("p", null, "No mistakes yet! 🎉")));
+  if (S.writing.trim()) root.append(h("div", {class:"card"}, h("h3", null, "Your writing"), h("p", {style:"white-space:pre-wrap;margin:0"}, S.writing)));
+
+  const full = buildReport();
+  const subj = HW.short + " — " + nm() + " — " + s.got + "/" + s.total;
+  const short = full.length > 1500 ? full.slice(0, 1500) + "\n…\n[The full report is under “Copy text”" : full;
+  const enc = encodeURIComponent;
+  const send = h("div", {class:"send"});
+  if (navigator.share) send.append(h("button", {class:"s-share", type:"button", onclick:()=>{ try{ navigator.share({title:subj, text:subj + "\n\n" + full}).catch(()=>{}); }catch(e){} }}, "📤 Share"));
+  send.append(
+    h("a", {class:"s-gm", target:"_blank", rel:"noopener", href:"https://mail.google.com/mail/?view=cm&fs=1&to=" + enc(TEACHER) + "&su=" + enc(subj) + "&body=" + enc(short)}, "Gmail"),
+    h("a", {class:"s-tg", target:"_blank", rel:"noopener", href:"https://t.me/share/url?url=" + enc(subj) + "&text=" + enc(short)}, "Telegram"),
+    h("a", {class:"s-wa", target:"_blank", rel:"noopener", href:"https://wa.me/?text=" + enc(subj + "\n\n" + short)}, "WhatsApp"),
+    h("a", {class:"s-ml", href:"mailto:" + TEACHER + "?subject=" + enc(subj) + "&body=" + enc(short)}, "✉️ Email app"),
+    h("button", {class:"s-cp", type:"button", onclick:()=>copyText(full)}, "📋 Copy text"));
+  const pre = h("textarea", {readonly:true, "aria-label":"Report text", style:"min-height:160px;margin-top:12px;font-size:13px"}); pre.value = full;
+  root.append(h("div", {class:"card"},
+    h("h3", null, "Send to your teacher"),
+    h("p", {style:"margin:0"}, "Finish all exercises first, then choose one way to send."),
+    h("p", {style:"margin:6px 0 0"}, "Teacher’s email: ", h("span", {class:"mail"}, TEACHER)),
+    send, pre));
+  const zone = h("div");
+  root.append(h("div", {class:"card"}, h("button", {class:"btn ghost", type:"button", onclick:()=>{
+    zone.innerHTML = "";
+    zone.append(h("div", {class:"confirm"}, h("b", null, "Delete all answers?"),
+      h("button", {class:"btn", type:"button", style:"background:var(--bad)", onclick:()=>{ wipe(); S = DEF(); deck = []; ci = 0; $("#nameIn").value = S.name; renderWords(); renderGrammar(); show(); window.scrollTo(0, 0); toast("Everything is cleared"); }}, "Yes"),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>{ zone.innerHTML = ""; }}, "No")));
+  }}, "↺ Start again"), zone));
+}
+
+/* =================== INIT =================== */
+(function init(){
+  const ni = $("#nameIn"); ni.value = S.name;
+  let t; ni.addEventListener("input", () => { S.name = ni.value; clearTimeout(t); t = setTimeout(() => { save(); if (S.tab === "results") renderResults(); }, 400); });
+  if (S.ex >= EX.length) S.ex = 0;
+  if (!TABS.some(([id]) => id === S.tab)) S.tab = "words";
+  renderWords(); renderGrammar(); makeDeck(false); show();
+})();
+</script>
+</body>
+</html>
