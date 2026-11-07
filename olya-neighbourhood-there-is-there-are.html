@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In my neighbourhood — Olga · There is / there are</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --coral:#ef6a5b; --coral2:#d9503f; --navy:#1e2a4a; --street:#c9dcf2; --street2:#b3cbe8; --park:#7cb87a; --sun:#f6d36b;
+  --is:#0f8a7e; --isbg:#dff4f1;   /* there is = teal */
+  --are:#7b4fd6; --arebg:#efe8ff; /* there are = violet */
+  --bg:#f5f8fc; --paper:#ffffff; --ink:#1e2a4a; --soft:#68708a; --ru:#8a5a70;
+  --ok:#1f9d6b; --okbg:#e3f7ee; --bad:#d24a5c; --badbg:#fde8ec; --try:#fff4dc; --line:#dfe6f0; --r:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Onest,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);font-size:17px;line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:Comfortaa,Onest,sans-serif;font-weight:700;line-height:1.2;margin:0 0 .35em}
+h2{font-size:21px} h3{font-size:18px}
+.ru{color:var(--ru);font-weight:500}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.ps,.tis{color:var(--is);font-weight:700} .pc,.tare{color:var(--are);font-weight:700}
+
+/* hero */
+.hero{position:relative;color:var(--navy);padding:22px 0 24px;overflow:hidden;
+  background-color:var(--street);
+  background-image:linear-gradient(90deg,rgba(255,255,255,.75) 6px,transparent 6px),linear-gradient(rgba(255,255,255,.75) 6px,transparent 6px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px}
+.hero .wrap{position:relative}
+.hero .panel{background:rgba(255,255,255,.92);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(30,42,74,.12)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.badges span{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#fff;border:1px solid var(--line)}
+.hero h1{font-size:clamp(28px,8vw,44px);color:var(--coral)}
+.hero .sub{font-size:17px;font-weight:600;margin:0 0 12px}
+.for{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-weight:700}
+.for input{font:inherit;font-weight:700;font-size:17px;min-height:44px;width:11em;max-width:100%;padding:6px 12px;border-radius:12px;border:2px solid var(--line);background:#fff;color:var(--ink)}
+.how{margin:0;font-size:15px}
+
+nav.top{position:sticky;top:0;z-index:30;background:rgba(245,248,252,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px 0 6px}
+.tab{min-height:52px;border:0;border-radius:12px;background:#fff;box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;padding:4px 1px;line-height:1.15;min-width:0}
+.tab .tr{font-size:10.5px;color:var(--ru);font-weight:600}
+.tab .tb{font-size:10.5px;background:var(--sun);color:var(--ink);border-radius:99px;padding:0 5px;margin-top:2px}
+.tab.on{background:var(--coral);color:#fff}
+.tab.on .tr{color:#ffe6e2}
+.prog{display:flex;align-items:center;gap:10px;padding:0 0 8px;font-size:13px;font-weight:700}
+.bar{flex:1;height:8px;background:#e1e8f2;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--is),var(--are),var(--coral));transition:width .4s}
+
+section{display:none;padding-bottom:40px}
+section.on{display:block}
+.card{background:var(--paper);border-radius:var(--r);padding:18px;box-shadow:0 2px 0 var(--line),0 8px 24px rgba(30,42,74,.06);margin:16px 0}
+.card.pin{border-left:6px solid var(--coral)}
+.lead{margin:.2em 0 0}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+
+/* map */
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px;border-radius:16px;background-color:var(--street);
+  background-image:linear-gradient(90deg,rgba(255,255,255,.6) 2px,transparent 2px),linear-gradient(rgba(255,255,255,.6) 2px,transparent 2px);background-size:25% 25%;max-width:520px;margin:12px auto 0}
+.tile{min-height:78px;border-radius:12px;border:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px;font-size:11.5px;font-weight:700;line-height:1.1;text-align:center;cursor:default;box-shadow:0 2px 0 var(--street2)}
+.tile .te{font-size:26px;line-height:1}
+.tile.park{background:#e3f3e1}
+.tile.house{background:#fff6e6}
+button.tile{cursor:pointer}
+button.tile.on{outline:3px solid var(--coral);outline-offset:1px}
+.map-cap{text-align:center;font-size:13px;color:var(--soft);margin-top:6px}
+.missing{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.say-box{margin-top:12px;border-radius:14px;border:2px solid var(--line);background:#fff;padding:12px;min-height:64px;font-size:18px;font-weight:600;text-align:center}
+
+/* words */
+.wl{display:grid;gap:8px;margin-top:10px}
+@media(min-width:620px){.wl{grid-template-columns:1fr 1fr}}
+.w{display:grid;grid-template-columns:44px 1fr 44px;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.w .pic{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.w .en{font-weight:700;font-size:18px}
+.w .ipa{font-size:13px;color:var(--soft);margin-left:4px}
+.w .tr{color:var(--ru);font-weight:500;font-size:15.5px}
+.spk{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff4f2;font-size:17px;cursor:pointer;padding:0 8px;font-weight:600}
+.spk.wide{padding:0 14px;font-size:15px}
+.story{font-size:18px;line-height:2}
+.story p{margin:0 0 .8em}
+.gl{border:0;background:linear-gradient(transparent 58%,#fde3a1 58%);padding:0 1px;cursor:pointer;font-weight:700;line-height:1.4}
+.gloss{display:inline-block;font-size:13px;line-height:1.4;background:#fdeceb;color:var(--ru);border-radius:8px;padding:1px 7px;margin:0 3px;font-weight:600}
+.careful{border:2px dashed var(--coral);background:#fffaf9}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:0 0 10px}
+.x{color:var(--bad);font-weight:700} .v{color:var(--ok);font-weight:700}
+.big{font-size:40px;line-height:1.1}
+
+.btn{min-height:48px;padding:8px 18px;border-radius:12px;border:0;background:var(--navy);color:#fff;font-weight:600;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--sun);color:var(--ink)}
+.btn.coral{background:var(--coral)}
+.btn.small{padding:6px 14px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:12px 0 0;font-weight:600}
+.fc-scene{perspective:1200px;max-width:520px;margin:14px auto 0}
+.fc{position:relative;height:300px;transform-style:preserve-3d;transition:transform .55s;cursor:pointer;border-radius:20px}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center;overflow:hidden}
+.front{background-color:var(--street);background-image:linear-gradient(90deg,rgba(255,255,255,.55) 3px,transparent 3px),linear-gradient(rgba(255,255,255,.55) 3px,transparent 3px);background-size:60px 60px}
+.back{background:#fff;border:2px solid var(--line);transform:rotateY(180deg)}
+.face .fe{font-size:64px;line-height:1;height:80px;display:flex;align-items:center}
+.face .fw{font-family:Comfortaa,sans-serif;font-weight:700;font-size:clamp(24px,7vw,32px);line-height:1.2;background:rgba(255,255,255,.85);padding:2px 12px;border-radius:12px}
+.back .fw{background:none}
+.face .fp{font-size:14px;color:var(--soft)}
+.face .fx{font-size:16px}
+.face .fxr{font-size:14.5px;color:var(--ru)}
+.face .tap{font-size:12px;color:var(--soft);margin-top:4px}
+.fc-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:520px;margin:12px auto 0}
+.fc-nav .btn{line-height:1.2}
+.fc-nav small{font-size:11px;font-weight:500}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:520px;margin:8px auto 0}
+.btn.know{background:var(--ok)} .btn.learn{background:#fff;color:var(--bad);border:2px solid var(--bad)}
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px;margin:12px auto 0}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:500;cursor:pointer}
+.chk input{width:22px;height:22px}
+.kbar{height:10px;background:#e1e8f2;border-radius:99px;overflow:hidden;max-width:520px;margin:6px auto 0}
+.kbar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+/* grammar */
+.step-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--coral);color:#fff;font-family:Onest,sans-serif;font-weight:700;margin-right:8px;font-size:15px;vertical-align:middle}
+.two{display:grid;gap:10px;margin-top:10px}
+@media(min-width:680px){.two{grid-template-columns:1fr 1fr}}
+.two > div{border-radius:14px;padding:14px}
+.two .s{background:var(--isbg)} .two .c{background:var(--arebg)}
+.two .bigx{font-size:28px}
+.tbl{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+.tbl td{padding:7px 4px;border-bottom:1px solid rgba(0,0,0,.08);vertical-align:top}
+.tbl td:first-child{font-weight:700;width:34px}
+.exl{list-style:none;padding:0;margin:8px 0 0}
+.exl li{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.12)}
+.rule{border-radius:12px;background:#eef3fa;padding:10px 12px;margin-top:10px;font-size:15.5px}
+.mist{list-style:none;padding:0;margin:8px 0 0}
+.mist li{padding:8px 0;border-bottom:1px dashed var(--line)}
+.order{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-weight:700}
+.order span{padding:6px 10px;border-radius:10px;background:#fff;border:2px solid var(--line)}
+.order .o1{border-color:var(--coral);color:var(--coral)} .order .o2{border-color:var(--is);color:var(--is)} .order .o3{border-color:var(--are);color:var(--are)}
+
+/* exercises */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.chip{flex:none;min-height:46px;min-width:48px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer;padding:3px 8px;font-size:15px;line-height:1.1}
+.chip.g{border-color:#d7c9f5}
+.chip.on{border-color:var(--navy);background:var(--navy);color:#fff}
+.chip.done{border-color:var(--ok)}
+.chip.done:not(.on){background:var(--okbg)}
+.chip small{display:block;font-size:10px;font-weight:500}
+.exhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exscore{flex:none;font-weight:700;background:#fff4f2;color:var(--coral2);border-radius:99px;padding:3px 10px;font-size:14px}
+.ins{margin:.4em 0 0}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fff}
+.item.is-ok{border-color:#9fdcc2}
+.item.is-bad{border-color:#f1aab8}
+.q{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:18px}
+.q > span:last-child{min-width:0}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:#fff1ef;color:var(--coral2);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.ruq{font-weight:600;color:var(--ru);font-size:18px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:50px;padding:8px 16px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left;font-size:17px}
+.opt:hover:not(:disabled){border-color:var(--navy)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.inp{flex:1 1 200px;min-width:0;min-height:48px;font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.inp:disabled{background:#f7f9fc}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:15.5px}
+.fb.ok{background:var(--okbg)} .fb.bad{background:var(--badbg)} .fb.try{background:var(--try)}
+.fb .why{margin-top:4px}
+.fb .spk{margin-top:8px;min-height:40px}
+.note{margin-top:4px;font-size:14px;color:#8a5b00;font-weight:600}
+.self{margin-top:8px;min-height:44px;border-radius:12px;border:2px solid var(--ok);background:#fff;color:var(--ok);font-weight:600;padding:6px 12px;cursor:pointer}
+.listen{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.listen .spk{font-size:22px;min-width:70px;min-height:54px}
+.round-t{font-weight:700;margin:14px 0 8px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mb{min-height:52px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left;font-size:16px;line-height:1.25}
+.mb.en{font-weight:700}
+.mb.sel{border-color:var(--navy);background:#eef3fa;box-shadow:0 0 0 3px rgba(30,42,74,.15)}
+.mb.done{background:var(--okbg);border-color:var(--ok);opacity:.75;cursor:default}
+.mb.late{background:#fff3e0;border-color:#e5a54a}
+.mb.shake{animation:shake .35s;border-color:var(--bad);background:var(--badbg)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.msg{min-height:24px;font-weight:600;color:var(--bad);margin-top:8px;font-size:14px}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:62px;padding:8px;border:2px dashed var(--line);border-radius:12px;align-items:center}
+.tiles.ans{background:#fffaf5;margin-bottom:8px}
+.tile2{min-height:46px;padding:6px 14px;border-radius:10px;background:#eef3fa;border:1px solid #c9d6ea;font-weight:600;cursor:pointer;font-size:17px}
+.tile2:disabled{cursor:default}
+.endp{font-weight:700;font-size:20px}
+textarea{width:100%;min-height:200px;font:inherit;font-size:17px;padding:12px;border:2px solid var(--line);border-radius:12px;resize:vertical;color:var(--ink)}
+.found{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.found span{font-size:13px;font-weight:600;padding:3px 9px;border-radius:99px;background:#eef1f6;color:#9aa2b5}
+.found span.on{background:var(--okbg);color:var(--ok)}
+
+.card.dark{background:var(--navy);color:#fff}
+.score-big{font-family:Comfortaa,sans-serif;font-weight:700;font-size:42px;color:var(--sun)}
+.rt{width:100%;border-collapse:collapse;font-size:15.5px}
+.rt td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.rt td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.rt tr.grp td{font-weight:700;color:var(--soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:14px}
+.mlist{margin:0;padding-left:18px}
+.mlist li{margin-bottom:8px}
+.mlist s{color:var(--bad)} .mlist b{color:var(--ok)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:12px;font-weight:600;text-decoration:none;border:0;cursor:pointer;padding:6px 10px;text-align:center}
+.s-share{background:var(--coral);color:#fff;grid-column:1/-1}
+.s-gm{background:#ea4335;color:#fff}.s-tg{background:#229ed9;color:#fff}.s-wa{background:#25d366;color:#0b3d1f}.s-ml{background:#fff;border:2px solid var(--line)!important;color:var(--ink)}.s-cp{background:var(--sun);color:var(--ink)}
+.mail{user-select:all;-webkit-user-select:all;font-weight:700;color:var(--coral2);word-break:break-all}
+.confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:10px;border-radius:12px;background:var(--badbg)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.foot{text-align:center;color:var(--soft);font-size:13px;padding:10px 0 30px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap"><div class="panel">
+    <div class="badges"><span>Beginner</span><span>📍 Neighbourhood</span><span>Vocabulary + Grammar · Слова + грамматика</span></div>
+    <h1>In my neighbourhood</h1>
+    <p class="sub">Places, adjectives &amp; <b>there is / there are</b><br><span class="ru">Места, прилагательные и конструкция there is / there are</span></p>
+    <p class="for"><label for="nameIn">for · для</label> <input id="nameIn" type="text" autocomplete="off" aria-label="Your name · Твоё имя"></p>
+    <p class="how">Work in this order: Words → Cards → Grammar → Practice → Results. Then send your results to your teacher.<br><span class="ru">Порядок: слова → карточки → правила → задания → итоги. Потом отправь результат учителю.</span></p>
+  </div></div>
+</header>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="prog"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreTxt"></span></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="tab-words"></section>
+  <section id="tab-cards"></section>
+  <section id="tab-grammar"></section>
+  <section id="tab-practice"></section>
+  <section id="tab-results"></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="foot">Made for Olga with ♥ · English homework</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   DATA — edit words, the map, items and answers here
+   ===================================================================== */
+const TEACHER = "ulchik2211@gmail.com";
+const HW = { title: "In my neighbourhood — places & there is / there are", short: "In my neighbourhood", level: "Beginner", unit: "neighbourhood" };
+const KEY = "olga-neighbourhood-v1";
+const DEFAULT_NAME = "Olga";
+const PICS = {};
+
+/* g: p = places, a = adjectives for places, f = adjectives for people, x = useful words */
+const WORDS = [
+ {g:"p", en:"hospital", pl:"hospitals", ipa:"/ˈhɒspɪtl/", ru:"больница", em:"🏥", ex:"There's a hospital near the church.", exRu:"Рядом с церковью есть больница."},
+ {g:"p", en:"church", pl:"churches", ipa:"/tʃɜːtʃ/", ru:"церковь", em:"⛪", ex:"There's an old church in my street.", exRu:"На моей улице есть старая церковь."},
+ {g:"p", en:"museum", pl:"museums", ipa:"/mjuˈziːəm/", ru:"музей", em:"🏛️", ex:"There aren't any museums in my town.", exRu:"В моём городе нет музеев."},
+ {g:"p", en:"park", pl:"parks", ipa:"/pɑːk/", ru:"парк", em:"🌳", ex:"There are two parks near my house.", exRu:"Рядом с моим домом два парка."},
+ {g:"p", en:"police station", pl:"police stations", ipa:"/pəˈliːs ˌsteɪʃn/", ru:"полицейский участок", em:"🚓", ex:"Is there a police station near here?", exRu:"Здесь рядом есть полицейский участок?"},
+ {g:"p", en:"supermarket", pl:"supermarkets", ipa:"/ˈsuːpəmɑːkɪt/", ru:"супермаркет", em:"🛒", ex:"I buy food at the supermarket.", exRu:"Я покупаю еду в супермаркете."},
+ {g:"p", en:"gym", pl:"gyms", ipa:"/dʒɪm/", ru:"спортзал", em:"🏋️", ex:"I do sport at the gym.", exRu:"Я занимаюсь спортом в спортзале."},
+ {g:"p", en:"library", pl:"libraries", ipa:"/ˈlaɪbrəri/", ru:"библиотека", em:"📚", ex:"The library is free.", exRu:"Библиотека бесплатная."},
+ {g:"p", en:"school", pl:"schools", ipa:"/skuːl/", ru:"школа", em:"🏫", ex:"There's a school near the library.", exRu:"Рядом с библиотекой есть школа."},
+ {g:"p", en:"hotel", pl:"hotels", ipa:"/həʊˈtel/", ru:"гостиница, отель", em:"🏨", ex:"There's a big hotel near the park.", exRu:"Рядом с парком есть большой отель."},
+ {g:"p", en:"restaurant", pl:"restaurants", ipa:"/ˈrestrɒnt/", ru:"ресторан", em:"🍽️", ex:"We have dinner at a restaurant.", exRu:"Мы ужинаем в ресторане."},
+ {g:"p", en:"shopping centre", pl:"shopping centres", ipa:"/ˈʃɒpɪŋ ˌsentə/", ru:"торговый центр", em:"🛍️", ex:"I buy clothes at the shopping centre.", exRu:"Я покупаю одежду в торговом центре."},
+ {g:"p", en:"café", pl:"cafés", ipa:"/ˈkæfeɪ/", ru:"кафе", em:"☕", ex:"There are two cafés in my street.", exRu:"На моей улице два кафе."},
+ {g:"p", en:"house", pl:"houses", ipa:"/haʊs/", ru:"дом", em:"🏠", ex:"My house is near a park.", exRu:"Мой дом рядом с парком."},
+ {g:"a", en:"dirty", ipa:"/ˈdɜːti/", ru:"грязный", em:"🗑️", ex:"The streets are dirty.", exRu:"Улицы грязные."},
+ {g:"a", en:"clean", ipa:"/kliːn/", ru:"чистый", em:"✨", ex:"The park is clean and nice.", exRu:"Парк чистый и красивый."},
+ {g:"a", en:"new", ipa:"/njuː/", ru:"новый", em:"🆕", ex:"The shopping centre is new.", exRu:"Торговый центр новый."},
+ {g:"a", en:"old", ipa:"/əʊld/", ru:"старый", em:"🏚️", ex:"The other buildings are old.", exRu:"Другие здания старые."},
+ {g:"a", en:"free", ipa:"/friː/", ru:"бесплатный", em:"🆓", ex:"The library is free.", exRu:"Библиотека бесплатная."},
+ {g:"a", en:"safe", ipa:"/seɪf/", ru:"безопасный", em:"🛡️", ex:"My neighbourhood is safe.", exRu:"Мой район безопасный."},
+ {g:"a", en:"historic", ipa:"/hɪˈstɒrɪk/", ru:"исторический", em:"🏰", ex:"Tourists come to see the historic buildings.", exRu:"Туристы приезжают посмотреть на исторические здания."},
+ {g:"f", en:"friendly", ipa:"/ˈfrendli/", ru:"дружелюбный", em:"😊", ex:"My neighbours are very friendly.", exRu:"Мои соседи очень дружелюбные."},
+ {g:"f", en:"active", ipa:"/ˈæktɪv/", ru:"активный", em:"🏃‍♀️", ex:"She's active — she does sport every day.", exRu:"Она активная — занимается спортом каждый день."},
+ {g:"f", en:"beautiful", ipa:"/ˈbjuːtɪfl/", ru:"красивый", em:"🌸", ex:"The park is beautiful in spring.", exRu:"Весной парк красивый."},
+ {g:"f", en:"creative", ipa:"/kriˈeɪtɪv/", ru:"творческий", em:"🎨", ex:"My sister is creative — she paints pictures.", exRu:"Моя сестра творческая — она рисует картины."},
+ {g:"f", en:"clever", ipa:"/ˈklevə/", ru:"умный", em:"🧠", ex:"He's clever — he knows all the answers.", exRu:"Он умный — он знает все ответы."},
+ {g:"x", en:"neighbourhood", ipa:"/ˈneɪbəhʊd/", ru:"район (где ты живёшь)", em:"🏘️", ex:"I love my neighbourhood.", exRu:"Я люблю свой район."},
+ {g:"x", en:"near", ipa:"/nɪə/", ru:"рядом с, около", em:"📍", ex:"There's a café near my house.", exRu:"Рядом с моим домом есть кафе."}
+];
+WORDS.forEach(w => { w.rx = new RegExp("\\b(" + w.en.replace("é","[eé]") + (w.pl ? "|" + w.pl.replace("é","[eé]") : "") + ")\\b", "i"); });
+const W = en => WORDS.find(w => w.en === en);
+
+/* Our neighbourhood map (4 × 4). Places that are next to each other (left/right/up/down) are "near". */
+const MAP = [
+ ["hospital","church","park","house"],
+ ["school","library","café","café"],
+ ["supermarket","gym","police station","hotel"],
+ ["house","restaurant","restaurant","park"]
+];
+const NOT_ON_MAP = ["museum","shopping centre"];
+const NUM = ["no","one","two","three","four"];
+
+const STORY = [
+ "Hi! I'm Kate. I live in a nice [[neighbourhood|район]]. [[There is|есть]] a big [[park|парк]] [[near|рядом с]] my house, and [[there are|есть (много)]] two [[cafés|кафе]] in my street.",
+ "There's a [[library|библиотека]] near the [[school|школа]]. The library is [[free|бесплатная]], so I go there every week. There's also a [[gym|спортзал]] — my brother is very [[active|активный]] and he goes there every day.",
+ "My neighbourhood is [[safe|безопасный]] because there's a [[police station|полицейский участок]]. The streets are [[clean|чистые]] and the people are [[friendly|дружелюбные]].",
+ "But [[there isn't|нет]] a [[museum|музей]], and [[there aren't any|нет никаких]] [[shopping centres|торговые центры]]. I buy clothes in the city centre."
+];
+
+const CAREFUL = [
+ "<b>There is</b> + one thing · <b>There are</b> + many things. <i>There's a park. There are two parks.</i> <span class='ru'>Одна вещь — is, много — are.</span>",
+ "Start with <b>There</b>! <span class='ru'>«В моём районе есть парк» →</span> <i>There is a park in my neighbourhood.</i> <span class='x'>✗ In my neighbourhood is a park.</span>",
+ "<b>some</b> (+) · <b>any</b> (− and ?): <i>There are some cafés. There aren't any museums. Are there any parks?</i>",
+ "<b>near my house</b> — <span class='ru'>без предлога: <span class='x'>✗ near of my house</span> <span class='v'>✓ near my house</span></span>",
+ "Plurals · Множественное число: café → caf<b>és</b>, church → church<b>es</b>, library → librar<b>ies</b>, house → hous<b>es</b>.",
+ "<b>free</b> = <span class='ru'>бесплатный</span> (and also <span class='ru'>свободный</span>). <b>shopping centre</b> (British) = <b>shopping mall</b> (American).",
+ "<b>neighbourhood</b> — British spelling with <b>-our-</b>; say /ˈneɪbəhʊd/ (gh is silent)."
+];
+
+const EX = [
+ /* ===== VOCABULARY ===== */
+ {id:"v1", kind:"v", type:"choice", en:"Picture → place", ru:"Картинка → место",
+  ins:"Look at the picture and choose the place.", insRu:"Посмотри на картинку и выбери место.",
+  items:[
+   {q:"<span class='big'>🏥</span>", o:["hospital","hotel","school"], a:0, say:"hospital", why:"🏥 <b>hospital</b> — больница"},
+   {q:"<span class='big'>📚</span>", o:["museum","library","church"], a:1, say:"library", why:"📚 <b>library</b> — библиотека"},
+   {q:"<span class='big'>🏋️</span>", o:["park","supermarket","gym"], a:2, say:"gym", why:"🏋️ <b>gym</b> — спортзал"},
+   {q:"<span class='big'>🚓</span>", o:["police station","hospital","café"], a:0, say:"police station", why:"🚓 <b>police station</b> — полицейский участок"},
+   {q:"<span class='big'>🛒</span>", o:["shopping centre","supermarket","restaurant"], a:1, say:"supermarket", why:"🛒 <b>supermarket</b> — супермаркет (food · еда)"},
+   {q:"<span class='big'>⛪</span>", o:["school","hotel","church"], a:2, say:"church", why:"⛪ <b>church</b> — церковь"},
+   {q:"<span class='big'>🏛️</span>", o:["museum","gym","house"], a:0, say:"museum", why:"🏛️ <b>museum</b> — музей"}
+  ]},
+ {id:"v2", kind:"v", type:"choice", en:"Where can you…?", ru:"Где можно…?",
+  ins:"Where can you do it? Choose the place.", insRu:"Где это можно сделать? Выбери место.",
+  items:[
+   {q:"do sport <span class='ru'>· заниматься спортом</span>", o:["a gym","a hospital","a library"], a:0, say:"You can do sport at a gym.", why:"You can do sport at a <b>gym</b>."},
+   {q:"talk to a doctor <span class='ru'>· поговорить с врачом</span>", o:["a hotel","a hospital","a café"], a:1, say:"You can talk to a doctor at a hospital.", why:"You can talk to a doctor at a <b>hospital</b>."},
+   {q:"buy clothes <span class='ru'>· купить одежду</span>", o:["a police station","a church","a shopping centre"], a:2, say:"You can buy clothes at a shopping centre.", why:"You can buy clothes at a <b>shopping centre</b>."},
+   {q:"read a book <span class='ru'>· почитать книгу</span>", o:["a library","a gym","a police station"], a:0, say:"You can read a book at a library.", why:"You can read a book at a <b>library</b>."},
+   {q:"learn history <span class='ru'>· узнать историю</span>", o:["a supermarket","a museum","a hotel"], a:1, say:"You can learn history at a museum.", why:"You can learn history at a <b>museum</b>."},
+   {q:"have dinner <span class='ru'>· поужинать</span>", o:["a gym","a church","a restaurant"], a:2, say:"You can have dinner at a restaurant.", why:"You can have dinner at a <b>restaurant</b>."}
+  ]},
+ {id:"v3", kind:"v", type:"match", en:"Adjectives for places", ru:"Прилагательные о местах",
+  ins:"Tap an English word, then its translation.", insRu:"Нажми на английское слово, а потом на перевод.",
+  rounds:[
+   [{en:"dirty",ru:"грязный"},{en:"clean",ru:"чистый"},{en:"new",ru:"новый"},{en:"old",ru:"старый"}],
+   [{en:"safe",ru:"безопасный"},{en:"free",ru:"бесплатный"},{en:"historic",ru:"исторический"},{en:"beautiful",ru:"красивый"}]
+  ]},
+ {id:"v4", kind:"v", type:"choice", en:"What are they like?", ru:"Какие они?",
+  ins:"Read about the people and choose the adjective.", insRu:"Прочитай о людях и выбери прилагательное.",
+  items:[
+   {q:"My neighbours always smile and say “Hello!”. They're ___.", o:["friendly","dirty","free"], a:0, why:"<b>friendly</b> — дружелюбные 😊"},
+   {q:"Tom runs every morning and swims at the weekend. He's ___.", o:["historic","active","old"], a:1, why:"<b>active</b> — активный 🏃"},
+   {q:"Anna paints pictures and makes beautiful things. She's ___.", o:["safe","clean","creative"], a:2, why:"<b>creative</b> — творческая 🎨"},
+   {q:"Max reads a lot and knows all the answers. He's ___.", o:["clever","free","new"], a:0, why:"<b>clever</b> — умный 🧠"},
+   {q:"Look at the park! There are lots of flowers. It's ___.", o:["dirty","beautiful","clever"], a:1, why:"<b>beautiful</b> — красивый 🌸"}
+  ]},
+ {id:"v5", kind:"v", type:"choice", en:"My town", ru:"Мой город",
+  ins:"Choose the best word.", insRu:"Выбери подходящее слово.",
+  items:[
+   {q:"The streets are dirty, but the park is ___ and nice.", o:["clean","old","active"], a:0, why:"dirty ↔ <b>clean</b> — грязный ↔ чистый"},
+   {q:"The shopping centre is new, but the other buildings are ___.", o:["free","old","friendly"], a:1, why:"new ↔ <b>old</b> — новый ↔ старый"},
+   {q:"You don't pay to read books in the library. It's ___.", o:["dirty","safe","free"], a:2, why:"<b>free</b> — бесплатный: you don't pay"},
+   {q:"There's a police station near my house, so my neighbourhood is ___.", o:["safe","creative","dirty"], a:0, why:"<b>safe</b> — безопасный 🛡️"},
+   {q:"Many tourists come to see the ___ buildings and museums.", o:["clever","historic","active"], a:1, why:"<b>historic</b> — исторические 🏰"}
+  ]},
+ {id:"v6", kind:"v", type:"choice", listen:true, en:"Listen and choose", ru:"Послушай и выбери",
+  ins:"Press 🔊, listen and choose the word.", insRu:"Нажми 🔊, послушай и выбери слово.",
+  items:[
+   {say:"library", o:["library","museum","hospital"], a:0, why:"<b>library</b> /ˈlaɪbrəri/ — библиотека"},
+   {say:"neighbourhood", o:["near","neighbourhood","house"], a:1, why:"<b>neighbourhood</b> /ˈneɪbəhʊd/ — район"},
+   {say:"restaurant", o:["supermarket","hotel","restaurant"], a:2, why:"<b>restaurant</b> /ˈrestrɒnt/ — ресторан"},
+   {say:"police station", o:["police station","shopping centre","school"], a:0, why:"<b>police station</b> — полицейский участок"},
+   {say:"church", o:["café","church","gym"], a:1, why:"<b>church</b> /tʃɜːtʃ/ — церковь"}
+  ]},
+
+ /* ===== GRAMMAR ===== */
+ {id:"g1", kind:"g", type:"choice", en:"is or are?", ru:"is или are?",
+  ins:"Choose <b>is</b> or <b>are</b>.", insRu:"Выбери is или are.",
+  rule:"<span class='tis'>There is</span> + one thing (a / an) · <span class='tare'>There are</span> + many things (two, some, many)",
+  items:[
+   {q:"There ___ a hospital near the church.", o:["is","are"], a:0, why:"<b>a</b> hospital = one → <span class='tis'>There is</span>"},
+   {q:"There ___ two cafés in my street.", o:["is","are"], a:1, why:"<b>two</b> cafés = many → <span class='tare'>There are</span>"},
+   {q:"There ___ some restaurants near the park.", o:["is","are"], a:1, why:"<b>some</b> restaurant<b>s</b> → <span class='tare'>There are</span>"},
+   {q:"There ___ a police station in my neighbourhood.", o:["is","are"], a:0, why:"<b>a</b> police station = one → <span class='tis'>There is</span>"},
+   {q:"There ___ three parks in my town.", o:["is","are"], a:1, why:"<b>three</b> parks → <span class='tare'>There are</span>"},
+   {q:"There ___ an old library.", o:["is","are"], a:0, why:"<b>an</b> old library = one → <span class='tis'>There is</span>"}
+  ]},
+ {id:"g2", kind:"g", type:"choice", map:true, en:"Look at the map: true or false?", ru:"Посмотри на карту: правда или нет?",
+  ins:"Look at the map. Is the sentence true or false?", insRu:"Посмотри на карту. Это правда или нет?",
+  rule:"<b>near</b> = next to it on the map (left, right, up or down) · рядом — соседний квадрат",
+  items:[
+   {q:"There's a hospital near a church.", o:["True · Правда","False · Неправда"], a:0, say:"There's a hospital near a church.", why:"True! 🏥 is next to ⛪."},
+   {q:"There's a museum.", o:["True · Правда","False · Неправда"], a:1, say:"There isn't a museum.", why:"False: <b>There isn't a museum.</b> · Музея нет."},
+   {q:"There are two cafés.", o:["True · Правда","False · Неправда"], a:0, say:"There are two cafés.", why:"True! ☕☕"},
+   {q:"There's a gym near a library.", o:["True · Правда","False · Неправда"], a:0, say:"There's a gym near a library.", why:"True! 🏋️ is under 📚."},
+   {q:"There's a hotel near a school.", o:["True · Правда","False · Неправда"], a:1, say:"There's a hotel near a police station.", why:"False: the hotel is near the police station. · Отель рядом с полицейским участком."},
+   {q:"There are three restaurants.", o:["True · Правда","False · Неправда"], a:1, say:"There are two restaurants.", why:"False: <b>There are two restaurants.</b>"}
+  ]},
+ {id:"g3", kind:"g", type:"choice", en:"Negatives: isn't / aren't", ru:"Отрицание: isn't / aren't",
+  ins:"Choose the correct word.", insRu:"Выбери правильное слово.",
+  rule:"<span class='tis'>There isn't a</span> museum · <span class='tare'>There aren't any</span> museums · (+) some · (−) any",
+  items:[
+   {q:"There ___ a museum in my neighbourhood.", o:["isn't","aren't"], a:0, why:"<b>a</b> museum = one → <span class='tis'>isn't</span>"},
+   {q:"There ___ any shopping centres.", o:["isn't","aren't"], a:1, why:"<b>any</b> shopping centre<b>s</b> = many → <span class='tare'>aren't</span>"},
+   {q:"There aren't ___ hotels near my house.", o:["a","any"], a:1, why:"aren't + <b>any</b> + plural · отрицание с множественным числом → any"},
+   {q:"There isn't ___ gym in my street.", o:["a","any"], a:0, why:"isn't + <b>a</b> + one thing"},
+   {q:"There are ___ nice cafés near here.", o:["some","any"], a:0, why:"(+) <b>some</b> · (−?) any"}
+  ]},
+ {id:"g4", kind:"g", type:"choice", map:true, en:"Questions and short answers", ru:"Вопросы и краткие ответы",
+  ins:"Look at the map. Choose the right word.", insRu:"Посмотри на карту. Выбери правильное слово.",
+  rule:"<span class='tis'>Is there a…?</span> — Yes, there is. / No, there isn't. · <span class='tare'>Are there any…?</span> — Yes, there are. / No, there aren't.",
+  items:[
+   {q:"___ there a supermarket? — Yes, there is.", o:["Is","Are"], a:0, why:"<b>a</b> supermarket → <span class='tis'>Is there</span>…?"},
+   {q:"___ there any restaurants? — Yes, there are.", o:["Is","Are"], a:1, why:"<b>any</b> restaurant<b>s</b> → <span class='tare'>Are there</span>…?"},
+   {q:"Is there a museum? — No, there ___.", o:["isn't","aren't"], a:0, why:"Is there…? → No, there <b>isn't</b>."},
+   {q:"Are there any parks? — Yes, there ___.", o:["is","are"], a:1, why:"Are there…? → Yes, there <b>are</b>. (two parks 🌳🌳)"},
+   {q:"How many cafés ___ there? — There are two.", o:["is","are"], a:1, why:"How many + plural → <b>are</b> there?"}
+  ]},
+ {id:"g5", kind:"g", type:"type", map:true, en:"Write: is / are / isn't / aren't", ru:"Напиши: is / are / isn't / aren't",
+  ins:"Look at the map and write one word: <b>is</b>, <b>are</b>, <b>isn't</b> or <b>aren't</b>.", insRu:"Посмотри на карту и напиши одно слово: is, are, isn't или aren't.",
+  items:[
+   {q:"There ______ a school near the library.", acc:["is"], hint:"🏫 is next to 📚 → yes, one school", say:"There is a school near the library."},
+   {q:"There ______ any museums.", acc:["aren't","are not"], hint:"no museums 🙅 + any + plural", say:"There aren't any museums."},
+   {q:"There ______ two houses.", acc:["are"], hint:"🏠🏠 two → plural", say:"There are two houses."},
+   {q:"There ______ a shopping centre.", acc:["isn't","is not"], hint:"no shopping centre 🙅 + a + one", say:"There isn't a shopping centre."},
+   {q:"______ there a hotel? — Yes, there is.", acc:["Is"], hint:"question: <b>Is</b> there a…?", say:"Is there a hotel? Yes, there is."}
+  ]},
+ {id:"g6", kind:"g", type:"build", en:"Build the sentence", ru:"Собери предложение",
+  ins:"Tap the words in the right order. Tap a word in your answer to take it back.", insRu:"Нажимай на слова в правильном порядке. Чтобы убрать слово, нажми на него в ответе.",
+  items:[
+   {ru:"Рядом с моим домом есть парк.", t:["near","a","There","house","park","is","my"], end:".", acc:["There is a park near my house"], hint:"Start with <b>There is</b> …"},
+   {ru:"В моём городе нет музеев.", t:["museums","There","in","aren't","town","any","my"], end:".", acc:["There aren't any museums in my town"], hint:"Start with <b>There aren't any</b> …"},
+   {ru:"Здесь рядом есть кафе? (несколько)", t:["any","near","Are","cafés","there","here"], end:"?", acc:["Are there any cafés near here"], hint:"Start with <b>Are there any</b> …"},
+   {ru:"Сколько здесь ресторанов?", t:["are","restaurants","many","How","there"], end:"?", acc:["How many restaurants are there"], hint:"Start with <b>How many</b> …"}
+  ]},
+ {id:"g7", kind:"g", type:"type", en:"Translate", ru:"Переведи",
+  ins:"Translate into English. If your answer is different but also correct, press “My answer is also correct”.", insRu:"Переведи на английский. Если ответ отличается от образца, но тоже верный, нажми «Мой ответ тоже верный».",
+  rule:"<span class='ru'>Русский порядок: «В районе есть парк». Английский: <b>There is</b> a park <b>in my neighbourhood</b> — сначала There is/are!</span>",
+  items:[
+   {q:"<span class='ruq'>В моём районе есть спортзал.</span>", acc:["There is a gym in my neighbourhood","In my neighbourhood there is a gym","There is a gym in my area"], model:"There's a gym in my neighbourhood.", self:true, hint:"<b>There is</b> a gym in my …", say:"There's a gym in my neighbourhood."},
+   {q:"<span class='ruq'>Рядом с моим домом нет больницы.</span>", acc:["There is not a hospital near my house","There is no hospital near my house","Near my house there is not a hospital","Near my house there is no hospital","There is not a hospital near my home","There is no hospital near my home"], model:"There isn't a hospital near my house.", self:true, hint:"<b>There isn't a</b> hospital near …", say:"There isn't a hospital near my house."},
+   {q:"<span class='ruq'>В твоём районе есть парки?</span>", acc:["Are there any parks in your neighbourhood","Are there parks in your neighbourhood","Are there any parks in your area"], model:"Are there any parks in your neighbourhood?", self:true, question:true, hint:"<b>Are there any</b> parks …?", say:"Are there any parks in your neighbourhood?"}
+  ]},
+ {id:"w", kind:"g", type:"write", en:"My neighbourhood", ru:"Мой район",
+  ins:"Write 5–8 sentences about your neighbourhood. What is there near your house? What isn't there? Use <b>there is / there are / there isn't / there aren't</b> and adjectives (old, new, clean, safe…).",
+  insRu:"Напиши 5–8 предложений о своём районе. Что есть рядом с твоим домом? Чего нет? Используй there is / there are / there isn't / there aren't и прилагательные (old, new, clean, safe…).",
+  items:[]}
+];
+
+const PRAISE = ["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Yes! · Да!","Super! · Супер!"];
+const OOPS = ["Not quite · Не совсем","Oops! · Ой!","Not this one · Не то","Almost · Почти"];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){
+    const v = attrs[k];
+    if (v === false || v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k.slice(0,2) === "on") e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()){ if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function strip(html){ const d = document.createElement("div"); d.innerHTML = html; return d.textContent.replace(/\s+/g," ").trim(); }
+function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(()=>el.classList.remove("on"), 2300); }
+
+let MEM = null;
+function load(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }catch(e){ return MEM; } }
+function save(){ const j = JSON.stringify(S); try{ localStorage.setItem(KEY, j); }catch(e){ MEM = JSON.parse(j); } }
+function wipe(){ try{ localStorage.removeItem(KEY); }catch(e){} MEM = null; }
+const DEF = () => ({name:DEFAULT_NAME, ans:{}, mw:{}, known:{}, writing:"", tab:"words", ex:0, dir:"en", onlyL:false});
+let S = Object.assign(DEF(), load() || {});
+
+let VOICE = null;
+const HAS_TTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if (HAS_TTS){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function say(t){ if (!HAS_TTS || !t) return; try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-GB"; if (VOICE) u.voice = VOICE; u.rate = 0.85; speechSynthesis.speak(u); }catch(e){} }
+function spk(t, label, cls){ return h("button", {class:"spk"+(cls?" "+cls:""), type:"button", "aria-label":"Listen: "+t, onclick:e=>{ e.stopPropagation(); say(t); }}, label || "🔊"); }
+
+function norm(s){
+  s = String(s || "").toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”]/g,'"');
+  s = s.replace(/\bcan not\b/g,"cannot").replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\bshan't\b/g,"shall not")
+       .replace(/n't\b/g," not").replace(/\bi'm\b/g,"i am").replace(/'re\b/g," are").replace(/'ve\b/g," have").replace(/'ll\b/g," will")
+       .replace(/\b(it|that|he|she|what|there|who|where|here|this)'s\b/g,"$1 is").replace(/(^|\s)'s\b/g,"$1is");
+  return s.replace(/[.,!?;:"()—–]/g," ").replace(/\s+/g," ").trim();
+}
+function matches(val, it){ const v = norm(val); return it.acc.some(a => norm(a) === v); }
+
+EX.forEach(ex => {
+  const list = ex.type === "match" ? ex.rounds.flat() : (ex.items || []);
+  list.forEach((it, i) => { it.id = ex.id + "-" + i; it.n_ = i + 1; if (it.acc) it.model = it.model || it.acc[0]; });
+  ex.list = list;
+});
+const VCOUNT = EX.filter(e => e.kind === "v").length;
+const LOCKED = ["ok","bad","self"];
+const stOf = id => (S.ans[id] || {}).st;
+const isDone = id => LOCKED.includes(stOf(id));
+const isRight = id => stOf(id) === "ok" || stOf(id) === "self";
+function exScore(ex){ const l = ex.list; return {got:l.filter(i=>isRight(i.id)).length, done:l.filter(i=>isDone(i.id)).length, total:l.length}; }
+function scoreAll(f){ let got=0, done=0, total=0; EX.forEach(ex=>{ if (f && ex.kind !== f) return; const s = exScore(ex); got+=s.got; done+=s.done; total+=s.total; }); return {got, done, total}; }
+const knownCount = () => WORDS.filter(w => S.known[w.en]).length;
+const nm = () => (S.name || "").trim() || DEFAULT_NAME;
+function seeded(arr, seed){ const a = arr.slice(); let s = seed; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280; for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* tabs */
+const TABS = [["words","Words","Слова"],["cards","Cards","Карточки"],["grammar","Grammar","Правила"],["practice","Practice","Задания"],["results","Results","Итоги"]];
+function renderTabs(){
+  const t = $("#tabs"); t.innerHTML = "";
+  const s = scoreAll();
+  TABS.forEach(([id,en,ru]) => {
+    let badge = "";
+    if (id === "cards" && knownCount()) badge = knownCount() + "/" + WORDS.length;
+    if (id === "practice" && s.done) badge = s.got + "/" + s.total;
+    if (id === "results" && s.done === s.total) badge = Math.round(100 * s.got / s.total) + "%";
+    t.append(h("button", {class:"tab"+(S.tab===id?" on":""), type:"button", role:"tab", "aria-selected":S.tab===id?"true":"false", onclick:()=>go(id)},
+      h("span", null, en), h("span", {class:"tr"}, ru), badge ? h("span", {class:"tb"}, badge) : null));
+  });
+  $("#barFill").style.width = (100 * s.done / s.total) + "%";
+  $("#scoreTxt").textContent = "★ " + s.got + " · " + s.done + "/" + s.total;
+}
+function refresh(){ renderTabs(); if (S.tab === "practice") renderChips(); }
+function go(id){ S.tab = id; save(); show(); const hh = $("#hero").offsetHeight; if (window.scrollY > hh) window.scrollTo(0, hh); }
+function goEx(i){ S.ex = i; S.tab = "practice"; save(); show(); window.scrollTo(0, $("#hero").offsetHeight); }
+function show(){
+  TABS.forEach(([id]) => $("#tab-"+id).classList.toggle("on", S.tab === id));
+  if (S.tab === "cards") renderCards();
+  if (S.tab === "practice") renderPractice();
+  if (S.tab === "results") renderResults();
+  renderTabs();
+}
+
+/* =================== WORDS =================== */
+
+function mapEl(interactive, onPick){
+  const m = h("div", {class:"map", role: interactive ? null : "img", "aria-label":"Map of the neighbourhood"});
+  MAP.flat().forEach((pl, i) => {
+    const w = W(pl);
+    const cls = "tile" + (pl === "park" ? " park" : pl === "house" ? " house" : "");
+    const kids = [h("span", {class:"te", "aria-hidden":"true"}, w.em), h("span", null, pl)];
+    if (interactive) m.append(h("button", {class:cls, type:"button", onclick:e => onPick(pl, e.currentTarget)}, kids));
+    else m.append(h("div", {class:cls}, kids));
+  });
+  return m;
+}
+function countOf(pl){ return MAP.flat().filter(x => x === pl).length; }
+function placeSentence(pl){
+  const w = W(pl), n = countOf(pl);
+  if (n === 0) return {html:"<span class='tis'>There isn't a</span> " + pl + ".", say:"There isn't a " + pl + "."};
+  if (n === 1) return {html:"<span class='tis'>There's a</span> " + pl + ".", say:"There's a " + pl + "."};
+  return {html:"<span class='tare'>There are " + NUM[n] + "</span> " + w.pl + ".", say:"There are " + NUM[n] + " " + w.pl + "."};
+}
+function picEl(w){ return h("div", {class:"pic", "aria-hidden":"true"}, w.em || ""); }
+function pic(){ return null; }
+function wordRow(w){
+  return h("div", {class:"w"}, picEl(w),
+    h("div", null, h("span", {class:"en"}, w.en), h("span", {class:"ipa"}, w.ipa), h("div", {class:"tr"}, w.ru)),
+    spk(w.en));
+}
+function renderWords(){
+  const root = $("#tab-words"); root.innerHTML = "";
+  const groups = [["p","Places in town","Места в городе"],["a","Adjectives for places","Прилагательные о местах"],["f","Adjectives for people","Прилагательные о людях"],["x","Useful words","Полезные слова"]];
+  groups.forEach(([g, en, ru], i) => {
+    root.append(h("div", {class:"card" + (i === 0 ? " pin" : "")},
+      h("h2", null, en + " · ", h("span", {class:"ru"}, ru)),
+      i === 0 ? h("p", {class:"lead"}, "Press 🔊 to hear each word.", h("br"), h("span", {class:"ru"}, "Нажми 🔊, чтобы послушать слово.")) : null,
+      h("div", {class:"wl"}, WORDS.filter(w => w.g === g).map(wordRow))));
+  });
+  const story = h("div", {class:"story"});
+  STORY.forEach(par => {
+    const p = h("p");
+    par.split(/(\[\[[^\]]+\]\])/).forEach(part => {
+      const m = part.match(/^\[\[([^|]+)\|([^\]]+)\]\]$/);
+      if (!m){ p.append(part); return; }
+      const gloss = h("span", {class:"gloss", hidden:true}, m[2]);
+      const b = h("button", {class:"gl", type:"button", "aria-expanded":"false", onclick:()=>{ const open = gloss.hidden; gloss.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); if (open) say(m[1]); }}, m[1]);
+      p.append(b, gloss);
+    });
+    story.append(p);
+  });
+  const storyText = STORY.join(" ").replace(/\[\[([^|]+)\|[^\]]+\]\]/g, "$1");
+  root.append(h("div", {class:"card pin"},
+    h("h2", null, "📍 Kate's neighbourhood · ", h("span", {class:"ru"}, "Район Кейт")),
+    h("p", {class:"lead"}, "Read the text. Tap a yellow word to see the translation.", h("br"), h("span", {class:"ru"}, "Прочитай текст. Нажми на жёлтое слово, чтобы увидеть перевод.")),
+    h("div", {class:"btns", style:"margin:8px 0 12px"}, spk(storyText, "🔊 Listen · Послушать", "wide")),
+    story));
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Careful! · ", h("span", {class:"ru"}, "Осторожно!")),
+    h("ul", null, CAREFUL.map(c => h("li", {html:c})))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("cards")}, "Next: flashcards · Дальше: карточки →")));
+}
+
+/* =================== FLASHCARDS =================== */
+let deck = [], ci = 0, flipped = false;
+function makeDeck(shuffle){
+  let idx = WORDS.map((_, i) => i);
+  if (S.onlyL) idx = idx.filter(i => !S.known[WORDS[i].en]);
+  if (shuffle) for (let i = idx.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  deck = idx; if (ci >= deck.length) ci = 0; flipped = false;
+}
+function renderCards(){
+  if (!deck.length && !S.onlyL) makeDeck(false);
+  const root = $("#tab-cards"); root.innerHTML = "";
+  const k = knownCount();
+  const box = h("div", {class:"card"});
+  box.append(h("h2", null, "Flashcards · ", h("span", {class:"ru"}, "Карточки")));
+  box.append(h("p", {class:"lead"}, "Tap the card to turn it over. Then say if you know the word.", h("br"), h("span", {class:"ru"}, "Нажми на карточку, чтобы перевернуть. Потом отметь: знаешь слово или ещё учишь.")));
+  box.append(h("div", {class:"fc-top"}, h("span", null, "I know · Знаю: " + k + "/" + WORDS.length), h("span", null, deck.length ? (ci + 1) + " / " + deck.length : "")));
+  box.append(h("div", {class:"kbar"}, h("i", {style:"width:" + (100 * k / WORDS.length) + "%"})));
+  if (!deck.length){
+    box.append(h("div", {class:"fb ok", style:"text-align:center;margin-top:16px;font-size:17px"}, h("b", null, "🎉 You know all the words! · Ты знаешь все слова!"), h("br"), "Turn off the filter to see all cards. · Выключи фильтр, чтобы увидеть все карточки."));
+  } else {
+    const w = WORDS[deck[ci]];
+    const art = () => pic(w) ? h("div", {class:"fe", html:pic(w)}) : h("div", {class:"fe", "aria-hidden":"true"}, w.em);
+    const exPart = [h("div", {class:"fx"}, w.ex), h("div", {class:"fxr"}, w.exRu), spk(w.ex, "🔊 example · пример", "wide")];
+    let front, back;
+    if (S.dir === "en"){
+      front = h("div", {class:"face front"}, art(), h("div", {class:"fw"}, w.en), h("div", {class:"fp"}, w.ipa), spk(w.en), h("div", {class:"tap"}, "tap to turn · нажми, чтобы перевернуть"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--ru);font-size:clamp(21px,6vw,28px)"}, w.ru), exPart);
+    } else {
+      front = h("div", {class:"face front"}, art(), h("div", {class:"fw", style:"font-size:clamp(21px,6vw,28px)"}, w.ru), h("div", {class:"tap"}, "Say it in English! · Скажи по-английски!"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--navy)"}, w.en), h("div", {class:"fp"}, w.ipa), spk(w.en), exPart);
+    }
+    const fc = h("div", {class:"fc" + (flipped ? " flip" : ""), role:"button", tabindex:"0", "aria-label":"Flashcard. Press to turn over"}, front, back);
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); };
+    fc.addEventListener("click", flip);
+    fc.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } });
+    box.append(h("div", {class:"fc-scene"}, fc));
+    const move = d => { ci = (ci + d + deck.length) % deck.length; flipped = false; renderCards(); };
+    box.append(h("div", {class:"fc-nav"},
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(-1)}, "◀ Back", h("br"), h("small", {class:"ru"}, "Назад")),
+      h("button", {class:"btn ghost", type:"button", onclick:flip}, "↻ Turn", h("br"), h("small", {class:"ru"}, "Перевернуть")),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(1)}, "Next ▶", h("br"), h("small", {class:"ru"}, "Дальше"))));
+    const mark = known => {
+      if (known) S.known[w.en] = true; else delete S.known[w.en];
+      save(); renderTabs();
+      if (S.onlyL && known){ deck.splice(ci, 1); if (ci >= deck.length) ci = 0; flipped = false; renderCards(); } else move(1);
+      toast(known ? "✓ " + w.en + " — I know it · Знаю" : "↻ " + w.en + " — still learning · Ещё учу");
+    };
+    box.append(h("div", {class:"fc-know"},
+      h("button", {class:"btn know", type:"button", onclick:()=>mark(true)}, "✓ I know it · Знаю"),
+      h("button", {class:"btn learn", type:"button", onclick:()=>mark(false)}, "Still learning · Ещё учу")));
+  }
+  const filt = h("input", {type:"checkbox"}); filt.checked = !!S.onlyL;
+  filt.addEventListener("change", () => { S.onlyL = filt.checked; save(); ci = 0; makeDeck(false); renderCards(); });
+  box.append(h("div", {class:"fc-tools"},
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ makeDeck(true); ci = 0; renderCards(); toast("Shuffled · Перемешано"); }}, "🔀 Shuffle · Перемешать"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ S.dir = S.dir === "en" ? "ru" : "en"; save(); flipped = false; renderCards(); }}, S.dir === "en" ? "⇄ RU → EN" : "⇄ EN → RU"),
+    h("label", {class:"chk"}, filt, "Only words I’m learning · Только «ещё учу»")));
+  root.append(box);
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("grammar")}, "Next: grammar · Дальше: правила →")));
+}
+
+/* =================== GRAMMAR =================== */
+
+function exList(arr){ return h("ul", {class:"exl"}, arr.map(([html, s]) => h("li", null, h("span", {html}), spk(s || strip(html))))); }
+function practiseBtn(id){ const i = EX.findIndex(e => e.id === id); return h("button", {class:"btn small", type:"button", onclick:()=>goEx(i)}, "Practise · Потренируйся → " + (i + 1)); }
+function renderGrammar(){
+  const root = $("#tab-grammar"); root.innerHTML = "";
+  // step 1: meaning + map demo
+  const box = h("div", {class:"say-box", "aria-live":"polite"}, h("span", {class:"ru"}, "Tap a place on the map 👆 · Нажми на место на карте"));
+  let last = null;
+  const pickPlace = (pl, el) => {
+    if (last) last.classList.remove("on"); if (el){ el.classList.add("on"); last = el; }
+    const s = placeSentence(pl); box.innerHTML = ""; box.append(h("div", {html:s.html}), spk(s.say, "🔊", "")); say(s.say);
+  };
+  const missing = h("div", {class:"missing"}, h("span", {class:"ru", style:"width:100%;text-align:center;font-size:14px"}, "Not on the map · Нет на карте:"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ if (last) last.classList.remove("on"); last = null; box.innerHTML = ""; box.append(h("div", {html:"<span class='tis'>There isn't a</span> museum."}), spk("There isn't a museum.", "🔊", "")); say("There isn't a museum."); }}, "🏛️ museum"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ if (last) last.classList.remove("on"); last = null; box.innerHTML = ""; box.append(h("div", {html:"<span class='tare'>There aren't any</span> shopping centres."}), spk("There aren't any shopping centres.", "🔊", "")); say("There aren't any shopping centres."); }}, "🛍️ shopping centres"));
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "1"), "What is it? · ", h("span", {class:"ru"}, "Что это?")),
+    h("p", {class:"ru", html:"<b>There is / there are</b> = «есть, находится». Так говорят, когда сообщают, <b>что где-то есть</b> какой-то предмет или место: <i>В моём районе есть парк.</i>"}),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("div", {class:"bigx"}, "🌳"), h("b", {class:"tis"}, "There is (There's)"), h("div", null, "+ one thing · ", h("span", {class:"ru"}, "одна вещь")), exList([["<span class='tis'>There's a</span> park near my house.","There's a park near my house."]])),
+      h("div", {class:"c"}, h("div", {class:"bigx"}, "☕☕"), h("b", {class:"tare"}, "There are"), h("div", null, "+ many things · ", h("span", {class:"ru"}, "много вещей")), exList([["<span class='tare'>There are</span> two cafés in my street.","There are two cafés in my street."]]))),
+    h("h3", {style:"margin-top:16px"}, "Try it! · ", h("span", {class:"ru"}, "Попробуй!")),
+    mapEl(true, pickPlace), missing, box,
+    h("div", {class:"btns"}, practiseBtn("g1"))));
+
+  // step 2: word order (Russian vs English)
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "2"), "Word order · ", h("span", {class:"ru"}, "Порядок слов")),
+    h("p", {class:"ru", html:"По-русски мы начинаем с места: <i>«<b>В моём районе</b> есть парк»</i>. По-английски начинаем с <b>There is / There are</b>, а место — в конце:"}),
+    h("div", {class:"order"}, h("span", {class:"o2"}, "There is"), h("span", {class:"o1"}, "a park"), h("span", {class:"o3"}, "in my neighbourhood"), "."),
+    h("div", {class:"rule", html:"<span class='x'>✗ In my neighbourhood is a park.</span><br><span class='v'>✓ There is a park in my neighbourhood.</span>"}),
+    exList([["<span class='tis'>There's a</span> café near my house.","There's a café near my house."],["<span class='tare'>There are</span> some restaurants in my street.","There are some restaurants in my street."]]),
+    h("div", {class:"btns"}, practiseBtn("g6"))));
+
+  // step 3: form table
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "3"), "Positive, negative, questions · ", h("span", {class:"ru"}, "Утверждение, отрицание, вопрос")),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("b", {class:"tis"}, "One · Одна вещь"),
+        h("table", {class:"tbl"},
+          h("tr", null, h("td", null, "+"), h("td", {html:"<span class='tis'>There is (There's) a</span> gym."})),
+          h("tr", null, h("td", null, "−"), h("td", {html:"<span class='tis'>There isn't a</span> museum."})),
+          h("tr", null, h("td", null, "?"), h("td", {html:"<span class='tis'>Is there a</span> hotel?<br>Yes, there is. / No, there isn't."})))),
+      h("div", {class:"c"}, h("b", {class:"tare"}, "Many · Много"),
+        h("table", {class:"tbl"},
+          h("tr", null, h("td", null, "+"), h("td", {html:"<span class='tare'>There are some</span> cafés."})),
+          h("tr", null, h("td", null, "−"), h("td", {html:"<span class='tare'>There aren't any</span> museums."})),
+          h("tr", null, h("td", null, "?"), h("td", {html:"<span class='tare'>Are there any</span> parks?<br>Yes, there are. / No, there aren't."}))))),
+    h("div", {class:"rule", html:"📌 <b>some</b> — в утверждении (+), <b>any</b> — в отрицании (−) и вопросе (?).<br>📌 <b>How many</b> parks <b>are there</b>? — There are two. <span class='ru'>Сколько здесь парков?</span><br>📌 Short form: <b>There's</b> = There is. <span class='ru'>Для There are краткой формы на письме нет.</span>"}),
+    exList([["<span class='tis'>Is there a</span> supermarket near here?","Is there a supermarket near here?"],["<span class='tare'>Are there any</span> cafés in your street?","Are there any cafés in your street?"],["No, <span class='tare'>there aren't</span>.","No, there aren't."]]),
+    h("div", {class:"btns"}, practiseBtn("g3"), practiseBtn("g4"))));
+
+  const M = [
+   ["In my street is a café.","There is a café in my street.","начинаем с There is"],
+   ["There is two parks.","There are two parks.","много → are"],
+   ["There are a hospital.","There is a hospital.","одна вещь → is"],
+   ["There aren't a museum.","There isn't a museum.","a + one → isn't"],
+   ["Is there any cafés?","Are there any cafés?","много → Are there…?"],
+   ["There is a park near of my house.","There is a park near my house.","near — без of"]
+  ];
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Common mistakes · ", h("span", {class:"ru"}, "Типичные ошибки")),
+    h("ul", {class:"mist"}, M.map(([x, v, r]) => h("li", null, h("div", {class:"x"}, "✗ " + x), h("div", {class:"v"}, "✓ " + v, " ", spk(v)), h("div", {class:"ru", style:"font-size:14px"}, r))))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>goEx(0)}, "Next: exercises · Дальше: задания →")));
+}
+
+/* =================== PRACTICE =================== */
+function renderChips(){
+  const c = $("#chips"); if (!c) return; c.innerHTML = "";
+  EX.forEach((ex, i) => {
+    const s = exScore(ex);
+    const done = ex.type === "write" ? S.writing.trim().length > 0 : s.done === s.total;
+    c.append(h("button", {class:"chip" + (ex.kind === "g" ? " g" : "") + (i === S.ex ? " on" : "") + (done ? " done" : ""), type:"button", "aria-label":"Exercise " + (i + 1) + ": " + ex.en, onclick:()=>{ S.ex = i; save(); renderPractice(); }},
+      String(i + 1), h("small", null, ex.type === "write" ? (done ? "✓" : "✍") : (s.done ? s.got + "/" + s.total : (ex.kind === "v" ? "words" : "gram")))));
+  });
+  const on = c.children[S.ex]; if (on && on.scrollIntoView){ try{ on.scrollIntoView({block:"nearest", inline:"center"}); }catch(e){} }
+}
+function renderPractice(){
+  const root = $("#tab-practice"); root.innerHTML = "";
+  root.append(h("div", {class:"chips", id:"chips", "aria-label":"Exercises"}));
+  const ex = EX[S.ex], s = exScore(ex);
+  const card = h("div", {class:"card"});
+  card.append(h("div", {class:"kicker"}, ex.kind === "v" ? "Vocabulary · Слова" : "Grammar · Грамматика"));
+  card.append(h("div", {class:"exhead"},
+    h("div", null, h("h2", null, (S.ex + 1) + ". " + ex.en), h("div", {class:"ru", style:"font-family:'Russo One',sans-serif;font-size:16px"}, ex.ru)),
+    ex.type !== "write" ? h("span", {class:"exscore", id:"exscore"}, s.got + "/" + s.total) : null));
+  card.append(h("p", {class:"ins"}, h("span", {html:ex.ins}), h("br"), h("span", {class:"ru", html:ex.insRu})));
+  if (ex.rule) card.append(h("div", {class:"rule", html:"📌 " + ex.rule}));
+  if (ex.map) card.append(mapEl(false), h("div", {class:"map-cap"}, "Our neighbourhood · Наш район"));
+  const body = h("div", {id:"exbody"});
+  card.append(body); root.append(card);
+  ({choice:listEx, type:listEx, build:listEx, match:matchEx, write:writeEx})[ex.type](ex, body);
+  const nav = h("div", {class:"btns", style:"justify-content:space-between"});
+  const top = () => window.scrollTo(0, $("#hero").offsetHeight);
+  nav.append(S.ex > 0 ? h("button", {class:"btn ghost", type:"button", onclick:()=>{ S.ex--; save(); renderPractice(); top(); }}, "← Back · Назад") : h("span"));
+  nav.append(S.ex < EX.length - 1
+    ? h("button", {class:"btn", type:"button", onclick:()=>{ S.ex++; save(); renderPractice(); top(); }}, "Next · Дальше →")
+    : h("button", {class:"btn gold", type:"button", onclick:()=>go("results")}, "See results · Итоги →"));
+  root.append(nav);
+  renderChips();
+}
+function updExScore(ex){ const el = $("#exscore"); if (el){ const s = exScore(ex); el.textContent = s.got + "/" + s.total; } refresh(); }
+function listEx(ex, body){ const make = {choice:choiceItem, type:typeItem, build:buildItem}[ex.type]; ex.items.forEach((it, k) => body.append(make(ex, it, k))); }
+function fbBox(ok, k, why, sayText){
+  const d = h("div", {class:"fb " + (ok ? "ok" : "bad")}, h("b", null, ok ? PRAISE[k % PRAISE.length] : OOPS[k % OOPS.length]));
+  if (why) d.append(h("div", {class:"why", html:why}));
+  if (sayText) d.append(spk(sayText, "🔊 Listen · Слушать", "wide"));
+  return d;
+}
+function sentenceOf(it){
+  if (it.say) return it.say;
+  if (it.pic) return it.o[it.a];
+  const q = strip(it.q); return q.includes("___") ? q.replace(/_{3,}/, it.o[it.a].replace(/^🔁 |^⏱ /, "")) : it.o[it.a];
+}
+function choiceItem(ex, it, k){
+  const a = S.ans[it.id];
+  const box = h("div", {class:"item" + (a ? (a.st === "ok" ? " is-ok" : " is-bad") : "")});
+  if (it.pic){
+    box.append(h("div", {class:"qpic", html:PICS[it.pic]}));
+    box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", null, "What is it? · ", h("span", {class:"ru"}, "Что это?"))));
+  } else if (ex.listen){
+    box.append(h("div", {class:"listen"}, h("span", {class:"num"}, String(k + 1)), spk(it.say, "🔊"), h("span", {class:"ru", style:"font-size:14px"}, "listen · слушай")));
+  } else {
+    const q = h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q}));
+    if (ex.sound) q.append(spk(it.say));
+    box.append(q);
+  }
+  const opts = h("div", {class:"opts"});
+  it.o.forEach((o, j) => {
+    const b = h("button", {class:"opt", type:"button"}, o);
+    if (a){ b.disabled = true; if (j === it.a) b.classList.add("right"); if (j === a.v && j !== it.a) b.classList.add("wrong"); }
+    else b.addEventListener("click", () => {
+      S.ans[it.id] = {v:j, st: j === it.a ? "ok" : "bad"}; save();
+      box.replaceWith(choiceItem(ex, it, k));
+      if (j === it.a) say(sentenceOf(it));
+      updExScore(ex);
+    });
+    opts.append(b);
+  });
+  box.append(opts);
+  if (a){
+    const why = it.why || (it.pic ? "<b>" + it.pic + "</b> — " + WORDS.find(w => w.en === it.pic).ru : "");
+    box.append(fbBox(a.st === "ok", k, (a.st === "ok" ? "" : "Correct answer · Правильный ответ: <b>" + it.o[it.a] + "</b><br>") + why, sentenceOf(it)));
+  }
+  return box;
+}
+function typeItem(ex, it, k){
+  const a = S.ans[it.id] || null;
+  const locked = a && LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q})));
+  const inp = h("input", {type:"text", class:"inp", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false", "aria-label":"Your answer · Твой ответ", placeholder: ex.id === "g7" ? "Write in English · Пиши по-английски" : "Your answer · Твой ответ"});
+  inp.value = a && a.v ? a.v : "";
+  const check = () => {
+    const v = inp.value;
+    if (!v.trim()){ toast("Write an answer first · Сначала напиши ответ"); inp.focus(); return; }
+    const cur = S.ans[it.id] || {tries:0, given:[]};
+    cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v.trim()); cur.v = v.trim();
+    const ok = matches(v, it);
+    cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+    S.ans[it.id] = cur; save();
+    const nb = typeItem(ex, it, k); box.replaceWith(nb);
+    if (cur.st === "try"){ const ni = nb.querySelector("input"); if (ni) ni.focus(); }
+    if (ok) say(it.say || it.model);
+    updExScore(ex);
+  };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); check(); } });
+  if (locked){ inp.disabled = true; box.append(h("div", {class:"row"}, inp)); }
+  else box.append(h("div", {class:"row"}, inp, h("button", {class:"btn small", type:"button", onclick:check}, "Check · Проверить")));
+  if (a && a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  else if (a && a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", it.say || it.model));
+  else if (a && a.st === "bad"){
+    const d = fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.model + "</b>", it.say || it.model);
+    if (it.self) d.append(h("button", {class:"self", type:"button", onclick:()=>{ a.st = "self"; save(); box.replaceWith(typeItem(ex, it, k)); updExScore(ex); }}, "✓ My answer is also correct · Мой ответ тоже верный"));
+    box.append(d);
+  } else if (a && a.st === "self") box.append(h("div", {class:"fb ok"}, h("b", null, "OK! You marked your answer as correct. · Ты отметила свой ответ как верный."), h("div", {class:"why"}, "Model · Образец: ", h("b", null, it.model)), h("div", {class:"why ru"}, "Your teacher will check it. · Учитель проверит.")));
+  return box;
+}
+function buildItem(ex, it, k){
+  const a = S.ans[it.id] || {pick:[], tries:0};
+  const pick = a.pick || [];
+  const locked = LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {class:"ruq"}, it.ru)));
+  const setPick = p => { S.ans[it.id] = Object.assign({}, S.ans[it.id] || {tries:0}, {pick:p}); save(); box.replaceWith(buildItem(ex, it, k)); };
+  const ansZone = h("div", {class:"tiles ans", "aria-label":"Your sentence"});
+  pick.forEach((ti, pi) => ansZone.append(h("button", {class:"tile2", type:"button", disabled:locked, onclick:()=>{ const p = pick.slice(); p.splice(pi, 1); setPick(p); }}, it.t[ti])));
+  if (pick.length === it.t.length) ansZone.append(h("span", {class:"endp"}, it.end));
+  if (!pick.length) ansZone.append(h("span", {class:"ru", style:"font-size:14px"}, "Tap the words below · Нажимай на слова ниже"));
+  box.append(ansZone);
+  if (!locked){
+    const pool = h("div", {class:"tiles"});
+    it.t.forEach((w, ti) => { if (!pick.includes(ti)) pool.append(h("button", {class:"tile2", type:"button", onclick:()=>setPick(pick.concat(ti))}, w)); });
+    box.append(pool);
+    box.append(h("div", {class:"btns"},
+      h("button", {class:"btn small", type:"button", onclick:()=>{
+        if (pick.length < it.t.length){ toast("Use all the words · Используй все слова"); return; }
+        const sent = pick.map(i => it.t[i]).join(" ");
+        const cur = S.ans[it.id] || {tries:0};
+        cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(sent + it.end); cur.v = sent;
+        const ok = it.acc.some(x => norm(x) === norm(sent));
+        cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+        S.ans[it.id] = cur; save();
+        box.replaceWith(buildItem(ex, it, k));
+        if (ok) say(sent + it.end);
+        updExScore(ex);
+      }}, "Check · Проверить"),
+      h("button", {class:"btn ghost small", type:"button", onclick:()=>setPick([])}, "Clear · Очистить")));
+  }
+  if (a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  if (a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", a.v + it.end));
+  if (a.st === "bad") box.append(fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.model + it.end + "</b>", it.model + it.end));
+  return box;
+}
+let selL = null;
+function matchEx(ex, body){
+  body.innerHTML = "";
+  let offset = 0;
+  ex.rounds.forEach((round, r) => {
+    const pairs = round.map((p, i) => ex.list[offset + i]); offset += round.length;
+    const right = seeded(pairs, 13 + r * 7);
+    const allDone = pairs.every(p => isDone(p.id));
+    body.append(h("div", {class:"round-t"}, "Round " + (r + 1) + " · Раунд " + (r + 1) + (allDone ? " ✓" : "")));
+    const L = h("div", {class:"mcol"}), R = h("div", {class:"mcol"});
+    const msg = h("div", {class:"msg", "aria-live":"polite"});
+    pairs.forEach(p => {
+      const a = S.ans[p.id];
+      L.append(h("button", {class:"mb en" + (a ? (a.st === "ok" ? " done" : " done late") : "") + (selL === p.id ? " sel" : ""), type:"button", disabled:!!a, "aria-pressed":selL === p.id ? "true" : "false", onclick:()=>{ selL = p.id; say(p.en); matchEx(ex, body); }}, p.en));
+    });
+    right.forEach(p => {
+      const a = S.ans[p.id];
+      const b = h("button", {class:"mb" + (a ? (a.st === "ok" ? " done" : " done late") : ""), type:"button", disabled:!!a}, p.ru);
+      b.addEventListener("click", () => {
+        if (!selL || !pairs.some(x => x.id === selL)){ msg.textContent = "Tap an English word first · Сначала нажми на английское слово"; return; }
+        if (selL === p.id){
+          S.ans[p.id] = {st: S.mw[p.id] ? "bad" : "ok", v:p.ru}; selL = null; save();
+          matchEx(ex, body); updExScore(ex);
+          toast("✓ " + p.en + " = " + p.ru);
+        } else {
+          const wrongFor = ex.list.find(x => x.id === selL);
+          S.mw[selL] = (S.mw[selL] || []).concat(p.ru); save();
+          b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+          msg.textContent = "Not “" + wrongFor.en + "”. Try again! · Не подходит. Попробуй ещё раз!";
+        }
+      });
+      R.append(b);
+    });
+    body.append(h("div", {class:"mgrid"}, L, R), msg);
+  });
+}
+
+function writeEx(ex, body){
+  const ta = h("textarea", {"aria-label":"Your text · Твой текст", placeholder:"I live in a quiet neighbourhood. There's a park near my house. There are two supermarkets… There isn't a museum…"});
+  ta.value = S.writing || "";
+  const info = h("div", {class:"ru", style:"margin-top:8px;font-size:14px"});
+  const found = h("div", {class:"found"});
+  const upd = () => {
+    const t = ta.value;
+    const words = (t.match(/[A-Za-zé’']+/g) || []).length;
+    const used = WORDS.filter(w => w.rx.test(t));
+    const th = (t.match(/\bthere\s*(is|are|isn['’]t|aren['’]t|['’]s)\b|\b(is|are)\s+there\b/gi) || []).length;
+    found.innerHTML = "";
+    WORDS.forEach(w => found.append(h("span", {class: used.includes(w) ? "on" : ""}, (used.includes(w) ? "✓ " : "") + w.en)));
+    info.textContent = "Words · Слов: " + words + "  ·  there is / there are: " + th + "  ·  New words · Новых слов: " + used.length;
+  };
+  let tmr;
+  ta.addEventListener("input", () => { S.writing = ta.value; upd(); clearTimeout(tmr); tmr = setTimeout(() => { save(); refresh(); }, 400); });
+  body.append(h("div", {class:"item"}, ta, info, found,
+    h("p", {class:"ru", style:"font-size:14px;margin:10px 0 0"}, "This task is not marked automatically — your teacher will read it. · Это задание проверит учитель.")));
+  upd();
+}
+
+/* =================== RESULTS =================== */
+function itemReport(ex, it){
+  const a = S.ans[it.id] || {};
+  if (ex.type === "match") return {q:it.en, your:(S.mw[it.id] || []).join(", "), right:it.ru};
+  if (ex.type === "choice"){
+    const q = ex.listen ? "🔊 " + it.say : strip(it.q);
+    return {q, your: a.v != null ? it.o[a.v] : "—", right: it.o[it.a]};
+  }
+  if (ex.type === "build") return {q:it.ru, your:(a.given || []).join(" / ") || "—", right:it.model + it.end};
+  return {q:strip(it.q), your:(a.given || []).join(" / ") || "—", right:it.model};
+}
+function bandMsg(p){
+  const n = nm();
+  if (p >= 90) return "Brilliant, " + n + "! 🏆 · Блестяще! Ты отлично справилась!";
+  if (p >= 75) return "Great work, " + n + "! Look at your mistakes once more. · Отличная работа! Посмотри ещё раз на ошибки.";
+  if (p >= 50) return "Good effort, " + n + "! Read the rules again and repeat the cards. · Хорошая попытка! Перечитай правила и повтори карточки.";
+  return "Keep going, " + n + "! Read the Words and Grammar tabs again, then try once more. · Не сдавайся! Перечитай слова и правила и попробуй ещё раз.";
+}
+function buildReport(){
+  const s = scoreAll(), sv = scoreAll("v"), sg = scoreAll("g"), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const L = [];
+  L.push("📍 Homework: " + HW.title + " (" + HW.level + ", " + HW.unit + ")");
+  L.push("Student: " + nm());
+  L.push("Date: " + new Date().toLocaleDateString("en-GB"));
+  L.push("Score: " + s.got + "/" + s.total + " (" + pct + "%)" + (s.done < s.total ? " — answered " + s.done + "/" + s.total : ""));
+  L.push("Vocabulary: " + sv.got + "/" + sv.total + " · Grammar: " + sg.got + "/" + sg.total);
+  L.push("Flashcards: I know " + knownCount() + "/" + WORDS.length + " words");
+  L.push(""); L.push("EXERCISES");
+  EX.forEach((ex, i) => { if (ex.type === "write") L.push((i + 1) + ". " + ex.en + " (writing): " + (S.writing.trim() ? "done (see below)" : "not done")); else { const e = exScore(ex); L.push((i + 1) + ". " + ex.en + ": " + e.got + "/" + e.total + (e.done < e.total ? " (answered " + e.done + ")" : "")); } });
+  const mist = [], selfs = [];
+  EX.forEach((ex, i) => ex.list.forEach(it => {
+    const st = stOf(it.id), r = itemReport(ex, it);
+    if (st === "bad") mist.push("• [" + (i + 1) + "] " + r.q + " — answer: " + (r.your || "—") + " → correct: " + r.right);
+    if (st === "self") selfs.push("• [" + (i + 1) + "] " + r.q + " — answer: " + r.your + " (model: " + r.right + ")");
+  }));
+  L.push(""); L.push("MISTAKES (" + mist.length + ")"); L.push(mist.length ? mist.join("\n") : "none 🎉");
+  if (selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT — please check"); L.push(selfs.join("\n")); }
+  L.push(""); L.push("WRITING: MY NEIGHBOURHOOD"); L.push(S.writing.trim() || "(not done)");
+  L.push(""); L.push("ALL ANSWERS");
+  EX.forEach((ex, i) => {
+    if (ex.type === "write") return;
+    L.push("[" + (i + 1) + "] " + ex.en);
+    ex.list.forEach(it => {
+      const st = stOf(it.id), r = itemReport(ex, it);
+      const mark = st === "ok" ? "✓" : st === "self" ? "✓(self)" : "✗";
+      const your = ex.type === "match" ? r.right + (r.your ? " (wrong first: " + r.your + ")" : "") : r.your;
+      L.push("  " + it.n_ + ". " + r.q + " → " + (LOCKED.includes(st) ? your + " " + mark : "(not answered)"));
+    });
+  });
+  return L.join("\n");
+}
+function copyText(t){
+  const fallback = () => { const ta = h("textarea", {style:"position:fixed;left:-9999px;top:0"}); ta.value = t; document.body.append(ta); ta.select(); let ok = false; try{ ok = document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok ? "Copied! · Скопировано!" : "Select the text below and copy it · Выдели текст ниже и скопируй"); };
+  try{ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => toast("Copied! Now paste it in a message to your teacher. · Скопировано! Вставь в сообщение учителю."), fallback); else fallback(); }catch(e){ fallback(); }
+}
+function renderResults(){
+  const root = $("#tab-results"); root.innerHTML = "";
+  const s = scoreAll(), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const sv = scoreAll("v"), sg = scoreAll("g");
+  root.append(h("div", {class:"card dark"},
+    h("h2", null, "Your results · ", h("span", {style:"color:#c9d6ff"}, "Твои итоги")),
+    h("div", {class:"score-big"}, s.got + "/" + s.total + " · " + pct + "%"),
+    h("p", {style:"margin:4px 0 0"}, "Vocabulary · Слова: " + sv.got + "/" + sv.total + "  ·  Grammar · Грамматика: " + sg.got + "/" + sg.total),
+    h("p", {style:"margin:6px 0 0"}, s.done < s.total ? "You have answered " + s.done + " of " + s.total + " questions. · Ты ответила на " + s.done + " из " + s.total + " вопросов." : bandMsg(pct)),
+    h("p", {style:"margin:6px 0 0;color:#c9d6ff"}, "Flashcards · Карточки: " + knownCount() + "/" + WORDS.length + " ✓")));
+  const tb = h("table", {class:"rt"});
+  EX.forEach((ex, i) => {
+    if (i === 0) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Vocabulary · Слова")));
+    if (i === VCOUNT) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Grammar · Грамматика")));
+    const val = ex.type === "write" ? (S.writing.trim() ? "✓" : "—") : (() => { const e = exScore(ex); return e.got + "/" + e.total; })();
+    tb.append(h("tr", null, h("td", null, (i + 1) + ". " + ex.en + " · ", h("span", {class:"ru"}, ex.ru)), h("td", null, val)));
+  });
+  root.append(h("div", {class:"card"}, h("h3", null, "Exercises · Задания"), tb));
+  const ml = h("ul", {class:"mlist"});
+  EX.forEach((ex, i) => ex.list.forEach(it => { if (stOf(it.id) !== "bad") return; const r = itemReport(ex, it); ml.append(h("li", null, "[" + (i + 1) + "] " + r.q + " — ", h("s", null, r.your || "—"), " → ", h("b", null, r.right))); }));
+  root.append(h("div", {class:"card"}, h("h3", null, "Mistakes · Ошибки"), ml.children.length ? ml : h("p", null, "No mistakes yet! 🎉 · Пока ошибок нет!")));
+  if (S.writing.trim()) root.append(h("div", {class:"card"}, h("h3", null, "My neighbourhood · Мой район"), h("p", {style:"white-space:pre-wrap;margin:0"}, S.writing)));
+  const full = buildReport();
+  const subj = HW.short + " — " + nm() + " — " + s.got + "/" + s.total;
+  const short = full.length > 1500 ? full.slice(0, 1500) + "\n…\n[The full report is under “Copy text” · Полный отчёт — кнопка «Скопировать текст»]" : full;
+  const enc = encodeURIComponent;
+  const send = h("div", {class:"send"});
+  if (navigator.share) send.append(h("button", {class:"s-share", type:"button", onclick:()=>{ try{ navigator.share({title:subj, text:subj + "\n\n" + full}).catch(()=>{}); }catch(e){} }}, "📤 Share · Поделиться"));
+  send.append(
+    h("a", {class:"s-gm", target:"_blank", rel:"noopener", href:"https://mail.google.com/mail/?view=cm&fs=1&to=" + enc(TEACHER) + "&su=" + enc(subj) + "&body=" + enc(short)}, "Gmail"),
+    h("a", {class:"s-tg", target:"_blank", rel:"noopener", href:"https://t.me/share/url?url=" + enc(subj) + "&text=" + enc(short)}, "Telegram"),
+    h("a", {class:"s-wa", target:"_blank", rel:"noopener", href:"https://wa.me/?text=" + enc(subj + "\n\n" + short)}, "WhatsApp"),
+    h("a", {class:"s-ml", href:"mailto:" + TEACHER + "?subject=" + enc(subj) + "&body=" + enc(short)}, "✉️ Email app · Почта"),
+    h("button", {class:"s-cp", type:"button", onclick:()=>copyText(full)}, "📋 Copy text · Скопировать текст"));
+  const pre = h("textarea", {readonly:true, "aria-label":"Report text", style:"min-height:160px;margin-top:12px;font-size:13px"}); pre.value = full;
+  root.append(h("div", {class:"card"},
+    h("h3", null, "Send to your teacher · Отправь учителю"),
+    h("p", {style:"margin:0"}, "Finish all exercises first, then choose one way to send. · Сначала сделай все задания, потом выбери способ отправки."),
+    h("p", {style:"margin:6px 0 0"}, "Teacher’s email · Почта учителя: ", h("span", {class:"mail"}, TEACHER)),
+    send, pre));
+  const zone = h("div");
+  root.append(h("div", {class:"card"}, h("button", {class:"btn ghost", type:"button", onclick:()=>{
+    zone.innerHTML = "";
+    zone.append(h("div", {class:"confirm"}, h("b", null, "Delete all answers? · Удалить все ответы?"),
+      h("button", {class:"btn", type:"button", style:"background:var(--bad)", onclick:()=>{ wipe(); S = DEF(); selL = null; deck = []; ci = 0; $("#nameIn").value = S.name; renderWords(); renderGrammar(); show(); window.scrollTo(0, 0); toast("Everything is cleared · Всё удалено"); }}, "Yes · Да"),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>{ zone.innerHTML = ""; }}, "No · Нет")));
+  }}, "↺ Start again · Начать заново"), zone));
+}
+
+(function init(){
+  const ni = $("#nameIn"); ni.value = S.name;
+  let t; ni.addEventListener("input", () => { S.name = ni.value; clearTimeout(t); t = setTimeout(() => { save(); if (S.tab === "results") renderResults(); }, 400); });
+  if (S.ex >= EX.length) S.ex = 0;
+  if (!TABS.some(([id]) => id === S.tab)) S.tab = "words";
+  renderWords(); renderGrammar(); makeDeck(false); show();
+})();
+</script>
+</body>
+</html>
