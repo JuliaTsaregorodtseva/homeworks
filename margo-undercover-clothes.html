@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Working undercover — Margo · Clothes &amp; present tenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1d2a3a; --navy2:#2c3e55; --manila:#f4e4bc; --manila2:#ead39a; --paper:#fffdf7; --bg:#f3efe6;
+  --red:#c8102e; --redbg:#fde7ea;
+  --ps:#2563eb; --psbg:#e3ecff;   /* present simple = blue */
+  --pc:#e8590c; --pcbg:#fff0e6;   /* present continuous = orange */
+  --ink:#1f2430; --soft:#6b7280; --ru:#6b5a8e;
+  --ok:#1f9d6b; --okbg:#e3f7ee; --bad:#d24a5c; --badbg:#fde8ec; --try:#fff4dc; --line:#e5dcc6; --r:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Rubik,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);font-size:17px;line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:"Russo One",Rubik,sans-serif;font-weight:400;line-height:1.2;margin:0 0 .35em}
+h2{font-size:22px} h3{font-size:18px}
+.ru{color:var(--ru);font-weight:500}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #f59f00;outline-offset:2px}
+.ps{color:var(--ps);font-weight:700} .pc{color:var(--pc);font-weight:700}
+
+/* hero */
+.hero{position:relative;color:#fff;padding:22px 0 24px;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.08),transparent 40%),linear-gradient(160deg,var(--navy),var(--navy2));overflow:hidden}
+.stamp{position:absolute;right:12px;top:16px;transform:rotate(12deg);border:3px solid #ff6b6b;color:#ff6b6b;font-family:"Russo One",sans-serif;padding:2px 10px;border-radius:6px;font-size:14px;letter-spacing:.08em;opacity:.85}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;padding-right:110px}
+.badges span{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28)}
+.hero h1{font-size:clamp(28px,8vw,44px)}
+.hero h1 .spy{font-size:.9em}
+.hero .sub{font-size:17px;font-weight:500;margin:0 0 12px}
+.hero .ru{color:#c9d6ff}
+.for{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-weight:600}
+.for input{font:inherit;font-weight:700;font-size:17px;min-height:44px;width:11em;max-width:100%;padding:6px 12px;border-radius:12px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff}
+.how{margin:0;font-size:15px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:30;background:rgba(243,239,230,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px 0 6px}
+.tab{min-height:52px;border:0;border-radius:12px;background:#fff;box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;padding:4px 1px;line-height:1.15;min-width:0}
+.tab .tr{font-size:10.5px;color:var(--ru);font-weight:600}
+.tab .tb{font-size:10.5px;background:#f59f00;color:var(--ink);border-radius:99px;padding:0 5px;margin-top:2px}
+.tab.on{background:var(--navy);color:#fff}
+.tab.on .tr{color:#c9d6ff}
+.prog{display:flex;align-items:center;gap:10px;padding:0 0 8px;font-size:13px;font-weight:700}
+.bar{flex:1;height:8px;background:#e6dcc5;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ps),var(--pc));transition:width .4s}
+
+/* cards */
+section{display:none;padding-bottom:40px}
+section.on{display:block}
+.card{background:var(--paper);border-radius:var(--r);padding:18px;box-shadow:0 2px 0 var(--line),0 8px 24px rgba(30,40,60,.06);margin:16px 0}
+.card.file{background:var(--manila);border-top-left-radius:0;position:relative;margin-top:30px}
+.card.file::before{content:attr(data-tab);position:absolute;left:0;top:-24px;height:24px;padding:3px 14px;background:var(--manila);border-radius:10px 10px 0 0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7a5c1e}
+.lead{margin:.2em 0 0}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+
+/* words */
+.wl{display:grid;gap:8px;margin-top:10px}
+@media(min-width:620px){.wl{grid-template-columns:1fr 1fr}}
+.w{display:grid;grid-template-columns:56px 1fr 44px;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.w .pic{width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:34px}
+.w .pic svg{width:56px;height:56px}
+.w .en{font-weight:700;font-size:18px}
+.w .ipa{font-size:13px;color:var(--soft);margin-left:4px}
+.w .tr{color:var(--ru);font-weight:500;font-size:15.5px}
+.spk{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff8e6;font-size:17px;cursor:pointer;padding:0 8px;font-weight:600}
+.spk.wide{padding:0 14px;font-size:15px}
+.story{font-size:18px;line-height:2}
+.story p{margin:0 0 .8em}
+.gl{border:0;background:linear-gradient(transparent 58%,#ffe08a 58%);padding:0 1px;cursor:pointer;font-weight:700;line-height:1.4}
+.gloss{display:inline-block;font-size:13px;line-height:1.4;background:#efe9ff;color:var(--ru);border-radius:8px;padding:1px 7px;margin:0 3px;font-weight:600}
+.careful{border:2px dashed var(--red);background:#fffaf8}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:0 0 10px}
+.x{color:var(--bad);font-weight:700} .v{color:var(--ok);font-weight:700}
+
+.btn{min-height:48px;padding:8px 18px;border-radius:12px;border:0;background:var(--navy);color:#fff;font-weight:600;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.red{background:var(--red)}
+.btn.gold{background:#f59f00;color:var(--ink)}
+.btn.small{padding:6px 14px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:12px 0 0;font-weight:600}
+.fc-scene{perspective:1200px;max-width:520px;margin:14px auto 0}
+.fc{position:relative;height:310px;transform-style:preserve-3d;transition:transform .55s;cursor:pointer;border-radius:20px}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center;overflow:hidden}
+.front{background:var(--manila);border:2px solid var(--manila2)}
+.back{background:#fff;border:2px solid var(--line);transform:rotateY(180deg)}
+.face .fe{font-size:64px;line-height:1;height:96px;display:flex;align-items:center}
+.face .fe svg{width:96px;height:96px}
+.face .fw{font-family:"Russo One",sans-serif;font-size:clamp(24px,7vw,32px);line-height:1.2}
+.face .fp{font-size:14px;color:var(--soft)}
+.face .fx{font-size:16px}
+.face .fxr{font-size:14.5px;color:var(--ru)}
+.face .tap{font-size:12px;color:var(--soft);margin-top:4px}
+.fc-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:520px;margin:12px auto 0}
+.fc-nav .btn{line-height:1.2}
+.fc-nav small{font-size:11px;font-weight:500}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:520px;margin:8px auto 0}
+.btn.know{background:var(--ok)} .btn.learn{background:#fff;color:var(--bad);border:2px solid var(--bad)}
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px;margin:12px auto 0}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:500;cursor:pointer}
+.chk input{width:22px;height:22px}
+.kbar{height:10px;background:#e6dcc5;border-radius:99px;overflow:hidden;max-width:520px;margin:6px auto 0}
+.kbar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+/* grammar */
+.step-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-family:Rubik,sans-serif;font-weight:700;margin-right:8px;font-size:15px;vertical-align:middle}
+.two{display:grid;gap:10px;margin-top:10px}
+@media(min-width:680px){.two{grid-template-columns:1fr 1fr}}
+.two > div{border-radius:14px;padding:14px}
+.two .s{background:var(--psbg)} .two .c{background:var(--pcbg)}
+.two .big{font-size:30px}
+.tbl{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+.tbl td{padding:7px 4px;border-bottom:1px solid rgba(0,0,0,.08);vertical-align:top}
+.tbl td:first-child{font-weight:700;width:34px}
+.chips2{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips2 span{padding:4px 10px;border-radius:99px;font-weight:600;font-size:14px}
+.chips2.s span{background:#fff;color:var(--ps);border:1px solid #b9cdfc}
+.chips2.c span{background:#fff;color:var(--pc);border:1px solid #ffc9a6}
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+@media(min-width:620px){.people{grid-template-columns:repeat(4,1fr)}}
+.person{min-height:84px;border-radius:14px;border:2px solid var(--line);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;font-weight:600}
+.person .pe{font-size:30px}
+.person.on{border-color:var(--navy);background:#eef2f8}
+.demo{margin-top:12px;border-radius:14px;background:#fff;border:2px solid var(--line);padding:12px;min-height:120px}
+.demo .l1{padding:10px 12px;border-radius:10px;background:var(--psbg);margin-bottom:8px}
+.demo .l2{padding:10px 12px;border-radius:10px;background:var(--pcbg)}
+.lab{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.exl{list-style:none;padding:0;margin:8px 0 0}
+.exl li{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.12)}
+.rule{border-radius:12px;background:#eef2f8;padding:10px 12px;margin-top:10px;font-size:15.5px}
+.mist{list-style:none;padding:0;margin:8px 0 0}
+.mist li{padding:8px 0;border-bottom:1px dashed var(--line)}
+
+/* exercises */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.chip{flex:none;min-height:46px;min-width:48px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer;padding:3px 8px;font-size:15px;line-height:1.1}
+.chip.g{border-color:#c9d3e6}
+.chip.on{border-color:var(--navy);background:var(--navy);color:#fff}
+.chip.done{border-color:var(--ok)}
+.chip.done:not(.on){background:var(--okbg)}
+.chip small{display:block;font-size:10px;font-weight:500}
+.exhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exscore{flex:none;font-weight:700;background:#fff8e6;color:#9a6700;border-radius:99px;padding:3px 10px;font-size:14px}
+.ins{margin:.4em 0 0}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fff}
+.item.is-ok{border-color:#9fdcc2}
+.item.is-bad{border-color:#f1aab8}
+.q{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:18px}
+.q > span:last-child{min-width:0}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:#eef2f8;color:var(--navy);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.qpic{display:flex;justify-content:center;margin-bottom:8px}
+.qpic svg{width:110px;height:110px}
+.ruq{font-weight:600;color:var(--ru);font-size:18px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:50px;padding:8px 16px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left;font-size:17px}
+.opt:hover:not(:disabled){border-color:var(--navy)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.inp{flex:1 1 200px;min-width:0;min-height:48px;font:inherit;font-size:18px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.inp:disabled{background:#faf7ef}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:15.5px}
+.fb.ok{background:var(--okbg)} .fb.bad{background:var(--badbg)} .fb.try{background:var(--try)}
+.fb .why{margin-top:4px}
+.fb .spk{margin-top:8px;min-height:40px}
+.note{margin-top:4px;font-size:14px;color:#8a5b00;font-weight:600}
+.self{margin-top:8px;min-height:44px;border-radius:12px;border:2px solid var(--ok);background:#fff;color:var(--ok);font-weight:600;padding:6px 12px;cursor:pointer}
+.listen{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.listen .spk{font-size:22px;min-width:70px;min-height:54px}
+.round-t{font-weight:700;margin:14px 0 8px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mb{min-height:52px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left;font-size:16px;line-height:1.25}
+.mb.en{font-weight:700}
+.mb.sel{border-color:var(--navy);background:#eef2f8;box-shadow:0 0 0 3px rgba(29,42,58,.15)}
+.mb.done{background:var(--okbg);border-color:var(--ok);opacity:.75;cursor:default}
+.mb.late{background:#fff3e0;border-color:#e5a54a}
+.mb.shake{animation:shake .35s;border-color:var(--bad);background:var(--badbg)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.msg{min-height:24px;font-weight:600;color:var(--bad);margin-top:8px;font-size:14px}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:62px;padding:8px;border:2px dashed var(--line);border-radius:12px;align-items:center}
+.tiles.ans{background:#fffbf0;margin-bottom:8px}
+.tile{min-height:46px;padding:6px 14px;border-radius:10px;background:#eef2f8;border:1px solid #c9d3e6;font-weight:600;cursor:pointer;font-size:17px}
+.tile:disabled{cursor:default}
+.endp{font-weight:700;font-size:20px}
+textarea{width:100%;min-height:200px;font:inherit;font-size:17px;padding:12px;border:2px solid var(--line);border-radius:12px;resize:vertical;color:var(--ink)}
+.found{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.found span{font-size:13px;font-weight:600;padding:3px 9px;border-radius:99px;background:#f1ede4;color:#a19a8a}
+.found span.on{background:var(--okbg);color:var(--ok)}
+
+/* results */
+.card.dark{background:var(--navy);color:#fff}
+.score-big{font-family:"Russo One",sans-serif;font-size:42px;color:#ffd166}
+.rt{width:100%;border-collapse:collapse;font-size:15.5px}
+.rt td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.rt td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.rt tr.grp td{font-weight:700;color:var(--soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:14px}
+.mlist{margin:0;padding-left:18px}
+.mlist li{margin-bottom:8px}
+.mlist s{color:var(--bad)} .mlist b{color:var(--ok)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:12px;font-weight:600;text-decoration:none;border:0;cursor:pointer;padding:6px 10px;text-align:center}
+.s-share{background:var(--navy);color:#fff;grid-column:1/-1}
+.s-gm{background:#ea4335;color:#fff}.s-tg{background:#229ed9;color:#fff}.s-wa{background:#25d366;color:#0b3d1f}.s-ml{background:#fff;border:2px solid var(--line)!important;color:var(--ink)}.s-cp{background:#f59f00;color:var(--ink)}
+.mail{user-select:all;-webkit-user-select:all;font-weight:700;color:var(--ps);word-break:break-all}
+.confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:10px;border-radius:12px;background:var(--badbg)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.foot{text-align:center;color:var(--soft);font-size:13px;padding:10px 0 30px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="stamp" aria-hidden="true">TOP SECRET</div>
+  <div class="wrap">
+    <div class="badges"><span>Beginner</span><span>English File 9B</span><span>Vocabulary + Grammar · Слова + грамматика</span></div>
+    <h1><span class="spy" aria-hidden="true">🕵️</span> Working undercover</h1>
+    <p class="sub">Clothes · Present simple or present continuous?<br><span class="ru">Одежда · Present Simple или Present Continuous?</span></p>
+    <p class="for"><label for="nameIn">for · для</label> <input id="nameIn" type="text" autocomplete="off" aria-label="Your name · Твоё имя"></p>
+    <p class="how">Work in this order: Words → Cards → Grammar → Practice → Results. Then send your results to your teacher.<br><span class="ru">Порядок: слова → карточки → правила → задания → итоги. Потом отправь результат учителю.</span></p>
+  </div>
+</header>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="prog"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreTxt"></span></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="tab-words"></section>
+  <section id="tab-cards"></section>
+  <section id="tab-grammar"></section>
+  <section id="tab-practice"></section>
+  <section id="tab-results"></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="foot">Made for Margo with ♥ · English homework</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   DATA — edit words, items and answers here
+   ===================================================================== */
+const TEACHER = "ulchik2211@gmail.com";
+const HW = { title: "Working undercover — clothes & present simple / continuous", short: "Working undercover", level: "Beginner", unit: "English File 9B" };
+const KEY = "margo-undercover-v1";
+const DEFAULT_NAME = "Margo";
+
+/* simple clothes pictures (SVG) */
+const S_ = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true"';
+const LONG = "M36 16 L44 13 L50 20 L56 13 L64 16 L78 26 L90 74 L79 78 L68 42 L68 88 L32 88 L32 42 L21 78 L10 74 L22 26 Z";
+const PICS = {
+ "T-shirt": `<svg ${S_}><path d="M34 18 L44 14 Q50 22 56 14 L66 18 L86 32 L77 45 L68 39 L68 86 L32 86 L32 39 L23 45 L14 32 Z" fill="#ff7a59" stroke="#c4502f" stroke-width="2"/></svg>`,
+ "shirt": `<svg ${S_}><path d="${LONG}" fill="#9ccbe8" stroke="#4a7fa7" stroke-width="2"/><polygon points="44,13 50,25 39,22" fill="#fff" stroke="#4a7fa7"/><polygon points="56,13 50,25 61,22" fill="#fff" stroke="#4a7fa7"/><line x1="50" y1="25" x2="50" y2="88" stroke="#4a7fa7" stroke-width="2"/><circle cx="53" cy="36" r="1.8" fill="#1d3557"/><circle cx="53" cy="50" r="1.8" fill="#1d3557"/><circle cx="53" cy="64" r="1.8" fill="#1d3557"/><circle cx="53" cy="78" r="1.8" fill="#1d3557"/></svg>`,
+ "sweater": `<svg ${S_}><path d="M36 16 Q50 27 64 16 L78 24 L90 74 L79 78 L68 42 L68 84 L32 84 L32 42 L21 78 L10 74 L22 24 Z" fill="#6a994e" stroke="#386641" stroke-width="2"/><rect x="32" y="80" width="36" height="9" fill="#386641"/><polygon points="90,74 79,78 81,84 92,80" fill="#386641"/><polygon points="10,74 21,78 19,84 8,80" fill="#386641"/><path d="M38 16 Q50 29 62 16" fill="none" stroke="#386641" stroke-width="4"/><polyline points="32,52 38,46 44,52 50,46 56,52 62,46 68,52" fill="none" stroke="#f2e8cf" stroke-width="3"/></svg>`,
+ "jacket": `<svg ${S_}><path d="${LONG}" fill="#2f5d73" stroke="#1b3540" stroke-width="2"/><polygon points="44,13 50,42 56,13" fill="#fff"/><polygon points="44,13 50,42 45,50 38,22" fill="#1f4152"/><polygon points="56,13 50,42 55,50 62,22" fill="#1f4152"/><line x1="36" y1="70" x2="46" y2="70" stroke="#1b3540" stroke-width="2"/><line x1="54" y1="70" x2="64" y2="70" stroke="#1b3540" stroke-width="2"/><circle cx="51" cy="58" r="2" fill="#e9c46a"/><circle cx="51" cy="68" r="2" fill="#e9c46a"/></svg>`,
+ "suit": `<svg ${S_}><path d="M37 8 L45 6 L50 12 L55 6 L63 8 L75 16 L84 50 L75 53 L67 26 L67 58 L33 58 L33 26 L25 53 L16 50 L25 16 Z" fill="#5c677d" stroke="#333d4f" stroke-width="2"/><polygon points="45,6 50,30 55,6" fill="#fff"/><polygon points="50,12 47.5,16 50,32 52.5,16" fill="#c8102e"/><polygon points="34,58 49,58 47,96 36,96" fill="#5c677d" stroke="#333d4f" stroke-width="2"/><polygon points="51,58 66,58 64,96 53,96" fill="#5c677d" stroke="#333d4f" stroke-width="2"/></svg>`,
+ "dress": `<svg ${S_}><line x1="40" y1="14" x2="38" y2="6" stroke="#7b2cbf" stroke-width="2.5"/><line x1="60" y1="14" x2="62" y2="6" stroke="#7b2cbf" stroke-width="2.5"/><path d="M38 14 Q50 22 62 14 L60 44 L40 44 Z" fill="#9b5de5" stroke="#7b2cbf" stroke-width="2"/><path d="M40 44 L60 44 L82 92 L18 92 Z" fill="#9b5de5" stroke="#7b2cbf" stroke-width="2"/><rect x="39" y="41" width="22" height="5" fill="#f15bb5"/></svg>`,
+ "skirt": `<svg ${S_}><rect x="31" y="20" width="38" height="9" rx="2" fill="#c9184a"/><path d="M31 29 L69 29 L84 82 L16 82 Z" fill="#f15bb5" stroke="#c9184a" stroke-width="2"/><line x1="42" y1="29" x2="36" y2="82" stroke="#c9184a" stroke-width="1.5"/><line x1="50" y1="29" x2="50" y2="82" stroke="#c9184a" stroke-width="1.5"/><line x1="58" y1="29" x2="64" y2="82" stroke="#c9184a" stroke-width="1.5"/></svg>`,
+ "trousers": `<svg ${S_}><rect x="29" y="10" width="42" height="8" fill="#4b5563"/><path d="M29 18 L71 18 L73 94 L54 94 L50 42 L46 94 L27 94 Z" fill="#7d8597" stroke="#4b5563" stroke-width="2"/><line x1="37" y1="24" x2="36" y2="92" stroke="#5c6475" stroke-width="1.2"/><line x1="63" y1="24" x2="64" y2="92" stroke="#5c6475" stroke-width="1.2"/></svg>`,
+ "jeans": `<svg ${S_}><rect x="29" y="10" width="42" height="8" fill="#24507a"/><path d="M29 18 L71 18 L73 94 L54 94 L50 42 L46 94 L27 94 Z" fill="#3a6ea5" stroke="#24507a" stroke-width="2"/><path d="M31 20 Q38 30 44 20" fill="none" stroke="#f4a261" stroke-width="1.6" stroke-dasharray="2 2"/><path d="M69 20 Q62 30 56 20" fill="none" stroke="#f4a261" stroke-width="1.6" stroke-dasharray="2 2"/><line x1="50" y1="18" x2="50" y2="40" stroke="#f4a261" stroke-width="1.6" stroke-dasharray="2 2"/><line x1="29" y1="90" x2="46" y2="90" stroke="#f4a261" stroke-width="1.6" stroke-dasharray="2 2"/><line x1="54" y1="90" x2="73" y2="90" stroke="#f4a261" stroke-width="1.6" stroke-dasharray="2 2"/></svg>`,
+ "shoes": `<svg ${S_}><path d="M6 72 Q8 56 22 58 L34 62 Q46 65 46 74 L46 78 L6 78 Z" fill="#8b5a2b" stroke="#5e3a17" stroke-width="2"/><rect x="5" y="77" width="42" height="5" rx="2" fill="#3b2a1a"/><path d="M52 72 Q54 56 68 58 L80 62 Q92 65 92 74 L92 78 L52 78 Z" fill="#8b5a2b" stroke="#5e3a17" stroke-width="2"/><rect x="51" y="77" width="42" height="5" rx="2" fill="#3b2a1a"/></svg>`,
+ "hat": `<svg ${S_}><ellipse cx="50" cy="68" rx="42" ry="10" fill="#3d405b"/><path d="M28 68 L32 34 Q50 26 68 34 L72 68 Z" fill="#3d405b"/><rect x="29.5" y="56" width="41" height="8" fill="#e07a5f"/></svg>`,
+ "uniform": `<svg ${S_}><path d="M38 24 Q30 10 40 8 Q44 1 50 6 Q56 1 60 8 Q70 10 62 24 Z" fill="#fff" stroke="#9aa5b1" stroke-width="2"/><rect x="38" y="22" width="24" height="6" fill="#fff" stroke="#9aa5b1" stroke-width="2"/><path d="M38 32 L45 30 L50 35 L55 30 L62 32 L74 40 L84 82 L75 85 L66 52 L66 96 L34 96 L34 52 L25 85 L16 82 L26 40 Z" fill="#fff" stroke="#9aa5b1" stroke-width="2"/><circle cx="44" cy="50" r="2" fill="#9aa5b1"/><circle cx="56" cy="50" r="2" fill="#9aa5b1"/><circle cx="44" cy="62" r="2" fill="#9aa5b1"/><circle cx="56" cy="62" r="2" fill="#9aa5b1"/><circle cx="44" cy="74" r="2" fill="#9aa5b1"/><circle cx="56" cy="74" r="2" fill="#9aa5b1"/></svg>`
+};
+
+/* g: c = clothes, h = hotel words (from the Undercover Boss story) */
+const WORDS = [
+ {g:"c", en:"dress", ipa:"/dres/", ru:"платье", ex:"She's wearing a purple dress.", exRu:"На ней фиолетовое платье."},
+ {g:"c", en:"skirt", ipa:"/skɜːt/", ru:"юбка", ex:"I usually wear a skirt to work.", exRu:"Я обычно ношу юбку на работу."},
+ {g:"c", en:"jacket", ipa:"/ˈdʒækɪt/", ru:"пиджак; куртка", ex:"Take a jacket — it's cold.", exRu:"Возьми куртку — холодно."},
+ {g:"c", en:"suit", ipa:"/suːt/", ru:"(деловой) костюм", ex:"The boss usually wears a suit.", exRu:"Начальник обычно носит костюм."},
+ {g:"c", en:"jeans", ipa:"/dʒiːnz/", ru:"джинсы", ex:"Today he's wearing jeans.", exRu:"Сегодня он в джинсах."},
+ {g:"c", en:"sweater", ipa:"/ˈswetə/", ru:"свитер", ex:"I love my old green sweater.", exRu:"Я люблю свой старый зелёный свитер."},
+ {g:"c", en:"shirt", ipa:"/ʃɜːt/", ru:"рубашка", ex:"He's wearing a white shirt.", exRu:"На нём белая рубашка."},
+ {g:"c", en:"T-shirt", ipa:"/ˈtiː ʃɜːt/", ru:"футболка", ex:"In summer I wear a T-shirt.", exRu:"Летом я ношу футболку."},
+ {g:"c", en:"shoes", ipa:"/ʃuːz/", ru:"туфли, ботинки, обувь", ex:"These shoes are new.", exRu:"Эти туфли новые."},
+ {g:"c", en:"trousers", ipa:"/ˈtraʊzəz/", ru:"брюки", ex:"My trousers are grey.", exRu:"Мои брюки серые."},
+ {g:"c", en:"hat", ipa:"/hæt/", ru:"шляпа, шапка", ex:"A chef wears a white hat.", exRu:"Повар носит белый колпак."},
+ {g:"c", en:"uniform", ipa:"/ˈjuːnɪfɔːm/", ru:"форма, униформа", ex:"Nurses wear a uniform at work.", exRu:"Медсёстры носят форму на работе."},
+ {g:"h", en:"kitchen", ipa:"/ˈkɪtʃɪn/", ru:"кухня", em:"🍳", ex:"He's working in the kitchen today.", exRu:"Сегодня он работает на кухне."},
+ {g:"h", en:"bedroom", ipa:"/ˈbedruːm/", ru:"спальня; номер в отеле", em:"🛏️", ex:"The hotel has 200 bedrooms.", exRu:"В отеле 200 номеров."},
+ {g:"h", en:"clean", ipa:"/kliːn/", ru:"убирать, чистить", em:"🧹", ex:"She cleans the rooms every day.", exRu:"Она убирает номера каждый день."},
+ {g:"h", en:"repair", ipa:"/rɪˈpeə/", ru:"чинить, ремонтировать", em:"🔧", ex:"They're repairing the lift.", exRu:"Они чинят лифт."},
+ {g:"h", en:"wash the dishes", ipa:"/wɒʃ ðə ˈdɪʃɪz/", ru:"мыть посуду", em:"🧽", ex:"I'm washing the dishes now.", exRu:"Я сейчас мою посуду."},
+ {g:"h", en:"serve", ipa:"/sɜːv/", ru:"подавать (еду, напитки)", em:"🍽️", ex:"Waiters serve breakfast at 7.", exRu:"Официанты подают завтрак в 7."},
+ {g:"h", en:"angry", ipa:"/ˈæŋɡri/", ru:"сердитый, злой", em:"😠", ex:"My boss is angry today.", exRu:"Мой начальник сегодня сердитый."},
+ {g:"h", en:"surprised", ipa:"/səˈpraɪzd/", ru:"удивлённый", em:"😮", ex:"The workers are very surprised.", exRu:"Работники очень удивлены."}
+];
+WORDS.forEach(w => { w.rx = new RegExp("\\b" + w.en.split(" ")[0].replace("T-shirt","t-shirt") + (w.en === "wash the dishes" ? "\\b|\\bdishes" : "") + "", "i"); });
+const pic = w => PICS[w.en] || null;
+
+/* Story (our own simple retelling). [[shown|gloss]] */
+const STORY = [
+ "David Clarke is the [[boss|начальник]] of a big hotel company. He usually [[works|работает]] in an office and he usually [[wears|носит]] a [[suit|костюм]]. But this week he [[is working|работает (сейчас)]] [[undercover|тайно, под прикрытием]] in one of his hotels. His name is “Andy” now!",
+ "On Monday he is working in the [[kitchen|кухня]]. He [[is washing the dishes|моет посуду]]. On Tuesday he [[is cleaning|убирает]] the [[bedrooms|номера]]. Some workers aren’t [[repairing|чинят]] things, and David is [[angry|сердитый]].",
+ "On Wednesday he [[is serving|подаёт]] breakfast in the restaurant. He [[is wearing|одет в]] a [[uniform|форма]]: a white [[jacket|куртка]] and a [[hat|колпак]].",
+ "At the end of the week David says: “I’m not Andy. I’m your boss!” The workers are very [[surprised|удивлены]]."
+];
+
+const CAREFUL = [
+ "<b>jeans, trousers, shoes</b> — always plural! <i>My jeans <b>are</b> new.</i> <span class='ru'>Всегда во множественном числе: джинсы, брюки — they are.</span> <span class='x'>✗ a jeans</span> <span class='v'>✓ jeans / a pair of jeans</span>",
+ "<b>shirt</b> = <span class='ru'>рубашка (с воротником и пуговицами)</span> · <b>T-shirt</b> = <span class='ru'>футболка</span>.",
+ "<b>jacket</b> = <span class='ru'>пиджак</span> (часть костюма) <b>and</b> <span class='ru'>куртка</span>. <b>suit</b> = jacket + trousers (or skirt) of the same colour.",
+ "<b>wear</b> = <span class='ru'>носить (одежду)</span>: <i>I usually <b>wear</b> jeans.</i> · <i>Today I<b>'m wearing</b> a dress.</i> <span class='ru'>«Я в платье» = I'm wearing a dress.</span>",
+ "Sounds: <b>shirt, skirt, work, serve</b> = /ɜː/ · <b>jeans, clean</b> = /iː/ · <b>dress, sweater</b> = /e/ · <b>wear, repair</b> = /eə/."
+];
+
+/* ---------- exercises ---------- */
+const CLOTHES_OPTS = ["dress","skirt","jacket","suit","jeans","sweater","shirt","T-shirt","shoes","trousers","hat","uniform"];
+const EX = [
+ /* ===== VOCABULARY ===== */
+ {id:"v1", kind:"v", type:"choice", en:"What is it?", ru:"Что это?",
+  ins:"Look at the picture and choose the word.", insRu:"Посмотри на картинку и выбери слово.",
+  items:[
+   {pic:"jeans", o:["jeans","trousers","skirt"], a:0},
+   {pic:"sweater", o:["shirt","sweater","jacket"], a:1},
+   {pic:"jacket", o:["suit","dress","jacket"], a:2},
+   {pic:"skirt", o:["skirt","shirt","shoes"], a:0},
+   {pic:"trousers", o:["jeans","trousers","T-shirt"], a:1},
+   {pic:"shoes", o:["hat","suit","shoes"], a:2},
+   {pic:"dress", o:["dress","skirt","sweater"], a:0},
+   {pic:"T-shirt", o:["shirt","T-shirt","jacket"], a:1},
+   {pic:"suit", o:["uniform","jacket","suit"], a:2},
+   {pic:"shirt", o:["shirt","skirt","T-shirt"], a:0}
+  ]},
+ {id:"v2", kind:"v", type:"match", en:"Hotel words", ru:"Слова из истории",
+  ins:"Tap an English word, then its translation.", insRu:"Нажми на английское слово, а потом на перевод.",
+  rounds:[
+   [{en:"kitchen",ru:"кухня"},{en:"bedroom",ru:"спальня, номер"},{en:"clean",ru:"убирать"},{en:"repair",ru:"чинить"}],
+   [{en:"wash the dishes",ru:"мыть посуду"},{en:"serve",ru:"подавать (еду)"},{en:"angry",ru:"сердитый"},{en:"surprised",ru:"удивлённый"}]
+  ]},
+ {id:"v3", kind:"v", type:"choice", en:"What do they wear?", ru:"Что они носят?",
+  ins:"Choose the word for the gap.", insRu:"Выбери слово для пропуска.",
+  items:[
+   {q:"A chef usually wears a white jacket and a white ___.", o:["hat","skirt","shoes"], a:0, why:"<b>hat</b> — шляпа, (поварской) колпак 👨‍🍳"},
+   {q:"It's very cold. I'm wearing a warm ___.", o:["T-shirt","sweater","skirt"], a:1, why:"<b>sweater</b> — свитер: warm! 🧶"},
+   {q:"My boss always wears a ___ and a tie.", o:["dress","suit","T-shirt"], a:1, why:"<b>suit</b> + tie — костюм и галстук"},
+   {q:"Nurses and police officers wear a ___ at work.", o:["uniform","jeans","sweater"], a:0, why:"<b>uniform</b> — форма: special clothes for a job"},
+   {q:"It's hot today. I'm wearing shorts and a ___.", o:["sweater","jacket","T-shirt"], a:2, why:"<b>T-shirt</b> — футболка: good for hot days ☀️"}
+  ]},
+ {id:"v4", kind:"v", type:"choice", listen:true, en:"Listen and choose", ru:"Послушай и выбери",
+  ins:"Press 🔊, listen and choose the word.", insRu:"Нажми 🔊, послушай и выбери слово.",
+  items:[
+   {say:"skirt", o:["shirt","skirt","sweater"], a:1, why:"<b>skirt</b> /skɜːt/ — юбка (shirt /ʃɜːt/ — рубашка)"},
+   {say:"jeans", o:["jeans","shoes","dress"], a:0, why:"<b>jeans</b> /dʒiːnz/ — джинсы"},
+   {say:"trousers", o:["T-shirt","sweater","trousers"], a:2, why:"<b>trousers</b> /ˈtraʊzəz/ — брюки"},
+   {say:"shirt", o:["shirt","skirt","suit"], a:0, why:"<b>shirt</b> /ʃɜːt/ — рубашка"},
+   {say:"jacket", o:["hat","jacket","jeans"], a:1, why:"<b>jacket</b> /ˈdʒækɪt/ — пиджак, куртка"}
+  ]},
+ {id:"v5", kind:"v", type:"choice", en:"The story: true or false?", ru:"История: правда или нет?",
+  ins:"Read the story on the Words tab. Is it true or false?", insRu:"Прочитай историю во вкладке «Слова». Это правда или нет?",
+  items:[
+   {q:"David usually works in a hotel kitchen.", o:["True · Правда","False · Неправда"], a:1, say:"He usually works in an office.", why:"False: he usually works <b>in an office</b>. · Обычно он работает в офисе."},
+   {q:"This week David is working in one of his hotels.", o:["True · Правда","False · Неправда"], a:0, say:"This week he's working in one of his hotels.", why:"True! · Правда."},
+   {q:"On Monday he is washing the dishes.", o:["True · Правда","False · Неправда"], a:0, say:"On Monday he's washing the dishes.", why:"True! He's working in the kitchen. · Правда, он на кухне."},
+   {q:"On Wednesday he is wearing a suit.", o:["True · Правда","False · Неправда"], a:1, say:"On Wednesday he's wearing a uniform.", why:"False: he's wearing <b>a uniform</b> — a white jacket and a hat. · Он в форме."},
+   {q:"The workers know that “Andy” is the boss.", o:["True · Правда","False · Неправда"], a:1, say:"The workers don't know. They are very surprised.", why:"False: at the end they are very <b>surprised</b>. · Они не знают и очень удивлены."}
+  ]},
+ {id:"v6", kind:"v", type:"choice", sound:true, en:"Sounds", ru:"Звуки",
+  ins:"Press 🔊 and listen. Which sound is it?", insRu:"Нажми 🔊 и послушай. Какой это звук?",
+  items:[
+   {q:"sh<b>ir</b>t", say:"shirt", o:["/ɜː/ bird","/iː/ tree","/e/ egg","/eə/ chair"], a:0, why:"sh<b>ir</b>t — /ɜː/ like b<b>ir</b>d"},
+   {q:"j<b>ea</b>ns", say:"jeans", o:["/ɜː/ bird","/iː/ tree","/e/ egg","/eə/ chair"], a:1, why:"j<b>ea</b>ns — /iː/ like tr<b>ee</b>"},
+   {q:"sw<b>ea</b>ter", say:"sweater", o:["/ɜː/ bird","/iː/ tree","/e/ egg","/eə/ chair"], a:2, why:"sw<b>ea</b>ter — /e/ like <b>e</b>gg (not like jeans!)"},
+   {q:"w<b>ear</b>", say:"wear", o:["/ɜː/ bird","/iː/ tree","/e/ egg","/eə/ chair"], a:3, why:"w<b>ear</b> — /eə/ like ch<b>air</b>"},
+   {q:"w<b>or</b>k", say:"work", o:["/ɜː/ bird","/iː/ tree","/e/ egg","/eə/ chair"], a:0, why:"w<b>or</b>k — /ɜː/ like b<b>ir</b>d"}
+  ]},
+
+ /* ===== GRAMMAR ===== */
+ {id:"g1", kind:"g", type:"choice", en:"Every day or now?", ru:"Каждый день или сейчас?",
+  ins:"Which tense do we use with these words?", insRu:"Какое время мы используем с этими словами?",
+  rule:"🔁 <span class='ps'>usually, always, never, every day</span> → Present Simple · ⏱ <span class='pc'>now, today, at the moment, Look!</span> → Present Continuous",
+  items:[
+   {q:"<b>usually</b>", o:["🔁 Present Simple (I work)","⏱ Present Continuous (I'm working)"], a:0, say:"I usually work in an office.", why:"usually = обычно → <span class='ps'>Present Simple</span>"},
+   {q:"<b>now</b>", o:["🔁 Present Simple (I work)","⏱ Present Continuous (I'm working)"], a:1, say:"I'm working now.", why:"now = сейчас → <span class='pc'>Present Continuous</span>"},
+   {q:"<b>every Monday</b>", o:["🔁 Present Simple (I work)","⏱ Present Continuous (I'm working)"], a:0, say:"I work every Monday.", why:"every … = каждый … → <span class='ps'>Present Simple</span>"},
+   {q:"<b>at the moment</b>", o:["🔁 Present Simple (I work)","⏱ Present Continuous (I'm working)"], a:1, say:"I'm working at the moment.", why:"at the moment = в данный момент → <span class='pc'>Present Continuous</span>"},
+   {q:"<b>today</b> (not usual · не как обычно)", o:["🔁 Present Simple (I work)","⏱ Present Continuous (I'm working)"], a:1, say:"Today I'm working at home.", why:"today, different from usual → <span class='pc'>Present Continuous</span>"}
+  ]},
+ {id:"g2", kind:"g", type:"choice", en:"Choose the correct form", ru:"Выбери правильную форму",
+  ins:"Choose the correct form. Look for the time words!", insRu:"Выбери правильную форму. Ищи слова-подсказки!",
+  rule:"<span class='ps'>Present Simple:</span> I work · she work<b>s</b> &nbsp;|&nbsp; <span class='pc'>Present Continuous:</span> I<b>'m</b> work<b>ing</b> · she<b>'s</b> work<b>ing</b>",
+  items:[
+   {q:"Look! It ___.", o:["rains","is raining"], a:1, why:"<b>Look!</b> = now → <span class='pc'>is raining</span>."},
+   {q:"I usually ___ jeans to work.", o:["wear","am wearing"], a:0, why:"<b>usually</b> → <span class='ps'>wear</span>."},
+   {q:"Today she ___ a dress.", o:["wears","is wearing"], a:1, why:"<b>today</b> → <span class='pc'>is wearing</span>."},
+   {q:"My dad is a chef. He ___ in a hotel.", o:["works","is working"], a:0, why:"His job — always true → <span class='ps'>works</span>. · Его работа — это всегда."},
+   {q:"“Where are you?” “At home. I ___ TV.”", o:["watch","am watching"], a:1, why:"Now, at the moment → <span class='pc'>am watching</span>."},
+   {q:"We never ___ hats.", o:["wear","are wearing"], a:0, why:"<b>never</b> → <span class='ps'>wear</span>."},
+   {q:"“Can you talk?” “Sorry, no. I ___ dinner.”", o:["cook","am cooking"], a:1, why:"Now → <span class='pc'>am cooking</span>."}
+  ]},
+ {id:"g3", kind:"g", type:"choice", en:"Spelling: -ing", ru:"Правописание: -ing",
+  ins:"Choose the correct -ing form.", insRu:"Выбери правильную форму с -ing.",
+  rule:"have → hav<b>ing</b> (no e) · swim → swi<b>mm</b>ing · sit → si<b>tt</b>ing · ski → ski<b>ing</b>",
+  items:[
+   {q:"have →", o:["haveing","having"], a:1, say:"having", why:"-e disappears: hav<b>ing</b>. · Буква e исчезает."},
+   {q:"swim →", o:["swiming","swimming"], a:1, say:"swimming", why:"short word, one vowel + consonant → double: swi<b>mm</b>ing."},
+   {q:"ski →", o:["skiing","sking"], a:0, say:"skiing", why:"ski + ing = sk<b>ii</b>ng (two i)."},
+   {q:"sit →", o:["sitting","siting"], a:0, say:"sitting", why:"double t: si<b>tt</b>ing."}
+  ]},
+ {id:"g4", kind:"g", type:"type", en:"Usually… but today", ru:"Обычно… но сегодня",
+  ins:"Write the verb in the correct form.", insRu:"Напиши глагол в правильной форме.",
+  rule:"<span class='ps'>usually</span> → he / she + verb<b>-s</b> · <span class='pc'>today</span> → he / she <b>is</b> + verb<b>-ing</b>",
+  items:[
+   {q:"👩‍🍳 Ana is a chef. She usually ______ <i>(cook)</i> in a restaurant…", acc:["cooks","she cooks"], hint:"usually + she → verb + <b>-s</b>", say:"Ana usually cooks in a restaurant."},
+   {q:"…but today she ______ <i>(have)</i> a picnic in the park.", acc:["is having","'s having","she is having","she's having"], hint:"today → <b>is</b> + verb-<b>ing</b> (have → having)", say:"But today she's having a picnic in the park."},
+   {q:"👨‍🏫 Tom is a teacher. He usually ______ <i>(teach)</i> children…", acc:["teaches","he teaches"], hint:"teach + <b>-es</b> (like watch → watches)", say:"Tom usually teaches children."},
+   {q:"…but today he ______ <i>(play)</i> tennis.", acc:["is playing","'s playing","he is playing","he's playing"], hint:"today → <b>is</b> + play<b>ing</b>", say:"But today he's playing tennis."},
+   {q:"🎤 Kate is a singer. She usually ______ <i>(sing)</i> in big concerts…", acc:["sings","she sings"], hint:"usually + she → <b>-s</b>", say:"Kate usually sings in big concerts."},
+   {q:"…but today she ______ <i>(sing)</i> in the shower!", acc:["is singing","'s singing","she is singing","she's singing"], hint:"today → <b>is</b> + sing<b>ing</b>", say:"But today she's singing in the shower!"}
+  ]},
+ {id:"g5", kind:"g", type:"choice", en:"Do you…? or Are you…?", ru:"Do you…? или Are you…?",
+  ins:"Choose the right word for the question.", insRu:"Выбери правильное слово для вопроса.",
+  rule:"<span class='ps'>Do / Does</span> + verb (usually) · <span class='pc'>Am / Is / Are</span> + verb-ing (now)",
+  items:[
+   {q:"___ you usually wear a uniform?", o:["Do","Are"], a:0, why:"usually + wear (no -ing) → <span class='ps'>Do</span> you wear…?"},
+   {q:"___ you wearing a watch now?", o:["Do","Are"], a:1, why:"now + wear<b>ing</b> → <span class='pc'>Are</span> you wearing…?"},
+   {q:"___ she usually have breakfast at home?", o:["Does","Is"], a:0, why:"usually, she → <span class='ps'>Does</span> she have…?"},
+   {q:"___ he working today?", o:["Does","Is"], a:1, why:"today + work<b>ing</b> → <span class='pc'>Is</span> he working?"},
+   {q:"What ___ you doing?", o:["do","are"], a:1, why:"do<b>ing</b> → <span class='pc'>are</span> you doing? (= Что ты сейчас делаешь?)"}
+  ]},
+ {id:"g6", kind:"g", type:"build", en:"Build the sentence", ru:"Собери предложение",
+  ins:"Tap the words in the right order. Tap a word in your answer to take it back.", insRu:"Нажимай на слова в правильном порядке. Чтобы убрать слово, нажми на него в ответе.",
+  items:[
+   {ru:"Она в синем платье (сейчас).", t:["dress","is","She","a","wearing","blue"], end:".", acc:["She is wearing a blue dress"], hint:"<b>She is wearing</b> …"},
+   {ru:"Я обычно ношу джинсы и футболку.", t:["and","wear","I","jeans","a","usually","T-shirt"], end:".", acc:["I usually wear jeans and a T-shirt"], hint:"<b>I usually wear</b> …"},
+   {ru:"Он сегодня не работает.", t:["working","He","today","isn't"], end:".", acc:["He isn't working today","Today he isn't working"], hint:"<b>He isn't</b> …"},
+   {ru:"Что ты делаешь (сейчас)?", t:["doing","you","What","are"], end:"?", acc:["What are you doing"], hint:"<b>What are</b> …"}
+  ]},
+ {id:"g7", kind:"g", type:"type", en:"Translate", ru:"Переведи",
+  ins:"Translate into English. If your answer is different but also correct, press “My answer is also correct”.", insRu:"Переведи на английский. Если ответ отличается от образца, но тоже верный, нажми «Мой ответ тоже верный».",
+  rule:"<span class='ru'>По-русски «я работаю» — и обычно, и сейчас. По-английски: обычно → <span class='ps'>I work</span>, сейчас → <span class='pc'>I'm working</span>.</span>",
+  items:[
+   {q:"<span class='ruq'>Я обычно ношу джинсы.</span>", acc:["I usually wear jeans"], self:true, hint:"обычно → I <b>usually wear</b> …", say:"I usually wear jeans."},
+   {q:"<span class='ruq'>Сегодня я в платье.</span>", acc:["Today I am wearing a dress","I am wearing a dress today"], model:"Today I'm wearing a dress.", self:true, hint:"сегодня → I<b>'m wearing</b> a dress", say:"Today I'm wearing a dress."},
+   {q:"<span class='ruq'>Он сейчас не работает.</span>", acc:["He is not working now","He is not working at the moment","He's not working now","Now he is not working"], model:"He isn't working now.", self:true, hint:"сейчас → he <b>isn't working</b>", say:"He isn't working now."}
+  ]},
+ {id:"w", kind:"g", type:"write", en:"Usually… but today", ru:"Обычно… но сегодня",
+  ins:"Write 4–6 sentences about you. What do you usually do and wear? What are you doing and wearing today? Start like this: <i>I usually… but today I'm…</i>",
+  insRu:"Напиши 4–6 предложений о себе. Что ты обычно делаешь и носишь? Что ты делаешь и что на тебе сегодня? Начни так: I usually… but today I'm…",
+  items:[]}
+];
+
+/* Grammar demo: usually… but today (different people from the exercises) */
+const PEOPLE = [
+ {em:"⚽", name:"Leo", job:"footballer", u:"Leo <span class='ps'>usually plays</span> football.", t:"…but today he<span class='pc'>'s watching</span> a film at home.", say:"Leo usually plays football, but today he's watching a film at home."},
+ {em:"🩺", name:"Sam", job:"doctor", u:"Sam <span class='ps'>usually works</span> in a hospital.", t:"…but today he<span class='pc'>'s skiing</span> in the mountains.", say:"Sam usually works in a hospital, but today he's skiing in the mountains."},
+ {em:"✈️", name:"Mia", job:"pilot", u:"Mia <span class='ps'>usually flies</span> planes.", t:"…but today she<span class='pc'>'s travelling</span> by train.", say:"Mia usually flies planes, but today she's travelling by train."},
+ {em:"🕵️", name:"David", job:"boss", u:"David <span class='ps'>usually wears</span> a suit.", t:"…but today he<span class='pc'>'s wearing</span> jeans and a T-shirt.", say:"David usually wears a suit, but today he's wearing jeans and a T-shirt."}
+];
+
+const PRAISE = ["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Yes! · Да!","Super! · Супер!"];
+const OOPS = ["Not quite · Не совсем","Oops! · Ой!","Not this one · Не то","Almost · Почти"];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){
+    const v = attrs[k];
+    if (v === false || v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k.slice(0,2) === "on") e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()){ if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function strip(html){ const d = document.createElement("div"); d.innerHTML = html; return d.textContent.replace(/\s+/g," ").trim(); }
+function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(()=>el.classList.remove("on"), 2300); }
+
+let MEM = null;
+function load(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }catch(e){ return MEM; } }
+function save(){ const j = JSON.stringify(S); try{ localStorage.setItem(KEY, j); }catch(e){ MEM = JSON.parse(j); } }
+function wipe(){ try{ localStorage.removeItem(KEY); }catch(e){} MEM = null; }
+const DEF = () => ({name:DEFAULT_NAME, ans:{}, mw:{}, known:{}, writing:"", tab:"words", ex:0, dir:"en", onlyL:false});
+let S = Object.assign(DEF(), load() || {});
+
+let VOICE = null;
+const HAS_TTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if (HAS_TTS){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function say(t){ if (!HAS_TTS || !t) return; try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-GB"; if (VOICE) u.voice = VOICE; u.rate = 0.85; speechSynthesis.speak(u); }catch(e){} }
+function spk(t, label, cls){ return h("button", {class:"spk"+(cls?" "+cls:""), type:"button", "aria-label":"Listen: "+t, onclick:e=>{ e.stopPropagation(); say(t); }}, label || "🔊"); }
+
+function norm(s){
+  s = String(s || "").toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”]/g,'"');
+  s = s.replace(/\bcan not\b/g,"cannot").replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\bshan't\b/g,"shall not")
+       .replace(/n't\b/g," not").replace(/\bi'm\b/g,"i am").replace(/'re\b/g," are").replace(/'ve\b/g," have").replace(/'ll\b/g," will")
+       .replace(/\b(it|that|he|she|what|there|who|where|here|this)'s\b/g,"$1 is").replace(/(^|\s)'s\b/g,"$1is");
+  return s.replace(/[.,!?;:"()—–]/g," ").replace(/\s+/g," ").trim();
+}
+function matches(val, it){ const v = norm(val); return it.acc.some(a => norm(a) === v); }
+
+EX.forEach(ex => {
+  const list = ex.type === "match" ? ex.rounds.flat() : (ex.items || []);
+  list.forEach((it, i) => { it.id = ex.id + "-" + i; it.n_ = i + 1; if (it.acc) it.model = it.model || it.acc[0]; });
+  ex.list = list;
+});
+const VCOUNT = EX.filter(e => e.kind === "v").length;
+const LOCKED = ["ok","bad","self"];
+const stOf = id => (S.ans[id] || {}).st;
+const isDone = id => LOCKED.includes(stOf(id));
+const isRight = id => stOf(id) === "ok" || stOf(id) === "self";
+function exScore(ex){ const l = ex.list; return {got:l.filter(i=>isRight(i.id)).length, done:l.filter(i=>isDone(i.id)).length, total:l.length}; }
+function scoreAll(f){ let got=0, done=0, total=0; EX.forEach(ex=>{ if (f && ex.kind !== f) return; const s = exScore(ex); got+=s.got; done+=s.done; total+=s.total; }); return {got, done, total}; }
+const knownCount = () => WORDS.filter(w => S.known[w.en]).length;
+const nm = () => (S.name || "").trim() || DEFAULT_NAME;
+function seeded(arr, seed){ const a = arr.slice(); let s = seed; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280; for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* tabs */
+const TABS = [["words","Words","Слова"],["cards","Cards","Карточки"],["grammar","Grammar","Правила"],["practice","Practice","Задания"],["results","Results","Итоги"]];
+function renderTabs(){
+  const t = $("#tabs"); t.innerHTML = "";
+  const s = scoreAll();
+  TABS.forEach(([id,en,ru]) => {
+    let badge = "";
+    if (id === "cards" && knownCount()) badge = knownCount() + "/" + WORDS.length;
+    if (id === "practice" && s.done) badge = s.got + "/" + s.total;
+    if (id === "results" && s.done === s.total) badge = Math.round(100 * s.got / s.total) + "%";
+    t.append(h("button", {class:"tab"+(S.tab===id?" on":""), type:"button", role:"tab", "aria-selected":S.tab===id?"true":"false", onclick:()=>go(id)},
+      h("span", null, en), h("span", {class:"tr"}, ru), badge ? h("span", {class:"tb"}, badge) : null));
+  });
+  $("#barFill").style.width = (100 * s.done / s.total) + "%";
+  $("#scoreTxt").textContent = "★ " + s.got + " · " + s.done + "/" + s.total;
+}
+function refresh(){ renderTabs(); if (S.tab === "practice") renderChips(); }
+function go(id){ S.tab = id; save(); show(); const hh = $("#hero").offsetHeight; if (window.scrollY > hh) window.scrollTo(0, hh); }
+function goEx(i){ S.ex = i; S.tab = "practice"; save(); show(); window.scrollTo(0, $("#hero").offsetHeight); }
+function show(){
+  TABS.forEach(([id]) => $("#tab-"+id).classList.toggle("on", S.tab === id));
+  if (S.tab === "cards") renderCards();
+  if (S.tab === "practice") renderPractice();
+  if (S.tab === "results") renderResults();
+  renderTabs();
+}
+
+/* =================== WORDS =================== */
+function picEl(w){ const p = pic(w); return p ? h("div", {class:"pic", html:p}) : h("div", {class:"pic", "aria-hidden":"true"}, w.em || ""); }
+function wordRow(w){
+  return h("div", {class:"w"}, picEl(w),
+    h("div", null, h("span", {class:"en"}, w.en), h("span", {class:"ipa"}, w.ipa), h("div", {class:"tr"}, w.ru)),
+    spk(w.en));
+}
+function renderWords(){
+  const root = $("#tab-words"); root.innerHTML = "";
+  root.append(h("div", {class:"card file", "data-tab":"File 1 · Clothes"},
+    h("h2", null, "Clothes · ", h("span", {class:"ru"}, "Одежда")),
+    h("p", {class:"lead"}, "Press 🔊 to hear each word.", h("br"), h("span", {class:"ru"}, "Нажми 🔊, чтобы послушать слово.")),
+    h("div", {class:"wl"}, WORDS.filter(w => w.g === "c").map(wordRow))));
+  root.append(h("div", {class:"card file", "data-tab":"File 2 · The hotel"},
+    h("h2", null, "Words from the story · ", h("span", {class:"ru"}, "Слова из истории")),
+    h("div", {class:"wl"}, WORDS.filter(w => w.g === "h").map(wordRow))));
+
+  const story = h("div", {class:"story"});
+  STORY.forEach(par => {
+    const p = h("p");
+    par.split(/(\[\[[^\]]+\]\])/).forEach(part => {
+      const m = part.match(/^\[\[([^|]+)\|([^\]]+)\]\]$/);
+      if (!m){ p.append(part); return; }
+      const gloss = h("span", {class:"gloss", hidden:true}, m[2]);
+      const b = h("button", {class:"gl", type:"button", "aria-expanded":"false", onclick:()=>{ const open = gloss.hidden; gloss.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); if (open) say(m[1]); }}, m[1]);
+      p.append(b, gloss);
+    });
+    story.append(p);
+  });
+  const storyText = STORY.join(" ").replace(/\[\[([^|]+)\|[^\]]+\]\]/g, "$1");
+  root.append(h("div", {class:"card file", "data-tab":"File 3 · Top secret"},
+    h("h2", null, "🕵️ The undercover boss · ", h("span", {class:"ru"}, "Тайный начальник")),
+    h("p", {class:"lead"}, "Read the story. Tap a yellow word to see the translation.", h("br"), h("span", {class:"ru"}, "Прочитай историю. Нажми на жёлтое слово, чтобы увидеть перевод.")),
+    h("div", {class:"btns", style:"margin:8px 0 12px"}, spk(storyText, "🔊 Listen to the story · Послушать", "wide")),
+    story,
+    h("div", {class:"rule"}, "Look: ", h("span", {class:"ps"}, "he usually works"), " (every day · обычно) — ", h("span", {class:"pc"}, "he is working"), " (this week, now · сейчас).")));
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Careful! · ", h("span", {class:"ru"}, "Осторожно!")),
+    h("ul", null, CAREFUL.map(c => h("li", {html:c})))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("cards")}, "Next: flashcards · Дальше: карточки →")));
+}
+
+/* =================== FLASHCARDS =================== */
+let deck = [], ci = 0, flipped = false;
+function makeDeck(shuffle){
+  let idx = WORDS.map((_, i) => i);
+  if (S.onlyL) idx = idx.filter(i => !S.known[WORDS[i].en]);
+  if (shuffle) for (let i = idx.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  deck = idx; if (ci >= deck.length) ci = 0; flipped = false;
+}
+function renderCards(){
+  if (!deck.length && !S.onlyL) makeDeck(false);
+  const root = $("#tab-cards"); root.innerHTML = "";
+  const k = knownCount();
+  const box = h("div", {class:"card"});
+  box.append(h("h2", null, "Flashcards · ", h("span", {class:"ru"}, "Карточки")));
+  box.append(h("p", {class:"lead"}, "Tap the card to turn it over. Then say if you know the word.", h("br"), h("span", {class:"ru"}, "Нажми на карточку, чтобы перевернуть. Потом отметь: знаешь слово или ещё учишь.")));
+  box.append(h("div", {class:"fc-top"}, h("span", null, "I know · Знаю: " + k + "/" + WORDS.length), h("span", null, deck.length ? (ci + 1) + " / " + deck.length : "")));
+  box.append(h("div", {class:"kbar"}, h("i", {style:"width:" + (100 * k / WORDS.length) + "%"})));
+  if (!deck.length){
+    box.append(h("div", {class:"fb ok", style:"text-align:center;margin-top:16px;font-size:17px"}, h("b", null, "🎉 You know all the words! · Ты знаешь все слова!"), h("br"), "Turn off the filter to see all cards. · Выключи фильтр, чтобы увидеть все карточки."));
+  } else {
+    const w = WORDS[deck[ci]];
+    const art = () => pic(w) ? h("div", {class:"fe", html:pic(w)}) : h("div", {class:"fe", "aria-hidden":"true"}, w.em);
+    const exPart = [h("div", {class:"fx"}, w.ex), h("div", {class:"fxr"}, w.exRu), spk(w.ex, "🔊 example · пример", "wide")];
+    let front, back;
+    if (S.dir === "en"){
+      front = h("div", {class:"face front"}, art(), h("div", {class:"fw"}, w.en), h("div", {class:"fp"}, w.ipa), spk(w.en), h("div", {class:"tap"}, "tap to turn · нажми, чтобы перевернуть"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--ru);font-size:clamp(21px,6vw,28px)"}, w.ru), exPart);
+    } else {
+      front = h("div", {class:"face front"}, art(), h("div", {class:"fw", style:"font-size:clamp(21px,6vw,28px)"}, w.ru), h("div", {class:"tap"}, "Say it in English! · Скажи по-английски!"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--navy)"}, w.en), h("div", {class:"fp"}, w.ipa), spk(w.en), exPart);
+    }
+    const fc = h("div", {class:"fc" + (flipped ? " flip" : ""), role:"button", tabindex:"0", "aria-label":"Flashcard. Press to turn over"}, front, back);
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); };
+    fc.addEventListener("click", flip);
+    fc.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } });
+    box.append(h("div", {class:"fc-scene"}, fc));
+    const move = d => { ci = (ci + d + deck.length) % deck.length; flipped = false; renderCards(); };
+    box.append(h("div", {class:"fc-nav"},
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(-1)}, "◀ Back", h("br"), h("small", {class:"ru"}, "Назад")),
+      h("button", {class:"btn ghost", type:"button", onclick:flip}, "↻ Turn", h("br"), h("small", {class:"ru"}, "Перевернуть")),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(1)}, "Next ▶", h("br"), h("small", {class:"ru"}, "Дальше"))));
+    const mark = known => {
+      if (known) S.known[w.en] = true; else delete S.known[w.en];
+      save(); renderTabs();
+      if (S.onlyL && known){ deck.splice(ci, 1); if (ci >= deck.length) ci = 0; flipped = false; renderCards(); } else move(1);
+      toast(known ? "✓ " + w.en + " — I know it · Знаю" : "↻ " + w.en + " — still learning · Ещё учу");
+    };
+    box.append(h("div", {class:"fc-know"},
+      h("button", {class:"btn know", type:"button", onclick:()=>mark(true)}, "✓ I know it · Знаю"),
+      h("button", {class:"btn learn", type:"button", onclick:()=>mark(false)}, "Still learning · Ещё учу")));
+  }
+  const filt = h("input", {type:"checkbox"}); filt.checked = !!S.onlyL;
+  filt.addEventListener("change", () => { S.onlyL = filt.checked; save(); ci = 0; makeDeck(false); renderCards(); });
+  box.append(h("div", {class:"fc-tools"},
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ makeDeck(true); ci = 0; renderCards(); toast("Shuffled · Перемешано"); }}, "🔀 Shuffle · Перемешать"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ S.dir = S.dir === "en" ? "ru" : "en"; save(); flipped = false; renderCards(); }}, S.dir === "en" ? "⇄ RU → EN" : "⇄ EN → RU"),
+    h("label", {class:"chk"}, filt, "Only words I’m learning · Только «ещё учу»")));
+  root.append(box);
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("grammar")}, "Next: grammar · Дальше: правила →")));
+}
+
+/* =================== GRAMMAR =================== */
+function exList(arr){ return h("ul", {class:"exl"}, arr.map(([html, s]) => h("li", null, h("span", {html}), spk(s || strip(html))))); }
+function practiseBtn(id){ const i = EX.findIndex(e => e.id === id); return h("button", {class:"btn small", type:"button", onclick:()=>goEx(i)}, "Practise · Потренируйся → " + (i + 1)); }
+function renderGrammar(){
+  const root = $("#tab-grammar"); root.innerHTML = "";
+  // step 1
+  const demo = h("div", {class:"demo"}, h("div", {class:"ru"}, "Tap a person · Нажми на человека 👆"));
+  const peopleBox = h("div", {class:"people"});
+  PEOPLE.forEach((p, i) => {
+    const b = h("button", {class:"person", type:"button", onclick:()=>{
+      peopleBox.querySelectorAll(".person").forEach(x => x.classList.remove("on")); b.classList.add("on");
+      demo.innerHTML = "";
+      demo.append(h("div", {class:"l1"}, h("div", {class:"lab"}, "🔁 usually · обычно"), h("div", {html:p.u})), h("div", {class:"l2"}, h("div", {class:"lab"}, "⏱ today · сегодня"), h("div", {html:p.t})), spk(p.say, "🔊 Listen · Слушать", "wide"));
+      say(p.say);
+    }}, h("span", {class:"pe", "aria-hidden":"true"}, p.em), p.name + " · " + p.job);
+    peopleBox.append(b);
+  });
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "1"), "Two present tenses · ", h("span", {class:"ru"}, "Два настоящих времени")),
+    h("p", {class:"ru", html:"По-русски «я работаю» значит и «обычно», и «сейчас». <b>В английском это два разных времени!</b>"}),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("div", {class:"big"}, "🔁"), h("b", {class:"ps"}, "Present Simple"), h("div", null, "every day, usually · ", h("span", {class:"ru"}, "обычно, всегда, каждый день")), exList([["I <span class='ps'>work</span> in an office.","I work in an office."]])),
+      h("div", {class:"c"}, h("div", {class:"big"}, "⏱"), h("b", {class:"pc"}, "Present Continuous"), h("div", null, "now, today · ", h("span", {class:"ru"}, "сейчас, сегодня, в данный момент")), exList([["Today I<span class='pc'>'m working</span> at home.","Today I'm working at home."]]))),
+    h("h3", {style:"margin-top:16px"}, "Usually… but today · ", h("span", {class:"ru"}, "Обычно… но сегодня")),
+    peopleBox, demo,
+    h("div", {class:"btns"}, practiseBtn("g1"))));
+
+  // step 2 present simple
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "2"), h("span", {class:"ps"}, "Present Simple"), " · ", h("span", {class:"ru"}, "как строится")),
+    h("table", {class:"tbl"},
+      h("tr", null, h("td", null, "+"), h("td", {html:"I / you / we / they <span class='ps'>work</span><br>he / she / it <span class='ps'>work<b>s</b></span> <span class='ru'>(+s!)</span>"})),
+      h("tr", null, h("td", null, "−"), h("td", {html:"I / you / we / they <span class='ps'>don't work</span><br>he / she / it <span class='ps'>doesn't work</span>"})),
+      h("tr", null, h("td", null, "?"), h("td", {html:"<span class='ps'>Do</span> you work? — Yes, I do. / No, I don't.<br><span class='ps'>Does</span> she work? — Yes, she does. / No, she doesn't."}))),
+    h("div", {class:"chips2 s"}, ["always","usually","sometimes","never","every day","every week"].map(t => h("span", null, t))),
+    exList([["She <span class='ps'>wears</span> a uniform at work.","She wears a uniform at work."],["I <span class='ps'>never wear</span> a hat.","I never wear a hat."],["<span class='ps'>Do</span> you usually <span class='ps'>wear</span> jeans?","Do you usually wear jeans?"]])));
+
+  // step 3 present continuous
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "3"), h("span", {class:"pc"}, "Present Continuous"), " · ", h("span", {class:"ru"}, "как строится")),
+    h("p", {html:"<b>am / is / are</b> + verb<b>-ing</b>"}),
+    h("table", {class:"tbl"},
+      h("tr", null, h("td", null, "+"), h("td", {html:"I<span class='pc'>'m working</span> · you / we / they<span class='pc'>'re working</span> · he / she / it<span class='pc'>'s working</span>"})),
+      h("tr", null, h("td", null, "−"), h("td", {html:"I<span class='pc'>'m not working</span> · you<span class='pc'> aren't working</span> · he<span class='pc'> isn't working</span>"})),
+      h("tr", null, h("td", null, "?"), h("td", {html:"<span class='pc'>Are</span> you working? — Yes, I am. / No, I'm not.<br><span class='pc'>Is</span> he working? — Yes, he is. / No, he isn't."}))),
+    h("div", {class:"chips2 c"}, ["now","today","at the moment","Look!","this week"].map(t => h("span", null, t))),
+    h("div", {class:"rule", html:"✏️ <b>-ing spelling · правописание:</b> work → work<b>ing</b> · have → hav<b>ing</b> (no e) · swim → swi<b>mm</b>ing · sit → si<b>tt</b>ing · ski → ski<b>ing</b>"}),
+    exList([["He<span class='pc'>'s wearing</span> a blue hat.","He's wearing a blue hat."],["Look! It<span class='pc'>'s raining</span>.","Look! It's raining."],["What <span class='pc'>are</span> you <span class='pc'>doing</span>?","What are you doing?"]]),
+    h("div", {class:"btns"}, practiseBtn("g2"), practiseBtn("g3"))));
+
+  // step 4 questions
+  root.append(h("div", {class:"card"},
+    h("h2", null, h("span", {class:"step-n"}, "4"), "Do you…? or Are you…? · ", h("span", {class:"ru"}, "Вопросы")),
+    h("div", {class:"two"},
+      h("div", {class:"s"}, h("b", {class:"ps"}, "Do you + verb?"), h("div", {class:"ru"}, "обычно"), exList([["<span class='ps'>Do</span> you usually <span class='ps'>wear</span> a uniform?","Do you usually wear a uniform?"]])),
+      h("div", {class:"c"}, h("b", {class:"pc"}, "Are you + verb-ing?"), h("div", {class:"ru"}, "сейчас"), exList([["<span class='pc'>Are</span> you <span class='pc'>wearing</span> a watch?","Are you wearing a watch?"]]))),
+    h("div", {class:"btns"}, practiseBtn("g5"))));
+
+  const M = [
+   ["I working now.","I'm working now.","нужен am / is / are"],
+   ["She work in a hotel.","She works in a hotel.","he / she / it + s"],
+   ["I am wear jeans every day.","I wear jeans every day.","каждый день → без am и без -ing"],
+   ["Are you work today?","Are you working today?","Are you + -ing"],
+   ["Do you wearing a hat?","Are you wearing a hat?","-ing → Are you…?"],
+   ["He doesn't works.","He doesn't work.","после doesn't — без s"]
+  ];
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Common mistakes · ", h("span", {class:"ru"}, "Типичные ошибки")),
+    h("ul", {class:"mist"}, M.map(([x, v, r]) => h("li", null, h("div", {class:"x"}, "✗ " + x), h("div", {class:"v"}, "✓ " + v, " ", spk(v)), h("div", {class:"ru", style:"font-size:14px"}, r))))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>goEx(0)}, "Next: exercises · Дальше: задания →")));
+}
+
+/* =================== PRACTICE =================== */
+function renderChips(){
+  const c = $("#chips"); if (!c) return; c.innerHTML = "";
+  EX.forEach((ex, i) => {
+    const s = exScore(ex);
+    const done = ex.type === "write" ? S.writing.trim().length > 0 : s.done === s.total;
+    c.append(h("button", {class:"chip" + (ex.kind === "g" ? " g" : "") + (i === S.ex ? " on" : "") + (done ? " done" : ""), type:"button", "aria-label":"Exercise " + (i + 1) + ": " + ex.en, onclick:()=>{ S.ex = i; save(); renderPractice(); }},
+      String(i + 1), h("small", null, ex.type === "write" ? (done ? "✓" : "✍") : (s.done ? s.got + "/" + s.total : (ex.kind === "v" ? "words" : "gram")))));
+  });
+  const on = c.children[S.ex]; if (on && on.scrollIntoView){ try{ on.scrollIntoView({block:"nearest", inline:"center"}); }catch(e){} }
+}
+function renderPractice(){
+  const root = $("#tab-practice"); root.innerHTML = "";
+  root.append(h("div", {class:"chips", id:"chips", "aria-label":"Exercises"}));
+  const ex = EX[S.ex], s = exScore(ex);
+  const card = h("div", {class:"card"});
+  card.append(h("div", {class:"kicker"}, ex.kind === "v" ? "Vocabulary · Слова" : "Grammar · Грамматика"));
+  card.append(h("div", {class:"exhead"},
+    h("div", null, h("h2", null, (S.ex + 1) + ". " + ex.en), h("div", {class:"ru", style:"font-family:'Russo One',sans-serif;font-size:16px"}, ex.ru)),
+    ex.type !== "write" ? h("span", {class:"exscore", id:"exscore"}, s.got + "/" + s.total) : null));
+  card.append(h("p", {class:"ins"}, h("span", {html:ex.ins}), h("br"), h("span", {class:"ru", html:ex.insRu})));
+  if (ex.rule) card.append(h("div", {class:"rule", html:"📌 " + ex.rule}));
+  const body = h("div", {id:"exbody"});
+  card.append(body); root.append(card);
+  ({choice:listEx, type:listEx, build:listEx, match:matchEx, write:writeEx})[ex.type](ex, body);
+  const nav = h("div", {class:"btns", style:"justify-content:space-between"});
+  const top = () => window.scrollTo(0, $("#hero").offsetHeight);
+  nav.append(S.ex > 0 ? h("button", {class:"btn ghost", type:"button", onclick:()=>{ S.ex--; save(); renderPractice(); top(); }}, "← Back · Назад") : h("span"));
+  nav.append(S.ex < EX.length - 1
+    ? h("button", {class:"btn", type:"button", onclick:()=>{ S.ex++; save(); renderPractice(); top(); }}, "Next · Дальше →")
+    : h("button", {class:"btn gold", type:"button", onclick:()=>go("results")}, "See results · Итоги →"));
+  root.append(nav);
+  renderChips();
+}
+function updExScore(ex){ const el = $("#exscore"); if (el){ const s = exScore(ex); el.textContent = s.got + "/" + s.total; } refresh(); }
+function listEx(ex, body){ const make = {choice:choiceItem, type:typeItem, build:buildItem}[ex.type]; ex.items.forEach((it, k) => body.append(make(ex, it, k))); }
+function fbBox(ok, k, why, sayText){
+  const d = h("div", {class:"fb " + (ok ? "ok" : "bad")}, h("b", null, ok ? PRAISE[k % PRAISE.length] : OOPS[k % OOPS.length]));
+  if (why) d.append(h("div", {class:"why", html:why}));
+  if (sayText) d.append(spk(sayText, "🔊 Listen · Слушать", "wide"));
+  return d;
+}
+function sentenceOf(it){
+  if (it.say) return it.say;
+  if (it.pic) return it.o[it.a];
+  const q = strip(it.q); return q.includes("___") ? q.replace(/_{3,}/, it.o[it.a].replace(/^🔁 |^⏱ /, "")) : it.o[it.a];
+}
+function choiceItem(ex, it, k){
+  const a = S.ans[it.id];
+  const box = h("div", {class:"item" + (a ? (a.st === "ok" ? " is-ok" : " is-bad") : "")});
+  if (it.pic){
+    box.append(h("div", {class:"qpic", html:PICS[it.pic]}));
+    box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", null, "What is it? · ", h("span", {class:"ru"}, "Что это?"))));
+  } else if (ex.listen){
+    box.append(h("div", {class:"listen"}, h("span", {class:"num"}, String(k + 1)), spk(it.say, "🔊"), h("span", {class:"ru", style:"font-size:14px"}, "listen · слушай")));
+  } else {
+    const q = h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q}));
+    if (ex.sound) q.append(spk(it.say));
+    box.append(q);
+  }
+  const opts = h("div", {class:"opts"});
+  it.o.forEach((o, j) => {
+    const b = h("button", {class:"opt", type:"button"}, o);
+    if (a){ b.disabled = true; if (j === it.a) b.classList.add("right"); if (j === a.v && j !== it.a) b.classList.add("wrong"); }
+    else b.addEventListener("click", () => {
+      S.ans[it.id] = {v:j, st: j === it.a ? "ok" : "bad"}; save();
+      box.replaceWith(choiceItem(ex, it, k));
+      if (j === it.a) say(sentenceOf(it));
+      updExScore(ex);
+    });
+    opts.append(b);
+  });
+  box.append(opts);
+  if (a){
+    const why = it.why || (it.pic ? "<b>" + it.pic + "</b> — " + WORDS.find(w => w.en === it.pic).ru : "");
+    box.append(fbBox(a.st === "ok", k, (a.st === "ok" ? "" : "Correct answer · Правильный ответ: <b>" + it.o[it.a] + "</b><br>") + why, sentenceOf(it)));
+  }
+  return box;
+}
+function typeItem(ex, it, k){
+  const a = S.ans[it.id] || null;
+  const locked = a && LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q})));
+  const inp = h("input", {type:"text", class:"inp", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false", "aria-label":"Your answer · Твой ответ", placeholder: ex.id === "g7" ? "Write in English · Пиши по-английски" : "Your answer · Твой ответ"});
+  inp.value = a && a.v ? a.v : "";
+  const check = () => {
+    const v = inp.value;
+    if (!v.trim()){ toast("Write an answer first · Сначала напиши ответ"); inp.focus(); return; }
+    const cur = S.ans[it.id] || {tries:0, given:[]};
+    cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v.trim()); cur.v = v.trim();
+    const ok = matches(v, it);
+    cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+    S.ans[it.id] = cur; save();
+    const nb = typeItem(ex, it, k); box.replaceWith(nb);
+    if (cur.st === "try"){ const ni = nb.querySelector("input"); if (ni) ni.focus(); }
+    if (ok) say(it.say || it.model);
+    updExScore(ex);
+  };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); check(); } });
+  if (locked){ inp.disabled = true; box.append(h("div", {class:"row"}, inp)); }
+  else box.append(h("div", {class:"row"}, inp, h("button", {class:"btn small", type:"button", onclick:check}, "Check · Проверить")));
+  if (a && a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  else if (a && a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", it.say || it.model));
+  else if (a && a.st === "bad"){
+    const d = fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.model + "</b>", it.say || it.model);
+    if (it.self) d.append(h("button", {class:"self", type:"button", onclick:()=>{ a.st = "self"; save(); box.replaceWith(typeItem(ex, it, k)); updExScore(ex); }}, "✓ My answer is also correct · Мой ответ тоже верный"));
+    box.append(d);
+  } else if (a && a.st === "self") box.append(h("div", {class:"fb ok"}, h("b", null, "OK! You marked your answer as correct. · Ты отметила свой ответ как верный."), h("div", {class:"why"}, "Model · Образец: ", h("b", null, it.model)), h("div", {class:"why ru"}, "Your teacher will check it. · Учитель проверит.")));
+  return box;
+}
+function buildItem(ex, it, k){
+  const a = S.ans[it.id] || {pick:[], tries:0};
+  const pick = a.pick || [];
+  const locked = LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {class:"ruq"}, it.ru)));
+  const setPick = p => { S.ans[it.id] = Object.assign({}, S.ans[it.id] || {tries:0}, {pick:p}); save(); box.replaceWith(buildItem(ex, it, k)); };
+  const ansZone = h("div", {class:"tiles ans", "aria-label":"Your sentence"});
+  pick.forEach((ti, pi) => ansZone.append(h("button", {class:"tile", type:"button", disabled:locked, onclick:()=>{ const p = pick.slice(); p.splice(pi, 1); setPick(p); }}, it.t[ti])));
+  if (pick.length === it.t.length) ansZone.append(h("span", {class:"endp"}, it.end));
+  if (!pick.length) ansZone.append(h("span", {class:"ru", style:"font-size:14px"}, "Tap the words below · Нажимай на слова ниже"));
+  box.append(ansZone);
+  if (!locked){
+    const pool = h("div", {class:"tiles"});
+    it.t.forEach((w, ti) => { if (!pick.includes(ti)) pool.append(h("button", {class:"tile", type:"button", onclick:()=>setPick(pick.concat(ti))}, w)); });
+    box.append(pool);
+    box.append(h("div", {class:"btns"},
+      h("button", {class:"btn small", type:"button", onclick:()=>{
+        if (pick.length < it.t.length){ toast("Use all the words · Используй все слова"); return; }
+        const sent = pick.map(i => it.t[i]).join(" ");
+        const cur = S.ans[it.id] || {tries:0};
+        cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(sent + it.end); cur.v = sent;
+        const ok = it.acc.some(x => norm(x) === norm(sent));
+        cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+        S.ans[it.id] = cur; save();
+        box.replaceWith(buildItem(ex, it, k));
+        if (ok) say(sent + it.end);
+        updExScore(ex);
+      }}, "Check · Проверить"),
+      h("button", {class:"btn ghost small", type:"button", onclick:()=>setPick([])}, "Clear · Очистить")));
+  }
+  if (a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  if (a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", a.v + it.end));
+  if (a.st === "bad") box.append(fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.model + it.end + "</b>", it.model + it.end));
+  return box;
+}
+let selL = null;
+function matchEx(ex, body){
+  body.innerHTML = "";
+  let offset = 0;
+  ex.rounds.forEach((round, r) => {
+    const pairs = round.map((p, i) => ex.list[offset + i]); offset += round.length;
+    const right = seeded(pairs, 13 + r * 7);
+    const allDone = pairs.every(p => isDone(p.id));
+    body.append(h("div", {class:"round-t"}, "Round " + (r + 1) + " · Раунд " + (r + 1) + (allDone ? " ✓" : "")));
+    const L = h("div", {class:"mcol"}), R = h("div", {class:"mcol"});
+    const msg = h("div", {class:"msg", "aria-live":"polite"});
+    pairs.forEach(p => {
+      const a = S.ans[p.id];
+      L.append(h("button", {class:"mb en" + (a ? (a.st === "ok" ? " done" : " done late") : "") + (selL === p.id ? " sel" : ""), type:"button", disabled:!!a, "aria-pressed":selL === p.id ? "true" : "false", onclick:()=>{ selL = p.id; say(p.en); matchEx(ex, body); }}, p.en));
+    });
+    right.forEach(p => {
+      const a = S.ans[p.id];
+      const b = h("button", {class:"mb" + (a ? (a.st === "ok" ? " done" : " done late") : ""), type:"button", disabled:!!a}, p.ru);
+      b.addEventListener("click", () => {
+        if (!selL || !pairs.some(x => x.id === selL)){ msg.textContent = "Tap an English word first · Сначала нажми на английское слово"; return; }
+        if (selL === p.id){
+          S.ans[p.id] = {st: S.mw[p.id] ? "bad" : "ok", v:p.ru}; selL = null; save();
+          matchEx(ex, body); updExScore(ex);
+          toast("✓ " + p.en + " = " + p.ru);
+        } else {
+          const wrongFor = ex.list.find(x => x.id === selL);
+          S.mw[selL] = (S.mw[selL] || []).concat(p.ru); save();
+          b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+          msg.textContent = "Not “" + wrongFor.en + "”. Try again! · Не подходит. Попробуй ещё раз!";
+        }
+      });
+      R.append(b);
+    });
+    body.append(h("div", {class:"mgrid"}, L, R), msg);
+  });
+}
+function writeEx(ex, body){
+  const ta = h("textarea", {"aria-label":"Your text · Твой текст", placeholder:"I usually wear jeans and a sweater, but today I'm wearing a dress. I usually work in an office, but today I'm…"});
+  ta.value = S.writing || "";
+  const info = h("div", {class:"ru", style:"margin-top:8px;font-size:14px"});
+  const found = h("div", {class:"found"});
+  const upd = () => {
+    const t = ta.value;
+    const words = (t.match(/[A-Za-z’']+/g) || []).length;
+    const used = WORDS.filter(w => w.rx.test(t));
+    const ps = (t.match(/\b(usually|always|never|sometimes|every)\b/gi) || []).length;
+    const pc = (t.match(/\b(am|is|are|'m|'s|'re)\s+(not\s+)?\w+ing\b|['’](m|s|re)\s+(not\s+)?\w+ing\b/gi) || []).length;
+    found.innerHTML = "";
+    WORDS.forEach(w => found.append(h("span", {class: used.includes(w) ? "on" : ""}, (used.includes(w) ? "✓ " : "") + w.en)));
+    info.textContent = "Words · Слов: " + words + "  ·  usually/always…: " + ps + "  ·  …ing: " + pc + "  ·  New words · Новых слов: " + used.length;
+  };
+  let tmr;
+  ta.addEventListener("input", () => { S.writing = ta.value; upd(); clearTimeout(tmr); tmr = setTimeout(() => { save(); refresh(); }, 400); });
+  body.append(h("div", {class:"item"}, ta, info, found,
+    h("p", {class:"ru", style:"font-size:14px;margin:10px 0 0"}, "This task is not marked automatically — your teacher will read it. · Это задание проверит учитель.")));
+  upd();
+}
+
+/* =================== RESULTS =================== */
+function itemReport(ex, it){
+  const a = S.ans[it.id] || {};
+  if (ex.type === "match") return {q:it.en, your:(S.mw[it.id] || []).join(", "), right:it.ru};
+  if (ex.type === "choice"){
+    const q = it.pic ? "picture: " + it.pic : ex.listen ? "🔊 " + it.say : strip(it.q);
+    return {q, your: a.v != null ? it.o[a.v] : "—", right: it.o[it.a]};
+  }
+  if (ex.type === "build") return {q:it.ru, your:(a.given || []).join(" / ") || "—", right:it.model + it.end};
+  return {q:strip(it.q), your:(a.given || []).join(" / ") || "—", right:it.model};
+}
+function bandMsg(p){
+  const n = nm();
+  if (p >= 90) return "Brilliant, " + n + "! 🕵️ Top agent! · Блестяще! Ты настоящий агент!";
+  if (p >= 75) return "Great work, " + n + "! Look at your mistakes once more. · Отличная работа! Посмотри ещё раз на ошибки.";
+  if (p >= 50) return "Good effort, " + n + "! Read the rules again and repeat the cards. · Хорошая попытка! Перечитай правила и повтори карточки.";
+  return "Keep going, " + n + "! Read the Words and Grammar tabs again, then try once more. · Не сдавайся! Перечитай слова и правила и попробуй ещё раз.";
+}
+function buildReport(){
+  const s = scoreAll(), sv = scoreAll("v"), sg = scoreAll("g"), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const L = [];
+  L.push("🕵️ Homework: " + HW.title + " (" + HW.level + ", " + HW.unit + ")");
+  L.push("Student: " + nm());
+  L.push("Date: " + new Date().toLocaleDateString("en-GB"));
+  L.push("Score: " + s.got + "/" + s.total + " (" + pct + "%)" + (s.done < s.total ? " — answered " + s.done + "/" + s.total : ""));
+  L.push("Vocabulary: " + sv.got + "/" + sv.total + " · Grammar: " + sg.got + "/" + sg.total);
+  L.push("Flashcards: I know " + knownCount() + "/" + WORDS.length + " words");
+  L.push(""); L.push("EXERCISES");
+  EX.forEach((ex, i) => { if (ex.type === "write") L.push((i + 1) + ". " + ex.en + " (writing): " + (S.writing.trim() ? "done (see below)" : "not done")); else { const e = exScore(ex); L.push((i + 1) + ". " + ex.en + ": " + e.got + "/" + e.total + (e.done < e.total ? " (answered " + e.done + ")" : "")); } });
+  const mist = [], selfs = [];
+  EX.forEach((ex, i) => ex.list.forEach(it => {
+    const st = stOf(it.id), r = itemReport(ex, it);
+    if (st === "bad") mist.push("• [" + (i + 1) + "] " + r.q + " — answer: " + (r.your || "—") + " → correct: " + r.right);
+    if (st === "self") selfs.push("• [" + (i + 1) + "] " + r.q + " — answer: " + r.your + " (model: " + r.right + ")");
+  }));
+  L.push(""); L.push("MISTAKES (" + mist.length + ")"); L.push(mist.length ? mist.join("\n") : "none 🎉");
+  if (selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT — please check"); L.push(selfs.join("\n")); }
+  L.push(""); L.push("WRITING: USUALLY… BUT TODAY"); L.push(S.writing.trim() || "(not done)");
+  L.push(""); L.push("ALL ANSWERS");
+  EX.forEach((ex, i) => {
+    if (ex.type === "write") return;
+    L.push("[" + (i + 1) + "] " + ex.en);
+    ex.list.forEach(it => {
+      const st = stOf(it.id), r = itemReport(ex, it);
+      const mark = st === "ok" ? "✓" : st === "self" ? "✓(self)" : "✗";
+      const your = ex.type === "match" ? r.right + (r.your ? " (wrong first: " + r.your + ")" : "") : r.your;
+      L.push("  " + it.n_ + ". " + r.q + " → " + (LOCKED.includes(st) ? your + " " + mark : "(not answered)"));
+    });
+  });
+  return L.join("\n");
+}
+function copyText(t){
+  const fallback = () => { const ta = h("textarea", {style:"position:fixed;left:-9999px;top:0"}); ta.value = t; document.body.append(ta); ta.select(); let ok = false; try{ ok = document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok ? "Copied! · Скопировано!" : "Select the text below and copy it · Выдели текст ниже и скопируй"); };
+  try{ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => toast("Copied! Now paste it in a message to your teacher. · Скопировано! Вставь в сообщение учителю."), fallback); else fallback(); }catch(e){ fallback(); }
+}
+function renderResults(){
+  const root = $("#tab-results"); root.innerHTML = "";
+  const s = scoreAll(), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const sv = scoreAll("v"), sg = scoreAll("g");
+  root.append(h("div", {class:"card dark"},
+    h("h2", null, "Your results · ", h("span", {style:"color:#c9d6ff"}, "Твои итоги")),
+    h("div", {class:"score-big"}, s.got + "/" + s.total + " · " + pct + "%"),
+    h("p", {style:"margin:4px 0 0"}, "Vocabulary · Слова: " + sv.got + "/" + sv.total + "  ·  Grammar · Грамматика: " + sg.got + "/" + sg.total),
+    h("p", {style:"margin:6px 0 0"}, s.done < s.total ? "You have answered " + s.done + " of " + s.total + " questions. · Ты ответила на " + s.done + " из " + s.total + " вопросов." : bandMsg(pct)),
+    h("p", {style:"margin:6px 0 0;color:#c9d6ff"}, "Flashcards · Карточки: " + knownCount() + "/" + WORDS.length + " ✓")));
+  const tb = h("table", {class:"rt"});
+  EX.forEach((ex, i) => {
+    if (i === 0) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Vocabulary · Слова")));
+    if (i === VCOUNT) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Grammar · Грамматика")));
+    const val = ex.type === "write" ? (S.writing.trim() ? "✓" : "—") : (() => { const e = exScore(ex); return e.got + "/" + e.total; })();
+    tb.append(h("tr", null, h("td", null, (i + 1) + ". " + ex.en + " · ", h("span", {class:"ru"}, ex.ru)), h("td", null, val)));
+  });
+  root.append(h("div", {class:"card"}, h("h3", null, "Exercises · Задания"), tb));
+  const ml = h("ul", {class:"mlist"});
+  EX.forEach((ex, i) => ex.list.forEach(it => { if (stOf(it.id) !== "bad") return; const r = itemReport(ex, it); ml.append(h("li", null, "[" + (i + 1) + "] " + r.q + " — ", h("s", null, r.your || "—"), " → ", h("b", null, r.right))); }));
+  root.append(h("div", {class:"card"}, h("h3", null, "Mistakes · Ошибки"), ml.children.length ? ml : h("p", null, "No mistakes yet! 🎉 · Пока ошибок нет!")));
+  if (S.writing.trim()) root.append(h("div", {class:"card"}, h("h3", null, "Usually… but today · Обычно… но сегодня"), h("p", {style:"white-space:pre-wrap;margin:0"}, S.writing)));
+  const full = buildReport();
+  const subj = HW.short + " — " + nm() + " — " + s.got + "/" + s.total;
+  const short = full.length > 1500 ? full.slice(0, 1500) + "\n…\n[The full report is under “Copy text” · Полный отчёт — кнопка «Скопировать текст»]" : full;
+  const enc = encodeURIComponent;
+  const send = h("div", {class:"send"});
+  if (navigator.share) send.append(h("button", {class:"s-share", type:"button", onclick:()=>{ try{ navigator.share({title:subj, text:subj + "\n\n" + full}).catch(()=>{}); }catch(e){} }}, "📤 Share · Поделиться"));
+  send.append(
+    h("a", {class:"s-gm", target:"_blank", rel:"noopener", href:"https://mail.google.com/mail/?view=cm&fs=1&to=" + enc(TEACHER) + "&su=" + enc(subj) + "&body=" + enc(short)}, "Gmail"),
+    h("a", {class:"s-tg", target:"_blank", rel:"noopener", href:"https://t.me/share/url?url=" + enc(subj) + "&text=" + enc(short)}, "Telegram"),
+    h("a", {class:"s-wa", target:"_blank", rel:"noopener", href:"https://wa.me/?text=" + enc(subj + "\n\n" + short)}, "WhatsApp"),
+    h("a", {class:"s-ml", href:"mailto:" + TEACHER + "?subject=" + enc(subj) + "&body=" + enc(short)}, "✉️ Email app · Почта"),
+    h("button", {class:"s-cp", type:"button", onclick:()=>copyText(full)}, "📋 Copy text · Скопировать текст"));
+  const pre = h("textarea", {readonly:true, "aria-label":"Report text", style:"min-height:160px;margin-top:12px;font-size:13px"}); pre.value = full;
+  root.append(h("div", {class:"card"},
+    h("h3", null, "Send to your teacher · Отправь учителю"),
+    h("p", {style:"margin:0"}, "Finish all exercises first, then choose one way to send. · Сначала сделай все задания, потом выбери способ отправки."),
+    h("p", {style:"margin:6px 0 0"}, "Teacher’s email · Почта учителя: ", h("span", {class:"mail"}, TEACHER)),
+    send, pre));
+  const zone = h("div");
+  root.append(h("div", {class:"card"}, h("button", {class:"btn ghost", type:"button", onclick:()=>{
+    zone.innerHTML = "";
+    zone.append(h("div", {class:"confirm"}, h("b", null, "Delete all answers? · Удалить все ответы?"),
+      h("button", {class:"btn", type:"button", style:"background:var(--bad)", onclick:()=>{ wipe(); S = DEF(); selL = null; deck = []; ci = 0; $("#nameIn").value = S.name; renderWords(); renderGrammar(); show(); window.scrollTo(0, 0); toast("Everything is cleared · Всё удалено"); }}, "Yes · Да"),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>{ zone.innerHTML = ""; }}, "No · Нет")));
+  }}, "↺ Start again · Начать заново"), zone));
+}
+
+(function init(){
+  const ni = $("#nameIn"); ni.value = S.name;
+  let t; ni.addEventListener("input", () => { S.name = ni.value; clearTimeout(t); t = setTimeout(() => { save(); if (S.tab === "results") renderResults(); }, 400); });
+  if (S.ex >= EX.length) S.ex = 0;
+  if (!TABS.some(([id]) => id === S.tab)) S.tab = "words";
+  renderWords(); renderGrammar(); makeDeck(false); show();
+})();
+</script>
+</body>
+</html>
