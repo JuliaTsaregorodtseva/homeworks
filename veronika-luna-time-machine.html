@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luna's Time Machine — Veronika · 4 tenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brick:#5b3fd6; --brick2:#1b1446; --brickbg:#ece8ff;
+  --teal:#5b3fd6; --tealbg:#ece8ff;
+  --leaf:#0f9b8e; --leafbg:#dff6f3;
+  --gold:#ffc53d; --cream:#f3f1ff; --paper:#ffffff; --ink:#1d1840; --soft:#6a6593; --ru:#7a5ea8;
+  --ok:#1f9d6b; --okbg:#e3f7ee; --bad:#e8475f; --badbg:#fde8ec; --try:#fff4dc; --line:#e2defa; --r:20px;
+  --will:#15803d; --might:#d97706; --wont:#dc2626;
+  --ps:#0f9b8e; --pc:#f08c00; --pa:#7c4dff; --fu:#e64980;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);font-size:16px;line-height:1.5;overflow-x:hidden;
+  background-color:var(--cream);
+  background-image:radial-gradient(circle at 14px 14px,rgba(91,63,214,.08) 2px,transparent 2.5px),radial-gradient(circle at 40px 30px,rgba(255,197,61,.12) 1.5px,transparent 2px);background-size:48px 48px,70px 70px}
+h1,h2,h3{font-family:"Baloo 2",Georgia,serif;font-weight:400;line-height:1.2;margin:0 0 .35em}
+h2{font-size:23px} h3{font-size:18px}
+.ru{color:var(--ru);font-weight:500}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.if{color:var(--brick);font-weight:800}
+.wd{color:var(--teal);font-weight:800}
+.vc{color:var(--leaf);font-weight:800}
+
+/* hero */
+.hero{position:relative;color:#fff;padding:22px 0 24px;background:radial-gradient(1.5px 1.5px at 20px 30px,#fff 50%,transparent 52%) 0 0/90px 90px,radial-gradient(1px 1px at 60px 70px,#ffe8a3 50%,transparent 52%) 0 0/130px 130px,linear-gradient(160deg,#1b1446,#3b2a8f 60%,#5b3fd6);overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:44px 22px;pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.roofline{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.roofline svg{flex:none}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.badges span{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3)}
+.hero h1{font-size:clamp(30px,8vw,46px)}
+.hero .sub{font-size:17px;font-weight:600;margin:0 0 12px}
+.hero .ru{color:#e0e7ff}
+.for{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-weight:700}
+.for input{font:inherit;font-weight:700;font-size:17px;min-height:44px;width:11em;max-width:100%;padding:6px 12px;border-radius:12px;border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff}
+.how{margin:0;font-size:15px}
+
+/* sticky nav */
+nav.top{position:sticky;top:0;z-index:30;background:rgba(251,246,238,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px 0 6px}
+.tab{min-height:52px;border:0;border-radius:12px;background:#fff;box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;padding:4px 1px;line-height:1.15;min-width:0}
+.tab .tr{font-size:10px;color:var(--ru);font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tab .tb{font-size:10.5px;background:var(--gold);color:var(--ink);border-radius:99px;padding:0 5px;margin-top:2px}
+.tab.on{background:var(--brick);color:#fff}
+.tab.on .tr{color:#ffe0c9}
+.prog{display:flex;align-items:center;gap:10px;padding:0 0 8px;font-size:13px;font-weight:700}
+.bar{flex:1;height:8px;background:#efe3d3;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brick),var(--gold),var(--teal));transition:width .4s}
+
+/* sections & cards */
+section{display:none;padding-bottom:40px}
+section.on{display:block}
+.card{background:var(--paper);border-radius:var(--r);padding:18px;box-shadow:0 2px 0 var(--line),0 8px 24px rgba(90,50,30,.06);margin:16px 0}
+.card.brick{border-top:6px solid var(--brick)}
+.card.teal{border-top:6px solid var(--teal)}
+.card.leaf{border-top:6px solid var(--leaf)}
+.lead{margin:.2em 0 0}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+
+/* words */
+.wl{display:grid;gap:8px;margin-top:10px}
+@media(min-width:720px){.wl{grid-template-columns:1fr 1fr}}
+.w{display:grid;grid-template-columns:34px 1fr 44px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.w .em{font-size:24px;text-align:center}
+.w .en{font-weight:800;font-size:16.5px}
+.w .ipa{font-size:13px;color:var(--soft);margin-left:4px}
+.w .tr{color:var(--ru);font-weight:600;font-size:15px}
+.spk{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff4ea;font-size:17px;cursor:pointer;padding:0 8px;font-weight:700}
+.spk.wide{padding:0 14px;font-size:15px}
+.inon{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.inon div{border-radius:14px;padding:12px;background:var(--leafbg)}
+.inon b.big{font-family:"Baloo 2",serif;font-size:28px;color:var(--leaf);display:block;line-height:1}
+.house-wrap{max-width:420px;margin:12px auto 0}
+.house-wrap svg{width:100%;height:auto;display:block;border-radius:14px}
+.hb{cursor:pointer}
+.hb:focus-visible circle{stroke:var(--gold);stroke-width:4}
+.hl circle{animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{r:13}50%{r:15}}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:12px}
+.legend button{display:flex;align-items:center;gap:8px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:4px 10px;cursor:pointer;text-align:left;font-weight:700}
+.legend .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--tealbg);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.careful{border:2px dashed var(--brick);background:#fffaf5}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:0 0 10px}
+.x{color:var(--bad);font-weight:800} .v{color:var(--ok);font-weight:800}
+
+/* buttons */
+.btn{min-height:46px;padding:8px 18px;border-radius:12px;border:0;background:var(--teal);color:#fff;font-weight:700;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.brick{background:var(--brick)}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.small{padding:6px 14px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:12px 0 0;font-weight:700}
+.fc-scene{perspective:1200px;max-width:520px;margin:14px auto 0}
+.fc{position:relative;height:300px;transform-style:preserve-3d;transition:transform .55s;cursor:pointer;border-radius:20px}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center;overflow:hidden}
+.front{color:#fff;background:linear-gradient(160deg,var(--brick2),var(--brick));background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(160deg,var(--brick2),var(--brick));background-size:40px 20px,40px 20px,auto}
+.back{background:#fff;border:2px solid var(--line);transform:rotateY(180deg)}
+.face .fe{font-size:44px;line-height:1}
+.face .fw{font-family:"Baloo 2",serif;font-size:clamp(23px,7vw,32px);line-height:1.2}
+.face .fp{font-size:13px;opacity:.85;font-weight:600}
+.face .fx{font-size:15px}
+.face .fxr{font-size:14px;color:var(--ru)}
+.face .tap{font-size:12px;opacity:.75;margin-top:6px}
+.fc-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:520px;margin:12px auto 0}
+.fc-nav .btn{line-height:1.2}
+.fc-nav small{font-size:11px;font-weight:600}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:520px;margin:8px auto 0}
+.btn.know{background:var(--ok)} .btn.learn{background:#fff;color:var(--bad);border:2px solid var(--bad)}
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px;margin:12px auto 0}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:600;cursor:pointer}
+.chk input{width:22px;height:22px}
+.kbar{height:10px;background:#efe3d3;border-radius:99px;overflow:hidden;max-width:520px;margin:6px auto 0}
+.kbar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+/* grammar */
+.step-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;margin-right:8px;font-family:Nunito,sans-serif;font-size:15px;vertical-align:middle}
+.formula{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:800;font-size:17px;margin:12px 0}
+.formula span{padding:8px 12px;border-radius:12px}
+.formula .f-if{background:var(--brickbg);color:var(--brick)}
+.formula .f-wd{background:var(--tealbg);color:var(--teal)}
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px;margin-top:8px}
+.tbl th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft);padding:6px 4px;border-bottom:2px solid var(--line)}
+.tbl td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:700;white-space:nowrap;padding-right:8px}
+.exl{list-style:none;padding:0;margin:8px 0 0}
+.exl li{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line)}
+.exl li .spk{flex:none}
+.machine{border-radius:16px;background:#fff;border:2px solid var(--line);padding:14px;margin-top:12px}
+.m-real,.m-dream{padding:12px;border-radius:12px;font-size:17px;font-weight:600;min-height:52px}
+.m-real{background:#f3efe9}
+.m-dream{background:var(--tealbg);margin-top:8px;opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
+.m-dream.on{opacity:1;transform:none}
+.m-lab{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:2px}
+.vs{display:grid;gap:10px;margin-top:10px}
+@media(min-width:720px){.vs{grid-template-columns:1fr 1fr}}
+.vs > div{border-radius:14px;padding:12px}
+.vs .one{background:var(--leafbg)} .vs .two{background:var(--tealbg)}
+.mist{list-style:none;padding:0;margin:8px 0 0}
+.mist li{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rule{border-radius:12px;background:var(--tealbg);padding:10px 12px;margin-top:10px;font-size:15px}
+.rule.v{background:var(--leafbg)}
+
+/* exercises */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.chip{flex:none;min-height:44px;min-width:46px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:800;cursor:pointer;padding:3px 8px;font-size:14px;line-height:1.1}
+.chip.g{border-color:#bfe0de}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.chip.done{border-color:var(--ok)}
+.chip.done:not(.on){background:var(--okbg)}
+.chip small{display:block;font-size:10px;font-weight:600}
+.exhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exscore{flex:none;font-weight:800;background:#fff4ea;color:var(--brick);border-radius:99px;padding:3px 10px;font-size:14px}
+.ins{margin:.4em 0 0}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fff}
+.item.is-ok{border-color:#9fdcc2}
+.item.is-bad{border-color:#f1aab8}
+.q{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:17px}
+.q > span:last-child{min-width:0}
+.num{flex:none;width:28px;height:28px;border-radius:50%;background:#fff1e4;color:var(--brick);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.ruq{font-weight:700;color:var(--ru);font-size:17.5px}
+.qsmall{display:block;font-size:14px;color:var(--soft);margin-top:2px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:46px;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.inp{flex:1 1 200px;min-width:0;min-height:46px;font:inherit;font-size:17px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.inp:disabled{background:#faf6f0}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:15px}
+.fb.ok{background:var(--okbg)} .fb.bad{background:var(--badbg)} .fb.try{background:var(--try)}
+.fb .why{margin-top:4px}
+.fb .spk{margin-top:8px;min-height:40px}
+.note{margin-top:4px;font-size:14px;color:#8a5b00;font-weight:700}
+.self{margin-top:8px;min-height:44px;border-radius:12px;border:2px solid var(--ok);background:#fff;color:var(--ok);font-weight:700;padding:6px 12px;cursor:pointer}
+.mini-house{max-width:260px;margin:0 auto 10px}
+.mini-house svg{width:100%;height:auto;display:block;border-radius:12px}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.bank span{padding:4px 10px;border-radius:99px;background:var(--leafbg);font-weight:700;font-size:14px;color:var(--leaf)}
+.gtext{font-size:17px;line-height:2.4}
+.gtext p{margin:0 0 .4em}
+.gnum{font-size:12px;font-weight:800;color:var(--brick);vertical-align:super;margin-right:1px}
+.ginp{font:inherit;font-size:16px;width:8.5em;max-width:100%;min-height:40px;padding:2px 8px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);vertical-align:middle}
+.ginp.try{border-color:#e5a54a;background:var(--try)}
+.gf{font-weight:700;padding:1px 6px;border-radius:8px}
+.gf.ok{background:var(--okbg);color:var(--ok)}
+.gf.bad{background:var(--badbg)}
+.gf.bad s{color:var(--bad)}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:8px;border:2px dashed var(--line);border-radius:12px;align-items:center}
+.tiles.ans{background:#fffaf4;margin-bottom:8px}
+.tile{min-height:44px;padding:6px 12px;border-radius:10px;background:var(--tealbg);border:1px solid #b9dcd9;font-weight:700;cursor:pointer}
+.tile:disabled{cursor:default}
+.endp{font-weight:800;font-size:20px}
+textarea{width:100%;min-height:220px;font:inherit;font-size:16px;padding:12px;border:2px solid var(--line);border-radius:12px;resize:vertical;color:var(--ink)}
+.found{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.found span{font-size:13px;font-weight:700;padding:3px 9px;border-radius:99px;background:#f3eee8;color:#a89c92}
+.found span.on{background:var(--okbg);color:var(--ok)}
+
+/* results */
+.card.dark{background:var(--ink);color:#fff}
+.score-big{font-family:"Baloo 2",serif;font-size:42px;color:var(--gold)}
+.rt{width:100%;border-collapse:collapse;font-size:15px}
+.rt td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.rt td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.rt tr.grp td{font-weight:800;color:var(--soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:14px}
+.mlist{margin:0;padding-left:18px}
+.mlist li{margin-bottom:8px}
+.mlist s{color:var(--bad)} .mlist b{color:var(--ok)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;font-weight:700;text-decoration:none;border:0;cursor:pointer;padding:6px 10px;text-align:center}
+.s-share{background:var(--teal);color:#fff;grid-column:1/-1}
+.s-gm{background:#ea4335;color:#fff}.s-tg{background:#229ed9;color:#fff}.s-wa{background:#25d366;color:#0b3d1f}.s-ml{background:#fff;border:2px solid var(--line)!important;color:var(--ink)}.s-cp{background:var(--gold);color:var(--ink)}
+.mail{user-select:all;-webkit-user-select:all;font-weight:800;color:var(--teal);word-break:break-all}
+.confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:10px;border-radius:12px;background:var(--badbg)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.foot{text-align:center;color:var(--soft);font-size:13px;padding:10px 0 30px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.hero .panel{background:rgba(31,29,58,.82);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.signs{display:flex;gap:8px;margin-bottom:6px}
+.signs span{background:#fff;color:var(--ink);font-weight:800;font-size:13px;padding:4px 10px;border-radius:6px}
+.signs span:first-child{clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%)}
+.signs span:last-child{clip-path:polygon(12% 0,100% 0,100% 100%,12% 100%,0 50%);padding-left:16px}
+.cw{color:var(--will);font-weight:800} .mt{color:var(--might);font-weight:800} .wn{color:var(--wont);font-weight:800}
+.card.lilac{border-top:6px solid var(--brick)} .card.amber{border-top:6px solid var(--gold)}
+.small{font-size:13.5px}
+table.nv{width:100%;border-collapse:collapse;margin-top:10px}
+table.nv th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft);padding:6px 4px;border-bottom:2px solid var(--line)}
+table.nv td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.nv td .spk{min-height:36px;min-width:40px;margin-top:4px;font-size:14px}
+table.nv tr.grp td{font-size:12px;font-weight:800;color:var(--brick);text-transform:uppercase;letter-spacing:.06em;padding-top:14px;background:none}
+.nvw{font-size:18px;font-weight:600}
+.nvw b{color:var(--brick);text-decoration:underline;text-underline-offset:3px}
+td.arr{color:var(--soft);font-size:20px;text-align:center;width:30px}
+.qz{margin:12px 0}
+.qzq{font-weight:700;margin-bottom:6px}
+.quizres{margin-top:12px;padding:12px;border-radius:12px;background:var(--brickbg);min-height:20px}
+.quizres:empty{display:none}
+.diph{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(min-width:680px){.diph{grid-template-columns:repeat(4,1fr)}}
+.dp{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:64px;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;text-align:left}
+.dp b{font-size:18px;color:var(--brick)}
+.dp span{font-size:14px}
+.meter{height:18px;border-radius:99px;background:linear-gradient(90deg,#fee2e2,#fef3c7,#dcfce7);overflow:hidden;margin-top:10px;border:1px solid var(--line)}
+.meter i{display:block;height:100%;width:0;transition:width .5s;border-radius:99px}
+.meter i.cw{background:var(--will)} .meter i.mt{background:var(--might)} .meter i.wn{background:var(--wont)}
+.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(min-width:680px){.mbtns{grid-template-columns:repeat(4,1fr)}}
+.mbtns .btn.cw{color:var(--will)} .mbtns .btn.mt{color:var(--might)} .mbtns .btn.wn{color:var(--wont)}
+.mout{margin-top:10px;padding:12px;border-radius:12px;border:2px solid var(--line);background:#fff;min-height:60px;font-size:18px;font-weight:600}
+.vs .ok{background:var(--okbg)} .vs .no{background:var(--badbg)}
+@media(min-width:720px){.vs.three{grid-template-columns:1fr 1fr 1fr}}
+.round-t{font-weight:700;margin:14px 0 8px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mb{min-height:50px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:600;cursor:pointer;text-align:left;font-size:16px;line-height:1.25}
+.mb.en{font-weight:800}
+.mb.sel{border-color:var(--brick);background:var(--brickbg);box-shadow:0 0 0 3px rgba(79,70,229,.15)}
+.mb.done{background:var(--okbg);border-color:var(--ok);opacity:.75;cursor:default}
+.mb.late{background:#fff3e0;border-color:#e5a54a}
+.mb.shake{animation:shake .35s;border-color:var(--bad);background:var(--badbg)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.msg{min-height:24px;font-weight:600;color:var(--bad);margin-top:8px;font-size:14px}
+.f-if{background:var(--tealbg)!important;color:var(--might)!important}
+.f-wd{background:var(--brickbg)!important;color:var(--brick)!important}
+
+body{font-size:18px}
+.hero .panel{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+.hero h1{font-size:clamp(32px,9vw,52px);line-height:1.05}
+.planets{font-size:34px;letter-spacing:6px;margin-bottom:4px}
+.bar{overflow:visible;height:12px}
+.bar i{position:relative;border-radius:99px;background:linear-gradient(90deg,var(--ps),var(--pc),var(--pa),var(--fu))}
+.bar i::after{content:"🚀";position:absolute;right:-14px;top:-9px;font-size:18px}
+.tab.on{background:var(--brick)}
+.btn{border-radius:16px;font-size:17px}
+.btn.big{min-height:56px;font-size:18px;padding:10px 22px}
+.opt{min-height:56px;font-size:18px;border-radius:16px;padding:10px 18px}
+.big{font-size:52px;line-height:1.1}
+.tw{font-size:26px;color:var(--brick)}
+.card.luna{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,#fff,#efeaff)}
+.lunabig{font-size:64px;line-height:1}
+.wgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+@media(min-width:620px){.wgrid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:860px){.wgrid{grid-template-columns:repeat(4,1fr)}}
+.wt{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px;border-radius:18px;border:2px solid var(--line);background:#fff;cursor:pointer;text-align:center;min-height:130px}
+.wt:hover{border-color:var(--brick)}
+.wte{font-size:44px;line-height:1.1}
+.wt b{font-size:17px}
+.wt .ru{font-size:13.5px}
+.wts{position:absolute;top:6px;right:8px;font-size:14px;opacity:.6}
+.story{font-size:19px;line-height:2}
+.story p{margin:0 0 .6em}
+.gl{border:0;background:linear-gradient(transparent 58%,#ffe58f 58%);padding:0 1px;cursor:pointer;font-weight:800;line-height:1.4}
+.gloss{display:inline-block;font-size:14px;line-height:1.4;background:#efeaff;color:var(--ru);border-radius:8px;padding:1px 7px;margin:0 3px;font-weight:700}
+.card.diary{background:#fffdf3;border:2px dashed #ffd666}
+.tm-intro{background:linear-gradient(135deg,#1b1446,#3b2a8f);color:#fff}
+.tm-intro .ru{color:#d9d0ff}
+.card.machine{border:3px solid var(--brick)}
+.tm-step{font-weight:800;font-size:14px;color:var(--soft);margin:12px 0 6px}
+.tm-acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(min-width:620px){.tm-acts{grid-template-columns:repeat(6,1fr)}}
+.tm-btn{display:flex;flex-direction:column;align-items:center;min-height:72px;border-radius:16px;border:2px solid var(--line);background:#fff;cursor:pointer;padding:6px}
+.tm-btn.on{border-color:var(--brick);background:var(--brickbg)}
+.tm-e{font-size:30px}
+.tm-l{font-weight:800;font-size:14px}
+.tm-zones{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(min-width:620px){.tm-zones{grid-template-columns:repeat(4,1fr)}}
+.tm-z{min-height:52px;border-radius:16px;border:3px solid var(--zc);background:#fff;color:var(--zc);font-weight:900;cursor:pointer;font-size:15px}
+.tm-z.on{background:var(--zc);color:#fff}
+.tm-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tm-m{min-height:48px;border-radius:14px;border:2px solid var(--line);background:#fff;font-weight:800;cursor:pointer}
+.tm-m.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.tm-screen{margin-top:14px;border:4px solid var(--brick);border-radius:20px;padding:14px;background:#fbfaff;text-align:center}
+.tm-zone{font-weight:900;font-size:14px;letter-spacing:.05em}
+.tm-sent{font-size:22px;font-weight:700;margin:8px 0}
+.v-ps{color:var(--ps);font-weight:900} .v-pc{color:var(--pc);font-weight:900} .v-pa{color:var(--pa);font-weight:900} .v-fu{color:var(--fu);font-weight:900}
+.card.zone{border-top:8px solid var(--zc)}
+.zone-h{display:flex;gap:12px;align-items:center}
+.zone-e{font-size:40px}
+.zone-t{font-weight:900;color:var(--zc);font-size:14px;letter-spacing:.06em}
+.zone h2{color:var(--zc);margin:0}
+.zchips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+.zl{font-size:13px;font-weight:700;color:var(--soft)}
+.zc{padding:4px 12px;border-radius:99px;border:2px solid var(--zc);color:var(--zc);font-weight:800;font-size:15px;background:#fff}
+.says{margin-top:10px;background:#f7f5ff;border-radius:14px;padding:10px 12px}
+.helpers{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.hp{border-radius:14px;border:3px solid var(--zc);padding:10px;display:flex;flex-direction:column;gap:2px}
+.hp b{color:var(--zc);font-size:15px}
+.hp span{font-size:20px;font-weight:900}
+.diary-line{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.dl{font-weight:800;min-width:150px}
+.diary-line .inp{flex:1 1 180px}
+.ideas{margin-top:10px;padding:10px 12px;border-radius:14px;background:#fff8e1;font-size:15px}
+.party{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:rgba(27,20,70,.45);overflow:hidden}
+.party-box{background:#fff;border-radius:24px;padding:22px 28px;text-align:center;font-size:20px;box-shadow:0 20px 50px rgba(0,0,0,.25);animation:pop .4s ease-out}
+.party-e{font-size:64px;line-height:1}
+.conf{position:absolute;top:-40px;font-size:28px;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.mb{min-height:56px;font-size:17px;border-radius:16px}
+.tile{min-height:52px;font-size:19px;border-radius:14px;padding:6px 16px}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap"><div class="panel">
+    <div class="badges"><span>Space English · Mission 3</span><span>4 tenses · 4 времени</span></div>
+    <div class="planets" aria-hidden="true">🚀🪐🌙⭐👽</div>
+    <h1>Luna's Time Machine</h1>
+    <p class="sub">Every day · now · yesterday · tomorrow<br><span class="ru">Каждый день · сейчас · вчера · завтра</span></p>
+    <p class="for"><label for="nameIn">for · для</label> <input id="nameIn" type="text" autocomplete="off" aria-label="Your name · Твоё имя"></p>
+    <p class="how">Your mission: Words → Cards → Time machine → Missions → Stars. Collect all the stars! ⭐<br><span class="ru">Твоя миссия: слова → карточки → машина времени → задания → звёзды. Собери все звёзды!</span></p>
+  </div></div>
+</header>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="prog"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreTxt"></span></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="tab-words"></section>
+  <section id="tab-cards"></section>
+  <section id="tab-grammar"></section>
+  <section id="tab-practice"></section>
+  <section id="tab-results"></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="foot">Made for Veronika with ♥ · Space English</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   DATA — edit words, items and answers here
+   ===================================================================== */
+const TEACHER = "ulchik2211@gmail.com";
+const HW = { title: "Luna's Time Machine — 4 tenses", short: "Luna's Time Machine", level: "Kids · Elementary", unit: "Space English · Mission 3" };
+const KEY = "veronika-luna-v1";
+const DEFAULT_NAME = "Veronika";
+
+/* g: s = space words, a = Luna's actions */
+const WORDS = [
+ {g:"s", en:"astronaut", ipa:"/ˈæstrənɔːt/", ru:"космонавт, астронавт", em:"👩‍🚀", ex:"Luna is an astronaut.", exRu:"Луна — космонавт."},
+ {g:"s", en:"rocket", ipa:"/ˈrɒkɪt/", ru:"ракета", em:"🚀", ex:"The rocket is very fast.", exRu:"Ракета очень быстрая."},
+ {g:"s", en:"planet", ipa:"/ˈplænɪt/", ru:"планета", em:"🪐", ex:"Saturn is a big planet.", exRu:"Сатурн — большая планета."},
+ {g:"s", en:"stars", ipa:"/stɑːz/", ru:"звёзды", em:"⭐", ex:"I can see the stars at night.", exRu:"Ночью я вижу звёзды."},
+ {g:"s", en:"the Moon", ipa:"/ðə muːn/", ru:"Луна (на небе)", em:"🌙", ex:"Tomorrow Luna will take photos of the Moon.", exRu:"Завтра Луна сфотографирует Луну."},
+ {g:"s", en:"Mars", ipa:"/mɑːz/", ru:"Марс", em:"🔴", ex:"Mars is red.", exRu:"Марс красный."},
+ {g:"s", en:"space station", ipa:"/ˈspeɪs ˌsteɪʃn/", ru:"космическая станция", em:"🛰️", ex:"Luna lives on the space station.", exRu:"Луна живёт на космической станции."},
+ {g:"s", en:"alien", ipa:"/ˈeɪliən/", ru:"инопланетянин", em:"👽", ex:"Zog is a friendly alien.", exRu:"Зог — добрый инопланетянин."},
+ {g:"a", en:"wake up", ipa:"/weɪk ʌp/", ru:"просыпаться", em:"⏰", ex:"Luna wakes up at 6 o'clock.", exRu:"Луна просыпается в 6 часов."},
+ {g:"a", en:"eat space food", ipa:"/iːt speɪs fuːd/", ru:"есть космическую еду", em:"🍱", ex:"She eats space food every day.", exRu:"Она ест космическую еду каждый день."},
+ {g:"a", en:"drink juice", ipa:"/drɪŋk dʒuːs/", ru:"пить сок", em:"🧃", ex:"She drinks juice from a bag.", exRu:"Она пьёт сок из пакета."},
+ {g:"a", en:"float", ipa:"/fləʊt/", ru:"парить в невесомости", em:"🎈", ex:"Look! Luna is floating!", exRu:"Смотри! Луна парит!"},
+ {g:"a", en:"exercise", ipa:"/ˈeksəsaɪz/", ru:"делать зарядку", em:"🏋️", ex:"Astronauts exercise every day.", exRu:"Космонавты делают зарядку каждый день."},
+ {g:"a", en:"look out of the window", ipa:"/lʊk aʊt əv ðə ˈwɪndəʊ/", ru:"смотреть в окно", em:"🪟", ex:"She is looking out of the window.", exRu:"Она смотрит в окно."},
+ {g:"a", en:"take photos", ipa:"/teɪk ˈfəʊtəʊz/", ru:"фотографировать", em:"📸", ex:"Yesterday she took photos.", exRu:"Вчера она фотографировала."},
+ {g:"a", en:"talk to Earth", ipa:"/tɔːk tə ɜːθ/", ru:"говорить с Землёй", em:"🌍", ex:"She talks to Earth every evening.", exRu:"Она говорит с Землёй каждый вечер."},
+ {g:"a", en:"put on a spacesuit", ipa:"/pʊt ɒn ə ˈspeɪssuːt/", ru:"надевать скафандр", em:"🧑‍🚀", ex:"Tomorrow she will put on her spacesuit.", exRu:"Завтра она наденет скафандр."},
+ {g:"a", en:"sleep in a sleeping bag", ipa:"/sliːp ɪn ə ˈsliːpɪŋ bæɡ/", ru:"спать в спальном мешке", em:"🛌", ex:"Luna sleeps in a sleeping bag.", exRu:"Луна спит в спальном мешке."}
+];
+
+/* the four time zones */
+const ZONES = [
+ {id:"ps", em:"🔁", en:"EVERY DAY", ru:"каждый день", tense:"Present Simple", words:["every day","usually","always","often","never"], col:"#0f9b8e",
+  what:"Things that happen again and again.", whatRu:"То, что бывает обычно, регулярно.",
+  form:["I / you / we / they <b>eat</b> · he / she / it <b>eat<u>s</u></b>","I <b>don't eat</b> · she <b>doesn't eat</b>","<b>Do</b> you eat…? · <b>Does</b> she eat…?"],
+  luna:["Every day I wake up at 6 o'clock.","Luna doesn't sleep in a bed.","Does she eat space food? Yes, she does."]},
+ {id:"pc", em:"⏱", en:"NOW", ru:"сейчас", tense:"Present Continuous", words:["now","right now","at the moment","Look!","Listen!"], col:"#f08c00",
+  what:"Things that are happening at this moment.", whatRu:"То, что происходит прямо сейчас.",
+  form:["I <b>am</b> float<b>ing</b> · she <b>is</b> float<b>ing</b> · they <b>are</b> float<b>ing</b>","I<b>'m not</b> floating · she <b>isn't</b> floating","<b>Are</b> you floating? · <b>Is</b> she floating?"],
+  luna:["Look! I am looking out of the window.","I am not sleeping now.","Is she taking photos? Yes, she is."]},
+ {id:"pa", em:"⏪", en:"YESTERDAY", ru:"вчера", tense:"Past Simple", words:["yesterday","last night","last week","two days ago","in 2020"], col:"#7c4dff",
+  what:"Things that happened and finished.", whatRu:"То, что было в прошлом и закончилось.",
+  form:["talk → talk<b>ed</b> · walk → walk<b>ed</b> · eat → <b>ate</b> · see → <b>saw</b>","she <b>didn't see</b> (didn't + verb)","<b>Did</b> she see…? Yes, she did."],
+  luna:["Yesterday I talked to my family.","I didn't see any aliens.","Did you take photos? Yes, I did."]},
+ {id:"fu", em:"⏩", en:"TOMORROW", ru:"завтра", tense:"Future Simple", words:["tomorrow","next week","next year","in 2050","one day"], col:"#e64980",
+  what:"Things that will happen later.", whatRu:"То, что будет в будущем.",
+  form:["I / you / she / they <b>will fly</b> (the same for everyone!)","she <b>won't fly</b> (won't = will not)","<b>Will</b> she fly…? Yes, she will."],
+  luna:["Tomorrow I will take photos of the Moon.","I won't go to Mars.","Will I see my cat? Yes, I will!"]}
+];
+
+/* actions for the interactive time machine */
+const ACTIONS = [
+ {em:"🎈", base:"float", s:"floats", ing:"floating", past:"floated", rest:""},
+ {em:"🍱", base:"eat", s:"eats", ing:"eating", past:"ate", rest:"space food"},
+ {em:"📸", base:"take", s:"takes", ing:"taking", past:"took", rest:"photos"},
+ {em:"🌍", base:"talk", s:"talks", ing:"talking", past:"talked", rest:"to Earth"},
+ {em:"🧃", base:"drink", s:"drinks", ing:"drinking", past:"drank", rest:"juice"},
+ {em:"🛌", base:"sleep", s:"sleeps", ing:"sleeping", past:"slept", rest:"in a sleeping bag"}
+];
+
+const DIARY = [
+ "Hi, it's [[Luna|Луна]] again! 👩‍🚀",
+ "[[Every morning|каждое утро]] I [[exercise|делаю зарядку]] for two hours, because there is no gravity here. I [[drink|пью]] orange juice from a bag!",
+ "[[Right now|прямо сейчас]] I'm [[talking to Earth|говорю с Землёй]]. My mum [[is asking|спрашивает]] about my food.",
+ "[[Last night|вчера вечером]] I [[saw|увидела]] a beautiful shooting star. I [[took|сделала]] a lot of photos!",
+ "[[Next week|на следующей неделе]] I [[will put on|надену]] my spacesuit and I [[will repair|буду чинить]] the space station. I [[won't be|не буду]] scared!"
+];
+
+const CAREFUL = [
+ "<b>Luna</b> is a name. <b>the Moon</b> = <span class='ru'>Луна на небе</span> 🌙",
+ "<b>he / she / it + -s</b>: Luna float<b>s</b>, she take<b>s</b>, Zog eat<b>s</b>. <span class='ru'>Не забывай -s!</span>",
+ "After <b>doesn't / does / didn't / did / will</b> — the verb is normal: <i>she doesn't <b>eat</b>, did you <b>see</b>, she will <b>fly</b></i>.",
+ "<b>sleep in</b> a sleeping bag · <b>put on</b> a spacesuit · <b>talk to</b> Earth · <b>look out of</b> the window."
+];
+
+const EX = [
+ /* ===== WORDS ===== */
+ {id:"v1", kind:"v", type:"choice", en:"Space words", ru:"Космические слова",
+  ins:"Look at the picture. Choose the word.", insRu:"Посмотри на картинку и выбери слово.",
+  items:[
+   {q:"<span class='big'>👩‍🚀</span>", o:["astronaut","alien","planet"], a:0, say:"astronaut", why:"👩‍🚀 <b>astronaut</b> — космонавт"},
+   {q:"<span class='big'>🚀</span>", o:["stars","rocket","Mars"], a:1, say:"rocket", why:"🚀 <b>rocket</b> — ракета"},
+   {q:"<span class='big'>🪐</span>", o:["the Moon","space station","planet"], a:2, say:"planet", why:"🪐 <b>planet</b> — планета"},
+   {q:"<span class='big'>⭐⭐⭐</span>", o:["stars","rocket","alien"], a:0, say:"stars", why:"⭐ <b>stars</b> — звёзды"},
+   {q:"<span class='big'>🌙</span>", o:["Mars","the Moon","planet"], a:1, say:"the Moon", why:"🌙 <b>the Moon</b> — Луна на небе"},
+   {q:"<span class='big'>🛰️</span>", o:["rocket","alien","space station"], a:2, say:"space station", why:"🛰️ <b>space station</b> — космическая станция"},
+   {q:"<span class='big'>👽</span>", o:["alien","astronaut","stars"], a:0, say:"alien", why:"👽 <b>alien</b> — инопланетянин"},
+   {q:"<span class='big'>🔴</span> the red planet", o:["the Moon","Mars","stars"], a:1, say:"Mars", why:"🔴 <b>Mars</b> — the red planet, Марс"}
+  ]},
+ {id:"v2", kind:"v", type:"match", en:"Luna's day", ru:"День Луны",
+  ins:"Tap an English phrase, then its translation.", insRu:"Нажми на английскую фразу, а потом на перевод.",
+  rounds:[
+   [{en:"wake up",ru:"просыпаться"},{en:"eat space food",ru:"есть космическую еду"},{en:"drink juice",ru:"пить сок"},{en:"float",ru:"парить"},{en:"exercise",ru:"делать зарядку"}],
+   [{en:"look out of the window",ru:"смотреть в окно"},{en:"take photos",ru:"фотографировать"},{en:"talk to Earth",ru:"говорить с Землёй"},{en:"put on a spacesuit",ru:"надевать скафандр"},{en:"sleep in a sleeping bag",ru:"спать в спальном мешке"}]
+  ]},
+
+ /* ===== TIME MACHINE (GRAMMAR) ===== */
+ {id:"g1", kind:"g", type:"choice", en:"Which time zone?", ru:"Какое время?",
+  ins:"Where does the time word go? Choose the time zone.", insRu:"К какому времени относится слово-подсказка?",
+  rule:"🔁 every day → Present Simple · ⏱ now → Present Continuous · ⏪ yesterday → Past Simple · ⏩ tomorrow → Future Simple",
+  items:[
+   {q:"<b class='tw'>usually</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:0, say:"usually", why:"usually = обычно → 🔁 <b>Present Simple</b>"},
+   {q:"<b class='tw'>Look!</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:1, say:"Look!", why:"Look! = смотри (сейчас) → ⏱ <b>Present Continuous</b>"},
+   {q:"<b class='tw'>last night</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:2, say:"last night", why:"last night = вчера вечером → ⏪ <b>Past Simple</b>"},
+   {q:"<b class='tw'>next week</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:3, say:"next week", why:"next week = на следующей неделе → ⏩ <b>Future Simple</b>"},
+   {q:"<b class='tw'>always</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:0, say:"always", why:"always = всегда → 🔁 <b>Present Simple</b>"},
+   {q:"<b class='tw'>at the moment</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:1, say:"at the moment", why:"at the moment = в данный момент → ⏱ <b>Present Continuous</b>"},
+   {q:"<b class='tw'>two days ago</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:2, say:"two days ago", why:"ago = назад → ⏪ <b>Past Simple</b>"},
+   {q:"<b class='tw'>in 2050</b>", o:["🔁 EVERY DAY","⏱ NOW","⏪ YESTERDAY","⏩ TOMORROW"], a:3, say:"in 2050", why:"in 2050 = в будущем → ⏩ <b>Future Simple</b>"}
+  ]},
+ {id:"g2", kind:"g", type:"choice", en:"Choose the right form", ru:"Выбери правильную форму",
+  ins:"Find the time word first! Then choose.", insRu:"Сначала найди слово-подсказку, потом выбирай!",
+  items:[
+   {q:"Listen! Zog ___ a song.", o:["sings","is singing"], a:1, why:"<b>Listen!</b> → ⏱ now → <b>is singing</b>"},
+   {q:"Luna ___ juice every morning.", o:["drinks","will drink"], a:0, why:"<b>every morning</b> → 🔁 → <b>drinks</b>"},
+   {q:"Last night Luna ___ a shooting star.", o:["sees","saw"], a:1, why:"<b>last night</b> → ⏪ → <b>saw</b> (see → saw)"},
+   {q:"Next year Zog ___ to Earth.", o:["will fly","flew"], a:0, why:"<b>next year</b> → ⏩ → <b>will fly</b>"},
+   {q:"Right now the astronauts ___ dinner.", o:["are eating","ate"], a:0, why:"<b>right now</b> → ⏱ → <b>are eating</b>"},
+   {q:"Two days ago Luna ___ to her brother.", o:["talks","talked"], a:1, why:"<b>two days ago</b> → ⏪ → <b>talked</b>"},
+   {q:"Zog always ___ pizza on Fridays.", o:["eats","is eating"], a:0, why:"<b>always</b> → 🔁 → <b>eats</b>"},
+   {q:"Tomorrow I ___ my spacesuit.", o:["put on","will put on"], a:1, why:"<b>tomorrow</b> → ⏩ → <b>will put on</b>"}
+  ]},
+ {id:"g3", kind:"g", type:"choice", en:"Don't forget -s!", ru:"Не забудь -s!",
+  ins:"Every day: he / she / it + -s. Choose.", insRu:"Каждый день: he / she / it + -s. Выбери.",
+  rule:"I / you / we / they <b>sleep</b> · he / she / it <b>sleeps</b>",
+  items:[
+   {q:"Luna ___ up at 6 o'clock.", o:["wake","wakes"], a:1, why:"Luna = <b>she</b> → wake<b>s</b>"},
+   {q:"Zog ___ pizza every day.", o:["eat","eats"], a:1, why:"Zog = <b>he</b> → eat<b>s</b>"},
+   {q:"I ___ juice every morning.", o:["drink","drinks"], a:0, why:"<b>I</b> → no -s: drink"},
+   {q:"My cat ___ in a box.", o:["sleep","sleeps"], a:1, why:"my cat = <b>it</b> → sleep<b>s</b>"},
+   {q:"We ___ photos of the stars.", o:["take","takes"], a:0, why:"<b>we</b> → no -s: take"}
+  ]},
+ {id:"g4", kind:"g", type:"match", en:"Yesterday words", ru:"Слова для «вчера»",
+  ins:"Some verbs are special in the past! Tap a verb, then its past form.", insRu:"Некоторые глаголы в прошлом особенные! Нажми на глагол, потом на его прошедшую форму.",
+  rounds:[
+   [{en:"eat",ru:"ate"},{en:"see",ru:"saw"},{en:"go",ru:"went"}],
+   [{en:"fly",ru:"flew"},{en:"take",ru:"took"},{en:"have",ru:"had"}]
+  ]},
+ {id:"g5", kind:"g", type:"choice", en:"Luna's diary: true or false?", ru:"Дневник Луны: правда или нет?",
+  ins:"Read Luna's diary on the Words tab. True or false?", insRu:"Прочитай дневник Луны во вкладке «Слова». Правда или нет?",
+  items:[
+   {q:"Luna exercises every morning.", o:["✓ True · Правда","✗ False · Неправда"], a:0, say:"Luna exercises every morning.", why:"True! She exercises for two hours. 🏋️"},
+   {q:"She drinks apple juice.", o:["✓ True · Правда","✗ False · Неправда"], a:1, say:"She drinks orange juice.", why:"False: she drinks <b>orange</b> juice. 🍊"},
+   {q:"Right now she is talking to Earth.", o:["✓ True · Правда","✗ False · Неправда"], a:0, say:"Right now she is talking to Earth.", why:"True! 🌍"},
+   {q:"Last night she saw an alien.", o:["✓ True · Правда","✗ False · Неправда"], a:1, say:"Last night she saw a shooting star.", why:"False: she saw a <b>shooting star</b>. 🌠"},
+   {q:"She took a lot of photos.", o:["✓ True · Правда","✗ False · Неправда"], a:0, say:"She took a lot of photos.", why:"True! 📸"},
+   {q:"Next week she will fly back to Earth.", o:["✓ True · Правда","✗ False · Неправда"], a:1, say:"Next week she will repair the space station.", why:"False: she will <b>repair the space station</b>. 🔧"}
+  ]},
+ {id:"g6", kind:"g", type:"choice", en:"Questions", ru:"Вопросы",
+  ins:"Choose the helper word: Do, Does, Is, Are, Did or Will.", insRu:"Выбери слово-помощник.",
+  rule:"🔁 Do / Does · ⏱ Am / Is / Are · ⏪ Did · ⏩ Will",
+  items:[
+   {q:"___ Luna sleep in a bed?", o:["Does","Is","Will"], a:0, why:"every day, she → <b>Does</b> Luna sleep…?"},
+   {q:"___ you watching TV now?", o:["Do","Are","Did"], a:1, why:"now + watch<b>ing</b> → <b>Are</b> you watching…?"},
+   {q:"___ she see an alien yesterday?", o:["Does","Did","Is"], a:1, why:"yesterday → <b>Did</b> she see…?"},
+   {q:"___ you fly to Mars one day?", o:["Will","Did","Are"], a:0, why:"one day (future) → <b>Will</b> you fly…?"},
+   {q:"___ Zog like ice cream?", o:["Is","Does","Did"], a:1, why:"Zog = he, every day → <b>Does</b> Zog like…?"},
+   {q:"___ the astronauts exercising?", o:["Do","Will","Are"], a:2, why:"exercis<b>ing</b> → <b>Are</b> the astronauts exercising?"}
+  ]},
+ {id:"g7", kind:"g", type:"choice", en:"Help Zog the alien!", ru:"Помоги инопланетянину Зогу!",
+  ins:"👽 Zog makes mistakes. Choose the correct sentence.", insRu:"Зог ошибается. Выбери правильное предложение.",
+  items:[
+   {q:"👽 <s>Yesterday I see a big star.</s>", o:["Yesterday I saw a big star.","Yesterday I seeing a big star."], a:0, why:"yesterday → <b>saw</b> (see → saw)"},
+   {q:"👽 <s>Listen! The robot sing!</s>", o:["Listen! The robot sings!","Listen! The robot is singing!"], a:1, why:"Listen! → now → <b>is singing</b>"},
+   {q:"👽 <s>Next week I go to the Moon.</s>", o:["Next week I will go to the Moon.","Next week I went to the Moon."], a:0, why:"next week → <b>will go</b>"},
+   {q:"👽 <s>My brother play football every day.</s>", o:["My brother plays football every day.","My brother is play football every day."], a:0, why:"my brother = he → play<b>s</b>"},
+   {q:"👽 <s>I will to eat space food tomorrow.</s>", o:["I will eat space food tomorrow.","I will eating space food tomorrow."], a:0, why:"will + verb, no <b>to</b>!"},
+   {q:"👽 <s>Did you ate pizza yesterday?</s>", o:["Did you eat pizza yesterday?","Do you ate pizza yesterday?"], a:0, why:"after <b>Did</b> → normal verb: <b>eat</b>"}
+  ]},
+ {id:"g8", kind:"g", type:"build", en:"Build the sentence", ru:"Собери предложение",
+  ins:"Tap the words in the right order. Tap a word in your answer to take it back.", insRu:"Нажимай на слова по порядку. Чтобы убрать слово, нажми на него в ответе.",
+  items:[
+   {ru:"Луна сейчас фотографирует.", t:["taking","Luna","now","is","photos"], end:".", acc:["Luna is taking photos now"], hint:"Start: <b>Luna is</b> …"},
+   {ru:"Вчера Зог ел пиццу.", t:["ate","Yesterday","pizza","Zog"], end:".", acc:["Yesterday Zog ate pizza","Zog ate pizza yesterday"], hint:"Start: <b>Yesterday</b> …"},
+   {ru:"Завтра я полечу на Марс.", t:["fly","Tomorrow","to","will","I","Mars"], end:".", acc:["Tomorrow I will fly to Mars","I will fly to Mars tomorrow"], hint:"Start: <b>Tomorrow I will</b> …"},
+   {ru:"Она не спит в кровати.", t:["sleep","She","a","doesn't","in","bed"], end:".", acc:["She doesn't sleep in a bed"], hint:"Start: <b>She doesn't</b> …"},
+   {ru:"Ты видела звёзды?", t:["see","you","Did","stars","the"], end:"?", acc:["Did you see the stars"], hint:"Start: <b>Did you</b> …"}
+  ]},
+ {id:"g9", kind:"g", type:"type", en:"The time machine", ru:"Машина времени",
+  ins:"Write the verb in the right form. Look at the time word!", insRu:"Напиши глагол в правильной форме. Смотри на слово-подсказку!",
+  rule:"🔁 talk<b>s</b> · ⏱ <b>is</b> talk<b>ing</b> · ⏪ talk<b>ed</b> / ate · ⏩ <b>will</b> talk",
+  items:[
+   {q:"🔁 Every day Luna ______ to Earth. <i>(talk)</i>", acc:["talks"], hint:"every day + she → <b>-s</b>", say:"Every day Luna talks to Earth."},
+   {q:"⏱ Look! Luna ______ space food. <i>(eat)</i>", acc:["is eating","'s eating"], hint:"Look! → <b>is</b> + eat<b>ing</b>", say:"Look! Luna is eating space food."},
+   {q:"⏪ Yesterday Luna ______ space food. <i>(eat)</i>", acc:["ate"], hint:"eat → a _ _ (special verb!)", say:"Yesterday Luna ate space food."},
+   {q:"⏩ Tomorrow Luna ______ to Earth. <i>(talk)</i>", acc:["will talk","'ll talk"], hint:"tomorrow → <b>will</b> + talk", say:"Tomorrow Luna will talk to Earth."},
+   {q:"⏱ Right now the astronauts ______ . <i>(exercise)</i>", acc:["are exercising","'re exercising"], hint:"they → <b>are</b> + exercis<b>ing</b> (no e!)", say:"Right now the astronauts are exercising."},
+   {q:"⏪ Last week Luna ______ to the space station. <i>(fly)</i>", acc:["flew"], hint:"fly → fl _ _ (special verb!)", say:"Last week Luna flew to the space station."}
+  ]},
+ {id:"w", kind:"g", type:"write", en:"My space diary", ru:"Мой космический дневник",
+  ins:"Imagine you are an astronaut! Finish the 4 sentences.", insRu:"Представь, что ты космонавт, и закончи 4 предложения.",
+  items:[]}
+];
+
+const PRAISE = ["Super! · Супер! 🚀","Great! · Отлично! ⭐","Well done! · Молодец! 👏","Wow! · Вау! 🌟","Yes! · Да! 🪐","Brilliant! · Блестяще! ✨"];
+const OOPS = ["Oops! · Ой! 🙈","Not quite · Почти 🤏","Try to remember · Запомни 💡","Almost! · Почти! 🌙"];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){
+    const v = attrs[k];
+    if (v === false || v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k.slice(0,2) === "on") e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()){ if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function strip(html){ const d = document.createElement("div"); d.innerHTML = html; return d.textContent.replace(/\s+/g," ").trim(); }
+function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(()=>el.classList.remove("on"), 2300); }
+
+/* storage */
+let MEM = null;
+function load(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }catch(e){ return MEM; } }
+function save(){ const j = JSON.stringify(S); try{ localStorage.setItem(KEY, j); }catch(e){ MEM = JSON.parse(j); } }
+function wipe(){ try{ localStorage.removeItem(KEY); }catch(e){} MEM = null; }
+const DEF = () => ({name:DEFAULT_NAME, ans:{}, mw:{}, known:{}, writing:"", tab:"words", ex:0, dir:"en", onlyL:false});
+let S = Object.assign(DEF(), load() || {});
+
+/* speech */
+let VOICE = null;
+const HAS_TTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if (HAS_TTS){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function say(t){ if (!HAS_TTS || !t) return; try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/\s*\/\s*/g, ", ")); u.lang = "en-GB"; if (VOICE) u.voice = VOICE; u.rate = 0.88; speechSynthesis.speak(u); }catch(e){} }
+function spk(t, label, cls){ return h("button", {class:"spk"+(cls?" "+cls:""), type:"button", "aria-label":"Listen: "+t, onclick:e=>{ e.stopPropagation(); say(t); }}, label || "🔊"); }
+
+/* checking */
+function norm(s){
+  s = String(s || "").toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”]/g,'"');
+  s = s.replace(/\bcan not\b/g,"cannot").replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\bshan't\b/g,"shall not")
+       .replace(/n't\b/g," not").replace(/\bi'm\b/g,"i am").replace(/'re\b/g," are").replace(/'ve\b/g," have").replace(/'ll\b/g," will").replace(/'d\b/g," would")
+       .replace(/\b(it|that|he|she|what|there|who|where|here|this)'s\b/g,"$1 is");
+  return s.replace(/[.,!?;:"()—–]/g," ").replace(/\s+-\s+/g," ").replace(/\s+/g," ").trim();
+}
+const normW = s => norm(s).replace(/^(a|an|the) /, "");
+function expand(t){ const m = t.match(/\{([^{}]*)\}/); if (!m) return [t]; const out = []; m[1].split("|").forEach(opt => expand(t.replace(m[0], opt)).forEach(x => out.push(x))); return out; }
+function matches(val, it){ const f = it.word ? normW : norm; const v = f(val); return it.acc.some(a => f(a) === v); }
+
+/* registry */
+EX.forEach(ex => {
+  const list = ex.type === "match" ? ex.rounds.flat() : ex.type === "gap" ? ex.gaps : (ex.items || []);
+  list.forEach((it, i) => { it.id = ex.id + "-" + i; it.n_ = i + 1; if (it.acc){ it.model = it.model || it.acc[0]; it.acc = it.acc.flatMap(expand); } });
+  ex.list = list;
+});
+const VCOUNT = EX.filter(e => e.kind === "v").length;
+const LOCKED = ["ok","bad","self"];
+const stOf = id => (S.ans[id] || {}).st;
+const isDone = id => LOCKED.includes(stOf(id));
+const isRight = id => stOf(id) === "ok" || stOf(id) === "self";
+function exScore(ex){ const l = ex.list; return {got:l.filter(i=>isRight(i.id)).length, done:l.filter(i=>isDone(i.id)).length, total:l.length}; }
+function scoreAll(filter){ let got=0, done=0, total=0; EX.forEach(ex=>{ if (filter && ex.kind !== filter) return; const s = exScore(ex); got+=s.got; done+=s.done; total+=s.total; }); return {got, done, total}; }
+const knownCount = () => WORDS.filter(w => S.known[w.en]).length;
+const nm = () => (S.name || "").trim() || DEFAULT_NAME;
+
+const PART_NAME = n => "";
+/* ---------- tabs ---------- */
+const TABS = [["words","Words","Слова"],["cards","Cards","Карточки"],["grammar","Machine","Машина"],["practice","Missions","Задания"],["results","Stars","Итоги"]];
+function renderTabs(){
+  const t = $("#tabs"); t.innerHTML = "";
+  const s = scoreAll();
+  TABS.forEach(([id,en,ru]) => {
+    let badge = "";
+    if (id === "cards" && knownCount()) badge = knownCount() + "/" + WORDS.length;
+    if (id === "practice" && s.done) badge = s.got + "/" + s.total;
+    if (id === "results" && s.done === s.total) badge = Math.round(100 * s.got / s.total) + "%";
+    t.append(h("button", {class:"tab"+(S.tab===id?" on":""), type:"button", role:"tab", "aria-selected":S.tab===id?"true":"false", onclick:()=>go(id)},
+      h("span", null, en), h("span", {class:"tr"}, ru), badge ? h("span", {class:"tb"}, badge) : null));
+  });
+  $("#barFill").style.width = (100 * s.done / s.total) + "%";
+  $("#scoreTxt").textContent = "⭐ " + s.got + " / " + s.total;
+}
+function refresh(){ renderTabs(); if (S.tab === "practice") renderChips(); }
+function go(id){ S.tab = id; save(); show(); const hh = $("#hero").offsetHeight; if (window.scrollY > hh) window.scrollTo(0, hh); }
+function goEx(i){ S.ex = i; S.tab = "practice"; save(); show(); window.scrollTo(0, $("#hero").offsetHeight); }
+function show(){
+  TABS.forEach(([id]) => $("#tab-"+id).classList.toggle("on", S.tab === id));
+  if (S.tab === "cards") renderCards();
+  if (S.tab === "practice") renderPractice();
+  if (S.tab === "results") renderResults();
+  renderTabs();
+}
+
+/* =================== WORDS =================== */
+
+
+function wordTile(w){
+  return h("button", {class:"wt", type:"button", onclick:()=>{ say(w.en); toast(w.em + " " + w.en + " — " + w.ru); }},
+    h("span", {class:"wte", "aria-hidden":"true"}, w.em), h("b", null, w.en), h("span", {class:"ru"}, w.ru), h("span", {class:"wts", "aria-hidden":"true"}, "🔊"));
+}
+function renderWords(){
+  const root = $("#tab-words"); root.innerHTML = "";
+  root.append(h("div", {class:"card luna"},
+    h("div", {class:"lunabig", "aria-hidden":"true"}, "👩‍🚀"),
+    h("div", null, h("h2", null, "Hi! I'm Luna! · ", h("span", {class:"ru"}, "Привет! Я Луна!")),
+      h("p", {class:"lead"}, "I'm an astronaut. I live on the space station. Tap a word to hear it!", h("br"), h("span", {class:"ru"}, "Я космонавт и живу на космической станции. Нажми на слово, чтобы его услышать!")))));
+  root.append(h("div", {class:"card"},
+    h("h2", null, "🌌 Space words · ", h("span", {class:"ru"}, "Космические слова")),
+    h("div", {class:"wgrid"}, WORDS.filter(w => w.g === "s").map(wordTile))));
+  root.append(h("div", {class:"card"},
+    h("h2", null, "🧑‍🚀 Luna's day · ", h("span", {class:"ru"}, "День Луны")),
+    h("div", {class:"wgrid"}, WORDS.filter(w => w.g === "a").map(wordTile))));
+  const story = h("div", {class:"story"});
+  DIARY.forEach(par => {
+    const p = h("p");
+    par.split(/(\[\[[^\]]+\]\])/).forEach(part => {
+      const m = part.match(/^\[\[([^|]+)\|([^\]]+)\]\]$/);
+      if (!m){ p.append(part); return; }
+      const gloss = h("span", {class:"gloss", hidden:true}, m[2]);
+      const b = h("button", {class:"gl", type:"button", onclick:()=>{ const open = gloss.hidden; gloss.hidden = !open; if (open) say(m[1]); }}, m[1]);
+      p.append(b, gloss);
+    });
+    story.append(p);
+  });
+  root.append(h("div", {class:"card diary"},
+    h("h2", null, "📔 Luna's diary · ", h("span", {class:"ru"}, "Дневник Луны")),
+    h("p", {class:"lead"}, "Read the diary. Tap a yellow word to see the translation.", h("br"), h("span", {class:"ru"}, "Прочитай дневник. Нажми на жёлтое слово — увидишь перевод.")),
+    h("div", {class:"btns", style:"margin:8px 0 12px"}, spk(DIARY.join(" ").replace(/\[\[([^|]+)\|[^\]]+\]\]/g, "$1").replace(/\p{Extended_Pictographic}|\u200d|\ufe0f/gu, ""), "🔊 Listen · Послушать", "wide")),
+    story));
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Remember! · ", h("span", {class:"ru"}, "Запомни!")),
+    h("ul", null, CAREFUL.map(c => h("li", {html:c})))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn big", type:"button", onclick:()=>go("cards")}, "Next: cards 🃏 · Дальше: карточки →")));
+}
+
+/* =================== FLASHCARDS =================== */
+let deck = [], ci = 0, flipped = false;
+function makeDeck(shuffle){
+  let idx = WORDS.map((_, i) => i);
+  if (S.onlyL) idx = idx.filter(i => !S.known[WORDS[i].en]);
+  if (shuffle) for (let i = idx.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  deck = idx; if (ci >= deck.length) ci = 0; flipped = false;
+}
+function renderCards(){
+  if (!deck.length && !S.onlyL) makeDeck(false);
+  const root = $("#tab-cards"); root.innerHTML = "";
+  const k = knownCount();
+  const box = h("div", {class:"card"});
+  box.append(h("h2", null, "Flashcards · ", h("span", {class:"ru"}, "Карточки")));
+  box.append(h("p", {class:"lead"}, "Tap the card to turn it over. Then say if you know the word.", h("br"), h("span", {class:"ru"}, "Нажми на карточку, чтобы перевернуть. Потом отметь: знаешь слово или ещё учишь.")));
+  box.append(h("div", {class:"fc-top"}, h("span", null, "I know · Знаю: " + k + "/" + WORDS.length), h("span", null, deck.length ? (ci + 1) + " / " + deck.length : "")));
+  box.append(h("div", {class:"kbar"}, h("i", {style:"width:" + (100 * k / WORDS.length) + "%"})));
+  if (!deck.length){
+    box.append(h("div", {class:"fb ok", style:"text-align:center;margin-top:16px;font-size:17px"}, h("b", null, "🎉 You know all the words! · Ты знаешь все слова!"), h("br"), "Turn off the filter to see all cards. · Выключи фильтр, чтобы увидеть все карточки."));
+  } else {
+    const w = WORDS[deck[ci]];
+    const exPart = [h("div", {class:"fx"}, w.ex), h("div", {class:"fxr"}, w.exRu), spk(w.ex, "🔊 example · пример", "wide")];
+    let front, back;
+    if (S.dir === "en"){
+      front = h("div", {class:"face front"}, h("div", {class:"fe", "aria-hidden":"true"}, w.em), h("div", {class:"fw"}, w.en), h("div", {class:"fp"}, w.ipa + (w.verb ? "  ·  ← " + w.verb : "")), spk(w.en), h("div", {class:"tap"}, "tap to turn · нажми, чтобы перевернуть"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--ru);font-size:clamp(20px,6vw,27px)"}, w.ru), exPart);
+    } else {
+      front = h("div", {class:"face front"}, h("div", {class:"fe", "aria-hidden":"true"}, w.em), h("div", {class:"fw", style:"font-size:clamp(20px,6vw,27px)"}, w.ru), h("div", {class:"tap"}, "Say it in English! · Скажи по-английски!"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--brick)"}, w.en), h("div", {class:"fp", style:"color:var(--soft)"}, w.ipa), spk(w.en), exPart);
+    }
+    const fc = h("div", {class:"fc" + (flipped ? " flip" : ""), role:"button", tabindex:"0", "aria-label":"Flashcard. Press to turn over"}, front, back);
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); };
+    fc.addEventListener("click", flip);
+    fc.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } });
+    box.append(h("div", {class:"fc-scene"}, fc));
+    const move = d => { ci = (ci + d + deck.length) % deck.length; flipped = false; renderCards(); };
+    box.append(h("div", {class:"fc-nav"},
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(-1)}, "◀ Back", h("br"), h("small", {class:"ru"}, "Назад")),
+      h("button", {class:"btn ghost", type:"button", onclick:flip}, "↻ Turn", h("br"), h("small", {class:"ru"}, "Перевернуть")),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(1)}, "Next ▶", h("br"), h("small", {class:"ru"}, "Дальше"))));
+    const mark = known => {
+      if (known) S.known[w.en] = true; else delete S.known[w.en];
+      save(); renderTabs();
+      if (S.onlyL && known){ deck.splice(ci, 1); if (ci >= deck.length) ci = 0; flipped = false; renderCards(); } else move(1);
+      toast(known ? "✓ " + w.en + " — I know it · Знаю" : "↻ " + w.en + " — still learning · Ещё учу");
+    };
+    box.append(h("div", {class:"fc-know"},
+      h("button", {class:"btn know", type:"button", onclick:()=>mark(true)}, "✓ I know it · Знаю"),
+      h("button", {class:"btn learn", type:"button", onclick:()=>mark(false)}, "Still learning · Ещё учу")));
+  }
+  const filt = h("input", {type:"checkbox"}); filt.checked = !!S.onlyL;
+  filt.addEventListener("change", () => { S.onlyL = filt.checked; save(); ci = 0; makeDeck(false); renderCards(); });
+  box.append(h("div", {class:"fc-tools"},
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ makeDeck(true); ci = 0; renderCards(); toast("Shuffled · Перемешано"); }}, "🔀 Shuffle · Перемешать"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ S.dir = S.dir === "en" ? "ru" : "en"; save(); flipped = false; renderCards(); }}, S.dir === "en" ? "⇄ RU → EN" : "⇄ EN → RU"),
+    h("label", {class:"chk"}, filt, "Only words I’m learning · Только «ещё учу»")));
+  root.append(box);
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("grammar")}, "Next: grammar · Дальше: грамматика →")));
+}
+
+/* =================== GRAMMAR =================== */
+
+
+function exList(arr){ return h("ul", {class:"exl"}, arr.map(([html, s]) => h("li", null, h("span", {html}), spk(s || strip(html))))); }
+function practiseBtn(id){ const i = EX.findIndex(e => e.id === id); return h("button", {class:"btn small", type:"button", onclick:()=>goEx(i)}, "🎮 Play · Играть → " + (i + 1)); }
+function machineSentence(a, z, mode){
+  const r = a.rest ? " " + a.rest : "";
+  const V = (t, cls) => "<span class='v-" + cls + "'>" + t + "</span>";
+  const T = {
+   ps:{"+":"Luna " + V(a.s, "ps") + r + " every day.", "-":"Luna " + V("doesn't " + a.base, "ps") + r + " every day.", "?":V("Does", "ps") + " Luna " + V(a.base, "ps") + r + " every day?"},
+   pc:{"+":"Look! Luna " + V("is " + a.ing, "pc") + r + " now.", "-":"Luna " + V("isn't " + a.ing, "pc") + r + " now.", "?":V("Is", "pc") + " Luna " + V(a.ing, "pc") + r + " now?"},
+   pa:{"+":"Yesterday Luna " + V(a.past, "pa") + r + ".", "-":"Yesterday Luna " + V("didn't " + a.base, "pa") + r + ".", "?":V("Did", "pa") + " Luna " + V(a.base, "pa") + r + " yesterday?"},
+   fu:{"+":"Tomorrow Luna " + V("will " + a.base, "fu") + r + ".", "-":"Tomorrow Luna " + V("won't " + a.base, "fu") + r + ".", "?":V("Will", "fu") + " Luna " + V(a.base, "fu") + r + " tomorrow?"}
+  };
+  return T[z][mode];
+}
+function renderGrammar(){
+  const root = $("#tab-grammar"); root.innerHTML = "";
+  root.append(h("div", {class:"card tm-intro"},
+    h("h2", null, "🕰️ The time machine · ", h("span", {class:"ru"}, "Машина времени")),
+    h("p", {class:"lead"}, "4 tenses = 4 time zones. First find the time word, then choose the tense!", h("br"), h("span", {class:"ru"}, "4 времени = 4 временные зоны. Сначала найди слово-подсказку, потом выбирай время!"))));
+  // interactive machine
+  const st = {a:0, z:"ps", m:"+"};
+  const screen = h("div", {class:"tm-screen", "aria-live":"polite"});
+  const actRow = h("div", {class:"tm-acts"}), zoneRow = h("div", {class:"tm-zones"}), modeRow = h("div", {class:"tm-modes"});
+  const draw = () => {
+    actRow.querySelectorAll("button").forEach((b, i) => b.classList.toggle("on", i === st.a));
+    zoneRow.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.z === st.z));
+    modeRow.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.m === st.m));
+    const html = machineSentence(ACTIONS[st.a], st.z, st.m);
+    const z = ZONES.find(x => x.id === st.z);
+    screen.innerHTML = ""; screen.style.borderColor = z.col;
+    screen.append(h("div", {class:"tm-zone", style:"color:" + z.col}, z.em + " " + z.en + " · " + z.tense), h("div", {class:"tm-sent", html}), spk(strip(html), "🔊", ""));
+  };
+  ACTIONS.forEach((a, i) => actRow.append(h("button", {class:"tm-btn", type:"button", "aria-label":a.base + " " + a.rest, onclick:()=>{ st.a = i; draw(); say(strip(machineSentence(a, st.z, st.m))); }}, h("span", {class:"tm-e"}, a.em), h("span", {class:"tm-l"}, a.base))));
+  ZONES.forEach(z => zoneRow.append(h("button", {class:"tm-z", type:"button", "data-z":z.id, style:"--zc:" + z.col, onclick:()=>{ st.z = z.id; draw(); say(strip(machineSentence(ACTIONS[st.a], st.z, st.m))); }}, z.em + " " + z.en)));
+  [["+","＋ yes"],["-","－ no"],["?","？ question"]].forEach(([m, l]) => modeRow.append(h("button", {class:"tm-m", type:"button", "data-m":m, onclick:()=>{ st.m = m; draw(); say(strip(machineSentence(ACTIONS[st.a], st.z, st.m))); }}, l)));
+  draw();
+  root.append(h("div", {class:"card machine"},
+    h("h3", null, "Try the machine! · ", h("span", {class:"ru"}, "Попробуй машину!")),
+    h("div", {class:"tm-step"}, "1 · Choose an action · Выбери действие"), actRow,
+    h("div", {class:"tm-step"}, "2 · Choose a time · Выбери время"), zoneRow,
+    h("div", {class:"tm-step"}, "3 · Yes, no or question? · Да, нет или вопрос?"), modeRow,
+    screen));
+  // four zone cards
+  ZONES.forEach((z, i) => {
+    root.append(h("div", {class:"card zone", style:"--zc:" + z.col},
+      h("div", {class:"zone-h"}, h("span", {class:"zone-e"}, z.em), h("div", null, h("div", {class:"zone-t"}, z.en + " · " + z.ru), h("h2", null, z.tense))),
+      h("p", {style:"margin:6px 0 0"}, z.what, h("br"), h("span", {class:"ru"}, z.whatRu)),
+      h("table", {class:"tbl"}, ["+","−","?"].map((s, k) => h("tr", null, h("td", null, s), h("td", {html:z.form[k]})))),
+      h("div", {class:"zchips"}, h("span", {class:"zl"}, "Time words · Слова-подсказки:"), z.words.map(t => h("span", {class:"zc"}, t))),
+      h("div", {class:"says"}, h("b", null, "👩‍🚀 Luna says… · Луна говорит…"), exList(z.luna.map(s => [s, s])))));
+  });
+  // helpers summary
+  root.append(h("div", {class:"card"},
+    h("h2", null, "🧰 Helper words · ", h("span", {class:"ru"}, "Слова-помощники")),
+    h("div", {class:"helpers"},
+      ZONES.map((z, i) => h("div", {class:"hp", style:"--zc:" + z.col}, h("b", null, z.em + " " + z.tense), h("span", null, ["do / does","am / is / are","did","will"][i])))),
+    h("div", {class:"rule", html:"💡 After <b>do / does / did / will</b> the verb is normal: <i>Does she <b>eat</b>? · She didn't <b>see</b>. · She will <b>fly</b>.</i><br><span class='ru'>После do / does / did / will глагол без изменений.</span>"}),
+    h("div", {class:"btns"}, practiseBtn("g1"), practiseBtn("g2"), practiseBtn("g6"))));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn big", type:"button", onclick:()=>goEx(0)}, "Start the missions! 🚀 · Начать задания →")));
+}
+
+/* =================== PRACTICE =================== */
+function renderChips(){
+  const c = $("#chips"); if (!c) return; c.innerHTML = "";
+  EX.forEach((ex, i) => {
+    const s = exScore(ex);
+    const done = ex.type === "write" ? S.writing.trim().length > 0 : s.done === s.total;
+    c.append(h("button", {class:"chip" + (ex.kind === "g" ? " g" : "") + (i === S.ex ? " on" : "") + (done ? " done" : ""), type:"button", "aria-label":"Exercise " + (i + 1) + ": " + ex.en, onclick:()=>{ S.ex = i; save(); renderPractice(); }},
+      String(i + 1), h("small", null, ex.type === "write" ? (done ? "✓" : "✍") : (s.done ? s.got + "/" + s.total : (ex.kind === "v" ? "voc" : "gr")))));
+  });
+  const on = c.children[S.ex]; if (on && on.scrollIntoView){ try{ on.scrollIntoView({block:"nearest", inline:"center"}); }catch(e){} }
+}
+function renderPractice(){
+  const root = $("#tab-practice"); root.innerHTML = "";
+  root.append(h("div", {class:"chips", id:"chips", "aria-label":"Exercises"}));
+  const ex = EX[S.ex], s = exScore(ex);
+  const card = h("div", {class:"card " + (ex.kind === "v" ? "leaf" : "teal")});
+  card.append(h("div", {class:"kicker"}, ex.kind === "v" ? "Words · Слова" : "Time machine · Машина времени"));
+  card.append(h("div", {class:"exhead"},
+    h("div", null, h("h2", null, (S.ex + 1) + ". " + ex.en), h("div", {class:"ru", style:"font-family:Prata,serif;font-size:16px"}, ex.ru)),
+    ex.type !== "write" ? h("span", {class:"exscore", id:"exscore"}, s.got + "/" + s.total) : null));
+  card.append(h("p", {class:"ins"}, h("span", {html:ex.ins}), h("br"), h("span", {class:"ru", html:ex.insRu})));
+  if (ex.rule) card.append(h("div", {class:"rule" + (ex.kind === "v" ? " v" : ""), html:"📌 " + ex.rule}));
+  const body = h("div", {id:"exbody"});
+  card.append(body);
+  root.append(card);
+  ({choice:listEx, type:listEx, build:listEx, gap:gapEx, match:matchEx, write:writeEx})[ex.type](ex, body);
+  const nav = h("div", {class:"btns", style:"justify-content:space-between"});
+  const top = () => window.scrollTo(0, $("#hero").offsetHeight);
+  nav.append(S.ex > 0 ? h("button", {class:"btn ghost", type:"button", onclick:()=>{ S.ex--; save(); renderPractice(); top(); }}, "← Back · Назад") : h("span"));
+  nav.append(S.ex < EX.length - 1
+    ? h("button", {class:"btn", type:"button", onclick:()=>{ S.ex++; save(); renderPractice(); top(); }}, "Next · Дальше →")
+    : h("button", {class:"btn gold", type:"button", onclick:()=>go("results")}, "See results · Итоги →"));
+  root.append(nav);
+  renderChips();
+}
+function updExScore(ex){ const el = $("#exscore"); const s = exScore(ex); if (el) el.textContent = s.got + "/" + s.total; refresh(); if (s.total && s.done === s.total) setTimeout(() => celebrate(ex), 600); }
+function listEx(ex, body){ const make = {choice:choiceItem, type:typeItem, build:buildItem}[ex.type]; ex.items.forEach((it, k) => body.append(make(ex, it, k))); }
+function fbBox(ok, k, why, sayText){
+  const d = h("div", {class:"fb " + (ok ? "ok" : "bad")}, h("b", null, ok ? PRAISE[k % PRAISE.length] : OOPS[k % OOPS.length]));
+  if (why) d.append(h("div", {class:"why", html:why}));
+  if (sayText) d.append(spk(sayText, "🔊 Listen · Слушать", "wide"));
+  return d;
+}
+
+/* choice */
+function sentenceOf(ex, it){
+  if (it.say) return it.say;
+  if (ex.type === "choice" && it.n) return PART_NAME(it.n).replace(" / patio", "");
+  const q = strip(it.q); return q.includes("___") ? q.replace(/_{3,}/, it.o[it.a]) : it.o[it.a];
+}
+function choiceItem(ex, it, k){
+  const a = S.ans[it.id];
+  const box = h("div", {class:"item" + (a ? (a.st === "ok" ? " is-ok" : " is-bad") : "")});
+  if (ex.house){
+    box.append(h("div", {class:"mini-house", html:houseSVG(it.n)}));
+    box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", null, "What is number " + it.n + "? · ", h("span", {class:"ru"}, "Что под номером " + it.n + "?"))));
+  } else {
+    const q = h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q}));
+    if (ex.sound) q.append(spk(it.say));
+    box.append(q);
+  }
+  const opts = h("div", {class:"opts"});
+  it.o.forEach((o, j) => {
+    const b = h("button", {class:"opt", type:"button"}, o);
+    if (a){ b.disabled = true; if (j === it.a) b.classList.add("right"); if (j === a.v && j !== it.a) b.classList.add("wrong"); }
+    else b.addEventListener("click", () => {
+      S.ans[it.id] = {v:j, st: j === it.a ? "ok" : "bad"}; save();
+      box.replaceWith(choiceItem(ex, it, k));
+      if (j === it.a) say(sentenceOf(ex, it));
+      updExScore(ex);
+    });
+    opts.append(b);
+  });
+  box.append(opts);
+  if (a){
+    const why = it.why || (it.n ? "<b>" + PART_NAME(it.n) + "</b> — " + WORDS.find(w => w.n === it.n).ru : "");
+    box.append(fbBox(a.st === "ok", k, (a.st === "ok" ? "" : "Correct answer · Правильный ответ: <b>" + it.o[it.a] + "</b><br>") + why, sentenceOf(ex, it)));
+  }
+  return box;
+}
+
+/* typed */
+function typeItem(ex, it, k){
+  const a = S.ans[it.id] || null;
+  const locked = a && LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q})));
+  const inp = h("input", {type:"text", class:"inp", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false", "aria-label":"Your answer · Твой ответ", placeholder: ex.id === "g8" ? "Write in English · Пиши по-английски" : "Your answer · Твой ответ"});
+  inp.value = a && a.v ? a.v : "";
+  const check = () => {
+    const v = inp.value;
+    if (!v.trim()){ toast("Write an answer first · Сначала напиши ответ"); inp.focus(); return; }
+    const cur = S.ans[it.id] || {tries:0, given:[]};
+    cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v.trim()); cur.v = v.trim();
+    const ok = matches(v, it);
+    cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+    S.ans[it.id] = cur; save();
+    const nb = typeItem(ex, it, k); box.replaceWith(nb);
+    if (cur.st === "try"){ const ni = nb.querySelector("input"); if (ni) ni.focus(); }
+    if (ok) say(it.say || it.model);
+    updExScore(ex);
+  };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); check(); } });
+  if (locked){ inp.disabled = true; box.append(h("div", {class:"row"}, inp)); }
+  else box.append(h("div", {class:"row"}, inp, h("button", {class:"btn small", type:"button", onclick:check}, "Check · Проверить")));
+  if (a && a.st === "try"){
+    box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  } else if (a && a.st === "ok"){
+    const d = fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", it.say || it.model);
+    if (it.question && !/\?\s*$/.test(a.v)) d.append(h("div", {class:"note"}, "Don’t forget the question mark “?” · Не забудь знак вопроса"));
+    if (ex.kind === "g" && /^[a-z]/.test(a.v) && /^(if|i|we|would|my|what)\b/i.test(a.v) && it.model.split(" ").length > 3) d.append(h("div", {class:"note"}, "Start a sentence with a capital letter. · Начинай предложение с большой буквы."));
+    box.append(d);
+  } else if (a && a.st === "bad"){
+    const d = fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.model + "</b>", it.say || it.model);
+    if (it.self) d.append(h("button", {class:"self", type:"button", onclick:()=>{ a.st = "self"; save(); box.replaceWith(typeItem(ex, it, k)); updExScore(ex); }}, "✓ My answer is also correct · Мой ответ тоже верный"));
+    box.append(d);
+  } else if (a && a.st === "self"){
+    box.append(h("div", {class:"fb ok"}, h("b", null, "OK! You marked your answer as correct. · Ты отметила свой ответ как верный."), h("div", {class:"why"}, "Model · Образец: ", h("b", null, it.model)), h("div", {class:"why ru"}, "Your teacher will check it. · Учитель проверит.")));
+  }
+  return box;
+}
+
+/* builder */
+function buildItem(ex, it, k){
+  const a = S.ans[it.id] || {pick:[], tries:0};
+  const pick = a.pick || [];
+  const locked = LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {class:"ruq"}, it.ru)));
+  const setPick = p => { S.ans[it.id] = Object.assign({}, S.ans[it.id] || {tries:0}, {pick:p}); save(); box.replaceWith(buildItem(ex, it, k)); };
+  const ansZone = h("div", {class:"tiles ans", "aria-label":"Your sentence"});
+  pick.forEach((ti, pi) => ansZone.append(h("button", {class:"tile", type:"button", disabled:locked, onclick:()=>{ const p = pick.slice(); p.splice(pi, 1); setPick(p); }}, it.t[ti])));
+  if (pick.length === it.t.length) ansZone.append(h("span", {class:"endp"}, it.end));
+  if (!pick.length) ansZone.append(h("span", {class:"ru", style:"font-size:14px"}, "Tap the words below · Нажимай на слова ниже"));
+  box.append(ansZone);
+  if (!locked){
+    const pool = h("div", {class:"tiles"});
+    it.t.forEach((w, ti) => { if (!pick.includes(ti)) pool.append(h("button", {class:"tile", type:"button", onclick:()=>setPick(pick.concat(ti))}, w)); });
+    box.append(pool);
+    box.append(h("div", {class:"btns"},
+      h("button", {class:"btn small", type:"button", onclick:()=>{
+        if (pick.length < it.t.length){ toast("Use all the words · Используй все слова"); return; }
+        const sent = pick.map(i => it.t[i]).join(" ");
+        const cur = S.ans[it.id] || {tries:0};
+        cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(sent + it.end); cur.v = sent;
+        const ok = it.acc.some(x => norm(x) === norm(sent));
+        cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+        S.ans[it.id] = cur; save();
+        box.replaceWith(buildItem(ex, it, k));
+        if (ok) say(sent + it.end);
+        updExScore(ex);
+      }}, "Check · Проверить"),
+      h("button", {class:"btn ghost small", type:"button", onclick:()=>setPick([])}, "Clear · Очистить")));
+  }
+  if (a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  if (a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", a.v + it.end));
+  if (a.st === "bad") box.append(fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.model + it.end + "</b>", it.model + it.end));
+  return box;
+}
+
+/* gap text */
+function gapEx(ex, body){
+  body.innerHTML = "";
+  body.append(h("div", {class:"bank", "aria-label":"Word box"}, ex.bank.map(w => h("span", null, w))));
+  const txt = h("div", {class:"gtext"});
+  const inputs = [];
+  ex.text.split("\n\n").forEach(par => {
+    const p = h("p");
+    par.split(/\{(\d+)\}/).forEach((part, i) => {
+      if (i % 2 === 0){ p.append(part); return; }
+      const g = ex.gaps[+part], a = S.ans[g.id];
+      p.append(h("span", {class:"gnum"}, String(g.n_)));
+      if (a && (a.st === "ok" || a.st === "self")) p.append(h("span", {class:"gf ok"}, a.v));
+      else if (a && a.st === "bad") p.append(h("span", {class:"gf bad"}, h("s", null, a.v), " → ", h("b", null, g.model)));
+      else {
+        const inp = h("input", {class:"ginp" + (a && a.st === "try" ? " try" : ""), type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"Gap " + g.n_});
+        inp.value = a && a.v ? a.v : ""; inp.dataset.g = part;
+        inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); checkAll(); } });
+        inputs.push(inp); p.append(inp);
+      }
+    });
+    txt.append(p);
+  });
+  body.append(txt);
+  const checkAll = () => {
+    let any = false;
+    inputs.forEach(inp => {
+      const v = inp.value.trim(); if (!v) return;
+      const g = ex.gaps[+inp.dataset.g];
+      const cur = S.ans[g.id] || {tries:0, given:[]};
+      if (cur.st === "try" && cur.v === v) return;
+      any = true;
+      cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v); cur.v = v;
+      cur.st = matches(v, g) ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+      S.ans[g.id] = cur;
+    });
+    if (!any){ toast("Fill in a gap first · Сначала заполни пропуск"); return; }
+    save(); gapEx(ex, body); updExScore(ex);
+  };
+  if (inputs.length) body.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:checkAll}, "Check · Проверить")));
+  const tries = ex.gaps.filter(g => stOf(g.id) === "try");
+  if (tries.length) body.append(h("div", {class:"fb try"}, h("b", null, "Some gaps are not right yet — try again! · Некоторые пропуски пока неверны — попробуй ещё раз!"),
+    tries.map(g => h("div", {class:"why", html:"<b>" + g.n_ + ".</b> 💡 " + g.hint}))));
+  const s = exScore(ex);
+  if (s.done === s.total) body.append(h("div", {class:"fb ok"}, h("b", null, "Done! · Готово! " + s.got + "/" + s.total), h("br"),
+    spk(ex.text.replace(/\{(\d+)\}/g, (_, n) => ex.gaps[+n].model).replace(/\n+/g, " "), "🔊 Listen to the text · Послушать текст", "wide")));
+}
+
+/* writing */
+
+function seeded(arr, seed){ const a = arr.slice(); let s = seed; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280; for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+let selL = null;
+function matchEx(ex, body){
+  body.innerHTML = "";
+  let offset = 0;
+  ex.rounds.forEach((round, r) => {
+    const pairs = round.map((p, i) => ex.list[offset + i]); offset += round.length;
+    const right = seeded(pairs, 17 + r * 7);
+    const allDone = pairs.every(p => isDone(p.id));
+    body.append(h("div", {class:"round-t"}, "Round " + (r + 1) + " · Раунд " + (r + 1) + (allDone ? " ✓" : "")));
+    const L = h("div", {class:"mcol"}), R = h("div", {class:"mcol"});
+    const msg = h("div", {class:"msg", "aria-live":"polite"});
+    pairs.forEach(p => {
+      const a = S.ans[p.id];
+      L.append(h("button", {class:"mb en" + (a ? (a.st === "ok" ? " done" : " done late") : "") + (selL === p.id ? " sel" : ""), type:"button", disabled:!!a, "aria-pressed":selL === p.id ? "true" : "false", onclick:()=>{ selL = p.id; say(p.en); matchEx(ex, body); }}, p.en));
+    });
+    right.forEach(p => {
+      const a = S.ans[p.id];
+      const b = h("button", {class:"mb" + (a ? (a.st === "ok" ? " done" : " done late") : ""), type:"button", disabled:!!a}, p.ru);
+      b.addEventListener("click", () => {
+        if (!selL || !pairs.some(x => x.id === selL)){ msg.textContent = "Tap a word on the left first · Сначала нажми на слово слева"; return; }
+        if (selL === p.id){
+          S.ans[p.id] = {st: S.mw[p.id] ? "bad" : "ok", v:p.ru}; selL = null; save();
+          matchEx(ex, body); updExScore(ex); say(p.ru);
+          toast("✓ " + p.en + " → " + p.ru);
+        } else {
+          const wrongFor = ex.list.find(x => x.id === selL);
+          S.mw[selL] = (S.mw[selL] || []).concat(p.ru); save();
+          b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+          msg.textContent = "Not “" + wrongFor.en + "”. Try again! · Не подходит. Попробуй ещё раз!";
+        }
+      });
+      R.append(b);
+    });
+    body.append(h("div", {class:"mgrid"}, L, R), msg);
+  });
+}
+
+
+const STARTERS = [["🔁","Every day I"],["⏱","Right now I am"],["⏪","Yesterday I"],["⏩","Tomorrow I will"]];
+function writeEx(ex, body){
+  const parts = (S.writing || "").split("\n");
+  const box = h("div", {class:"item"});
+  const inputs = STARTERS.map(([e, s], i) => {
+    const inp = h("input", {class:"inp", type:"text", autocomplete:"off", "aria-label":s, placeholder:"…"});
+    const pre = s + " ";
+    inp.value = parts[i] && parts[i].startsWith(pre) ? parts[i].slice(pre.length) : "";
+    box.append(h("div", {class:"diary-line"}, h("span", {class:"dl"}, e + " " + s), inp));
+    return inp;
+  });
+  const ideas = h("div", {class:"ideas"}, h("b", null, "Ideas · Идеи: "), "float · eat space food · take photos · walk on the Moon · see aliens · talk to Earth · fly to Mars");
+  let tmr;
+  const upd = () => {
+    S.writing = inputs.map((inp, i) => inp.value.trim() ? STARTERS[i][1] + " " + inp.value.trim() : "").join("\n").replace(/\n+$/, "");
+    clearTimeout(tmr); tmr = setTimeout(() => { save(); refresh(); }, 400);
+  };
+  inputs.forEach(inp => inp.addEventListener("input", upd));
+  box.append(ideas, h("p", {class:"ru", style:"font-size:14px;margin:10px 0 0"}, "Your teacher will read your diary. · Учитель прочитает твой дневник. 💌"));
+  body.append(box);
+}
+
+const CELEBRATED = new Set();
+function celebrate(ex){
+  if (CELEBRATED.has(ex.id)) return; CELEBRATED.add(ex.id);
+  const s = exScore(ex);
+  const ov = h("div", {class:"party", role:"status"},
+    h("div", {class:"party-box"}, h("div", {class:"party-e"}, s.got === s.total ? "🏆" : "🚀"), h("b", null, "Mission complete! · Задание выполнено!"), h("div", null, "⭐ " + s.got + " / " + s.total)));
+  for (let i = 0; i < 16; i++) ov.append(h("span", {class:"conf", style:"left:" + Math.round(Math.random() * 100) + "%;animation-delay:" + (Math.random() * .4).toFixed(2) + "s"}, ["⭐","🌟","🚀","🪐","✨","👽"][i % 6]));
+  document.body.append(ov);
+  setTimeout(() => ov.remove(), 2200);
+  ov.addEventListener("click", () => ov.remove());
+}
+
+/* =================== RESULTS =================== */
+function itemReport(ex, it){
+  const a = S.ans[it.id] || {};
+  if (ex.type === "match") return {q:it.en, your:(S.mw[it.id] || []).join(", "), right:it.ru};
+  if (ex.type === "choice"){
+    const q = ex.house ? "house № " + it.n : strip(it.q);
+    return {q, your: a.v != null ? it.o[a.v] : "—", right: it.o[it.a]};
+  }
+  if (ex.type === "build") return {q:it.ru, your:(a.given || []).join(" / ") || "—", right:it.model + it.end};
+  if (ex.type === "gap") return {q:"gap " + it.n_, your:(a.given || []).join(" / ") || "—", right:it.model};
+  return {q:strip(it.q), your:(a.given || []).join(" / ") || "—", right:it.model};
+}
+function bandMsg(p){
+  const n = nm();
+  if (p >= 90) return "Super star, " + n + "! 🏆 You are a real astronaut! · Супер! Ты настоящий космонавт!";
+  if (p >= 75) return "Great job, " + n + "! 🚀 Look at your mistakes once more. · Отлично! Посмотри ещё раз на ошибки.";
+  if (p >= 50) return "Good try, " + n + "! 🌙 Play with the time machine again. · Хорошая попытка! Поиграй ещё с машиной времени.";
+  return "Keep going, " + n + "! ⭐ Read the time machine again and try once more. · Не сдавайся! Посмотри машину времени и попробуй ещё раз.";
+}
+function buildReport(){
+  const s = scoreAll(), sv = scoreAll("v"), sg = scoreAll("g"), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const L = [];
+  L.push("🚀 Homework: " + HW.title + " (" + HW.level + ", " + HW.unit + ")");
+  L.push("Student: " + nm());
+  L.push("Date: " + new Date().toLocaleDateString("en-GB"));
+  L.push("Score: " + s.got + "/" + s.total + " (" + pct + "%)" + (s.done < s.total ? " — answered " + s.done + "/" + s.total : ""));
+  L.push("Vocabulary: " + sv.got + "/" + sv.total + " · Grammar: " + sg.got + "/" + sg.total);
+  L.push("Flashcards: I know " + knownCount() + "/" + WORDS.length + " words");
+  L.push(""); L.push("EXERCISES");
+  EX.forEach((ex, i) => { if (ex.type === "write") L.push((i + 1) + ". " + ex.en + ": " + (S.writing.trim() ? "done (see below)" : "not done")); else { const e = exScore(ex); L.push((i + 1) + ". " + ex.en + ": " + e.got + "/" + e.total + (e.done < e.total ? " (answered " + e.done + ")" : "")); } });
+  const mist = [], selfs = [];
+  EX.forEach((ex, i) => ex.list.forEach(it => {
+    const st = stOf(it.id), r = itemReport(ex, it);
+    if (st === "bad") mist.push("• [" + (i + 1) + "] " + r.q + " — answer: " + (r.your || "—") + " → correct: " + r.right);
+    if (st === "self") selfs.push("• [" + (i + 1) + "] " + r.q + " — answer: " + r.your + " (model: " + r.right + ")");
+  }));
+  L.push(""); L.push("MISTAKES (" + mist.length + ")"); L.push(mist.length ? mist.join("\n") : "none 🎉");
+  if (selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT — please check"); L.push(selfs.join("\n")); }
+  L.push(""); L.push("MY SPACE DIARY"); L.push(S.writing.trim() || "(not done)");
+  L.push(""); L.push("ALL ANSWERS");
+  EX.forEach((ex, i) => {
+    if (ex.type === "write") return;
+    L.push("[" + (i + 1) + "] " + ex.en);
+    ex.list.forEach(it => {
+      const st = stOf(it.id), r = itemReport(ex, it);
+      const mark = st === "ok" ? "✓" : st === "self" ? "✓(self)" : "✗";
+      L.push("  " + it.n_ + ". " + r.q + " → " + (LOCKED.includes(st) ? (ex.type === "match" ? r.right + (r.your ? " (wrong first: " + r.your + ")" : "") : r.your) + " " + mark : "(not answered)"));
+    });
+  });
+  return L.join("\n");
+}
+function copyText(t){
+  const fallback = () => { const ta = h("textarea", {style:"position:fixed;left:-9999px;top:0"}); ta.value = t; document.body.append(ta); ta.select(); let ok = false; try{ ok = document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok ? "Copied! · Скопировано!" : "Select the text below and copy it · Выдели текст ниже и скопируй"); };
+  try{ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => toast("Copied! Now paste it in a message to your teacher. · Скопировано! Вставь в сообщение учителю."), fallback); else fallback(); }catch(e){ fallback(); }
+}
+function renderResults(){
+  const root = $("#tab-results"); root.innerHTML = "";
+  const s = scoreAll(), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const sv = scoreAll("v"), sg = scoreAll("g");
+  root.append(h("div", {class:"card dark"},
+    h("h2", null, "Your results · ", h("span", {style:"color:#ffe0c9"}, "Твои итоги")),
+    h("div", {class:"score-big"}, s.got + "/" + s.total + " · " + pct + "%"),
+    h("p", {style:"margin:4px 0 0"}, "Words · Слова: " + sv.got + "/" + sv.total + "  ·  Time machine · Машина времени: " + sg.got + "/" + sg.total),
+    h("p", {style:"margin:6px 0 0"}, s.done < s.total ? "You have answered " + s.done + " of " + s.total + " questions. · Ты ответила на " + s.done + " из " + s.total + " вопросов." : bandMsg(pct)),
+    h("p", {style:"margin:6px 0 0;color:#ffe0c9"}, "Flashcards · Карточки: " + knownCount() + "/" + WORDS.length + " ✓")));
+  const tb = h("table", {class:"rt"});
+  EX.forEach((ex, i) => {
+    if (i === 0) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Words · Слова")));
+    if (i === VCOUNT) tb.append(h("tr", {class:"grp"}, h("td", {colspan:"2"}, "Time machine · Машина времени")));
+    const val = ex.type === "write" ? (S.writing.trim() ? "✓" : "—") : (() => { const e = exScore(ex); return e.got + "/" + e.total; })();
+    tb.append(h("tr", null, h("td", null, (i + 1) + ". " + ex.en + " · ", h("span", {class:"ru"}, ex.ru)), h("td", null, val)));
+  });
+  root.append(h("div", {class:"card"}, h("h3", null, "Exercises · Упражнения"), tb));
+  const ml = h("ul", {class:"mlist"});
+  EX.forEach((ex, i) => ex.list.forEach(it => { if (stOf(it.id) !== "bad") return; const r = itemReport(ex, it); ml.append(h("li", null, "[" + (i + 1) + "] " + r.q + " — ", h("s", null, r.your || "—"), " → ", h("b", null, r.right))); }));
+  root.append(h("div", {class:"card"}, h("h3", null, "Mistakes · Ошибки"), ml.children.length ? ml : h("p", null, "No mistakes yet! 🎉 · Пока ошибок нет!")));
+  if (S.writing.trim()) root.append(h("div", {class:"card"}, h("h3", null, "Your writing · Твой текст"), h("p", {style:"white-space:pre-wrap;margin:0"}, S.writing)));
+
+  const full = buildReport();
+  const subj = HW.short + " — " + nm() + " — " + s.got + "/" + s.total;
+  const short = full.length > 1500 ? full.slice(0, 1500) + "\n…\n[The full report is under “Copy text” · Полный отчёт — кнопка «Скопировать текст»]" : full;
+  const enc = encodeURIComponent;
+  const send = h("div", {class:"send"});
+  if (navigator.share) send.append(h("button", {class:"s-share", type:"button", onclick:()=>{ try{ navigator.share({title:subj, text:subj + "\n\n" + full}).catch(()=>{}); }catch(e){} }}, "📤 Share · Поделиться"));
+  send.append(
+    h("a", {class:"s-gm", target:"_blank", rel:"noopener", href:"https://mail.google.com/mail/?view=cm&fs=1&to=" + enc(TEACHER) + "&su=" + enc(subj) + "&body=" + enc(short)}, "Gmail"),
+    h("a", {class:"s-tg", target:"_blank", rel:"noopener", href:"https://t.me/share/url?url=" + enc(subj) + "&text=" + enc(short)}, "Telegram"),
+    h("a", {class:"s-wa", target:"_blank", rel:"noopener", href:"https://wa.me/?text=" + enc(subj + "\n\n" + short)}, "WhatsApp"),
+    h("a", {class:"s-ml", href:"mailto:" + TEACHER + "?subject=" + enc(subj) + "&body=" + enc(short)}, "✉️ Email app · Почта"),
+    h("button", {class:"s-cp", type:"button", onclick:()=>copyText(full)}, "📋 Copy text · Скопировать текст"));
+  const pre = h("textarea", {readonly:true, "aria-label":"Report text", style:"min-height:160px;margin-top:12px;font-size:13px"}); pre.value = full;
+  root.append(h("div", {class:"card"},
+    h("h3", null, "Send to your teacher · Отправь учителю"),
+    h("p", {style:"margin:0"}, "Finish all exercises first, then choose one way to send. · Сначала сделай все упражнения, потом выбери способ отправки."),
+    h("p", {style:"margin:6px 0 0"}, "Teacher’s email · Почта учителя: ", h("span", {class:"mail"}, TEACHER)),
+    send, pre));
+  const zone = h("div");
+  root.append(h("div", {class:"card"}, h("button", {class:"btn ghost", type:"button", onclick:()=>{
+    zone.innerHTML = "";
+    zone.append(h("div", {class:"confirm"}, h("b", null, "Delete all answers? · Удалить все ответы?"),
+      h("button", {class:"btn", type:"button", style:"background:var(--bad)", onclick:()=>{ wipe(); S = DEF(); deck = []; ci = 0; $("#nameIn").value = S.name; renderWords(); renderGrammar(); show(); window.scrollTo(0, 0); toast("Everything is cleared · Всё удалено"); }}, "Yes · Да"),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>{ zone.innerHTML = ""; }}, "No · Нет")));
+  }}, "↺ Start again · Начать заново"), zone));
+}
+
+/* =================== INIT =================== */
+(function init(){
+  const ni = $("#nameIn"); ni.value = S.name;
+  let t; ni.addEventListener("input", () => { S.name = ni.value; clearTimeout(t); t = setTimeout(() => { save(); if (S.tab === "results") renderResults(); }, 400); });
+  if (S.ex >= EX.length) S.ex = 0;
+  if (!TABS.some(([id]) => id === S.tab)) S.tab = "words";
+  renderWords(); renderGrammar(); makeDeck(false); show();
+})();
+</script>
+</body>
+</html>
