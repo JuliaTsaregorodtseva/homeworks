@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is she like? — Elina · Pre-Intermediate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#1f1c4d; --night2:#2f2a78; --gold:#f5b942; --gold2:#ffe3a3; --violet:#6c5ce7; --lav:#efeaff;
+  --bg:#f6f3ff; --card:#ffffff; --ink:#24213f; --soft:#6d6890; --ru:#7a6aa8;
+  --ok:#1f9d6b; --okbg:#e3f7ee; --bad:#d64560; --badbg:#fde8ec; --try:#fff4dc; --line:#e2dcf5; --r:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:Unbounded,Nunito,sans-serif;line-height:1.2;margin:0 0 .35em;font-weight:700}
+h2{font-size:21px} h3{font-size:17px}
+.ru{color:var(--ru);font-weight:600}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* hero */
+.hero{color:#fff;padding:26px 0 24px;
+  background-image:
+   radial-gradient(1.6px 1.6px at 18px 22px,#fff 50%,transparent 52%),
+   radial-gradient(1.2px 1.2px at 80px 70px,#ffe9b0 50%,transparent 52%),
+   radial-gradient(1px 1px at 140px 30px,#fff 50%,transparent 52%),
+   radial-gradient(1.4px 1.4px at 60px 140px,#fff 50%,transparent 52%),
+   linear-gradient(160deg,var(--night),var(--night2) 60%,#4d3d9e);
+  background-size:120px 120px,170px 170px,210px 210px,190px 190px,auto}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.badges span{font-size:12px;font-weight:800;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.hero h1{font-size:clamp(26px,7vw,40px)}
+.hero h1 .sign{color:var(--gold)}
+.hero .sub{font-size:18px;font-weight:700;margin:0 0 12px}
+.hero .sub .ru,.hero .how .ru{color:var(--gold2)}
+.for{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-weight:700}
+.for input{font:inherit;font-weight:800;font-size:17px;min-height:44px;width:11em;max-width:100%;padding:6px 12px;border-radius:12px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff}
+.how{margin:0;font-size:15px}
+
+/* sticky nav */
+nav.top{position:sticky;top:0;z-index:30;background:rgba(246,243,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 0 6px}
+.tab{min-height:52px;border:0;border-radius:12px;background:#fff;box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;cursor:pointer;padding:4px 2px;line-height:1.15}
+.tab .tr{font-size:10.5px;color:var(--ru);font-weight:700}
+.tab .tb{font-size:11px;background:var(--gold);color:var(--night);border-radius:99px;padding:0 6px;margin-top:2px}
+.tab.on{background:var(--night);color:#fff}
+.tab.on .tr{color:var(--gold2)}
+.prog{display:flex;align-items:center;gap:10px;padding:0 0 8px;font-size:13px;font-weight:800}
+.bar{flex:1;height:8px;background:#e4def8;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--gold));transition:width .4s}
+
+/* cards / sections */
+section{display:none;padding-bottom:40px}
+section.on{display:block}
+.card{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:0 2px 0 var(--line),0 8px 24px rgba(40,30,110,.06);margin:16px 0}
+.card.dark{background:var(--night);color:#fff}
+.lead{margin:.2em 0 0}
+
+/* word list */
+.wl{display:grid;gap:10px;margin-top:10px}
+@media(min-width:720px){.wl{grid-template-columns:1fr 1fr}}
+.w{display:grid;grid-template-columns:40px 1fr 44px;gap:10px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.w .em{font-size:28px;line-height:1.2;text-align:center}
+.w .en{font-weight:800;font-size:17px}
+.w .pos{font-size:12px;color:var(--soft);font-weight:700}
+.w .ipa{font-size:13px;color:var(--soft)}
+.w .tr{color:var(--ru);font-weight:700}
+.w .ex{font-size:14px;margin-top:4px}
+.spk{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--lav);font-size:17px;cursor:pointer;padding:0 8px;font-weight:800}
+.spk.wide{padding:0 14px;font-size:15px}
+
+/* story */
+.story{font-size:17px;line-height:2}
+.story p{margin:0 0 .8em}
+.gl{border:0;background:linear-gradient(transparent 58%,var(--gold2) 58%);padding:0 1px;cursor:pointer;font-weight:800;line-height:1.4}
+.gloss{display:inline-block;font-size:13px;line-height:1.4;background:var(--lav);color:var(--violet);border-radius:8px;padding:1px 7px;margin:0 3px;font-weight:800}
+
+/* careful box */
+.careful{border:2px dashed var(--gold);background:#fffaf0}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:0 0 10px}
+.x{color:var(--bad);font-weight:800} .v{color:var(--ok);font-weight:800}
+
+/* buttons */
+.btn{min-height:46px;padding:8px 18px;border-radius:12px;border:0;background:var(--violet);color:#fff;font-weight:800;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.gold{background:var(--gold);color:var(--night)}
+.btn.small{min-height:46px;padding:6px 14px}
+.btn:disabled{opacity:.5;cursor:default}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-weight:800}
+.fc-scene{perspective:1200px;max-width:520px;margin:0 auto}
+.fc{position:relative;height:310px;transform-style:preserve-3d;transition:transform .55s;cursor:pointer;border-radius:20px}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;text-align:center;overflow:hidden}
+.front{color:#fff;background-image:radial-gradient(1.4px 1.4px at 20px 20px,#fff 50%,transparent 52%),radial-gradient(1px 1px at 70px 60px,#ffe9b0 50%,transparent 52%),linear-gradient(160deg,var(--night),var(--night2));background-size:100px 100px,140px 140px,auto}
+.back{background:#fff;border:2px solid var(--line);transform:rotateY(180deg)}
+.face .fe{font-size:46px;line-height:1}
+.face .fw{font-family:Unbounded,Nunito,sans-serif;font-size:clamp(22px,6.5vw,30px);font-weight:700;line-height:1.2}
+.face .fp{font-size:13px;opacity:.8;font-weight:700}
+.face .fx{font-size:15px}
+.face .fxr{font-size:14px;color:var(--ru);font-weight:600}
+.face .tap{font-size:12px;opacity:.7;margin-top:6px}
+.fc-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:520px;margin:12px auto 0}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:520px;margin:8px auto 0}
+.btn.know{background:var(--ok)} .btn.learn{background:#fff;color:var(--bad);border:2px solid var(--bad)}
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px;margin:12px auto 0}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:700;cursor:pointer}
+.chk input{width:22px;height:22px}
+.kbar{height:10px;background:#e4def8;border-radius:99px;overflow:hidden;max-width:520px;margin:6px auto 0}
+.kbar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+/* exercises */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:thin}
+.chip{flex:none;min-height:44px;min-width:44px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:800;cursor:pointer;padding:4px 10px;font-size:14px}
+.chip.on{border-color:var(--night);background:var(--night);color:#fff}
+.chip.done{border-color:var(--ok)}
+.chip.done:not(.on){background:var(--okbg)}
+.chip small{display:block;font-size:10px;font-weight:700;line-height:1}
+.exhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exscore{flex:none;font-weight:800;background:var(--lav);color:var(--violet);border-radius:99px;padding:3px 10px;font-size:14px}
+.ins{margin:.3em 0 0}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fff}
+.item.is-ok{border-color:#9fdcc2}
+.item.is-bad{border-color:#f1aab8}
+.q{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:17px}
+.num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--lav);color:var(--violet);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.big{font-size:34px;line-height:1.1;margin-right:4px}
+.ruq{font-weight:800;color:var(--ru);font-size:18px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:46px;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--violet)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.inp{flex:1 1 180px;min-width:0;min-height:46px;font:inherit;font-size:17px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.inp:disabled{background:#f8f6ff}
+.fb{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:15px}
+.fb.ok{background:var(--okbg)}
+.fb.bad{background:var(--badbg)}
+.fb.try{background:var(--try)}
+.fb .why{margin-top:4px}
+.fb .spk{margin-top:8px;min-height:40px}
+.note{margin-top:4px;font-size:14px;color:#8a5b00;font-weight:700}
+.self{margin-top:8px;min-height:44px;border-radius:12px;border:2px solid var(--ok);background:#fff;color:var(--ok);font-weight:800;padding:6px 12px;cursor:pointer}
+.listen{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.listen .spk{font-size:20px;min-width:64px;min-height:52px}
+
+/* matching */
+.round-t{font-weight:800;margin:14px 0 8px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mb{min-height:48px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer;text-align:left;font-size:15px;line-height:1.25}
+.mb.en{font-weight:800}
+.mb.sel{border-color:var(--violet);background:var(--lav);box-shadow:0 0 0 3px rgba(108,92,231,.2)}
+.mb.done{background:var(--okbg);border-color:var(--ok);opacity:.75;cursor:default}
+.mb.late{background:#fff3e0;border-color:#e5a54a}
+.mb.shake{animation:shake .35s;border-color:var(--bad);background:var(--badbg)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.msg{min-height:24px;font-weight:700;color:var(--bad);margin-top:8px;font-size:14px}
+
+/* gap text */
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.bank span{padding:4px 10px;border-radius:99px;background:var(--lav);font-weight:800;font-size:14px;color:var(--violet)}
+.gtext{font-size:17px;line-height:2.4}
+.gnum{font-size:12px;font-weight:800;color:var(--violet);vertical-align:super;margin-right:1px}
+.ginp{font:inherit;font-size:16px;width:9.5em;max-width:100%;min-height:40px;padding:2px 8px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);vertical-align:middle}
+.ginp.try{border-color:#e5a54a;background:var(--try)}
+.gf{font-weight:800;padding:1px 6px;border-radius:8px}
+.gf.ok{background:var(--okbg);color:var(--ok)}
+.gf.bad{background:var(--badbg)}
+.gf.bad s{color:var(--bad)}
+.hints{margin-top:8px}
+
+/* tiles */
+.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:8px;border:2px dashed var(--line);border-radius:12px;align-items:center}
+.tiles.ans{background:#fbfaff;margin-bottom:8px}
+.tile{min-height:44px;padding:6px 12px;border-radius:10px;background:var(--lav);border:1px solid #d6cdf7;font-weight:800;cursor:pointer}
+.tile:disabled{cursor:default}
+.endp{font-weight:800;font-size:20px}
+
+/* writing */
+textarea{width:100%;min-height:200px;font:inherit;font-size:16px;padding:12px;border:2px solid var(--line);border-radius:12px;resize:vertical;color:var(--ink)}
+.found{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.found span{font-size:13px;font-weight:800;padding:3px 9px;border-radius:99px;background:#f1eff8;color:#9a96b5}
+.found span.on{background:var(--okbg);color:var(--ok)}
+
+/* results */
+.score-big{font-family:Unbounded,Nunito,sans-serif;font-size:44px;font-weight:700;color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td:last-child{text-align:right;font-weight:800;white-space:nowrap}
+.mist{margin:0;padding-left:18px}
+.mist li{margin-bottom:8px}
+.mist s{color:var(--bad)}
+.mist b{color:var(--ok)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;font-weight:800;text-decoration:none;border:0;cursor:pointer;padding:6px 10px;text-align:center}
+.s-share{background:var(--violet);color:#fff;grid-column:1/-1}
+.s-gm{background:#ea4335;color:#fff}.s-tg{background:#229ed9;color:#fff}.s-wa{background:#25d366;color:#0b3d1f}.s-ml{background:#fff;border:2px solid var(--line)!important;color:var(--ink)}.s-cp{background:var(--gold);color:var(--night)}
+.mail{user-select:all;-webkit-user-select:all;font-weight:800;color:var(--violet);word-break:break-all}
+.confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:10px;border-radius:12px;background:var(--badbg)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--night);color:#fff;padding:10px 16px;border-radius:12px;font-weight:800;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.foot{text-align:center;color:var(--soft);font-size:13px;padding:10px 0 30px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <div class="badges"><span>Pre-Intermediate</span><span>Lesson · 5 Nov</span><span>Vocabulary · Лексика</span></div>
+    <h1>What is she like? <span class="sign">♎</span></h1>
+    <p class="sub">Personality words · <span class="ru">Слова о характере</span></p>
+    <p class="for"><label for="nameIn">for · для</label> <input id="nameIn" type="text" autocomplete="off" aria-label="Your name · Твоё имя"></p>
+    <p class="how">Work in this order: Words → Cards → Practice → Results, then send the results to your teacher.<br><span class="ru">Порядок: слова → карточки → упражнения → итоги, потом отправь результат учителю.</span></p>
+  </div>
+</header>
+
+<nav class="top" id="top" aria-label="Sections">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="prog"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreTxt"></span></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="tab-words"></section>
+  <section id="tab-cards"></section>
+  <section id="tab-practice"></section>
+  <section id="tab-results"></section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* =====================================================================
+   DATA — words, story, exercises (edit here)
+   ===================================================================== */
+const TEACHER = "ulchik2211@gmail.com";
+const HW = { title: "What is she like? — personality words", level: "Pre-Intermediate", lesson: "lesson 5 Nov 2026" };
+const KEY = "elina-personality-v1";
+const DEFAULT_NAME = "Elina";
+
+const WORDS = [
+ {en:"cry", pos:"verb", ipa:"/kraɪ/", ru:"плакать", em:"😭", ex:"She was crying because her cat was ill.", exRu:"Она плакала, потому что её кошка заболела.", rx:/\bcr(y|ies|ied|ying)\b/i},
+ {en:"whine", pos:"verb", ipa:"/waɪn/", ru:"ныть, хныкать, канючить", em:"😩", ex:"Stop whining! You aren't a baby.", exRu:"Хватит ныть! Ты же не маленький.", rx:/\bwhin(e|es|ed|ing)\b/i},
+ {en:"characteristic", pos:"noun", ipa:"/ˌkærəktəˈrɪstɪk/", ru:"характерная черта, особенность", em:"🧩", ex:"Honesty is her best characteristic.", exRu:"Честность — её лучшая черта.", rx:/\bcharacteristics?\b/i},
+ {en:"strength", pos:"noun", ipa:"/streŋθ/", ru:"сила; сильная сторона", em:"💪", ex:"Patience is my biggest strength.", exRu:"Терпение — моя главная сильная сторона.", rx:/\bstrengths?\b/i},
+ {en:"fragile", pos:"adjective", ipa:"/ˈfrædʒaɪl/", ru:"хрупкий", em:"🥚", ex:"Be careful with that vase — it's very fragile.", exRu:"Осторожно с этой вазой — она очень хрупкая.", rx:/\bfragile\b/i},
+ {en:"most likely", pos:"phrase", ipa:"/məʊst ˈlaɪkli/", ru:"скорее всего", em:"🤔", ex:"She'll most likely be late again.", exRu:"Скорее всего, она опять опоздает.", rx:/\bmost likely\b/i},
+ {en:"accumulate", pos:"verb", ipa:"/əˈkjuːmjəleɪt/", ru:"накапливать(ся)", em:"📚", ex:"Dust accumulates under the bed.", exRu:"Под кроватью накапливается пыль.", rx:/\baccumulat(e|es|ed|ing)\b/i},
+ {en:"brainchild", pos:"noun", ipa:"/ˈbreɪntʃaɪld/", ru:"детище, (чья-то) идея", em:"💡", ex:"The festival is the brainchild of a local teacher.", exRu:"Этот фестиваль — детище местной учительницы.", rx:/\bbrainchild\b/i},
+ {en:"be like", pos:"phrase", ipa:"/bi laɪk/", ru:"быть похожим на; каким быть (по характеру)", em:"👯", ex:"What is your brother like? — He's funny and kind.", exRu:"Какой твой брат? — Он весёлый и добрый.", rx:/\b(am|is|are|was|were|be|been|'s|'re|'m)\b[^.!?]{0,30}\blike\b/i},
+ {en:"homebody", pos:"noun · pl. homebodies", ipa:"/ˈhəʊmbɒdi/", ru:"домосед, домоседка", em:"🏠", ex:"My parents are real homebodies — they rarely go out.", exRu:"Мои родители настоящие домоседы — они редко куда-то выходят.", rx:/\bhomebod(y|ies)\b/i},
+ {en:"gather together", pos:"phrasal verb", ipa:"/ˈɡæðə təˈɡeðə/", ru:"собираться вместе", em:"👨‍👩‍👧‍👦", ex:"Let's gather together at my place on Friday.", exRu:"Давайте соберёмся у меня в пятницу.", rx:/\bgather(s|ed|ing)? together\b/i},
+ {en:"influence", pos:"noun / verb", ipa:"/ˈɪnfluəns/", ru:"влияние; влиять (на)", em:"🧲", ex:"Music can influence your mood.", exRu:"Музыка может влиять на настроение.", rx:/\binfluenc(e|es|ed|ing)\b/i},
+ {en:"empathetic", pos:"adjective", ipa:"/ˌempəˈθetɪk/", ru:"чуткий, умеющий сопереживать", em:"🤗", ex:"A good doctor is always empathetic.", exRu:"Хороший врач всегда умеет сопереживать.", rx:/\bempathetic\b/i},
+ {en:"Libra", pos:"noun", ipa:"/ˈliːbrə/", ru:"Весы (знак зодиака)", em:"♎", ex:"I was born on 3 October — I'm a Libra.", exRu:"Я родилась 3 октября — я Весы.", rx:/\blibras?\b/i},
+ {en:"fair", pos:"adjective", ipa:"/feə/", ru:"справедливый, честный", em:"⚖️", ex:"Our teacher is strict but fair.", exRu:"Наша учительница строгая, но справедливая.", rx:/\b(un)?fair\b/i},
+ {en:"demand", pos:"verb / noun", ipa:"/dɪˈmɑːnd/", ru:"требовать; требование", em:"📢", ex:"The workers demanded more money.", exRu:"Рабочие требовали больше денег.", rx:/\bdemand(s|ed)?\b/i},
+ {en:"demanding", pos:"adjective", ipa:"/dɪˈmɑːndɪŋ/", ru:"требовательный; трудный", em:"🧐", ex:"Being a nurse is a demanding job.", exRu:"Работа медсестры очень тяжёлая.", rx:/\bdemanding\b/i},
+ {en:"that's for sure", pos:"phrase", ipa:"/ðæts fə ʃɔː/", ru:"это уж точно", em:"✅", ex:"Learning a language takes time — that's for sure.", exRu:"Изучение языка требует времени — это уж точно.", rx:/\bthat('|’)?s for sure\b|\bthat is for sure\b/i}
+];
+
+/* Story: [[shown text|Russian gloss]] */
+const STORY = [
+ "My sister Mila is a [[Libra|Весы]] ♎. People say that a typical [[characteristic|характерная черта]] of Libras is that they want everything to be [[fair|справедливым]]. Mila is exactly like that — [[that's for sure|это уж точно]]!",
+ "Her biggest [[strength|сильная сторона]] is that she is very [[empathetic|чуткая]]. Last week her best friend [[was crying|плакала]] after a bad exam, and Mila sat with her for two hours. But she hates it when people [[whine|ноют]] all the time.",
+ "Mila and I are both [[homebodies|домоседы]]: we love staying at home with a good film. But on Sundays the whole family [[gathers together|собирается вместе]] at our grandma's. Grandma is quite [[demanding|требовательная]] — she [[demands|требует]] that everyone comes on time! She has a big [[influence|влияние]] on all of us.",
+ "So [[what is Mila like|какая Мила (по характеру)]] at home? Creative and a bit messy. She [[accumulates|накапливает]] candles, books and little [[fragile|хрупкие]] glass animals. Her newest [[brainchild|детище]] is a small online shop where she sells handmade candles. Next year she will [[most likely|скорее всего]] open a real shop!"
+];
+
+const CAREFUL = [
+ "<b>influence</b> — verb: <i>influence somebody</i> (no “on”!). Noun: <i>have an influence <u>on</u> somebody</i>.<br><span class='ru'>Глагол — без предлога: <span class='x'>✗ She influences on me</span> → <span class='v'>✓ She influences me</span>. Существительное — с on: She has a big influence on me.</span>",
+ "<b>What is she like?</b> = <span class='ru'>Какая она (по характеру)?</span><br><b>What does she like?</b> = <span class='ru'>Что она любит?</span><br><b>What does she look like?</b> = <span class='ru'>Как она выглядит?</span>",
+ "<b>demand</b> (to ask strongly, a strong request) vs <b>demanding</b> (adjective).<br><span class='ru'>demand — требовать / требование; demanding — требовательный, трудный. <span class='x'>✗ She is very demand.</span> <span class='v'>✓ She is very demanding.</span></span>",
+ "<b>I'm a Libra</b> — we usually say it with <i>a</i> and a capital letter.<br><span class='ru'>Знаки зодиака пишем с большой буквы и обычно с артиклем a: I'm a Libra, he's a Leo.</span>",
+ "<b>strong → strength</b> (-ngth!). <i>strengths and weaknesses</i> = <span class='ru'>сильные и слабые стороны</span>.",
+ "<b>homebody → homebodies</b> <span class='ru'>(во множественном числе y → ies)</span>.",
+ "<b>whine</b> /waɪn/ sounds exactly like <b>wine</b> 🍷 <span class='ru'>— звучит как «вино», но пишется с h.</span>",
+ "<b>She was crying</b> — Past Continuous: a process in the past. <span class='ru'>Процесс в прошлом: она плакала (в тот момент).</span>",
+ "<b>fragile</b> — British /ˈfrædʒaɪl/ (ends like “smile”), American /ˈfrædʒəl/.",
+ "<b>fair</b> also means “light” about hair or skin: <i>fair hair</i> = <span class='ru'>светлые волосы</span>. Opposite: <b>unfair</b> = <span class='ru'>несправедливый</span>."
+];
+
+const EX = [
+ {id:"m", type:"match", en:"Match the words", ru:"Соедини слова",
+  ins:"Tap an English word, then its translation.", insRu:"Нажми на английское слово, а потом на его перевод.",
+  rounds:[
+   [{en:"cry",ru:"плакать"},{en:"whine",ru:"ныть, хныкать"},{en:"characteristic",ru:"характерная черта"},{en:"strength",ru:"сильная сторона"},{en:"fragile",ru:"хрупкий"},{en:"most likely",ru:"скорее всего"},{en:"accumulate",ru:"накапливать"},{en:"brainchild",ru:"детище, идея"},{en:"be like",ru:"быть похожим на"}],
+   [{en:"homebody",ru:"домосед"},{en:"gather together",ru:"собираться вместе"},{en:"influence",ru:"влияние; влиять"},{en:"empathetic",ru:"чуткий"},{en:"Libra",ru:"Весы (знак зодиака)"},{en:"fair",ru:"справедливый"},{en:"demand",ru:"требовать"},{en:"demanding",ru:"требовательный"},{en:"that's for sure",ru:"это уж точно"}]
+  ]},
+
+ {id:"e", type:"choice", en:"Picture → word", ru:"Картинка → слово",
+  ins:"Look at the picture and choose the word.", insRu:"Посмотри на картинку и выбери слово.",
+  items:[
+   {q:"<span class='big'>😭</span>", o:["cry","fair","accumulate"], a:0, say:"cry", why:"😭 = <b>cry</b> · плакать"},
+   {q:"<span class='big'>😩</span> “Muuum, I don’t want to! It’s so boring!”", o:["whine","demand","influence"], a:0, say:"whine", why:"<b>whine</b> = complain in an annoying voice · ныть, канючить"},
+   {q:"<span class='big'>🏠🛋️📺</span> never wants to go out", o:["a Libra","a homebody","a brainchild"], a:1, say:"a homebody", why:"<b>a homebody</b> = a person who loves staying at home · домосед(ка)"},
+   {q:"<span class='big'>🍷📦</span> ⚠️ Handle with care!", o:["fair","demanding","fragile"], a:2, say:"fragile", why:"<b>fragile</b> = easy to break · хрупкий"},
+   {q:"<span class='big'>🍰⚖️🍰</span> the same for everybody", o:["fragile","fair","empathetic"], a:1, say:"fair", why:"<b>fair</b> = the same rules for everybody · справедливый"},
+   {q:"<span class='big'>👨‍👩‍👧‍👦🎄</span> the whole family in one place", o:["accumulate","whine","gather together"], a:2, say:"gather together", why:"<b>gather together</b> = meet in one place · собираться вместе"},
+   {q:"<span class='big'>💡🧠➡️📱</span> her own idea, her project", o:["brainchild","strength","homebody"], a:0, say:"brainchild", why:"<b>brainchild</b> = someone’s own idea or invention · детище"}
+  ]},
+
+ {id:"c", type:"choice", en:"Which word fits?", ru:"Какое слово подходит?",
+  ins:"Choose the word for the gap.", insRu:"Выбери слово для пропуска.",
+  items:[
+   {q:"My little brother always ___ when he has to do his homework: “It’s so boring! I don’t want to!”", o:["accumulates","whines","influences"], a:1, why:"<b>whine</b> = complain like a child · ныть"},
+   {q:"Don’t put heavy books on that box — there are ___ glasses inside.", o:["fragile","demanding","empathetic"], a:0, why:"<b>fragile</b> = easy to break · хрупкий"},
+   {q:"Her birthday is on 5 October, so her star sign is ___.", o:["fair","strength","Libra"], a:2, why:"Libra · Весы: 23 September – 22 October · 23 сентября – 22 октября"},
+   {q:"Paul listens to your problems and really understands how you feel. He’s very ___.", o:["fragile","empathetic","demanding"], a:1, why:"<b>empathetic</b> = understands other people’s feelings · понимает чувства других"},
+   {q:"Our teacher is very ___: she wants perfect homework every week.", o:["demand","fair","demanding"], a:2, why:"After <b>very</b> we need an adjective: <b>demanding</b>. · После very нужно прилагательное (demand — глагол или существительное)."},
+   {q:"The new app was the ___ of two 15-year-old students.", o:["brainchild","homebody","strength"], a:0, why:"<b>brainchild</b> = someone’s idea or invention · чья-то идея, детище"},
+   {q:"Look at those dark clouds. It will ___ rain soon.", o:["be like","most likely","that’s for sure"], a:1, why:"<b>most likely</b> = probably · скорее всего. It goes after <b>will</b>: will most likely rain."},
+   {q:"If you don’t clean your room, dust will ___ under the bed.", o:["accumulate","demand","whine"], a:0, why:"<b>accumulate</b> = slowly become more and more · постепенно накапливаться"}
+  ]},
+
+ {id:"p", type:"choice", en:"Careful!", ru:"Осторожно!",
+  ins:"Prepositions, questions and little words. Look at the “Careful” box on the Words tab if you need help.", insRu:"Предлоги, вопросы и маленькие слова. Если нужно, посмотри блок «Осторожно» во вкладке «Слова».",
+  items:[
+   {q:"My older sister ___ me a lot.", o:["influences on","influences","is influence"], a:1, why:"Verb <b>influence</b> + somebody, <b>no “on”</b>. · Глагол influence — без предлога: influences me."},
+   {q:"She has a big influence ___ her friends.", o:["at","to","on"], a:2, why:"Noun: <b>an influence on</b> somebody. · Существительное influence — с предлогом on."},
+   {q:"— What is your best friend ___? — She’s kind and funny.", o:["like","look","likes"], a:0, why:"<b>What is she like?</b> = Какая она (по характеру)?"},
+   {q:"Which question means «Как она выглядит?»", o:["What is she like?","What does she like?","What does she look like?"], a:2, why:"<b>look like</b> = выглядеть. What does she like? = Что она любит?"},
+   {q:"I was born on 10 October. I’m ___.", o:["a libra","a Libra","Libra’s"], a:1, why:"<b>a Libra</b> — with “a” and a capital L. · С артиклем a и с большой буквы."}
+  ]},
+
+ {id:"f", type:"type", en:"Word building", ru:"Образуй слово",
+  ins:"Make a new word from the word in CAPITALS and write it.", insRu:"Образуй новое слово от слова в скобках и напиши его.",
+  items:[
+   {q:"Patience is her biggest ______. <i>(STRONG)</i>", acc:["strength"], hint:"A noun from <b>strong</b>; it ends in <b>-ngth</b>. · Существительное от strong, на конце -ngth.", say:"Patience is her biggest strength."},
+   {q:"My mum is very ______ — everything must be perfect. <i>(DEMAND)</i>", acc:["demanding"], hint:"After <b>very</b> we need an adjective: add <b>-ing</b>. · После very — прилагательное: добавь -ing.", say:"My mum is very demanding — everything must be perfect."},
+   {q:"Nurses need to be kind and ______. <i>(EMPATHY)</i>", acc:["empathetic"], hint:"Adjective: empath + <b>-etic</b>. · Прилагательное: empath + etic.", say:"Nurses need to be kind and empathetic."},
+   {q:"It’s ______! You got two cakes and I got none. <i>(FAIR)</i>", acc:["unfair"], hint:"We need the opposite: add <b>un-</b>. · Нужна противоположность: приставка un-.", say:"It's unfair! You got two cakes and I got none."},
+   {q:"Loyalty is a typical ______ of dogs. <i>(CHARACTER)</i>", acc:["characteristic"], hint:"character + <b>-istic</b>. · character + istic = черта.", say:"Loyalty is a typical characteristic of dogs."},
+   {q:"My grandparents are real ______ — they never go out in the evening. <i>(HOMEBODY)</i>", acc:["homebodies"], hint:"Plural: <b>y → ies</b>. · Множественное число: y → ies.", say:"My grandparents are real homebodies — they never go out in the evening."}
+  ]},
+
+ {id:"s", type:"choice", en:"Spelling", ru:"Правописание",
+  ins:"Choose the correct spelling.", insRu:"Выбери правильное написание.",
+  items:[
+   {q:"<span class='ruq'>хрупкий</span>", o:["fragil","fragile","fradgile"], a:1, say:"fragile", why:"f-r-a-g-i-l-<b>e</b> — with <b>e</b> at the end. · На конце e."},
+   {q:"<span class='ruq'>сила, сильная сторона</span>", o:["strenght","strengh","strength"], a:2, say:"strength", why:"stren<b>gth</b> — first g, then th (like <i>length</i>). · Сначала g, потом th."},
+   {q:"<span class='ruq'>чуткий, умеющий сопереживать</span>", o:["empathetic","emphatetic","empatetic"], a:0, say:"empathetic", why:"em-pa-<b>th</b>-e-tic — one th, like <i>empathy</i>. · Одно th, как в empathy."},
+   {q:"<span class='ruq'>накапливать</span>", o:["acumulate","accumulate","accumullate"], a:1, say:"accumulate", why:"a<b>cc</b>u<b>m</b>u<b>l</b>ate — double c, one m, one l. · Две c, одна m, одна l."},
+   {q:"<span class='ruq'>характерная черта</span>", o:["caracteristic","charakteristic","characteristic"], a:2, say:"characteristic", why:"<b>ch</b>aracteristic — starts with ch, like <i>character</i>. · Начинается с ch, как character."}
+  ]},
+
+ {id:"l", type:"listen", en:"Listen and write", ru:"Послушай и напиши",
+  ins:"Press 🔊, listen to the word and write it.", insRu:"Нажми 🔊, послушай слово и напиши его.",
+  items:[
+   {say:"brainchild", acc:["brainchild"], hint:"детище, (чья-то) идея · b _ _ _ _ _ _ _ _ _ (one word · одно слово)"},
+   {say:"influence", acc:["influence"], hint:"влияние · i _ _ _ _ _ _ _ _"},
+   {say:"Libra", acc:["Libra"], cap:"Libra", hint:"Весы (знак зодиака) · L _ _ _ _"},
+   {say:"fragile", acc:["fragile"], hint:"хрупкий · f _ _ _ _ _ _"},
+   {say:"accumulate", acc:["accumulate"], hint:"накапливать · a _ _ _ _ _ _ _ _ _"}
+  ]},
+
+ {id:"g", type:"gap", en:"Grandma Vera", ru:"Бабушка Вера",
+  ins:"Fill in the gaps with the words from the box. Change the form if necessary. Then press “Check”.", insRu:"Вставь слова из рамки. Если нужно, измени форму слова. Потом нажми «Проверить».",
+  bank:["homebody","gather together","demanding","influence","cry","strength","empathetic","most likely","that's for sure"],
+  text:"My grandma Vera is a real {0} — she loves her garden and her kitchen and hardly ever travels. Every Sunday our whole family {1} at her house for lunch. Grandma is kind but quite {2}: everybody must wash their hands, and nobody can use their phone at the table! She has had a big {3} on all of us. When I was little and I was {4} about a bad mark, she always made me a cup of hot chocolate. One of her biggest {5} is that she is very {6} — she always knows how you feel. For her birthday she will {7} ask for new flowers for her garden. She’s the best grandma in the world — {8}!",
+  gaps:[
+   {acc:["homebody"], hint:"She loves staying at home. · Она любит сидеть дома."},
+   {acc:["gathers together"], hint:"Every Sunday + our family (= it) → add <b>-s</b>. · Каждое воскресенье + семья (она) → -s."},
+   {acc:["demanding"], hint:"She wants a lot from people. · Она многого требует от других."},
+   {acc:["influence"], hint:"a big ___ on all of us · влияние"},
+   {acc:["crying"], hint:"was + <b>-ing</b> (Past Continuous). · was + глагол с -ing."},
+   {acc:["strengths"], hint:"One of her biggest … → plural. · «Одна из …» → множественное число."},
+   {acc:["empathetic"], hint:"She knows how you feel. · Она понимает твои чувства."},
+   {acc:["most likely"], hint:"= probably · скорее всего"},
+   {acc:["that's for sure","that is for sure"], hint:"= I’m sure about it · это уж точно"}
+  ]},
+
+ {id:"b", type:"build", en:"Build the sentence", ru:"Собери предложение",
+  ins:"Tap the words in the right order. Tap a word in your answer to take it back.", insRu:"Нажимай на слова в правильном порядке. Чтобы убрать слово, нажми на него в ответе.",
+  items:[
+   {ru:"Какая твоя сестра (по характеру)?", t:["like","your","What","sister","is"], end:"?", acc:["What is your sister like"], hint:"Start with <b>What is…</b> and put <b>like</b> at the end. · Начни с What is…, like — в конце."},
+   {ru:"Скорее всего, он позвонит тебе вечером.", t:["call","most","He","tonight","will","likely","you"], end:".", acc:["He will most likely call you tonight","He most likely will call you tonight","Most likely he will call you tonight","Tonight he will most likely call you"], hint:"<b>He will most likely…</b> · «Скорее всего» — после will."},
+   {ru:"Мой папа сильно влияет на меня.", t:["influence","on","My","has","big","me","a","dad"], end:".", acc:["My dad has a big influence on me"], hint:"<b>My dad has a big…</b>"},
+   {ru:"Наша семья собирается вместе каждое воскресенье.", t:["together","every","Our","gathers","Sunday","family"], end:".", acc:["Our family gathers together every Sunday","Every Sunday our family gathers together"], hint:"<b>Our family gathers…</b>"}
+  ]},
+
+ {id:"t", type:"type", en:"Translate", ru:"Переведи",
+  ins:"Translate into English. If your answer is different from the model but also correct, press “My answer is also correct”.", insRu:"Переведи на английский. Если твой ответ отличается от образца, но тоже верный, нажми «Мой ответ тоже верный».",
+  items:[
+   {q:"<span class='ruq'>Она очень требовательная.</span>", acc:["She is very demanding"], self:true, hint:"very + <b>demanding</b>", say:"She's very demanding."},
+   {q:"<span class='ruq'>Это несправедливо!</span>", acc:["It is not fair","That is not fair","This is not fair","It is unfair","That is unfair","This is unfair","Not fair"], self:true, hint:"It isn’t … / It’s un…", say:"It isn't fair!"},
+   {q:"<span class='ruq'>Мой брат — домосед.</span>", acc:["My brother is a homebody","My brother is a real homebody"], self:true, hint:"Don’t forget <b>is a</b>. · Не забудь is a.", say:"My brother is a homebody."},
+   {q:"<span class='ruq'>Скорее всего, завтра будет дождь.</span>", acc:["It will most likely rain tomorrow","Most likely it will rain tomorrow","It most likely will rain tomorrow","Tomorrow it will most likely rain","It is most likely going to rain tomorrow","Most likely it is going to rain tomorrow","It will most likely be rainy tomorrow"], self:true, hint:"It will <b>most likely</b> … · rain здесь — глагол", say:"It will most likely rain tomorrow."},
+   {q:"<span class='ruq'>Она плакала, потому что потеряла телефон.</span>", acc:["She was crying because she lost her phone","She was crying because she had lost her phone","She was crying because she'd lost her phone","She cried because she lost her phone","She cried because she had lost her phone","She cried because she'd lost her phone"], self:true, hint:"Past Continuous: she <b>was crying</b> … · lose → lost", say:"She was crying because she lost her phone."},
+   {q:"<span class='ruq'>Какой он (по характеру)?</span>", acc:["What is he like"], self:true, question:true, hint:"What is he …? (not “how”) · Не how!", say:"What is he like?"}
+  ]},
+
+ {id:"w", type:"write", en:"Your turn", ru:"Твоя очередь",
+  ins:"Describe a person you know well (or yourself!). What are they like? What is their star sign? What are their strengths? Write 6–8 sentences and use at least 6 new words.",
+  insRu:"Опиши человека, которого хорошо знаешь (или себя!). Какой он по характеру? Какой у него знак зодиака? Какие у него сильные стороны? Напиши 6–8 предложений и используй минимум 6 новых слов.",
+  items:[]}
+];
+
+const PRAISE = ["Correct! · Верно!","Great! · Отлично!","Well done! · Молодец!","Perfect! · Идеально!","Exactly! · Именно так!","Super! · Супер!"];
+const OOPS = ["Not quite · Не совсем","Oops! · Ой!","Not this one · Не то","Almost · Почти"];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){
+    const v = attrs[k];
+    if (v === false || v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k.slice(0,2) === "on") e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()){ if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function strip(html){ const d = document.createElement("div"); d.innerHTML = html; return d.textContent.replace(/\s+/g," ").trim(); }
+function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(()=>el.classList.remove("on"), 2200); }
+
+/* --- storage with in-memory fallback --- */
+let MEM = null;
+function load(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; }catch(e){ return MEM; } }
+function save(){ const j = JSON.stringify(S); try{ localStorage.setItem(KEY, j); }catch(e){ MEM = JSON.parse(j); } }
+function wipe(){ try{ localStorage.removeItem(KEY); }catch(e){} MEM = null; }
+const DEF = () => ({name:DEFAULT_NAME, ans:{}, mw:{}, known:{}, writing:"", tab:"words", ex:0, dir:"en", onlyL:false});
+let S = Object.assign(DEF(), load() || {});
+
+/* --- speech --- */
+let VOICE = null;
+const HAS_TTS = typeof window !== "undefined" && "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+function pickVoice(){ try{ const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if (HAS_TTS){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function say(t){ if (!HAS_TTS || !t) return; try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-GB"; if (VOICE) u.voice = VOICE; u.rate = 0.88; speechSynthesis.speak(u); }catch(e){} }
+function spk(t, label, cls){ return h("button", {class:"spk"+(cls?" "+cls:""), type:"button", "aria-label":"Listen: "+t, onclick:e=>{ e.stopPropagation(); say(t); }}, label || "🔊"); }
+
+/* --- answer checking --- */
+function norm(s){
+  s = String(s || "").toLowerCase().replace(/[‘’ʼ`´]/g,"'").replace(/[“”]/g,'"');
+  s = s.replace(/\bcan not\b/g,"cannot").replace(/\bcan't\b/g,"cannot").replace(/\bwon't\b/g,"will not").replace(/\bshan't\b/g,"shall not")
+       .replace(/n't\b/g," not").replace(/\bi'm\b/g,"i am").replace(/'re\b/g," are").replace(/'ve\b/g," have").replace(/'ll\b/g," will")
+       .replace(/\b(it|that|he|she|what|there|who|where|here|this)'s\b/g,"$1 is");
+  return s.replace(/[.,!?;:"()—–\-]/g," ").replace(/\s+/g," ").trim();
+}
+const matches = (val, acc) => acc.some(a => norm(a) === norm(val));
+
+/* --- item registry --- */
+EX.forEach(ex => {
+  const list = ex.type === "match" ? ex.rounds.flat() : ex.type === "gap" ? ex.gaps : (ex.items || []);
+  list.forEach((it, i) => { it.id = ex.id + "-" + i; it.n = i + 1; });
+  ex.list = list;
+});
+const LOCKED = ["ok","bad","self"];
+const stOf = id => (S.ans[id] || {}).st;
+const isDone = id => LOCKED.includes(stOf(id));
+const isRight = id => stOf(id) === "ok" || stOf(id) === "self";
+function exScore(ex){ const l = ex.list; return {got:l.filter(i=>isRight(i.id)).length, done:l.filter(i=>isDone(i.id)).length, total:l.length}; }
+function scoreAll(){ let got=0, done=0, total=0; EX.forEach(ex=>{ const s = exScore(ex); got+=s.got; done+=s.done; total+=s.total; }); return {got, done, total}; }
+const knownCount = () => WORDS.filter(w => S.known[w.en]).length;
+const nm = () => (S.name || "").trim() || DEFAULT_NAME;
+
+function seeded(arr, seed){ const a = arr.slice(); let s = seed; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280; for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* --- tabs & progress --- */
+const TABS = [["words","Words","Слова"],["cards","Cards","Карточки"],["practice","Practice","Упражнения"],["results","Results","Итоги"]];
+function renderTabs(){
+  const t = $("#tabs"); t.innerHTML = "";
+  const s = scoreAll();
+  TABS.forEach(([id,en,ru]) => {
+    let badge = "";
+    if (id === "cards" && knownCount()) badge = knownCount() + "/" + WORDS.length;
+    if (id === "practice" && s.done) badge = s.got + "/" + s.total;
+    if (id === "results" && s.done === s.total) badge = Math.round(100 * s.got / s.total) + "%";
+    t.append(h("button", {class:"tab"+(S.tab===id?" on":""), type:"button", role:"tab", "aria-selected":S.tab===id?"true":"false", onclick:()=>go(id)},
+      h("span", null, en), h("span", {class:"tr"}, ru), badge ? h("span", {class:"tb"}, badge) : null));
+  });
+  $("#barFill").style.width = (100 * s.done / s.total) + "%";
+  $("#scoreTxt").textContent = "★ " + s.got + " · " + s.done + "/" + s.total;
+}
+function refresh(){ renderTabs(); if (S.tab === "practice") renderChips(); }
+function go(id){
+  S.tab = id; save(); show();
+  const heroH = $("#hero").offsetHeight;
+  if (window.scrollY > heroH) window.scrollTo(0, heroH);
+}
+function show(){
+  TABS.forEach(([id]) => $("#tab-"+id).classList.toggle("on", S.tab === id));
+  if (S.tab === "cards") renderCards();
+  if (S.tab === "practice") renderPractice();
+  if (S.tab === "results") renderResults();
+  renderTabs();
+}
+
+/* =================== WORDS TAB =================== */
+function renderWords(){
+  const root = $("#tab-words"); root.innerHTML = "";
+  root.append(h("div", {class:"card"},
+    h("h2", null, "18 new words · ", h("span", {class:"ru"}, "18 новых слов")),
+    h("p", {class:"lead"}, "Press 🔊 to hear each word and its example.", h("br"), h("span", {class:"ru"}, "Нажми 🔊, чтобы послушать слово и пример.")),
+    h("div", {class:"wl"}, WORDS.map(w => h("div", {class:"w"},
+      h("div", {class:"em", "aria-hidden":"true"}, w.em),
+      h("div", null,
+        h("div", null, h("span", {class:"en"}, w.en), " ", h("span", {class:"pos"}, w.pos)),
+        h("div", {class:"ipa"}, w.ipa),
+        h("div", {class:"tr"}, w.ru),
+        h("div", {class:"ex"}, w.ex, " ", spk(w.ex, "▶", "")),
+      ),
+      spk(w.en)
+    )))
+  ));
+
+  const story = h("div", {class:"story"});
+  STORY.forEach(par => {
+    const p = h("p");
+    par.split(/(\[\[[^\]]+\]\])/).forEach(part => {
+      const m = part.match(/^\[\[([^|]+)\|([^\]]+)\]\]$/);
+      if (!m) { p.append(part); return; }
+      const gloss = h("span", {class:"gloss", hidden:true}, m[2]);
+      const b = h("button", {class:"gl", type:"button", "aria-expanded":"false", onclick:()=>{ const open = gloss.hidden; gloss.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); if (open) say(m[1]); }}, m[1]);
+      p.append(b, gloss);
+    });
+    story.append(p);
+  });
+  root.append(h("div", {class:"card"},
+    h("h2", null, "Meet Mila ♎ · ", h("span", {class:"ru"}, "Знакомься: Мила")),
+    h("p", {class:"lead"}, "Read the story. Tap a highlighted word to see the translation.", h("br"), h("span", {class:"ru"}, "Прочитай историю. Нажми на выделенное слово, чтобы увидеть перевод.")),
+    h("div", {class:"btns", style:"margin:8px 0 12px"}, spk(STORY.map(strip).join(" ").replace(/\[\[([^|]+)\|[^\]]+\]\]/g,"$1"), "🔊 Listen to the story · Послушать", "wide")),
+    story
+  ));
+
+  root.append(h("div", {class:"card careful"},
+    h("h2", null, "⚠️ Careful with these · ", h("span", {class:"ru"}, "Осторожно!")),
+    h("ul", null, CAREFUL.map(c => h("li", {html:c})))
+  ));
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("cards")}, "Next: flashcards · Дальше: карточки →")));
+}
+
+/* =================== FLASHCARDS =================== */
+let deck = [], ci = 0, flipped = false;
+function makeDeck(shuffle){
+  let idx = WORDS.map((_, i) => i);
+  if (S.onlyL) idx = idx.filter(i => !S.known[WORDS[i].en]);
+  if (shuffle) for (let i = idx.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+  deck = idx; if (ci >= deck.length) ci = 0; flipped = false;
+}
+function renderCards(){
+  if (!deck.length && !S.onlyL) makeDeck(false);
+  const root = $("#tab-cards"); root.innerHTML = "";
+  const k = knownCount();
+  const box = h("div", {class:"card"});
+  box.append(h("h2", null, "Flashcards · ", h("span", {class:"ru"}, "Карточки")));
+  box.append(h("p", {class:"lead"}, "Tap the card to turn it over. Then say if you know the word.", h("br"), h("span", {class:"ru"}, "Нажми на карточку, чтобы перевернуть. Потом отметь: знаешь слово или ещё учишь.")));
+  box.append(h("div", {class:"fc-top", style:"margin-top:12px"},
+    h("span", null, "I know · Знаю: " + k + "/" + WORDS.length),
+    h("span", null, deck.length ? (ci + 1) + " / " + deck.length : "")));
+  box.append(h("div", {class:"kbar"}, h("i", {style:"width:" + (100 * k / WORDS.length) + "%"})));
+
+  if (!deck.length){
+    box.append(h("div", {class:"fb ok", style:"text-align:center;margin-top:16px;font-size:17px"},
+      h("b", null, "🎉 You know all the words in this list! · Ты знаешь все слова!"), h("br"),
+      "Turn off the filter to see all cards. · Выключи фильтр, чтобы увидеть все карточки."));
+  } else {
+    const w = WORDS[deck[ci]];
+    const enSide = [h("div", {class:"fe", "aria-hidden":"true"}, w.em), h("div", {class:"fw"}, w.en), h("div", {class:"fp"}, w.pos + " · " + w.ipa), spk(w.en)];
+    const ruSide = [h("div", {class:"fe", "aria-hidden":"true"}, w.em), h("div", {class:"fw", style:"font-size:clamp(19px,5.5vw,26px)"}, w.ru)];
+    const exPart = [h("div", {class:"fx"}, w.ex), h("div", {class:"fxr"}, w.exRu), spk(w.ex, "🔊 example · пример", "wide")];
+    let front, back;
+    if (S.dir === "en"){
+      front = h("div", {class:"face front"}, enSide, h("div", {class:"tap"}, "tap to turn · нажми, чтобы перевернуть"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--ru);font-size:clamp(19px,5.5vw,26px)"}, w.ru), exPart);
+    } else {
+      front = h("div", {class:"face front"}, ruSide, h("div", {class:"tap"}, "Say it in English! · Скажи по-английски!"));
+      back = h("div", {class:"face back"}, h("div", {class:"fw", style:"color:var(--night)"}, w.en, " ", spk(w.en)), h("div", {class:"fp", style:"color:var(--soft)"}, w.pos + " · " + w.ipa), exPart);
+    }
+    const fc = h("div", {class:"fc" + (flipped ? " flip" : ""), role:"button", tabindex:"0", "aria-label":"Flashcard. Press to turn over"}, front, back);
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); };
+    fc.addEventListener("click", flip);
+    fc.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); } });
+    box.append(h("div", {class:"fc-scene", style:"margin-top:14px"}, fc));
+    const move = d => { ci = (ci + d + deck.length) % deck.length; flipped = false; renderCards(); };
+    box.append(h("div", {class:"fc-nav"},
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(-1)}, "◀ Back", h("br"), h("small", {class:"ru"}, "Назад")),
+      h("button", {class:"btn ghost", type:"button", onclick:flip}, "↻ Turn", h("br"), h("small", {class:"ru"}, "Перевернуть")),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>move(1)}, "Next ▶", h("br"), h("small", {class:"ru"}, "Дальше"))));
+    const mark = known => {
+      if (known) S.known[w.en] = true; else delete S.known[w.en];
+      save(); renderTabs();
+      if (S.onlyL && known){ deck.splice(ci, 1); if (ci >= deck.length) ci = 0; flipped = false; renderCards(); }
+      else move(1);
+      toast(known ? "✓ " + w.en + " — I know it · Знаю" : "↻ " + w.en + " — still learning · Ещё учу");
+    };
+    box.append(h("div", {class:"fc-know"},
+      h("button", {class:"btn know", type:"button", onclick:()=>mark(true)}, "✓ I know it · Знаю"),
+      h("button", {class:"btn learn", type:"button", onclick:()=>mark(false)}, "Still learning · Ещё учу")));
+  }
+  const filt = h("input", {type:"checkbox"}); filt.checked = !!S.onlyL;
+  filt.addEventListener("change", () => { S.onlyL = filt.checked; save(); ci = 0; makeDeck(false); renderCards(); });
+  box.append(h("div", {class:"fc-tools"},
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ makeDeck(true); ci = 0; renderCards(); toast("Shuffled · Перемешано"); }}, "🔀 Shuffle · Перемешать"),
+    h("button", {class:"btn ghost small", type:"button", onclick:()=>{ S.dir = S.dir === "en" ? "ru" : "en"; save(); flipped = false; renderCards(); }}, S.dir === "en" ? "⇄ RU → EN" : "⇄ EN → RU"),
+    h("label", {class:"chk"}, filt, "Only words I’m learning · Только «ещё учу»")));
+  root.append(box);
+  root.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:()=>go("practice")}, "Next: exercises · Дальше: упражнения →")));
+}
+
+/* =================== PRACTICE =================== */
+function renderChips(){
+  const c = $("#chips"); if (!c) return; c.innerHTML = "";
+  EX.forEach((ex, i) => {
+    const s = exScore(ex);
+    const done = ex.type === "write" ? S.writing.trim().length > 0 : s.done === s.total;
+    c.append(h("button", {class:"chip" + (i === S.ex ? " on" : "") + (done ? " done" : ""), type:"button", "aria-label":"Exercise " + (i + 1) + ": " + ex.en, onclick:()=>{ S.ex = i; save(); renderPractice(); }},
+      String(i + 1), h("small", null, ex.type === "write" ? (done ? "✓" : "✍") : (s.done ? s.got + "/" + s.total : "·"))));
+  });
+  const on = c.children[S.ex]; if (on && on.scrollIntoView) { try{ on.scrollIntoView({block:"nearest", inline:"center"}); }catch(e){} }
+}
+function renderPractice(){
+  const root = $("#tab-practice"); root.innerHTML = "";
+  root.append(h("div", {class:"chips", id:"chips", "aria-label":"Exercises"}));
+  const ex = EX[S.ex];
+  const s = exScore(ex);
+  const card = h("div", {class:"card"});
+  card.append(h("div", {class:"exhead"},
+    h("div", null, h("h2", null, (S.ex + 1) + ". " + ex.en), h("div", {class:"ru", style:"font-family:Unbounded,Nunito,sans-serif;font-size:15px"}, ex.ru)),
+    ex.type !== "write" ? h("span", {class:"exscore", id:"exscore"}, s.got + "/" + s.total) : null));
+  card.append(h("p", {class:"ins"}, ex.ins, h("br"), h("span", {class:"ru"}, ex.insRu)));
+  const body = h("div", {id:"exbody"});
+  card.append(body);
+  root.append(card);
+  ({match:matchEx, choice:listEx, type:listEx, listen:listEx, gap:gapEx, build:listEx, write:writeEx})[ex.type](ex, body);
+  const nav = h("div", {class:"btns", style:"justify-content:space-between"});
+  nav.append(S.ex > 0 ? h("button", {class:"btn ghost", type:"button", onclick:()=>{ S.ex--; save(); renderPractice(); window.scrollTo(0, $("#hero").offsetHeight); }}, "← Back · Назад") : h("span"));
+  nav.append(S.ex < EX.length - 1
+    ? h("button", {class:"btn", type:"button", onclick:()=>{ S.ex++; save(); renderPractice(); window.scrollTo(0, $("#hero").offsetHeight); }}, "Next · Дальше →")
+    : h("button", {class:"btn gold", type:"button", onclick:()=>go("results")}, "See results · Итоги →"));
+  root.append(nav);
+  renderChips();
+}
+function updExScore(ex){ const el = $("#exscore"); if (el){ const s = exScore(ex); el.textContent = s.got + "/" + s.total; } refresh(); }
+function listEx(ex, body){
+  const make = {choice:choiceItem, type:typeItem, listen:typeItem, build:buildItem}[ex.type];
+  ex.items.forEach((it, k) => body.append(make(ex, it, k)));
+}
+function fbBox(ok, k, why, sayText){
+  const d = h("div", {class:"fb " + (ok ? "ok" : "bad")}, h("b", null, ok ? PRAISE[k % PRAISE.length] : OOPS[k % OOPS.length]));
+  if (why) d.append(h("div", {class:"why", html:why}));
+  if (sayText) d.append(spk(sayText, "🔊 Listen · Слушать", "wide"));
+  return d;
+}
+
+/* choice */
+function sentenceOf(it){ if (it.say) return it.say; const q = strip(it.q); return q.includes("___") ? q.replace(/_{3,}/, it.o[it.a]) : it.o[it.a]; }
+function choiceItem(ex, it, k){
+  const a = S.ans[it.id];
+  const box = h("div", {class:"item" + (a ? (a.st === "ok" ? " is-ok" : " is-bad") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q})));
+  const opts = h("div", {class:"opts"});
+  it.o.forEach((o, j) => {
+    const b = h("button", {class:"opt", type:"button"}, o);
+    if (a){ b.disabled = true; if (j === it.a) b.classList.add("right"); if (j === a.v && j !== it.a) b.classList.add("wrong"); }
+    else b.addEventListener("click", () => {
+      S.ans[it.id] = {v:j, st: j === it.a ? "ok" : "bad"}; save();
+      box.replaceWith(choiceItem(ex, it, k));
+      if (j === it.a) say(sentenceOf(it));
+      updExScore(ex);
+    });
+    opts.append(b);
+  });
+  box.append(opts);
+  if (a) box.append(fbBox(a.st === "ok", k, (a.st === "ok" ? "" : "Correct answer · Правильный ответ: <b>" + it.o[it.a] + "</b><br>") + it.why, sentenceOf(it)));
+  return box;
+}
+
+/* typed + listening */
+function typeItem(ex, it, k){
+  const a = S.ans[it.id] || null;
+  const locked = a && LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  if (ex.type === "listen"){
+    box.append(h("div", {class:"listen"}, h("span", {class:"num"}, String(k + 1)), spk(it.say, "🔊"), h("span", {class:"ru", style:"font-size:14px"}, "listen · слушай")));
+  } else {
+    box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {html:it.q})));
+  }
+  const inp = h("input", {type:"text", class:"inp", autocomplete:"off", autocapitalize:"off", autocorrect:"off", spellcheck:"false", "aria-label":"Your answer · Твой ответ", placeholder: ex.id === "t" ? "Write in English · Пиши по-английски" : "Your answer · Твой ответ"});
+  inp.value = a && a.v ? a.v : "";
+  const check = () => {
+    const v = inp.value;
+    if (!v.trim()){ toast("Write an answer first · Сначала напиши ответ"); inp.focus(); return; }
+    const cur = S.ans[it.id] || {tries:0, given:[]};
+    cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v.trim()); cur.v = v.trim();
+    const ok = matches(v, it.acc);
+    cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+    S.ans[it.id] = cur; save();
+    const nb = typeItem(ex, it, k); box.replaceWith(nb);
+    if (cur.st === "try"){ const ni = nb.querySelector("input"); if (ni) ni.focus(); }
+    if (ok) say(it.say || it.acc[0]);
+    updExScore(ex);
+  };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); check(); } });
+  if (locked){ inp.disabled = true; box.append(h("div", {class:"row"}, inp)); }
+  else box.append(h("div", {class:"row"}, inp, h("button", {class:"btn small", type:"button", onclick:check}, "Check · Проверить")));
+
+  if (a && a.st === "try"){
+    box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  } else if (a && a.st === "ok"){
+    const d = fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", it.say || it.acc[0]);
+    if (it.cap && !a.v.includes(it.cap)) d.append(h("div", {class:"note"}, "Remember the capital letter: " + it.cap + " · Пиши с большой буквы: " + it.cap));
+    if (it.question && !/\?\s*$/.test(a.v)) d.append(h("div", {class:"note"}, "Don’t forget the question mark “?” · Не забудь знак вопроса"));
+    box.append(d);
+  } else if (a && a.st === "bad"){
+    const d = fbBox(false, k, "Correct answer · Правильный ответ: <b>" + (it.say && ex.id === "t" ? it.say : it.acc[0]) + "</b>", it.say || it.acc[0]);
+    if (it.self) d.append(h("button", {class:"self", type:"button", onclick:()=>{ a.st = "self"; save(); box.replaceWith(typeItem(ex, it, k)); updExScore(ex); }}, "✓ My answer is also correct · Мой ответ тоже верный"));
+    box.append(d);
+  } else if (a && a.st === "self"){
+    box.append(h("div", {class:"fb ok"}, h("b", null, "OK! You marked your answer as correct. · Ты отметила свой ответ как верный."), h("div", {class:"why"}, "Model · Образец: ", h("b", null, it.say || it.acc[0])), h("div", {class:"why ru"}, "Your teacher will check it. · Учитель проверит.")));
+  }
+  return box;
+}
+
+/* sentence builder */
+function buildItem(ex, it, k){
+  const a = S.ans[it.id] || {pick:[], tries:0};
+  const pick = a.pick || [];
+  const locked = LOCKED.includes(a.st);
+  const box = h("div", {class:"item" + (locked ? (a.st === "bad" ? " is-bad" : " is-ok") : "")});
+  box.append(h("div", {class:"q"}, h("span", {class:"num"}, String(k + 1)), h("span", {class:"ruq"}, it.ru)));
+  const setPick = p => { S.ans[it.id] = Object.assign({}, S.ans[it.id] || {tries:0}, {pick:p}); save(); box.replaceWith(buildItem(ex, it, k)); };
+  const ansZone = h("div", {class:"tiles ans", "aria-label":"Your sentence"});
+  pick.forEach((ti, pi) => ansZone.append(h("button", {class:"tile", type:"button", disabled:locked, onclick:()=>{ const p = pick.slice(); p.splice(pi, 1); setPick(p); }}, it.t[ti])));
+  if (pick.length === it.t.length) ansZone.append(h("span", {class:"endp"}, it.end));
+  if (!pick.length) ansZone.append(h("span", {class:"ru", style:"font-size:14px"}, "Tap the words below · Нажимай на слова ниже"));
+  box.append(ansZone);
+  if (!locked){
+    const pool = h("div", {class:"tiles"});
+    it.t.forEach((w, ti) => { if (!pick.includes(ti)) pool.append(h("button", {class:"tile", type:"button", onclick:()=>setPick(pick.concat(ti))}, w)); });
+    box.append(pool);
+    box.append(h("div", {class:"btns"},
+      h("button", {class:"btn small", type:"button", onclick:()=>{
+        if (pick.length < it.t.length){ toast("Use all the words · Используй все слова"); return; }
+        const sent = pick.map(i => it.t[i]).join(" ");
+        const cur = S.ans[it.id] || {tries:0};
+        cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(sent + it.end); cur.v = sent;
+        const ok = matches(sent, it.acc);
+        cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+        S.ans[it.id] = cur; save();
+        box.replaceWith(buildItem(ex, it, k));
+        if (ok) say(sent + it.end);
+        updExScore(ex);
+      }}, "Check · Проверить"),
+      h("button", {class:"btn ghost small", type:"button", onclick:()=>setPick([])}, "Clear · Очистить")));
+  }
+  if (a.st === "try") box.append(h("div", {class:"fb try"}, h("b", null, "Not quite — try again! · Не совсем — попробуй ещё раз!"), h("div", {class:"why", html:"💡 " + it.hint})));
+  if (a.st === "ok") box.append(fbBox(true, k, a.tries > 1 ? "Right on the second try. · Верно со второй попытки." : "", a.v + it.end));
+  if (a.st === "bad") box.append(fbBox(false, k, "Correct answer · Правильный ответ: <b>" + it.acc[0] + it.end + "</b>", it.acc[0] + it.end));
+  return box;
+}
+
+/* matching */
+let selL = null;
+function matchEx(ex, body){
+  body.innerHTML = "";
+  let offset = 0;
+  ex.rounds.forEach((round, r) => {
+    const pairs = round.map((p, i) => ex.list[offset + i]); offset += round.length;
+    const right = seeded(pairs, 11 + r * 7);
+    const allDone = pairs.every(p => isDone(p.id));
+    body.append(h("div", {class:"round-t"}, "Round " + (r + 1) + " · Раунд " + (r + 1) + (allDone ? " ✓" : "")));
+    const L = h("div", {class:"mcol"}), R = h("div", {class:"mcol"});
+    const msg = h("div", {class:"msg", "aria-live":"polite"});
+    pairs.forEach(p => {
+      const a = S.ans[p.id];
+      const cls = "mb en" + (a ? (a.st === "ok" ? " done" : " done late") : "") + (selL === p.id ? " sel" : "");
+      L.append(h("button", {class:cls, type:"button", disabled:!!a, "aria-pressed":selL === p.id ? "true" : "false", onclick:()=>{ selL = p.id; say(p.en); matchEx(ex, body); }}, p.en));
+    });
+    right.forEach(p => {
+      const a = S.ans[p.id];
+      const b = h("button", {class:"mb" + (a ? (a.st === "ok" ? " done" : " done late") : ""), type:"button", disabled:!!a}, p.ru);
+      b.addEventListener("click", () => {
+        if (!selL || !pairs.some(x => x.id === selL)){ msg.textContent = "Tap an English word first · Сначала нажми на английское слово"; return; }
+        if (selL === p.id){
+          S.ans[p.id] = {st: S.mw[p.id] ? "bad" : "ok", v:p.ru}; selL = null; save();
+          matchEx(ex, body); updExScore(ex);
+          toast((S.ans[p.id].st === "ok" ? "✓ " : "✓ (2nd try) ") + p.en + " = " + p.ru);
+        } else {
+          const wrongFor = ex.list.find(x => x.id === selL);
+          S.mw[selL] = (S.mw[selL] || []).concat(p.ru); save();
+          b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+          msg.textContent = "Not “" + wrongFor.en + "”. Try again! · Не подходит. Попробуй ещё раз!";
+        }
+      });
+      R.append(b);
+    });
+    body.append(h("div", {class:"mgrid"}, L, R), msg);
+  });
+}
+
+/* gap text */
+function gapEx(ex, body){
+  body.innerHTML = "";
+  body.append(h("div", {class:"bank", "aria-label":"Word box"}, ex.bank.map(w => h("span", null, w))));
+  const txt = h("div", {class:"gtext"});
+  const inputs = [];
+  ex.text.split(/\{(\d+)\}/).forEach((part, i) => {
+    if (i % 2 === 0){ txt.append(part); return; }
+    const g = ex.gaps[+part], a = S.ans[g.id];
+    txt.append(h("span", {class:"gnum"}, String(g.n)));
+    if (a && (a.st === "ok" || a.st === "self")) txt.append(h("span", {class:"gf ok"}, a.v));
+    else if (a && a.st === "bad") txt.append(h("span", {class:"gf bad"}, h("s", null, a.v), " → ", h("b", null, g.acc[0])));
+    else {
+      const inp = h("input", {class:"ginp" + (a && a.st === "try" ? " try" : ""), type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"Gap " + g.n});
+      inp.value = a && a.v ? a.v : "";
+      inp.dataset.g = part;
+      inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); checkAll(); } });
+      inputs.push(inp); txt.append(inp);
+    }
+  });
+  body.append(txt);
+  const checkAll = () => {
+    let any = false;
+    inputs.forEach(inp => {
+      const v = inp.value.trim(); if (!v) return;
+      const g = ex.gaps[+inp.dataset.g];
+      const cur = S.ans[g.id] || {tries:0, given:[]};
+      if (cur.st === "try" && cur.v === v) return; // unchanged after hint
+      any = true;
+      cur.tries = (cur.tries || 0) + 1; cur.given = (cur.given || []).concat(v); cur.v = v;
+      const ok = matches(v, g.acc);
+      cur.st = ok ? "ok" : (cur.tries >= 2 ? "bad" : "try");
+      S.ans[g.id] = cur;
+    });
+    if (!any){ toast("Fill in a gap first · Сначала заполни пропуск"); return; }
+    save(); gapEx(ex, body); updExScore(ex);
+  };
+  if (inputs.length) body.append(h("div", {class:"btns"}, h("button", {class:"btn", type:"button", onclick:checkAll}, "Check · Проверить")));
+  const tries = ex.gaps.filter(g => stOf(g.id) === "try");
+  if (tries.length) body.append(h("div", {class:"fb try hints"}, h("b", null, "Some gaps are not right yet — try again! · Некоторые пропуски пока неверны — попробуй ещё раз!"),
+    tries.map(g => h("div", {class:"why", html:"<b>" + g.n + ".</b> 💡 " + g.hint}))));
+  const s = exScore(ex);
+  if (s.done === s.total) body.append(h("div", {class:"fb ok"}, h("b", null, "Done! · Готово! " + s.got + "/" + s.total),
+    spk(strip(ex.text.replace(/\{(\d+)\}/g, (_, n) => ex.gaps[+n].acc[0])), "🔊 Listen to the text · Послушать текст", "wide")));
+}
+
+/* writing */
+function writeEx(ex, body){
+  const ta = h("textarea", {"aria-label":"Your text · Твой текст", placeholder:"My best friend is … She is a … She is very …"});
+  ta.value = S.writing || "";
+  const info = h("div", {class:"ru", style:"margin-top:8px;font-size:14px"});
+  const found = h("div", {class:"found"});
+  const upd = () => {
+    const t = ta.value; const words = (t.match(/[A-Za-z’']+/g) || []).length;
+    const used = WORDS.filter(w => w.rx.test(t));
+    found.innerHTML = "";
+    WORDS.forEach(w => found.append(h("span", {class: used.includes(w) ? "on" : ""}, (used.includes(w) ? "✓ " : "") + w.en)));
+    info.textContent = "Words · Слов: " + words + "   ·   New words used · Новых слов: " + used.length + "/6+";
+  };
+  let tmr;
+  ta.addEventListener("input", () => { S.writing = ta.value; upd(); clearTimeout(tmr); tmr = setTimeout(() => { save(); refresh(); }, 400); });
+  body.append(h("div", {class:"item"}, ta, info, found,
+    h("p", {class:"ru", style:"font-size:14px;margin:10px 0 0"}, "This task is not marked automatically — your teacher will read it. · Это задание проверит учитель.")));
+  upd();
+}
+
+/* =================== RESULTS =================== */
+function itemReport(ex, it){
+  const a = S.ans[it.id] || {};
+  switch (ex.type){
+    case "match": return {q:it.en, your:(S.mw[it.id] || []).join(", "), right:it.ru};
+    case "choice": return {q:strip(it.q) || it.say, your:a.v != null ? it.o[a.v] : "—", right:it.o[it.a]};
+    case "build": return {q:it.ru, your:(a.given || []).join(" / ") || "—", right:it.acc[0] + it.end};
+    case "gap": return {q:"gap " + it.n, your:(a.given || []).join(" / ") || "—", right:it.acc[0]};
+    case "listen": return {q:"🔊 listening " + it.n, your:(a.given || []).join(" / ") || "—", right:it.acc[0]};
+    default: return {q:strip(it.q), your:(a.given || []).join(" / ") || "—", right: ex.id === "t" ? it.say : it.acc[0]};
+  }
+}
+function bandMsg(p){
+  const n = nm();
+  if (p >= 90) return "Brilliant, " + n + "! You really know these words. 🌟 · Блестяще! Ты отлично знаешь эти слова.";
+  if (p >= 75) return "Great work, " + n + "! Look at your mistakes once more. · Отличная работа! Посмотри ещё раз на ошибки.";
+  if (p >= 50) return "Good effort, " + n + "! Practise the “still learning” cards and try again. · Хорошая попытка! Повтори карточки «ещё учу» и попробуй снова.";
+  return "Keep going, " + n + "! Read the words and the story again, then repeat the exercises. · Не сдавайся! Перечитай слова и историю и повтори упражнения.";
+}
+function buildReport(){
+  const s = scoreAll(), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  const L = [];
+  L.push("📚 Homework: " + HW.title + " (" + HW.level + ", " + HW.lesson + ")");
+  L.push("Student: " + nm());
+  L.push("Date: " + new Date().toLocaleDateString("en-GB"));
+  L.push("Score: " + s.got + "/" + s.total + " (" + pct + "%)" + (s.done < s.total ? " — answered " + s.done + "/" + s.total : ""));
+  L.push("Flashcards: I know " + knownCount() + "/" + WORDS.length + " words");
+  L.push("");
+  L.push("EXERCISES");
+  EX.forEach((ex, i) => { if (ex.type === "write") L.push((i + 1) + ". " + ex.en + ": " + (S.writing.trim() ? "done (see below)" : "not done")); else { const e = exScore(ex); L.push((i + 1) + ". " + ex.en + ": " + e.got + "/" + e.total + (e.done < e.total ? " (answered " + e.done + ")" : "")); } });
+  const mist = [], selfs = [];
+  EX.forEach((ex, i) => ex.list.forEach(it => {
+    const st = stOf(it.id);
+    if (st === "bad"){ const r = itemReport(ex, it); mist.push("• [" + (i + 1) + "] " + r.q + " — answer: " + r.your + " → correct: " + r.right); }
+    if (st === "self"){ const r = itemReport(ex, it); selfs.push("• [" + (i + 1) + "] " + r.q + " — answer: " + r.your + " (model: " + r.right + ")"); }
+  }));
+  L.push(""); L.push("MISTAKES (" + mist.length + ")"); L.push(mist.length ? mist.join("\n") : "none 🎉");
+  if (selfs.length){ L.push(""); L.push("SELF-MARKED AS CORRECT — please check"); L.push(selfs.join("\n")); }
+  L.push(""); L.push("WRITING"); L.push(S.writing.trim() || "(not done)");
+  L.push(""); L.push("ALL ANSWERS");
+  EX.forEach((ex, i) => {
+    if (ex.type === "write") return;
+    L.push("[" + (i + 1) + "] " + ex.en);
+    ex.list.forEach(it => {
+      const st = stOf(it.id), r = itemReport(ex, it);
+      const mark = st === "ok" ? "✓" : st === "self" ? "✓(self)" : st === "bad" ? "✗" : "";
+      const your = ex.type === "match" ? (st ? r.right + (r.your ? " (wrong first: " + r.your + ")" : "") : "—") : r.your;
+      L.push("  " + it.n + ". " + r.q + " → " + (st && st !== "try" ? your + " " + mark : "(not answered)"));
+    });
+  });
+  return L.join("\n");
+}
+function copyText(t){
+  const fallback = () => { const ta = h("textarea", {style:"position:fixed;left:-9999px;top:0"}); ta.value = t; document.body.append(ta); ta.select(); let ok = false; try{ ok = document.execCommand("copy"); }catch(e){} ta.remove(); toast(ok ? "Copied! · Скопировано!" : "Select the text below and copy it · Выдели текст ниже и скопируй"); };
+  try{ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => toast("Copied! Now paste it in a message to your teacher. · Скопировано! Вставь в сообщение учителю."), fallback); else fallback(); }catch(e){ fallback(); }
+}
+function renderResults(){
+  const root = $("#tab-results"); root.innerHTML = "";
+  const s = scoreAll(), pct = s.total ? Math.round(100 * s.got / s.total) : 0;
+  root.append(h("div", {class:"card dark"},
+    h("h2", null, "Your results · ", h("span", {style:"color:var(--gold2)"}, "Твои итоги")),
+    h("div", {class:"score-big"}, s.got + "/" + s.total + " · " + pct + "%"),
+    h("p", {style:"margin:4px 0 0"}, s.done < s.total ? "You have answered " + s.done + " of " + s.total + " questions. · Ты ответила на " + s.done + " из " + s.total + " вопросов." : bandMsg(pct)),
+    h("p", {style:"margin:6px 0 0;color:var(--gold2)"}, "Flashcards · Карточки: " + knownCount() + "/" + WORDS.length + " ✓")));
+
+  const tb = h("table");
+  EX.forEach((ex, i) => {
+    const val = ex.type === "write" ? (S.writing.trim() ? "✓" : "—") : (() => { const e = exScore(ex); return e.got + "/" + e.total; })();
+    tb.append(h("tr", null, h("td", null, (i + 1) + ". " + ex.en + " · ", h("span", {class:"ru"}, ex.ru)), h("td", null, val)));
+  });
+  root.append(h("div", {class:"card"}, h("h3", null, "Exercises · Упражнения"), tb));
+
+  const ml = h("ul", {class:"mist"});
+  EX.forEach((ex, i) => ex.list.forEach(it => {
+    if (stOf(it.id) !== "bad") return;
+    const r = itemReport(ex, it);
+    ml.append(h("li", null, "[" + (i + 1) + "] " + r.q + " — ", h("s", null, r.your), " → ", h("b", null, r.right)));
+  }));
+  root.append(h("div", {class:"card"}, h("h3", null, "Mistakes · Ошибки"), ml.children.length ? ml : h("p", null, "No mistakes yet! 🎉 · Пока ошибок нет!")));
+
+  if (S.writing.trim()) root.append(h("div", {class:"card"}, h("h3", null, "Your writing · Твой текст"), h("p", {style:"white-space:pre-wrap;margin:0"}, S.writing)));
+
+  const full = buildReport();
+  const subj = "What is she like? — " + nm() + " — " + s.got + "/" + s.total;
+  const short = full.length > 1500 ? full.slice(0, 1500) + "\n…\n[The full report is under “Copy text” · Полный отчёт — кнопка «Скопировать текст»]" : full;
+  const enc = encodeURIComponent;
+  const send = h("div", {class:"send"});
+  if (navigator.share) send.append(h("button", {class:"s-share", type:"button", onclick:()=>{ try{ navigator.share({title:subj, text:subj + "\n\n" + full}).catch(()=>{}); }catch(e){} }}, "📤 Share · Поделиться"));
+  send.append(
+    h("a", {class:"s-gm", target:"_blank", rel:"noopener", href:"https://mail.google.com/mail/?view=cm&fs=1&to=" + enc(TEACHER) + "&su=" + enc(subj) + "&body=" + enc(short)}, "Gmail"),
+    h("a", {class:"s-tg", target:"_blank", rel:"noopener", href:"https://t.me/share/url?url=" + enc(subj) + "&text=" + enc(short)}, "Telegram"),
+    h("a", {class:"s-wa", target:"_blank", rel:"noopener", href:"https://wa.me/?text=" + enc(subj + "\n\n" + short)}, "WhatsApp"),
+    h("a", {class:"s-ml", href:"mailto:" + TEACHER + "?subject=" + enc(subj) + "&body=" + enc(short)}, "✉️ Email app · Почта"),
+    h("button", {class:"s-cp", type:"button", onclick:()=>copyText(full)}, "📋 Copy text · Скопировать текст"));
+  const pre = h("textarea", {readonly:true, "aria-label":"Report text", style:"min-height:160px;margin-top:12px;font-size:13px"}); pre.value = full;
+  root.append(h("div", {class:"card"},
+    h("h3", null, "Send to your teacher · Отправь учителю"),
+    h("p", {style:"margin:0"}, "Finish all exercises first, then choose one way to send. · Сначала сделай все упражнения, потом выбери способ отправки."),
+    h("p", {style:"margin:6px 0 0"}, "Teacher’s email · Почта учителя: ", h("span", {class:"mail"}, TEACHER)),
+    send, pre));
+
+  const zone = h("div");
+  const startBtn = h("button", {class:"btn ghost", type:"button", onclick:()=>{
+    zone.innerHTML = "";
+    zone.append(h("div", {class:"confirm"}, h("b", null, "Delete all answers? · Удалить все ответы?"),
+      h("button", {class:"btn", type:"button", style:"background:var(--bad)", onclick:()=>{ wipe(); S = DEF(); selL = null; deck = []; ci = 0; $("#nameIn").value = S.name; renderWords(); show(); window.scrollTo(0, 0); toast("Everything is cleared · Всё удалено"); }}, "Yes · Да"),
+      h("button", {class:"btn ghost", type:"button", onclick:()=>{ zone.innerHTML = ""; }}, "No · Нет")));
+  }}, "↺ Start again · Начать заново");
+  root.append(h("div", {class:"card"}, startBtn, zone));
+}
+
+/* =================== INIT =================== */
+(function init(){
+  const ni = $("#nameIn"); ni.value = S.name;
+  let t; ni.addEventListener("input", () => { S.name = ni.value; clearTimeout(t); t = setTimeout(() => { save(); if (S.tab === "results") renderResults(); }, 400); });
+  if (S.ex >= EX.length) S.ex = 0;
+  renderWords();
+  makeDeck(false);
+  show();
+})();
+</script>
+<div class="foot">Made for Elina with ♥ · English homework</div>
+</body>
+</html>
