@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veronika · Dino Park · 4 tenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Rubik:wght@600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+:root{
+  --jungle:#17573A; --jungle2:#1F7A4F; --leaf:#7BC043; --mint:#EAF7EE; --mint2:#D6F0DE;
+  --sun:#FFC93C; --lava:#FF7043; --ink:#1B2B24; --muted:#5B6E64; --card:#FFFFFF; --line:#CFE5D6;
+  --ps:#1E88E5; --pc:#2E9E5B; --past:#F57C00; --fut:#8E44AD;
+  --ps-l:#E3F1FD; --pc-l:#E2F4E8; --past-l:#FFF0E0; --fut-l:#F3E8F8;
+  --ok:#2E9E5B; --ok-l:#E3F6EA; --bad:#E0464E; --bad-l:#FDE8E9; --warn:#B26A00; --warn-l:#FFF4D6;
+  --r:18px; --shadow:0 4px 14px rgba(23,87,58,.12);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--mint);font-size:17px;line-height:1.45}
+h1,h2,h3,.rubik{font-family:Rubik,Nunito,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.ru{color:var(--muted)}
+.bi-ru{display:block;color:var(--muted);font-weight:600;font-size:.92em}
+
+/* header */
+.hero{background:linear-gradient(135deg,#0F4A30,#1F7A4F 60%,#3E9A4A);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"🐾 🦴 🌿 🐾 🦴 🌿 🐾 🦴 🌿 🐾 🦴 🌿";position:absolute;right:-20px;bottom:6px;font-size:22px;opacity:.18;letter-spacing:8px;white-space:nowrap}
+.hero .wrap{padding-top:22px;padding-bottom:22px;display:flex;gap:16px;align-items:center}
+.hero .dino{font-size:64px;line-height:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+.hero h1{margin:0;font-size:clamp(26px,6vw,40px);line-height:1.1;color:var(--sun)}
+.hero p{margin:6px 0 0;font-weight:700}
+.hero .sub{opacity:.85;font-weight:600;font-size:15px}
+.namebox{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:15px}
+.namebox input{border:0;border-radius:12px;padding:8px 12px;font:inherit;font-weight:700;width:170px;min-height:40px}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(234,247,238,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.prog{display:flex;align-items:center;gap:12px;padding:8px 0 4px;font-weight:800;font-size:14px}
+.prog .track{flex:1;height:12px;background:var(--mint2);border-radius:99px;overflow:hidden}
+.prog .fill{height:100%;width:0;background:linear-gradient(90deg,var(--leaf),var(--sun));border-radius:99px;transition:width .4s}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px 0 10px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px 12px;min-height:44px;font-weight:800;font-size:14px;line-height:1.15;text-align:left}
+.tab small{display:block;font-weight:700;color:var(--muted);font-size:11.5px}
+.tab[aria-selected="true"]{background:var(--jungle);border-color:var(--jungle);color:#fff}
+.tab[aria-selected="true"] small{color:#CFEBD9}
+.tab .badge{display:inline-block;margin-left:6px;background:var(--sun);color:var(--ink);border-radius:99px;padding:0 7px;font-size:11.5px}
+.tab.t-ps{border-color:var(--ps)} .tab.t-pc{border-color:var(--pc)} .tab.t-past{border-color:var(--past)} .tab.t-fut{border-color:var(--fut)}
+
+main{padding:18px 0 60px}
+@media (min-width:760px){.tabs{flex-wrap:wrap;overflow-x:visible}}
+section.page{display:none}
+section.page.on{display:block}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;margin:0 0 18px}
+.sec-head{border-radius:var(--r);padding:16px 18px;color:#fff;margin-bottom:18px;display:flex;gap:14px;align-items:center}
+.sec-head .ico{font-size:44px;line-height:1}
+.sec-head h2{margin:0;font-size:clamp(22px,5vw,30px)}
+.sec-head p{margin:2px 0 0;font-weight:700;opacity:.92}
+.c-ps{background:var(--ps)} .c-pc{background:var(--pc)} .c-past{background:var(--past)} .c-fut{background:var(--fut)} .c-mix{background:linear-gradient(90deg,var(--ps),var(--pc),var(--past),var(--fut))} .c-words{background:var(--jungle2)}
+h3{margin:0 0 8px;font-size:20px}
+.lead{font-size:18px;font-weight:700}
+.note{background:var(--warn-l);border-radius:14px;padding:12px 14px;margin:12px 0}
+.note b{color:var(--warn)}
+.compare{background:#EEF4FF;border-left:0;border-radius:14px;padding:12px 14px;margin:12px 0}
+
+/* examples */
+.exm{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
+.exm:last-child{border-bottom:0}
+.exm .en{font-weight:800;display:block}
+.exm .ru{display:block;font-size:15px}
+.say{flex:0 0 auto;border:0;background:var(--mint2);border-radius:50%;width:40px;height:40px;font-size:18px;display:inline-flex;align-items:center;justify-content:center}
+.say:hover{background:var(--sun)}
+.k{padding:0 3px;border-radius:6px}
+.k-ps{background:var(--ps-l);color:#0F5EA8} .k-pc{background:var(--pc-l);color:#1C6E3E} .k-past{background:var(--past-l);color:#A85200} .k-fut{background:var(--fut-l);color:#6B2C88}
+
+/* form table */
+.ftable{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:16px}
+.ftable td{background:#F7FBF8;padding:8px 10px;vertical-align:top}
+.ftable td:first-child{border-radius:12px 0 0 12px;width:44px;text-align:center;font-weight:900;font-size:20px}
+.ftable td:last-child{border-radius:0 12px 12px 0}
+.ftable .sm{display:block;font-size:14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{background:var(--mint2);border-radius:99px;padding:5px 12px;font-weight:800;font-size:15px}
+.mist{display:grid;gap:8px;margin-top:6px}
+.mist div{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mist span{border-radius:12px;padding:8px 10px;font-weight:700;font-size:15.5px}
+.mist .x{background:var(--bad-l);color:#A3262D;text-decoration:line-through;text-decoration-thickness:2px}
+.mist .v{background:var(--ok-l);color:#1C6E3E}
+.mist small{grid-column:1/-1;color:var(--muted);margin-top:-4px;font-size:14px}
+
+/* timeline */
+.timeline{position:relative;margin:18px 4px 8px;height:112px}
+.timeline .ln{position:absolute;left:0;right:0;top:31px;height:6px;background:var(--jungle);border-radius:3px}
+.timeline .ln::after{content:"";position:absolute;right:-6px;top:-7px;border-left:14px solid var(--jungle);border-top:10px solid transparent;border-bottom:10px solid transparent}
+.timeline .pt{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-weight:800;font-size:13px;width:110px}
+.timeline .pt i{display:block;width:22px;height:22px;border-radius:50%;margin:6px auto 0;border:4px solid #fff;box-shadow:0 0 0 2px rgba(0,0,0,.08)}
+.timeline .pt span{display:block;margin-top:14px}
+.timeline .dots{position:absolute;left:4%;right:6%;top:29px;display:flex;justify-content:space-between}
+.timeline .dots b{width:10px;height:10px;border-radius:50%;background:var(--ps)}
+
+/* time machine demo */
+.tm-btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.tm-btns button{border:0;border-radius:14px;padding:10px 14px;min-height:44px;font-weight:800;color:#fff}
+.tm-out{border-radius:16px;padding:16px;background:#F7FBF8;font-size:22px;font-weight:800;text-align:center;min-height:110px;transition:background .3s}
+.tm-out .tn{display:block;font-size:15px;margin-top:6px}
+.tm-out .ru{display:block;font-size:15px;font-weight:600}
+
+/* did machine */
+.dm{background:linear-gradient(135deg,#FFF0E0,#FFE2C4);border-radius:18px;padding:16px;text-align:center}
+.dm .scr{background:#fff;border-radius:14px;padding:16px 10px;font-size:22px;font-weight:800;margin:10px 0;min-height:70px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.dm .scr .pop{animation:pop .5s}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.dm button{border:0;border-radius:14px;padding:10px 16px;min-height:44px;font-weight:800;background:var(--past);color:#fff;margin:4px}
+.dm button.on{background:#7A3E00}
+
+/* words */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.wcard{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:12px;display:flex;gap:10px;align-items:center}
+.wcard .em{font-size:36px;width:48px;text-align:center}
+.wcard .w{font-weight:900;font-size:19px}
+.wcard .ipa{color:var(--muted);font-size:14px}
+.wcard .tr{font-weight:700;font-size:15px}
+.pf{display:inline-block;background:var(--past-l);color:#A85200;border-radius:99px;padding:0 8px;font-size:13px;font-weight:800}
+.wcard .grow{flex:1;min-width:0}
+
+/* flashcards */
+.fc-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fc-known{font-weight:800;font-size:14px;flex:1 1 200px}
+.fc-known .track{height:10px;background:var(--mint2);border-radius:99px;overflow:hidden;margin-top:4px}
+.fc-known .fill{height:100%;background:var(--leaf);width:0;transition:width .3s}
+.btn{border:0;border-radius:14px;padding:10px 14px;min-height:44px;font-weight:800;background:var(--mint2)}
+.btn.main{background:var(--jungle);color:#fff}
+.btn.sun{background:var(--sun)}
+.btn.ok{background:var(--ok);color:#fff}
+.btn.lava{background:var(--lava);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.toggle{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;min-height:44px}
+.toggle input{width:22px;height:22px}
+.fc{perspective:1000px;height:300px;margin:6px 0 12px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.fc.flip .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center}
+.fc-front{background:linear-gradient(160deg,#fff,#E9F8EF)}
+.fc-back{background:linear-gradient(160deg,#FFF8E1,#fff);transform:rotateY(180deg)}
+.fc .big{font-size:64px;line-height:1}
+.fc .word{font-family:Rubik,sans-serif;font-size:34px;font-weight:800;margin-top:6px}
+.fc .hint{color:var(--muted);font-size:14px;margin-top:8px}
+.fc .exs{margin-top:10px;font-weight:700;font-size:16px}
+.fc .say{margin-top:8px}
+.fc-ctrl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.fc-ctrl .btn{flex:1 1 130px}
+
+/* exercises */
+.ex{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin:0 0 18px}
+.ex-head{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.ex-num{flex:0 0 auto;background:var(--jungle);color:#fff;border-radius:12px;padding:4px 10px;font-weight:900;font-family:Rubik,sans-serif}
+.ex-head h3{margin:0;font-size:19px}
+.ex-head .ins{font-size:15px;font-weight:600;color:var(--muted)}
+.ex-score{margin-left:auto;font-weight:900;font-size:14px;background:var(--sun);border-radius:99px;padding:2px 10px;white-space:nowrap}
+.item{border:2px solid var(--line);border-radius:16px;padding:12px;margin:10px 0}
+.item.ok{border-color:var(--ok);background:var(--ok-l)}
+.item.bad{border-color:var(--bad);background:var(--bad-l)}
+.item.try{border-color:var(--sun);background:var(--warn-l)}
+.q{font-weight:800;font-size:18px;display:flex;gap:8px;align-items:flex-start}
+.q .n{flex:0 0 auto;color:var(--muted);font-weight:900}
+.gap{display:inline-block;min-width:60px;border-bottom:3px solid var(--sun);color:transparent}
+.filled{background:var(--ok-l);color:#1C6E3E;border-radius:6px;padding:0 4px}
+.emoji{font-size:46px;line-height:1.1;margin:4px 0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 14px;min-height:46px;font-weight:800;font-size:16.5px;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--jungle);background:var(--mint)}
+.opt.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt:disabled{cursor:default}
+.opt.o-ps{border-color:var(--ps);color:#0F5EA8} .opt.o-pc{border-color:var(--pc);color:#1C6E3E} .opt.o-past{border-color:var(--past);color:#A85200} .opt.o-fut{border-color:var(--fut);color:#6B2C88}
+.opt.right.o-ps,.opt.right.o-pc,.opt.right.o-past,.opt.right.o-fut{color:#fff}
+.fb{margin-top:10px;font-weight:700;font-size:15.5px}
+.fb .why{display:block;font-weight:600;color:var(--ink);margin-top:4px}
+.fb .ans{display:block;margin-top:4px}
+.fb .ok-t{color:var(--ok);font-weight:900}
+.fb .bad-t{color:var(--bad);font-weight:900}
+.fb .try-t{color:var(--warn);font-weight:900}
+.fb .extra{display:block;color:var(--warn);margin-top:4px}
+.tin{font:inherit;font-weight:800;font-size:17px;border:2px solid var(--line);border-radius:12px;padding:6px 10px;min-height:44px;width:11em;max-width:100%;background:#fff}
+.tin.full{width:100%;margin-top:8px}
+.tin:disabled{background:transparent;border-style:dashed;color:var(--ink)}
+.sent{line-height:2.4}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.src{font-weight:800;font-size:18px}
+.task{display:inline-block;border-radius:99px;padding:2px 10px;font-size:14px;font-weight:900;color:#fff;background:var(--fut)}
+.tiles,.line{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;padding:6px;border-radius:14px}
+.line{background:#F7FBF8;border:2px dashed var(--line);align-items:center}
+.tile{border:0;background:var(--sun);border-radius:12px;padding:8px 12px;min-height:44px;font-weight:800;font-size:16.5px;box-shadow:0 2px 0 #D9A21E}
+.line .tile{background:#fff;box-shadow:0 2px 0 var(--line);border:2px solid var(--line)}
+.line .end{font-weight:900;font-size:20px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:14px;padding:8px 10px;min-height:48px;font-weight:800;font-size:16px;text-align:left}
+.mbtn.sel{border-color:var(--sun);background:var(--warn-l);box-shadow:0 0 0 3px var(--sun)}
+.mbtn.done{background:var(--ok-l);border-color:var(--ok);color:#1C6E3E;cursor:default}
+.mbtn.donebad{background:var(--warn-l);border-color:var(--sun);color:var(--warn);cursor:default}
+.mbtn.flash{animation:shake .45s;background:var(--bad-l);border-color:var(--bad)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.story{font-size:18px;line-height:2.5;font-weight:600}
+.story .tin{width:8.5em}
+.story .vb{color:var(--muted);font-style:italic;font-weight:700}
+.story .gn{display:inline-block;background:var(--jungle);color:#fff;border-radius:99px;font-size:12px;font-weight:900;padding:0 7px;margin-right:2px;line-height:1.6}
+.story .gok{background:var(--ok-l);color:#1C6E3E;border-radius:8px;padding:2px 6px;font-weight:900}
+.story .gbad{background:var(--bad-l);color:#A3262D;border-radius:8px;padding:2px 6px;font-weight:900}
+.wbox textarea{width:100%;min-height:90px;border:2px solid var(--line);border-radius:14px;padding:10px;font:inherit;font-size:16.5px;resize:vertical}
+.wbox label{display:block;font-weight:800;margin:12px 0 6px}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+
+/* results */
+.big-score{font-family:Rubik,sans-serif;font-size:54px;font-weight:800;color:var(--jungle);line-height:1}
+.rtab{width:100%;border-collapse:collapse;font-size:15.5px}
+.rtab td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.rtab td:last-child{text-align:right;font-weight:900;white-space:nowrap}
+.mlist{padding-left:20px;font-size:15.5px}
+.mlist li{margin-bottom:8px}
+.mlist .wa{color:var(--bad);font-weight:800}
+.mlist .ca{color:var(--ok);font-weight:800}
+.send{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.send a,.send button{flex:1 1 150px;text-align:center;text-decoration:none;border:0;border-radius:14px;padding:12px;min-height:48px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center}
+.s-share{background:var(--jungle)} .s-gmail{background:#D93025} .s-tg{background:#229ED9} .s-wa{background:#25A244} .s-mail{background:#5B6E64} .s-copy{background:var(--fut)}
+.email{user-select:all;font-weight:900;background:var(--mint2);border-radius:8px;padding:2px 8px}
+.confirm{display:none;margin-top:10px;background:var(--bad-l);border-radius:14px;padding:12px}
+.confirm.on{display:block}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:14px;font-weight:800;opacity:0;transition:opacity .3s;pointer-events:none;z-index:50;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+@media (max-width:520px){
+  body{font-size:16px}
+  .hero .dino{font-size:46px}
+  .hero p{display:none}
+  .mist div{grid-template-columns:1fr}
+  .fc{height:290px}
+  .fc .word{font-size:30px}
+  .match{gap:8px}
+  .mbtn{font-size:15px;padding:8px}
+  .tm-out{font-size:19px}
+  .dm .scr{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="dino" aria-hidden="true">🦖</div>
+    <div>
+      <h1>Dino Park · 4 tenses</h1>
+      <p>Present Simple · Present Continuous · Past Simple · Future Simple</p>
+      <div class="sub">Beginner · for <span id="hdrName">Veronika</span></div>
+      <div class="namebox"><label for="nameIn">Your name · Твоё имя:</label><input id="nameIn" autocomplete="off"></div>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="prog"><span id="progTxt">0 / 0</span><div class="track"><div class="fill" id="progFill"></div></div><span id="scoreTxt">⭐ 0</span></div>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   DATA — words, rules and exercises (edit here)
+   ===================================================================== */
+const TEACHER_EMAIL = "ulchik2211@gmail.com";
+const HW_TITLE = "Dino Park · 4 tenses (Beginner)";
+const STORE_KEY = "veronika-dino-tenses-v1";
+
+const WORDS = [
+  {en:"dinosaur", ru:"динозавр", ipa:"/ˈdaɪnəsɔː/", em:"🦖", ex:"Dinosaurs lived millions of years ago.", exRu:"Динозавры жили миллионы лет назад."},
+  {en:"egg", ru:"яйцо", ipa:"/eɡ/", em:"🥚", ex:"The baby dinosaur is in the egg.", exRu:"Малыш-динозавр в яйце."},
+  {en:"bone", ru:"кость", ipa:"/bəʊn/", em:"🦴", ex:"Scientists find old bones.", exRu:"Учёные находят старые кости."},
+  {en:"tooth (teeth)", say:"tooth, teeth", ru:"зуб (зубы)", ipa:"/tuːθ/ (/tiːθ/)", em:"🦷", ex:"A T-rex had big, sharp teeth.", exRu:"У тираннозавра были большие острые зубы."},
+  {en:"tail", ru:"хвост", ipa:"/teɪl/", em:"🦎", ex:"Look! The dinosaur is moving its tail.", exRu:"Смотри! Динозавр двигает хвостом."},
+  {en:"footprint", ru:"след (ноги)", ipa:"/ˈfʊtprɪnt/", em:"🐾", ex:"We found a dinosaur footprint!", exRu:"Мы нашли след динозавра!"},
+  {en:"museum", ru:"музей", ipa:"/mjuˈziːəm/", em:"🏛️", ex:"Tomorrow we will go to the museum.", exRu:"Завтра мы пойдём в музей."},
+  {en:"scientist", ru:"учёный", ipa:"/ˈsaɪəntɪst/", em:"🧑‍🔬", ex:"The scientist works in a museum.", exRu:"Учёный работает в музее."},
+  {en:"huge", ru:"огромный", ipa:"/hjuːdʒ/", em:"🐘", ex:"Some dinosaurs were huge!", exRu:"Некоторые динозавры были огромными!"},
+  {en:"roar", ru:"рычать", ipa:"/rɔː/", em:"🦁", past:"roared", ex:"Listen! The T-rex is roaring!", exRu:"Послушай! Тираннозавр рычит!"},
+  {en:"hatch", ru:"вылупляться (из яйца)", ipa:"/hætʃ/", em:"🐣", past:"hatched", ex:"The baby dinosaur hatched from the egg.", exRu:"Малыш-динозавр вылупился из яйца."},
+  {en:"dig", ru:"копать", ipa:"/dɪɡ/", em:"⛏️", past:"dug", irr:true, ex:"Yesterday we dug in the sand.", exRu:"Вчера мы копали в песке."},
+  {en:"find", ru:"находить", ipa:"/faɪnd/", em:"🔍", past:"found", irr:true, ex:"I found a big bone in the garden!", exRu:"Я нашла большую кость в саду!"},
+  {en:"hide", ru:"прятаться", ipa:"/haɪd/", em:"🙈", past:"hid", irr:true, ex:"The little dinosaur is hiding behind a tree.", exRu:"Маленький динозавр прячется за деревом."},
+];
+
+const TENSE_NAMES = {ps:"Present Simple", pc:"Present Continuous", past:"Past Simple", fut:"Future Simple"};
+
+/* Exercise types: choice · type · order · match · story · write
+   choice: {q, opts, a (index of correct), why, emoji?, audio?, say?}
+   type:   {q with ___, accept:[...], hint, why}  or  {src, task, accept, hint, why, full:true}
+   order:  {tiles:[...correct order], end:".", alt?:[...other correct strings], hint, why}
+   match:  {l, r} pairs (correct pairs)
+   story:  {parts:[text, {verb, accept, hint}, text, ...]}
+*/
+const SECTIONS = [
+ {id:"start", tab:"🦕 Start", tabRu:"Старт"},
+ {id:"words", tab:"🦴 Words", tabRu:"Слова", color:"words",
+  exercises:[
+   {id:"w1", type:"match", title:"Match the words", titleRu:"Соедини слово и перевод",
+    ins:"Tap a word, then its translation.", insRu:"Нажми на слово, потом на перевод.",
+    items:[{l:"🦴 bone",r:"кость", say:"bone"},{l:"🥚 egg",r:"яйцо",say:"egg"},{l:"🦎 tail",r:"хвост",say:"tail"},{l:"🐾 footprint",r:"след",say:"footprint"},
+           {l:"🏛️ museum",r:"музей",say:"museum"},{l:"🧑‍🔬 scientist",r:"учёный",say:"scientist"},{l:"⛏️ dig",r:"копать",say:"dig"},{l:"🙈 hide",r:"прятаться",say:"hide"}]},
+   {id:"w2", type:"choice", title:"Listen and choose", titleRu:"Послушай и выбери",
+    ins:"Press 🔊 and choose the word you hear.", insRu:"Нажми 🔊 и выбери слово, которое слышишь.",
+    items:[
+     {audio:"huge", opts:["hide","huge","hatch"], a:1, why:"huge — огромный"},
+     {audio:"roar", opts:["roar","rock","road"], a:0, why:"roar — рычать"},
+     {audio:"tooth", opts:["tail","teeth","tooth"], a:2, why:"tooth — зуб (один). teeth — зубы (много)."},
+     {audio:"found", opts:["find","found","fun"], a:1, why:"found — прошедшая форма от find (нашёл / нашла)."},
+     {audio:"hatch", opts:["hatch","hat","hutch"], a:0, why:"hatch — вылупляться"},
+    ]},
+  ]},
+ {id:"ps", tab:"1 · Present Simple", tabRu:"всегда, обычно", color:"ps",
+  exercises:[
+   {id:"ps1", type:"choice", title:"Choose the right form", titleRu:"Выбери правильную форму",
+    ins:"Who is it? he/she/it → +s", insRu:"Кто это? he / she / it → добавляем -s",
+    items:[
+     {q:"Rexy ___ ten apples every day.", opts:["eat","eats"], a:1, why:"Rexy = he → eats (+s)."},
+     {q:"I ___ to Dino Park on Sundays.", opts:["go","goes"], a:0, why:"I → без -s: I go."},
+     {q:"Baby dinosaurs ___ a lot.", opts:["sleep","sleeps"], a:0, why:"Baby dinosaurs = they (много) → без -s."},
+     {q:"Rexy ___ like fish.", opts:["don't","doesn't"], a:1, why:"he / she / it → doesn't."},
+     {q:"___ you like dinosaurs?", opts:["Do","Does"], a:0, why:"you → Do you…?"},
+     {q:"___ Rexy have a long tail?", opts:["Do","Does"], a:1, why:"Rexy = he → Does Rexy…?"},
+    ]},
+   {id:"ps2", type:"type", title:"Write the verb with -s / -es", titleRu:"Напиши глагол с -s / -es",
+    ins:"Look at the verb in brackets.", insRu:"Посмотри на глагол в скобках.",
+    items:[
+     {q:"Rexy ___ cartoons every evening. (watch)", accept:["watches"], hint:"watch заканчивается на -ch → добавляем -es.", why:"watch → watches"},
+     {q:"Professor Bones ___ to work by bus. (go)", accept:["goes"], hint:"go → добавляем -es.", why:"go → goes"},
+     {q:"Rexy ___ very big teeth. (have)", accept:["has"], hint:"have — особый глагол: he has.", why:"have → has (he / she / it)"},
+     {q:"Rexy ___ vegetables. (not / eat)", accept:["doesn't eat","does not eat"], hint:"Отрицание для he: doesn't + глагол без -s.", why:"Rexy doesn't eat vegetables."},
+    ]},
+   {id:"ps3", type:"order", title:"Build the sentence", titleRu:"Собери предложение",
+    ins:"Tap the words in the right order.", insRu:"Нажимай на слова по порядку.",
+    items:[
+     {tiles:["Rexy","eats","apples","every","day"], end:".", alt:["every day rexy eats apples"], hint:"Начни с Rexy.", why:"Кто? → что делает? → что? → когда?"},
+     {tiles:["Does","Rexy","like","fish"], end:"?", hint:"Вопрос начинается с Does.", why:"Does + Rexy + like…? (без -s после does)"},
+    ]},
+  ]},
+ {id:"pc", tab:"2 · Present Continuous", tabRu:"прямо сейчас", color:"pc",
+  exercises:[
+   {id:"pc1", type:"choice", title:"What is happening now?", titleRu:"Что происходит сейчас?",
+    ins:"Choose the right form.", insRu:"Выбери правильную форму.",
+    items:[
+     {q:"Look! Rexy ___ !", opts:["runs","is running","run"], a:1, why:"Look! → сейчас → is running."},
+     {q:"Listen! The T-rex ___ .", opts:["is roaring","roars","roared"], a:0, why:"Listen! → сейчас → is roaring."},
+     {q:"I ___ my homework now.", opts:["is doing","are doing","am doing"], a:2, why:"I → am: I am doing."},
+     {q:"The children ___ a dinosaur at the moment.", opts:["is drawing","are drawing","am drawing"], a:1, why:"The children = they → are drawing."},
+     {q:"___ you hiding behind the tree?", opts:["Do","Is","Are"], a:2, why:"you → Are you hiding…?"},
+    ]},
+   {id:"pc2", type:"type", title:"Write the -ing form", titleRu:"Напиши форму с -ing",
+    ins:"Careful with spelling!", insRu:"Осторожно с написанием!",
+    items:[
+     {q:"Look! The dinosaur is ___ in the lake. (swim)", accept:["swimming","is swimming"], hint:"swim → удваиваем m: swi-mm-ing.", why:"swim → swimming"},
+     {q:"Rexy is ___ behind the bush. (hide)", accept:["hiding","is hiding"], hint:"hide заканчивается на -e → убираем -e.", why:"hide → hiding"},
+     {q:"The scientists are ___ in the sand. (dig)", accept:["digging","are digging"], hint:"dig → удваиваем g.", why:"dig → digging"},
+     {q:"Rexy is ___ to the music! (dance)", accept:["dancing","is dancing"], hint:"dance → убираем -e.", why:"dance → dancing"},
+    ]},
+   {id:"pc3", type:"choice", title:"Look at the picture", titleRu:"Посмотри на картинку",
+    ins:"What is happening right now?", insRu:"Что происходит прямо сейчас?",
+    items:[
+     {emoji:"🦖💤", q:"", opts:["Rexy is sleeping.","Rexy is swimming.","Rexy sleeping."], a:0, why:"Не забывай is: Rexy is sleeping."},
+     {emoji:"🧑‍🔬⛏️", q:"", opts:["The scientist are digging.","The scientist is digging.","The scientist is reading."], a:1, why:"The scientist = he/she → is digging."},
+     {emoji:"🦕🌊", q:"", opts:["The dinosaur is flying.","The dinosaur swimming.","The dinosaur is swimming."], a:2, why:"is + swimming"},
+     {emoji:"🥚🐣", q:"", opts:["The baby dinosaur is hatching.","The baby dinosaur is hiding.","The baby dinosaur hatching."], a:0, why:"is + hatching — малыш вылупляется."},
+    ]},
+  ]},
+ {id:"past", tab:"3 · Past Simple", tabRu:"вчера, давно", color:"past",
+  exercises:[
+   {id:"pa1", type:"match", title:"Irregular verbs", titleRu:"Неправильные глаголы",
+    ins:"Match the verb and its past form.", insRu:"Соедини глагол и его прошедшую форму.",
+    items:[{l:"go",r:"went"},{l:"see",r:"saw"},{l:"find",r:"found"},{l:"dig",r:"dug"},{l:"hide",r:"hid"},{l:"eat",r:"ate"}]},
+   {id:"pa2", type:"choice", title:"Choose the right form", titleRu:"Выбери правильную форму",
+    ins:"Find the time word first.", insRu:"Сначала найди слово-подсказку.",
+    items:[
+     {q:"Dinosaurs ___ millions of years ago.", opts:["live","lived","will live"], a:1, why:"millions of years ago → прошлое → lived."},
+     {q:"Yesterday Rexy ___ from the egg.", opts:["hatched","hatches","will hatch"], a:0, why:"Yesterday → hatch + ed."},
+     {q:"Last week we ___ to the museum.", opts:["goed","go","went"], a:2, why:"go — неправильный глагол: go → went."},
+     {q:"I ___ see the T-rex yesterday.", opts:["don't","didn't","wasn't"], a:1, why:"Отрицание в прошлом: didn't + глагол."},
+     {q:"___ you see the footprints yesterday?", opts:["Did","Do","Are"], a:0, why:"Вопрос в прошлом: Did you see…?"},
+    ]},
+   {id:"pa3", type:"type", title:"Write the past form", titleRu:"Напиши прошедшую форму",
+    ins:"Regular (+ed) or irregular?", insRu:"Правильный (+ed) или неправильный?",
+    items:[
+     {q:"Yesterday Rexy ___ in the park. (play)", accept:["played"], hint:"play — правильный глагол: + ed.", why:"play → played"},
+     {q:"Last night I ___ a dinosaur film. (see)", accept:["saw"], hint:"see — неправильный глагол. Посмотри таблицу.", why:"see → saw"},
+     {q:"Rexy ___ his vegetables yesterday. (not / eat)", accept:["didn't eat","did not eat"], hint:"didn't + глагол в начальной форме.", why:"didn't eat (не didn't ate!)"},
+     {q:"___ the museum last Sunday? (you / visit)", accept:["did you visit"], hint:"Вопрос: Did + you + глагол.", why:"Did you visit the museum last Sunday?"},
+    ]},
+  ]},
+ {id:"fut", tab:"4 · Future Simple", tabRu:"завтра, скоро", color:"fut",
+  exercises:[
+   {id:"fu1", type:"choice", title:"Choose the right form", titleRu:"Выбери правильную форму",
+    ins:"will + verb", insRu:"will + глагол",
+    items:[
+     {q:"Tomorrow we ___ the museum.", opts:["visited","will visit","visits"], a:1, why:"Tomorrow → will visit."},
+     {q:"One day Rexy ___ huge!", opts:["will be","will is","is be"], a:0, why:"После will — глагол без изменений: will be."},
+     {q:"Mum will ___ a dinosaur cake.", opts:["makes","making","make"], a:2, why:"will + make (без -s, без -ing)."},
+     {q:"Don't worry, the T-rex ___ eat you!", opts:["don't","won't","didn't"], a:1, why:"won't = will not — не будет."},
+     {q:"___ you come to Dino Park with me tomorrow?", opts:["Will","Did","Are"], a:0, why:"Вопрос о будущем: Will you…?"},
+    ]},
+   {id:"fu2", type:"type", title:"Change the sentence", titleRu:"Измени предложение",
+    ins:"Make it negative (−) or a question (?).", insRu:"Сделай отрицание (−) или вопрос (?).",
+    items:[
+     {full:true, src:"We will find a dinosaur bone.", task:"− negative · отрицание", accept:["We won't find a dinosaur bone.","We will not find a dinosaur bone."], hint:"won't = will not. Остальное не меняется.", why:"will → won't"},
+     {full:true, src:"Rexy will sleep in the garden.", task:"? question · вопрос", accept:["Will Rexy sleep in the garden?"], hint:"Поставь Will в начало.", why:"Will + Rexy + sleep…?"},
+     {full:true, src:"I will go to the museum.", task:"− negative · отрицание", accept:["I won't go to the museum.","I will not go to the museum."], hint:"I won't go…", why:"will → won't"},
+     {full:true, src:"The egg will hatch tomorrow.", task:"? question · вопрос", accept:["Will the egg hatch tomorrow?"], hint:"Will + the egg + hatch…?", why:"Will поменялся местами с the egg."},
+    ]},
+   {id:"fu3", type:"order", title:"Build the sentence", titleRu:"Собери предложение",
+    ins:"Tap the words in the right order.", insRu:"Нажимай на слова по порядку.",
+    items:[
+     {tiles:["I","will","be","a","scientist","one","day"], end:".", alt:["one day i will be a scientist"], hint:"Начни с I.", why:"I + will + be…"},
+     {tiles:["Will","you","help","me"], end:"?", hint:"Вопрос начинается с Will.", why:"Will + you + help…?"},
+    ]},
+  ]},
+ {id:"mix", tab:"⭐ Mix", tabRu:"все времена", color:"mix",
+  exercises:[
+   {id:"mx1", type:"choice", title:"Which tense?", titleRu:"Какое время?", optClass:["o-ps","o-pc","o-past","o-fut"],
+    ins:"Which tense goes with this time word?", insRu:"С каким временем дружит это слово?",
+    items:[
+     {q:"yesterday", opts:Object.values(TENSE_NAMES), a:2, say:"yesterday", why:"yesterday — вчера → Past Simple."},
+     {q:"every day", opts:Object.values(TENSE_NAMES), a:0, say:"every day", why:"every day — каждый день → привычка → Present Simple."},
+     {q:"now", opts:Object.values(TENSE_NAMES), a:1, say:"now", why:"now — сейчас → Present Continuous."},
+     {q:"tomorrow", opts:Object.values(TENSE_NAMES), a:3, say:"tomorrow", why:"tomorrow — завтра → Future Simple."},
+     {q:"at the moment", opts:Object.values(TENSE_NAMES), a:1, say:"at the moment", why:"at the moment — в данный момент → Present Continuous."},
+     {q:"last week", opts:Object.values(TENSE_NAMES), a:2, say:"last week", why:"last week — на прошлой неделе → Past Simple."},
+     {q:"usually", opts:Object.values(TENSE_NAMES), a:0, say:"usually", why:"usually — обычно → Present Simple."},
+     {q:"next year", opts:Object.values(TENSE_NAMES), a:3, say:"next year", why:"next year — в следующем году → Future Simple."},
+    ]},
+   {id:"mx2", type:"type", title:"Fix the mistake", titleRu:"Исправь ошибку",
+    ins:"Find the wrong verb. Write the correct verb.", insRu:"Найди неправильный глагол. Напиши, как правильно.",
+    items:[
+     {q:"Rexy eat apples every day. → ___", accept:["eats","rexy eats apples every day"], hint:"Rexy = he → глаголу нужно -s.", why:"Rexy eats apples every day."},
+     {q:"Look! The T-rex is run. → ___", accept:["running","is running","look the t-rex is running"], hint:"is + глагол с -ing (не забудь удвоить n).", why:"Look! The T-rex is running."},
+     {q:"Yesterday we finded a bone. → ___", accept:["found","yesterday we found a bone"], hint:"find — неправильный глагол.", why:"find → found: Yesterday we found a bone."},
+     {q:"Tomorrow I will goes to the museum. → ___", accept:["will go","go","tomorrow i will go to the museum"], hint:"После will глагол без -s.", why:"Tomorrow I will go to the museum."},
+     {q:"Do Rexy like fish? → ___", accept:["does","does rexy like fish"], hint:"Rexy = he → Do или Does?", why:"Does Rexy like fish?"},
+     {q:"Last week I didn't saw the dinosaur. → ___", accept:["didn't see","did not see","see","last week i didn't see the dinosaur","last week i did not see the dinosaur"], hint:"После didn't глагол в начальной форме.", why:"I didn't see the dinosaur."},
+    ]},
+   {id:"mx3", type:"story", title:"Veronika at Dino Park", titleRu:"Вероника в Дино-парке",
+    ins:"Put the verbs in the right tense. Then press Check.", insRu:"Поставь глаголы в нужное время. Потом нажми «Проверить».",
+    parts:[
+     "My name is Veronika. Every Sunday I ", {verb:"go", accept:["go"], hint:"Every Sunday → привычка → Present Simple, I → без -s."},
+     " to Dino Park with my dad. Last Sunday something amazing ", {verb:"happen", accept:["happened"], hint:"Last Sunday → прошлое → + ed."},
+     ". We ", {verb:"find", accept:["found"], hint:"find — неправильный глагол → found."},
+     " a huge egg behind a tree! Right now I ", {verb:"sit", accept:["am sitting"], hint:"Right now → am + sitting (удвой t)."},
+     " next to the egg, and it ", {verb:"move", accept:["is moving"], hint:"Сейчас → is + moving (убери -e)."},
+     "! Listen! Something ", {verb:"knock", accept:["is knocking"], hint:"Listen! → сейчас → is knocking."},
+     " inside. I think a baby dinosaur ", {verb:"hatch", accept:["will hatch"], hint:"I think… soon → будущее → will + глагол."},
+     " soon. I ", {verb:"call", accept:["will call"], hint:"Будущее: will call."},
+     " him Rexy!"
+    ]},
+   {id:"mx4", type:"write", title:"Your turn!", titleRu:"Твоя очередь!",
+    ins:"Write about YOU. One sentence (or more) for each question.", insRu:"Напиши о себе. Одно предложение (или больше) на каждый вопрос.",
+    items:[
+     {q:"What do you do every day?", ru:"Что ты делаешь каждый день?", ph:"Every day I …"},
+     {q:"What are you doing now?", ru:"Что ты делаешь сейчас?", ph:"Right now I am …"},
+     {q:"What did you do yesterday?", ru:"Что ты делала вчера?", ph:"Yesterday I …"},
+     {q:"What will you do tomorrow?", ru:"Что ты будешь делать завтра?", ph:"Tomorrow I will …"},
+     {q:"Bonus: Imagine you have a pet dinosaur. Write about it!", ru:"Бонус: представь, что у тебя есть динозавр. Напиши о нём!", ph:"My dinosaur is called … It eats … Yesterday it …"},
+    ]},
+  ]},
+ {id:"res", tab:"🏆 Results", tabRu:"Итоги"},
+];
+
+/* =====================================================================
+   ENGINE
+   ===================================================================== */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const el = html => { const t=document.createElement("template"); t.innerHTML=html.trim(); return t.content.firstElementChild; };
+const bi = (en, ru) => `${en}<span class="bi-ru">${ru}</span>`;
+
+/* ---------- storage ---------- */
+let memStore = null;
+function load(){ try{ const v=localStorage.getItem(STORE_KEY); return v?JSON.parse(v):null; }catch(e){ return memStore; } }
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch(e){ memStore = JSON.parse(JSON.stringify(S)); } }
+function fresh(){ return {name:"Veronika", ex:{}, known:{}, write:{}, tab:"start", fcDir:"en", fcOnly:false}; }
+let S = Object.assign(fresh(), load() || {});
+
+/* ---------- audio ---------- */
+let voice = null;
+function pickVoice(){
+  if(!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
+}
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t){
+  if(!("speechSynthesis" in window) || !t) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t.replace(/[🦖🦕🐣🥚]/gu,"")); u.lang="en-GB"; u.rate=0.85; if(voice) u.voice=voice; speechSynthesis.speak(u); }catch(e){}
+}
+document.addEventListener("click", e => { const b=e.target.closest("[data-say]"); if(b){ e.stopPropagation(); speak(b.dataset.say); } });
+const sayBtn = t => `<button class="say" data-say="${esc(t)}" aria-label="Listen: ${esc(t)}">🔊</button>`;
+
+/* ---------- checking ---------- */
+function norm(s){
+  s = String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g," ").trim();
+  s = s.replace(/[.!?,;:]/g," ").replace(/\s+/g," ").trim();
+  s = s.replace(/\b(do|does|did|is|are|was|were|has|have|had|could|should|would)nt\b/g,"$1 not").replace(/\bwont\b/g,"will not").replace(/\bcant\b/g,"cannot").replace(/\bim\b/g,"i am");
+  s = s.replace(/\bwon't\b/g,"will not").replace(/\bcan't\b/g,"cannot").replace(/n't\b/g," not")
+       .replace(/\bi'm\b/g,"i am").replace(/'re\b/g," are").replace(/\b(he|she|it|that|what|there|who|rexy)'s\b/g,"$1 is")
+       .replace(/'ll\b/g," will").replace(/'ve\b/g," have").replace(/^'(m|s|ll)\b/,(m,a)=>({m:"am",s:"is",ll:"will"}[a]));
+  return s.replace(/\s+/g," ").trim();
+}
+const matches = (val, accept) => accept.some(a => norm(a) === norm(val));
+
+/* ---------- helpers ---------- */
+const PRAISE = ["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Молодец! · Well done!","Ура! · Hooray!","Точно! · Exactly!","Класс! · Cool!"];
+const NOTQ = ["Не совсем · Not quite","Почти! · Almost!","Ой! · Oops!"];
+const pick = (arr, i) => arr[Math.abs(i) % arr.length];
+function seeded(str){ let h=7; for(const c of str) h=(h*31+c.charCodeAt(0))|0; return ()=>{ h=(h*1103515245+12345)&0x7fffffff; return h/0x7fffffff; }; }
+function shuffled(arr, seed){ const r=seeded(seed), a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove("on"),1800); }
+const exSt = id => (S.ex[id] ||= {});
+const itSt = (id,i) => (exSt(id)[i] ||= {});
+
+const ALL_EX = [];
+SECTIONS.forEach(sec => (sec.exercises||[]).forEach(ex => { ex.sec = sec.id; ALL_EX.push(ex); }));
+let exNo = 0; ALL_EX.forEach(ex => ex.no = ++exNo);
+const itemCount = ex => ex.type==="write" ? 0 : ex.type==="story" ? ex.parts.filter(p=>typeof p==="object").length : ex.items.length;
+const gapsOf = ex => ex.parts.filter(p=>typeof p==="object");
+function exScore(ex){
+  const n=itemCount(ex), st=exSt(ex.id); let done=0, ok=0;
+  for(let i=0;i<n;i++){ const s=st[i]; if(s&&s.done){ done++; if(s.ok) ok++; } }
+  return {n, done, ok};
+}
+const choiceFill = it => it.say ?? (it.q && it.q.includes("___") ? it.q.replace("___", it.opts[it.a]) : it.opts[it.a]);
+
+/* =====================================================================
+   RENDER: exercises
+   ===================================================================== */
+function exHead(ex){
+  const sc = exScore(ex);
+  const scoreHtml = ex.type==="write" ? "" : `<span class="ex-score" aria-label="score">${sc.ok}/${sc.n}</span>`;
+  return `<div class="ex-head"><span class="ex-num">${ex.no}</span><div><h3>${esc(ex.title)} <span class="ru">· ${esc(ex.titleRu)}</span></h3>
+    <div class="ins">${esc(ex.ins)} · ${esc(ex.insRu)}</div></div>${scoreHtml}</div>`;
+}
+function fbHtml(st, i, why, model){
+  if(!st.done && st.tries===1) return `<div class="fb"><span class="try-t">${pick(NOTQ,i)} — попробуй ещё раз · try again</span><span class="why">💡 ${esc(st.hint||"")}</span></div>`;
+  if(!st.done) return "";
+  if(st.ok) return `<div class="fb"><span class="ok-t">✓ ${pick(PRAISE,i+(st.tries||0))}</span>${why?`<span class="why">${esc(why)}</span>`:""}${st.note?`<span class="extra">${esc(st.note)}</span>`:""}${st.self?`<span class="extra">✓ отмечено как верное · self-marked</span>`:""}</div>`;
+  return `<div class="fb"><span class="bad-t">✗ ${pick(NOTQ,i)}</span>${model?`<span class="ans">Правильно · Correct: <b>${esc(model)}</b></span>`:""}${why?`<span class="why">${esc(why)}</span>`:""}</div>`;
+}
+
+function renderChoice(ex){
+  const box = el(`<div class="ex" id="ex-${ex.id}">${exHead(ex)}</div>`);
+  ex.items.forEach((it,i)=>{
+    const st = exSt(ex.id)[i] || {};
+    const cls = st.done ? (st.ok?"ok":"bad") : "";
+    let qh = "";
+    if(it.audio) qh = `<button class="btn sun" data-say="${esc(it.audio)}">🔊 Listen · Слушай</button>`;
+    else if(it.q){ const parts=esc(it.q).split("___"); qh = parts.length>1 ? parts[0]+(st.done?`<span class="filled">${esc(it.opts[it.a])}</span>`:`<span class="gap">___</span>`)+parts[1] : esc(it.q); }
+    const opts = it.opts.map((o,j)=>{
+      let c="opt "+(ex.optClass?ex.optClass[j]:"");
+      if(st.done){ if(j===it.a) c+=" right"; else if(j===st.first) c+=" wrong"; }
+      return `<button class="${c}" data-j="${j}" ${st.done?"disabled":""}>${esc(o)}</button>`;
+    }).join("");
+    const item = el(`<div class="item ${cls}"><div class="q"><span class="n">${i+1}.</span><div>${it.emoji?`<div class="emoji" aria-hidden="true">${it.emoji}</div>`:""}${qh}</div></div>
+      <div class="opts">${opts}</div>${fbHtml(st,i,it.why)}</div>`);
+    item.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+      const s=itSt(ex.id,i); if(s.done) return;
+      const j=+b.dataset.j; s.first=j; s.done=true; s.ok=(j===it.a); s.ans=it.opts[j];
+      speak(choiceFill(it)); rerender(ex);
+    }));
+    box.appendChild(item);
+  });
+  return box;
+}
+
+function checkTyped(ex, i, val){
+  const it = ex.items[i], s = itSt(ex.id,i);
+  if(s.done) return;
+  if(!val.trim()){ toast("Напиши ответ · Type your answer"); return; }
+  (s.tries_vals ||= []).push(val); s.ans = val;
+  if(matches(val, it.accept)){
+    s.done=true; s.ok=true; s.note="";
+    if(it.full){
+      const model=it.accept[0];
+      if(model.trim().endsWith("?") && !val.trim().endsWith("?")) s.note="Не забывай «?» в конце вопроса · Don't forget the question mark.";
+      else if(/^[a-z]/.test(val.trim())) s.note="Начинай предложение с большой буквы · Start with a capital letter.";
+      speak(model);
+    } else speak(it.q.split(" → ")[0].includes("___") ? it.q.replace(/\s*\(.*\)\s*$/,"").replace("___", it.accept[0]) : it.why);
+  } else {
+    s.tries=(s.tries||0)+1; s.hint=it.hint;
+    if(s.tries>=2){ s.done=true; s.ok=false; }
+  }
+  rerender(ex, i);
+}
+function renderType(ex){
+  const box = el(`<div class="ex" id="ex-${ex.id}">${exHead(ex)}</div>`);
+  ex.items.forEach((it,i)=>{
+    const st = exSt(ex.id)[i] || {};
+    const cls = st.done ? (st.ok?"ok":"bad") : (st.tries?"try":"");
+    const v = esc(st.val ?? "");
+    const inp = `<input class="tin ${it.full?"full":""}" data-i="${i}" value="${v}" ${st.done?"disabled":""} autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer ${i+1}">`;
+    let body;
+    if(it.full){
+      body = `<div class="q"><span class="n">${i+1}.</span><div><span class="src">${esc(it.src)}</span> ${sayBtn(it.src)}<br><span class="task">${esc(it.task)}</span></div></div>${inp}`;
+    } else {
+      const parts = esc(it.q).split("___");
+      body = `<div class="q"><span class="n">${i+1}.</span><div class="sent">${parts[0]}${inp}${parts[1]||""}</div></div>`;
+    }
+    const model = it.full ? it.accept[0] : it.accept[0];
+    const btns = st.done ? (st.ok || !it.full || st.self ? "" : `<div class="row"><button class="btn" data-self="${i}">Мой ответ тоже верный ✓ · My answer is also correct</button></div>`)
+                         : `<div class="row"><button class="btn main" data-chk="${i}">Проверить · Check</button></div>`;
+    const item = el(`<div class="item ${cls}">${body}${btns}${fbHtml(st,i,it.why,model)}</div>`);
+    const input = item.querySelector("input");
+    input.addEventListener("input", ()=>{ itSt(ex.id,i).val = input.value; save(); });
+    input.addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); checkTyped(ex,i,input.value); } });
+    const cb = item.querySelector("[data-chk]"); if(cb) cb.addEventListener("click", ()=>checkTyped(ex,i,input.value));
+    const sb = item.querySelector("[data-self]"); if(sb) sb.addEventListener("click", ()=>{ const s=itSt(ex.id,i); s.ok=true; s.self=true; rerender(ex); });
+    box.appendChild(item);
+  });
+  return box;
+}
+
+function renderOrder(ex){
+  const box = el(`<div class="ex" id="ex-${ex.id}">${exHead(ex)}</div>`);
+  ex.items.forEach((it,i)=>{
+    const st = exSt(ex.id)[i] || {};
+    const chosen = st.done ? (st.ok ? (st.pick||it.tiles.map((_,k)=>k)) : it.tiles.map((_,k)=>k)) : (st.pick||[]);
+    let pool = shuffled(it.tiles.map((_,k)=>k), ex.id+i);
+    if(pool.every((v,k)=>v===k)) pool.push(pool.shift());
+    const cls = st.done ? (st.ok?"ok":"bad") : (st.tries?"try":"");
+    const lineTiles = chosen.map((k,pos)=>`<button class="tile" data-pos="${pos}" ${st.done?"disabled":""}>${esc(it.tiles[k])}</button>`).join("") + (chosen.length?`<span class="end">${esc(it.end)}</span>`:`<span class="ru" style="padding:0 6px">… нажимай на слова · tap the words</span>`);
+    const poolTiles = st.done ? "" : pool.filter(k=>!chosen.includes(k)).map(k=>`<button class="tile" data-k="${k}">${esc(it.tiles[k])}</button>`).join("");
+    const model = it.tiles.join(" ")+it.end;
+    const item = el(`<div class="item ${cls}"><div class="q"><span class="n">${i+1}.</span><div style="flex:1">
+      <div class="line">${lineTiles}</div>${st.done?"":`<div class="tiles">${poolTiles}</div>`}
+      ${st.done?"":`<div class="row"><button class="btn main" data-chk ${chosen.length===it.tiles.length?"":"disabled"}>Проверить · Check</button><button class="btn" data-clr>↺ Заново · Clear</button></div>`}
+      </div></div>${fbHtml(st,i,it.why,model)}</div>`);
+    item.querySelectorAll("[data-k]").forEach(b=>b.addEventListener("click",()=>{ const s=itSt(ex.id,i); (s.pick ||= []).push(+b.dataset.k); rerender(ex); }));
+    item.querySelectorAll("[data-pos]").forEach(b=>b.addEventListener("click",()=>{ const s=itSt(ex.id,i); s.pick.splice(+b.dataset.pos,1); rerender(ex); }));
+    const clr=item.querySelector("[data-clr]"); if(clr) clr.addEventListener("click",()=>{ itSt(ex.id,i).pick=[]; rerender(ex); });
+    const chk=item.querySelector("[data-chk]"); if(chk) chk.addEventListener("click",()=>{
+      const s=itSt(ex.id,i); const sent=s.pick.map(k=>it.tiles[k]).join(" ");
+      (s.tries_vals ||= []).push(sent+it.end); s.ans = sent+it.end;
+      if(norm(sent)===norm(it.tiles.join(" ")) || (it.alt||[]).some(a=>norm(a)===norm(sent))){ s.done=true; s.ok=true; speak(sent); }
+      else { s.tries=(s.tries||0)+1; s.hint=it.hint; if(s.tries>=2){ s.done=true; s.ok=false; speak(model); } else s.pick=[]; }
+      rerender(ex);
+    });
+    box.appendChild(item);
+  });
+  return box;
+}
+
+const matchSel = {}; let matchFlash = null;
+function renderMatch(ex){
+  const box = el(`<div class="ex" id="ex-${ex.id}">${exHead(ex)}</div>`);
+  const right = shuffled(ex.items.map((_,k)=>k), ex.id);
+  const sel = matchSel[ex.id];
+  const left = ex.items.map((it,i)=>{
+    const st=exSt(ex.id)[i]||{};
+    const c = st.done ? (st.ok?"done":"donebad") : (sel&&sel.side==="l"&&sel.i===i?"sel":"") + (matchFlash&&matchFlash.id===ex.id&&matchFlash.l===i?" flash":"");
+    return `<button class="mbtn ${c}" data-l="${i}" ${st.done?"disabled":""}>${esc(it.l)}</button>`;
+  }).join("");
+  const rightH = right.map(k=>{
+    const st=exSt(ex.id)[k]||{};
+    const c = st.done ? (st.ok?"done":"donebad") : (sel&&sel.side==="r"&&sel.i===k?"sel":"") + (matchFlash&&matchFlash.id===ex.id&&matchFlash.r===k?" flash":"");
+    return `<button class="mbtn ${c}" data-r="${k}" ${st.done?"disabled":""}>${esc(ex.items[k].r)}</button>`;
+  }).join("");
+  const sc = exScore(ex);
+  box.appendChild(el(`<div class="match"><div class="col">${left}</div><div class="col">${rightH}</div></div>`));
+  if(sc.done===sc.n) box.appendChild(el(`<div class="fb"><span class="ok-t">✓ ${sc.ok===sc.n?"Все пары с первого раза! · Perfect!":"Готово! · Done!"}</span> <span class="ru">Жёлтые пары — с ошибкой · yellow = not first try</span></div>`));
+  const attempt = (li, ri) => {
+    const s = itSt(ex.id, li);
+    if(li===ri){ s.done=true; s.ok=!(s.wrongs&&s.wrongs.length); speak(ex.items[li].say || ex.items[li].l + ", " + ex.items[li].r); }
+    else { (s.wrongs ||= []).push(ex.items[ri].r); matchFlash={id:ex.id,l:li,r:ri}; setTimeout(()=>{ matchFlash=null; rerender(ex); },500); }
+    matchSel[ex.id]=null; rerender(ex);
+  };
+  box.querySelectorAll("[data-l]").forEach(b=>b.addEventListener("click",()=>{
+    const i=+b.dataset.l, s=matchSel[ex.id];
+    if(s&&s.side==="r") attempt(i, s.i); else { matchSel[ex.id]={side:"l",i}; rerender(ex); }
+  }));
+  box.querySelectorAll("[data-r]").forEach(b=>b.addEventListener("click",()=>{
+    const k=+b.dataset.r, s=matchSel[ex.id];
+    if(s&&s.side==="l") attempt(s.i, k); else { matchSel[ex.id]={side:"r",i:k}; rerender(ex); }
+  }));
+  return box;
+}
+
+function renderStory(ex){
+  const box = el(`<div class="ex" id="ex-${ex.id}">${exHead(ex)}</div>`);
+  let g=0, html="";
+  ex.parts.forEach(p=>{
+    if(typeof p==="string"){ html+=esc(p); return; }
+    const i=g++, st=exSt(ex.id)[i]||{};
+    if(st.done) html += st.ok ? `<span class="gn">${i+1}</span><span class="gok">${esc(st.ans)}</span>` : `<span class="gn">${i+1}</span><span class="gbad"><s>${esc(st.ans||"—")}</s> → ${esc(p.accept[0])}</span>`;
+    else html += `<span class="gn">${i+1}</span><input class="tin" data-g="${i}" value="${esc(st.val??"")}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="gap ${i+1} (${esc(p.verb)})"> <span class="vb">(${esc(p.verb)})</span>`;
+  });
+  box.appendChild(el(`<div class="story">${html}</div>`));
+  const gaps = gapsOf(ex), sc = exScore(ex);
+  const hints = gaps.map((p,i)=>{ const st=exSt(ex.id)[i]||{}; return (!st.done && st.tries===1) ? `<li>${i+1}: ${esc(p.hint)}</li>` : ""; }).join("");
+  if(hints) box.appendChild(el(`<div class="fb"><span class="try-t">Почти! Посмотри подсказки и попробуй ещё раз · Almost! Look at the hints and try again</span><ul class="mlist">${hints}</ul></div>`));
+  if(sc.done===sc.n) box.appendChild(el(`<div class="fb"><span class="ok-t">✓ ${sc.ok}/${sc.n} — ${sc.ok===sc.n?"Великолепно! · Brilliant!":"Готово! · Done!"}</span> <button class="btn" data-say="${esc(storyText(ex))}">🔊 Послушай историю · Listen to the story</button></div>`));
+  else box.appendChild(el(`<div class="row"><button class="btn main" data-chk>Проверить · Check</button></div>`));
+  box.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("input",()=>{ itSt(ex.id,+inp.dataset.g).val=inp.value; save(); });
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); const n=inp.parentElement.querySelector(`input[data-g="${+inp.dataset.g+1}"]`); if(n) n.focus(); else checkStory(ex); } });
+  });
+  const cb=box.querySelector("[data-chk]"); if(cb) cb.addEventListener("click",()=>checkStory(ex));
+  return box;
+}
+function storyText(ex){ return ex.parts.map(p=>typeof p==="string"?p:p.accept[0]).join(""); }
+function checkStory(ex){
+  const gaps=gapsOf(ex); let empty=false;
+  gaps.forEach((p,i)=>{ const s=itSt(ex.id,i); if(!s.done && !(s.val||"").trim()) empty=true; });
+  if(empty){ toast("Заполни все пропуски · Fill in all the gaps"); return; }
+  gaps.forEach((p,i)=>{
+    const s=itSt(ex.id,i); if(s.done) return;
+    const val=(s.val||"").trim(); s.ans=val; (s.tries_vals ||= []).push(val);
+    if(matches(val,p.accept)){ s.done=true; s.ok=true; }
+    else { s.tries=(s.tries||0)+1; if(s.tries>=2){ s.done=true; s.ok=false; } }
+  });
+  rerender(ex);
+}
+
+function renderWrite(ex){
+  const box = el(`<div class="ex wbox" id="ex-${ex.id}">${exHead(ex)}</div>`);
+  const w = (S.write[ex.id] ||= []);
+  ex.items.forEach((it,i)=>{
+    const f = el(`<div><label for="w-${ex.id}-${i}">${esc(it.q)} <span class="ru">· ${esc(it.ru)}</span></label><textarea id="w-${ex.id}-${i}" placeholder="${esc(it.ph)}">${esc(w[i]||"")}</textarea></div>`);
+    f.querySelector("textarea").addEventListener("input", e=>{ (S.write[ex.id] ||= [])[i]=e.target.value; save(); });
+    box.appendChild(f);
+  });
+  box.appendChild(el(`<div class="note">✍️ Это задание проверит учитель. Ответы сохраняются сами и попадут в отчёт. · Your teacher will check this. Your answers are saved and go into the report.</div>`));
+  return box;
+}
+
+const RENDER = {choice:renderChoice, type:renderType, order:renderOrder, match:renderMatch, story:renderStory, write:renderWrite};
+function rerender(ex, focusAfter){
+  const old = document.getElementById("ex-"+ex.id);
+  const nu = RENDER[ex.type](ex);
+  if(old) old.replaceWith(nu);
+  save(); updateBar();
+  if(ex.type==="type" && focusAfter!==undefined){
+    const next = nu.querySelector(`input[data-i="${focusAfter}"]:not(:disabled)`) || [...nu.querySelectorAll("input:not(:disabled)")].find(x=>+x.dataset.i>focusAfter);
+    if(next) next.focus({preventScroll:true});
+  }
+}
+
+/* =====================================================================
+   RENDER: static pages (start, rules, words, flashcards, results)
+   ===================================================================== */
+const exm = (en, ru) => `<div class="exm">${sayBtn(en.replace(/<[^>]+>/g,""))}<div><span class="en">${en}</span><span class="ru">${ru}</span></div></div>`;
+const K = (t, c) => `<b class="k k-${c}">${t}</b>`;
+const mist = rows => `<div class="mist">${rows.map(([x,v,why])=>`<div><span class="x">✗ ${x}</span><span class="v">✓ ${v}</span>${why?`<small>${why}</small>`:""}</div>`).join("")}</div>`;
+
+const PAGE_TOP = {
+ start: () => `
+  <div class="card"><h2 class="rubik" style="margin:0 0 6px">Hi, <span class="nm">${esc(S.name)}</span>! 🦕 <span class="ru">Привет!</span></h2>
+   <p class="lead">${bi("Welcome to Dino Park! Today we practise four tenses with dinosaurs.","Добро пожаловать в Дино-парк! Сегодня мы тренируем четыре времени вместе с динозаврами.")}</p>
+   <p>${bi("Meet <b>Rexy</b> — a baby T-rex 🦖, and <b>Professor Bones</b> — a scientist 🧑‍🔬.","Знакомься: <b>Рекси</b> — малыш-тираннозавр 🦖, и <b>профессор Боунс</b> — учёный 🧑‍🔬.")}</p>
+   <div class="note"><b>How to work · Как работать:</b><br>
+    1) 🦴 Words — новые слова и карточки<br>2) Four tense steps — правило ➜ упражнения (1 → 4)<br>3) ⭐ Mix — все времена вместе + твой рассказ<br>4) 🏆 Results — посмотри результат и отправь учителю</div>
+  </div>
+  <div class="card"><h3>${bi("Our time line","Линия времени")}</h3>
+   <div class="timeline" aria-hidden="true"><div class="ln"></div><div class="dots"><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+    <div class="pt" style="left:16%;color:var(--past)">yesterday<i style="background:var(--past)"></i><span>Past Simple</span></div>
+    <div class="pt" style="left:50%;color:var(--pc)">NOW<i style="background:var(--pc)"></i><span>Present Continuous</span></div>
+    <div class="pt" style="left:84%;color:var(--fut)">tomorrow<i style="background:var(--fut)"></i><span>Future Simple</span></div>
+   </div>
+   <p style="margin:6px 0 0"><b style="color:var(--ps)">• • • Present Simple</b> — ${bi("blue dots: things that happen again and again (every day).","синие точки: то, что повторяется снова и снова (каждый день).")}</p>
+  </div>
+  <div class="card"><h3>${bi("🕰️ Rexy's time machine","🕰️ Машина времени Рекси")}</h3>
+   <p>${bi("Press a time word and watch the verb change!","Нажми на слово-подсказку и смотри, как меняется глагол!")}</p>
+   <div class="tm-btns" id="tmBtns"></div>
+   <div class="tm-out" id="tmOut">👆 ${bi("Choose a time word","Выбери слово")}</div>
+  </div>
+  <div class="next"><button class="btn main" data-go="words">Начать · Let's go! ➜</button></div>`,
+ words: () => `
+  <div class="sec-head c-words"><div class="ico">🦴</div><div><h2>Dino words</h2><p>Новые слова · 14 words</p></div></div>
+  <div class="card"><p style="margin-top:0">${bi("Listen 🔊, repeat and remember. Verbs have their past form in orange.","Слушай 🔊, повторяй и запоминай. У глаголов оранжевым написана прошедшая форма.")}</p>
+   <div class="wgrid">${WORDS.map(w=>`<div class="wcard"><div class="em" aria-hidden="true">${w.em}</div><div class="grow"><div class="w">${esc(w.en)}</div><div class="ipa">${esc(w.ipa)}</div><div class="tr">${esc(w.ru)}</div>${w.past?`<span class="pf">past: ${w.past}${w.irr?" ⚠":""}</span>`:""}</div>${sayBtn(w.say||w.en)}</div>`).join("")}</div>
+  </div>
+  <div class="card note" style="background:var(--warn-l)"><h3>⚠️ ${bi("Careful with these!","Осторожно!")}</h3>
+   <ul style="margin:0;padding-left:20px">
+    <li><b>tooth → teeth</b> — один зуб → много зубов (не «tooths»!)</li>
+    <li><b>dig → dug, find → found, hide → hid</b> — неправильные глаголы: в прошлом без -ed.</li>
+    <li><b>roar → roared, hatch → hatched</b> — правильные: просто + ed.</li>
+    <li><b>museum</b> — ударение на «зи»: mu-<u>SE</u>-um ${sayBtn("museum")}</li>
+    <li><b>dinosaur</b> — конец звучит как «сор»: DI-no-saur ${sayBtn("dinosaur")}</li>
+   </ul></div>
+  <div class="card" id="fcCard"><h3>🃏 ${bi("Flashcards","Карточки")}</h3><div id="fc"></div></div>`,
+ ps: () => `
+  <div class="sec-head c-ps"><div class="ico">🔁</div><div><h2>Present Simple</h2><p>всегда, обычно, каждый день · always, usually, every day</p></div></div>
+  <div class="card"><h3>${bi("When do we use it?","Когда используем?")}</h3>
+   <p class="lead" style="margin-top:0">Когда говорим о <b>привычках</b> (что делаем всегда, часто, каждый день) и о <b>фактах</b> (что правда всегда).<span class="bi-ru" style="color:var(--muted)">Habits and facts.</span></p>
+   ${exm(`Rexy ${K("eats","ps")} ten apples every day.`,"Рекси съедает десять яблок каждый день.")}
+   ${exm(`I ${K("go","ps")} to Dino Park on Sundays.`,"Я хожу в Дино-парк по воскресеньям.")}
+   ${exm(`Professor Bones ${K("works","ps")} in a museum.`,"Профессор Боунс работает в музее.")}
+  </div>
+  <div class="card"><h3>${bi("How do we make it?","Как строим?")}</h3>
+   <table class="ftable"><tr><td>+</td><td>I / you / we / they ${K("play","ps")}<br>he / she / it ${K("plays","ps")} <span class="sm">← добавляем -s!</span></td></tr>
+    <tr><td>−</td><td>I / you / we / they ${K("don't","ps")} play<br>he / she / it ${K("doesn't","ps")} play <span class="sm">без -s: doesn't play</span></td></tr>
+    <tr><td>?</td><td>${K("Do","ps")} you play? — Yes, I do. / No, I don't.<br>${K("Does","ps")} she play? — Yes, she does. / No, she doesn't.</td></tr></table>
+   <div class="compare">🇷🇺 В русском глагол меняется почти для всех: я игра<b>ю</b>, ты игра<b>ешь</b>, он игра<b>ет</b>. В английском меняется <b>только для he / she / it</b> — добавляем <b>-s</b>: he play<b>s</b>.</div>
+   <p style="margin:6px 0 2px"><b>-s или -es?</b> watch → watch<b>es</b> · go → go<b>es</b> · fly → fl<b>ies</b> · have → <b>has</b></p>
+  </div>
+  <div class="card"><h3>${bi("Typical mistakes","Частые ошибки")}</h3>
+   ${mist([["Rexy eat apples.","Rexy eats apples.","Rexy = he → нужно -s."],["Does Rexy eats?","Does Rexy eat?","does уже «забрал» -s себе."],["He don't like fish.","He doesn't like fish.","he / she / it → doesn't."]])}
+   <h3 style="margin-top:14px">${bi("Time words","Слова-подсказки")}</h3>
+   <div class="chips">${["always","usually","often","sometimes","never","every day","on Sundays"].map(w=>`<span class="chip" style="color:var(--ps)">${w}</span>`).join("")}</div>
+  </div>`,
+ pc: () => `
+  <div class="sec-head c-pc"><div class="ico">⏱️</div><div><h2>Present Continuous</h2><p>прямо сейчас · right now</p></div></div>
+  <div class="card"><h3>${bi("When do we use it?","Когда используем?")}</h3>
+   <p class="lead" style="margin-top:0">Когда действие происходит <b>прямо сейчас</b>, в этот момент. «Смотри! Рекси бежит!»<span class="bi-ru">Things happening now.</span></p>
+   ${exm(`Look! Rexy ${K("is running","pc")}!`,"Смотри! Рекси бежит!")}
+   ${exm(`Listen! The T-rex ${K("is roaring","pc")}.`,"Послушай! Тираннозавр рычит.")}
+   ${exm(`I ${K("am doing","pc")} my homework now.`,"Я сейчас делаю домашнее задание.")}
+  </div>
+  <div class="card"><h3>${bi("How do we make it?","Как строим?")}</h3>
+   <table class="ftable"><tr><td>+</td><td>I ${K("am","pc")} play${K("ing","pc")}<br>he / she / it ${K("is","pc")} play${K("ing","pc")}<br>you / we / they ${K("are","pc")} play${K("ing","pc")}</td></tr>
+    <tr><td>−</td><td>I'm ${K("not","pc")} playing · he ${K("isn't","pc")} playing · they ${K("aren't","pc")} playing</td></tr>
+    <tr><td>?</td><td>${K("Are","pc")} you playing? — Yes, I am. / No, I'm not.<br>${K("Is","pc")} he playing? — Yes, he is. / No, he isn't.</td></tr></table>
+   <div class="compare">🇷🇺 В русском «я читаю» — это и «всегда», и «сейчас». В английском это <b>два разных времени</b>: I read (обычно) ↔ I <b>am reading</b> (прямо сейчас).</div>
+   <p style="margin:6px 0 2px"><b>-ing:</b> dance → danc<b>ing</b> (убираем -e) · hide → hid<b>ing</b> · swim → swi<b>mm</b>ing · dig → di<b>gg</b>ing · run → ru<b>nn</b>ing (удваиваем букву)</p>
+  </div>
+  <div class="card"><h3>${bi("Typical mistakes","Частые ошибки")}</h3>
+   ${mist([["I running.","I am running.","Не забывай am / is / are!"],["She is dance.","She is dancing.","После is нужен глагол с -ing."],["Are you sleep?","Are you sleeping?",""]])}
+   <h3 style="margin-top:14px">${bi("Time words","Слова-подсказки")}</h3>
+   <div class="chips">${["now","right now","at the moment","Look!","Listen!"].map(w=>`<span class="chip" style="color:var(--pc)">${w}</span>`).join("")}</div>
+  </div>`,
+ past: () => `
+  <div class="sec-head c-past"><div class="ico">⏪</div><div><h2>Past Simple</h2><p>вчера, давно · yesterday, long ago</p></div></div>
+  <div class="card"><h3>${bi("When do we use it?","Когда используем?")}</h3>
+   <p class="lead" style="margin-top:0">Когда действие <b>уже закончилось в прошлом</b>: вчера, на прошлой неделе, давно.<span class="bi-ru">Finished actions in the past.</span></p>
+   ${exm(`Dinosaurs ${K("lived","past")} millions of years ago.`,"Динозавры жили миллионы лет назад.")}
+   ${exm(`Yesterday Rexy ${K("hatched","past")} from an egg.`,"Вчера Рекси вылупился из яйца.")}
+   ${exm(`We ${K("found","past")} a huge bone.`,"Мы нашли огромную кость.")}
+  </div>
+  <div class="card"><h3>${bi("How do we make it?","Как строим?")}</h3>
+   <table class="ftable"><tr><td>+</td><td>правильные: play → play${K("ed","past")}, hatch → hatch${K("ed","past")}<br>неправильные: go → ${K("went","past")}, find → ${K("found","past")} <span class="sm">одна форма для всех: I / he / they found</span></td></tr>
+    <tr><td>−</td><td>${K("didn't","past")} + глагол: I ${K("didn't","past")} find · she ${K("didn't","past")} go</td></tr>
+    <tr><td>?</td><td>${K("Did","past")} you find it? — Yes, I did. / No, I didn't.</td></tr></table>
+   <div class="compare">🇷🇺 В русском: он нашёл, она нашла, они нашли. В английском <b>одна форма для всех</b>: he found, she found, they found. А в отрицании и вопросе работает <b>did</b>, и глагол возвращается в начальную форму: found → didn't <b>find</b>.</div>
+   <h3 style="margin-top:12px">${bi("Irregular verbs","Неправильные глаголы")}</h3>
+   <div class="chips">${[["go","went"],["see","saw"],["find","found"],["dig","dug"],["hide","hid"],["eat","ate"],["run","ran"],["have","had"],["swim","swam"],["fly","flew"]].map(([a,b])=>`<span class="chip">${a} → <b style="color:var(--past)">${b}</b></span>`).join("")}</div>
+  </div>
+  <div class="card dm"><h3>⚙️ ${bi("The DID machine","Машина DID")}</h3>
+   <p style="margin:0">${bi("Press the buttons: + → − → ?","Нажимай кнопки: + → − → ?")}</p>
+   <div class="scr" id="dmScr"></div>
+   <div><button data-dm="0" class="on">+ positive</button><button data-dm="1">− negative</button><button data-dm="2">? question</button></div>
+   <p style="margin:8px 0 0;font-weight:700" id="dmNote"></p>
+  </div>
+  <div class="card"><h3>${bi("Typical mistakes","Частые ошибки")}</h3>
+   ${mist([["I didn't saw it.","I didn't see it.","После didn't — начальная форма."],["Did you found it?","Did you find it?","После did — начальная форма."],["We goed to the park.","We went to the park.","go — неправильный глагол."]])}
+   <h3 style="margin-top:14px">${bi("Time words","Слова-подсказки")}</h3>
+   <div class="chips">${["yesterday","last night","last week","two days ago","millions of years ago"].map(w=>`<span class="chip" style="color:var(--past)">${w}</span>`).join("")}</div>
+  </div>`,
+ fut: () => `
+  <div class="sec-head c-fut"><div class="ico">⏩</div><div><h2>Future Simple</h2><p>завтра, скоро · tomorrow, soon</p></div></div>
+  <div class="card"><h3>${bi("When do we use it?","Когда используем?")}</h3>
+   <p class="lead" style="margin-top:0">Когда говорим о <b>будущем</b>: что будет завтра, что мы думаем о будущем, обещания и решения прямо сейчас.<span class="bi-ru">The future: predictions, promises, quick decisions.</span></p>
+   ${exm(`Tomorrow we ${K("will visit","fut")} the museum.`,"Завтра мы пойдём в музей.")}
+   ${exm(`One day Rexy ${K("will be","fut")} huge!`,"Однажды Рекси станет огромным!")}
+   ${exm(`Don't worry, I ${K("will help","fut")} you!`,"Не волнуйся, я тебе помогу!")}
+  </div>
+  <div class="card"><h3>${bi("How do we make it?","Как строим?")}</h3>
+   <table class="ftable"><tr><td>+</td><td>I / you / he / she / it / we / they ${K("will","fut")} go <span class="sm">одинаково для всех!</span></td></tr>
+    <tr><td>−</td><td>${K("won't","fut")} go <span class="sm">won't = will not</span></td></tr>
+    <tr><td>?</td><td>${K("Will","fut")} you go? — Yes, I will. / No, I won't.</td></tr></table>
+   <div class="compare">🇷🇺 <b>will</b> — как волшебное слово «буду / будет». Оно одинаковое для всех, а глагол после него <b>не меняется</b>: без -s, без -ing и без to.</div>
+  </div>
+  <div class="card"><h3>${bi("Typical mistakes","Частые ошибки")}</h3>
+   ${mist([["She will goes.","She will go.","После will — без -s."],["I will to visit you.","I will visit you.","После will не нужно to."],["Will you to help me?","Will you help me?",""]])}
+   <h3 style="margin-top:14px">${bi("Time words","Слова-подсказки")}</h3>
+   <div class="chips">${["tomorrow","next week","next year","soon","one day","I think…"].map(w=>`<span class="chip" style="color:var(--fut)">${w}</span>`).join("")}</div>
+  </div>`,
+ mix: () => `
+  <div class="sec-head c-mix"><div class="ico">⭐</div><div><h2>Mix: all 4 tenses</h2><p>Все четыре времени вместе</p></div></div>
+  <div class="card note">💡 ${bi("Tip: find the time word first — it tells you the tense!","Совет: сначала найди слово-подсказку — оно подскажет время!")}</div>`,
+ res: () => `<div id="resBox"></div>`,
+};
+const NEXT = {words:"ps", ps:"pc", pc:"past", past:"fut", fut:"mix", mix:"res"};
+
+/* time machine */
+const TM = [
+ {w:"every day", t:"ps", s:"Rexy <b>eats</b> an apple every day.", ru:"Привычка → Present Simple: eat + s"},
+ {w:"now", t:"pc", s:"Rexy <b>is eating</b> an apple now.", ru:"Сейчас → Present Continuous: is + eating"},
+ {w:"yesterday", t:"past", s:"Rexy <b>ate</b> an apple yesterday.", ru:"Вчера → Past Simple: eat → ate"},
+ {w:"tomorrow", t:"fut", s:"Rexy <b>will eat</b> an apple tomorrow.", ru:"Завтра → Future Simple: will + eat"},
+];
+function initTM(){
+  const b=$("#tmBtns"); if(!b) return;
+  TM.forEach((x,i)=>{ const btn=el(`<button style="background:var(--${x.t})">${x.w}</button>`); btn.addEventListener("click",()=>{
+    const o=$("#tmOut"); o.style.background=`var(--${x.t}-l)`;
+    o.innerHTML=`🦖🍎<br><span style="color:var(--${x.t})">${x.s}</span><span class="tn" style="color:var(--${x.t})">${TENSE_NAMES[x.t]}</span><span class="ru">${x.ru}</span>`;
+    speak(x.s.replace(/<[^>]+>/g,""));
+  }); b.appendChild(btn); });
+}
+/* did machine */
+const DM = [
+ {h:`Rexy <span class="pop k k-past">found</span> a bone.`, s:"Rexy found a bone.", n:"found — прошедшая форма от find."},
+ {h:`Rexy <span class="pop k k-past">didn't</span> <span class="pop">find</span> a bone.`, s:"Rexy didn't find a bone.", n:"didn't забирает «прошлое» себе → found снова становится find."},
+ {h:`<span class="pop k k-past">Did</span> Rexy <span class="pop">find</span> a bone?`, s:"Did Rexy find a bone?", n:"Did встаёт в начало, глагол — в начальной форме: find."},
+];
+function initDM(){
+  const scr=$("#dmScr"); if(!scr) return;
+  const show=i=>{ scr.innerHTML=DM[i].h; $("#dmNote").textContent=DM[i].n; document.querySelectorAll("[data-dm]").forEach(b=>b.classList.toggle("on",+b.dataset.dm===i)); };
+  document.querySelectorAll("[data-dm]").forEach(b=>b.addEventListener("click",()=>{ show(+b.dataset.dm); speak(DM[+b.dataset.dm].s); }));
+  show(0);
+}
+
+/* flashcards */
+let fc = {pos:0, flip:false, order:WORDS.map((_,i)=>i)};
+function deck(){ return S.fcOnly ? fc.order.filter(i=>!S.known[i]) : fc.order; }
+function renderFC(){
+  const root=$("#fc"); if(!root) return;
+  const d=deck(), known=Object.values(S.known).filter(Boolean).length;
+  if(fc.pos>=d.length) fc.pos=Math.max(0,d.length-1);
+  const top = `<div class="fc-top"><div class="fc-known">Знаю · Known: ${known} / ${WORDS.length}<div class="track"><div class="fill" style="width:${known/WORDS.length*100}%"></div></div></div>
+    <button class="btn" id="fcDir">${S.fcDir==="en"?"EN → RU":"RU → EN"} ⇄</button><button class="btn" id="fcShuf">🔀 Перемешать · Shuffle</button>
+    <label class="toggle"><input type="checkbox" id="fcOnly" ${S.fcOnly?"checked":""}> Только «ещё учу» · Only words I'm learning</label></div>`;
+  if(!d.length){ root.innerHTML = top + `<div class="tm-out">🎉 ${bi("You know all the words!","Ты знаешь все слова!")}</div>`; bindFC(); return; }
+  const w=WORDS[d[fc.pos]], sw=w.say||w.en;
+  const en = `<div class="big">${w.em}</div><div class="word">${esc(w.en)}</div><div class="hint">${esc(w.ipa)}</div>${sayBtn(sw)}`;
+  const ru = `<div class="big">${w.em}</div><div class="word" style="font-size:28px">${esc(w.ru)}</div>`;
+  const back = S.fcDir==="en"
+    ? `<div class="word" style="font-size:28px">${esc(w.ru)}</div>${w.past?`<div class="pf" style="margin-top:6px">past: <b>${w.past}</b></div>`:""}<div class="exs">${esc(w.ex)} ${sayBtn(w.ex)}</div><div class="hint">${esc(w.exRu)}</div>`
+    : `<div class="word">${esc(w.en)}</div>${sayBtn(sw)}${w.past?`<div class="hint">past: <b>${w.past}</b></div>`:""}<div class="exs">${esc(w.ex)}</div><div class="hint">${esc(w.exRu)}</div>`;
+  root.innerHTML = top + `
+    <div class="fc ${fc.flip?"flip":""}" id="fcCardEl" role="button" tabindex="0" aria-label="Flip card · Перевернуть карточку">
+     <div class="fc-inner"><div class="fc-face fc-front">${S.fcDir==="en"?en:ru}<div class="hint">👆 нажми, чтобы перевернуть · tap to flip</div></div>
+     <div class="fc-face fc-back">${back}</div></div></div>
+    <div style="text-align:center;font-weight:800;margin-bottom:8px">${fc.pos+1} / ${d.length} ${S.known[d[fc.pos]]?"· ✓ знаю":""}</div>
+    <div class="fc-ctrl"><button class="btn" id="fcPrev">◀ Назад · Back</button><button class="btn" id="fcNext">Дальше · Next ▶</button></div>
+    <div class="fc-ctrl" style="margin-top:8px"><button class="btn ok" id="fcKnow">✓ Знаю · I know it</button><button class="btn lava" id="fcLearn">↺ Ещё учу · Still learning</button></div>`;
+  bindFC();
+}
+function bindFC(){
+  const c=$("#fcCardEl");
+  if(c){ const fl=()=>{ fc.flip=!fc.flip; c.classList.toggle("flip",fc.flip); }; c.addEventListener("click",fl); c.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); fl(); } }); }
+  const go=(dlt)=>{ const n=deck().length; if(!n) return; fc.pos=(fc.pos+dlt+n)%n; fc.flip=false; renderFC(); };
+  $("#fcPrev")&&$("#fcPrev").addEventListener("click",()=>go(-1));
+  $("#fcNext")&&$("#fcNext").addEventListener("click",()=>go(1));
+  $("#fcDir").addEventListener("click",()=>{ S.fcDir=S.fcDir==="en"?"ru":"en"; fc.flip=false; save(); renderFC(); });
+  $("#fcShuf").addEventListener("click",()=>{ fc.order=shuffled(fc.order,String(Date.now())); fc.pos=0; fc.flip=false; renderFC(); });
+  $("#fcOnly").addEventListener("change",e=>{ S.fcOnly=e.target.checked; fc.pos=0; fc.flip=false; save(); renderFC(); });
+  const mark=(v)=>{ const d=deck(); if(!d.length) return; const idx=d[fc.pos]; S.known[idx]=v; save(); toast(v?"✓ Отлично! · Great!":"Ничего, повторим! · Keep practising!");
+    fc.flip=false; if(S.fcOnly && v){ renderFC(); } else go(1); };
+  $("#fcKnow")&&$("#fcKnow").addEventListener("click",()=>mark(true));
+  $("#fcLearn")&&$("#fcLearn").addEventListener("click",()=>mark(false));
+}
+
+/* =====================================================================
+   SCORE, TABS, RESULTS, REPORT
+   ===================================================================== */
+function totals(){ let n=0,done=0,ok=0; ALL_EX.forEach(ex=>{ const s=exScore(ex); n+=s.n; done+=s.done; ok+=s.ok; }); return {n,done,ok}; }
+function secScore(id){ let n=0,done=0,ok=0; ALL_EX.filter(e=>e.sec===id).forEach(ex=>{ const s=exScore(ex); n+=s.n; done+=s.done; ok+=s.ok; }); return {n,done,ok}; }
+function updateBar(){
+  const t=totals();
+  $("#progTxt").textContent=`${t.done} / ${t.n}`;
+  $("#progFill").style.width=(t.n?t.done/t.n*100:0)+"%";
+  $("#scoreTxt").textContent=`⭐ ${t.ok}`;
+  SECTIONS.forEach(sec=>{
+    const b=document.querySelector(`#tab-${sec.id} .badge`); if(!b) return;
+    const s=secScore(sec.id); b.textContent = s.n && s.done===s.n ? `${s.ok}/${s.n}` : ""; b.style.display = b.textContent?"inline-block":"none";
+  });
+  if(S.tab==="res") renderResults();
+}
+
+function mistakes(){
+  const out=[];
+  ALL_EX.forEach(ex=>{
+    const st=exSt(ex.id);
+    if(ex.type==="match"){ ex.items.forEach((it,i)=>{ const s=st[i]; if(s&&s.wrongs&&s.wrongs.length) out.push({ex, q:it.l, a:s.wrongs.join(", "), c:it.r}); }); return; }
+    if(ex.type==="story"){ gapsOf(ex).forEach((p,i)=>{ const s=st[i]; if(s&&s.done&&!s.ok) out.push({ex, q:`(${i+1}) ${p.verb}`, a:(s.tries_vals||[]).join(" / "), c:p.accept[0]}); }); return; }
+    if(ex.type==="write") return;
+    ex.items.forEach((it,i)=>{ const s=st[i]; if(!s||!s.done||s.ok) return;
+      const q = it.src ? `${it.src} (${it.task})` : it.tiles ? it.tiles.join(" / ") : it.audio ? `🔊 ${it.audio}` : (it.emoji?it.emoji+" ":"")+(it.q||"");
+      const a = ex.type==="choice" ? it.opts[s.first] : (s.tries_vals||[]).join(" / ");
+      const c = ex.type==="choice" ? it.opts[it.a] : it.tiles ? it.tiles.join(" ")+it.end : it.accept[0];
+      out.push({ex,q,a,c}); });
+  });
+  return out;
+}
+function selfMarked(){ const out=[]; ALL_EX.filter(e=>e.type==="type").forEach(ex=>ex.items.forEach((it,i)=>{ const s=exSt(ex.id)[i]; if(s&&s.self) out.push(`${it.src} (${it.task}) → ${s.ans} [model: ${it.accept[0]}]`); })); return out; }
+function band(p){
+  if(p>=90) return `🦖🏆 Вау, ${S.name}! Ты настоящий учёный-палеонтолог! · Amazing work!`;
+  if(p>=70) return `🦕⭐ Отличная работа, ${S.name}! Ты молодец! · Great job!`;
+  if(p>=50) return `🐣 Хорошо! Повтори правила и попробуй ещё раз. · Good job! Read the rules again and try once more.`;
+  return `🥚 Не сдавайся! Прочитай правила ещё раз — у тебя всё получится! · Don't give up — you can do it!`;
+}
+function reportText(){
+  const t=totals(), p=t.n?Math.round(t.ok/t.n*100):0, d=new Date();
+  const known=Object.values(S.known).filter(Boolean).length;
+  let r = `Homework: ${HW_TITLE}\nStudent: ${S.name}\nDate: ${d.toLocaleDateString("en-GB")} ${d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}\nScore: ${t.ok}/${t.n} (${p}%) · answered ${t.done}/${t.n}\nFlashcards known: ${known}/${WORDS.length}\n\nBY EXERCISE\n`;
+  ALL_EX.forEach(ex=>{ if(ex.type==="write") return; const s=exScore(ex); r+=`${ex.no}. [${tabName(ex.sec)}] ${ex.title}: ${s.ok}/${s.n}${s.done<s.n?` (answered ${s.done})`:""}\n`; });
+  const W = ALL_EX.find(e=>e.type==="write");
+  r += `\nWRITING (Your turn)\n`;
+  W.items.forEach((it,i)=>{ const a=((S.write[W.id]||[])[i]||"").trim(); r+=`${i+1}) ${it.q}\n   ${a||"—"}\n`; });
+  const m=mistakes();
+  r += `\nMISTAKES (${m.length})\n` + (m.length? m.map((x,i)=>`${i+1}) [${x.ex.no}] ${x.q} → student: "${x.a}" · correct: "${x.c}"`).join("\n") : "none 🎉") + "\n";
+  const sm=selfMarked(); if(sm.length) r += `\nSELF-MARKED AS CORRECT (please check)\n${sm.join("\n")}\n`;
+  r += `\nALL ANSWERS\n`;
+  ALL_EX.forEach(ex=>{
+    if(ex.type==="write") return;
+    const st=exSt(ex.id); const parts=[];
+    if(ex.type==="story") gapsOf(ex).forEach((p,i)=>parts.push(`${i+1}:${(st[i]&&st[i].ans)||"—"}`));
+    else if(ex.type==="match") ex.items.forEach((it,i)=>parts.push(`${it.l}=${st[i]&&st[i].done?it.r:"—"}`));
+    else ex.items.forEach((it,i)=>parts.push(`${i+1}:${(st[i]&&st[i].ans)||"—"}`));
+    r += `${ex.no}. ${parts.join(" | ")}\n`;
+  });
+  return r;
+}
+const tabName = id => (SECTIONS.find(s=>s.id===id)||{}).tab.replace(/^[^A-Za-z⭐]*\s?/,"").replace(/^\d · /,"");
+function renderResults(){
+  const box=$("#resBox"); if(!box) return;
+  const t=totals(), p=t.n?Math.round(t.ok/t.n*100):0, known=Object.values(S.known).filter(Boolean).length;
+  const rows=ALL_EX.filter(e=>e.type!=="write").map(ex=>{ const s=exScore(ex); return `<tr><td>${ex.no}. ${esc(ex.title)} <span class="ru">· ${esc(tabName(ex.sec))}</span></td><td>${s.done<s.n?`<span class="ru">(${s.done}/${s.n} done)</span> `:""}${s.ok}/${s.n}</td></tr>`; }).join("");
+  const m=mistakes();
+  const W=ALL_EX.find(e=>e.type==="write"); const wr=W.items.map((it,i)=>{ const a=((S.write[W.id]||[])[i]||"").trim(); return `<li><b>${esc(it.q)}</b><br>${a?esc(a):'<span class="ru">— пока пусто · empty</span>'}</li>`; }).join("");
+  const rep=reportText(), subj=`Dino Park · 4 tenses — ${S.name} — ${t.ok}/${t.n}`;
+  const short = rep.length>1500 ? rep.slice(0,1500)+"\n…\n(Full report: use “Copy text” · Полный отчёт — кнопка «Копировать»)" : rep;
+  const enc=encodeURIComponent;
+  box.innerHTML = `
+   <div class="sec-head c-words"><div class="ico">🏆</div><div><h2>Results · Итоги</h2><p>${esc(S.name)}</p></div></div>
+   <div class="card" style="text-align:center"><div class="big-score">${t.ok} / ${t.n}</div><div style="font-weight:900;font-size:22px">${p}%</div>
+     <p style="font-weight:700">${t.done<t.n?`Выполнено ${t.done} из ${t.n} · answered ${t.done}/${t.n}<br>`:""}🃏 Карточки · Flashcards: ${known}/${WORDS.length}</p>
+     <p class="lead">${esc(band(p))}</p></div>
+   <div class="card"><h3>${bi("By exercise","По упражнениям")}</h3><table class="rtab">${rows}</table></div>
+   <div class="card"><h3>${bi("Mistakes","Ошибки")} (${m.length})</h3>${m.length?`<ol class="mlist">${m.map(x=>`<li>${esc(x.q)}<br>твой ответ · yours: <span class="wa">${esc(x.a)}</span> · правильно · correct: <span class="ca">${esc(x.c)}</span></li>`).join("")}</ol>`:`<p>🎉 ${bi("No mistakes!","Ошибок нет!")}</p>`}</div>
+   <div class="card"><h3>${bi("Your writing","Твой рассказ")}</h3><ul class="mlist">${wr}</ul></div>
+   <div class="card"><h3>📨 ${bi("Send to your teacher","Отправь учителю")}</h3>
+    <p style="margin-top:0">${bi("Press one button to send your result.","Нажми одну кнопку, чтобы отправить результат.")} Email: <span class="email">${TEACHER_EMAIL}</span></p>
+    <div class="send">
+     ${navigator.share?`<button class="s-share" id="shareBtn">📤 Поделиться · Share</button>`:""}
+     <a class="s-gmail" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=${enc(TEACHER_EMAIL)}&su=${enc(subj)}&body=${enc(short)}">✉️ Gmail</a>
+     <a class="s-tg" target="_blank" rel="noopener" href="https://t.me/share/url?url=${enc(subj)}&text=${enc(short)}">✈️ Telegram</a>
+     <a class="s-wa" target="_blank" rel="noopener" href="https://wa.me/?text=${enc(subj+"\n\n"+short)}">💬 WhatsApp</a>
+     <a class="s-mail" href="mailto:${TEACHER_EMAIL}?subject=${enc(subj)}&body=${enc(short)}">📧 Email app · Почта</a>
+     <button class="s-copy" id="copyBtn">📋 Копировать · Copy text</button>
+    </div>
+   </div>
+   <div class="card"><button class="btn" id="resetBtn">🗑️ Начать заново · Start again</button>
+    <div class="confirm" id="confirmBox"><b>Удалить все ответы? · Delete all answers?</b><div class="row"><button class="btn lava" id="yesReset">Да · Yes</button><button class="btn" id="noReset">Нет · No</button></div></div></div>`;
+  const sb=$("#shareBtn"); if(sb) sb.addEventListener("click",()=>{ navigator.share({title:subj, text:subj+"\n\n"+reportText()}).catch(()=>{}); });
+  $("#copyBtn").addEventListener("click",()=>copyText(reportText()));
+  $("#resetBtn").addEventListener("click",()=>$("#confirmBox").classList.add("on"));
+  $("#noReset").addEventListener("click",()=>$("#confirmBox").classList.remove("on"));
+  $("#yesReset").addEventListener("click",()=>{ try{ localStorage.removeItem(STORE_KEY); }catch(e){} memStore=null; const nm=S.name; S=fresh(); S.name=nm; save(); buildAll(); show("start"); toast("Всё сброшено · Reset done"); });
+}
+function copyText(t){
+  const done=()=>toast("✓ Скопировано! Вставь в сообщение учителю · Copied!");
+  const fallback=()=>{ const ta=document.createElement("textarea"); ta.value=t; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ toast("Не получилось · Copy failed"); } ta.remove(); };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(done,fallback); else fallback();
+}
+
+/* =====================================================================
+   BUILD
+   ===================================================================== */
+function show(id){
+  S.tab=id; save();
+  document.querySelectorAll("section.page").forEach(p=>p.classList.toggle("on",p.id==="page-"+id));
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.id==="tab-"+id)));
+  const tb=$("#tab-"+id); if(tb&&tb.scrollIntoView) tb.scrollIntoView({block:"nearest",inline:"center"});
+  if(id==="res") renderResults();
+  window.scrollTo({top:0});
+}
+function buildAll(){
+  const tabs=$("#tabs"), main=$("#main"); tabs.innerHTML=""; main.innerHTML="";
+  SECTIONS.forEach(sec=>{
+    const t=el(`<button class="tab ${sec.color&&sec.color!=="mix"&&sec.color!=="words"?"t-"+sec.color:""}" role="tab" id="tab-${sec.id}" aria-controls="page-${sec.id}">${esc(sec.tab)}<span class="badge" style="display:none"></span><small>${esc(sec.tabRu)}</small></button>`);
+    t.addEventListener("click",()=>show(sec.id)); tabs.appendChild(t);
+    const page=el(`<section class="page" id="page-${sec.id}" role="tabpanel" aria-labelledby="tab-${sec.id}"></section>`);
+    page.innerHTML = PAGE_TOP[sec.id]();
+    (sec.exercises||[]).forEach(ex=>page.appendChild(RENDER[ex.type](ex)));
+    if(NEXT[sec.id]) page.appendChild(el(`<div class="next"><button class="btn main" data-go="${NEXT[sec.id]}">Дальше · Next ➜</button></div>`));
+    main.appendChild(page);
+  });
+  main.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)));
+  initTM(); initDM(); renderFC(); updateBar();
+}
+const nameIn=$("#nameIn");
+function applyName(){ $("#hdrName").textContent=S.name||"—"; document.querySelectorAll(".nm").forEach(n=>n.textContent=S.name); }
+nameIn.value=S.name;
+nameIn.addEventListener("input",()=>{ S.name=nameIn.value.trim()||"Veronika"; save(); applyName(); });
+buildAll(); applyName();
+show(SECTIONS.some(s=>s.id===S.tab)?S.tab:"start");
+</script>
+</body>
+</html>
