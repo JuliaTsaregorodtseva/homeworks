@@ -678,7 +678,7 @@ function renderCards(){
       h("button",{class:"btn good", type:"button", id:"knowBtn", onclick:()=>markCard(true)}, "✓ I know it"),
       h("button",{class:"btn warn", type:"button", onclick:()=>markCard(false)}, "↻ Still learning")),
     h("div",{class:"known-bar"}, h("div",{class:"bar"}, h("i",{id:"knownFill"})), h("p",{class:"small", id:"knownText", style:"text-align:center"}))
-  ), nextBtn("practice","Practice",""));
+  ), nextBtn("vocab","Vocabulary",""));
   return p;
 }
 function markCard(know){
