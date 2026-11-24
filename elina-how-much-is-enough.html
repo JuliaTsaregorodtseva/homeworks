@@ -507,7 +507,7 @@ EXERCISES.find(e=>e.id==="s1").items.forEach(it=>{ it.listen = it.opts.join(", "
 EXERCISES.find(e=>e.id==="tf").items.forEach(it=>{ it.say = it.q; });
 ["v2","v3","g1","g2"].forEach(id=>EXERCISES.find(e=>e.id===id).items.forEach(it=>{ it.say = it.q.replace("___", it.opts[it.a]); }));
 
-const PRAISE = ["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Молодец! · Well done!","В корзину! · Into the basket! 🛒"];
+const PRAISE = ["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Молодец! · Well done!","Ты профи! · You’re a pro! ⭐"];
 const OOPS = ["Не совсем · Not quite","Почти! · Almost!","Небольшая ошибка · A small mistake"];
 
 /* =========================================================
