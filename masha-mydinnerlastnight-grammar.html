@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>#mydinnerlastnight · a / an, some / any — Masha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@500;700&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+:root{
+  --ink:#2A1E3F; --ink2:#5E5470; --bg:#F8F3EF; --card:#FFFFFF; --line:#EADFD8;
+  --tomato:#E8505B; --tomato-soft:#FCE1E3; --herb:#2A9D8F; --herb-soft:#DDF2EF;
+  --saffron:#F5B841; --saffron-soft:#FDF1D8; --plum:#7A3E6F; --berry:#4B4FC9;
+  --ok:#2F8A3E; --ok-soft:#DFF2E1; --bad:#C8402A; --bad-soft:#FBE2DC;
+  --radius:16px; --shadow:0 2px 10px rgba(31,58,46,.08);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.5}
+h1,h2,h3{font-family:"Unbounded","Nunito",sans-serif;font-weight:500;line-height:1.2;margin:0}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.ru{color:var(--ink2);font-size:.92em}
+.small{font-size:.88em}
+.muted{color:var(--ink2)}
+
+/* header */
+header.top{background:radial-gradient(circle at 85% 10%,#4A3570 0%,#2A1E3F 55%,#1C142B 100%);color:#fff;padding:22px 0 0}
+.cloth{height:10px;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF,#515BD4)}
+.top .kicker{display:inline-block;background:var(--tomato);color:#fff;border-radius:999px;padding:3px 12px;font-weight:800;font-size:.78em;letter-spacing:.06em}
+.top h1{font-size:2.05em;margin:10px 0 4px;color:#fff}
+.top h1 .amp{color:var(--saffron)}
+.top .sub{color:#E6DDF2;margin:0 0 6px}
+.top .order{background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;margin:12px 0 16px;font-size:.93em}
+.top .order .ru{color:#D6CBE6}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px}
+.namebox input{border:0;border-radius:10px;padding:8px 12px;font:inherit;width:170px;min-height:44px}
+.top .plates{font-size:1.6em;letter-spacing:4px}
+
+/* sticky bar */
+.sticky{position:sticky;top:0;z-index:20;background:var(--bg);box-shadow:0 2px 8px rgba(31,58,46,.08)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px 6px;max-width:900px;margin:0 auto;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;min-height:44px;font-weight:700;font-size:.9em;white-space:nowrap;line-height:1.15;text-align:center}
+.tab .ru{display:block;font-size:.8em;font-weight:600}
+.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab.active .ru{color:#D6CBE6}
+.tab .badge{display:inline-block;margin-left:6px;background:var(--saffron);color:var(--ink);border-radius:999px;padding:0 7px;font-size:.78em}
+.progress{max-width:900px;margin:0 auto;padding:0 16px 10px;display:flex;align-items:center;gap:10px;font-size:.88em;font-weight:700}
+.bar{flex:1;height:10px;background:#fff;border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--herb),var(--saffron));transition:width .4s}
+
+main{padding:18px 0 60px}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin:0 0 18px;border:1px solid var(--line)}
+.card h2{font-size:1.45em;margin-bottom:4px}
+.card h3{font-size:1.15em;margin:14px 0 6px}
+.head-ru{color:var(--ink2);font-size:.95em;margin:0 0 12px}
+.say{border:0;background:var(--herb-soft);border-radius:999px;min-width:36px;min-height:36px;padding:0 8px;font-size:.95em;line-height:1;vertical-align:middle}
+.say:hover{background:#cfe5c6}
+.chip{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.82em;font-weight:700;background:var(--saffron-soft);color:#8a5a0c}
+.chip.c{background:var(--herb-soft);color:var(--herb)}
+.chip.u{background:var(--tomato-soft);color:var(--bad)}
+.chip.b{background:#ECE3F0;color:var(--plum)}
+
+/* words */
+.cat{margin-top:6px}
+.cat h3{display:flex;align-items:center;gap:8px}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.w{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff}
+.w .em{font-size:1.9em;width:44px;text-align:center;flex:0 0 44px}
+.w .t{flex:1;min-width:0}
+.w b{font-size:1.05em}
+.w .ipa{color:var(--ink2);font-size:.85em}
+.careful{background:var(--saffron-soft);border:2px dashed var(--saffron)}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:6px 0}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:700}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.good{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.warn{background:var(--saffron);border-color:var(--saffron);color:var(--ink)}
+.btn.ghost{border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.on{background:var(--herb);border-color:var(--herb);color:#fff}
+.scene{perspective:1200px;max-width:460px;margin:0 auto}
+.flash{position:relative;height:300px;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flash.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;box-shadow:0 6px 20px rgba(31,58,46,.15)}
+.front{background:#fff;border:3px solid var(--herb)}
+.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:3.6em;line-height:1.1}
+.face .word{font-family:"Prata",serif;font-size:1.9em;margin:8px 0 2px}
+.back .word{color:var(--saffron)}
+.face .ex{font-size:.95em;color:#D9E8CF;margin-top:10px}
+.face .hint{position:absolute;bottom:10px;font-size:.8em;opacity:.65}
+.face .say{background:rgba(62,124,58,.15)}
+.back .say{background:rgba(255,255,255,.15);color:#fff}
+.fc-nav{display:flex;justify-content:center;align-items:center;gap:10px;margin:14px 0 6px}
+.fc-know{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.fc-count{text-align:center;font-weight:700;margin:6px 0}
+.known-bar{max-width:460px;margin:8px auto 0}
+
+/* exercises */
+.ex{border-top:4px solid var(--herb)}
+.ex .num{display:inline-block;background:var(--herb);color:#fff;border-radius:999px;padding:1px 10px;font-weight:800;font-size:.8em;margin-bottom:6px}
+.ex .score{float:right;font-weight:800;color:var(--herb)}
+.item{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:#fff}
+.item .q{font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.item .q .emoji{font-size:2.1em;line-height:1}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:700;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--herb)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.fb{margin-top:8px;border-radius:10px;padding:8px 10px;font-size:.93em}
+.fb.ok{background:var(--ok-soft);color:#1d5e28}
+.fb.no{background:var(--bad-soft);color:#8b2a1a}
+.fb.info{background:var(--saffron-soft);color:#6d4808}
+.ctx{padding:4px 12px;margin:6px 0;color:var(--ink2)}
+.who{display:inline-block;min-width:58px;font-weight:800;color:var(--berry)}
+.who.m{color:var(--tomato)}
+.gap{display:inline-block;min-width:60px;border-bottom:2px solid var(--ink2);text-align:center;font-weight:800;color:var(--tomato)}
+.listen-btn{font-size:1.4em;min-width:64px;min-height:52px;border-radius:14px;border:0;background:var(--herb);color:#fff}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 10px;min-height:48px;font-weight:700;text-align:center}
+.mbtn.sel{border-color:var(--saffron);background:var(--saffron-soft)}
+.mbtn.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);cursor:default}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-soft)}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.round-title{font-weight:800;margin:14px 0 6px}
+
+/* tiles */
+.built{min-height:52px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:#FAFCF7}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tile{border:2px solid var(--berry);background:#fff;color:var(--berry);border-radius:10px;padding:6px 12px;min-height:44px;font-weight:700}
+.built .tile{background:var(--berry);color:#fff}
+.tile:disabled{opacity:.6;cursor:default}
+
+/* typed */
+.typed{display:flex;gap:8px;flex-wrap:wrap}
+.typed input{flex:1 1 220px;min-height:46px;border:2px solid var(--line);border-radius:12px;padding:8px 12px;font:inherit}
+.typed input.okk{border-color:var(--ok);background:var(--ok-soft)}
+.typed input.bad{border-color:var(--bad)}
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:12px;padding:10px;font:inherit;resize:vertical}
+
+/* rules */
+.rule{border-top:4px solid var(--tomato)}
+.rule .step{display:inline-block;background:var(--tomato);color:#fff;border-radius:999px;padding:1px 10px;font-weight:800;font-size:.8em;margin-bottom:6px}
+.rule p{margin:8px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border-radius:14px;padding:12px;background:var(--herb-soft)}
+.box.u{background:var(--tomato-soft)}
+.box h4{margin:0 0 6px;font-size:1.05em}
+.ex-line{margin:5px 0}
+table.g{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:.95em}
+table.g th{text-align:left;font-size:.85em;color:var(--ink2);padding:0 8px}
+table.g td{background:#F6F9F2;padding:8px;vertical-align:top}
+table.g td:first-child{border-radius:10px 0 0 10px;font-weight:800;text-align:center;width:42px}
+table.g td:last-child{border-radius:0 10px 10px 0}
+.k{color:var(--tomato);font-weight:800}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:6px}
+.mist .x{color:var(--bad);text-decoration:line-through}
+.mist .v{color:var(--ok);font-weight:700}
+.post{max-width:520px;margin-left:auto;margin-right:auto}
+.post-head{display:flex;align-items:center;gap:8px}
+.ava{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;background:linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)}
+.post-pic{font-size:3em;text-align:center;background:linear-gradient(160deg,#FFE8D6,#FCE1E3);border-radius:14px;padding:22px 0;margin:10px 0;letter-spacing:8px}
+.sounds{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.sounds>div{background:var(--saffron-soft);border-radius:12px;padding:8px 10px}
+.sounds b{color:var(--tomato)}
+.nav-box{background:linear-gradient(180deg,#F1EDFB,#FBF9FF);border:2px solid #D7CFF0;border-radius:18px;padding:14px;margin-top:8px}
+.nav-box .row{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.nav-box .row .btn{text-align:left}
+.nav-q{font-weight:800;font-size:1.12em}
+.nav-ans .big{display:inline-block;font-family:"Unbounded",sans-serif;font-size:2.2em;color:#fff;background:var(--tomato);border-radius:16px;padding:4px 22px;margin:6px 0}
+.nav-ex{font-weight:700}
+.crumbs{margin-bottom:6px}
+.fridge{background:linear-gradient(180deg,#EAF2F7,#F7FBFD);border:2px solid #BFD4E2;border-radius:18px;padding:14px}
+.fridge .row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.fridge .out{background:#fff;border-radius:12px;padding:12px;margin-top:10px;font-size:1.15em;font-weight:700;min-height:70px}
+.fridge .out .ru{font-weight:600;font-size:.8em;display:block}
+
+/* results */
+.big-score{font-family:"Prata",serif;font-size:2.6em;color:var(--herb)}
+.res-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding:6px 0}
+.send{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.mistake{border-left:4px solid var(--bad);background:#FFF7F5;padding:8px 10px;border-radius:0 10px 10px 0;margin:6px 0;font-size:.93em}
+.confirm{display:none;background:var(--bad-soft);border-radius:12px;padding:10px;margin-top:10px}
+.confirm.show{display:block}
+.email{user-select:all;font-weight:800;background:#fff;border:1px dashed var(--line);border-radius:8px;padding:2px 8px}
+footer{text-align:center;color:var(--ink2);font-size:.85em;padding:20px 0 40px}
+
+@media (max-width:600px){
+  body{font-size:16px}
+  .top h1{font-size:1.6em}
+  .two,.mist,.sounds{grid-template-columns:1fr}
+  .flash{height:280px}
+  .card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="kicker">UNIT 9A · PRE-INTERMEDIATE · GRAMMAR</span>
+    <h1>#mydinnerlastnight</h1>
+    <p class="sub">a / an, some / any · <span id="forName">for Masha</span></p>
+    <div class="plates" aria-hidden="true">🍝 🥗 🍦 🥚 🍞 🥛</div>
+    <div class="order">
+      <div><b>Work in this order:</b> Step 1 → Step 2 → Step 3 (rule, then exercises) → Mixed → Your turn → Results.</div>
+      <div class="ru">Порядок работы: Шаг 1 → Шаг 2 → Шаг 3 (сначала правило, потом упражнения) → Всё вместе → Пишем → Итог. Все ответы сохраняются автоматически.</div>
+      <div class="namebox"><label for="nameInput"><b>Name · Имя:</b></label><input id="nameInput" type="text" autocomplete="off"></div>
+    </div>
+  </div>
+  <div class="cloth" aria-hidden="true"></div>
+</header>
+
+<div class="sticky">
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
+  <div class="progress"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreText">0 / 0</span></div>
+</div>
+
+<main class="wrap" id="main"></main>
+<footer>Made for Masha with 🍝 · #mydinnerlastnight · Unit 9A grammar</footer>
+
+<script>
+/* =========================================================
+   DATA — words, exercises, rules (edit here)
+   ========================================================= */
+const TEACHER_EMAIL = "ulchik2211@gmail.com";
+const TOPIC = "#mydinnerlastnight · a / an, some / any (9A grammar)";
+const STORE_KEY = "masha-mydinnerlastnight-grammar-v1";
+
+const CU = ["Countable · исчисляемое","Uncountable · неисчисляемое"];
+
+/* Exercise types: match | choice | tiles | typed | write
+   typed items: ru = prompt shown, accept = right answers, full = model sentence (for one-word gaps) */
+const EXERCISES = [
+  /* ---------- STEP 1: countable or uncountable ---------- */
+  { id:"c1", tab:"s1", type:"choice", en:"Countable or uncountable?", ru:"Исчисляемое или неисчисляемое?",
+    ins:["Careful: some of these are different from Russian!","Осторожно: некоторые слова ведут себя не так, как в русском!"],
+    items:[
+      {emoji:"🍇", q:"fruit", opts:CU, a:1, why:"В английском fruit обычно неисчисляемое: some fruit, a piece of fruit (не ✗ fruits, когда говорим о фруктах вообще)."},
+      {emoji:"🥦", q:"vegetable", opts:CU, a:0, why:"a vegetable, vegetables — исчисляемое: I eat a lot of vegetables."},
+      {emoji:"🍲", q:"soup", opts:CU, a:1, why:"Суп — «масса»: some soup, a bowl of soup."},
+      {emoji:"🍪", q:"biscuit", opts:CU, a:0, why:"a biscuit, two biscuits — можно посчитать."},
+      {emoji:"🧂", q:"salt", opts:CU, a:1, why:"Соль не считают по штукам: some salt."},
+      {emoji:"🍝", q:"spaghetti", opts:CU, a:1, why:"spaghetti в английском — неисчисляемое: some spaghetti (не ✗ spaghettis)."},
+    ]},
+  { id:"c2", tab:"s1", type:"match", en:"Containers and portions", ru:"Упаковки и порции",
+    ins:["Tap an English phrase, then its Russian meaning.","Нажми на английское выражение, потом на его перевод."],
+    rounds:[
+      {title:["How to count uncountable food","Как посчитать неисчисляемое"], pairs:[
+        ["a cup of","чашка"],["a glass of","стакан"],["a bottle of","бутылка"],["a bowl of","миска, тарелка (супа)"],
+        ["a slice of","ломтик"],["a piece of","кусок"],["a loaf of","буханка, батон"],["a packet of","пачка"]]},
+    ]},
+  { id:"c3", tab:"s1", type:"choice", en:"Choose the container", ru:"Выбери упаковку",
+    ins:["Which word fits best?","Какое слово подходит лучше всего?"],
+    items:[
+      {emoji:"🍲", q:"I'd like a ___ of tomato soup.", opts:["bowl","slice","packet"], a:0, why:"Суп едят из миски/тарелки → a bowl of soup."},
+      {emoji:"🍞", q:"Can you buy a ___ of bread?", opts:["cup","loaf","glass"], a:1, why:"Целый хлеб = a loaf of bread (буханка)."},
+      {emoji:"🍰", q:"Would you like a ___ of cake?", opts:["piece","bottle","bowl"], a:0, why:"Кусок торта → a piece of cake (или a slice of cake)."},
+      {emoji:"🥔", q:"I had a ___ of crisps for lunch. Not very healthy!", opts:["loaf","packet","cup"], a:1, why:"Чипсы продаются пачками → a packet of crisps."},
+      {emoji:"🍕", q:"Can I have a ___ of pizza?", opts:["slice","glass","loaf"], a:0, why:"Кусочек пиццы → a slice of pizza."},
+    ]},
+
+  /* ---------- STEP 2: a / an / nothing ---------- */
+  { id:"a1", tab:"s2", type:"choice", en:"a or an? Listen to the first SOUND", ru:"a или an? Слушай первый ЗВУК",
+    ins:["Press 🔊 after you answer. It's the sound that matters, not the letter!","Нажми 🔊 после ответа. Важен звук, а не буква!"],
+    items:[
+      {q:"___ orange", opts:["a","an"], a:1, why:"orange начинается с гласного звука /ɒ/ → an orange."},
+      {q:"___ big egg", opts:["a","an"], a:0, why:"Смотрим на СЛЕДУЮЩЕЕ слово: big начинается с /b/ → a big egg."},
+      {q:"___ egg sandwich", opts:["a","an"], a:1, why:"egg — гласный звук /e/ → an egg sandwich."},
+      {q:"___ hour", opts:["a","an"], a:1, why:"В hour буква h не читается: /ˈaʊə/ → an hour."},
+      {q:"___ useful recipe", opts:["a","an"], a:0, why:"useful читается /ˈjuːsfl/ — начинается с /j/ (как «ю») → a useful recipe."},
+      {q:"___ ice cream", opts:["a","an"], a:1, why:"ice — гласный звук /aɪ/ → an ice cream."},
+      {q:"___ European café", opts:["a","an"], a:0, why:"European читается /ˌjʊərəˈpiːən/ — звук /j/ → a European café."},
+      {q:"___ unusual dish", opts:["a","an"], a:1, why:"unusual — /ʌn/, гласный звук → an unusual dish."},
+    ]},
+  { id:"a2", tab:"s2", type:"choice", en:"a, an or nothing?", ru:"a, an или ничего?",
+    ins:["“—” means no word is needed.","«—» значит, что слово не нужно."],
+    items:[
+      {q:"I eat ___ apple every morning.", opts:["a","an","—"], a:1, why:"Одно яблоко, гласный звук → an apple."},
+      {q:"I love ___ chocolate.", opts:["a","an","—"], a:2, why:"Говорим о шоколаде вообще, он неисчисляемый → без артикля: I love chocolate."},
+      {q:"My brother doesn't like ___ mushrooms.", opts:["a","an","—"], a:2, why:"Грибы вообще, множественное число → без артикля."},
+      {q:"For lunch I had ___ sandwich.", opts:["a","an","—"], a:0, why:"Один бутерброд, согласный звук /s/ → a sandwich."},
+      {q:"___ rice is cheap in my country.", opts:["A","An","—"], a:2, why:"Рис вообще, неисчисляемое → без артикля: Rice is cheap."},
+    ]},
+
+  /* ---------- STEP 3: some / any ---------- */
+  { id:"s1", tab:"s3", type:"choice", en:"some, any or a?", ru:"some, any или a?",
+    ins:["+ some · – / ? any · one countable thing → a / an (also in – and ?)","+ some · – / ? any · одна исчисляемая вещь → a / an (и в – и ?)"],
+    items:[
+      {q:"There's ___ butter in the fridge.", opts:["some","any","a"], a:0, why:"+ утверждение, butter неисчисляемое → some."},
+      {q:"We haven't got ___ potatoes.", opts:["some","any","a"], a:1, why:"– отрицание (haven't got), множественное число → any."},
+      {q:"Have you got ___ eggs?", opts:["some","any","a"], a:1, why:"? обычный вопрос, множественное число → any."},
+      {q:"I don't want ___ sandwich, thanks.", opts:["some","any","a"], a:2, why:"Одна штука (sandwich, ед. число) → a, даже в отрицании. ✗ any sandwich."},
+      {q:"Is there ___ supermarket near here?", opts:["some","any","a"], a:2, why:"supermarket — одна штука, ед. число → a, даже в вопросе."},
+      {q:"There aren't ___ biscuits left.", opts:["some","any","a"], a:1, why:"– отрицание, множественное число → any."},
+      {q:"Did you buy ___ juice?", opts:["some","any","a"], a:1, why:"? обычный вопрос, juice неисчисляемое → any."},
+    ]},
+  { id:"s2", tab:"s3", type:"choice", en:"Questions: some or any?", ru:"Вопросы: some или any?",
+    ins:["Is it a real question, or an offer / request?","Это обычный вопрос или предложение / просьба?"],
+    items:[
+      {q:"Would you like ___ tea?", opts:["some","any"], a:0, why:"Предлагаем (Would you like…?) → some."},
+      {q:"Can I have ___ water, please?", opts:["some","any"], a:0, why:"Просим (Can I have…?) → some."},
+      {q:"Have we got ___ orange juice?", opts:["some","any"], a:1, why:"Обычный вопрос — хотим узнать, есть ли сок → any."},
+      {q:"Could you buy ___ milk on your way home?", opts:["some","any"], a:0, why:"Просьба (Could you…?) → some."},
+      {q:"Are there ___ good restaurants in your town?", opts:["some","any"], a:1, why:"Обычный вопрос → any."},
+      {q:"Shall I make ___ pasta for dinner?", opts:["some","any"], a:0, why:"Предлагаем сделать что-то (Shall I…?) → some."},
+    ]},
+  { id:"s3", tab:"s3", type:"typed", en:"Make it negative or a question", ru:"Сделай отрицание или вопрос",
+    ins:["(–) = negative, (?) = question. Write the whole sentence.","(–) = отрицание, (?) = вопрос. Напиши всё предложение."],
+    items:[
+      {ru:"There's some cheese.  → (–)", accept:["There isn't any cheese.","There is no cheese.","There's no cheese."], hint:"– → any: There isn't any…"},
+      {ru:"We've got some apples.  → (?)", accept:["Have we got any apples?"], hint:"Вопрос с have got: Have we got any…?"},
+      {ru:"I bought some bread.  → (–)", accept:["I didn't buy any bread."], hint:"Прошедшее время: didn't + buy (не bought) + any."},
+      {ru:"She has some milk in her coffee.  → (?)", accept:["Does she have any milk in her coffee?"], hint:"Does she have any…?"},
+      {ru:"There are some mushrooms.  → (–)", accept:["There aren't any mushrooms.","There are no mushrooms."], hint:"There aren't any…"},
+      {ru:"They need an onion.  → (–)", accept:["They don't need an onion."], hint:"Ловушка! onion — одна штука, поэтому an остаётся: They don't need an…"},
+    ]},
+
+  /* ---------- MIXED ---------- */
+  { id:"m1", tab:"mix", type:"typed", en:"Dinner on Saturday", ru:"Ужин в субботу",
+    ins:["Masha and Leo are planning a dinner party. Type a, an, some or any.","Маша и Лео планируют ужин. Напиши a, an, some или any."],
+    items:[
+      {ru:"Leo: Let's have ___ dinner party on Saturday!", accept:["a"], full:"Let's have a dinner party on Saturday!", hint:"Одна вечеринка, согласный звук /d/."},
+      {ru:"Masha: Good idea! We need ___ chicken.", accept:["some"], full:"We need some chicken.", hint:"chicken (мясо) — неисчисляемое, утверждение."},
+      {ru:"Leo: Have we got ___ rice?", accept:["any"], full:"Have we got any rice?", hint:"Обычный вопрос."},
+      {ru:"Masha: No, but there's ___ pasta in the cupboard.", accept:["some"], full:"There's some pasta in the cupboard.", hint:"Утверждение, pasta неисчисляемое."},
+      {ru:"Leo: Great. For dessert I can make ___ apple pie.", accept:["an"], full:"I can make an apple pie.", hint:"Один пирог, apple начинается с гласного звука."},
+      {ru:"Masha: Are there ___ apples?", accept:["any"], full:"Are there any apples?", hint:"Обычный вопрос, множественное число."},
+      {ru:"Leo: Yes, there are ___ apples in the fruit bowl.", accept:["some"], full:"There are some apples in the fruit bowl.", hint:"Утверждение, множественное число."},
+      {ru:"Masha: Perfect! Would you like ___ coffee now?", accept:["some"], full:"Would you like some coffee now?", hint:"Это предложение (offer) → как в утверждении."},
+      {ru:"Leo: No, thanks. But can I have ___ glass of water?", accept:["a"], full:"Can I have a glass of water?", hint:"glass — один стакан, согласный звук."},
+      {ru:"Masha: Oh no, there isn't ___ water in the bottle!", accept:["any"], full:"There isn't any water in the bottle!", hint:"Отрицание (isn't)."},
+    ]},
+  { id:"m2", tab:"mix", type:"typed", en:"Find and correct the mistake", ru:"Найди и исправь ошибку",
+    ins:["Each sentence has ONE mistake. Write the correct sentence.","В каждом предложении ОДНА ошибка. Напиши правильное предложение."],
+    items:[
+      {ru:"✗ I'd like a bread, please.", accept:["I'd like some bread, please.","I'd like a loaf of bread, please.","I'd like a slice of bread, please.","I'd like a piece of bread, please."], hint:"bread неисчисляемое: some bread или a loaf of bread."},
+      {ru:"✗ We haven't got some eggs.", accept:["We haven't got any eggs."], hint:"Отрицание → any."},
+      {ru:"✗ Can I have an banana?", accept:["Can I have a banana?"], hint:"banana начинается с согласного звука /b/."},
+      {ru:"✗ There are some milk in the fridge.", accept:["There is some milk in the fridge.","There's some milk in the fridge."], hint:"milk неисчисляемое → глагол в ед. числе: There is…"},
+      {ru:"✗ Are there any cheese?", accept:["Is there any cheese?"], hint:"cheese неисчисляемое → Is there…?"},
+      {ru:"✗ I ate an apples.", accept:["I ate an apple.","I ate some apples.","I ate apples."], hint:"an = одна штука → an apple; или много → some apples."},
+    ]},
+  { id:"m3", tab:"mix", type:"tiles", en:"Make sentences", ru:"Собери предложения",
+    ins:["Tap the words in the right order.","Нажимай на слова в правильном порядке."],
+    items:[
+      {ru:"Можно мне кусочек торта?", answer:"Can I have a piece of cake?"},
+      {ru:"В холодильнике нет помидоров.", answer:"There aren't any tomatoes in the fridge."},
+      {ru:"Хочешь супа?", answer:"Would you like some soup?"},
+      {ru:"Я съела яблоко и немного орехов.", answer:"I ate an apple and some nuts."},
+      {ru:"У нас есть сок?", answer:"Have we got any juice?"},
+    ]},
+  { id:"m4", tab:"mix", type:"typed", en:"Translate into English", ru:"Переведи на английский",
+    ins:["Type the sentence in English.","Напиши предложение по-английски."],
+    items:[
+      {ru:"Мне нужна бутылка воды.", accept:["I need a bottle of water."], hint:"a bottle of…"},
+      {ru:"У нас нет сахара.", accept:["We don't have any sugar.","We haven't got any sugar.","We have no sugar.","We've got no sugar.","We have not got any sugar."], hint:"Отрицание → any: We don't have any…"},
+      {ru:"Хочешь чашку чая?", accept:["Would you like a cup of tea?","Do you want a cup of tea?"], hint:"Предложение: Would you like a cup of…?"},
+      {ru:"Я не люблю грибы.", accept:["I don't like mushrooms."], hint:"Грибы вообще → без артикля и без some."},
+      {ru:"Вчера на ужин я ела пасту и салат.", accept:["Yesterday I had some pasta and a salad for dinner.","Yesterday I had pasta and salad for dinner.","Yesterday I had some pasta and some salad for dinner.","I had some pasta and a salad for dinner yesterday.","I had pasta and salad for dinner yesterday.","Yesterday I ate some pasta and a salad for dinner.","Yesterday I had some pasta and a salad for supper."], hint:"Yesterday I had some pasta and… for dinner."},
+    ]},
+
+  /* ---------- YOUR TURN ---------- */
+  { id:"w1", tab:"write", type:"write", en:"Your turn: write", ru:"Твоя очередь: напиши",
+    ins:["Write in English. Your teacher will check it.","Пиши по-английски. Учитель проверит."],
+    items:[
+      {p:"#mydinnerlastnight: What did you have for dinner last night? Who made it? Write 4–5 sentences with a / an / some.", pru:"Что ты ела вчера на ужин? Кто его приготовил? Напиши 4–5 предложений с a / an / some.", model:"Last night I had some chicken, some rice and a salad. My mum made it…"},
+      {p:"Open your fridge! What is in it and what isn't? Write 4–5 sentences with some and any.", pru:"Открой холодильник! Что там есть, а чего нет? Напиши 4–5 предложений с some и any.", model:"There's some cheese and there are some eggs, but there isn't any milk…"},
+    ]},
+];
+
+EXERCISES.find(e=>e.id==="c1").items.forEach(it=>{ it.say = it.q; });
+
+const TABS = [
+  {id:"s1", en:"1 · Count it?", ru:"Считаем?"},
+  {id:"s2", en:"2 · a / an", ru:"артикли"},
+  {id:"s3", en:"3 · some / any", ru:"есть или нет?"},
+  {id:"mix", en:"Mixed", ru:"Всё вместе"},
+  {id:"write", en:"Your turn", ru:"Пишем"},
+  {id:"results", en:"Results", ru:"Итог"},
+];
+
+const PRAISE = ["Верно! · Correct!","Отлично! · Great!","Супер! · Super!","Молодец! · Well done!","Точно! · Exactly!"];
+const OOPS = ["Не совсем · Not quite","Почти! · Almost!","Ошибка — ничего страшного · A small mistake"];
+
+/* =========================================================
+   STATE + STORAGE
+   ========================================================= */
+let memStore = null;
+function loadState(){ try{ const s = localStorage.getItem(STORE_KEY); return s ? JSON.parse(s) : null; }catch(e){ return memStore; } }
+function saveState(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){ memStore = JSON.parse(JSON.stringify(state)); } }
+function freshState(){ return {name:"Masha", tab:"s1", ans:{}, shuf:{}, known:[], fc:{i:0, dir:"en", onlyLearning:false, order:null}, writing:{}}; }
+let state = Object.assign(freshState(), loadState() || {});
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+const $ = (s, el=document) => el.querySelector(s);
+function h(tag, attrs={}, ...kids){
+  const el = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs||{})){
+    if (k === "class") el.className = v;
+    else if (k === "html") el.innerHTML = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) el.setAttribute(k, v);
+  }
+  for (const kid of kids.flat()){ if (kid == null) continue; el.append(kid.nodeType ? kid : document.createTextNode(kid)); }
+  return el;
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffled(arr){ const a = arr.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function stableShuffle(key, arr){
+  if (!state.shuf[key] || state.shuf[key].length !== arr.length){
+    let idx = shuffled(arr.map((_,i)=>i));
+    if (arr.length > 1 && idx.every((v,i)=>v===i)) idx.reverse();
+    state.shuf[key] = idx; saveState();
+  }
+  return state.shuf[key].map(i=>arr[i]);
+}
+
+/* speech */
+let voice = null;
+function pickVoice(){
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
+}
+if ("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text){
+  try{
+    if (!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-GB"; u.rate = 0.88; if (voice) u.voice = voice;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function sayBtn(text, label="🔊"){ return h("button",{class:"say", type:"button", "aria-label":"Listen: "+text, "data-say":text}, label); }
+document.addEventListener("click", e=>{ const b = e.target.closest("[data-say]"); if (b){ e.stopPropagation(); speak(b.getAttribute("data-say")); } });
+
+/* checking */
+const CONTRACTIONS = [
+  [/\bi'm\b/g,"i am"],[/\bdon't\b/g,"do not"],[/\bdoesn't\b/g,"does not"],[/\bdidn't\b/g,"did not"],
+  [/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bcan not\b/g,"cannot"],
+  [/\bwon't\b/g,"will not"],[/\bi'd\b/g,"i would"],[/\byou'd\b/g,"you would"],[/\bwe'd\b/g,"we would"],
+  [/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bwe're\b/g,"we are"],[/\bthey're\b/g,"they are"],
+  [/\bhaven't\b/g,"have not"],[/\bhasn't\b/g,"has not"],[/\bwe've\b/g,"we have"],[/\bi've\b/g,"i have"],
+  [/\bwhat's\b/g,"what is"],[/\bthat's\b/g,"that is"],[/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],
+];
+function norm(s){
+  s = String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g," ").trim();
+  s = s.replace(/[.!?,;:…]+$/,"").trim();
+  for (const [re,rep] of CONTRACTIONS) s = s.replace(re, rep);
+  s = s.replace(/\s*,\s*/g,", ").replace(/\s+/g," ");
+  return s;
+}
+function matches(val, accept){ const v = norm(val); return accept.some(a=>norm(a)===v); }
+function styleNotes(val, model){
+  const notes = [];
+  const t = val.trim();
+  if (t && t[0] !== t[0].toUpperCase()) notes.push("Начинай предложение с большой буквы 🙂 · Start with a capital letter.");
+  if (/\?\s*$/.test(model) && !/\?\s*$/.test(t)) notes.push("Не забудь «?» в конце вопроса · Don't forget the question mark.");
+  return notes;
+}
+function capFirst(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+/* =========================================================
+   SCORING
+   ========================================================= */
+function exItems(ex){
+  if (ex.type === "match") return ex.rounds.flatMap((r,ri)=>r.pairs.map((p,pi)=>({key:ri+"-"+pi, p})));
+  if (ex.type === "choice") return ex.items.map((it,i)=>({key:String(i), it})).filter(x=>!x.it.ctx);
+  return ex.items.map((it,i)=>({key:String(i), it}));
+}
+function A(exId){ return state.ans[exId] || (state.ans[exId] = {}); }
+function exScore(ex){
+  if (ex.type === "write") return null;
+  const items = exItems(ex); const a = state.ans[ex.id] || {};
+  let done=0, ok=0;
+  items.forEach(({key})=>{ const r = a[key]; if (r && r.done){ done++; if (r.ok) ok++; } });
+  return {done, ok, total: items.length};
+}
+function totals(){
+  let ok=0, total=0, done=0;
+  EXERCISES.forEach(ex=>{ const s = exScore(ex); if (s){ ok+=s.ok; total+=s.total; done+=s.done; } });
+  return {ok,total,done};
+}
+function refreshScore(){
+  const t = totals();
+  $("#scoreText").textContent = `${t.ok} / ${t.total} ✓ · done ${Math.round(t.done/t.total*100)}%`;
+  $("#barFill").style.width = (t.done/t.total*100)+"%";
+  EXERCISES.forEach(ex=>{ const el = document.getElementById("sc-"+ex.id); const s = exScore(ex); if (el && s) el.textContent = s.done ? `${s.ok}/${s.total}` : ""; });
+  renderTabs();
+}
+
+/* =========================================================
+   TABS
+   ========================================================= */
+function tabBadge(tabId){
+  const exs = EXERCISES.filter(e=>e.tab===tabId && e.type!=="write");
+  if (!exs.length) return "";
+  let ok=0,total=0,done=0; exs.forEach(e=>{ const s=exScore(e); ok+=s.ok; total+=s.total; done+=s.done; });
+  return done===total ? `${ok}/${total}` : "";
+}
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach((t,i)=>{
+    const b = tabBadge(t.id);
+    const btn = h("button",{class:"tab"+(state.tab===t.id?" active":""), role:"tab", "aria-selected":state.tab===t.id?"true":"false", type:"button", onclick:()=>showTab(t.id)},
+      `${i+1}. ${t.en}`, b ? h("span",{class:"badge"},b) : null, h("span",{class:"ru"},t.ru));
+    nav.append(btn);
+  });
+}
+function showTab(id){
+  state.tab = id; saveState();
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+id));
+  renderTabs();
+  if (id === "results") renderResults();
+  const act = document.querySelector(".tab.active"); if (act && act.scrollIntoView) act.scrollIntoView({block:"nearest", inline:"center"});
+  window.scrollTo({top: $("#main").offsetTop - 120 > 0 ? $("#main").offsetTop - 120 : 0});
+}
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+function panel(id){ return h("section",{class:"panel", id:"panel-"+id, role:"tabpanel"}); }
+function nextBtn(toId, en, ru){ return h("div",{style:"text-align:right"}, h("button",{class:"btn primary", type:"button", onclick:()=>showTab(toId)}, `${en} · ${ru} →`)); }
+
+/* ---------- exercise renderers ---------- */
+function exCard(ex, n){
+  const c = h("div",{class:"card ex", id:"ex-"+ex.id},
+    h("span",{class:"score", id:"sc-"+ex.id}),
+    h("span",{class:"num"}, "Exercise "+n+" · Упражнение "+n),
+    h("h2",{}, ex.en), h("p",{class:"head-ru"}, ex.ru),
+    h("p",{style:"margin:0"}, ex.ins[0]), h("p",{class:"ru", style:"margin:0 0 6px"}, ex.ins[1]));
+  const body = h("div");
+  ({match:renderMatch, choice:renderChoice, tiles:renderTiles, typed:renderTyped, write:renderWrite})[ex.type](ex, body);
+  c.append(body);
+  return c;
+}
+
+function renderChoice(ex, body){
+  ex.items.forEach((it, i)=>{
+    if (it.ctx){ body.append(h("div",{class:"ctx"}, it.who ? h("span",{class:"who"+(it.who==="Masha"?" m":"")}, it.who+":") : null, " "+it.q)); return; }
+    const key = String(i);
+    const item = h("div",{class:"item"});
+    const q = h("div",{class:"q"});
+    if (it.listen) q.append(h("button",{class:"listen-btn", type:"button", "aria-label":"Play the word", "data-say":it.listen},"🔊"));
+    if (it.emoji) q.append(h("span",{class:"emoji","aria-hidden":"true"}, it.emoji));
+    if (it.who) q.append(h("span",{class:"who"+(it.who==="Masha"?" m":"")}, it.who+":"));
+    const qText = it.listen && ex.id!=="e1" ? "" : it.q;
+    if (qText) q.append(h("span",{class:"qt", html: esc(qText).replace("___",'<span class="gap">&nbsp;?&nbsp;</span>')}));
+    item.append(q);
+    const opts = h("div",{class:"opts"});
+    const fb = h("div");
+    const rec = (state.ans[ex.id]||{})[key];
+    it.opts.forEach((o, oi)=>{
+      const b = h("button",{class:"opt", type:"button"}, o);
+      b.addEventListener("click", ()=>{
+        if (A(ex.id)[key]?.done) return;
+        const ok = oi === it.a;
+        A(ex.id)[key] = {done:true, ok, pick:o, correct:it.opts[it.a]};
+        saveState(); paint(true); refreshScore();
+        if (ok) speak(fullSentence(it));
+      });
+      opts.append(b);
+    });
+    item.append(opts, fb);
+    function paint(fresh){
+      const r = (state.ans[ex.id]||{})[key];
+      if (!r || !r.done) return;
+      [...opts.children].forEach((b, oi)=>{
+        b.disabled = true;
+        if (oi === it.a) b.classList.add("right");
+        else if (it.opts[oi] === r.pick) b.classList.add("wrong");
+      });
+      const gapEl = item.querySelector(".gap"); if (gapEl) gapEl.textContent = " "+it.opts[it.a]+" ";
+      fb.className = "fb " + (r.ok ? "ok" : "no");
+      fb.innerHTML = "";
+      fb.append(h("b",{}, r.ok ? (fresh ? rand(PRAISE) : "Верно! · Correct!") : (fresh ? rand(OOPS) : "Не совсем · Not quite")), " ", it.why ? it.why : "");
+      if (it.q && it.q.includes("___")) fb.append(" ", sayBtn(fullSentence(it)));
+    }
+    if (rec) paint(false);
+    body.append(item);
+  });
+}
+function fullSentence(it){
+  if (it.say) return it.say;
+  if (it.listen) return it.listen;
+  if (it.q && it.q.includes("___")) return it.q.replace("___", it.opts[it.a]);
+  return it.opts[it.a].split(" · ")[0].replace(/^\/.*\/\s*/,"");
+}
+
+function renderMatch(ex, body){
+  ex.rounds.forEach((round, ri)=>{
+    body.append(h("div",{class:"round-title"}, `Round ${ri+1}: ${round.title[0]} · ${round.title[1]}`));
+    const grid = h("div",{class:"match"});
+    const L = h("div",{class:"col"}), R = h("div",{class:"col"});
+    let sel = null;
+    const rights = stableShuffle(ex.id+"-r"+ri, round.pairs.map((p,pi)=>({p,pi})));
+    const lBtns = round.pairs.map((p,pi)=>{
+      const key = ri+"-"+pi;
+      const b = h("button",{class:"mbtn", type:"button"}, p[0], " ", sayBtn(p[0]));
+      b.addEventListener("click", (e)=>{ if (e.target.closest("[data-say]")) return; const r=A(ex.id)[key]; if (r && r.done) return; lBtns.forEach(x=>x.classList.remove("sel")); sel = pi; b.classList.add("sel"); });
+      return b;
+    });
+    const rBtns = rights.map(({p,pi})=>{
+      const b = h("button",{class:"mbtn", type:"button"}, p[1]);
+      b.dataset.pi = pi;
+      b.addEventListener("click", ()=>{
+        if (sel === null || b.classList.contains("done")) return;
+        const key = ri+"-"+sel; const rec = A(ex.id)[key] || (A(ex.id)[key] = {done:false, ok:true, wrong:[]});
+        if (pi === sel){
+          rec.done = true; rec.pick = p[1]; rec.correct = p[1];
+          speak(round.pairs[sel][0]);
+          sel = null; saveState(); paint(); refreshScore();
+        } else {
+          rec.ok = false; rec.wrong.push(p[1]); saveState();
+          b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+          setTimeout(()=>b.classList.remove("shake"), 400);
+        }
+      });
+      return b;
+    });
+    function paint(){
+      round.pairs.forEach((p,pi)=>{
+        const r = (state.ans[ex.id]||{})[ri+"-"+pi];
+        const done = r && r.done;
+        lBtns[pi].classList.toggle("done", !!done); lBtns[pi].classList.remove("sel");
+        rBtns.forEach(rb=>{ if (+rb.dataset.pi===pi && done) rb.classList.add("done"); });
+      });
+    }
+    L.append(...lBtns); R.append(...rBtns); grid.append(L, R); body.append(grid);
+    paint();
+  });
+}
+
+function renderTiles(ex, body){
+  ex.items.forEach((it, i)=>{
+    const key = String(i);
+    const words = it.answer.split(" ");
+    const pool = stableShuffle(ex.id+"-t"+i, words.map((w,wi)=>({w,wi})));
+    const item = h("div",{class:"item"}, h("div",{class:"q"}, `${i+1}. `, h("span",{class:"ru", style:"font-size:1em"}, it.ru)));
+    const built = h("div",{class:"built", "aria-label":"Your sentence"});
+    const poolEl = h("div",{class:"pool"});
+    const fb = h("div");
+    const checkBtn = h("button",{class:"btn primary", type:"button"}, "Check · Проверить");
+    const clearBtn = h("button",{class:"btn ghost", type:"button"}, "Clear · Очистить");
+    let picked = [];
+    function orderFor(sentence){ const used = new Set(); return sentence.split(" ").map(w=>{ const pi = pool.findIndex((t,j)=>t.w===w && !used.has(j)); used.add(pi); return pi; }); }
+    function draw(){
+      built.innerHTML = ""; poolEl.innerHTML = "";
+      const r = (state.ans[ex.id]||{})[key];
+      const locked = r && r.done;
+      picked.forEach((pi, k)=>{ built.append(h("button",{class:"tile", type:"button", disabled:locked, onclick:()=>{ picked.splice(k,1); draw(); }}, pool[pi].w)); });
+      pool.forEach((t, pi)=>{ if (!picked.includes(pi)) poolEl.append(h("button",{class:"tile", type:"button", disabled:locked, onclick:()=>{ picked.push(pi); draw(); }}, t.w)); });
+      checkBtn.disabled = locked; clearBtn.disabled = locked;
+    }
+    function showFb(fresh){
+      const r = (state.ans[ex.id]||{})[key]; fb.innerHTML = "";
+      if (!r) return;
+      if (r.done && r.ok){ fb.className="fb ok"; fb.append(h("b",{}, fresh?rand(PRAISE):"Верно! · Correct!"), " "+it.answer+" ", sayBtn(it.answer)); }
+      else if (r.done){ fb.className="fb no"; fb.append(h("b",{},"Правильно так · The answer is: "), it.answer+" ", sayBtn(it.answer)); }
+      else if (r.tries===1){ fb.className="fb info"; fb.append(h("b",{},"Try again · Попробуй ещё раз. "), `Подсказка: начни со слова «${words[0]}».`); }
+    }
+    checkBtn.addEventListener("click", ()=>{
+      if (picked.length !== words.length){ fb.className="fb info"; fb.textContent="Use all the words · Используй все слова."; return; }
+      const val = picked.map(pi=>pool[pi].w).join(" ");
+      const rec = A(ex.id)[key] || (A(ex.id)[key] = {tries:0});
+      rec.tries++; rec.val = val;
+      if (val === it.answer){ rec.done = true; rec.ok = true; speak(it.answer); }
+      else if (rec.tries >= 2){ rec.done = true; rec.ok = false; rec.correct = it.answer; picked = orderFor(it.answer); }
+      saveState(); draw(); showFb(true); refreshScore();
+    });
+    clearBtn.addEventListener("click", ()=>{ picked = []; draw(); });
+    const rec = (state.ans[ex.id]||{})[key];
+    if (rec && rec.done) picked = orderFor(it.answer);
+    item.append(built, poolEl, h("div",{class:"opts"}, checkBtn, clearBtn), fb);
+    draw(); showFb(false);
+    body.append(item);
+  });
+}
+
+function renderTyped(ex, body){
+  ex.items.forEach((it, i)=>{
+    const key = String(i);
+    const model = it.full || capFirst(it.accept[0]);
+    const item = h("div",{class:"item"}, h("div",{class:"q"}, `${i+1}. ${it.ru}`));
+    const inp = h("input",{type:"text", autocomplete:"off", autocapitalize:"sentences", spellcheck:"false", "aria-label":"Your answer: "+it.ru});
+    const btn = h("button",{class:"btn primary", type:"button"}, "Check · Проверить");
+    const fb = h("div");
+    function paint(fresh){
+      const r = (state.ans[ex.id]||{})[key]; fb.innerHTML = "";
+      if (!r) return;
+      inp.value = r.val || "";
+      if (r.done){ inp.disabled = true; btn.disabled = true; inp.classList.toggle("okk", r.ok); inp.classList.toggle("bad", !r.ok); }
+      if (r.done && r.ok){
+        fb.className = "fb ok";
+        fb.append(h("b",{}, r.self ? "Отмечено как верное · Marked as correct" : (fresh?rand(PRAISE):"Верно! · Correct!")), " "+model+" ", sayBtn(model));
+        if (!it.full) styleNotes(r.val||"", model).forEach(n=>fb.append(h("div",{class:"small"}, n)));
+      } else if (r.done){
+        fb.className = "fb no";
+        fb.append(h("b",{},"Правильный ответ · Model answer: "), model+" ", sayBtn(model));
+        const selfB = h("button",{class:"btn ghost", type:"button", style:"margin-top:6px;display:block", onclick:()=>{ r.ok = true; r.self = true; saveState(); paint(false); refreshScore(); }}, "My answer is also correct ✓ · Мой ответ тоже верный");
+        fb.append(selfB);
+      } else if (r.tries === 1){
+        fb.className = "fb info";
+        fb.append(h("b",{},"Try again · Попробуй ещё раз. "), it.hint);
+      }
+    }
+    btn.addEventListener("click", ()=>{
+      const val = inp.value.trim(); if (!val) return;
+      const rec = A(ex.id)[key] || (A(ex.id)[key] = {tries:0});
+      rec.tries++; rec.val = val; rec.correct = model;
+      if (matches(val, it.accept)){ rec.done = true; rec.ok = true; speak(model); }
+      else if (rec.tries >= 2){ rec.done = true; rec.ok = false; }
+      saveState(); paint(true); refreshScore();
+    });
+    inp.addEventListener("keydown", e=>{ if (e.key==="Enter") btn.click(); });
+    item.append(h("div",{class:"typed"}, inp, btn), fb);
+    paint(false);
+    body.append(item);
+  });
+}
+
+function renderWrite(ex, body){
+  ex.items.forEach((it, i)=>{
+    const ta = h("textarea",{"aria-label":it.p, placeholder:"Write here… · Пиши здесь…"});
+    ta.value = state.writing[i] || "";
+    const count = h("div",{class:"small muted"});
+    const upd = ()=>{ const n = (ta.value.trim().match(/\S+/g)||[]).length; count.textContent = `Words · Слов: ${n}`; };
+    ta.addEventListener("input", ()=>{ state.writing[i] = ta.value; saveState(); upd(); });
+    upd();
+    body.append(h("div",{class:"item"}, h("div",{class:"q"}, `${i+1}. ${it.p}`), h("div",{class:"ru", style:"margin-bottom:6px"}, it.pru),
+      h("div",{class:"small muted", style:"margin-bottom:6px"}, "Example start · Пример начала: ", h("i",{}, it.model)), ta, count));
+  });
+}
+
+/* ---------- rule cards ---------- */
+function ruleCard(step, en, ru, html){ return h("div",{class:"card rule"}, h("span",{class:"step"}, step), h("h2",{}, en), h("p",{class:"head-ru"}, ru), h("div",{html})); }
+function sayInline(t){ return `<button class="say" type="button" data-say="${esc(t)}" aria-label="Listen">🔊</button>`; }
+let EXN = 1;
+function exs(p, tab){ EXERCISES.filter(e=>e.tab===tab).forEach(ex=>p.append(exCard(ex, EXN++))); }
+
+function renderS1(){
+  const p = panel("s1");
+  p.append(h("div",{class:"card post"},
+    h("div",{class:"post-head"}, h("span",{class:"ava"},"M"), h("b",{},"masha"), h("span",{class:"muted small"}," · last night")),
+    h("div",{class:"post-pic", "aria-hidden":"true"},"🍝 🥗 🍷"),
+    h("p",{html:`I had <span class="k">some</span> pasta, <span class="k">a</span> salad and <span class="k">an</span> ice cream for dessert. There wasn't <span class="k">any</span> bread! 😅 <b>#mydinnerlastnight</b> ${sayInline("I had some pasta, a salad and an ice cream for dessert. There wasn't any bread!")}`}),
+    h("p",{class:"ru", html:"Четыре маленьких слова: <b>a, an, some, any</b>. Русскому уху они кажутся лишними, но англичанин без них не скажет ни одной фразы о еде. Разберём их за три шага — и в каждом шаге сразу практика."})));
+  p.append(ruleCard("Step 1 · Шаг 1","Can you count it?","Можно посчитать по штукам?", `
+    <p>Всё начинается с одного вопроса: <b>можно ли это посчитать?</b></p>
+    <div class="two">
+      <div class="box"><h4>✓ Countable · исчисляемые</h4>
+        <p class="small">Отдельные штуки. Есть <b>a / an</b> и множественное число.</p>
+        <div class="ex-line">🥚 an egg → three egg<b>s</b> ${sayInline("an egg, three eggs")}</div>
+        <div class="ex-line">🍪 a biscuit → biscuit<b>s</b> ${sayInline("a biscuit, biscuits")}</div>
+        <div class="ex-line">🥦 a vegetable → vegetable<b>s</b> ${sayInline("a vegetable, vegetables")}</div></div>
+      <div class="box u"><h4>✗ Uncountable · неисчисляемые</h4>
+        <p class="small">«Масса»: жидкости, крупы, продукты кусками. <b>Нет</b> a / an и нет -s.</p>
+        <div class="ex-line">🥛 milk, 🍚 rice, 🍞 bread, 🧀 cheese ${sayInline("milk, rice, bread, cheese")}</div>
+        <div class="ex-line">🍲 soup, 🧂 salt, 🍝 spaghetti, 🍇 fruit ${sayInline("soup, salt, spaghetti, fruit")}</div>
+        <div class="ex-line">✗ a bread · ✗ two rices · ✗ soups</div></div>
+    </div>
+    <p>🇷🇺 <b>Ловушки для русского уха:</b> «фрукты» — по-английски обычно <b>fruit</b> (I eat a lot of fruit), «два хлеба» — так нельзя, «спагетти» — <b>some spaghetti</b>.</p>
+    <h3>How to count uncountable food · Как посчитать неисчисляемое</h3>
+    <p>Считаем не саму еду, а <b>упаковку или порцию</b> — она исчисляемая:</p>
+    <table class="g">
+      <tr><td>☕</td><td><b>a cup of</b> coffee / tea</td><td>чашка</td></tr>
+      <tr><td>🥛</td><td><b>a glass of</b> water / milk</td><td>стакан</td></tr>
+      <tr><td>🍾</td><td><b>a bottle of</b> water / olive oil</td><td>бутылка</td></tr>
+      <tr><td>🍲</td><td><b>a bowl of</b> soup / cereal</td><td>миска, тарелка</td></tr>
+      <tr><td>🍞</td><td><b>a loaf of</b> bread · <b>a slice of</b> bread / pizza</td><td>буханка · ломтик</td></tr>
+      <tr><td>🍰</td><td><b>a piece of</b> cake / cheese · <b>a packet of</b> crisps</td><td>кусок · пачка</td></tr>
+    </table>
+    <p>Два стакана? Просто: <b>two glasses of</b> water ${sayInline("two glasses of water, three slices of pizza")}</p>
+    <p>💡 Некоторые слова бывают и такими, и такими: <b>a cake</b> (целый торт) / <b>some cake</b> (кусочек торта); <b>a chicken</b> (живая курица 🐔) / <b>some chicken</b> (курица как мясо 🍗).</p>`));
+  exs(p, "s1");
+  p.append(nextBtn("s2","Step 2: a / an","Шаг 2"));
+  return p;
+}
+
+function renderS2(){
+  const p = panel("s2");
+  p.append(ruleCard("Step 2 · Шаг 2","a or an? Or nothing?","a или an? Или ничего?", `
+    <p><b>a / an</b> = «одна штука». Только перед <b>исчисляемым</b> словом в <b>единственном</b> числе.</p>
+    <table class="g"><tr><th></th><th>когда</th><th>примеры</th></tr>
+      <tr><td>a</td><td>следующее слово начинается с <b>согласного звука</b></td><td><span class="k">a</span> sandwich, <span class="k">a</span> big egg, <span class="k">a</span> useful tip ${sayInline("a sandwich, a big egg, a useful tip")}</td></tr>
+      <tr><td>an</td><td>следующее слово начинается с <b>гласного звука</b></td><td><span class="k">an</span> egg, <span class="k">an</span> onion, <span class="k">an</span> hour, <span class="k">an</span> old cake ${sayInline("an egg, an onion, an hour, an old cake")}</td></tr></table>
+    <p>🔊 <b>Важен звук, а не буква!</b></p>
+    <div class="sounds">
+      <div><b>an h</b>our <span class="muted small">h не читается</span> ${sayInline("an hour")}</div>
+      <div><b>a u</b>seful recipe <span class="muted small">/j/ «ю»</span> ${sayInline("a useful recipe")}</div>
+      <div><b>a E</b>uropean café <span class="muted small">/j/ «ю»</span> ${sayInline("a European café")}</div>
+      <div><b>an u</b>nusual dish <span class="muted small">/ʌ/</span> ${sayInline("an unusual dish")}</div>
+    </div>
+    <p>👀 Смотрим на слово <b>сразу после</b> артикля: an egg, но <b>a big</b> egg.</p>
+    <h3>When we use nothing · Когда артикль не нужен</h3>
+    <p>Когда говорим о еде <b>вообще</b> (что любим, что полезно) — с неисчисляемыми и с множественным числом ничего не ставим:</p>
+    <div class="mist">
+      <span class="x">I love the chocolate.</span><span class="v">I love chocolate. ${sayInline("I love chocolate.")}</span>
+      <span class="x">I don't like a mushrooms.</span><span class="v">I don't like mushrooms. ${sayInline("I don't like mushrooms.")}</span>
+      <span class="x">I eat apple every day.</span><span class="v">I eat an apple every day. ${sayInline("I eat an apple every day.")}</span>
+    </div>
+    <p>🇷🇺 В русском нет артиклей, поэтому самая частая ошибка — просто забыть <b>a / an</b> перед одной штукой: ✗ <i>I had sandwich</i> → ✓ <b>I had a sandwich</b>.</p>`));
+  exs(p, "s2");
+  p.append(nextBtn("s3","Step 3: some / any","Шаг 3"));
+  return p;
+}
+
+function renderS3(){
+  const p = panel("s3");
+  p.append(ruleCard("Step 3 · Шаг 3","some or any?","some или any?", `
+    <p><b>some / any</b> = «немного, несколько, какое-то количество». Ставим перед <b>неисчисляемыми</b> словами и перед <b>множественным числом</b>. На русский чаще всего вообще не переводятся: <i>Купи хлеба</i> = Buy <b>some</b> bread.</p>
+    <table class="g"><tr><th></th><th>plural · мн. число</th><th>uncountable</th></tr>
+      <tr><td>+</td><td>There are <span class="k">some</span> eggs. ${sayInline("There are some eggs.")}</td><td>There's <span class="k">some</span> milk. ${sayInline("There's some milk.")}</td></tr>
+      <tr><td>–</td><td>There aren't <span class="k">any</span> eggs. ${sayInline("There aren't any eggs.")}</td><td>There isn't <span class="k">any</span> milk. ${sayInline("There isn't any milk.")}</td></tr>
+      <tr><td>?</td><td>Are there <span class="k">any</span> eggs? ${sayInline("Are there any eggs?")}</td><td>Is there <span class="k">any</span> milk? ${sayInline("Is there any milk?")}</td></tr></table>
+    <p>⚠️ Обрати внимание на глагол: неисчисляемое = <b>is</b> (There <b>is</b> some milk), множественное = <b>are</b> (There <b>are</b> some eggs).</p>
+    <h3>⭐ Two important exceptions · Два важных исключения</h3>
+    <div class="two">
+      <div class="box"><h4>1. Offers & requests → some</h4>
+        <p class="small">Когда мы <b>предлагаем</b> или <b>просим</b>, в вопросе тоже <b>some</b> — мы ждём ответа «да».</p>
+        <div class="ex-line">Would you like <b>some</b> tea? ${sayInline("Would you like some tea?")}</div>
+        <div class="ex-line">Can I have <b>some</b> water? ${sayInline("Can I have some water, please?")}</div>
+        <div class="ex-line">Shall I make <b>some</b> pasta? ${sayInline("Shall I make some pasta?")}</div></div>
+      <div class="box u"><h4>2. One thing → a / an, not any</h4>
+        <p class="small"><b>any</b> — только с мн. числом и неисчисляемыми. Одна штука остаётся с <b>a / an</b> в любом предложении.</p>
+        <div class="ex-line">I don't want <b>a</b> sandwich. ${sayInline("I don't want a sandwich.")}</div>
+        <div class="ex-line">Is there <b>a</b> café near here? ${sayInline("Is there a café near here?")}</div>
+        <div class="ex-line">✗ <s>I don't want any sandwich.</s></div></div>
+    </div>
+    <h3>Typical mistakes · Типичные ошибки</h3>
+    <div class="mist">
+      <span class="x">We haven't got some eggs.</span><span class="v">We haven't got any eggs.</span>
+      <span class="x">There are some cheese.</span><span class="v">There is some cheese.</span>
+      <span class="x">Would you like any coffee?</span><span class="v">Would you like some coffee?</span>
+      <span class="x">I didn't bought any bread.</span><span class="v">I didn't buy any bread.</span>
+    </div>`));
+  exs(p, "s3");
+  p.append(nextBtn("mix","Mixed practice","Всё вместе"));
+  return p;
+}
+
+/* ---------- the navigator: a / an / some / any decision tree ---------- */
+function renderNavigator(){
+  const box = h("div",{class:"nav-box"});
+  const NODES = {
+    start:{q:["Is it ONE thing you can count?","Это ОДНА штука, которую можно посчитать?"], ex:"an apple, a sandwich — да · milk, eggs — нет",
+      opts:[["Yes · Да","sound"],["No: many things or uncountable · Нет: много штук или неисчисляемое","kind"]]},
+    sound:{q:["Does the next word start with a vowel SOUND?","Следующее слово начинается с гласного ЗВУКА?"], ex:"egg, onion, hour — да · banana, useful — нет",
+      opts:[["Yes · Да","AN"],["No · Нет","A"]]},
+    kind:{q:["What kind of sentence is it?","Какое это предложение?"], ex:"",
+      opts:[["+ positive · утверждение","SOME+"],["– negative · отрицание","ANY-"],["? real question · обычный вопрос","ANY?"],["? offer or request · предложение / просьба","SOME?"]]},
+    AN:{a:"an", s:"I'd like an orange. · Is there an egg? · I don't need an onion."},
+    A:{a:"a", s:"I had a sandwich. · Is there a café? · I don't want a banana."},
+    "SOME+":{a:"some", s:"There's some milk. · We need some eggs."},
+    "ANY-":{a:"any", s:"There isn't any milk. · We haven't got any eggs."},
+    "ANY?":{a:"any", s:"Is there any milk? · Have we got any eggs?"},
+    "SOME?":{a:"some", s:"Would you like some tea? · Can I have some water?"},
+  };
+  const path = [];
+  function draw(id){
+    box.innerHTML = "";
+    const n = NODES[id];
+    if (path.length) box.append(h("div",{class:"crumbs small muted"}, path.join(" → ")));
+    if (n.a){
+      box.append(h("div",{class:"nav-ans"}, h("span",{class:"big"}, n.a)), h("div",{class:"nav-ex"}, n.s+" ", h("span",{html:sayInline(n.s.replace(/ · /g," "))})));
+    } else {
+      box.append(h("div",{class:"nav-q"}, n.q[0]), h("div",{class:"ru"}, n.q[1]));
+      if (n.ex) box.append(h("div",{class:"small muted", style:"margin:4px 0"}, n.ex));
+      const row = h("div",{class:"row"});
+      n.opts.forEach(([lab,to])=>row.append(h("button",{class:"btn ghost", type:"button", onclick:()=>{ path.push(lab.split(" · ")[0]); draw(to); }}, lab)));
+      box.append(row);
+    }
+    if (id!=="start") box.append(h("button",{class:"btn", type:"button", style:"margin-top:10px", onclick:()=>{ path.length=0; draw("start"); }}, "↺ Start again · Сначала"));
+  }
+  draw("start");
+  return h("div",{class:"card rule"}, h("span",{class:"step"},"Mixed · Всё вместе"),
+    h("h2",{},"🧭 The a / an / some / any navigator"), h("p",{class:"head-ru"},"Навигатор: не знаешь, что поставить? Ответь на 2 вопроса."),
+    h("p",{class:"small"},"Think of a sentence, e.g. “Is there ___ milk?”, and answer the questions. · Придумай предложение, например «Is there ___ milk?», и отвечай на вопросы."),
+    box);
+}
+function renderMix(){
+  const p = panel("mix");
+  p.append(renderNavigator());
+  exs(p, "mix");
+  p.append(nextBtn("write","Your turn","Пишем"));
+  return p;
+}
+function renderWriting(){
+  const p = panel("write");
+  exs(p, "write");
+  p.append(nextBtn("results","Results","Итог"));
+  return p;
+}
+
+/* ---------- results + report ---------- */
+function mistakesList(){
+  const out = [];
+  EXERCISES.forEach(ex=>{
+    const a = state.ans[ex.id] || {};
+    if (ex.type==="match"){
+      ex.rounds.forEach((r,ri)=>r.pairs.forEach((pr,pi)=>{ const rec=a[ri+"-"+pi]; if (rec && rec.done && !rec.ok) out.push({ex:ex.en, q:pr[0], your:(rec.wrong||[]).join(", "), right:pr[1]}); }));
+    } else if (ex.type==="choice"){
+      ex.items.forEach((it,i)=>{ const rec=a[i]; if (rec && rec.done && !rec.ok) out.push({ex:ex.en, q:(it.listen&&ex.id!=="e1")?"🔊 "+it.listen:(it.emoji?it.emoji+" ":"")+(it.q||""), your:rec.pick, right:it.opts[it.a]}); });
+    } else if (ex.type==="tiles" || ex.type==="typed"){
+      ex.items.forEach((it,i)=>{ const rec=a[i]; const right = ex.type==="tiles"?it.answer:(it.full||capFirst(it.accept[0])); if (rec && rec.done && !rec.ok) out.push({ex:ex.en, q:it.ru, your:rec.val, right}); });
+    }
+  });
+  return out;
+}
+function bandMsg(pct){
+  if (pct>=90) return "Fantastic, Masha! a, an, some, any — no secrets for you! · Потрясающе! Для тебя тут больше нет секретов! 🏆";
+  if (pct>=75) return "Great job! Just a few small mistakes. · Отличная работа! Совсем немного ошибок. 🌟";
+  if (pct>=50) return "Good work! Look at your mistakes and try the navigator in “Mixed”. · Хорошо! Посмотри на ошибки и попробуй навигатор во «Всё вместе». 💪";
+  return "Keep going! Read the three steps again and repeat the exercises. · Не сдавайся! Перечитай три шага и повтори упражнения. 🌱";
+}
+function buildReport(){
+  const t = totals(); const pct = t.total ? Math.round(t.ok/t.total*100) : 0;
+  const lines = [];
+  lines.push(`HOMEWORK: ${TOPIC}`);
+  lines.push(`Student: ${state.name || "—"}`);
+  lines.push(`Date: ${new Date().toLocaleDateString("en-GB")}`);
+  lines.push(`Score: ${t.ok}/${t.total} (${pct}%) · completed ${t.done}/${t.total}`);
+  lines.push("");
+  lines.push("SCORES BY EXERCISE:");
+  EXERCISES.forEach((ex,i)=>{ const s=exScore(ex); if (s) lines.push(`- ${ex.en}: ${s.ok}/${s.total}${s.done<s.total?` (done ${s.done})`:""}`); });
+  const self = [];
+  EXERCISES.filter(e=>e.type==="typed").forEach(ex=>ex.items.forEach((it,i)=>{ const r=(state.ans[ex.id]||{})[i]; if (r && r.self) self.push(`${it.ru} → ${r.val}`); }));
+  const ms = mistakesList();
+  lines.push(""); lines.push(`MISTAKES (${ms.length}):`);
+  if (!ms.length) lines.push("none 🎉");
+  ms.forEach(m=>lines.push(`- [${m.ex}] ${m.q} — answer: ${m.your||"—"} → correct: ${m.right}`));
+  if (self.length){ lines.push(""); lines.push("SELF-MARKED AS CORRECT (please check):"); self.forEach(s=>lines.push("- "+s)); }
+  lines.push(""); lines.push("TRANSLATIONS & SENTENCES:");
+  EXERCISES.filter(e=>e.type==="typed"||e.type==="tiles").forEach(ex=>ex.items.forEach((it,i)=>{ const r=(state.ans[ex.id]||{})[i]; lines.push(`- ${it.ru} → ${r&&r.val?r.val:"—"}${r&&r.done?(r.ok?" ✓":" ✗"):""}`); }));
+  lines.push(""); lines.push("WRITING:");
+  EXERCISES.find(e=>e.id==="w1").items.forEach((it,i)=>{ lines.push(`${i+1}. ${it.p}`); lines.push((state.writing[i]||"—").trim()); lines.push(""); });
+  return lines.join("\n");
+}
+function shortReport(full){
+  if (full.length <= 1500) return full;
+  return full.slice(0,1450) + "\n…\n(Full report: use “Copy text” · Полный отчёт — кнопка «Копировать текст»)";
+}
+function copyText(text, btn){
+  const done = ()=>{ const o = btn.textContent; btn.textContent = "Copied ✓ · Скопировано"; setTimeout(()=>btn.textContent=o, 1800); };
+  if (navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(text).then(done, ()=>fallback()); } else fallback();
+  function fallback(){ const ta = h("textarea",{style:"position:fixed;left:-9999px;top:0"}); ta.value=text; document.body.append(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){} ta.remove(); }
+}
+function renderResults(){
+  const p = $("#panel-results"); p.innerHTML = "";
+  const t = totals(); const pct = t.total ? Math.round(t.ok/t.total*100) : 0;
+  const c1 = h("div",{class:"card"}, h("h2",{},"Your results"), h("p",{class:"head-ru"},"Твои результаты"),
+    h("div",{class:"big-score"}, `${t.ok} / ${t.total} · ${pct}%`),
+    h("p",{}, `Completed · Выполнено: ${t.done} / ${t.total}`),
+    h("p",{style:"font-weight:700"}, bandMsg(pct)));
+  EXERCISES.forEach((ex,i)=>{ const s = exScore(ex); if (s) c1.append(h("div",{class:"res-row"}, h("span",{}, `${ex.en} · `, h("span",{class:"ru"}, ex.ru)), h("b",{}, `${s.ok}/${s.total}` + (s.done<s.total ? ` (${s.done} done)` : "")))); });
+  p.append(c1);
+  const ms = mistakesList();
+  const c2 = h("div",{class:"card"}, h("h2",{},"Mistakes to look at"), h("p",{class:"head-ru"},"Ошибки, на которые стоит посмотреть"));
+  if (!ms.length) c2.append(h("p",{}, "No mistakes yet! · Ошибок пока нет! 🎉"));
+  ms.forEach(m=>c2.append(h("div",{class:"mistake"}, h("b",{}, m.ex+": "), m.q, h("br"), "Your answer · Твой ответ: ", h("s",{}, m.your||"—"), h("br"), "Correct · Правильно: ", h("b",{}, m.right))));
+  p.append(c2);
+  const wr = EXERCISES.find(e=>e.id==="w1");
+  const c3 = h("div",{class:"card"}, h("h2",{},"Your writing"), h("p",{class:"head-ru"},"Твои тексты"));
+  wr.items.forEach((it,i)=>c3.append(h("p",{}, h("b",{}, it.p), h("br"), (state.writing[i]||"—"))));
+  p.append(c3);
+
+  const full = buildReport();
+  const subject = `${TOPIC} — ${state.name||"Student"} — ${t.ok}/${t.total}`;
+  const short = shortReport(full);
+  const send = h("div",{class:"send"});
+  if (navigator.share){ send.append(h("button",{class:"btn primary", type:"button", onclick:()=>{ navigator.share({title:subject, text:full}).catch(()=>{}); }}, "📤 Share · Поделиться")); }
+  send.append(
+    h("a",{class:"btn", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(short)}`, target:"_blank", rel:"noopener", style:"text-decoration:none"}, "✉️ Send in Gmail"),
+    h("a",{class:"btn", href:`https://t.me/share/url?url=${encodeURIComponent(subject)}&text=${encodeURIComponent(short)}`, target:"_blank", rel:"noopener", style:"text-decoration:none"}, "Telegram"),
+    h("a",{class:"btn", href:`https://wa.me/?text=${encodeURIComponent(subject+"\n"+short)}`, target:"_blank", rel:"noopener", style:"text-decoration:none"}, "WhatsApp"),
+    h("a",{class:"btn", href:`mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(short)}`, style:"text-decoration:none"}, "📧 Email app"),
+  );
+  const copyB = h("button",{class:"btn good", type:"button"}, "📋 Copy text · Копировать текст");
+  copyB.addEventListener("click", ()=>copyText(full, copyB));
+  send.append(copyB);
+  const pre = h("details",{}, h("summary",{style:"cursor:pointer;font-weight:700;margin-top:10px"},"Show the report · Показать отчёт"), h("pre",{style:"white-space:pre-wrap;font-size:.85em;background:#F6F9F2;padding:10px;border-radius:10px"}, full));
+  p.append(h("div",{class:"card"}, h("h2",{},"Send to your teacher"), h("p",{class:"head-ru"},"Отправь результаты учителю"),
+    h("p",{}, "On a phone, press “Share” and choose Telegram, WhatsApp or email. · На телефоне нажми «Поделиться». Или скопируй текст и отправь учителю."),
+    h("p",{}, "Teacher's email · Почта учителя: ", h("span",{class:"email"}, TEACHER_EMAIL)), send, pre));
+
+  const conf = h("div",{class:"confirm"}, h("p",{style:"margin:0 0 8px"}, h("b",{},"Delete all answers? · Удалить все ответы?")),
+    h("button",{class:"btn", type:"button", style:"border-color:var(--bad);color:var(--bad);margin-right:8px", onclick:()=>{ const name = state.name; state = freshState(); state.name = name; saveState(); location.reload(); }}, "Yes · Да"),
+    h("button",{class:"btn ghost", type:"button", onclick:()=>conf.classList.remove("show")}, "No · Нет"));
+  p.append(h("div",{class:"card"}, h("button",{class:"btn ghost", type:"button", onclick:()=>conf.classList.add("show")}, "↺ Start again · Начать заново"), conf));
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function init(){
+  const main = $("#main");
+  main.append(renderS1(), renderS2(), renderS3(), renderMix(), renderWriting(), panel("results"));
+  const ni = $("#nameInput"); ni.value = state.name || "";
+  const setName = ()=>{ $("#forName").textContent = "for " + (state.name || "Masha"); };
+  ni.addEventListener("input", ()=>{ state.name = ni.value.trim(); saveState(); setName(); });
+  setName();
+  if (!TABS.some(t=>t.id===state.tab)) state.tab = "s1";
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+state.tab));
+  renderTabs(); refreshScore();
+  if (state.tab==="results") renderResults();
+}
+init();
+</script>
+</body>
+</html>
