@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The more, the merrier: compound adjectives + the…, the… — Julia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+
+
+
+
+:root{
+  --ink:#22223B; --ink2:#5B5A72; --bg:#F6F4FB; --card:#FFFFFF; --line:#E4E0F0; --tint:#F3F0FA;
+  --coral:#E85D4A; --coral-soft:#FCE4DF; --teal:#1B998B; --teal-soft:#DDF3F0;
+  --sun:#FFC857; --sun-soft:#FFF4D6; --violet:#7D6BC9; --violet-soft:#ECE8FA;
+  --ok:#22865A; --ok-soft:#DFF3E8; --bad:#C8402A; --bad-soft:#FBE2DC;
+  --radius:18px; --shadow:0 2px 12px rgba(34,34,59,.08);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:"Prata",Georgia,serif;font-weight:400;line-height:1.2;margin:0}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.ru{color:var(--ink2);font-size:.92em}
+.small{font-size:.88em}
+.muted{color:var(--ink2)}
+
+/* header */
+header.top{background:var(--ink);color:#fff;padding:24px 0 26px;position:relative;overflow:hidden}
+.top .kicker{display:inline-block;background:var(--coral);color:#fff;border-radius:999px;padding:3px 12px;font-weight:800;font-size:.78em;letter-spacing:.06em}
+.top h1{font-size:2.1em;margin:12px 0 4px;color:#fff}
+.top .sub{color:var(--sun);margin:0 0 4px;font-weight:700}
+.top .sub2{color:#D9D5EA;margin:0}
+.bubbles{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 4px}
+.bub{position:relative;border-radius:16px;padding:8px 14px;font-weight:700;font-size:.92em;max-width:300px}
+.bub::after{content:"";position:absolute;bottom:-8px;left:20px;border:8px solid transparent;border-bottom:0;border-top-color:inherit}
+.bub.c{background:var(--coral);color:#fff;border-color:var(--coral)}
+.bub.s{background:var(--sun);color:var(--ink);border-color:var(--sun)}
+.bub.t{background:var(--teal);color:#fff;border-color:var(--teal)}
+.feather{position:absolute;right:-10px;top:8px;font-size:5.5em;opacity:.18;transform:rotate(-25deg);pointer-events:none}
+.order{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 12px;margin:14px 0 0;font-size:.93em}
+.order .ru{color:#CFCBE3}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.namebox input{border:0;border-radius:10px;padding:8px 12px;font:inherit;width:170px;min-height:44px}
+
+/* sticky bar */
+.sticky{position:sticky;top:0;z-index:20;background:var(--bg);box-shadow:0 2px 8px rgba(34,34,59,.08)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px 6px;max-width:900px;margin:0 auto;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;min-height:44px;font-weight:700;font-size:.88em;white-space:nowrap;line-height:1.15;text-align:center}
+.tab .ru{display:block;font-size:.8em;font-weight:600}
+.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab.active .ru{color:#CFCBE3}
+.tab .badge{display:inline-block;margin-left:6px;background:var(--sun);color:var(--ink);border-radius:999px;padding:0 7px;font-size:.78em}
+.progress{max-width:900px;margin:0 auto;padding:0 16px 10px;display:flex;align-items:center;gap:10px;font-size:.88em;font-weight:700}
+.bar{flex:1;height:10px;background:#fff;border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--sun),var(--coral));transition:width .4s}
+
+main{padding:18px 0 60px}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin:0 0 18px;border:1px solid var(--line)}
+.card h2{font-size:1.45em;margin-bottom:4px}
+.card h3{font-size:1.15em;margin:16px 0 6px}
+.head-ru{color:var(--ink2);font-size:.95em;margin:0 0 12px}
+.say{border:0;background:var(--violet-soft);border-radius:999px;min-width:36px;min-height:36px;padding:0 8px;font-size:.95em;line-height:1;vertical-align:middle}
+.say:hover{background:#ddd6f6}
+
+/* words */
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.w{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff}
+.w .em{font-size:1.8em;width:44px;text-align:center;flex:0 0 44px}
+.w .t{flex:1;min-width:0}
+.w b{font-size:1.04em}
+.w .ipa{color:var(--ink2);font-size:.85em}
+.w .exs{font-size:.85em;color:var(--ink2);font-style:italic}
+.careful{background:var(--sun-soft);border:2px dashed var(--sun)}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:7px 0}
+
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.btn{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.good{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.warn{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.btn.ghost{border-color:var(--line)}
+.btn.on{background:var(--violet);border-color:var(--violet);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+a.btn{text-decoration:none;color:var(--ink)}
+.scene{perspective:1200px;max-width:460px;margin:0 auto}
+.flash{position:relative;height:300px;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flash.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;box-shadow:0 6px 20px rgba(34,34,59,.15)}
+.front{background:#fff;border:3px solid var(--violet)}
+.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.face .big{font-size:3.4em;line-height:1.1}
+.face .word{font-family:"Prata",serif;font-size:1.8em;margin:8px 0 2px}
+.back .word{color:var(--sun)}
+.face .ex{font-size:.95em;color:#D9D5EA;margin-top:10px}
+.face .hint{position:absolute;bottom:10px;font-size:.8em;opacity:.65}
+.back .say{background:rgba(255,255,255,.15);color:#fff}
+.fc-nav{display:flex;justify-content:center;gap:10px;margin:14px 0 6px}
+.fc-know{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.fc-count{text-align:center;font-weight:700;margin:6px 0}
+.known-bar{max-width:460px;margin:8px auto 0}
+
+/* exercises */
+.ex{border-top:4px solid var(--violet)}
+.ex .num{display:inline-block;background:var(--violet);color:#fff;border-radius:999px;padding:1px 10px;font-weight:800;font-size:.8em;margin-bottom:6px}
+.ex .score{float:right;font-weight:800;color:var(--violet)}
+.item{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:#fff}
+.item .q{font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.item .direct{display:inline-block;background:var(--coral-soft);color:#8b2a1a;border-radius:12px;padding:3px 10px;font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.col{flex-direction:column;align-items:stretch}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:700;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--violet)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.fb{margin-top:8px;border-radius:10px;padding:8px 10px;font-size:.93em}
+.fb.ok{background:var(--ok-soft);color:#155c3c}
+.fb.no{background:var(--bad-soft);color:#8b2a1a}
+.fb.info{background:var(--sun-soft);color:#6d4808}
+.gap{display:inline-block;min-width:60px;border-bottom:2px solid var(--ink2);text-align:center;font-weight:800;color:var(--coral)}
+.listen-btn{font-size:1.4em;min-width:64px;min-height:52px;border-radius:14px;border:0;background:var(--violet);color:#fff}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 10px;min-height:48px;font-weight:700;text-align:center}
+.mbtn.sel{border-color:var(--sun);background:var(--sun-soft)}
+.mbtn.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);cursor:default}
+.mbtn.shake{animation:shake .35s;border-color:var(--bad);background:var(--bad-soft)}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.round-title{font-weight:800;margin:14px 0 6px}
+
+/* tiles */
+.built{min-height:52px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:#FBFAFE}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tile{border:2px solid var(--teal);background:#fff;color:#0f6b61;border-radius:10px;padding:6px 12px;min-height:44px;font-weight:700}
+.built .tile{background:var(--teal);color:#fff}
+.tile:disabled{opacity:.6;cursor:default}
+
+/* typed */
+.typed{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.typed .pre{font-weight:700}
+.typed input{flex:1 1 220px;min-height:46px;border:2px solid var(--line);border-radius:12px;padding:8px 12px;font:inherit;min-width:0}
+.typed input.okk{border-color:var(--ok);background:var(--ok-soft)}
+.typed input.bad{border-color:var(--bad)}
+textarea{width:100%;min-height:140px;border:2px solid var(--line);border-radius:12px;padding:10px;font:inherit;resize:vertical}
+
+/* rules */
+.rule{border-top:4px solid var(--coral)}
+.rule .step{display:inline-block;background:var(--coral);color:#fff;border-radius:999px;padding:1px 10px;font-weight:800;font-size:.8em;margin-bottom:6px}
+.rule p{margin:8px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border-radius:14px;padding:12px;background:var(--teal-soft)}
+.box.c{background:var(--coral-soft)}
+.box.v{background:var(--violet-soft)}
+.box h4{margin:0 0 6px;font-size:1.05em}
+.ex-line{margin:6px 0}
+table.g{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:.95em}
+table.g th{text-align:left;font-size:.85em;color:var(--ink2);padding:0 8px}
+table.g td{background:#F8F7FC;padding:8px;vertical-align:top}
+table.g td:first-child{border-radius:10px 0 0 10px}
+table.g td:last-child{border-radius:0 10px 10px 0}
+.k{color:var(--coral);font-weight:800}
+.pn{color:var(--violet);font-weight:800}
+.mist{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:6px}
+.mist .x{color:var(--bad);text-decoration:line-through}
+.mist .v{color:var(--ok);font-weight:700}
+.ruvs{background:var(--sun-soft);border-radius:12px;padding:10px 12px;margin:10px 0}
+
+/* gossip machine */
+.machine{background:linear-gradient(160deg,#2E2E52,#22223B);color:#fff;border-radius:18px;padding:16px}
+.machine .ru{color:#CFCBE3}
+.machine .pick{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.machine .pick button{border:2px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:999px;padding:6px 12px;min-height:44px;font-weight:700}
+.machine .pick button.on{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.machine .stage{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:8px}
+.machine .say-d,.machine .say-r{border-radius:16px;padding:12px;font-weight:700;min-height:70px}
+.machine .say-d{background:var(--coral)}
+.machine .say-r{background:#fff;color:var(--ink);opacity:.35;transition:opacity .4s, transform .4s;transform:translateX(-6px)}
+.machine .say-r.show{opacity:1;transform:none}
+.machine .arrow{font-size:1.6em;color:var(--sun)}
+.machine .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:32px}
+.machine .chip{background:rgba(255,200,87,.18);border:1px solid var(--sun);color:var(--sun);border-radius:999px;padding:2px 10px;font-size:.85em;font-weight:700}
+.machine .say{background:rgba(255,255,255,.15);color:inherit}
+.machine .say-r .say{background:var(--violet-soft)}
+
+/* story */
+.story{background:var(--tint);border-radius:16px;padding:16px 18px;font-size:1.02em}
+.story p{margin:0 0 12px}
+.story .lead{font-family:"Prata",serif;color:var(--teal);font-size:1.1em}
+.gl{border:0;background:transparent;padding:0;font:inherit;color:var(--violet);font-weight:800;border-bottom:2px dotted var(--violet);min-height:0;cursor:pointer}
+.glt{display:none;background:var(--violet);color:#fff;border-radius:8px;padding:1px 7px;font-size:.82em;margin-left:4px;font-weight:700}
+.glt.show{display:inline}
+
+/* results */
+.big-score{font-family:"Prata",serif;font-size:2.6em;color:var(--violet)}
+.res-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding:6px 0}
+.send{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.mistake{border-left:4px solid var(--bad);background:#FFF7F5;padding:8px 10px;border-radius:0 10px 10px 0;margin:6px 0;font-size:.93em}
+.confirm{display:none;background:var(--bad-soft);border-radius:12px;padding:10px;margin-top:10px}
+.confirm.show{display:block}
+.email{user-select:all;font-weight:800;background:#fff;border:1px dashed var(--line);border-radius:8px;padding:2px 8px;word-break:break-all}
+footer{text-align:center;color:var(--ink2);font-size:.85em;padding:20px 0 40px}
+
+@media (max-width:600px){
+  body{font-size:16px}
+  .top h1{font-size:1.6em}
+  .two,.mist{grid-template-columns:1fr}
+  .machine .stage{grid-template-columns:1fr}
+  .machine .arrow{transform:rotate(90deg);text-align:center}
+  .flash{height:290px}
+  .card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+
+
+
+
+/* ---------- personality-type theme ---------- */
+:root{
+  --ink:#231A3D; --ink2:#5D5675; --bg:#F7F4FA; --line:#E4DEEE; --tint:#EFEAF7;
+  --violet:#5B3E96; --violet-soft:#ECE5F7; --coral:#D2553A; --coral-soft:#FBE3DC;
+  --sun:#F2B544; --sun-soft:#FDF1D9; --teal:#2A9D8F; --teal-soft:#DDF2EF;
+}
+body{font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg)}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;font-weight:800;letter-spacing:-.01em}
+.card h2{font-size:1.35em}
+header.top{background:linear-gradient(150deg,#2C1F55 0%,#5B3E96 60%,#7A5BB8 100%);padding-bottom:22px;border-bottom:6px solid #F2B544}
+.top .kicker{background:var(--sun);color:var(--ink)}
+.top h1{font-size:2em}
+.top .sub{color:var(--sun)}
+.bubbles{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.bubbles span{background:#FBF5EA;color:#16302B;font-weight:700;border-radius:18px 18px 18px 4px;padding:6px 14px;font-size:.92em;box-shadow:0 4px 10px rgba(0,0,0,.18)}
+.bubbles span.o{background:#E2783C;color:#16302B;border-radius:18px 18px 4px 18px}
+.order{background:rgba(255,255,255,.1)}
+.tab.active{background:var(--violet);border-color:var(--violet)}
+.bar>i{background:linear-gradient(90deg,var(--violet),var(--coral),var(--sun))}
+.btn.primary{background:var(--violet);border-color:var(--violet)}
+.ex{border-top-color:var(--coral)}
+.ex .num{background:var(--coral)}
+.ex .score{color:var(--coral)}
+.rule{border-top-color:var(--violet)}
+.rule .step{background:var(--violet)}
+.item .direct{background:var(--sun-soft);color:var(--ink);border:1px dashed #E6C766}
+.w .em{background:var(--violet-soft);border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:1.4em}
+.w .def{font-size:.92em}
+.big-score{font-family:"Bricolage Grotesque","DM Sans",sans-serif;color:var(--violet)}
+.face .word{font-family:"Bricolage Grotesque","DM Sans",sans-serif;font-size:1.4em;line-height:1.3}
+.front{border-color:var(--violet)}
+.face .ex{border-top:0}
+.head-ru:empty,.ru:empty{display:none}
+.uses{padding-left:20px;margin:6px 0}
+.uses li{margin:6px 0}
+.note{background:var(--tint);border-radius:12px;padding:10px 12px}
+.story{background:var(--tint);border-radius:16px;padding:16px 18px}
+.gp{display:inline-block;min-width:70px;border-bottom:2px solid var(--violet);color:var(--violet);font-weight:800;text-align:center}
+.machine{background:linear-gradient(160deg,#2C1F55,#3E2C72)}
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 4px;max-width:520px}
+.types span{border-radius:14px;padding:8px 6px;text-align:center;font-weight:800;font-size:.9em;color:#231A3D}
+.types span:nth-child(1){background:#F2B544}.types span:nth-child(2){background:#7FD1C4}.types span:nth-child(3){background:#F4A28F}.types span:nth-child(4){background:#C9B8F0}
+.formula{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.formula .chip{background:var(--sun);border-radius:999px;padding:4px 12px;font-weight:800}
+.formula .chip.alt{background:var(--tint)}
+@media (max-width:600px){ .types{grid-template-columns:repeat(2,1fr)} }
+.tl{position:relative;height:74px;margin:14px 6px 6px}
+.tl .line{position:absolute;left:0;right:0;top:36px;height:4px;background:rgba(255,255,255,.35);border-radius:4px}
+.tl .lbl{position:absolute;left:0;top:50px;font-size:.8em;opacity:.7}
+.tl .now{position:absolute;right:0;top:46px;background:var(--coral);color:#fff;font-weight:800;font-size:.75em;border-radius:999px;padding:2px 8px}
+.tl .now::before{content:"";position:absolute;right:16px;top:-12px;width:3px;height:12px;background:var(--coral)}
+.tl .tick{position:absolute;top:8px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:var(--sun);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center;animation:pop .4s both}
+.tl .tick:nth-of-type(2){animation-delay:.15s}.tl .tick:nth-of-type(3){animation-delay:.3s}
+.tl .run{position:absolute;left:14%;right:22px;top:30px;height:16px;border-radius:999px;background:repeating-linear-gradient(90deg,var(--sun) 0 14px,#F6D98A 14px 28px);transform-origin:left;animation:grow .7s both}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tl-out{background:#fff;color:var(--ink);border-radius:14px;padding:10px 12px;margin-top:6px}
+@media (max-width:600px){ .top h1{font-size:1.45em} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="kicker">UPPER-INTERMEDIATE · VOCABULARY + GRAMMAR</span>
+    <h1>The more, the merrier</h1>
+    <p class="sub">Compound adjectives for personality + the…, the… comparatives · <span id="forName">for Julia</span></p>
+    <div class="types" aria-hidden="true"><span>open-minded</span><span>laid-back</span><span>strong-willed</span><span>easy-going</span></div>
+    <div class="order">
+      <div><b>How to work:</b> Words → Flashcards → Vocabulary → Grammar (read each step, then practise) → In context → Results. Your answers are saved automatically.</div>
+      <div class="namebox"><label for="nameInput"><b>Name:</b></label><input id="nameInput" type="text" autocomplete="off"></div>
+    </div>
+  </div>
+</header>
+
+<div class="sticky">
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
+  <div class="progress"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="scoreText">0 / 0</span></div>
+</div>
+
+<main class="wrap" id="main"></main>
+<footer>Made for Julia · The more, the merrier 🧩</footer>
+
+<script>
+/* =========================================================
+   DATA — words, exercises (edit here)
+   ========================================================= */
+const TEACHER_EMAIL = "ulchik2211@gmail.com";
+const TOPIC = "The more, the merrier: compound adjectives + the…, the… comparatives";
+const STORE_KEY = "julia-the-more-the-merrier-v1";
+const STUDENT = "Julia";
+
+// en, pattern, definition, example, emoji, set
+const WORDS = [
+  ["open-minded","adjective","willing to listen to and accept new ideas and opinions","My grandma is surprisingly open-minded about tattoos.","🪟","pos"],
+  ["self-sufficient","adjective","able to do things and look after yourself without help","She moved abroad at eighteen and became very self-sufficient.","🧰","pos"],
+  ["good-natured","adjective","kind, friendly and patient","He’s so good-natured — he laughs even when people tease him.","🌻","pos"],
+  ["hard-working","adjective","putting a lot of effort into your work","Our new intern is incredibly hard-working.","💪","pos"],
+  ["easy-going","adjective","relaxed; not easily worried or annoyed","My parents are pretty easy-going about bedtimes.","🌊","pos"],
+  ["good-tempered","adjective","not easily made angry; calm and cheerful","Our dog is very good-tempered with children.","😊","pos"],
+  ["well-balanced","adjective","sensible and emotionally stable","He’s a well-balanced, happy teenager.","⚖️","pos"],
+  ["well-behaved","adjective","behaving politely and correctly (often about children or pets)","The kids were really well-behaved on the plane.","😇","pos"],
+  ["kind-hearted (extra)","adjective","kind and generous to other people","A kind-hearted neighbour fed our cat while we were away.","💗","pos"],
+  ["level-headed (extra)","adjective","calm and sensible, even in a difficult situation","We need someone level-headed in a crisis.","🧘","pos"],
+  ["absent-minded","adjective","often forgetting things because you are thinking about something else","My absent-minded uncle once left his car at the supermarket.","🙃","neg"],
+  ["bad-tempered","adjective","easily annoyed or made angry","I’m always bad-tempered before my first coffee.","😠","neg"],
+  ["big-headed","adjective","thinking you are more important or clever than you are","Winning the prize made him a bit big-headed.","🎈","neg"],
+  ["narrow-minded","adjective","not willing to accept new ideas or other people’s opinions","It’s narrow-minded to judge people by their clothes.","🚪","neg"],
+  ["self-centred","adjective","thinking only about yourself and your own needs","She’s so self-centred — she never asks how I am.","🪞","neg"],
+  ["tight-fisted","adjective (informal)","not willing to spend money; not generous","He’s too tight-fisted to buy anyone a coffee.","👛","neg"],
+  ["two-faced","adjective","nice to people when they are there, but unkind about them behind their back","Don’t trust him — he’s completely two-faced.","🎭","neg"],
+  ["cold-hearted (extra)","adjective","showing no kindness or sympathy","It was cold-hearted to leave without saying goodbye.","🧊","neg"],
+  ["laid-back","adjective","very relaxed and calm (sometimes too relaxed)","He’s so laid-back that he almost missed his own wedding.","🏖️","dep"],
+  ["strong-willed","adjective","determined to do what you want (positive: determined; negative: stubborn)","My strong-willed daughter never gives up.","🦁","dep"],
+].map(([en,pos,ru,ex,emoji,set])=>({en,pos,ru,ex,emoji,set,key:en}));
+const speakForm = (w)=>w.replace(/\s*\(.*?\)/g,"");
+
+const CAREFUL = [
+  "Compound adjectives have <b>two parts joined by a hyphen</b>. The second part often ends in <b>-ed</b> or <b>-ing</b>: <i>open-mind<b>ed</b>, easy-go<b>ing</b></i>.",
+  "The <b>main stress</b> is on the <b>second</b> part: absent-<b>MIND</b>ed, bad-<b>TEM</b>pered, laid-<b>BACK</b>, two-<b>FACED</b>.",
+  "<b>Modifiers:</b> <i>really / incredibly / extremely / very / quite / pretty</i> go with any adjective. <b>a bit / rather</b> go with <b>negative</b> ones only: <i>a bit tight-fisted</i> ✓, <s>a bit open-minded</s> ✗.",
+  "Useful opposites: <b>open-minded ↔ narrow-minded</b>, <b>good-tempered ↔ bad-tempered</b>, <b>kind-hearted ↔ cold-hearted</b>.",
+  "<b>self-centred</b> is British spelling (US: <i>self-centered</i>). <b>big-headed</b> has nothing to do with the size of your head!",
+  "<b>strong-willed</b> and <b>laid-back</b> can be compliments or criticism — the context decides.",
+  "Comparatives of compound adjectives use <b>more</b>: <i>more open-minded</i>, <i>more bad-tempered</i> (not <s>bad-tempereder</s>).",
+];
+const PNE = ["positive","negative","it depends"];
+
+/* Exercise types: match | choice | tiles | typed | write */
+const EXERCISES = [
+  /* ---------- vocabulary ---------- */
+  { id:"v1", tab:"vocab", type:"match", en:"Match the adjectives and their meanings", ru:"",
+    ins:["Tap an adjective, then its meaning.",""],
+    rounds:[
+      {title:["Round 1",""], pairs:[["open-minded","accepts new ideas"],["absent-minded","often forgets things"],["big-headed","thinks they’re very important"],["tight-fisted","doesn’t like spending money"],["two-faced","nice to you, unkind behind your back"],["easy-going","relaxed, not easily worried"],["well-behaved","polite and obedient"]]},
+      {title:["Round 2",""], pairs:[["self-centred","thinks only about themselves"],["strong-willed","very determined"],["bad-tempered","gets angry easily"],["narrow-minded","won’t accept other opinions"],["self-sufficient","needs no help from others"],["level-headed","calm and sensible in a crisis"],["hard-working","puts in a lot of effort"]]},
+    ]},
+  { id:"v2", tab:"vocab", type:"choice", en:"Positive, negative or it depends?", ru:"",
+    ins:["Decide how each adjective usually sounds.",""],
+    items:[
+      {q:"big-headed", opts:PNE, a:1, why:"Thinking you’re better than others is a criticism."},
+      {q:"open-minded", opts:PNE, a:0, why:"Being open to new ideas is a compliment."},
+      {q:"tight-fisted", opts:PNE, a:1, why:"Not generous with money — a criticism."},
+      {q:"strong-willed", opts:PNE, a:2, why:"Determined (good) or stubborn (bad) — it depends on the situation."},
+      {q:"two-faced", opts:PNE, a:1, why:"Dishonest and disloyal."},
+      {q:"well-balanced", opts:PNE, a:0, why:"Sensible and emotionally stable."},
+      {q:"self-centred", opts:PNE, a:1, why:"Thinking only about yourself."},
+      {q:"easy-going", opts:PNE, a:0, why:"Relaxed and easy to be with."},
+    ]},
+  { id:"v3", tab:"vocab", type:"choice", en:"Which adjective fits?", ru:"",
+    ins:["Choose the best adjective for each person.",""],
+    items:[
+      {q:"He spent the whole meeting talking about his own achievements. He’s so ___.", opts:["open-minded","big-headed","well-balanced"], a:1, why:"Talking only about your own success → big-headed."},
+      {q:"She’s lost her keys three times this week — she’s terribly ___.", opts:["absent-minded","two-faced","strong-willed"], a:0, why:"Forgetting things → absent-minded."},
+      {q:"Our new boss never panics, even when everything goes wrong. She’s very ___.", opts:["bad-tempered","tight-fisted","level-headed"], a:2, why:"Calm and sensible in a crisis → level-headed."},
+      {q:"He’s nice to your face, but he criticises you when you’re not there. He’s ___.", opts:["two-faced","good-natured","laid-back"], a:0, why:"Nice to your face, unkind behind your back → two-faced."},
+      {q:"My grandad refuses to try any food he doesn’t know. He’s quite ___.", opts:["easy-going","kind-hearted","narrow-minded"], a:2, why:"Not open to new things → narrow-minded."},
+      {q:"The kids sat quietly through the whole concert — they were really ___.", opts:["big-headed","well-behaved","self-sufficient"], a:1, why:"Polite, quiet children → well-behaved."},
+      {q:"Once she decides to do something, nobody can stop her. She’s ___.", opts:["strong-willed","absent-minded","well-behaved"], a:0, why:"Very determined → strong-willed."},
+      {q:"He never pays for a round of drinks. He’s a bit ___.", opts:["hard-working","open-minded","tight-fisted"], a:2, why:"Doesn’t like spending money → tight-fisted."},
+    ]},
+  { id:"v4", tab:"vocab", type:"typed", plain:true, en:"Complete the adjective", ru:"",
+    ins:["Type the missing second part of the compound adjective.",""],
+    items:[
+      {q:"Nothing seems to worry my brother — he’s very laid-___.", accept:["back"], full:"He’s very laid-back.", hint:"laid-b…"},
+      {q:"My flatmate cooks, fixes things and pays all her bills herself. She’s completely self-___.", accept:["sufficient"], full:"She’s completely self-sufficient.", hint:"self-s… (= needs no help)"},
+      {q:"Don’t talk to Dad before his morning coffee — he’s always bad-___ then.", accept:["tempered"], full:"He’s always bad-tempered then.", hint:"bad-t…"},
+      {q:"She stays at the office until 9 every night. She’s incredibly hard-___.", accept:["working"], full:"She’s incredibly hard-working.", hint:"-ing form"},
+      {q:"He only ever thinks about himself. He’s so self-___.", accept:["centred","centered"], full:"He’s so self-centred.", hint:"self-c… (British spelling: -tred)"},
+      {q:"Our teacher is very open-___: she’s happy to hear any opinion.", accept:["minded"], full:"She’s very open-minded.", hint:"-ed form of mind"},
+    ]},
+  { id:"v5", tab:"vocab", type:"choice", en:"Modifiers: correct or not?", ru:"",
+    ins:["Remember: a bit and rather go with negative adjectives only.",""],
+    items:[
+      {q:"My boss is a bit tight-fisted.", opts:["correct","not correct"], a:0, why:"a bit + negative adjective ✓"},
+      {q:"Her husband is a bit open-minded.", opts:["correct","not correct"], a:1, why:"a bit doesn’t go with positive adjectives → quite / very open-minded."},
+      {q:"My mum is incredibly easy-going.", opts:["correct","not correct"], a:0, why:"incredibly works with any adjective."},
+      {q:"He’s rather two-faced.", opts:["correct","not correct"], a:0, why:"rather + negative adjective ✓"},
+      {q:"She’s a bit well-balanced.", opts:["correct","not correct"], a:1, why:"well-balanced is positive → pretty / really well-balanced."},
+    ]},
+
+  /* ---------- grammar ---------- */
+  { id:"g1", tab:"grammar", type:"choice", en:"Choose the correct form", ru:"",
+    ins:["Choose the word that completes each sentence.",""],
+    items:[
+      {q:"The ___ you practise, the better you get.", opts:["most","more","much"], a:1, why:"the + comparative: the more."},
+      {q:"The older I get, the ___ I become.", opts:["wiser","more wise","wisest"], a:0, why:"wise → wiser (one syllable: -er)."},
+      {q:"The more I eat, the ___ I am!", opts:["more hungry","hungriest","hungrier"], a:2, why:"hungry → hungrier (-y → -ier)."},
+      {q:"The ___ money you spend now, the less you’ll have.", opts:["more","most","many"], a:0, why:"the more + noun."},
+      {q:"The fewer people come, the ___ food we need.", opts:["fewer","less","least"], a:1, why:"food is uncountable → less (fewer is for countable nouns)."},
+      {q:"The ___ we leave, the sooner we’ll arrive.", opts:["more early","early","earlier"], a:2, why:"early → earlier."},
+      {q:"The ___ the weather, the happier I feel.", opts:["better","gooder","best"], a:0, why:"good → better (irregular)."},
+      {q:"The less I sleep, the ___ I get.", opts:["bad-tempereder","more bad-tempered","most bad-tempered"], a:1, why:"Compound adjectives use more: more bad-tempered."},
+    ]},
+  { id:"g2", tab:"grammar", type:"choice", colOpts:true, en:"Word order: which is correct?", ru:"",
+    ins:["The comparative comes straight after the — then the subject and verb.",""],
+    items:[
+      {q:"", opts:["The more it is difficult, the more I enjoy it.","The more difficult it is, the more I enjoy it."], a:1, why:"Keep the adjective with more: the more difficult + it is."},
+      {q:"", opts:["The more money you have, the more you want.","The more you have money, the more you want."], a:0, why:"The noun goes straight after the more: the more money + you have."},
+      {q:"", opts:["The more I study hard, the better my marks are.","The harder I study, the better my marks are."], a:1, why:"The adverb itself becomes comparative: hard → the harder I study."},
+      {q:"", opts:["The sooner we’ll leave, the earlier we’ll arrive.","The sooner we leave, the earlier we’ll arrive."], a:1, why:"No will in the first half (like an if-clause); will is fine in the second half."},
+      {q:"", opts:["More I travel, more I want to travel.","The more I travel, the more I want to travel."], a:1, why:"Both halves need the."},
+      {q:"", opts:["The most you sleep, the best you feel.","The more you sleep, the better you feel."], a:1, why:"Use comparatives (more, better), not superlatives."},
+    ]},
+  { id:"g3", tab:"grammar", type:"typed", self:true, en:"Rewrite with the…, the…", ru:"",
+    ins:["Rewrite each sentence using the… , the… + comparatives.",""],
+    items:[
+      {q:"If you read a lot, you learn a lot.", accept:["The more you read, the more you learn."], hint:"The more you read, the more…"},
+      {q:"If I drink a lot of coffee, I feel nervous.", accept:["The more coffee I drink, the more nervous I feel.","The more coffee I drink, the more nervous I get.","The more coffee I drink, the more nervous I am."], hint:"The more coffee I drink, the more…"},
+      {q:"If you leave early, you’ll arrive early.", accept:["The earlier you leave, the earlier you'll arrive.","The earlier you leave, the earlier you will arrive.","The earlier you leave, the sooner you'll arrive.","The earlier you leave, the sooner you will arrive."], hint:"The earlier you leave, the…"},
+      {q:"If you are relaxed, you make few mistakes.", accept:["The more relaxed you are, the fewer mistakes you make.","The more relaxed you are, the less mistakes you make."], hint:"The more relaxed you are, the fewer…"},
+      {q:"If a hotel is expensive, it is usually comfortable.", accept:["The more expensive a hotel is, the more comfortable it usually is.","The more expensive the hotel, the more comfortable it is.","The more expensive a hotel is, the more comfortable it is.","The more expensive the hotel is, the more comfortable it is.","The more expensive the hotel is, the more comfortable it usually is."], hint:"The more expensive a hotel is, the more…"},
+      {q:"If I work hard, I get tired.", accept:["The harder I work, the more tired I get.","The harder I work, the more tired I feel.","The harder I work, the more tired I am."], hint:"The harder I work, the more tired…"},
+      {q:"If people are open-minded, they make friends easily.", accept:["The more open-minded people are, the more easily they make friends.","The more open-minded people are, the more friends they make.","The more open-minded you are, the more easily you make friends."], hint:"The more open-minded people are, the more easily…"},
+    ]},
+  { id:"g4", tab:"grammar", type:"typed", plain:true, en:"Finish the saying", ru:"",
+    ins:["Type the missing word in each well-known saying.",""],
+    items:[
+      {q:"The more, the ___.", accept:["merrier"], full:"The more, the merrier.", hint:"merry → …"},
+      {q:"The sooner, the ___.", accept:["better"], full:"The sooner, the better.", hint:"good → …"},
+      {q:"The bigger they are, the ___ they fall.", accept:["harder"], full:"The bigger they are, the harder they fall.", hint:"hard → …"},
+      {q:"The older the fiddle, the ___ the tune.", accept:["sweeter"], full:"The older the fiddle, the sweeter the tune.", hint:"sweet → …"},
+      {q:"The more you know, the more you realise you don’t ___.", accept:["know"], full:"The more you know, the more you realise you don't know.", hint:"Same verb as at the start."},
+      {q:"The more things change, the more they stay the ___.", accept:["same"], full:"The more things change, the more they stay the same.", hint:"= not different"},
+    ]},
+  { id:"g5", tab:"grammar", type:"tiles", en:"Build the sentence", ru:"",
+    ins:["Tap the words in the right order.",""],
+    items:[
+      {ru:"Practice and progress", answer:"The more you practise, the better you get."},
+      {ru:"Starting and finishing", answer:"The sooner we start, the sooner we'll finish."},
+      {ru:"Age and personality", answer:"The older my dad gets, the more laid-back he becomes."},
+      {ru:"People and fun", answer:"The more people there are, the more fun it is."},
+    ]},
+  { id:"g6", tab:"grammar", type:"typed", self:true, en:"Find and correct the mistake", ru:"",
+    ins:["Each sentence has one mistake. Write the correct sentence.",""],
+    items:[
+      {q:"✗ The more you will practise, the better you’ll get.", accept:["The more you practise, the better you'll get.","The more you practise, the better you will get."], hint:"No will in the first half."},
+      {q:"✗ The more it is cold, the more I want to stay in bed.", accept:["The colder it is, the more I want to stay in bed."], hint:"cold → the colder it is"},
+      {q:"✗ The more you have friends, the happier you are.", accept:["The more friends you have, the happier you are."], hint:"the more + noun + subject + verb"},
+      {q:"✗ The more I get older, the more I enjoy staying at home.", accept:["The older I get, the more I enjoy staying at home."], hint:"old → the older I get"},
+      {q:"✗ The best you prepare, the more confident you feel.", accept:["The better you prepare, the more confident you feel.","The more you prepare, the more confident you feel."], hint:"Comparative, not superlative."},
+    ]},
+
+  /* ---------- in context ---------- */
+  { id:"c1", tab:"ctx", type:"choice", en:"Complete the personality test", ru:"",
+    ins:["Read the test above and choose the best option for each gap.",""],
+    items:[
+      {q:"(1) The bigger the shell you imagined, the ___ ambitious you are.", opts:["most","more","much"], a:1, why:"the + comparative: the more ambitious."},
+      {q:"(2) If you gave it to a friend, you’re ___ and generous.", opts:["kind-hearted","big-headed","two-faced"], a:0, why:"Giving things away → kind-hearted."},
+      {q:"(3) If you kept it for yourself, you might be a bit ___.", opts:["open-minded","self-centred","well-behaved"], a:1, why:"a bit + negative adjective: self-centred."},
+      {q:"(4) The ___ away the boat is, the more adventurous you are.", opts:["further","furthest","far"], a:0, why:"far → further (irregular comparative)."},
+      {q:"(5) If you just lay on the sand and watched it, you’re probably very ___.", opts:["tight-fisted","laid-back","narrow-minded"], a:1, why:"Relaxed, no hurry → laid-back."},
+      {q:"(6) The ___ you stayed on the beach, the more strong-willed you are.", opts:["longest","long","longer"], a:2, why:"long → longer."},
+      {q:"(7) People who left at once are ___ — calm and sensible in a crisis.", opts:["level-headed","bad-tempered","absent-minded"], a:0, why:"Calm and sensible → level-headed."},
+      {q:"(8) If you kept all the money you found, you’re a bit ___!", opts:["good-natured","easy-going","tight-fisted"], a:2, why:"Keeping all the money → tight-fisted."},
+      {q:"(9) And remember: the less seriously you take this test, the ___ you’ll enjoy it!", opts:["more","most","much"], a:0, why:"the less …, the more …"},
+    ]},
+  { id:"wr", tab:"ctx", type:"write", en:"Your turn: write", ru:"",
+    ins:["Write 100–150 words. Use at least five compound adjectives (with modifiers) and three the…, the… sentences.",""],
+    items:[
+      {p:"Describe two people you know well — one who is very similar to you and one who is very different. Give examples of their behaviour.", pru:"", model:"My best friend Kate is incredibly easy-going. The more stressed everyone else gets, the calmer she becomes…"},
+      {p:"Create your own personality test, like “A walk in the forest”: write 4–5 things to imagine and explain what the answers mean.", pru:"", model:"Imagine you’re walking through a city at night. You see a door… The bigger the door, the more open-minded you are…"},
+    ]},
+];
+
+const TABS = [
+  {id:"words", en:"Words", ru:"20 adjectives"},
+  {id:"cards", en:"Flashcards", ru:"learn"},
+  {id:"vocab", en:"Vocabulary", ru:"practice"},
+  {id:"grammar", en:"Grammar", ru:"the…, the…"},
+  {id:"ctx", en:"In context", ru:"test + writing"},
+  {id:"results", en:"Results", ru:"send"},
+];
+EXERCISES.filter(e=>["g1","c1"].includes(e.id)).forEach(ex=>ex.items.forEach(it=>{ it.say = it.q.replace(/^\(\d\)\s*/,"").replace("___", it.opts[it.a]); }));
+EXERCISES.find(e=>e.id==="v3").items.forEach(it=>{ it.say = it.q.replace("___", it.opts[it.a]); });
+EXERCISES.find(e=>e.id==="v2").items.forEach(it=>{ it.say = it.q; });
+EXERCISES.find(e=>e.id==="v5").items.forEach(it=>{ it.say = it.q; });
+
+const PRAISE = ["Correct!","Spot on!","Nicely done!","Exactly!","Perfect!"];
+const OOPS = ["Not quite","Almost!","Not this time"];
+/* =========================================================
+   STATE + STORAGE
+   ========================================================= */
+let memStore = null;
+function loadState(){ try{ const s = localStorage.getItem(STORE_KEY); return s ? JSON.parse(s) : memStore; }catch(e){ return memStore; } }
+function saveState(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){ memStore = JSON.parse(JSON.stringify(state)); } }
+function freshState(){ return {name:STUDENT, tab:"words", ans:{}, shuf:{}, known:[], fc:{i:0, dir:"en", onlyLearning:false, order:null}, writing:{}}; }
+let state = Object.assign(freshState(), loadState() || {});
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+const $ = (s, el=document) => el.querySelector(s);
+function h(tag, attrs={}, ...kids){
+  const el = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs||{})){
+    if (k === "class") el.className = v;
+    else if (k === "html") el.innerHTML = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) el.setAttribute(k, v);
+  }
+  for (const kid of kids.flat()){ if (kid == null || kid === false) continue; el.append(kid.nodeType ? kid : document.createTextNode(kid)); }
+  return el;
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffled(arr){ const a = arr.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function stableShuffle(key, arr){
+  if (!state.shuf[key] || state.shuf[key].length !== arr.length){
+    let idx = shuffled(arr.map((_,i)=>i));
+    if (arr.length > 1 && idx.every((v,i)=>v===i)) idx.reverse();
+    state.shuf[key] = idx; saveState();
+  }
+  return state.shuf[key].map(i=>arr[i]);
+}
+function capFirst(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+/* speech */
+let voice = null;
+function pickVoice(){ if (!("speechSynthesis" in window)) return; const vs = speechSynthesis.getVoices(); voice = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if ("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text){
+  try{
+    if (!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,""));
+    u.lang = "en-GB"; u.rate = 0.88; if (voice) u.voice = voice;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function sayBtn(text){ return h("button",{class:"say", type:"button", "aria-label":"Listen: "+text, "data-say":text}, "🔊"); }
+function sayInline(t){ return `<button class="say" type="button" data-say="${esc(t)}" aria-label="Listen">🔊</button>`; }
+document.addEventListener("click", e=>{ const b = e.target.closest("[data-say]"); if (b){ e.stopPropagation(); speak(b.getAttribute("data-say")); } });
+
+/* checking */
+const CONTRACTIONS = [
+  [/\bi'm\b/g,"i am"],[/\bdon't\b/g,"do not"],[/\bdoesn't\b/g,"does not"],[/\bdidn't\b/g,"did not"],
+  [/\bisn't\b/g,"is not"],[/\baren't\b/g,"are not"],[/\bcan't\b/g,"cannot"],[/\bcan not\b/g,"cannot"],
+  [/\bcouldn't\b/g,"could not"],[/\bwouldn't\b/g,"would not"],[/\bwon't\b/g,"will not"],
+  [/\bi'll\b/g,"i will"],[/\bwe'll\b/g,"we will"],[/\bthey'll\b/g,"they will"],[/\bhe'll\b/g,"he will"],[/\bshe'll\b/g,"she will"],[/\byou'll\b/g,"you will"],
+  [/\bi'd\b/g,"i would"],[/\bhe'd (?=(?:\w+ )?(?:been|taken|lost|seen|done|had|gone|met|bought|broken|finished|blown|forgotten)\b)/g,"he had "],[/\bshe'd (?=(?:\w+ )?(?:been|taken|lost|seen|done|had|gone|met|bought|broken|finished|blown|forgotten)\b)/g,"she had "],[/\bthey'd (?=(?:\w+ )?(?:been|taken|lost|seen|done|had|gone|met|bought|broken|finished|blown|forgotten)\b)/g,"they had "],
+  [/\bhe'd\b/g,"he would"],[/\bshe'd\b/g,"she would"],[/\bthey'd\b/g,"they would"],
+  [/\bthere's\b/g,"there is"],[/\bit's\b/g,"it is"],[/\bthat's\b/g,"that is"],[/\bwe're\b/g,"we are"],[/\bthey're\b/g,"they are"],[/\byou're\b/g,"you are"],
+  [/\bhaven't\b/g,"have not"],[/\bhasn't\b/g,"has not"],[/\bhadn't\b/g,"had not"],[/\bi've\b/g,"i have"],[/\bwe've\b/g,"we have"],[/\bthey've\b/g,"they have"],[/\byou've\b/g,"you have"],
+  [/\bwasn't\b/g,"was not"],[/\bweren't\b/g,"were not"],
+];
+function norm(s){
+  s = String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”«»„]/g,'"').replace(/\s+/g," ").trim();
+  s = s.replace(/^["']+/,"").replace(/[.!?,;:…"]+$/,"").replace(/^["']+|["]+$/g,"").trim();
+  s = s.replace(/[.!?,;:…]+$/,"").trim();
+  for (const [re,rep] of CONTRACTIONS) s = s.replace(re, rep);
+  s = s.replace(/\s*,\s*/g,", ").replace(/\s+/g," ").trim();
+  return s;
+}
+// reporting starts the student may type in front of the gap answer
+const LEAD_RE = /^(?:(?:she|he|they|the man|emma|tom|anna|lisa|mark)\s+(?:said|told\s+(?:me|him|her|us|them))(?:\s+that)?\s+)?(?:she|he|they|it|the feathers)\s+/;
+function matches(val, accept, item){
+  const v = norm(val);
+  if (accept.some(a=>norm(a)===v)) return true;
+  if (item && item.pre && !item.post){ const v2 = v.replace(LEAD_RE, ""); if (v2 !== v && accept.some(a=>norm(a)===v2)) return true; }
+  return false;
+}
+function styleNotes(val, model, item){
+  const notes = []; const t = val.trim();
+  if (!item.pre && t && t[0] !== t[0].toUpperCase()) notes.push("Start with a capital letter.");
+  if (/\?\s*$/.test(model) && !/\?\s*["”]?\s*$/.test(t)) notes.push("Don't forget the question mark.");
+  return notes;
+}
+
+/* =========================================================
+   SCORING
+   ========================================================= */
+function exItems(ex){
+  if (ex.type === "match") return ex.rounds.flatMap((r,ri)=>r.pairs.map((p,pi)=>({key:ri+"-"+pi})));
+  return ex.items.map((it,i)=>({key:String(i)}));
+}
+function A(exId){ return state.ans[exId] || (state.ans[exId] = {}); }
+function exScore(ex){
+  if (ex.type === "write") return null;
+  const items = exItems(ex); const a = state.ans[ex.id] || {};
+  let done=0, ok=0;
+  items.forEach(({key})=>{ const r = a[key]; if (r && r.done){ done++; if (r.ok) ok++; } });
+  return {done, ok, total: items.length};
+}
+function totals(){ let ok=0,total=0,done=0; EXERCISES.forEach(ex=>{ const s=exScore(ex); if (s){ ok+=s.ok; total+=s.total; done+=s.done; } }); return {ok,total,done}; }
+function refreshScore(){
+  const t = totals();
+  $("#scoreText").textContent = `${t.ok} / ${t.total} ✓ · done ${Math.round(t.done/t.total*100)}%`;
+  $("#barFill").style.width = (t.done/t.total*100)+"%";
+  const cc = document.getElementById("cartCount"); if (cc) cc.textContent = t.ok;
+  EXERCISES.forEach(ex=>{ const el = document.getElementById("sc-"+ex.id); const s = exScore(ex); if (el && s) el.textContent = s.done ? `${s.ok}/${s.total}` : ""; });
+  renderTabs();
+}
+
+/* =========================================================
+   TABS
+   ========================================================= */
+function tabBadge(tabId){
+  const exs = EXERCISES.filter(e=>e.tab===tabId && e.type!=="write");
+  if (!exs.length) return "";
+  let ok=0,total=0,done=0; exs.forEach(e=>{ const s=exScore(e); ok+=s.ok; total+=s.total; done+=s.done; });
+  return done===total ? `${ok}/${total}` : "";
+}
+function renderTabs(){
+  const nav = $("#tabs"); nav.innerHTML = "";
+  TABS.forEach((t,i)=>{
+    const b = tabBadge(t.id);
+    nav.append(h("button",{class:"tab"+(state.tab===t.id?" active":""), role:"tab", "aria-selected":state.tab===t.id?"true":"false", type:"button", onclick:()=>showTab(t.id)},
+      `${i+1}. ${t.en}`, b ? h("span",{class:"badge"},b) : null, h("span",{class:"ru"},t.ru)));
+  });
+}
+function showTab(id){
+  state.tab = id; saveState();
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+id));
+  renderTabs();
+  if (id === "results") renderResults();
+  if (id === "cards") renderCard();
+  const act = document.querySelector(".tab.active"); if (act && act.scrollIntoView) act.scrollIntoView({block:"nearest", inline:"center"});
+  const top = $("#main").offsetTop - 120; window.scrollTo({top: top > 0 ? top : 0});
+}
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+function panel(id){ return h("section",{class:"panel", id:"panel-"+id, role:"tabpanel"}); }
+function nextBtn(toId, en, ru){ return h("div",{style:"text-align:right"}, h("button",{class:"btn primary", type:"button", onclick:()=>showTab(toId)}, (ru ? `${en} · ${ru}` : `Next: ${en}`) + " →")); }
+function ruleCard(step, en, ru, html){ return h("div",{class:"card rule"}, h("span",{class:"step"}, step), h("h2",{}, en), h("p",{class:"head-ru"}, ru), h("div",{html})); }
+
+/* ---------- flashcards ---------- */
+function deck(){
+  if (!state.fc.order || state.fc.order.length !== WORDS.length) state.fc.order = WORDS.map((_,i)=>i);
+  let idx = state.fc.order;
+  if (state.fc.onlyLearning) idx = idx.filter(i=>!state.known.includes(WORDS[i].key));
+  return idx;
+}
+function renderCards(){
+  const p = panel("cards");
+  p.append(h("div",{class:"card"},
+    h("h2",{},"Flashcards"), h("p",{class:"head-ru"},"Learn the words and expressions"),
+    h("p",{},"Tap the card to turn it over. Then choose: I know it / Still learning."),
+    h("p",{class:"ru"},"Switch the direction to test yourself from the definition to the word."),
+    h("div",{class:"fc-tools"},
+      h("button",{class:"btn ghost", type:"button", id:"fcDir", onclick:()=>{ state.fc.dir = state.fc.dir==="en"?"ru":"en"; saveState(); renderCard(); }}),
+      h("button",{class:"btn ghost", type:"button", onclick:()=>{ state.fc.order = shuffled(WORDS.map((_,i)=>i)); state.fc.i=0; saveState(); renderCard(); }}, "🔀 Shuffle"),
+      h("button",{class:"btn ghost", type:"button", id:"fcFilter", onclick:()=>{ state.fc.onlyLearning=!state.fc.onlyLearning; state.fc.i=0; saveState(); renderCard(); }})),
+    h("div",{class:"scene"}, h("div",{class:"flash", id:"flash", tabindex:"0", role:"button", "aria-label":"Flashcard, tap to flip",
+      onclick:()=>$("#flash").classList.toggle("flipped"),
+      onkeydown:(e)=>{ if (e.key==="Enter"||e.key===" "){ e.preventDefault(); $("#flash").classList.toggle("flipped"); } }},
+      h("div",{class:"face front", id:"fcFront"}), h("div",{class:"face back", id:"fcBack"}))),
+    h("div",{class:"fc-count", id:"fcCount"}),
+    h("div",{class:"fc-nav"},
+      h("button",{class:"btn", type:"button", onclick:()=>{ const d=deck(); if(!d.length) return; state.fc.i=(state.fc.i-1+d.length)%d.length; saveState(); renderCard(); }}, "← Prev"),
+      h("button",{class:"btn", type:"button", onclick:()=>{ const d=deck(); if(!d.length) return; state.fc.i=(state.fc.i+1)%d.length; saveState(); renderCard(); }}, "Next →")),
+    h("div",{class:"fc-know"},
+      h("button",{class:"btn good", type:"button", id:"knowBtn", onclick:()=>markCard(true)}, "✓ I know it"),
+      h("button",{class:"btn warn", type:"button", onclick:()=>markCard(false)}, "↻ Still learning")),
+    h("div",{class:"known-bar"}, h("div",{class:"bar"}, h("i",{id:"knownFill"})), h("p",{class:"small", id:"knownText", style:"text-align:center"}))
+  ), nextBtn("vocab","Vocabulary",""));
+  return p;
+}
+function markCard(know){
+  const d = deck(); if (!d.length) return;
+  const w = WORDS[d[state.fc.i % d.length]];
+  state.known = state.known.filter(x=>x!==w.key); if (know) state.known.push(w.key);
+  if (!(state.fc.onlyLearning && know)) state.fc.i = (state.fc.i+1) % Math.max(1,d.length);
+  saveState(); renderCard();
+}
+function renderCard(){
+  const flash = $("#flash"); if (!flash) return;
+  flash.classList.remove("flipped");
+  $("#fcDir").textContent = state.fc.dir==="en" ? "Word → Meaning" : "Meaning → Word";
+  $("#fcFilter").textContent = state.fc.onlyLearning ? "Only words I'm learning ✓" : "All words";
+  $("#fcFilter").classList.toggle("on", state.fc.onlyLearning);
+  const d = deck(); const front = $("#fcFront"), back = $("#fcBack");
+  front.innerHTML = ""; back.innerHTML = "";
+  const kn = state.known.filter(k=>WORDS.some(w=>w.key===k)).length;
+  $("#knownFill").style.width = (kn/WORDS.length*100)+"%";
+  $("#knownText").textContent = `Known: ${kn} / ${WORDS.length}`;
+  if (!d.length){ front.append(h("div",{class:"big"},"🎉"), h("div",{class:"word"},"All done!"), h("div",{class:"ru"},"You know all the words!")); $("#fcCount").textContent=""; return; }
+  if (state.fc.i >= d.length) state.fc.i = 0;
+  const w = WORDS[d[state.fc.i]]; const sf = speakForm(w.en);
+  if (state.fc.dir==="en"){
+    front.append(h("div",{class:"big","aria-hidden":"true"}, w.emoji), h("div",{class:"word"}, w.en), h("div",{class:"ru"}, w.ipa||w.pos), sayBtn(sf), h("div",{class:"hint"},"tap to flip"));
+    back.append(h("div",{class:"word"}, w.ru), h("div",{}, w.en+" ", sayBtn(sf)), h("div",{class:"ex"}, "“"+w.ex+"” ", sayBtn(w.ex)));
+  } else {
+    front.append(h("div",{class:"big","aria-hidden":"true"}, w.emoji), h("div",{class:"word"}, w.ru), h("div",{class:"hint"},"tap to flip"));
+    back.append(h("div",{class:"word"}, w.en), h("div",{}, (w.ipa||w.pos)+" ", sayBtn(sf)), h("div",{class:"ex"}, "“"+w.ex+"” ", sayBtn(w.ex)));
+  }
+  $("#fcCount").textContent = `${state.fc.i+1} / ${d.length}` + (state.known.includes(w.key) ? " · ✓ known" : "");
+}
+
+/* ---------- exercise renderers ---------- */
+let exCounter = 0;
+function exCard(ex){
+  const n = ++exCounter;
+  const c = h("div",{class:"card ex", id:"ex-"+ex.id},
+    h("span",{class:"score", id:"sc-"+ex.id}),
+    h("span",{class:"num"}, "Exercise "+n),
+    h("h2",{}, ex.en), h("p",{class:"head-ru"}, ex.ru),
+    h("p",{style:"margin:0"}, ex.ins[0]), h("p",{class:"ru", style:"margin:0 0 6px"}, ex.ins[1]));
+  const body = h("div");
+  ({match:renderMatch, choice:renderChoice, tiles:renderTiles, typed:renderTyped, write:renderWrite})[ex.type](ex, body);
+  c.append(body);
+  return c;
+}
+function fullSentence(it){
+  if (it.say) return it.say;
+  if (it.listen) return it.listen;
+  if (it.q && it.q.includes("___")) return it.q.replace("___", it.opts[it.a]);
+  const o = it.opts[it.a];
+  if (/·/.test(o)) return it.q;
+  return o;
+}
+function renderChoice(ex, body){
+  ex.items.forEach((it, i)=>{
+    const key = String(i);
+    const item = h("div",{class:"item"});
+    const q = h("div",{class:"q"}, h("span",{class:"muted"}, (i+1)+"."));
+    if (it.listen) q.append(h("button",{class:"listen-btn", type:"button", "aria-label":"Play the word", "data-say":it.listen},"🔊"));
+    if (it.emoji) q.append(h("span",{class:"emoji","aria-hidden":"true"}, it.emoji));
+    if (it.direct) q.append(h("span",{class:"direct"}, it.direct));
+    if (it.q) q.append(h("span",{class:"qt", html: (it.listen ? it.q : esc(it.q)).replace("___",'<span class="gap">&nbsp;?&nbsp;</span>')}));
+    item.append(q);
+    const opts = h("div",{class:"opts"+(ex.colOpts?" col":"")});
+    const fb = h("div");
+    it.opts.forEach((o, oi)=>{
+      const b = h("button",{class:"opt", type:"button"}, o);
+      b.addEventListener("click", ()=>{
+        if (A(ex.id)[key] && A(ex.id)[key].done) return;
+        const ok = oi === it.a;
+        A(ex.id)[key] = {done:true, ok, pick:o};
+        saveState(); paint(true); refreshScore();
+        if (ok) speak(fullSentence(it));
+      });
+      opts.append(b);
+    });
+    item.append(opts, fb);
+    function paint(fresh){
+      const r = (state.ans[ex.id]||{})[key];
+      if (!r || !r.done) return;
+      [...opts.children].forEach((b, oi)=>{ b.disabled = true; if (oi === it.a) b.classList.add("right"); else if (it.opts[oi] === r.pick) b.classList.add("wrong"); });
+      const gapEl = item.querySelector(".gap"); if (gapEl) gapEl.textContent = " "+it.opts[it.a]+" ";
+      fb.className = "fb " + (r.ok ? "ok" : "no"); fb.innerHTML = "";
+      fb.append(h("b",{}, r.ok ? (fresh ? rand(PRAISE) : "Correct!") : (fresh ? rand(OOPS) : "Not quite")), " ", it.why || "");
+      const s = fullSentence(it); if (s && !it.listen) fb.append(" ", sayBtn(s));
+    }
+    paint(false);
+    body.append(item);
+  });
+}
+function renderMatch(ex, body){
+  ex.rounds.forEach((round, ri)=>{
+    body.append(h("div",{class:"round-title"}, [`Round ${ri+1}`, round.title[0], round.title[1]].filter(Boolean).join(" · ")));
+    const grid = h("div",{class:"match"}); const L = h("div",{class:"col"}), R = h("div",{class:"col"});
+    let sel = null;
+    const rights = stableShuffle(ex.id+"-r"+ri, round.pairs.map((p,pi)=>({p,pi})));
+    const lBtns = round.pairs.map((p,pi)=>{
+      const b = h("button",{class:"mbtn", type:"button"}, p[0]);
+      b.addEventListener("click", ()=>{ const r=A(ex.id)[ri+"-"+pi]; if (r && r.done) return; lBtns.forEach(x=>x.classList.remove("sel")); sel = pi; b.classList.add("sel"); speak(p[0]); });
+      return b;
+    });
+    const rBtns = rights.map(({p,pi})=>{
+      const b = h("button",{class:"mbtn", type:"button"}, p[1]); b.dataset.pi = pi;
+      b.addEventListener("click", ()=>{
+        if (sel === null || b.classList.contains("done")) return;
+        const key = ri+"-"+sel; const rec = A(ex.id)[key] || (A(ex.id)[key] = {done:false, ok:true, wrong:[]});
+        if (pi === sel){ rec.done = true; rec.pick = p[1]; sel = null; saveState(); paint(); refreshScore(); }
+        else { rec.ok = false; rec.wrong.push(p[1]); saveState(); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"), 400); }
+      });
+      return b;
+    });
+    function paint(){
+      round.pairs.forEach((p,pi)=>{
+        const r = (state.ans[ex.id]||{})[ri+"-"+pi]; const done = r && r.done;
+        lBtns[pi].classList.toggle("done", !!done); lBtns[pi].classList.remove("sel");
+        rBtns.forEach(rb=>{ if (+rb.dataset.pi===pi && done) rb.classList.add("done"); });
+      });
+    }
+    L.append(...lBtns); R.append(...rBtns); grid.append(L, R); body.append(grid); paint();
+  });
+}
+function renderTiles(ex, body){
+  ex.items.forEach((it, i)=>{
+    const key = String(i); const words = it.answer.split(" ");
+    const pool = stableShuffle(ex.id+"-t"+i, words.map((w,wi)=>({w,wi})));
+    const item = h("div",{class:"item"}, h("div",{class:"q"}, `${i+1}. `, h("span",{class:"ru", style:"font-size:1em"}, it.ru)));
+    const built = h("div",{class:"built", "aria-label":"Your sentence"}); const poolEl = h("div",{class:"pool"}); const fb = h("div");
+    const checkBtn = h("button",{class:"btn primary", type:"button"}, "Check");
+    const clearBtn = h("button",{class:"btn ghost", type:"button"}, "Clear");
+    let picked = [];
+    function orderFor(sentence){ const used = new Set(); return sentence.split(" ").map(w=>{ const pi = pool.findIndex((t,j)=>t.w===w && !used.has(j)); used.add(pi); return pi; }); }
+    function draw(){
+      built.innerHTML = ""; poolEl.innerHTML = "";
+      const r = (state.ans[ex.id]||{})[key]; const locked = !!(r && r.done);
+      picked.forEach((pi, k)=>built.append(h("button",{class:"tile", type:"button", disabled:locked, onclick:()=>{ picked.splice(k,1); draw(); }}, pool[pi].w)));
+      pool.forEach((t, pi)=>{ if (!picked.includes(pi)) poolEl.append(h("button",{class:"tile", type:"button", disabled:locked, onclick:()=>{ picked.push(pi); draw(); }}, t.w)); });
+      checkBtn.disabled = locked; clearBtn.disabled = locked;
+    }
+    function showFb(fresh){
+      const r = (state.ans[ex.id]||{})[key]; fb.innerHTML = ""; fb.className = "";
+      if (!r) return;
+      if (r.done && r.ok){ fb.className="fb ok"; fb.append(h("b",{}, fresh?rand(PRAISE):"Correct!"), " "+it.answer+" ", sayBtn(it.answer)); }
+      else if (r.done){ fb.className="fb no"; fb.append(h("b",{},"The answer is: "), it.answer+" ", sayBtn(it.answer)); }
+      else if (r.tries===1){ fb.className="fb info"; fb.append(h("b",{},"Try again. "), `Hint: start with “${words.slice(0,2).join(" ")}”.`); }
+    }
+    checkBtn.addEventListener("click", ()=>{
+      if (picked.length !== words.length){ fb.className="fb info"; fb.textContent="Use all the words."; return; }
+      const val = picked.map(pi=>pool[pi].w).join(" ");
+      const rec = A(ex.id)[key] || (A(ex.id)[key] = {tries:0});
+      rec.tries++; rec.val = val;
+      if (val === it.answer){ rec.done = true; rec.ok = true; speak(it.answer); }
+      else if (rec.tries >= 2){ rec.done = true; rec.ok = false; picked = orderFor(it.answer); }
+      saveState(); draw(); showFb(true); refreshScore();
+    });
+    clearBtn.addEventListener("click", ()=>{ picked = []; draw(); });
+    const rec = (state.ans[ex.id]||{})[key]; if (rec && rec.done) picked = orderFor(it.answer);
+    item.append(built, poolEl, h("div",{class:"opts"}, checkBtn, clearBtn), fb);
+    draw(); showFb(false); body.append(item);
+  });
+}
+function modelOf(ex, it){
+  const a = it.accept[0];
+  if (ex.plain) return a;
+  if (it.pre && it.post) return capFirst(a) + (/\?$/.test(a) ? "" : ".");
+  if (it.pre) return a;
+  let m = capFirst(a); if (!/[.?!]$/.test(m)) m += ".";
+  if (ex.plain) m = a;
+  return m;
+}
+function renderTyped(ex, body){
+  ex.items.forEach((it, i)=>{
+    const key = String(i);
+    const model = modelOf(ex, it);
+    const spoken = it.full ? it.full : it.listen ? it.listen : (it.pre ? (it.post ? model : it.pre.replace(" (that)","") + " " + model + ".") : model);
+    const q = h("div",{class:"q"}, h("span",{class:"muted"}, (i+1)+"."));
+    if (it.listen) q.append(h("button",{class:"listen-btn", type:"button", "aria-label":"Play the word", "data-say":it.listen},"🔊"), h("span",{class:"ru"}, "(" + it.ru + ")"));
+    if (it.direct) q.append(h("span",{class:"direct"}, it.direct));
+    if (it.qhtml) q.append(h("span",{html:it.qhtml})); else if (it.q) q.append(h("span",{}, it.q));
+    const item = h("div",{class:"item"}, q);
+    const inp = h("input",{type:"text", autocomplete:"off", autocapitalize:"off", spellcheck:"false", "aria-label":"Your answer "+(i+1)});
+    const btn = h("button",{class:"btn primary", type:"button"}, "Check");
+    const fb = h("div");
+    function paint(fresh){
+      const r = (state.ans[ex.id]||{})[key]; fb.innerHTML = ""; fb.className = "";
+      if (!r) return;
+      inp.value = r.val || "";
+      if (r.done){ inp.disabled = true; btn.disabled = true; inp.classList.toggle("okk", !!r.ok); inp.classList.toggle("bad", !r.ok); }
+      if (r.done && r.ok){
+        fb.className = "fb ok";
+        fb.append(h("b",{}, r.self ? "Marked as correct" : (fresh?rand(PRAISE):"Correct!")), " ", (it.full || (it.pre && !it.post ? it.pre + " " + model : model)), " ", sayBtn(spoken));
+        if (!r.self && !ex.plain) styleNotes(r.val||"", model, it).forEach(n=>fb.append(h("div",{class:"small"}, n)));
+      } else if (r.done){
+        fb.className = "fb no";
+        fb.append(h("b",{},"Model answer: "), (it.full || (it.pre && !it.post ? it.pre + " " + model : model)), " ", sayBtn(spoken), h("div",{class:"small"}, it.hint));
+        if (ex.self) fb.append(h("button",{class:"btn ghost", type:"button", style:"margin-top:6px", onclick:()=>{ r.ok = true; r.self = true; saveState(); paint(false); refreshScore(); }}, "My answer is also correct ✓"));
+      } else if (r.tries === 1){
+        fb.className = "fb info"; fb.append(h("b",{},"Try again. "), it.hint);
+      }
+    }
+    btn.addEventListener("click", ()=>{
+      const val = inp.value.trim(); if (!val) return;
+      const rec = A(ex.id)[key] || (A(ex.id)[key] = {tries:0});
+      rec.tries++; rec.val = val; rec.correct = (it.full || (it.pre && !it.post ? it.pre + " " + model : model));
+      if (matches(val, it.accept, it)){ rec.done = true; rec.ok = true; speak(spoken); }
+      else if (rec.tries >= 2){ rec.done = true; rec.ok = false; }
+      saveState(); paint(true); refreshScore();
+    });
+    inp.addEventListener("keydown", e=>{ if (e.key==="Enter") btn.click(); });
+    const row = h("div",{class:"typed"});
+    if (it.pre) row.append(h("span",{class:"pre"}, it.pre));
+    row.append(inp); if (it.post) row.append(h("span",{class:"pre"}, it.post)); row.append(btn);
+    item.append(row, fb); paint(false); body.append(item);
+  });
+}
+function renderWrite(ex, body){
+  ex.items.forEach((it, i)=>{
+    const ta = h("textarea",{"aria-label":it.p, placeholder:"Write here…"});
+    ta.value = state.writing[i] || "";
+    const count = h("div",{class:"small muted"});
+    const upd = ()=>{ const n = (ta.value.trim().match(/\S+/g)||[]).length; count.textContent = `Words: ${n}`; };
+    ta.addEventListener("input", ()=>{ state.writing[i] = ta.value; saveState(); upd(); }); upd();
+    body.append(h("div",{class:"item"}, h("div",{class:"q"}, `${i+1}. ${it.p}`), h("div",{class:"ru", style:"margin-bottom:6px"}, it.pru),
+      h("div",{class:"small muted", style:"margin-bottom:6px"}, "Example start: ", h("i",{}, it.model)), ta, count));
+  });
+}
+const exById = (id)=>EXERCISES.find(e=>e.id===id);
+
+
+
+
+
+/* ---------- words ---------- */
+function renderWords(){
+  const p = panel("words");
+  p.append(h("div",{class:"card"}, h("h2",{},"Compound adjectives for personality"), h("p",{class:"head-ru"},"Press 🔊 to hear each adjective. Words marked (extra) weren’t in the lesson but are useful.")));
+  const groups = [["pos","😊 Usually positive"],["neg","😬 Usually negative"],["dep","🤔 It depends"]];
+  groups.forEach(([set,title])=>{
+    const grid = h("div",{class:"words"});
+    WORDS.filter(w=>w.set===set).forEach(w=>grid.append(h("div",{class:"w"},
+      h("div",{class:"em","aria-hidden":"true"}, w.emoji),
+      h("div",{class:"t"}, h("b",{}, w.en), " ", h("span",{class:"ipa"}, w.pos), h("div",{class:"def"}, w.ru), h("div",{class:"exs"}, w.ex)),
+      sayBtn(speakForm(w.en)))));
+    p.append(h("div",{class:"card"}, h("h3",{style:"margin-top:0"}, title), grid));
+  });
+  const care = h("div",{class:"card careful"}, h("h2",{},"⚠️ Careful with these"), h("p",{class:"head-ru"},"Spelling, stress and modifiers"));
+  const ul = h("ul"); CAREFUL.forEach(c=>ul.append(h("li",{html:c}))); care.append(ul);
+  p.append(care, nextBtn("cards","Flashcards",""));
+  return p;
+}
+function renderTabExercises(tabId, next){
+  const p = panel(tabId);
+  EXERCISES.filter(e=>e.tab===tabId).forEach(ex=>p.append(exCard(ex)));
+  if (next) p.append(nextBtn(...next));
+  return p;
+}
+/* ---------- grammar ---------- */
+function renderGrammar(){
+  const p = panel("grammar");
+  p.append(ruleCard("Step 1","the …, the … + comparatives","When one thing changes, another thing changes too", `
+    <p>We use this structure to show that <b>one thing depends on another</b>. It’s like an <i>if</i>-sentence, but shorter and more expressive.</p>
+    <p class="formula"><span class="chip">The + comparative</span> <span class="chip alt">+ subject + verb,</span> <span class="chip">the + comparative</span> <span class="chip alt">+ subject + verb</span></p>
+    <table class="g"><tr><th>if… sentence</th><th>the…, the…</th></tr>
+      <tr><td>If you work hard, you learn a lot.</td><td><span class="k">The harder</span> you work, <span class="k">the more</span> you learn. ${sayInline("The harder you work, the more you learn.")}</td></tr>
+      <tr><td>If we start early, we’ll finish early.</td><td><span class="k">The earlier</span> we start, <span class="k">the sooner</span> we’ll finish. ${sayInline("The earlier we start, the sooner we'll finish.")}</td></tr>
+      <tr><td>If you spend a lot now, you’ll have little for your holiday.</td><td><span class="k">The more money</span> you spend now, <span class="k">the less</span> you’ll have for your holiday. ${sayInline("The more money you spend now, the less you'll have for your holiday.")}</td></tr></table>
+    <p class="note">🗣️ <b>Pronunciation:</b> stress the comparatives and let your voice rise in the first half and fall in the second: <i>The HARDer you work ↗, the MORE you learn ↘.</i></p>`));
+
+  // transformation machine
+  const TM = [
+    {src:"If I eat a lot, I get hungry.", out:"<span class='k'>The more</span> I eat, <span class='k'>the hungrier</span> I get.", why:"more on its own (= a lot) + hungry → hungrier"},
+    {src:"If the animal is big, you have a lot of problems.", out:"<span class='k'>The bigger</span> the animal, <span class='k'>the more problems</span> you have.", why:"big → bigger; the more + noun. The verb is can be left out: the bigger the animal."},
+    {src:"If I sleep a little, I’m very bad-tempered.", out:"<span class='k'>The less</span> I sleep, <span class='k'>the more bad-tempered</span> I am.", why:"a little → less; compound adjective → more bad-tempered"},
+    {src:"If people get older, they become wiser.", out:"<span class='k'>The older</span> people get, <span class='k'>the wiser</span> they become.", why:"The comparative jumps to the front; subject + verb follow."},
+    {src:"If you have a lot of friends, you have a lot of fun.", out:"<span class='k'>The more friends</span> you have, <span class='k'>the more fun</span> you have.", why:"the more + noun, then subject + verb"},
+    {src:"If the weather is good, I feel happy.", out:"<span class='k'>The better</span> the weather, <span class='k'>the happier</span> I feel.", why:"good → better (irregular), happy → happier"},
+  ];
+  let ti = 0;
+  const tRow = h("div",{class:"pick"});
+  const before = h("div",{class:"say-d"}), after = h("div",{class:"say-r"});
+  function drawT(){
+    tRow.innerHTML = "";
+    TM.forEach((x,i)=>tRow.append(h("button",{type:"button", class:i===ti?"on":"", onclick:()=>{ ti=i; drawT(); }}, x.src)));
+    const x = TM[ti]; const plain = x.out.replace(/<[^>]+>/g,"");
+    before.innerHTML = esc(x.src);
+    after.innerHTML = `${x.out} ${sayInline(plain)}<div class="small muted" style="font-weight:600;margin-top:4px">${esc(x.why)}</div>`;
+    after.classList.remove("show"); void after.offsetWidth; after.classList.add("show");
+  }
+  drawT();
+  p.append(h("div",{class:"card"}, h("div",{class:"machine"},
+    h("b",{},"🔄 The transformation machine"),
+    h("div",{class:"small ru"},"Pick an if-sentence and watch it become the…, the…"),
+    tRow, h("div",{class:"stage"}, before, h("div",{class:"arrow","aria-hidden":"true"},"→"), after))));
+
+  p.append(ruleCard("Step 2","What can follow the?","Adjectives, adverbs, more / less (+ noun)", `
+    <table class="g"><tr><th>After the</th><th>Example</th></tr>
+      <tr><td>short adjective / adverb + <b>-er</b></td><td>The <span class="k">older</span> I get, the <span class="k">wiser</span> I become. ${sayInline("The older I get, the wiser I become.")}</td></tr>
+      <tr><td><b>more / less</b> + long adjective</td><td>The <span class="k">more relaxed</span> you are, the <span class="k">less nervous</span> you feel. ${sayInline("The more relaxed you are, the less nervous you feel.")}</td></tr>
+      <tr><td>irregular forms</td><td>good → <span class="k">better</span> · bad → <span class="k">worse</span> · far → <span class="k">further</span> · much → <span class="k">more</span> · little → <span class="k">less</span></td></tr>
+      <tr><td><b>more / less / fewer</b> + noun</td><td>The <span class="k">more money</span> you have, the <span class="k">fewer worries</span> you have. ${sayInline("The more money you have, the fewer worries you have.")}</td></tr>
+      <tr><td><b>more / less</b> on their own (= a lot / a little)</td><td>The <span class="k">more</span> I read, the <span class="k">less</span> I understand. ${sayInline("The more I read, the less I understand.")}</td></tr></table>
+    <p class="note">✂️ <b>Short forms:</b> we can leave out the verb (often <i>be</i>) or say just two comparatives: <i>The bigger the animal, the more problems.</i> · <i>The sooner, the better.</i> · <i>The more, the merrier.</i></p>`));
+  ["g1","g4"].forEach(id=>p.append(exCard(exById(id))));
+
+  p.append(ruleCard("Step 3","Avoid the traps","Word order, tenses and the comma", `
+    <ul class="uses">
+      <li><b>Keep the comparative together and at the front:</b> the + comparative (+ noun) + subject + verb. <i>The more <b>difficult it is</b></i>, not <s>the more it is difficult</s>; <i>the more <b>money you have</b></i>, not <s>the more you have money</s>.</li>
+      <li><b>Turn the adjective or adverb itself into a comparative:</b> <i>The <b>harder</b> I study</i>, not <s>the more I study hard</s>; <i>The <b>older</b> I get</i>, not <s>the more I get older</s>.</li>
+      <li><b>No will in the first half</b> — it works like an if-clause: <i>The sooner we <b>leave</b>, the earlier we<b>’ll</b> arrive.</i></li>
+      <li><b>Both halves need the</b>, and we use <b>comparatives</b>, not superlatives: ✗ <s>More I travel, more I want</s> ✗ <s>The most you sleep, the best you feel</s>.</li>
+      <li>Put a <b>comma</b> between the two halves (except in very short forms).</li>
+    </ul>
+    <div class="mist">
+      <span class="x">The more it is cold, the more I stay in.</span><span class="v">The colder it is, the more I stay in.</span>
+      <span class="x">The more you will practise, the better.</span><span class="v">The more you practise, the better.</span>
+    </div>`));
+  ["g2","g3","g5","g6"].forEach(id=>p.append(exCard(exById(id))));
+  p.append(nextBtn("ctx","In context",""));
+  return p;
+}
+
+/* ---------- in context ---------- */
+function renderContext(){
+  const p = panel("ctx");
+  p.append(h("div",{class:"card"}, h("h2",{},"A walk on the beach"), h("p",{class:"head-ru"},"A new personality test in the style of “A walk in the forest”. Read it, then fill the gaps below."),
+    h("div",{class:"story", html:`
+      <p><b>Imagine you’re walking along an empty beach.</b> You find a shell in the sand. How big is it? What do you do with it?</p>
+      <p><i>What it means:</i> the bigger the shell you imagined, the <span class="gp">(1)</span> ambitious you are. If you gave it to a friend, you’re <span class="gp">(2)</span> and generous. If you kept it for yourself, you might be a bit <span class="gp">(3)</span>.</p>
+      <p><b>Now you see a boat on the sea.</b> How far away is it? What do you do?</p>
+      <p><i>What it means:</i> the <span class="gp">(4)</span> away the boat is, the more adventurous you are. If you just lay on the sand and watched it, you’re probably very <span class="gp">(5)</span>.</p>
+      <p><b>Suddenly the tide comes in.</b> Do you stay or leave?</p>
+      <p><i>What it means:</i> the <span class="gp">(6)</span> you stayed on the beach, the more strong-willed you are. People who left at once are <span class="gp">(7)</span> — calm and sensible in a crisis.</p>
+      <p><b>Finally, you find some money in the sand.</b> If you kept all of it, you’re a bit <span class="gp">(8)</span>! And remember: the less seriously you take this test, the <span class="gp">(9)</span> you’ll enjoy it.</p>`})));
+  EXERCISES.filter(e=>e.tab==="ctx").forEach(ex=>p.append(exCard(ex)));
+  p.append(nextBtn("results","Results",""));
+  return p;
+}
+
+/* ---------- results + report ---------- */
+function itemLabel(ex, it){
+  if (it.listen && ex.type==="typed") return "🔊 " + it.listen + " (" + it.ru + ")";
+  if (it.listen) return "🔊 " + it.listen;
+  return [it.emoji, it.direct, it.q ? it.q.replace(/<[^>]+>/g,"") : "", it.pre && !it.post ? it.pre + " …" : ""].filter(Boolean).join(" ");
+}
+function correctOf(ex, it){
+  if (ex.type==="choice") return it.opts[it.a];
+  if (ex.type==="tiles") return it.answer;
+  const m = modelOf(ex, it); return it.pre && !it.post ? it.pre + " " + m : m;
+}
+function mistakesList(){
+  const out = [];
+  EXERCISES.forEach(ex=>{
+    const a = state.ans[ex.id] || {};
+    if (ex.type==="match") ex.rounds.forEach((r,ri)=>r.pairs.forEach((pr,pi)=>{ const rec=a[ri+"-"+pi]; if (rec && rec.done && !rec.ok) out.push({ex:ex.en, q:pr[0], your:(rec.wrong||[]).join(", "), right:pr[1]}); }));
+    else if (ex.type!=="write") ex.items.forEach((it,i)=>{ const rec=a[i]; if (rec && rec.done && !rec.ok) out.push({ex:ex.en, q: ex.type==="tiles"?it.ru:itemLabel(ex,it), your: rec.pick || rec.val, right: correctOf(ex,it)}); });
+  });
+  return out;
+}
+function bandMsg(pct){
+  const n = state.name || STUDENT;
+  if (pct>=90) return `Brilliant, ${n}! The more you practise, the better you get — and it shows. 🏆`;
+  if (pct>=75) return "Great work! Just a few slips — check them below.";
+  if (pct>=50) return "Good effort! Review the flashcards and Step 3 (the traps), then try again.";
+  return "Keep going! The more you practise, the easier it gets.";
+}
+function buildReport(){
+  const t = totals(); const pct = t.total ? Math.round(t.ok/t.total*100) : 0;
+  const L = [];
+  L.push(`HOMEWORK: ${TOPIC}`, `Student: ${state.name || "—"}`, `Date: ${new Date().toLocaleDateString("en-GB")}`,
+    `Score: ${t.ok}/${t.total} (${pct}%) · completed ${t.done}/${t.total}`, `Flashcards known: ${state.known.length}/${WORDS.length}`, "", "SCORES BY EXERCISE:");
+  EXERCISES.forEach(ex=>{ const s=exScore(ex); if (s) L.push(`- ${ex.en}: ${s.ok}/${s.total}${s.done<s.total?` (done ${s.done})`:""}`); });
+  const ms = mistakesList();
+  L.push("", `MISTAKES (${ms.length}):`); if (!ms.length) L.push("none 🎉");
+  ms.forEach(m=>L.push(`- [${m.ex}] ${m.q} — answer: ${m.your||"—"} → correct: ${m.right}`));
+  const self = [];
+  EXERCISES.filter(e=>e.type==="typed").forEach(ex=>ex.items.forEach((it,i)=>{ const r=(state.ans[ex.id]||{})[i]; if (r && r.self) self.push(`${itemLabel(ex,it)} → ${r.val}`); }));
+  if (self.length){ L.push("", "SELF-MARKED AS CORRECT (please check):"); self.forEach(s=>L.push("- "+s)); }
+  L.push("", "TYPED ANSWERS:");
+  EXERCISES.filter(e=>e.type==="typed"||e.type==="tiles").forEach(ex=>ex.items.forEach((it,i)=>{ const r=(state.ans[ex.id]||{})[i]; L.push(`- ${ex.type==="tiles"?it.ru:itemLabel(ex,it)} → ${r&&r.val?r.val:"—"}${r&&r.done?(r.ok?(r.self?" ✓(self)":" ✓")+(r.tries===2&&!r.self?" (2nd try)":""):" ✗"):""}`); }));
+  
+  if (exById("wr")) exById("wr").items.forEach((it,i)=>{ L.push(`${i+1}. ${it.p}`, (state.writing[i]||"—").trim(), ""); });
+  return L.join("\n");
+}
+function shortReport(full){ return full.length <= 1500 ? full : full.slice(0,1450) + "\n…\n(Full report: use “Copy text”)"; }
+function copyText(text, btn){
+  const done = ()=>{ const o = btn.textContent; btn.textContent = "Copied ✓"; setTimeout(()=>btn.textContent=o, 1800); };
+  const fallback = ()=>{ const ta = h("textarea",{style:"position:fixed;left:-9999px;top:0"}); ta.value=text; document.body.append(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){} ta.remove(); };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+}
+function renderResults(){
+  const p = $("#panel-results"); p.innerHTML = "";
+  const t = totals(); const pct = t.total ? Math.round(t.ok/t.total*100) : 0;
+  const c1 = h("div",{class:"card"}, h("h2",{},"Your results"), h("p",{class:"head-ru"},"How did you do?"),
+    h("div",{class:"big-score"}, `${t.ok} / ${t.total} · ${pct}%`),
+    h("p",{}, `Completed: ${t.done} / ${t.total}`),
+    h("p",{}, `Flashcards known: ${state.known.length} / ${WORDS.length}`),
+    h("p",{style:"font-weight:700"}, bandMsg(pct)));
+  EXERCISES.forEach(ex=>{ const s = exScore(ex); if (s) c1.append(h("div",{class:"res-row"}, h("span",{}, ex.en), h("b",{}, `${s.ok}/${s.total}` + (s.done<s.total ? ` (${s.done} done)` : "")))); });
+  p.append(c1);
+  const ms = mistakesList();
+  const c2 = h("div",{class:"card"}, h("h2",{},"Mistakes to look at"), h("p",{class:"head-ru"},"Learn from these"));
+  if (!ms.length) c2.append(h("p",{}, "No mistakes yet!"));
+  ms.forEach(m=>c2.append(h("div",{class:"mistake"}, h("b",{}, m.ex+": "), m.q, h("br"), "Your answer: ", h("s",{}, m.your||"—"), h("br"), "Correct: ", h("b",{}, m.right))));
+  p.append(c2);
+  if (exById("wr")){ const cw = h("div",{class:"card"}, h("h2",{},"Your writing")); exById("wr").items.forEach((it,i)=>cw.append(h("p",{}, h("b",{}, it.p), h("br"), (state.writing[i]||"—")))); p.append(cw); }
+
+  const full = buildReport();
+  const subject = `${TOPIC} — ${state.name||STUDENT} — ${t.ok}/${t.total}`;
+  const short = shortReport(full);
+  const send = h("div",{class:"send"});
+  if (navigator.share) send.append(h("button",{class:"btn primary", type:"button", onclick:()=>{ navigator.share({title:subject, text:full}).catch(()=>{}); }}, "📤 Share"));
+  send.append(
+    h("a",{class:"btn", href:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(TEACHER_EMAIL)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(short)}`, target:"_blank", rel:"noopener"}, "✉️ Send in Gmail"),
+    h("a",{class:"btn", href:`https://t.me/share/url?url=${encodeURIComponent(subject)}&text=${encodeURIComponent(short)}`, target:"_blank", rel:"noopener"}, "Telegram"),
+    h("a",{class:"btn", href:`https://wa.me/?text=${encodeURIComponent(subject+"\n"+short)}`, target:"_blank", rel:"noopener"}, "WhatsApp"),
+    h("a",{class:"btn", href:`mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(short)}`}, "📧 Email app"));
+  const copyB = h("button",{class:"btn good", type:"button"}, "📋 Copy text");
+  copyB.addEventListener("click", ()=>copyText(full, copyB));
+  send.append(copyB);
+  p.append(h("div",{class:"card"}, h("h2",{},"Send to your teacher"), h("p",{class:"head-ru"},"Send your results when you have finished"),
+    h("p",{}, "On a phone, press “Share” and choose Telegram, WhatsApp or email. Or copy the text and send it."),
+    h("p",{}, "Teacher's email: ", h("span",{class:"email"}, TEACHER_EMAIL)), send,
+    h("details",{}, h("summary",{style:"cursor:pointer;font-weight:700;margin-top:10px"},"Show the report"), h("pre",{style:"white-space:pre-wrap;font-size:.85em;background:#F8F7FC;padding:10px;border-radius:10px"}, full))));
+  const conf = h("div",{class:"confirm"}, h("p",{style:"margin:0 0 8px"}, h("b",{},"Delete all answers?")),
+    h("button",{class:"btn", type:"button", style:"border-color:var(--bad);color:var(--bad);margin-right:8px", onclick:()=>{ const name = state.name; state = freshState(); state.name = name; saveState(); location.reload(); }}, "Yes"),
+    h("button",{class:"btn ghost", type:"button", onclick:()=>conf.classList.remove("show")}, "No"));
+  p.append(h("div",{class:"card"}, h("button",{class:"btn ghost", type:"button", onclick:()=>conf.classList.add("show")}, "↺ Start again"), conf));
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function init(){
+  const main = $("#main");
+  main.append(renderWords(), renderCards(), renderTabExercises("vocab",["grammar","Grammar",""]), renderGrammar(), renderContext(), panel("results"));
+  const ni = $("#nameInput"); ni.value = state.name || "";
+  const setName = ()=>{ $("#forName").textContent = "for " + (state.name || STUDENT); };
+  ni.addEventListener("input", ()=>{ state.name = ni.value.trim(); saveState(); setName(); });
+  setName();
+  if (!TABS.some(t=>t.id===state.tab)) state.tab = "words";
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+state.tab));
+  renderTabs(); refreshScore(); renderCard();
+  if (state.tab==="results") renderResults();
+}
+init();
+</script>
+</body>
+</html>
