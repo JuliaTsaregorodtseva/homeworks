@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Space Adventure · Unit 1 Lesson 1 · Veronika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14113a; --bg2:#1b1650; --panel:#231e63; --panel2:#2d2780; --line:#3d3699;
+  --ink:#f6f4ff; --soft:#b8b2ec; --muted:#8d86cf;
+  --yellow:#ffd23f; --pink:#ff4f8b; --blue:#43a6ff; --green:#3ee08f; --orange:#ff8a3d; --purple:#9b7cff; --red:#ff5d6c;
+  --am:#ffd23f; --is:#3ee08f; --are:#43a6ff; --not:#ff5d6c;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:var(--ink);font-size:17px;line-height:1.45;
+  background:var(--bg);
+  background-image:
+   radial-gradient(1.5px 1.5px at 20px 30px,#fff8 50%,transparent 51%),
+   radial-gradient(1.5px 1.5px at 140px 90px,#fff6 50%,transparent 51%),
+   radial-gradient(2px 2px at 260px 40px,#ffd23f88 50%,transparent 51%),
+   radial-gradient(1px 1px at 330px 150px,#fff9 50%,transparent 51%),
+   radial-gradient(1.5px 1.5px at 80px 190px,#9b7cff99 50%,transparent 51%);
+  background-size:380px 220px;}
+h1,h2,h3{font-family:'Unbounded','Nunito',sans-serif;margin:0;line-height:1.2}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.ru{color:var(--soft);font-weight:600}
+small.ru,.ru.small{font-size:.9em}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(20,17,58,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:10px;padding:8px 0 4px}
+.logo{font-family:'Unbounded','Nunito',system-ui,sans-serif;font-size:14px;white-space:nowrap}
+.logo b{color:var(--yellow)}
+.planet{flex:1;min-width:0;font-size:15px;letter-spacing:1px;text-align:center;white-space:nowrap;overflow:hidden}
+.scorepill{background:var(--panel2);border-radius:99px;padding:3px 10px;font-weight:900;font-size:14px;white-space:nowrap}
+.bar{height:8px;background:#0c0a2a;border-radius:99px;overflow:hidden;margin:2px 0 6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:99px;transition:width .4s}
+.tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding-bottom:8px}
+.tab{background:var(--panel);border:2px solid transparent;border-radius:14px;padding:5px 2px 4px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;position:relative}
+.tab .ic{font-size:20px;line-height:1}
+.tab .lb{font-size:11px;font-weight:800;color:var(--soft)}
+.tab.on{border-color:var(--yellow);background:var(--panel2)}
+.tab.on .lb{color:var(--ink)}
+.tab .bd{position:absolute;top:-6px;right:-3px;background:var(--green);color:#0b2a1a;font-size:10px;font-weight:900;border-radius:99px;padding:0 5px}
+
+section{display:none;padding:18px 0 60px}
+section.on{display:block}
+.hero{background:linear-gradient(135deg,#3a2fa8,#6a2f9e 60%,#b8336f);border-radius:24px;padding:22px 18px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(22px,6vw,34px)}
+.hero .rocket{position:absolute;right:10px;top:8px;font-size:54px;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px) rotate(-6deg)}}
+.hero p{margin:.5em 0 0;max-width:600px}
+.card{background:var(--panel);border-radius:var(--r);padding:16px;margin:14px 0;border:1px solid var(--line)}
+.card h2{font-size:19px;margin-bottom:4px}
+.card h3{font-size:16px;margin:10px 0 4px}
+.sub{margin:0 0 10px}
+.namebox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.namebox input{background:#fff2;border:2px solid #fff5;border-radius:12px;color:#fff;font:inherit;font-weight:800;padding:8px 12px;min-height:44px;width:200px;max-width:100%}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0 0}
+.steps li{counter-increment:s;display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+.steps li::before{content:counter(s);flex:none;width:28px;height:28px;border-radius:50%;background:var(--yellow);color:#221;font-weight:900;display:grid;place-items:center;font-size:14px}
+.btn{background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:10px 16px;min-height:44px;font-weight:800}
+.btn.main{background:var(--yellow);color:#231b00;border-color:var(--yellow)}
+.btn.pink{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn.green{background:var(--green);border-color:var(--green);color:#06301b}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.next{margin-top:18px;text-align:center}
+
+/* warm-up */
+.tot{display:grid;gap:10px}
+.totrow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.totb{background:var(--panel2);border:3px solid transparent;border-radius:18px;padding:10px 6px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.totb .e{font-size:30px;line-height:1.1}
+.totb .w{font-weight:800;font-size:15px}
+.totb.l{background:#2b4fb0}.totb.r{background:#a22e66}
+.totb.sel{border-color:var(--yellow);transform:scale(1.03)}
+.totb.dim{opacity:.45}
+.or{width:38px;height:38px;border-radius:50%;background:#fff;color:#2a2480;font-weight:900;display:grid;place-items:center;font-size:13px}
+.likes{margin-top:10px;font-weight:800;color:var(--yellow)}
+
+/* words */
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.word{background:var(--panel2);border-radius:16px;padding:12px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:center}
+.word .e{font-size:34px;grid-row:span 2}
+.word .en{font-weight:900;font-size:19px}
+.word .ipa{color:var(--muted);font-size:13px;font-weight:600}
+.word .tr{grid-column:2/4;color:var(--soft);font-weight:700}
+.word .ex{grid-column:1/4;font-size:15px;border-top:1px dashed var(--line);padding-top:6px;margin-top:2px}
+.say{background:var(--blue);border:0;border-radius:50%;width:44px;height:44px;font-size:19px;flex:none;display:inline-grid;place-items:center}
+.say.sm{width:34px;height:34px;font-size:15px}
+.careful{background:#3a1f4f;border:2px dashed var(--orange)}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:6px 0}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.scene{perspective:1000px;max-width:420px;margin:0 auto}
+.flip{position:relative;height:290px;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turn{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px}
+.front{background:linear-gradient(160deg,#4b3fd1,#2a2390);border:3px solid #6f63ff}
+.back{background:linear-gradient(160deg,#b8336f,#6a2f9e);border:3px solid #ff7fae;transform:rotateY(180deg)}
+.face .e{font-size:64px;line-height:1}
+.face .w{font-family:'Unbounded','Nunito',system-ui,sans-serif;font-size:26px}
+.face .w.rutxt{font-family:'Nunito',system-ui,sans-serif;font-weight:900;font-size:24px}
+.face .x{font-size:15px}
+.face .tap{position:absolute;bottom:10px;font-size:12px;color:#fff9}
+.face .say{position:absolute;top:12px;right:12px}
+.fc-ctl{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px;margin:12px auto 0}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border-radius:99px;padding:6px 12px;font-weight:800;font-size:14px;min-height:40px}
+.chip input{width:20px;height:20px}
+.kbar{max-width:420px;margin:10px auto 0}
+
+/* grammar */
+.becard{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.becol{border-radius:16px;padding:10px;text-align:center;color:#141030}
+.becol .v{font-family:'Unbounded','Nunito',system-ui,sans-serif;font-size:26px}
+.becol .p{font-weight:900}
+.becol .s{font-size:13px;font-weight:800;opacity:.8}
+.c-am{background:var(--am)}.c-is{background:var(--is)}.c-are{background:var(--are)}
+.am{color:var(--am);font-weight:900}.is{color:var(--is);font-weight:900}.are{color:var(--are);font-weight:900}.not{color:var(--not);font-weight:900}
+table.t{width:100%;border-collapse:collapse;margin:8px 0;font-size:16px}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.t th{color:var(--soft);font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.exl{list-style:none;padding:0;margin:6px 0}
+.exl li{display:block;margin:8px 0}
+.exl li .say{vertical-align:middle;margin-right:6px}
+.bad{color:var(--red);text-decoration:line-through;text-decoration-thickness:2px}
+.good{color:var(--green);font-weight:800}
+.mist{display:grid;gap:8px}
+.mist div{background:var(--panel2);border-radius:12px;padding:8px 12px}
+.tipbox{background:#16365a;border-left:5px solid var(--blue);border-radius:12px;padding:10px 12px;margin:10px 0}
+.machine{background:linear-gradient(160deg,#2c2675,#3b1f6b);border:3px solid var(--purple)}
+.mlab{font-size:13px;font-weight:800;color:var(--soft);margin:10px 0 4px}
+.pick{display:flex;flex-wrap:wrap;gap:6px}
+.pick button{background:#ffffff14;border:2px solid #ffffff22;border-radius:12px;padding:6px 12px;min-height:44px;font-weight:800}
+.pick button.on{background:var(--yellow);color:#231b00;border-color:var(--yellow)}
+.mode button{min-width:64px;font-size:18px}
+.screen{background:#0c0a2a;border-radius:16px;padding:14px;margin-top:12px;min-height:110px;font-size:22px;font-weight:800;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.screen .l2{font-size:16px;color:var(--soft);font-weight:700}
+.pop{display:inline-block;animation:pop .45s}
+@keyframes pop{0%{transform:scale(.3) translateY(-10px);opacity:0}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+/* exercises */
+.ex{background:var(--panel);border-radius:var(--r);padding:16px;margin:16px 0;border:1px solid var(--line)}
+.exh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exh h2{font-size:18px}
+.exsc{background:var(--panel2);border-radius:99px;padding:3px 10px;font-weight:900;font-size:14px;white-space:nowrap}
+.exsc.full{background:var(--green);color:#06301b}
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.q{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:18px}
+.n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--purple);font-size:13px;display:grid;place-items:center;font-weight:900}
+.big{font-size:46px;line-height:1}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.opt{background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:9px 14px;min-height:46px;font-weight:800;font-size:17px;text-align:left}
+.opt.right{background:var(--green);border-color:var(--green);color:#06301b}
+.opt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.opt.ghost{opacity:.5}
+.fb{margin-top:8px;font-size:15px;border-radius:12px;padding:0}
+.fb:not(:empty){padding:8px 12px;background:#0c0a2a}
+.fb .ok{color:var(--green);font-weight:900}
+.fb .no{color:var(--orange);font-weight:900}
+.fb .why{color:var(--soft)}
+.typ{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.typ input{flex:1;min-width:180px;background:#0c0a2a;border:2px solid var(--line);border-radius:12px;color:#fff;font:inherit;font-weight:800;padding:9px 12px;min-height:46px}
+.typ input.okk{border-color:var(--green)}
+.typ input.err{border-color:var(--red)}
+.typ input.retry{border-color:var(--orange)}
+.selfbtn{margin-top:8px;background:transparent;border:2px dashed var(--soft);border-radius:12px;padding:6px 12px;min-height:40px;font-weight:800;font-size:14px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.match .col{display:grid;gap:8px;align-content:start}
+.mb{background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:8px 10px;min-height:48px;font-weight:800;font-size:16px;text-align:center}
+.mb.sel{border-color:var(--yellow);background:#4a3f12}
+.mb.done{background:#123d2a;border-color:var(--green);color:var(--green);opacity:.85}
+.mb.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;min-height:50px}
+.built{background:#0c0a2a;border-radius:14px;padding:8px;border:2px dashed var(--line);font-size:19px;font-weight:800}
+.tile{background:var(--yellow);color:#231b00;border:0;border-radius:12px;padding:8px 14px;min-height:44px;font-weight:900;font-size:17px}
+.built .tile{background:var(--blue);color:#06203a}
+.qm{align-self:center;font-weight:900;font-size:22px}
+.gtext{font-size:18px;line-height:2.3;background:var(--panel2);border-radius:14px;padding:12px}
+.gtext input{line-height:1.2;height:38px;vertical-align:middle;width:84px;background:#0c0a2a;border:2px solid var(--line);border-radius:10px;color:#fff;font:inherit;font-weight:900;padding:2px 6px;text-align:center;min-height:38px}
+.gtext input.okk{border-color:var(--green);color:var(--green)}
+.gtext input.err{border-color:var(--red);color:var(--red);text-decoration:line-through}
+.gtext input.retry{border-color:var(--orange)}
+.gtext .fix{color:var(--green);font-weight:900;margin:0 4px}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.bank span{background:var(--yellow);color:#231b00;border-radius:10px;padding:3px 10px;font-weight:900}
+textarea{width:100%;min-height:80px;background:#0c0a2a;border:2px solid var(--line);border-radius:12px;color:#fff;font:inherit;padding:10px;margin-top:6px}
+.groupt{font-family:'Unbounded','Nunito',system-ui,sans-serif;font-size:15px;color:var(--yellow);margin:26px 0 0;display:flex;gap:8px;align-items:center}
+
+/* results */
+.big-score{font-family:'Unbounded','Nunito',system-ui,sans-serif;font-size:44px;color:var(--yellow)}
+.rlist{list-style:none;padding:0;margin:8px 0}
+.rlist li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:15px}
+.mlist{font-size:15px}
+.mlist div{background:var(--panel2);border-radius:12px;padding:8px 10px;margin:6px 0}
+.sendg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.sendg a,.sendg button{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#fff;background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:10px;min-height:48px;font-weight:800;font-size:15px}
+.sendg .sh{background:var(--pink);border-color:var(--pink)}
+.mail{user-select:all;-webkit-user-select:all;background:#0c0a2a;padding:2px 8px;border-radius:8px;font-weight:800}
+.confirm{display:none;background:#4a1630;border:2px solid var(--red);border-radius:14px;padding:12px;margin-top:10px}
+.confirm.on{display:block}
+.toast{opacity:0;visibility:hidden;position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120px);background:var(--green);color:#06301b;font-weight:900;padding:10px 18px;border-radius:99px;transition:transform .3s;z-index:50;max-width:90vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+pre.rep{white-space:pre-wrap;background:#0c0a2a;border-radius:12px;padding:10px;font-size:13px;max-height:260px;overflow:auto}
+@media (max-width:420px){
+  body{font-size:16px}
+  .tab .lb{font-size:10px}
+  .logo{font-size:12px}
+  .q{font-size:17px}
+  .match .mb{font-size:15px;padding:8px 6px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="topin">
+      <div class="logo">🚀 <b>Space</b> Adventure</div>
+      <div class="planet" id="planet" aria-label="Planet fires"></div>
+      <div class="scorepill" id="scorepill">⭐ 0</div>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <nav class="tabs" id="tabs">
+      <button class="tab" data-t="start"><span class="ic">🚀</span><span class="lb">Start</span></button>
+      <button class="tab" data-t="words"><span class="ic">🔤</span><span class="lb">Words</span></button>
+      <button class="tab" data-t="cards"><span class="ic">🃏</span><span class="lb">Cards</span></button>
+      <button class="tab" data-t="m1"><span class="ic">🎯</span><span class="lb">Mission 1</span></button>
+      <button class="tab" data-t="gram"><span class="ic">🪐</span><span class="lb">Grammar</span></button>
+      <button class="tab" data-t="m2"><span class="ic">🛸</span><span class="lb">Mission 2</span></button>
+      <button class="tab" data-t="res"><span class="ic">🏆</span><span class="lb">Results</span></button>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- START -->
+<section id="start">
+  <div class="hero">
+    <div class="rocket" aria-hidden="true">🚀</div>
+    <h1>Hello, <span class="nm">Veronika</span>!</h1>
+    <p class="ru" style="color:#fff;opacity:.9">Привет, <span class="nm">Вероника</span>!</p>
+    <p><b>Unit 1 · Lesson 1 · Space Adventure</b><br>Words: <b>personality</b> 😎🙈😇 · Grammar: <b>am / is / are</b></p>
+    <p>Planet Chaos is on fire! 🔥 Every answer is a drop of water 💧. Help the planet, Captain!</p>
+    <p class="ru" style="color:#ffe3f0">Планета Хаос горит! 🔥 Каждый ответ — это капля воды 💧. Спаси планету, капитан!</p>
+    <div class="namebox">
+      <label for="nameIn"><b>Your name · Твоё имя:</b></label>
+      <input id="nameIn" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Your flight plan</h2>
+    <p class="ru sub">Твой план полёта</p>
+    <ol class="steps">
+      <li><div>🔤 <b>Words</b> — listen and learn 10 new words.<br><span class="ru">Слушай и учи 10 новых слов.</span></div></li>
+      <li><div>🃏 <b>Cards</b> — play with flashcards.<br><span class="ru">Поиграй с карточками.</span></div></li>
+      <li><div>🎯 <b>Mission 1</b> — word games.<br><span class="ru">Игры со словами.</span></div></li>
+      <li><div>🪐 <b>Grammar</b> — learn <b>am / is / are</b>.<br><span class="ru">Изучи am / is / are.</span></div></li>
+      <li><div>🛸 <b>Mission 2</b> — grammar games.<br><span class="ru">Игры с грамматикой.</span></div></li>
+      <li><div>🏆 <b>Results</b> — send them to your teacher!<br><span class="ru">Отправь результаты учителю!</span></div></li>
+    </ol>
+    <p class="ru small">Всё сохраняется само. Можно сделать часть сегодня, а часть завтра. 👍</p>
+  </div>
+
+  <div class="card">
+    <h2>Warm-up: Left or Right? 👈👉</h2>
+    <p class="ru sub">Разминка: что тебе больше нравится? Нажми и скажи вслух: «I like…»</p>
+    <div class="tot" id="warm"></div>
+    <div class="likes" id="likes"></div>
+  </div>
+  <div class="next"><button class="btn main" data-go="words">Let's go! · Поехали! →</button></div>
+</section>
+
+<!-- WORDS -->
+<section id="words">
+  <div class="card">
+    <h2>New words: What are they like? 😎</h2>
+    <p class="ru sub">Новые слова: какие они? (характер). Нажми 🔊, слушай и повторяй.</p>
+    <div class="words" id="wordlist"></div>
+  </div>
+  <div class="card careful">
+    <h2>⚠️ Be careful! · Осторожно!</h2>
+    <ul>
+      <li><b>hard-working</b> — with a hyphen <b>-</b> <span class="ru">· пишется через дефис: hard<b>-</b>working</span></li>
+      <li><b>clever</b> — c-l-e-v-<b>er</b> <span class="ru">· на конце -er, как в слове teach<b>er</b></span></li>
+      <li><b>funny</b> 🤡 = смешной (he makes us laugh) · <b>silly</b> 🤪 = глупенький, дурашливый (he does silly things) <span class="ru">· это разные слова!</span></li>
+      <li><b>boring</b> 🥱 = скучный (a boring film). <span class="ru">«Мне скучно» — это <b>I am bored</b>, а не I am boring 😉</span></li>
+      <li><b>mean</b> 😈 = вредный, злой. <span class="ru">У слова mean есть ещё значение «значить», но сегодня это характер.</span></li>
+    </ul>
+  </div>
+  <div class="next"><button class="btn main" data-go="cards">Flashcards · Карточки →</button></div>
+</section>
+
+<!-- CARDS -->
+<section id="cards">
+  <div class="card">
+    <div class="fc-top">
+      <div><h2>Flashcards 🃏</h2><p class="ru sub" style="margin:0">Нажми на карточку, чтобы перевернуть</p></div>
+      <div class="chip" id="fcCount">1 / 10</div>
+    </div>
+    <div class="scene">
+      <div class="flip" id="flip" tabindex="0" role="button" aria-label="Flip card">
+        <div class="face front" id="fcFront"></div>
+        <div class="face back" id="fcBack"></div>
+      </div>
+    </div>
+    <div class="fc-know">
+      <button class="btn green" id="fcKnow">✓ I know it<br><small>Знаю</small></button>
+      <button class="btn pink" id="fcLearn">🔁 Still learning<br><small>Ещё учу</small></button>
+    </div>
+    <div class="fc-ctl">
+      <button class="btn" id="fcPrev" aria-label="Previous">◀</button>
+      <button class="btn" id="fcShuf">🔀 Shuffle</button>
+      <button class="btn" id="fcDir">⇄ EN → RU</button>
+      <button class="btn" id="fcNext" aria-label="Next">▶</button>
+    </div>
+    <div class="fc-ctl"><label class="chip"><input type="checkbox" id="fcOnly"> Only words I'm learning · Только те, что учу</label></div>
+    <div class="kbar"><div class="row" style="justify-content:space-between;font-weight:800;font-size:14px"><span>Known · Знаю</span><span id="fcKnown">0 / 10</span></div><div class="bar"><i id="fcBar"></i></div></div>
+  </div>
+  <div class="next"><button class="btn main" data-go="m1">Mission 1 · Миссия 1 →</button></div>
+</section>
+
+<!-- MISSION 1 -->
+<section id="m1">
+  <div class="card"><h2>🎯 Mission 1: Words</h2><p class="ru sub">Миссия 1: слова. Каждый ответ тушит огонь! 💧</p></div>
+  <div id="m1list"></div>
+  <div class="next"><button class="btn main" data-go="gram">Grammar · Грамматика →</button></div>
+</section>
+
+<!-- GRAMMAR -->
+<section id="gram">
+  <div class="card">
+    <h2>🪐 The verb <span class="am">am</span> / <span class="is">is</span> / <span class="are">are</span></h2>
+    <p class="ru sub">Глагол «быть» — to be</p>
+    <p><b>По-русски</b> мы говорим: «Я Вероника», «Она добрая» — <b>без глагола</b>.<br>
+    <b>В английском так нельзя!</b> Между «кто» и «какой» обязательно стоит маленькое слово: <span class="am">am</span>, <span class="is">is</span> или <span class="are">are</span>.</p>
+    <ul class="exl">
+      <li><button class="say sm" data-say="I am Veronika.">🔊</button> I <span class="am">am</span> Veronika. <span class="ru">— Я Вероника.</span></li>
+      <li><button class="say sm" data-say="She is kind.">🔊</button> She <span class="is">is</span> kind. <span class="ru">— Она добрая.</span></li>
+      <li><button class="say sm" data-say="They are funny.">🔊</button> They <span class="are">are</span> funny. <span class="ru">— Они смешные.</span></li>
+    </ul>
+    <div class="tipbox">✗ <span class="bad">I clever.</span> &nbsp; ✓ <span class="good">I am clever.</span><br><span class="ru">Не забывай am / is / are! Это самая частая ошибка.</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Step 1 · Who gets which word?</h2>
+    <p class="ru sub">Шаг 1. Кому какое слово?</p>
+    <div class="becard">
+      <div class="becol c-am"><div class="p">I</div><div class="v">am</div><div class="s">I'm</div></div>
+      <div class="becol c-is"><div class="p">he · she · it</div><div class="v">is</div><div class="s">he's · she's · it's</div></div>
+      <div class="becol c-are"><div class="p">you · we · they</div><div class="v">are</div><div class="s">you're · we're · they're</div></div>
+    </div>
+    <p>🧠 <b>Trick:</b> <span class="ru">«<b>I</b>» дружит только с <span class="am">am</span>. Один человек или предмет (he, she, it, Tom, my cat) — <span class="is">is</span>. Много (we, they, Tom and Anna) и <b>you</b> — <span class="are">are</span>.</span></p>
+    <ul class="exl">
+      <li><button class="say sm" data-say="My cat is lazy.">🔊</button> My cat (= it) <span class="is">is</span> lazy. <span class="ru">— Мой кот ленивый.</span></li>
+      <li><button class="say sm" data-say="Tom and Anna are clever.">🔊</button> Tom and Anna (= they) <span class="are">are</span> clever.</li>
+      <li><button class="say sm" data-say="You are confident.">🔊</button> You <span class="are">are</span> confident. <span class="ru">— Ты уверена в себе.</span></li>
+      <li><button class="say sm" data-say="I'm shy.">🔊</button> I'm shy. = I <span class="am">am</span> shy. <span class="ru">— короткая форма, так говорят чаще.</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Step 2 · NOT ❌</h2>
+    <p class="ru sub">Шаг 2. Отрицание: просто добавь <b>not</b> после am / is / are.</p>
+    <table class="t">
+      <tr><th>Full · Полная</th><th>Short · Короткая</th></tr>
+      <tr><td>I <span class="am">am</span> <span class="not">not</span> lazy.</td><td>I'm not lazy.</td></tr>
+      <tr><td>He / She / It <span class="is">is</span> <span class="not">not</span> mean.</td><td>He <span class="is">is</span>n't mean. · He's not mean.</td></tr>
+      <tr><td>You / We / They <span class="are">are</span> <span class="not">not</span> boring.</td><td>They <span class="are">are</span>n't boring.</td></tr>
+    </table>
+    <div class="tipbox">✗ <span class="bad">I amn't shy.</span> ✓ <span class="good">I'm not shy.</span><br><span class="ru">Слова «amn't» нет! Только <b>I'm not</b>.</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Step 3 · Questions ❓</h2>
+    <p class="ru sub">Шаг 3. Вопрос: <b>am / is / are прыгает вперёд!</b> 🦘</p>
+    <ul class="exl">
+      <li><button class="say sm" data-say="She is kind. Is she kind?">🔊</button> She <span class="is">is</span> kind. → <span class="is">Is</span> she kind?</li>
+      <li><button class="say sm" data-say="You are shy. Are you shy?">🔊</button> You <span class="are">are</span> shy. → <span class="are">Are</span> you shy?</li>
+    </ul>
+    <h3>Short answers · Короткие ответы</h3>
+    <table class="t">
+      <tr><th>👍 Yes</th><th>👎 No</th></tr>
+      <tr><td>Are you shy? — Yes, I <span class="am">am</span>.</td><td>No, I'm <span class="not">not</span>.</td></tr>
+      <tr><td>Is he lazy? — Yes, he <span class="is">is</span>.</td><td>No, he <span class="is">is</span>n't.</td></tr>
+      <tr><td>Are they funny? — Yes, they <span class="are">are</span>.</td><td>No, they <span class="are">are</span>n't.</td></tr>
+    </table>
+    <div class="tipbox">✗ <span class="bad">Yes, I'm.</span> ✓ <span class="good">Yes, I am.</span><br><span class="ru">В ответе «Yes» короткую форму не используем: Yes, I am. / Yes, she is. / Yes, they are.</span><br>
+    ✗ <span class="bad">Are you shy? — Yes, you are.</span> ✓ <span class="good">Yes, I am.</span><br><span class="ru">Спросили «ты?» — отвечаем «я»: Are <b>you</b>…? — Yes, <b>I</b> am.</span></div>
+  </div>
+
+  <div class="card machine">
+    <h2>🛠️ The Be-Machine</h2>
+    <p class="ru sub">Машина «be»: выбери, кто и какой, а потом нажми + − ?</p>
+    <div class="mlab">WHO? · КТО?</div>
+    <div class="pick" id="mSubj"></div>
+    <div class="mlab">WHAT ARE THEY LIKE? · КАКОЙ?</div>
+    <div class="pick" id="mAdj"></div>
+    <div class="mlab">MAKE · СДЕЛАЙ</div>
+    <div class="pick mode" id="mMode">
+      <button data-m="+">➕</button><button data-m="-">➖</button><button data-m="?">❓</button>
+    </div>
+    <div class="screen" id="mScreen"></div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="mSay">🔊 Listen · Послушать</button></div>
+  </div>
+
+  <div class="card">
+    <h2>🚨 Common mistakes · Частые ошибки</h2>
+    <div class="mist">
+      <div><span class="bad">I funny.</span> → <span class="good">I am funny.</span> <span class="ru">— нужен am</span></div>
+      <div><span class="bad">He are clever.</span> → <span class="good">He is clever.</span> <span class="ru">— he → is</span></div>
+      <div><span class="bad">You is kind.</span> → <span class="good">You are kind.</span> <span class="ru">— you → are</span></div>
+      <div><span class="bad">She not is lazy.</span> → <span class="good">She is not lazy.</span> <span class="ru">— not стоит после is</span></div>
+      <div><span class="bad">She is shy?</span> → <span class="good">Is she shy?</span> <span class="ru">— в вопросе is идёт первым</span></div>
+    </div>
+  </div>
+  <div class="next"><button class="btn main" data-go="m2">Mission 2 · Миссия 2 →</button></div>
+</section>
+
+<!-- MISSION 2 -->
+<section id="m2">
+  <div class="card"><h2>🛸 Mission 2: am / is / are</h2><p class="ru sub">Миссия 2: грамматика. Подсказка: открой вкладку 🪐 Grammar, если забыла правило.</p></div>
+  <div id="m2list"></div>
+  <div class="next"><button class="btn main" data-go="res">Results · Итоги →</button></div>
+</section>
+
+<!-- RESULTS -->
+<section id="res">
+  <div class="card" style="text-align:center">
+    <h2>🏆 Results · Итоги</h2>
+    <div class="big-score" id="rScore">0 / 0</div>
+    <div id="rPct" style="font-weight:900;font-size:20px"></div>
+    <div class="planet" id="rPlanet" style="font-size:26px;margin:8px 0"></div>
+    <p id="rMsg" style="font-weight:800"></p>
+  </div>
+  <div class="card">
+    <h2>Missions · Задания</h2>
+    <ul class="rlist" id="rList"></ul>
+    <p id="rCards" style="font-weight:800"></p>
+  </div>
+  <div class="card">
+    <h2>Mistakes to look at · Ошибки</h2>
+    <div class="mlist" id="rMist"></div>
+  </div>
+  <div class="card">
+    <h2>📨 Send to your teacher · Отправь учителю</h2>
+    <p class="ru sub">Нажми одну кнопку и отправь отчёт. Почта учителя: <span class="mail" id="tmail"></span></p>
+    <div class="sendg" id="send"></div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:800">See the report · Посмотреть отчёт</summary><pre class="rep" id="rep"></pre></details>
+  </div>
+  <div class="card">
+    <h2>Start again · Начать заново</h2>
+    <p class="ru sub">Удалит все ответы на этом устройстве.</p>
+    <button class="btn" id="resetBtn">🔄 Start again · Начать заново</button>
+    <div class="confirm" id="confirm">
+      <p style="margin-top:0"><b>Delete all answers?</b> <span class="ru">Удалить все ответы?</span></p>
+      <div class="row"><button class="btn pink" id="resetYes">Yes · Да</button><button class="btn" id="resetNo">No · Нет</button></div>
+    </div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DATA — edit words, exercises and answers here
+   ========================================================= */
+const STUDENT = 'Veronika';
+const STUDENT_RU = 'Вероника';
+const TEACHER = 'ulchik2211@gmail.com';
+const HW_TITLE = 'Space Adventure U1 L1 — personality + am/is/are';
+const KEY = 'veronika-space-adventure-u1l1-v1';
+
+const WORDS = [
+  {en:'shy',          ipa:'/ʃaɪ/',          e:'🙈', ru:'стеснительный, застенчивый', ex:'Mia is shy. She is quiet at school.', exRu:'Миа стеснительная. Она тихая в школе.'},
+  {en:'confident',    ipa:'/ˈkɒnfɪdənt/',   e:'😎', ru:'уверенный в себе',          ex:'Leo is confident. He sings on stage.', exRu:'Лео уверен в себе. Он поёт на сцене.'},
+  {en:'lazy',         ipa:'/ˈleɪzi/',       e:'🦥', ru:'ленивый',                    ex:'My cat is lazy. It sleeps all day.', exRu:'Мой кот ленивый. Он спит весь день.'},
+  {en:'hard-working', ipa:'/ˌhɑːdˈwɜːkɪŋ/', e:'🐝', ru:'трудолюбивый',               ex:'Bees are hard-working.', exRu:'Пчёлы трудолюбивые.'},
+  {en:'kind',         ipa:'/kaɪnd/',        e:'😇', ru:'добрый',                     ex:'Grandma is kind. She helps everyone.', exRu:'Бабушка добрая. Она всем помогает.'},
+  {en:'mean',         ipa:'/miːn/',         e:'😈', ru:'вредный, злой',              ex:'The pirate is mean. He takes our sweets!', exRu:'Пират вредный. Он забирает наши конфеты!'},
+  {en:'silly',        ipa:'/ˈsɪli/',        e:'🤪', ru:'глупенький, дурашливый',     ex:'My brother is silly. He puts socks on his ears!', exRu:'Мой брат дурашливый. Он надевает носки на уши!'},
+  {en:'funny',        ipa:'/ˈfʌni/',        e:'🤡', ru:'смешной, весёлый',           ex:'The clown is funny. We laugh a lot.', exRu:'Клоун смешной. Мы много смеёмся.'},
+  {en:'boring',       ipa:'/ˈbɔːrɪŋ/',      e:'🥱', ru:'скучный',                    ex:'This film is boring. I want to sleep.', exRu:'Этот фильм скучный. Я хочу спать.'},
+  {en:'clever',       ipa:'/ˈklevə/',       e:'🧠', ru:'умный',                      ex:'Owls are clever. They know a lot!', exRu:'Совы умные. Они много знают!'}
+];
+
+const WARM = [
+  [['🐱','cats','I like cats.'],['🐶','dogs','I like dogs.']],
+  [['🌧️','rain','I like rain.'],['❄️','snow','I like snow.']],
+  [['🧮','maths','I like maths.'],['📚','books','I like books.']],
+  [['⚽','football','I like football.'],['🎾','tennis','I like tennis.']],
+  [['🍕','pizza','I like pizza.'],['🍔','burgers','I like burgers.']],
+  [['🎤','singing','I like singing.'],['💃','dancing','I like dancing.']],
+  [['🏔️','mountains','I like mountains.'],['🏝️','the sea','I like the sea.']],
+  [['☀️','day','I like the day.'],['🌙','night','I like the night.']],
+  [['🍂','autumn','I like autumn.'],['🌱','spring','I like spring.']],
+  [['🎉','parties','I like parties.'],['🏠','home','I like staying at home.']]
+];
+
+// why-texts for am / is / are
+const W_AM = 'I → am';
+const W_IS = 'he / she / it (one person or thing) → is · один → is';
+const W_ARE = 'you / we / they (many) → are · много или you → are';
+
+const EXERCISES = [
+  /* ---------- MISSION 1: WORDS ---------- */
+  {id:'a1', tab:'m1', type:'match', title:'Match the words', ru:'Соедини слово и перевод. Нажми слово слева, потом перевод справа.',
+   pairs: WORDS.map(w=>[w.en, w.ru.split(',')[0]])},
+
+  {id:'a2', tab:'m1', type:'mc', title:'Look and choose', ru:'Посмотри на картинку и выбери слово.',
+   items:[
+    {big:'🙈', q:'She doesn\'t like to talk to new people.', opts:['shy','confident','mean'], a:'shy', why:'shy = стеснительный'},
+    {big:'😎', q:'He likes to sing on stage.', opts:['confident','shy','lazy'], a:'confident', why:'confident = уверенный в себе'},
+    {big:'😈', q:'He takes my toys!', opts:['mean','kind','clever'], a:'mean', why:'mean = вредный, злой'},
+    {big:'🥱', q:'This TV show…', opts:['boring','funny','hard-working'], a:'boring', why:'boring = скучный'},
+    {big:'🧠', q:'She knows all the answers.', opts:['clever','silly','lazy'], a:'clever', why:'clever = умный'},
+    {big:'🐝', q:'It works all day.', opts:['hard-working','lazy','boring'], a:'hard-working', why:'hard-working = трудолюбивый'}
+   ]},
+
+  {id:'a3', tab:'m1', type:'listen', title:'Listen and choose', ru:'Нажми 🔊, послушай и выбери слово.',
+   items:[
+    {a:'funny', opts:['funny','silly','lazy']},
+    {a:'shy', opts:['shy','kind','mean']},
+    {a:'clever', opts:['clever','confident','boring']},
+    {a:'lazy', opts:['lazy','silly','kind']},
+    {a:'hard-working', opts:['hard-working','boring','funny']}
+   ]},
+
+  {id:'a4', tab:'m1', type:'mc', title:'Spelling: which is right?', ru:'Правописание: какое слово написано правильно?',
+   items:[
+    {big:'🧠', opts:['clever','clewer','klever'], a:'clever', why:'c-l-e-v-e-r'},
+    {big:'🤡', opts:['funny','funy','funni'], a:'funny', why:'f-u-n-n-y — две n'},
+    {big:'😎', opts:['confident','confedent','konfident'], a:'confident', why:'c-o-n-f-i-d-e-n-t'},
+    {big:'🥱', opts:['boring','borring','boreing'], a:'boring', why:'b-o-r-i-n-g — одна r'},
+    {big:'🐝', opts:['hard-working','hardworkin','hard-wroking'], a:'hard-working', why:'hard-working — через дефис'}
+   ]},
+
+  {id:'a5', tab:'m1', type:'mc', title:'Which word fits?', ru:'Какое слово подходит?',
+   items:[
+    {q:'Tom sleeps all day and doesn\'t help. He is ___.', opts:['lazy','kind','clever'], a:'lazy', why:'lazy = ленивый 🦥'},
+    {q:'Anna is very quiet. She doesn\'t talk to new people. She is ___.', opts:['shy','confident','funny'], a:'shy', why:'shy = стеснительная 🙈'},
+    {q:'The clown makes us laugh. He is ___.', opts:['funny','boring','mean'], a:'funny', why:'funny = смешной 🤡'},
+    {q:'Max knows all the answers in maths. He is ___.', opts:['clever','lazy','silly'], a:'clever', why:'clever = умный 🧠'},
+    {q:'This book is ___. I want to sleep.', opts:['boring','funny','kind'], a:'boring', why:'boring = скучный 🥱'},
+    {q:'Kate helps her friends and gives them sweets. She is ___.', opts:['kind','mean','lazy'], a:'kind', why:'kind = добрая 😇'},
+    {q:'The pirate takes my sweets! He is ___.', opts:['mean','kind','shy'], a:'mean', why:'mean = вредный 😈'},
+    {q:'The bee works all day. It is ___.', opts:['hard-working','lazy','boring'], a:'hard-working', why:'hard-working = трудолюбивая 🐝'}
+   ]},
+
+  /* ---------- MISSION 2: GRAMMAR ---------- */
+  {id:'b1', tab:'m2', group:'Step 1 · am / is / are', type:'mc', title:'am, is or are?', ru:'Выбери am, is или are.',
+   items:[
+    {q:'I ___ clever.', opts:['am','is','are'], a:'am', why:W_AM},
+    {q:'She ___ kind.', opts:['am','is','are'], a:'is', why:W_IS},
+    {q:'They ___ lazy.', opts:['am','is','are'], a:'are', why:W_ARE},
+    {q:'We ___ friends.', opts:['am','is','are'], a:'are', why:W_ARE},
+    {q:'My dog ___ funny.', opts:['am','is','are'], a:'is', why:'my dog = it → is'},
+    {q:'You ___ confident.', opts:['am','is','are'], a:'are', why:'you → are (всегда!)'},
+    {q:'He ___ shy.', opts:['am','is','are'], a:'is', why:W_IS},
+    {q:'Tom and Anna ___ hard-working.', opts:['am','is','are'], a:'are', why:'Tom and Anna = they → are'}
+   ]},
+
+  {id:'b2', tab:'m2', type:'mc', title:'Choose the correct sentence', ru:'Выбери правильное предложение.',
+   items:[
+    {opts:['He is funny.','He are funny.','He funny.'], a:'He is funny.', why:'he → is. Без is нельзя!'},
+    {opts:['I am clever.','I clever.','I is clever.'], a:'I am clever.', why:'I → am'},
+    {opts:['We are not lazy.','We not are lazy.','We is not lazy.'], a:'We are not lazy.', why:'not стоит ПОСЛЕ are'},
+    {opts:['I\'m not shy.','I amn\'t shy.','I isn\'t shy.'], a:'I\'m not shy.', why:'«amn\'t» не бывает — только I\'m not'}
+   ]},
+
+  {id:'b3', tab:'m2', group:'Step 2 · NOT', type:'type', title:'Make it negative ❌', ru:'Сделай отрицание: добавь not. Можно писать коротко (isn\'t, aren\'t, I\'m not).',
+   items:[
+    {q:'I am lazy.', model:'I am not lazy.', accept:['I am not lazy.'], hint:'I am + not …', why:'I am not = I\'m not'},
+    {q:'She is mean.', model:'She is not mean.', accept:['She is not mean.'], hint:'She is + not …', why:'is not = isn\'t'},
+    {q:'They are boring.', model:'They are not boring.', accept:['They are not boring.'], hint:'They are + not …', why:'are not = aren\'t'},
+    {q:'It is silly.', model:'It is not silly.', accept:['It is not silly.'], hint:'It is + not …', why:'is not = isn\'t'},
+    {q:'We are shy.', model:'We are not shy.', accept:['We are not shy.'], hint:'We are + not …', why:'are not = aren\'t'}
+   ]},
+
+  {id:'b4', tab:'m2', group:'Step 3 · Questions', type:'tiles', title:'Build the question 🧩', ru:'Собери вопрос: нажимай на слова по порядку. Помни: am / is / are — первым!',
+   items:[
+    {words:['you','are','shy'], answer:'Are you shy?'},
+    {words:['she','is','clever'], answer:'Is she clever?'},
+    {words:['they','funny','are'], answer:'Are they funny?'},
+    {words:['he','is','lazy'], answer:'Is he lazy?'},
+    {words:['it','boring','is'], answer:'Is it boring?'}
+   ]},
+
+  {id:'b5', tab:'m2', type:'mc', title:'Short answers 👍👎', ru:'Выбери короткий ответ. 👍 = Yes, 👎 = No.',
+   items:[
+    {q:'Are you kind? 👍', opts:['Yes, I am.','Yes, I\'m.','Yes, you are.'], a:'Yes, I am.', why:'Are you…? → Yes, I am. (не I\'m!)'},
+    {q:'Is he lazy? 👎', opts:['No, he isn\'t.','No, he not.','No, he aren\'t.'], a:'No, he isn\'t.', why:'he → is → isn\'t'},
+    {q:'Are they funny? 👍', opts:['Yes, they are.','Yes, they is.','Yes, they\'re.'], a:'Yes, they are.', why:'they → are; в ответе Yes — полная форма'},
+    {q:'Is she shy? 👎', opts:['No, she isn\'t.','No, she aren\'t.','No, she not is.'], a:'No, she isn\'t.', why:'she → is → isn\'t'},
+    {q:'Is it boring? 👍', opts:['Yes, it is.','Yes, it\'s.','Yes, it are.'], a:'Yes, it is.', why:'it → is; в ответе Yes — полная форма'},
+    {q:'Are you hard-working? 👎', opts:['No, I\'m not.','No, I amn\'t.','No, I not.'], a:'No, I\'m not.', why:'Are you…? → No, I\'m not.'}
+   ]},
+
+  {id:'b6', tab:'m2', group:'Final mission 🚀', type:'gap', title:'Meet the space crew', ru:'Прочитай историю и впиши am, is, are, isn\'t или aren\'t.',
+   bank:['am','is','are','isn\'t','aren\'t'],
+   text:'Hi! I [[am]] Kiki, the space koala. 🐨 This [[is]] my crew. Zip the robot 🤖 [[is]] very clever. Bop and Pip 👾👾 [[are]] funny, but they [[aren\'t|are not]] hard-working — they sleep all day! 😴 Space [[isn\'t|is not]] boring — it\'s fun! And you, Captain? [[Are]] you confident? Let\'s fly! 🚀',
+   hints:['I → am','this → is','Zip = he → is','Bop and Pip = they → are','they sleep all day → not hard-working: they + are + not','Space is fun → it is NOT boring','Question: ___ you…? → Are'],
+   },
+
+  {id:'c1', tab:'m2', type:'translate', title:'Say it in English 🇬🇧', ru:'Переведи на английский. Не забудь am / is / are!',
+   items:[
+    {q:'Я умная.', model:'I am clever.', accept:['I am clever.','I am smart.'], hint:'Я → I am …', why:'I → am'},
+    {q:'Он не ленивый.', model:'He is not lazy.', accept:['He is not lazy.'], hint:'Он → He is not …', why:'he → is not / isn\'t'},
+    {q:'Ты стеснительная?', model:'Are you shy?', accept:['Are you shy?'], hint:'Вопрос: Are you …?', why:'Вопрос: are идёт первым'},
+    {q:'Они смешные.', model:'They are funny.', accept:['They are funny.'], hint:'Они → They are …', why:'they → are'},
+    {q:'Мы добрые.', model:'We are kind.', accept:['We are kind.'], hint:'Мы → We are …', why:'we → are'}
+   ]},
+
+  {id:'c2', tab:'m2', type:'write', title:'All about me ✍️', ru:'Напиши о себе. Используй новые слова!',
+   items:[
+    {q:'I am … (2 words about you)', ru:'Какая ты? Например: I am kind and funny.'},
+    {q:'I am not …', ru:'Какой ты НЕ бываешь? Например: I am not lazy.'},
+    {q:'My best friend is …', ru:'Какой твой лучший друг / подруга?'}
+   ]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* storage with in-memory fallback */
+const store = {
+  mem:null,
+  get(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : this.mem; }catch(e){ return this.mem; } },
+  set(o){ this.mem = JSON.parse(JSON.stringify(o)); try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+  del(){ this.mem = null; try{ localStorage.removeItem(KEY); }catch(e){} }
+};
+function fresh(){ return {name:STUDENT, tab:'start', ex:{}, match:{}, warm:{}, write:{}, cards:{known:[], learning:[], dir:'en', only:false, pos:0, order:WORDS.map((_,i)=>i)}, machine:{s:'She', a:'kind', m:'+'}}; }
+let S = Object.assign(fresh(), store.get() || {});
+function save(){ store.set(S); }
+
+/* speech */
+let VOICE = null;
+function pickVoice(){
+  if(!('speechSynthesis' in window)) return;
+  try{ const vs = speechSynthesis.getVoices();
+    VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){}
+}
+if('speechSynthesis' in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function speak(t){
+  if(!('speechSynthesis' in window) || !t) return;
+  t = String(t).replace(/___/g,'...').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu,'').trim();
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t);
+    if(VOICE) u.voice = VOICE; u.lang = VOICE ? VOICE.lang : 'en-GB'; u.rate = 0.85; speechSynthesis.speak(u); }catch(e){}
+}
+document.addEventListener('click', e=>{ const b = e.target.closest('[data-say]'); if(b){ e.stopPropagation(); speak(b.dataset.say); } });
+
+/* helpers */
+function hash(s){ let h = 2166136261; for(const c of String(s)){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h>>>0; }
+function seeded(seed){ let x = hash(seed) || 1; return ()=>{ x ^= x<<13; x>>>=0; x ^= x>>17; x ^= x<<5; x>>>=0; return x/4294967296; }; }
+function shuffle(arr, seed){ const a = arr.slice(), r = seeded(seed); for(let i=a.length-1;i>0;i--){ const j = Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pick(list, seed){ return list[hash(seed) % list.length]; }
+const PRAISE = ['Super! · Супер!','Great job! · Отлично!','Yes! · Да!','Well done! · Молодец!','Brilliant! · Блестяще!','You got it! · Точно!','Stellar! · Звёздно! ⭐','Fire out! · Огонь потушен! 💧'];
+const OOPS = ['Not quite · Почти','Oops! · Ой!','Almost! · Чуть-чуть не так'];
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(()=>el.classList.remove('on'), 1800); }
+
+const CONTR = [
+  [/\bi'm\b/g,'i am'],[/\byou're\b/g,'you are'],[/\bwe're\b/g,'we are'],[/\bthey're\b/g,'they are'],
+  [/\bhe's\b/g,'he is'],[/\bshe's\b/g,'she is'],[/\bit's\b/g,'it is'],[/\bthat's\b/g,'that is'],
+  [/\bcan't\b/g,'cannot'],[/\bwon't\b/g,'will not'],[/\bisn't\b/g,'is not'],[/\baren't\b/g,'are not'],[/(\w)n't\b/g,'$1 not']
+];
+function norm(s){
+  s = String(s||'').toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').trim();
+  CONTR.forEach(([r,v])=>{ s = s.replace(r,v); });
+  s = s.replace(/[,]/g,' ').replace(/\s+/g,' ').replace(/[\s.!?]+$/,'').trim();
+  return s;
+}
+function notes(v, model){
+  const n = []; const t = String(v).trim();
+  if(model.trim().endsWith('?') && !t.endsWith('?')) n.push('Don\'t forget the question mark <b>?</b> · Не забывай знак вопроса');
+  if(t && t[0] !== t[0].toUpperCase()) n.push('Start with a capital letter · Начинай с большой буквы');
+  return n;
+}
+function ist(exId, i){ S.ex[exId] = S.ex[exId] || {}; S.ex[exId][i] = S.ex[exId][i] || {tries:0}; return S.ex[exId][i]; }
+
+/* scoring */
+function exScore(ex){
+  if(ex.type==='write') return null;
+  if(ex.type==='match'){
+    const m = S.match[ex.id] || {done:{}, wrong:{}}; let got=0, ans=0;
+    ex.pairs.forEach((_,i)=>{ if(m.done && m.done[i]){ ans++; if(!(m.wrong && m.wrong[i])) got++; } });
+    return {got, total:ex.pairs.length, ans};
+  }
+  const n = ex.type==='gap' ? gapAnswers(ex).length : ex.items.length;
+  let got=0, ans=0;
+  for(let i=0;i<n;i++){ const st = (S.ex[ex.id]||{})[i]; if(st && st.done){ ans++; if(st.ok || st.self) got++; } }
+  return {got, total:n, ans};
+}
+function totals(){
+  let got=0,total=0,ans=0;
+  EXERCISES.forEach(ex=>{ const s = exScore(ex); if(s){ got+=s.got; total+=s.total; ans+=s.ans; } });
+  return {got,total,ans};
+}
+function fires(ans,total){ const out = Math.round((ans/Math.max(total,1))*8); return '🌳'.repeat(out) + '🔥'.repeat(8-out); }
+
+function updateTop(){
+  const t = totals();
+  $('#bar').style.width = (t.ans/t.total*100)+'%';
+  $('#scorepill').textContent = '⭐ '+t.got+' / '+t.total;
+  $('#planet').textContent = fires(t.ans,t.total);
+  ['m1','m2'].forEach(tab=>{
+    let g=0,tt=0,a=0; EXERCISES.filter(e=>e.tab===tab).forEach(e=>{ const s=exScore(e); if(s){g+=s.got;tt+=s.total;a+=s.ans;} });
+    const btn = $('.tab[data-t="'+tab+'"]'); let bd = btn.querySelector('.bd');
+    if(a===tt){ if(!bd){ bd=document.createElement('span'); bd.className='bd'; btn.appendChild(bd);} bd.textContent = g+'/'+tt; } else if(bd) bd.remove();
+  });
+  EXERCISES.forEach(ex=>{ const el = document.getElementById('sc-'+ex.id); if(!el) return; const s = exScore(ex);
+    if(!s){ el.textContent='✍️'; return; } el.textContent = s.got+' / '+s.total; el.classList.toggle('full', s.ans===s.total); });
+}
+
+/* ---------- tabs ---------- */
+function showTab(t){
+  S.tab = t; save();
+  $$('section').forEach(s=>s.classList.toggle('on', s.id===t));
+  $$('.tab').forEach(b=>b.classList.toggle('on', b.dataset.t===t));
+  if(t==='res') renderResults();
+  window.scrollTo({top:0});
+}
+$$('.tab').forEach(b=>b.addEventListener('click', ()=>showTab(b.dataset.t)));
+$$('[data-go]').forEach(b=>b.addEventListener('click', ()=>showTab(b.dataset.go)));
+
+/* ---------- name ---------- */
+function setName(){ $$('.nm').forEach(n=>{ n.textContent = (S.name && S.name!==STUDENT) ? S.name : (n.closest('.ru') ? STUDENT_RU : STUDENT); }); }
+$('#nameIn').value = S.name || STUDENT;
+$('#nameIn').addEventListener('input', e=>{ S.name = e.target.value.trim() || STUDENT; save(); setName(); });
+setName();
+
+/* ---------- warm-up ---------- */
+function renderWarm(){
+  const box = $('#warm'); box.innerHTML = '';
+  WARM.forEach((pair,i)=>{
+    const row = document.createElement('div'); row.className='totrow';
+    const ch = S.warm[i];
+    pair.forEach((p,side)=>{
+      const b = document.createElement('button'); b.className = 'totb '+(side?'r':'l') + (ch===side?' sel':'') + (ch!==undefined && ch!==side?' dim':'');
+      b.innerHTML = '<span class="e">'+p[0]+'</span><span class="w">'+esc(p[1])+'</span>';
+      b.addEventListener('click', ()=>{ S.warm[i]=side; save(); speak(p[2]); renderWarm(); });
+      row.appendChild(b);
+      if(side===0){ const o=document.createElement('div'); o.className='or'; o.textContent='OR'; row.appendChild(o); }
+    });
+    box.appendChild(row);
+  });
+  const likes = Object.keys(S.warm).map(i=>WARM[i][S.warm[i]][1]);
+  $('#likes').textContent = likes.length ? 'I like ' + likes.join(', ') + '! 💛' : '';
+}
+
+/* ---------- words ---------- */
+function renderWords(){
+  $('#wordlist').innerHTML = WORDS.map(w=>`
+   <div class="word">
+     <div class="e" aria-hidden="true">${w.e}</div>
+     <div><div class="en">${esc(w.en)}</div><div class="ipa">${esc(w.ipa)}</div></div>
+     <button class="say" data-say="${esc(w.en)}" aria-label="Listen: ${esc(w.en)}">🔊</button>
+     <div class="tr">${esc(w.ru)}</div>
+     <div class="ex"><button class="say sm" data-say="${esc(w.ex)}" aria-label="Listen to the example">🔊</button> ${esc(w.ex)}<br><span class="ru small">${esc(w.exRu)}</span></div>
+   </div>`).join('');
+}
+
+/* ---------- flashcards ---------- */
+const C = () => S.cards;
+function deck(){ const c = C(); let d = c.order.filter(i=>WORDS[i]); if(c.only){ const l = d.filter(i=>!c.known.includes(i)); if(l.length) d = l; } return d; }
+function renderCard(){
+  const c = C(), d = deck(); if(c.pos >= d.length) c.pos = 0;
+  const w = WORDS[d[c.pos]];
+  const en = `<div class="e">${w.e}</div><div class="w">${esc(w.en)}</div><div class="ipa" style="color:#fffb">${esc(w.ipa)}</div>`;
+  const ru = `<div class="e">${w.e}</div><div class="w rutxt">${esc(w.ru)}</div>`;
+  const sayBtn = `<button class="say" data-say="${esc(w.en)}" aria-label="Listen">🔊</button>`;
+  const exBlock = `<div class="x">${esc(w.ex)}<br><span style="opacity:.8">${esc(w.exRu)}</span></div>`;
+  if(c.dir==='en'){
+    $('#fcFront').innerHTML = sayBtn + en + '<div class="tap">tap to flip · нажми</div>';
+    $('#fcBack').innerHTML = sayBtn + `<div class="w rutxt">${esc(w.ru)}</div><div class="w" style="font-size:20px">${esc(w.en)}</div>` + exBlock;
+  } else {
+    $('#fcFront').innerHTML = ru + '<div class="tap">tap to flip · нажми</div>';
+    $('#fcBack').innerHTML = sayBtn + `<div class="w">${esc(w.en)}</div><div class="ipa" style="color:#fffb">${esc(w.ipa)}</div>` + exBlock;
+  }
+  $('#flip').classList.remove('turn');
+  $('#fcCount').textContent = (c.pos+1)+' / '+d.length + (c.known.includes(d[c.pos]) ? ' ✓' : '');
+  $('#fcDir').textContent = c.dir==='en' ? '⇄ EN → RU' : '⇄ RU → EN';
+  $('#fcOnly').checked = !!c.only;
+  $('#fcKnown').textContent = c.known.length+' / '+WORDS.length;
+  $('#fcBar').style.width = (c.known.length/WORDS.length*100)+'%';
+}
+function flip(){ $('#flip').classList.toggle('turn'); if($('#flip').classList.contains('turn') || C().dir==='en'){ const w = WORDS[deck()[C().pos]]; speak(w.en); } }
+$('#flip').addEventListener('click', e=>{ if(e.target.closest('.say')) return; flip(); });
+$('#flip').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); flip(); } });
+$('#fcNext').addEventListener('click', ()=>{ C().pos = (C().pos+1) % deck().length; save(); renderCard(); });
+$('#fcPrev').addEventListener('click', ()=>{ const n = deck().length; C().pos = (C().pos-1+n) % n; save(); renderCard(); });
+$('#fcShuf').addEventListener('click', ()=>{ C().order = shuffle(C().order, 'x'+Date.now()); C().pos = 0; save(); renderCard(); toast('Shuffled! · Перемешано! 🔀'); });
+$('#fcDir').addEventListener('click', ()=>{ C().dir = C().dir==='en' ? 'ru' : 'en'; save(); renderCard(); });
+$('#fcOnly').addEventListener('change', e=>{ C().only = e.target.checked; C().pos = 0; save(); renderCard(); });
+function mark(known){
+  const c = C(), d = deck(), id = d[c.pos];
+  c.known = c.known.filter(x=>x!==id); c.learning = (c.learning||[]).filter(x=>x!==id);
+  (known ? c.known : c.learning).push(id);
+  if(known) toast(pick(PRAISE, 'k'+id+Date.now()));
+  if(c.only && known){ const nd = deck(); if(c.pos >= nd.length) c.pos = 0; }
+  else c.pos = (c.pos+1) % d.length;
+  save(); renderCard();
+}
+$('#fcKnow').addEventListener('click', ()=>mark(true));
+$('#fcLearn').addEventListener('click', ()=>mark(false));
+
+/* ---------- be-machine ---------- */
+const SUBJ = ['I','You','He','She','It','We','They'];
+const BE = s => s==='I' ? 'am' : (['He','She','It'].includes(s) ? 'is' : 'are');
+const ANS = {I:'you', You:'I', He:'he', She:'she', It:'it', We:'we', They:'they'};
+const NEGSHORT = {am:"'m not", is:" isn't", are:" aren't"};
+function machineText(){
+  const {s,a,m} = S.machine, be = BE(s), cls = be;
+  const sub = s==='I' ? 'I' : s.toLowerCase();
+  if(m==='+') return {html:`${s} <span class="${cls} pop">${be}</span> ${a}.`, l2:`<span class="ru">Short · коротко:</span> ${s}${be==='am'?"'m":be==='is'?"'s":"'re"} ${a}.`, say:`${s} ${be} ${a}.`};
+  if(m==='-') return {html:`${s} <span class="${cls}">${be}</span> <span class="not pop">not</span> ${a}.`, l2:`<span class="ru">Short · коротко:</span> ${s}${NEGSHORT[be]} ${a}.`, say:`${s} ${be} not ${a}.`};
+  const ans = ANS[s], abe = BE(ans==='I'?'I':ans==='you'?'You':ans[0].toUpperCase()+ans.slice(1));
+  const yes = `Yes, ${ans} ${abe}.`, no = `No, ${ans}${NEGSHORT[abe]}.`;
+  return {html:`<span class="${cls} pop">${be[0].toUpperCase()+be.slice(1)}</span> ${sub} ${a}?`, l2:`👍 ${yes} &nbsp; 👎 ${no}`, say:`${be[0].toUpperCase()+be.slice(1)} ${sub} ${a}? ${yes} ${no}`};
+}
+function renderMachine(){
+  $('#mSubj').innerHTML = SUBJ.map(s=>`<button data-v="${s}" class="${S.machine.s===s?'on':''}">${s}</button>`).join('');
+  $('#mAdj').innerHTML = WORDS.map(w=>`<button data-v="${esc(w.en)}" class="${S.machine.a===w.en?'on':''}">${w.e} ${esc(w.en)}</button>`).join('');
+  $$('#mMode button').forEach(b=>b.classList.toggle('on', b.dataset.m===S.machine.m));
+  const t = machineText();
+  $('#mScreen').innerHTML = `<div>${t.html}</div><div class="l2">${t.l2}</div>`;
+}
+$('#mSubj').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.machine.s=b.dataset.v; save(); renderMachine(); });
+$('#mAdj').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.machine.a=b.dataset.v; save(); renderMachine(); });
+$('#mMode').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.machine.m=b.dataset.m; save(); renderMachine(); speak(machineText().say); });
+$('#mSay').addEventListener('click', ()=>speak(machineText().say));
+
+/* ---------- exercises ---------- */
+function gapAnswers(ex){ const out=[]; ex.text.replace(/\[\[(.+?)\]\]/g, (_,a)=>{ out.push(a.split('|')); return ''; }); return out; }
+
+function renderExercises(){
+  ['m1','m2'].forEach(tab=>{
+    const box = $('#'+tab+'list'); box.innerHTML='';
+    let num = 0;
+    EXERCISES.filter(e=>e.tab===tab).forEach(ex=>{
+      num++;
+      if(ex.group){ const g=document.createElement('div'); g.className='groupt'; g.textContent=ex.group; box.appendChild(g); }
+      const wrap = document.createElement('div'); wrap.className='ex'; wrap.id='ex-'+ex.id;
+      wrap.innerHTML = `<div class="exh"><div><h2>${num}. ${esc(ex.title)}</h2><p class="ru sub">${esc(ex.ru)}</p></div><span class="exsc" id="sc-${ex.id}"></span></div><div class="body"></div>`;
+      box.appendChild(wrap);
+      const body = wrap.querySelector('.body');
+      if(ex.type==='match') drawMatch(ex, body);
+      else if(ex.type==='gap') drawGap(ex, body);
+      else if(ex.type==='write') drawWrite(ex, body);
+      else ex.items.forEach((it,i)=>{ const d=document.createElement('div'); d.className='item'; body.appendChild(d); drawItem(ex,i,d); });
+    });
+  });
+  updateTop();
+}
+
+function fbHTML(ok, why, seed, extra){
+  return `<span class="${ok?'ok':'no'}">${ok?'✓ '+pick(PRAISE,seed):'✗ '+pick(OOPS,seed)}</span>${extra?' '+extra:''}${why?'<br><span class="why">💡 '+esc(why)+'</span>':''}`;
+}
+
+function drawItem(ex, i, node){
+  const it = ex.items[i], st = ist(ex.id, i), seed = ex.id+i;
+  const num = `<span class="n">${i+1}</span>`;
+  if(ex.type==='mc' || ex.type==='listen'){
+    const opts = shuffle(it.opts, seed);
+    let qh = num;
+    if(ex.type==='listen') qh += `<button class="say" data-say="${esc(it.a)}" aria-label="Listen">🔊</button><span class="ru small">Listen · Слушай</span>`;
+    if(it.big) qh += `<span class="big" aria-hidden="true">${it.big}</span>`;
+    if(it.q) qh += `<span>${esc(it.q)}</span>`;
+    node.innerHTML = `<div class="q">${qh}</div><div class="opts">${opts.map(o=>{
+      let c='opt'; if(st.done){ if(o===it.a) c+=' right'; else if(o===st.v) c+=' wrong'; else c+=' ghost'; }
+      return `<button class="${c}" data-o="${esc(o)}" ${st.done?'aria-disabled="true"':''}>${esc(o)}</button>`; }).join('')}</div><div class="fb"></div>`;
+    if(st.done) node.querySelector('.fb').innerHTML = fbHTML(st.ok, it.why, seed, st.ok?'':'→ <b>'+esc(it.a)+'</b>');
+    node.querySelectorAll('.opt').forEach(b=>b.addEventListener('click', ()=>{
+      if(st.done) return;
+      st.v = b.dataset.o; st.done = true; st.tries = 1; st.ok = st.v===it.a; save();
+      drawItem(ex,i,node); updateTop();
+      if(st.ok) speak(it.q && it.q.includes('___') ? it.q.replace('___', it.a) : it.a);
+    }));
+  }
+  else if(ex.type==='type' || ex.type==='translate'){
+    const model = it.model;
+    let cls = st.done ? (st.ok||st.self ? 'okk' : 'err') : (st.tries ? 'retry' : '');
+    node.innerHTML = `<div class="q">${num}<span>${esc(it.q)}</span>${ex.type==='type'?`<button class="say sm" data-say="${esc(it.q)}" aria-label="Listen">🔊</button>`:''}</div>
+      <div class="typ"><input class="${cls}" value="${esc(st.v||'')}" ${st.done?'disabled':''} autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="Your answer"><button class="btn main" ${st.done?'disabled':''}>Check · Проверить</button></div><div class="fb"></div>`;
+    const fb = node.querySelector('.fb'), inp = node.querySelector('input');
+    if(st.done && st.ok){ const n = notes(st.v, model); fb.innerHTML = fbHTML(true, it.why, seed, st.tries>1?'<span class="ru">(2nd try · со 2-й попытки)</span>':'') + (n.length?'<br>📝 '+n.join('<br>📝 '):''); }
+    else if(st.done){
+      fb.innerHTML = fbHTML(false, it.why, seed, '→ <b>'+esc(model)+'</b>') + (ex.type==='translate' ? (st.self ? '<br><span class="ok">✓ You marked your answer as correct · Ты отметила свой ответ как верный</span>' : '<br><button class="selfbtn">My answer is also correct ✓ · Мой ответ тоже верный</button>') : '');
+      const sb = fb.querySelector('.selfbtn'); if(sb) sb.addEventListener('click', ()=>{ st.self = true; save(); drawItem(ex,i,node); updateTop(); });
+    }
+    else if(st.tries===1) fb.innerHTML = `<span class="no">✗ Try again! · Попробуй ещё раз!</span><br><span class="why">💡 Hint · Подсказка: ${esc(it.hint)}</span>`;
+    const go = ()=>{
+      const v = inp.value.trim(); if(!v || st.done) return;
+      st.v = v; st.tries++;
+      const ok = it.accept.some(a=>norm(a)===norm(v));
+      if(ok){ st.ok = true; st.done = true; speak(model); }
+      else if(st.tries>=2){ st.ok = false; st.done = true; }
+      save(); drawItem(ex,i,node); updateTop();
+      if(!st.done){ const ni = node.querySelector('input'); ni.focus(); }
+    };
+    node.querySelector('.btn').addEventListener('click', go);
+    inp.addEventListener('keydown', e=>{ if(e.key==='Enter') go(); });
+    inp.addEventListener('input', ()=>{ st.v = inp.value; save(); });
+  }
+  else if(ex.type==='tiles'){
+    let order = shuffle(it.words.map((_,k)=>k), seed);
+    if(order.every((k,j)=>k===j)) order = order.slice(1).concat(order[0]);
+    st.built = st.built || [];
+    const builtTxt = st.built.map(k=>it.words[k]);
+    const sentence = builtTxt.length ? builtTxt.map((w,j)=>j===0? w[0].toUpperCase()+w.slice(1) : w).join(' ') + '?' : '';
+    node.innerHTML = `<div class="q">${num}<span class="ru small">Tap the words · Нажимай на слова</span></div>
+      <div class="tiles built">${st.built.map(k=>`<button class="tile" data-k="${k}" ${st.done?'disabled':''}>${esc(it.words[k])}</button>`).join('')}<span class="qm">?</span></div>
+      <div class="tiles">${order.filter(k=>!st.built.includes(k)).map(k=>`<button class="tile" data-k="${k}">${esc(it.words[k])}</button>`).join('')}</div>
+      ${st.done?'':`<div class="row" style="margin-top:8px"><button class="btn main chk" ${st.built.length===it.words.length?'':'disabled'}>Check · Проверить</button><button class="btn clr">↺ Clear</button></div>`}
+      <div class="fb"></div>`;
+    if(st.done) node.querySelector('.fb').innerHTML = fbHTML(st.ok, 'Question: am / is / are goes first · В вопросе am / is / are — первым', seed, (st.ok?'<b>'+esc(it.answer)+'</b>':'<span class="bad">'+esc(st.v)+'</span> → <b>'+esc(it.answer)+'</b>'));
+    if(!st.done){
+      node.querySelectorAll('.tiles:not(.built) .tile').forEach(b=>b.addEventListener('click', ()=>{ st.built.push(+b.dataset.k); save(); drawItem(ex,i,node); }));
+      node.querySelectorAll('.built .tile').forEach(b=>b.addEventListener('click', ()=>{ st.built = st.built.filter(k=>k!==+b.dataset.k); save(); drawItem(ex,i,node); }));
+      node.querySelector('.clr').addEventListener('click', ()=>{ st.built = []; save(); drawItem(ex,i,node); });
+      node.querySelector('.chk').addEventListener('click', ()=>{
+        st.v = sentence; st.tries = 1; st.done = true; st.ok = norm(sentence)===norm(it.answer); save();
+        drawItem(ex,i,node); updateTop(); if(st.ok) speak(it.answer);
+      });
+    }
+  }
+}
+
+function drawMatch(ex, body){
+  const m = S.match[ex.id] = S.match[ex.id] || {done:{}, wrong:{}};
+  const right = shuffle(ex.pairs.map((_,i)=>i), ex.id);
+  let sel = null; // {side:'L'|'R', i}
+  body.innerHTML = `<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb"></div>`;
+  const L = body.querySelector('.L'), R = body.querySelector('.R'), fb = body.querySelector('.fb');
+  function draw(){
+    L.innerHTML = ex.pairs.map((p,i)=>`<button class="mb ${m.done[i]?'done':''} ${sel&&sel.side==='L'&&sel.i===i?'sel':''}" data-i="${i}" ${m.done[i]?'disabled':''}>${esc(p[0])}</button>`).join('');
+    R.innerHTML = right.map(i=>`<button class="mb ${m.done[i]?'done':''} ${sel&&sel.side==='R'&&sel.i===i?'sel':''}" data-i="${i}" ${m.done[i]?'disabled':''}>${esc(ex.pairs[i][1])}</button>`).join('');
+    const doneN = Object.keys(m.done).length;
+    fb.innerHTML = doneN===ex.pairs.length ? `<span class="ok">✓ All matched! · Всё соединено! 🎉</span>` : '';
+  }
+  function tap(side, i, btn){
+    if(m.done[i]) return;
+    if(!sel || sel.side===side){ sel = {side, i}; if(side==='L') speak(ex.pairs[i][0]); draw(); return; }
+    const li = side==='L' ? i : sel.i, ri = side==='R' ? i : sel.i;
+    if(li===ri){ m.done[li] = true; sel = null; speak(ex.pairs[li][0]); save(); draw(); updateTop(); }
+    else { m.wrong[li] = (m.wrong[li]||0)+1; save(); btn.classList.add('shake'); setTimeout(()=>{ sel=null; draw(); }, 400); toast(pick(OOPS, 'm'+Date.now())); updateTop(); }
+  }
+  L.addEventListener('click', e=>{ const b=e.target.closest('.mb'); if(b) tap('L', +b.dataset.i, b); });
+  R.addEventListener('click', e=>{ const b=e.target.closest('.mb'); if(b) tap('R', +b.dataset.i, b); });
+  draw();
+}
+
+function drawGap(ex, body){
+  const answers = gapAnswers(ex);
+  let k = -1;
+  const html = esc(ex.text).replace(/\[\[(.+?)\]\]/g, ()=>{ k++; const st = ist(ex.id,k);
+    const cls = st.done ? (st.ok?'okk':'err') : (st.tries?'retry':'');
+    return `<input data-g="${k}" class="${cls}" value="${esc(st.v||'')}" ${st.done?'disabled':''} autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Gap ${k+1}">` + (st.done && !st.ok ? `<span class="fix">${esc(answers[k][0])}</span>` : ''); });
+  body.innerHTML = `<div class="bank">${ex.bank.map(b=>`<span>${esc(b)}</span>`).join('')}</div><div class="gtext">${html}</div>
+   <div class="row" style="margin-top:10px"><button class="btn main gchk">Check · Проверить</button>${answers.every((_,i)=>ist(ex.id,i).done)?`<button class="btn" data-say="${esc(ex.text.replace(/\[\[(.+?)(\|.+?)?\]\]/g,'$1'))}">🔊 Listen to the story</button>`:''}</div><div class="fb"></div>`;
+  const allDone = answers.every((_,i)=>ist(ex.id,i).done);
+  const fb = body.querySelector('.fb');
+  const retry = answers.map((_,i)=>i).filter(i=>{ const s=ist(ex.id,i); return !s.done && s.tries===1; });
+  if(allDone){ const s = exScore(ex); fb.innerHTML = `<span class="ok">✓ ${s.got} / ${s.total}</span> ${s.got===s.total?pick(PRAISE,ex.id):'<span class="why">Green = correct answers · Зелёным — правильные ответы</span>'}`; body.querySelector('.gchk').disabled = true; }
+  else if(retry.length) fb.innerHTML = `<span class="no">✗ Orange gaps — try again! · Оранжевые пропуски — попробуй ещё раз!</span><br>` + retry.map(i=>`<span class="why">💡 ${i+1}: ${esc(ex.hints[i])}</span>`).join('<br>');
+  body.querySelectorAll('input').forEach(inp=>inp.addEventListener('input', ()=>{ const st = ist(ex.id, +inp.dataset.g); st.v = inp.value; save(); }));
+  body.querySelector('.gchk').addEventListener('click', ()=>{
+    let any = false;
+    body.querySelectorAll('input').forEach(inp=>{
+      const g = +inp.dataset.g, st = ist(ex.id,g); if(st.done) return; const v = inp.value.trim(); if(!v) return;
+      any = true; st.v = v; st.tries++;
+      if(answers[g].some(a=>norm(a)===norm(v))){ st.ok = true; st.done = true; }
+      else if(st.tries>=2){ st.ok = false; st.done = true; }
+    });
+    if(!any){ toast('Fill in the gaps · Заполни пропуски ✏️'); return; }
+    save(); drawGap(ex, body); updateTop();
+    if(answers.every((_,i)=>ist(ex.id,i).done)) speak(ex.text.replace(/\[\[(.+?)(\|.+?)?\]\]/g,'$1'));
+  });
+}
+
+function drawWrite(ex, body){
+  body.innerHTML = ex.items.map((it,i)=>`<div class="item"><div class="q"><span class="n">${i+1}</span><span>${esc(it.q)}</span></div><div class="ru small">${esc(it.ru)}</div><textarea data-w="${i}" aria-label="${esc(it.q)}" placeholder="${esc(it.q.replace(' …',' ...'))}">${esc(S.write[ex.id+'-'+i]||'')}</textarea></div>`).join('')
+   + `<p class="ru small">Your teacher will read this · Учитель прочитает это ✨</p>`;
+  body.querySelectorAll('textarea').forEach(t=>t.addEventListener('input', ()=>{ S.write[ex.id+'-'+t.dataset.w] = t.value; save(); }));
+}
+
+/* ---------- results & report ---------- */
+function band(p){
+  if(p>=90) return 'Captain, the planet is saved! 🌍🌳 · Капитан, планета спасена! Ты супер!';
+  if(p>=70) return 'Great work! Just a few fires left 🔥 · Отличная работа! Осталось совсем чуть-чуть.';
+  if(p>=50) return 'Good try! Let\'s look at the mistakes 👀 · Хорошая попытка! Посмотрим на ошибки.';
+  return 'Let\'s practise more — you can do it! 💪 · Давай потренируемся ещё — у тебя получится!';
+}
+function mistakes(){
+  const out = [];
+  EXERCISES.forEach(ex=>{
+    if(ex.type==='match'){ const m = S.match[ex.id]||{wrong:{}}; Object.keys(m.wrong||{}).forEach(i=>out.push({ex:ex.title, q:ex.pairs[i][0], your:'(wrong match ×'+m.wrong[i]+')', right:ex.pairs[i][1]})); return; }
+    if(ex.type==='write') return;
+    if(ex.type==='gap'){ gapAnswers(ex).forEach((a,i)=>{ const st=(S.ex[ex.id]||{})[i]; if(st && st.done && !st.ok) out.push({ex:ex.title, q:'gap '+(i+1), your:st.v, right:a[0]}); }); return; }
+    ex.items.forEach((it,i)=>{ const st=(S.ex[ex.id]||{})[i]; if(!st || !st.done) return;
+      const q = it.q || it.big || (ex.type==='listen'?'🔊 '+it.a:'');
+      const right = it.a || it.model || it.answer;
+      if(!st.ok && !st.self) out.push({ex:ex.title, q, your:st.v, right});
+      else if(st.self) out.push({ex:ex.title, q, your:st.v+'  [self-marked as correct]', right, self:true});
+    });
+  });
+  return out;
+}
+function buildReport(){
+  const t = totals(), pct = Math.round(t.got/Math.max(t.total,1)*100), name = S.name||STUDENT;
+  const L = [];
+  L.push('HOMEWORK: '+HW_TITLE);
+  L.push('Student: '+name);
+  L.push('Date: '+new Date().toLocaleString('en-GB'));
+  L.push('Score: '+t.got+' / '+t.total+' ('+pct+'%) · answered '+t.ans+' / '+t.total);
+  L.push('Flashcards known: '+C().known.length+' / '+WORDS.length);
+  L.push('');
+  L.push('— EXERCISES —');
+  EXERCISES.forEach(ex=>{ const s = exScore(ex); if(s) L.push(ex.title+': '+s.got+'/'+s.total+(s.ans<s.total?' (not finished: '+s.ans+'/'+s.total+')':'')); });
+  L.push('');
+  L.push('— WRITING —');
+  EXERCISES.filter(e=>e.type==='write').forEach(ex=>ex.items.forEach((it,i)=>L.push(it.q+'  →  '+((S.write[ex.id+'-'+i]||'').trim()||'(empty)'))));
+  L.push('');
+  const mi = mistakes();
+  L.push('— MISTAKES ('+mi.filter(m=>!m.self).length+') —');
+  mi.forEach(m=>L.push('['+m.ex+'] '+m.q+' | answer: '+m.your+' | correct: '+m.right));
+  L.push('');
+  const likes = Object.keys(S.warm).map(i=>WARM[i][S.warm[i]][1]);
+  if(likes.length) L.push('Warm-up — I like: '+likes.join(', '));
+  L.push('');
+  L.push('— ALL ANSWERS —');
+  EXERCISES.forEach(ex=>{
+    if(ex.type==='write' || ex.type==='match') return;
+    if(ex.type==='gap'){ L.push(ex.title+': '+gapAnswers(ex).map((a,i)=>{ const st=(S.ex[ex.id]||{})[i]; return (i+1)+') '+(st&&st.v?st.v:'—')+(st&&st.done?(st.ok?' ✓':' ✗'):''); }).join('  ')); return; }
+    L.push(ex.title+':');
+    ex.items.forEach((it,i)=>{ const st=(S.ex[ex.id]||{})[i]; L.push('  '+(i+1)+'. '+(it.q||it.big||it.a||'')+' → '+(st&&st.v?st.v:'—')+(st&&st.done?(st.ok?' ✓':st.self?' (self ✓)':' ✗'):'')); });
+  });
+  return L.join('\n');
+}
+function renderResults(){
+  const t = totals(), pct = Math.round(t.got/Math.max(t.total,1)*100);
+  $('#rScore').textContent = t.got+' / '+t.total;
+  $('#rPct').textContent = pct+'%' + (t.ans<t.total ? ' · '+(t.total-t.ans)+' left · осталось' : '');
+  $('#rPlanet').textContent = fires(t.ans,t.total);
+  $('#rMsg').textContent = t.ans ? band(pct) : 'Start the missions first! · Сначала выполни задания! 🚀';
+  $('#rList').innerHTML = EXERCISES.map(ex=>{ const s = exScore(ex);
+    return `<li><span>${esc(ex.title)}</span><b>${s ? s.got+' / '+s.total+(s.ans<s.total?' ⏳':' ✓') : (EXERCISES.filter(e=>e.type==='write').some(()=>Object.keys(S.write).some(k=>k.startsWith(ex.id)&&S.write[k].trim()))?'✍️ ✓':'✍️')}</b></li>`; }).join('');
+  $('#rCards').textContent = '🃏 Flashcards known · Знаю слов: '+C().known.length+' / '+WORDS.length;
+  const mi = mistakes();
+  $('#rMist').innerHTML = mi.length ? mi.map(m=>`<div><b>${esc(m.q)}</b><br><span class="${m.self?'':'bad'}">${esc(m.your)}</span> → <span class="good">${esc(m.right)}</span></div>`).join('') : '<p>No mistakes yet! 🎉 · Ошибок пока нет!</p>';
+  const rep = buildReport(); $('#rep').textContent = rep;
+  const subj = 'Space Adventure U1L1 — '+(S.name||STUDENT)+' — '+t.got+'/'+t.total;
+  const short = rep.length>1500 ? rep.slice(0,1500)+'\n…\n(Full report: press "Copy text" in the app · Полный отчёт — кнопка «Copy text»)' : rep;
+  const E = encodeURIComponent;
+  let h = '';
+  if(navigator.share) h += `<button class="sh" id="shBtn">📤 Share · Поделиться</button>`;
+  h += `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${E(TEACHER)}&su=${E(subj)}&body=${E(short)}" target="_blank" rel="noopener">✉️ Gmail</a>`;
+  h += `<a href="https://t.me/share/url?url=${E(subj)}&text=${E(short)}" target="_blank" rel="noopener">✈️ Telegram</a>`;
+  h += `<a href="https://wa.me/?text=${E(subj+'\n'+short)}" target="_blank" rel="noopener">💬 WhatsApp</a>`;
+  h += `<a href="mailto:${TEACHER}?subject=${E(subj)}&body=${E(short)}">📧 Email app</a>`;
+  h += `<button id="cpBtn">📋 Copy text · Копировать</button>`;
+  $('#send').innerHTML = h;
+  $('#tmail').textContent = TEACHER;
+  const sb = $('#shBtn'); if(sb) sb.addEventListener('click', ()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); });
+  $('#cpBtn').addEventListener('click', ()=>copy(rep));
+}
+function copy(t){
+  const done = ()=>toast('Copied! · Скопировано! 📋');
+  const fallback = ()=>{ const ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ toast('Select the report text and copy it · Выдели текст и скопируй'); } ta.remove(); };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+}
+$('#resetBtn').addEventListener('click', ()=>$('#confirm').classList.add('on'));
+$('#resetNo').addEventListener('click', ()=>$('#confirm').classList.remove('on'));
+$('#resetYes').addEventListener('click', ()=>{ store.del(); S = fresh(); $('#confirm').classList.remove('on'); $('#nameIn').value = S.name; setName(); initAll(); showTab('start'); toast('Fresh start! · Начинаем заново! 🚀'); });
+
+/* ---------- init ---------- */
+function initAll(){ renderWarm(); renderWords(); renderCard(); renderMachine(); renderExercises(); }
+initAll();
+showTab(S.tab || 'start');
+</script>
+</body>
+</html>
