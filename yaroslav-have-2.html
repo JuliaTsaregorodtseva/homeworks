@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The have Kitchen · uses of have + idioms — Yaroslav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fbf6ee; --paper2:#f3eadb; --card:#fffdf9; --ink:#2b211c; --soft:#6f6158; --line:#e4d7c3;
+  --tomato:#d9442b; --tomato2:#fbe3dd; --basil:#2f7d4a; --basil2:#dff0e4; --olive:#8a8a2e; --flour:#efe4d0;
+  --gold:#e8a93a; --blue:#2f6fae; --blue2:#e1ecf7; --plum:#7a3b69; --plum2:#f1e2ee;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:17px;line-height:1.5;
+  background-image:linear-gradient(90deg,rgba(217,68,43,.05) 50%,transparent 50%),linear-gradient(rgba(217,68,43,.05) 50%,transparent 50%);background-size:56px 56px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;margin:0;line-height:1.2}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+i.v{font-style:italic}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(251,246,238,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--line)}
+.topin{display:flex;align-items:center;gap:10px;padding:8px 0 4px}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:16px;white-space:nowrap}
+.logo em{color:var(--tomato)}
+.grow{flex:1}
+.pill{background:var(--ink);color:#fff;border-radius:99px;padding:3px 11px;font-weight:800;font-size:14px;white-space:nowrap}
+.bar{height:7px;background:var(--flour);border-radius:99px;overflow:hidden;margin:2px 0 6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--basil),var(--gold),var(--tomato));transition:width .4s}
+.tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding-bottom:8px}
+.tab{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:4px 2px;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.tab .ic{font-size:18px;line-height:1.1}
+.tab .lb{font-size:11px;font-weight:800;color:var(--soft)}
+.tab.on{border-color:var(--tomato);background:var(--tomato2)}
+.tab.on .lb{color:var(--tomato)}
+.tab .bd{position:absolute;top:-7px;right:-3px;background:var(--basil);color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:0 5px}
+
+section{display:none;padding:18px 0 60px}
+section.on{display:block}
+.hero{background:var(--ink);color:#fff;border-radius:22px;padding:22px 18px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;border-radius:50%;background:repeating-linear-gradient(45deg,var(--tomato) 0 14px,#fff 14px 28px);opacity:.18}
+.hero h1{font-size:clamp(24px,6vw,36px)}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{margin:.5em 0 0;max-width:640px;color:#f1e9df}
+.namebox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;position:relative;z-index:1}
+.namebox input{background:#ffffff1a;border:2px solid #ffffff44;border-radius:10px;color:#fff;font:inherit;font-weight:800;padding:8px 12px;min-height:44px;width:190px;max-width:100%}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:14px 0;box-shadow:0 2px 0 var(--line)}
+.card h2{font-size:21px;margin-bottom:6px}
+.card h3{font-size:17px;margin:14px 0 6px}
+.lead{color:var(--soft);margin:0 0 10px}
+.btn{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:9px 16px;min-height:44px;font-weight:800}
+.btn.main{background:var(--tomato);border-color:var(--tomato);color:#fff}
+.btn.basil{background:var(--basil);border-color:var(--basil);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.next{text-align:center;margin-top:18px}
+.say{background:var(--blue);color:#fff;border:0;border-radius:50%;width:40px;height:40px;font-size:16px;display:inline-grid;place-items:center;flex:none;vertical-align:middle}
+.say.sm{width:32px;height:32px;font-size:13px}
+.steps{padding-left:22px;margin:6px 0 0}
+.steps li{margin:5px 0}
+
+/* grammar */
+.uses{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:8px}
+.use{border-radius:14px;padding:12px;border:2px solid}
+.use h3{margin:0 0 4px;font-size:16px}
+.use p{margin:4px 0;font-size:15px}
+.u-state{background:var(--basil2);border-color:#a8d4b5}
+.u-dyn{background:var(--blue2);border-color:#a9c6e6}
+.u-obl{background:#fdf0d8;border-color:#efc77e}
+.u-caus{background:var(--plum2);border-color:#d2a9c8}
+.u-aux{background:var(--tomato2);border-color:#efb0a3}
+.tag{display:inline-block;border-radius:99px;padding:1px 9px;font-size:12px;font-weight:800;color:#fff}
+.t-state{background:var(--basil)}.t-dyn{background:var(--blue)}.t-obl{background:#b47b12}.t-caus{background:var(--plum)}.t-aux{background:var(--tomato)}
+.hl{font-weight:800;color:var(--tomato)}
+.hl2{font-weight:800;color:var(--plum)}
+table.t{width:100%;border-collapse:collapse;margin:8px 0;font-size:15px}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+table.t th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft)}
+.tablewrap{overflow-x:auto}
+.exl{list-style:none;padding:0;margin:6px 0}
+.exl li{margin:7px 0}
+.exl li .say{margin-right:6px}
+.bad{color:var(--tomato);text-decoration:line-through;text-decoration-thickness:2px}
+.good{color:var(--basil);font-weight:800}
+.mist{display:grid;gap:8px}
+.mist div{background:var(--paper2);border-radius:12px;padding:9px 12px;font-size:15px}
+.note{background:var(--blue2);border-left:5px solid var(--blue);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:15px}
+.inspector{background:var(--ink);color:#fff;border:0}
+.inspector .lead{color:#d9cfc4}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{background:#ffffff14;border:2px solid #ffffff2e;border-radius:12px;padding:7px 11px;min-height:44px;font-weight:700;font-size:15px;text-align:left;color:#fff}
+.chips button.on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.report{margin-top:12px;background:#fff;color:var(--ink);border-radius:14px;padding:12px}
+.report .sent{font-family:'Fraunces',Georgia,serif;font-size:20px;margin-bottom:8px}
+.props{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.props div{background:var(--paper2);border-radius:10px;padding:7px 10px;font-size:14px}
+.props b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft)}
+.yes{color:var(--basil);font-weight:800}.no{color:var(--tomato);font-weight:800}
+
+/* phrases */
+.phr{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.ph{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:start}
+.ph .e{font-size:26px;grid-row:span 2}
+.ph .en{font-weight:800;font-size:17px}
+.ph .src{font-size:11px;font-weight:800;color:var(--olive);text-transform:uppercase;letter-spacing:.5px}
+.ph .df{grid-column:2/4;color:var(--soft);font-size:15px}
+.ph .ex{grid-column:1/4;border-top:1px dashed var(--line);margin-top:6px;padding-top:6px;font-size:15px;font-style:italic}
+.careful{background:#fff7e6;border:2px dashed var(--gold)}
+.careful ul{margin:6px 0 0;padding-left:20px}
+.careful li{margin:6px 0}
+
+/* flashcards */
+.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--paper2);border-radius:99px;padding:6px 12px;font-weight:800;font-size:14px;min-height:40px}
+.chip input{width:20px;height:20px}
+.scene{perspective:1000px;max-width:440px;margin:0 auto}
+.flip{position:relative;height:300px;transition:transform .55s;transform-style:preserve-3d;cursor:pointer}
+.flip.turn{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.front{background:var(--card);border:3px solid var(--tomato)}
+.back{background:var(--ink);color:#fff;border:3px solid var(--gold);transform:rotateY(180deg)}
+.face .e{font-size:44px;line-height:1}
+.face .w{font-family:'Fraunces',Georgia,serif;font-size:25px}
+.face .d{font-size:18px;font-weight:700}
+.face .x{font-size:15px;font-style:italic;opacity:.9}
+.face .say{position:absolute;top:12px;right:12px}
+.face .tap{position:absolute;bottom:10px;font-size:12px;opacity:.6}
+.fc-know{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:440px;margin:12px auto 0}
+.fc-ctl{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.kbar{max-width:440px;margin:10px auto 0}
+
+/* exercises */
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:16px 0;box-shadow:0 2px 0 var(--line)}
+.exh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exh h2{font-size:19px}
+.exsc{background:var(--paper2);border-radius:99px;padding:3px 10px;font-weight:800;font-size:14px;white-space:nowrap}
+.exsc.full{background:var(--basil);color:#fff}
+.groupt{font-family:'Fraunces',Georgia,serif;font-size:18px;color:var(--tomato);margin:26px 0 0}
+.item{border-top:1px dashed var(--line);padding:12px 0}
+.item:first-child{border-top:0}
+.q{display:flex;gap:10px;align-items:flex-start;font-weight:700;font-size:17px}
+.n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:13px;display:grid;place-items:center;font-weight:800;margin-top:1px}
+.key{display:inline-block;background:var(--ink);color:var(--gold);font-weight:800;letter-spacing:1px;border-radius:8px;padding:1px 8px;font-size:14px;margin-left:4px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.opt{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:9px 13px;min-height:46px;font-weight:700;font-size:16px;text-align:left}
+.opt:hover{border-color:var(--soft)}
+.opt.right{background:var(--basil);border-color:var(--basil);color:#fff}
+.opt.wrong{background:var(--tomato);border-color:var(--tomato);color:#fff}
+.opt.ghost{opacity:.5}
+.fb{margin-top:8px;font-size:15px;border-radius:10px}
+.fb:not(:empty){padding:8px 12px;background:var(--paper2)}
+.fb .ok{color:var(--basil);font-weight:800}
+.fb .nok{color:var(--tomato);font-weight:800}
+.fb .why{color:var(--soft)}
+.frame{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px;font-size:17px}
+.frame input{flex:1 1 200px;min-width:160px;background:#fff;border:2px solid var(--line);border-radius:10px;font:inherit;font-weight:700;padding:8px 10px;min-height:46px;color:var(--ink)}
+.frame input.okk{border-color:var(--basil);background:var(--basil2)}
+.frame input.err{border-color:var(--tomato);background:var(--tomato2)}
+.frame input.retry{border-color:var(--gold)}
+.selfbtn{margin-top:8px;background:transparent;border:2px dashed var(--soft);border-radius:10px;padding:6px 12px;min-height:40px;font-weight:800;font-size:14px}
+.match{display:grid;grid-template-columns:1fr 1.3fr;gap:8px;margin-top:10px}
+.match .col{display:grid;gap:8px;align-content:start}
+.mb{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 10px;min-height:48px;font-weight:700;font-size:15px;text-align:left}
+.L .mb{font-weight:800}
+.mb.sel{border-color:var(--gold);background:#fff1d1}
+.mb.done{background:var(--basil2);border-color:var(--basil);color:var(--basil)}
+.mb.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.gtext{font-size:17px;line-height:2.4;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-family:'Fraunces',Georgia,serif}
+.gtext input{width:96px;height:36px;line-height:1.2;vertical-align:middle;background:var(--paper);border:2px solid var(--line);border-radius:8px;font:700 16px 'Manrope',sans-serif;padding:2px 6px;text-align:center;color:var(--ink)}
+.gtext input.okk{border-color:var(--basil);color:var(--basil)}
+.gtext input.err{border-color:var(--tomato);color:var(--tomato);text-decoration:line-through}
+.gtext input.retry{border-color:var(--gold)}
+.gtext .fix{color:var(--basil);font-weight:800;font-family:'Manrope',sans-serif;margin:0 4px}
+textarea{width:100%;min-height:170px;background:#fff;border:2px solid var(--line);border-radius:12px;font:inherit;padding:10px;color:var(--ink)}
+.wc{font-size:14px;color:var(--soft);margin-top:4px}
+.checklist{list-style:none;padding:0;margin:8px 0 0;font-size:15px}
+.checklist li{margin:4px 0}
+
+/* results */
+.big-score{font-family:'Fraunces',Georgia,serif;font-size:46px;color:var(--tomato)}
+.rlist{list-style:none;padding:0;margin:8px 0}
+.rlist li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:15px}
+.mlist div{background:var(--paper2);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:15px}
+.sendg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.sendg a,.sendg button{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px;min-height:48px;font-weight:800;font-size:15px}
+.sendg .sh{background:var(--tomato);border-color:var(--tomato);color:#fff}
+.mail{user-select:all;-webkit-user-select:all;background:var(--paper2);padding:2px 8px;border-radius:8px;font-weight:800}
+.confirm{display:none;background:var(--tomato2);border:2px solid var(--tomato);border-radius:12px;padding:12px;margin-top:10px}
+.confirm.on{display:block}
+pre.rep{white-space:pre-wrap;background:var(--paper2);border-radius:10px;padding:10px;font-size:13px;max-height:260px;overflow:auto}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120px);opacity:0;visibility:hidden;background:var(--ink);color:#fff;font-weight:800;padding:10px 18px;border-radius:99px;transition:transform .3s,opacity .3s;z-index:50;max-width:90vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+@media (max-width:420px){
+  body{font-size:16px}
+  .tab .lb{font-size:10px}
+  .logo{font-size:14px}
+  .match{grid-template-columns:1fr 1.2fr}
+  .mb{font-size:14px;padding:8px 7px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <div class="topin">
+      <div class="logo">🍝 The <em>have</em> Kitchen</div>
+      <div class="grow"></div>
+      <div class="pill" id="pill">0 / 0</div>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <button class="tab" data-t="rules"><span class="ic">📖</span><span class="lb">Rules</span></button>
+      <button class="tab" data-t="phrases"><span class="ic">🧄</span><span class="lb">Phrases</span></button>
+      <button class="tab" data-t="cards"><span class="ic">🃏</span><span class="lb">Cards</span></button>
+      <button class="tab" data-t="g"><span class="ic">🔪</span><span class="lb">Grammar lab</span></button>
+      <button class="tab" data-t="v"><span class="ic">🧂</span><span class="lb">Phrase lab</span></button>
+      <button class="tab" data-t="f"><span class="ic">🍷</span><span class="lb">Final</span></button>
+      <button class="tab" data-t="res"><span class="ic">🏆</span><span class="lb">Results</span></button>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+<!-- RULES -->
+<section id="rules">
+  <div class="hero">
+    <h1>One verb, many dishes: <em>have</em></h1>
+    <p><b>For <span class="nm">Yaroslav</span></b> · Advanced · English File 1A revision, round 2: <i>have</i> as a main verb, as an auxiliary, and in idioms. All the exercises are new.</p>
+    <p>Suggested order: <b>Rules → Phrases → Cards → Grammar lab → Phrase lab → Final → Results</b>. Your answers save automatically, so you can stop and come back later.</p>
+    <div class="namebox"><label for="nameIn"><b>Name:</b></label><input id="nameIn" autocomplete="off"></div>
+  </div>
+
+  <div class="card">
+    <h2>The big picture</h2>
+    <p class="lead">Before choosing a form, ask two questions: <b>is <i>have</i> doing the work of a main verb, or just helping another verb?</b> And if it's a main verb, <b>does it describe a state or an action?</b> These two answers decide whether you can use the continuous, contract it, or add <i>got</i>.</p>
+    <div class="uses">
+      <div class="use u-state"><span class="tag t-state">MAIN · STATE</span><h3>Possession, relationships, illness</h3>
+        <p><button class="say sm" data-say="I have a large extended family.">🔊</button> I <span class="hl">have</span> a large extended family.</p>
+        <p><button class="say sm" data-say="She has a terrible cold.">🔊</button> She <span class="hl">has</span> a terrible cold.</p>
+        <p>Stative: <b>no continuous</b>. <span class="bad">I'm having two sisters.</span></p></div>
+      <div class="use u-dyn"><span class="tag t-dyn">MAIN · ACTION</span><h3>have + object = an action or experience</h3>
+        <p><button class="say sm" data-say="I'm having problems with my wi-fi.">🔊</button> I'<span class="hl">m having</span> problems with my wi-fi.</p>
+        <p><i>have a bath / a drink / lunch / a party / a look / a chat / a go / fun</i></p>
+        <p>Dynamic: <b>continuous is fine</b>.</p></div>
+      <div class="use u-obl"><span class="tag t-obl">MAIN · OBLIGATION</span><h3>have to</h3>
+        <p><button class="say sm" data-say="Do we really have to spend Christmas with your parents again?">🔊</button> <span class="hl">Do</span> we really <span class="hl">have to</span> spend Christmas with your parents again?</p>
+        <p>Obligation from outside: rules, laws, other people. Questions and negatives use <b>do / does / did</b>.</p></div>
+      <div class="use u-caus"><span class="tag t-caus">MAIN · CAUSATIVE</span><h3>have + object + past participle</h3>
+        <p><button class="say sm" data-say="We're going to have our house repainted next week.">🔊</button> We're going to <span class="hl2">have</span> our house <span class="hl2">repainted</span>.</p>
+        <p><button class="say sm" data-say="I had my phone stolen when I was paying at the checkout.">🔊</button> I <span class="hl2">had</span> my phone <span class="hl2">stolen</span>.</p>
+        <p>A service you arrange, <b>or</b> something bad that happens to you.</p></div>
+      <div class="use u-aux"><span class="tag t-aux">AUXILIARY</span><h3>Perfect forms + have got</h3>
+        <p><button class="say sm" data-say="How long has Anna been going out with James?">🔊</button> How long <span class="hl">has</span> Anna <span class="hl">been going</span> out with James?</p>
+        <p><button class="say sm" data-say="If I hadn't taken a taxi, I wouldn't have arrived in time.">🔊</button> If I <span class="hl">hadn't</span> taken a taxi, I wouldn't <span class="hl">have</span> arrived in time.</p>
+        <p>Often contracted: <i>I've, she'd, they've</i>.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>have vs have got</h2>
+    <div class="tablewrap"><table class="t">
+      <tr><th></th><th>have (main verb)</th><th>have got (have = auxiliary)</th></tr>
+      <tr><td><b>+</b></td><td>I have a car.</td><td>I've got a car.</td></tr>
+      <tr><td><b>−</b></td><td>I <span class="hl">don't</span> have a car.</td><td>I <span class="hl">haven't</span> got a car.</td></tr>
+      <tr><td><b>?</b></td><td><span class="hl">Do</span> you have a car?</td><td><span class="hl">Have</span> you got a car?</td></tr>
+      <tr><td><b>Past</b></td><td>I <span class="hl">had</span> a car.</td><td><span class="bad">I had got a car.</span> Use <i>had</i>.</td></tr>
+      <tr><td><b>Contract?</b></td><td>Usually not: <span class="bad">I've a car.</span> <span class="bad">I've lunch at one.</span></td><td>Yes: <i>I've got, she's got</i></td></tr>
+      <tr><td><b>Register</b></td><td>Neutral, any style</td><td>More informal, typical of spoken British English</td></tr>
+    </table></div>
+    <ul class="exl">
+      <li><button class="say sm" data-say="I haven't a clue.">🔊</button> In a few fixed negative phrases, <i>got</i> can drop out: <i>I haven't <b>a clue</b>. I haven't <b>time</b>.</i></li>
+      <li><button class="say sm" data-say="I've got to make a quick phone call. I have to wear a suit to work.">🔊</button> <b>have got to</b> is for a <b>specific</b> obligation: <i>I've got to make a quick phone call.</i> <b>have to</b> works for <b>general or repeated</b> ones too: <i>I have to wear a suit to work.</i></li>
+      <li><button class="say sm" data-say="I'll have to work late tomorrow.">🔊</button> <i>have got (to)</i> exists only in the present. For other tenses, use <i>have (to)</i>: <i>I'<span class="hl">ll have to</span> work late tomorrow.</i> <span class="bad">I'll have got to…</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>have something done: the details</h2>
+    <p><b>Form:</b> <i>have</i> (any tense) + <b>object</b> + <b>past participle</b>. Word order matters: the object goes <b>before</b> the participle.</p>
+    <div class="tablewrap"><table class="t">
+      <tr><th>Tense</th><th>Example</th></tr>
+      <tr><td>present continuous</td><td>We'<b>re having</b> the kitchen <b>redecorated</b>.</td></tr>
+      <tr><td>past simple</td><td>I <b>had</b> my hair <b>cut</b> on Friday.</td></tr>
+      <tr><td>present perfect</td><td>Have you ever <b>had</b> your bag <b>searched</b> at an airport?</td></tr>
+      <tr><td>modal / infinitive</td><td>You should <b>have</b> that mole <b>checked</b>. · I need to <b>have</b> my eyes <b>tested</b>.</td></tr>
+    </table></div>
+    <p class="note">💡 <b>get something done</b> means the same and is a little more informal: <i>I got my car serviced.</i> The agent, if you need it, comes with <b>by</b>: <i>We had our photos taken <b>by</b> a professional.</i></p>
+    <ul class="exl">
+      <li><button class="say sm" data-say="I had my hair cut. I cut my hair.">🔊</button> <i>I <b>had</b> my hair <b>cut</b>.</i> = a hairdresser did it · <i>I cut my hair.</i> = I did it myself.</li>
+      <li><button class="say sm" data-say="We had our car stolen last night.">🔊</button> <i>We had our car stolen.</i> Nobody arranged this. It's the "bad experience" meaning.</li>
+    </ul>
+  </div>
+
+  <div class="card inspector">
+    <h2>🔍 The have inspector</h2>
+    <p class="lead">Tap a sentence to see how its <i>have</i> behaves.</p>
+    <div class="chips" id="insp"></div>
+    <div class="report" id="inspOut"></div>
+  </div>
+
+  <div class="card">
+    <h2>Classic mistakes</h2>
+    <div class="mist">
+      <div><span class="bad">Do you have got any siblings?</span> → <span class="good">Do you have / Have you got any siblings?</span> Pick one system; don't mix them.</div>
+      <div><span class="bad">I'm having a headache.</span> → <span class="good">I have / I've got a headache.</span> Illness is a state.</div>
+      <div><span class="bad">We had got a dacha when I was a kid.</span> → <span class="good">We had a dacha…</span> No <i>had got</i> for past possession.</div>
+      <div><span class="bad">I must to have my passport renewed.</span> → <span class="good">I must have my passport renewed.</span></div>
+      <div><span class="bad">I had repaired my laptop.</span> (= past perfect, I did it) → <span class="good">I had my laptop repaired.</span> (= a technician did it)</div>
+      <div><span class="bad">I've to go.</span> → <span class="good">I've got to go. / I have to go.</span></div>
+    </div>
+  </div>
+  <div class="next"><button class="btn main" data-go="phrases">Next: Phrases →</button></div>
+</section>
+
+<!-- PHRASES -->
+<section id="phrases">
+  <div class="card">
+    <h2>Idioms with have</h2>
+    <p class="lead">Seven from the book, plus twelve more. Several are food idioms, to suit the kitchen. Press 🔊 to hear each one in context.</p>
+    <div class="phr" id="phr"></div>
+  </div>
+  <div class="card careful">
+    <h2>⚠️ Careful with these</h2>
+    <ul>
+      <li>The <b>it</b> is part of the idiom and never changes: <i>have <b>it</b> out with sb · have (got) <b>it</b> in for sb · have (got) <b>it</b> in you · I've had <b>it</b> with…</i></li>
+      <li>Prepositions: have it out <b>with</b> sb · have it in <b>for</b> sb · have a go <b>at</b> (doing) sth · have a soft spot <b>for</b> · have a bone to pick <b>with</b> sb.</li>
+      <li><b>have sb on</b> is almost always continuous: <i>You're having me on!</i></li>
+      <li><b>I've had it with…</b> is present perfect and means "I've had enough". Don't confuse it with <i>I had it</i> (past possession).</li>
+      <li>Only some idioms take <i>got</i>: <i>She's <b>got</b> it in for me. · I haven't <b>got</b> it in me. · I've <b>got</b> a bone to pick with you. · He's <b>got</b> a sweet tooth.</i> But: <span class="bad">I've got a go</span>, <span class="bad">we'd got a laugh</span>.</li>
+      <li><b>egg on your face</b> is used with <i>have</i> or <i>be left with</i>, and always means you look foolish because <i>you</i> were wrong.</li>
+    </ul>
+  </div>
+  <div class="next"><button class="btn main" data-go="cards">Next: Flashcards →</button></div>
+</section>
+
+<!-- CARDS -->
+<section id="cards">
+  <div class="card">
+    <div class="fc-top"><div><h2>Flashcards</h2><p class="lead" style="margin:0">Tap the card to flip it.</p></div><div class="chip" id="fcCount">1 / 19</div></div>
+    <div class="scene"><div class="flip" id="flip" tabindex="0" role="button" aria-label="Flashcard, tap to flip"><div class="face front" id="fcFront"></div><div class="face back" id="fcBack"></div></div></div>
+    <div class="fc-know"><button class="btn basil" id="fcKnow">✓ I know it</button><button class="btn main" id="fcLearn">↻ Still learning</button></div>
+    <div class="fc-ctl">
+      <button class="btn" id="fcPrev" aria-label="Previous card">◀</button>
+      <button class="btn" id="fcShuf">🔀 Shuffle</button>
+      <button class="btn" id="fcDir">⇄ Idiom → meaning</button>
+      <button class="btn" id="fcNext" aria-label="Next card">▶</button>
+    </div>
+    <div class="fc-ctl"><label class="chip"><input type="checkbox" id="fcOnly"> Only the ones I'm learning</label></div>
+    <div class="kbar"><div class="row" style="justify-content:space-between;font-weight:800;font-size:14px"><span>Known</span><span id="fcKnown">0 / 19</span></div><div class="bar"><i id="fcBar"></i></div></div>
+  </div>
+  <div class="next"><button class="btn main" data-go="g">Next: Grammar lab →</button></div>
+</section>
+
+<section id="g"><div id="glist"></div><div class="next"><button class="btn main" data-go="v">Next: Phrase lab →</button></div></section>
+<section id="v"><div id="vlist"></div><div class="next"><button class="btn main" data-go="f">Next: Final →</button></div></section>
+<section id="f"><div id="flist"></div><div class="next"><button class="btn main" data-go="res">See results →</button></div></section>
+
+<!-- RESULTS -->
+<section id="res">
+  <div class="card" style="text-align:center">
+    <h2>Results</h2>
+    <div class="big-score" id="rScore">0 / 0</div>
+    <div id="rPct" style="font-weight:800;font-size:19px"></div>
+    <p id="rMsg" style="font-weight:700"></p>
+  </div>
+  <div class="card"><h2>By exercise</h2><ul class="rlist" id="rList"></ul><p id="rCards" style="font-weight:800"></p></div>
+  <div class="card"><h2>Mistakes to look at</h2><div class="mlist" id="rMist"></div></div>
+  <div class="card">
+    <h2>📨 Send to your teacher</h2>
+    <p class="lead">Use one of the buttons below. Your teacher's email: <span class="mail" id="tmail"></span></p>
+    <div class="sendg" id="send"></div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:800">Preview the report</summary><pre class="rep" id="rep"></pre></details>
+  </div>
+  <div class="card">
+    <h2>Start again</h2>
+    <p class="lead">This deletes all your answers on this device.</p>
+    <button class="btn" id="resetBtn">🔄 Start again</button>
+    <div class="confirm" id="confirm"><p style="margin-top:0"><b>Delete all answers?</b></p><div class="row"><button class="btn main" id="resetYes">Yes, delete</button><button class="btn" id="resetNo">No, keep them</button></div></div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   DATA: edit expressions, exercises and answers here
+   ========================================================= */
+const STUDENT = 'Yaroslav';
+const TEACHER = 'ulchik2211@gmail.com';
+const HW_TITLE = 'The have Kitchen: uses of have + have idioms (round 2)';
+const KEY = 'yaroslav-have-2-v1';
+
+const PHRASES = [
+  {en:'have it out with sb', e:'🗯️', book:true, df:'talk openly to sb about a problem, often angrily, to settle it', ex:'If he takes credit for my work again, I\'m going to have it out with him.'},
+  {en:'have sb on', e:'🤡', book:true, df:'play a joke on sb; try to make them believe sth untrue', ex:'A free upgrade to business class? You\'re having me on!'},
+  {en:'have a go (at sth / doing sth)', e:'🎯', book:true, df:'try to do sth', ex:'I\'d never made ravioli before, but I had a go and they were edible.'},
+  {en:'have a laugh', e:'😂', book:true, df:'enjoy yourself; have fun with other people', ex:'The workshop was exhausting, but we had a real laugh.'},
+  {en:'have had it (with sb / sth)', e:'🧯', book:true, df:'have had enough of sb / sth; can\'t tolerate it any more', ex:'I\'ve had it with this printer: it jams every single morning.'},
+  {en:'have (got) it in for sb', e:'😠', book:true, df:'dislike sb and treat them unfairly', ex:'The referee seemed to have it in for us from the first whistle.'},
+  {en:'have (got) it in you', e:'💪', book:true, df:'be capable of doing sth (often surprisingly)', ex:'I didn\'t know you had it in you to run a marathon!'},
+  {en:'have a sweet tooth', e:'🍰', df:'love eating sweet things', ex:'He\'s got such a sweet tooth that he orders dessert first.'},
+  {en:'have egg on your face', e:'🥚', df:'look foolish because sth you said or did turned out to be wrong', ex:'The pundits had egg on their faces when the underdog won.'},
+  {en:'have bigger fish to fry', e:'🐟', df:'have more important things to deal with', ex:'Forget the font for now; we\'ve got bigger fish to fry.'},
+  {en:'have a finger in every pie', e:'🥧', df:'be involved in lots of different activities or businesses', ex:'She owns a bakery, a wine bar and a cookery school: she has a finger in every pie.'},
+  {en:'have your work cut out', e:'✂️', df:'face a very difficult task', ex:'With two weeks to learn the whole part, he\'s got his work cut out.'},
+  {en:'have a bone to pick with sb', e:'🦴', df:'want to complain to sb about sth they did', ex:'I\'ve got a bone to pick with you: who finished the parmesan?'},
+  {en:'have a soft spot for sb / sth', e:'💛', df:'feel affection for sb / sth, often without a good reason', ex:'I\'ve always had a soft spot for old Italian films.'},
+  {en:'have the last laugh', e:'🏁', df:'be successful in the end, after others doubted or mocked you', ex:'They laughed at his tiny trattoria, but he had the last laugh when it won a Michelin star.'},
+  {en:'have the nerve to do sth', e:'😤', df:'be rude or bold enough to do sth shocking', ex:'He had the nerve to complain about the portion after eating every bite.'},
+  {en:'have a field day', e:'📰', df:'enjoy yourself enormously, often by taking advantage of sb else\'s problem', ex:'The tabloids had a field day with the chef\'s scandal.'},
+  {en:'have it both ways', e:'⚖️', df:'get the advantages of two opposite choices (usually used in the negative)', ex:'You can\'t have it both ways: either you work from home or you get the office perks.'},
+  {en:'have a heart-to-heart', e:'🫶', df:'have an honest, private conversation about feelings or personal problems', ex:'We finally had a heart-to-heart and cleared the air.'}
+];
+
+const INSPECT = [
+  {s:'I have a large extended family.', type:'Main verb: state (possession)', cont:['no','✗ I\'m having a large family'], contr:['no','✗ I\'ve a large family'], got:['yes','✓ I\'ve got a large family'], q:'Do you have…? / Have you got…?'},
+  {s:'She has a terrible cold.', type:'Main verb: state (illness)', cont:['no','✗ She\'s having a cold'], contr:['no',''], got:['yes','✓ She\'s got a terrible cold'], q:'Does she have…? / Has she got…?'},
+  {s:'I\'m having problems with my wi-fi.', type:'Main verb: action / experience', cont:['yes','✓ dynamic meaning'], contr:['no','✗ I\'ve problems'], got:['no','✗ I\'ve got problems is a different idea (state)'], q:'Are you having problems…?'},
+  {s:'We have to leave at six tomorrow.', type:'Main verb: obligation', cont:['no',''], contr:['no','✗ We\'ve to leave'], got:['yes','✓ We\'ve got to leave at six (specific)'], q:'Do we have to…? / Have we got to…?'},
+  {s:'We\'re having the kitchen redecorated.', type:'Main verb: causative (have sth done)', cont:['yes','✓ any tense is possible'], contr:['no',''], got:['no','but: get sth done ✓'], q:'Are you having the kitchen redecorated?'},
+  {s:'They\'ve been married for 15 years.', type:'Auxiliary: present perfect', cont:['n/a','have just builds the tense'], contr:['yes','✓ They\'ve'], got:['n/a',''], q:'How long have they been married?'},
+  {s:'She\'ll have finished lunch by two.', type:'Auxiliary: future perfect', cont:['n/a',''], contr:['speech','weak form /əv/ in speech'], got:['n/a',''], q:'Will she have finished by two?'}
+];
+
+const W_STATE = 'State meaning (possession, relationship, illness) → no continuous.';
+const W_DYN = 'have + object as an action or experience is dynamic, so the continuous is fine.';
+
+const EXERCISES = [
+  /* ---------- GRAMMAR LAB ---------- */
+  {id:'g1', tab:'g', group:'Step 1 · Identify the use', type:'mc', title:'Which have is it?', lead:'Decide what each have is doing.',
+   items:[
+    {q:'We\'re having a barbecue on Saturday. Are you free?', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'action / experience', why:'have a barbecue = an event, an action; that\'s why it can be continuous.'},
+    {q:'My grandfather has a heart condition.', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'state / possession', why:'Illnesses are states: no continuous (✗ is having a heart condition).'},
+    {q:'I\'ve got to pick the kids up at four today.', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'obligation', why:'have got to = a specific obligation.'},
+    {q:'He had his passport stolen in Rome.', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'have sth done', why:'have + object + past participle: something bad was done to him.'},
+    {q:'Have you ever tried making gnocchi?', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'perfect auxiliary', why:'have + past participle (tried) = present perfect.'},
+    {q:'Staff have to wear hairnets in the kitchen.', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'obligation', why:'have to = a rule imposed by others.'},
+    {q:'Shall we have a quick coffee before the meeting?', opts:['state / possession','action / experience','obligation','have sth done','perfect auxiliary'], a:'action / experience', why:'have a coffee = drink a coffee, an action.'}
+   ]},
+
+  {id:'g2', tab:'g', type:'mc', title:'Which sentence is correct?', lead:'Exactly one option in each pair is correct.',
+   items:[
+    {opts:['I\'m having a shower. Can I call you back?','I have a shower. Can I call you back?'], a:'I\'m having a shower. Can I call you back?', why:'An action in progress right now → continuous. have a shower is dynamic.'},
+    {opts:['She has three older brothers.','She\'s having three older brothers.'], a:'She has three older brothers.', why:W_STATE},
+    {opts:['When I was a kid, we had a tiny flat in the centre.','When I was a kid, we had got a tiny flat in the centre.'], a:'When I was a kid, we had a tiny flat in the centre.', why:'Past possession = had, not had got.'},
+    {opts:['Have you got a minute?','Do you have got a minute?'], a:'Have you got a minute?', why:'Either Do you have…? or Have you got…?, never a mix of the two.'},
+    {opts:['I have breakfast at seven.','I\'ve breakfast at seven.'], a:'I have breakfast at seven.', why:'Main-verb have is not contracted.'},
+    {opts:['How long have you had your car?','How long are you having your car?'], a:'How long have you had your car?', why:'Possession is a state, so use present perfect simple for duration up to now.'},
+    {opts:['I\'ll have to work late tomorrow.','I\'ll have got to work late tomorrow.'], a:'I\'ll have to work late tomorrow.', why:'have got to only exists in the present. Future = will have to.'},
+    {opts:['We\'re having the kitchen repainted.','We\'re having repainted the kitchen.'], a:'We\'re having the kitchen repainted.', why:'have + OBJECT + past participle: the object comes first.'}
+   ]},
+
+  {id:'g3', tab:'g', group:'Step 2 · Fix and transform', type:'type', title:'Correct the mistake', lead:'Each sentence has one mistake. Type the whole sentence correctly.', selfMark:true,
+   items:[
+    {q:'I\'m having two brothers and a sister.', model:'I have two brothers and a sister.', accept:['I have two brothers and a sister.','I have got two brothers and a sister.'], hint:'Possession is a state.', why:W_STATE},
+    {q:'Did you have got a good time at the party?', model:'Did you have a good time at the party?', accept:['Did you have a good time at the party?'], hint:'Past questions with did don\'t take got.', why:'have a good time = action. Past question: Did you have…?'},
+    {q:'We had got a dog when I was a child.', model:'We had a dog when I was a child.', accept:['We had a dog when I was a child.'], hint:'How do we talk about past possession?', why:'Past possession = had, not had got.'},
+    {q:'I\'ve to go now: my taxi\'s here.', model:'I\'ve got to go now: my taxi\'s here.', accept:['I\'ve got to go now: my taxi\'s here.','I have to go now: my taxi\'s here.','I have got to go now: my taxi\'s here.'], hint:'Obligation: have to or have got to, and only one of them contracts.', why:'Main-verb have to doesn\'t contract; have got to does (I\'ve got to).'},
+    {q:'We had stolen our car last night.', model:'We had our car stolen last night.', accept:['We had our car stolen last night.'], hint:'Look at the word order: have + object + participle.', why:'had stolen our car = WE stole it (past perfect). We had our car stolen = someone stole it from us.'}
+   ]},
+
+  {id:'g4', tab:'g', type:'type', title:'have something done', lead:'Complete the second sentence so it means the same as the first. Use have (or get) + object + past participle.', selfMark:true,
+   items:[
+    {q:'A mechanic is going to service my car tomorrow.', pre:'I\'m', post:'tomorrow.', model:'having my car serviced', accept:['having my car serviced','going to have my car serviced','getting my car serviced','going to get my car serviced'], hint:'I\'m having + my car + past participle', why:'Arranged future → present continuous: I\'m having my car serviced.'},
+    {q:'Someone stole my wallet on the train.', pre:'I', post:'on the train.', model:'had my wallet stolen', accept:['had my wallet stolen','got my wallet stolen'], hint:'something bad was done to me: had + object + participle', why:'have sth done can describe a bad experience: I had my wallet stolen.'},
+    {q:'We need someone to replace the windows.', pre:'We need', post:'.', model:'to have the windows replaced', accept:['to have the windows replaced','to get the windows replaced','to have our windows replaced','to get our windows replaced','the windows replacing','the windows replaced'], hint:'need to have + the windows + participle', why:'need to have sth done.'},
+    {q:'A professional photographer took our family photos.', pre:'We', post:'by a professional photographer.', model:'had our family photos taken', accept:['had our family photos taken','got our family photos taken','had our family photographs taken','had the family photos taken'], hint:'had + our family photos + participle of take', why:'The agent is added with by.'},
+    {q:'The dentist checks my teeth twice a year.', pre:'I', post:'twice a year.', model:'have my teeth checked', accept:['have my teeth checked','get my teeth checked','have my teeth checked by the dentist','get my teeth checked by the dentist'], hint:'Routine → present simple: I have + my teeth + participle', why:'Present simple for a routine: I have my teeth checked.'}
+   ]},
+
+  {id:'g5', tab:'g', group:'Step 3 · Key word transformations', type:'type', title:'Use the word given', lead:'Complete the second sentence using the word in bold. Type only the missing part (2–6 words).', selfMark:true,
+   items:[
+    {q:'I have absolutely no idea where she is.', key:'CLUE', pre:'I', post:'where she is.', model:'haven\'t got a clue', accept:['haven\'t got a clue','haven\'t a clue','don\'t have a clue','have not got a clue'], hint:'negative have (got) + a clue', why:'I haven\'t got a clue / I haven\'t a clue (got can drop out in this fixed phrase).'},
+    {q:'It isn\'t necessary for you to come to the meeting.', key:'HAVE', pre:'You', post:'to the meeting.', model:'don\'t have to come', accept:['don\'t have to come','haven\'t got to come','do not have to come'], hint:'no obligation = don\'t have to', why:'don\'t have to = not necessary (≠ mustn\'t = forbidden).'},
+    {q:'They got married in 2010 and they\'re still married.', key:'BEEN', pre:'They', post:'2010.', model:'have been married since', accept:['have been married since','\'ve been married since'], hint:'present perfect of be married + since', why:'Present perfect (have = auxiliary) for a state continuing to now.'},
+    {q:'The last time I spoke to Tom was in March.', key:'SPOKEN', pre:'I', post:'March.', model:'haven\'t spoken to Tom since', accept:['haven\'t spoken to Tom since','have not spoken to Tom since','haven\'t spoken to him since'], hint:'negative present perfect + since', why:'have as an auxiliary: haven\'t spoken… since.'},
+    {q:'Is it really necessary for us to leave so early?', key:'GOT', pre:'', post:'to leave so early?', model:'Have we really got', accept:['Have we really got','Have we got'], hint:'question with have got to: Have + subject + got', why:'Question with have got: auxiliary have goes first.'},
+    {q:'Someone is going to redecorate our kitchen next month.', key:'HAVING', pre:'We', post:'next month.', model:'are having our kitchen redecorated', accept:['are having our kitchen redecorated','\'re having our kitchen redecorated','are having the kitchen redecorated'], hint:'are having + object + participle', why:'have sth done in the present continuous for a future arrangement.'}
+   ]},
+
+  /* ---------- PHRASE LAB ---------- */
+  {id:'v1', tab:'v', type:'match', title:'Match the idiom to its meaning', lead:'Tap an idiom, then its meaning (or the other way round).',
+   pairs:[
+    ['have it out with sb','settle a problem by talking openly'],
+    ['have sb on','make sb believe sth untrue as a joke'],
+    ['have a go at sth','try sth'],
+    ['have a laugh','have fun with others'],
+    ['have had it with sth','have had enough of sth'],
+    ['have it in for sb','dislike sb and treat them unfairly'],
+    ['have it in you','be capable of sth'],
+    ['have a sweet tooth','love sweet food'],
+    ['have a field day','enjoy taking advantage of a situation'],
+    ['have a heart-to-heart','have an honest personal talk']
+   ]},
+
+  {id:'v2', tab:'v', type:'mc', title:'Which idiom fits?', lead:'Choose the option that fits the context.',
+   items:[
+    {q:'My new neighbour plays the drums at 2 a.m. Tonight I\'m going to ___ with him.', opts:['have it out','have a go','have a laugh'], a:'have it out', why:'have it out with sb = confront them to settle a problem.'},
+    {q:'Everyone mocked her idea, but she ___ when it made a fortune.', opts:['had the last laugh','had a field day','had it in for them'], a:'had the last laugh', why:'have the last laugh = succeed in the end after being doubted.'},
+    {q:'Don\'t believe a word of that story. He was ___.', opts:['having you on','having a go','having it out'], a:'having you on', why:'have sb on = joke, deceive for fun.'},
+    {q:'The waiter ___ to charge us for the bread he\'d dropped on the floor!', opts:['had the nerve','had a soft spot','had his work cut out'], a:'had the nerve', why:'have the nerve to do sth = be shockingly bold or rude.'},
+    {q:'She runs a café, a bakery and a cookery school. She really ___.', opts:['has a finger in every pie','has a sweet tooth','has bigger fish to fry'], a:'has a finger in every pie', why:'involved in many activities at once.'},
+    {q:'When the minister\'s emails were leaked, the opposition ___.', opts:['had a field day','had a heart-to-heart','had egg on their face'], a:'had a field day', why:'They enjoyed exploiting someone else\'s problem. The minister is the one with egg on his face.'},
+    {q:'Let\'s not argue about the colour of the menus now. We ___.', opts:['have bigger fish to fry','have a bone to pick','have it both ways'], a:'have bigger fish to fry', why:'There are more important things to deal with.'}
+   ]},
+
+  {id:'v3', tab:'v', type:'type', title:'One word missing', lead:'Type the one word that completes each idiom.',
+   items:[
+    {q:'I can\'t resist chocolate. I\'ve got a real ___ tooth.', pre:'', post:'', model:'sweet', accept:['sweet'], hint:'s _ _ _ _', why:'have a sweet tooth', say:'I can\'t resist chocolate. I\'ve got a real sweet tooth.'},
+    {q:'I\'ve got a ___ to pick with you. Why didn\'t you call?', model:'bone', accept:['bone'], hint:'what a dog chews', why:'have a bone to pick with sb', say:'I\'ve got a bone to pick with you. Why didn\'t you call?'},
+    {q:'A big salary but no responsibility? You can\'t have it ___ ways.', model:'both', accept:['both'], hint:'two options at once', why:'have it both ways', say:'A big salary but no responsibility? You can\'t have it both ways.'},
+    {q:'Grandad has always had a soft ___ for his first car.', model:'spot', accept:['spot'], hint:'s p _ _', why:'have a soft spot for sth', say:'Grandad has always had a soft spot for his first car.'},
+    {q:'Three kids and a full-time job: she\'s got her work ___ out.', model:'cut', accept:['cut'], hint:'what scissors do', why:'have your work cut out', say:'Three kids and a full-time job: she\'s got her work cut out.'},
+    {q:'That\'s it! I\'ve ___ it with this slow internet.', model:'had', accept:['had'], hint:'present perfect of have', why:'I\'ve had it with… = I\'ve had enough of…', say:'That\'s it! I\'ve had it with this slow internet.'},
+    {q:'I didn\'t think he had it ___ him to win, but he did.', model:'in', accept:['in'], hint:'a preposition', why:'have it in you = be capable', say:'I didn\'t think he had it in him to win, but he did.'}
+   ]},
+
+  {id:'v4', tab:'v', type:'mc', keep:true, title:'Is the idiom used correctly?', lead:'Read the context carefully. Advanced idioms have precise meanings.',
+   items:[
+    {q:'I\'ve got a soft spot for my nephew. In my eyes he can do no wrong.', opts:['Correct','Incorrect'], a:'Correct', why:'soft spot = affection. Fits perfectly.'},
+    {q:'He had egg on his face when all his predictions came true.', opts:['Correct','Incorrect'], a:'Incorrect', why:'egg on your face = you look foolish because you were WRONG.'},
+    {q:'My boss really has it in for me. She gives me all the worst shifts.', opts:['Correct','Incorrect'], a:'Correct', why:'have it in for sb = treat them unfairly.'},
+    {q:'I\'ve had it with my new job. I love every minute of it!', opts:['Correct','Incorrect'], a:'Incorrect', why:'I\'ve had it with… = I\'ve had ENOUGH of it, the opposite of loving it.'},
+    {q:'We had a quick heart-to-heart about the weather forecast.', opts:['Correct','Incorrect'], a:'Incorrect', why:'A heart-to-heart is a serious, personal conversation about feelings, not small talk.'},
+    {q:'Forget the typo on slide 3. We\'ve got bigger fish to fry.', opts:['Correct','Incorrect'], a:'Correct', why:'There are more important problems.'}
+   ]},
+
+  {id:'v5', tab:'v', type:'type', title:'Listen and type', lead:'Press 🔊, listen to the sentence and type the missing word.',
+   items:[
+    {listen:'Why don\'t you have a go at the crossword?', q:'Why don\'t you have a ___ at the crossword?', model:'go', accept:['go'], hint:'= try', why:'have a go at sth'},
+    {listen:'The press had a field day with the story.', q:'The press had a ___ day with the story.', model:'field', accept:['field'], hint:'farmers have them', why:'have a field day'},
+    {listen:'Come on, you\'re having me on!', q:'Come on, you\'re having me ___!', model:'on', accept:['on'], hint:'a short particle', why:'have sb on'},
+    {listen:'We had a real laugh at the karaoke night.', q:'We had a real ___ at the karaoke night.', model:'laugh', accept:['laugh'], hint:'ha ha ha', why:'have a laugh'}
+   ]},
+
+  /* ---------- FINAL ---------- */
+  {id:'f1', tab:'f', type:'gap', title:'An email to a friend', lead:'Complete the email with ONE word in each gap. Grammar and idioms are mixed.',
+   text:'Hi Sam,\nI\'ve [[had]] it with my landlord! Last week I [[had|got]] the boiler fixed at my own expense, and now he\'s got the [[nerve|cheek|gall]] to put the rent up. On Friday I\'m going to have it [[out]] with him. Mind you, I\'ve got my work [[cut]] out: he\'s a lawyer. Still, I\'ve [[got]] to try.\nP.S. Did you have a [[go]] at that pasta recipe?',
+   hints:['I\'ve ___ it with… = I\'ve had enough','causative: I ___ the boiler fixed','he\'s got the ___ to… = shockingly bold','have it ___ with sb','have your work ___ out','specific obligation: I\'ve ___ to','have a ___ at sth = try']},
+
+  {id:'f2', tab:'f', type:'write', title:'Your turn: a story of a bad day', lead:'Write 100–150 words about a day when things went wrong (travelling, at work, at home).',
+   items:[{q:'My story', checklist:['have something done (e.g. had my bag searched / had my phone stolen)','have to or have got to','at least THREE idioms from this unit','a present perfect with have as an auxiliary']}]}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = {
+  mem:null,
+  get(){ try{ const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : this.mem; }catch(e){ return this.mem; } },
+  set(o){ this.mem = JSON.parse(JSON.stringify(o)); try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} },
+  del(){ this.mem = null; try{ localStorage.removeItem(KEY); }catch(e){} }
+};
+function fresh(){ return {name:STUDENT, tab:'rules', ex:{}, match:{}, write:{}, insp:0, cards:{known:[], dir:'en', only:false, pos:0, order:PHRASES.map((_,i)=>i)}}; }
+let S = Object.assign(fresh(), store.get() || {});
+function save(){ store.set(S); }
+
+let VOICE = null;
+function pickVoice(){ if(!('speechSynthesis' in window)) return; try{ const vs = speechSynthesis.getVoices(); VOICE = vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }catch(e){} }
+if('speechSynthesis' in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
+function speak(t){
+  if(!('speechSynthesis' in window) || !t) return;
+  t = String(t).replace(/___/g,'...').replace(/\bsb\b/g,'somebody').replace(/\bsth\b/g,'something').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu,'').trim();
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); if(VOICE) u.voice = VOICE; u.lang = VOICE ? VOICE.lang : 'en-GB'; u.rate = 0.9; speechSynthesis.speak(u); }catch(e){}
+}
+document.addEventListener('click', e=>{ const b = e.target.closest('[data-say]'); if(b){ e.stopPropagation(); speak(b.dataset.say); } });
+
+function hash(s){ let h = 2166136261; for(const c of String(s)){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h>>>0; }
+function seeded(seed){ let x = hash(seed) || 1; return ()=>{ x ^= x<<13; x>>>=0; x ^= x>>17; x ^= x<<5; x>>>=0; return x/4294967296; }; }
+function shuffle(arr, seed){ const a = arr.slice(), r = seeded(seed); for(let i=a.length-1;i>0;i--){ const j = Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pick(list, seed){ return list[hash(seed) % list.length]; }
+const PRAISE = ['Spot on.','Exactly right.','Nicely done.','Perfect.','Bang on.','Correct!','Well spotted.','Chef\'s kiss. 🤌'];
+const OOPS = ['Not quite.','Close, but no.','Not this time.'];
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(()=>el.classList.remove('on'), 1800); }
+
+const CONTR = [
+  [/\bcan't\b/g,'cannot'],[/\bwon't\b/g,'will not'],[/\bshan't\b/g,'shall not'],[/(\w)n't\b/g,'$1 not'],
+  [/\bi'm\b/g,'i am'],[/'re\b/g,' are'],[/'ve\b/g,' have'],[/'ll\b/g,' will'],
+  [/\b(he|she|it|that|there|what|who|where|taxi)'s\b/g,'$1 is']
+];
+function norm(s){
+  s = String(s||'').toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”]/g,'"').trim();
+  CONTR.forEach(([r,v])=>{ s = s.replace(r,v); });
+  s = s.replace(/[^\w\s']/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+function notes(v, full){
+  const n = []; const t = String(v).trim();
+  if(full && /\?$/.test(full.trim()) && !/\?$/.test(t)) n.push('Remember the question mark.');
+  if(full && t && t[0] !== t[0].toUpperCase() && full.trim()[0] === full.trim()[0].toUpperCase()) n.push('Start the sentence with a capital letter.');
+  return n;
+}
+function ist(exId, i){ S.ex[exId] = S.ex[exId] || {}; S.ex[exId][i] = S.ex[exId][i] || {tries:0}; return S.ex[exId][i]; }
+function gapAnswers(ex){ const out=[]; ex.text.replace(/\[\[(.+?)\]\]/g, (_,a)=>{ out.push(a.split('|')); return ''; }); return out; }
+
+function exScore(ex){
+  if(ex.type==='write') return null;
+  if(ex.type==='match'){ const m = S.match[ex.id] || {done:{}, wrong:{}}; let got=0, ans=0;
+    ex.pairs.forEach((_,i)=>{ if(m.done && m.done[i]){ ans++; if(!(m.wrong && m.wrong[i])) got++; } }); return {got, total:ex.pairs.length, ans}; }
+  const n = ex.type==='gap' ? gapAnswers(ex).length : ex.items.length; let got=0, ans=0;
+  for(let i=0;i<n;i++){ const st = (S.ex[ex.id]||{})[i]; if(st && st.done){ ans++; if(st.ok || st.self) got++; } }
+  return {got, total:n, ans};
+}
+function totals(){ let got=0,total=0,ans=0; EXERCISES.forEach(ex=>{ const s = exScore(ex); if(s){ got+=s.got; total+=s.total; ans+=s.ans; } }); return {got,total,ans}; }
+function updateTop(){
+  const t = totals();
+  $('#bar').style.width = (t.ans/Math.max(t.total,1)*100)+'%';
+  $('#pill').textContent = '★ '+t.got+' / '+t.total;
+  ['g','v','f'].forEach(tab=>{
+    let g=0,tt=0,a=0; EXERCISES.filter(e=>e.tab===tab).forEach(e=>{ const s=exScore(e); if(s){g+=s.got;tt+=s.total;a+=s.ans;} });
+    const btn = $('.tab[data-t="'+tab+'"]'); let bd = btn.querySelector('.bd');
+    if(tt && a===tt){ if(!bd){ bd=document.createElement('span'); bd.className='bd'; btn.appendChild(bd);} bd.textContent = g+'/'+tt; } else if(bd) bd.remove();
+  });
+  EXERCISES.forEach(ex=>{ const el = document.getElementById('sc-'+ex.id); if(!el) return; const s = exScore(ex);
+    if(!s){ el.textContent='✍️'; return; } el.textContent = s.got+' / '+s.total; el.classList.toggle('full', s.ans===s.total); });
+}
+
+/* tabs */
+function showTab(t){
+  S.tab = t; save();
+  $$('section').forEach(s=>s.classList.toggle('on', s.id===t));
+  $$('.tab').forEach(b=>b.classList.toggle('on', b.dataset.t===t));
+  if(t==='res') renderResults();
+  window.scrollTo({top:0});
+}
+$$('.tab').forEach(b=>b.addEventListener('click', ()=>showTab(b.dataset.t)));
+$$('[data-go]').forEach(b=>b.addEventListener('click', ()=>showTab(b.dataset.go)));
+
+/* name */
+function setName(){ $$('.nm').forEach(n=>n.textContent = S.name || STUDENT); }
+$('#nameIn').value = S.name || STUDENT;
+$('#nameIn').addEventListener('input', e=>{ S.name = e.target.value.trim() || STUDENT; save(); setName(); });
+
+/* inspector */
+function renderInspector(){
+  $('#insp').innerHTML = INSPECT.map((x,i)=>`<button data-i="${i}" class="${S.insp===i?'on':''}">${esc(x.s)}</button>`).join('');
+  const x = INSPECT[S.insp] || INSPECT[0];
+  const cell = (label, v) => `<div><b>${label}</b><span class="${v[0]==='yes'?'yes':v[0]==='no'?'no':''}">${esc(v[0])}</span>${v[1]?'<br>'+esc(v[1]):''}</div>`;
+  $('#inspOut').innerHTML = `<div class="sent"><button class="say sm" data-say="${esc(x.s)}" aria-label="Listen">🔊</button> ${esc(x.s)}</div>
+   <div class="props"><div><b>Type</b>${esc(x.type)}</div>${cell('Continuous?', x.cont)}${cell('Contract have?', x.contr)}${cell('Add got?', x.got)}<div><b>Question</b>${esc(x.q)}</div></div>`;
+}
+$('#insp').addEventListener('click', e=>{ const b = e.target.closest('button'); if(!b) return; S.insp = +b.dataset.i; save(); renderInspector(); });
+
+/* phrases */
+function renderPhrases(){
+  $('#phr').innerHTML = PHRASES.map(p=>`<div class="ph"><div class="e" aria-hidden="true">${p.e}</div><div><div class="en">${esc(p.en)}</div>${p.book?'<div class="src">from the book</div>':''}</div>
+    <button class="say sm" data-say="${esc(p.en)}" aria-label="Listen: ${esc(p.en)}">🔊</button><div class="df">${esc(p.df)}</div>
+    <div class="ex"><button class="say sm" data-say="${esc(p.ex)}" aria-label="Listen to the example">🔊</button> ${esc(p.ex)}</div></div>`).join('');
+}
+
+/* flashcards */
+const C = () => S.cards;
+function deck(){ const c = C(); let d = c.order.filter(i=>PHRASES[i]); if(c.only){ const l = d.filter(i=>!c.known.includes(i)); if(l.length) d = l; } return d; }
+function renderCard(){
+  const c = C(), d = deck(); if(c.pos >= d.length) c.pos = 0;
+  const p = PHRASES[d[c.pos]];
+  const sayBtn = `<button class="say" data-say="${esc(p.en)}" aria-label="Listen">🔊</button>`;
+  const exb = `<div class="x">“${esc(p.ex)}”</div>`;
+  if(c.dir==='en'){
+    $('#fcFront').innerHTML = sayBtn + `<div class="e">${p.e}</div><div class="w">${esc(p.en)}</div><div class="tap">tap to flip</div>`;
+    $('#fcBack').innerHTML = sayBtn + `<div class="d">${esc(p.df)}</div>` + exb;
+  } else {
+    $('#fcFront').innerHTML = `<div class="e">${p.e}</div><div class="d">${esc(p.df)}</div><div class="tap">which idiom? tap to flip</div>`;
+    $('#fcBack').innerHTML = sayBtn + `<div class="w">${esc(p.en)}</div>` + exb;
+  }
+  $('#flip').classList.remove('turn');
+  $('#fcCount').textContent = (c.pos+1)+' / '+d.length + (c.known.includes(d[c.pos]) ? ' ✓' : '');
+  $('#fcDir').textContent = c.dir==='en' ? '⇄ Idiom → meaning' : '⇄ Meaning → idiom';
+  $('#fcOnly').checked = !!c.only;
+  $('#fcKnown').textContent = c.known.length+' / '+PHRASES.length;
+  $('#fcBar').style.width = (c.known.length/PHRASES.length*100)+'%';
+}
+function flip(){ const f = $('#flip'); f.classList.toggle('turn'); const p = PHRASES[deck()[C().pos]]; if(f.classList.contains('turn')) speak(C().dir==='en' ? p.ex : p.en); }
+$('#flip').addEventListener('click', e=>{ if(e.target.closest('.say')) return; flip(); });
+$('#flip').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); flip(); } });
+$('#fcNext').addEventListener('click', ()=>{ C().pos = (C().pos+1) % deck().length; save(); renderCard(); });
+$('#fcPrev').addEventListener('click', ()=>{ const n = deck().length; C().pos = (C().pos-1+n) % n; save(); renderCard(); });
+$('#fcShuf').addEventListener('click', ()=>{ C().order = shuffle(C().order, 'x'+Date.now()); C().pos = 0; save(); renderCard(); toast('Shuffled 🔀'); });
+$('#fcDir').addEventListener('click', ()=>{ C().dir = C().dir==='en' ? 'df' : 'en'; save(); renderCard(); });
+$('#fcOnly').addEventListener('change', e=>{ C().only = e.target.checked; C().pos = 0; save(); renderCard(); });
+function mark(known){
+  const c = C(), d = deck(), id = d[c.pos];
+  c.known = c.known.filter(x=>x!==id); if(known) c.known.push(id);
+  if(c.only && known){ if(c.pos >= deck().length) c.pos = 0; } else c.pos = (c.pos+1) % d.length;
+  save(); renderCard(); if(known) toast('Nice, one more known ✓');
+}
+$('#fcKnow').addEventListener('click', ()=>mark(true));
+$('#fcLearn').addEventListener('click', ()=>mark(false));
+
+/* exercises */
+function renderExercises(){
+  ['g','v','f'].forEach(tab=>{
+    const box = $('#'+tab+'list'); box.innerHTML=''; let num = 0;
+    EXERCISES.filter(e=>e.tab===tab).forEach(ex=>{
+      num++;
+      if(ex.group){ const g=document.createElement('div'); g.className='groupt'; g.textContent=ex.group; box.appendChild(g); }
+      const wrap = document.createElement('div'); wrap.className='ex'; wrap.id='ex-'+ex.id;
+      wrap.innerHTML = `<div class="exh"><div><h2>${num}. ${esc(ex.title)}</h2><p class="lead">${esc(ex.lead)}</p></div><span class="exsc" id="sc-${ex.id}"></span></div><div class="body"></div>`;
+      box.appendChild(wrap);
+      const body = wrap.querySelector('.body');
+      if(ex.type==='match') drawMatch(ex, body);
+      else if(ex.type==='gap') drawGap(ex, body);
+      else if(ex.type==='write') drawWrite(ex, body);
+      else ex.items.forEach((it,i)=>{ const d=document.createElement('div'); d.className='item'; body.appendChild(d); drawItem(ex,i,d); });
+    });
+  });
+  updateTop();
+}
+function fbHTML(ok, why, seed, extra){
+  return `<span class="${ok?'ok':'nok'}">${ok?'✓ '+pick(PRAISE,seed):'✗ '+pick(OOPS,seed)}</span>${extra?' '+extra:''}${why?'<br><span class="why">💡 '+esc(why)+'</span>':''}`;
+}
+function fullSentence(it, v){
+  if(it.say) return it.say;
+  if(it.listen) return it.listen;
+  if(it.pre!==undefined || it.post!==undefined) return [it.pre||'', v, it.post||''].join(' ').replace(/\s+([.?!,])/g,'$1').trim();
+  return v;
+}
+function drawItem(ex, i, node){
+  const it = ex.items[i], st = ist(ex.id, i), seed = ex.id+i;
+  const num = `<span class="n">${i+1}</span>`;
+  if(ex.type==='mc'){
+    const opts = ex.keep ? it.opts : shuffle(it.opts, seed);
+    node.innerHTML = `${it.q?`<div class="q">${num}<span>${esc(it.q)}</span></div>`:`<div class="q">${num}<span style="color:var(--soft);font-weight:700">Choose the correct sentence:</span></div>`}
+      <div class="opts">${opts.map(o=>{ let c='opt'; if(st.done){ if(o===it.a) c+=' right'; else if(o===st.v) c+=' wrong'; else c+=' ghost'; }
+        return `<button class="${c}" data-o="${esc(o)}">${esc(o)}</button>`; }).join('')}</div><div class="fb"></div>`;
+    if(st.done) node.querySelector('.fb').innerHTML = fbHTML(st.ok, it.why, seed, st.ok?'':'→ <b>'+esc(it.a)+'</b>');
+    node.querySelectorAll('.opt').forEach(b=>b.addEventListener('click', ()=>{
+      if(st.done) return;
+      st.v = b.dataset.o; st.done = true; st.tries = 1; st.ok = st.v===it.a; save(); drawItem(ex,i,node); updateTop();
+      if(st.ok){ const s = it.q && it.q.includes('___') ? it.q.replace('___', it.a) : (it.q || it.a); speak(s); }
+    }));
+  }
+  else if(ex.type==='type'){
+    const cls = st.done ? (st.ok||st.self ? 'okk' : 'err') : (st.tries ? 'retry' : '');
+    let qh = num;
+    if(it.listen) qh += `<button class="say" data-say="${esc(it.listen)}" aria-label="Listen">🔊</button>`;
+    qh += `<span>${esc(it.q)}${it.key?`<span class="key">${esc(it.key)}</span>`:''}</span>`;
+    const framed = it.pre!==undefined || it.post!==undefined;
+    node.innerHTML = `<div class="q">${qh}</div>
+      <div class="frame">${framed && it.pre?`<span>${esc(it.pre)}</span>`:''}<input class="${cls}" value="${esc(st.v||'')}" ${st.done?'disabled':''} autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer">${framed && it.post && it.post!=='.'?`<span>${esc(it.post)}</span>`:''}
+      <button class="btn main chk" ${st.done?'disabled':''}>Check</button></div><div class="fb"></div>`;
+    const fb = node.querySelector('.fb'), inp = node.querySelector('input');
+    if(st.done && st.ok){ const n = framed ? [] : notes(st.v, it.model); fb.innerHTML = fbHTML(true, it.why, seed, st.tries>1?'<span class="why">(second try)</span>':'') + (n.length?'<br>📝 '+n.join(' '):''); }
+    else if(st.done){
+      fb.innerHTML = fbHTML(false, it.why, seed, 'Model answer: <b>'+esc(it.model)+'</b>') + (ex.selfMark ? (st.self ? '<br><span class="ok">✓ You marked your answer as correct. Your teacher will check it.</span>' : '<br><button class="selfbtn">My answer is also correct ✓</button>') : '');
+      const sb = fb.querySelector('.selfbtn'); if(sb) sb.addEventListener('click', ()=>{ st.self = true; save(); drawItem(ex,i,node); updateTop(); });
+    }
+    else if(st.tries===1) fb.innerHTML = `<span class="nok">✗ Not quite. Try again.</span><br><span class="why">💡 Hint: ${esc(it.hint)}</span>`;
+    const go = ()=>{
+      const v = inp.value.trim(); if(!v || st.done) return;
+      st.v = v; st.tries++;
+      if(it.accept.some(a=>norm(a)===norm(v))){ st.ok = true; st.done = true; speak(fullSentence(it, it.model)); }
+      else if(st.tries>=2){ st.ok = false; st.done = true; }
+      save(); drawItem(ex,i,node); updateTop();
+      if(!st.done) node.querySelector('input').focus();
+    };
+    node.querySelector('.chk').addEventListener('click', go);
+    inp.addEventListener('keydown', e=>{ if(e.key==='Enter') go(); });
+    inp.addEventListener('input', ()=>{ st.v = inp.value; save(); });
+  }
+}
+function drawMatch(ex, body){
+  const m = S.match[ex.id] = S.match[ex.id] || {done:{}, wrong:{}};
+  const right = shuffle(ex.pairs.map((_,i)=>i), ex.id);
+  let sel = null;
+  body.innerHTML = `<div class="match"><div class="col L"></div><div class="col R"></div></div><div class="fb"></div>`;
+  const L = body.querySelector('.L'), R = body.querySelector('.R'), fb = body.querySelector('.fb');
+  function draw(){
+    L.innerHTML = ex.pairs.map((p,i)=>`<button class="mb ${m.done[i]?'done':''} ${sel&&sel.side==='L'&&sel.i===i?'sel':''}" data-i="${i}" ${m.done[i]?'disabled':''}>${esc(p[0])}</button>`).join('');
+    R.innerHTML = right.map(i=>`<button class="mb ${m.done[i]?'done':''} ${sel&&sel.side==='R'&&sel.i===i?'sel':''}" data-i="${i}" ${m.done[i]?'disabled':''}>${esc(ex.pairs[i][1])}</button>`).join('');
+    fb.innerHTML = Object.keys(m.done).length===ex.pairs.length ? '<span class="ok">✓ All matched.</span>' : '';
+  }
+  function tap(side, i, btn){
+    if(m.done[i]) return;
+    if(!sel || sel.side===side){ sel = {side, i}; if(side==='L') speak(ex.pairs[i][0]); draw(); return; }
+    const li = side==='L' ? i : sel.i, ri = side==='R' ? i : sel.i;
+    if(li===ri){ m.done[li] = true; sel = null; save(); draw(); updateTop(); }
+    else { m.wrong[li] = (m.wrong[li]||0)+1; save(); btn.classList.add('shake'); toast(pick(OOPS,'m'+Date.now())); setTimeout(()=>{ sel=null; draw(); }, 400); updateTop(); }
+  }
+  L.addEventListener('click', e=>{ const b=e.target.closest('.mb'); if(b) tap('L', +b.dataset.i, b); });
+  R.addEventListener('click', e=>{ const b=e.target.closest('.mb'); if(b) tap('R', +b.dataset.i, b); });
+  draw();
+}
+function drawGap(ex, body){
+  const answers = gapAnswers(ex); let k = -1;
+  const html = esc(ex.text).replace(/\n/g,'<br>').replace(/\[\[(.+?)\]\]/g, ()=>{ k++; const st = ist(ex.id,k);
+    const cls = st.done ? (st.ok?'okk':'err') : (st.tries?'retry':'');
+    return `<input data-g="${k}" class="${cls}" value="${esc(st.v||'')}" ${st.done?'disabled':''} autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Gap ${k+1}">` + (st.done && !st.ok ? `<span class="fix">${esc(answers[k][0])}</span>` : ''); });
+  const allDone = answers.every((_,i)=>ist(ex.id,i).done);
+  const plain = ex.text.replace(/\[\[(.+?)(\|.+?)?\]\]/g,'$1');
+  body.innerHTML = `<div class="gtext">${html}</div><div class="row" style="margin-top:10px"><button class="btn main gchk" ${allDone?'disabled':''}>Check</button>${allDone?`<button class="btn" data-say="${esc(plain)}">🔊 Listen to the email</button>`:''}</div><div class="fb"></div>`;
+  const fb = body.querySelector('.fb');
+  const retry = answers.map((_,i)=>i).filter(i=>{ const s=ist(ex.id,i); return !s.done && s.tries===1; });
+  if(allDone){ const s = exScore(ex); fb.innerHTML = `<span class="ok">✓ ${s.got} / ${s.total}</span> ${s.got===s.total?pick(PRAISE,ex.id):'<span class="why">Correct answers are shown in green.</span>'}`; }
+  else if(retry.length) fb.innerHTML = `<span class="nok">✗ The gaps in yellow need another try.</span><br>` + retry.map(i=>`<span class="why">💡 Gap ${i+1}: ${esc(ex.hints[i])}</span>`).join('<br>');
+  body.querySelectorAll('input').forEach(inp=>inp.addEventListener('input', ()=>{ ist(ex.id, +inp.dataset.g).v = inp.value; save(); }));
+  body.querySelector('.gchk').addEventListener('click', ()=>{
+    let any = false;
+    body.querySelectorAll('input').forEach(inp=>{
+      const g = +inp.dataset.g, st = ist(ex.id,g); if(st.done) return; const v = inp.value.trim(); if(!v) return;
+      any = true; st.v = v; st.tries++;
+      if(answers[g].some(a=>norm(a)===norm(v))){ st.ok = true; st.done = true; }
+      else if(st.tries>=2){ st.ok = false; st.done = true; }
+    });
+    if(!any){ toast('Fill in at least one gap first.'); return; }
+    save(); drawGap(ex, body); updateTop();
+  });
+}
+function drawWrite(ex, body){
+  body.innerHTML = ex.items.map((it,i)=>`<div class="item"><ul class="checklist">${it.checklist.map(c=>`<li>☐ ${esc(c)}</li>`).join('')}</ul>
+    <textarea data-w="${i}" aria-label="${esc(it.q)}" placeholder="Start writing here…">${esc(S.write[ex.id+'-'+i]||'')}</textarea><div class="wc" id="wc-${ex.id}-${i}"></div></div>`).join('')
+    + '<p class="lead">Not auto-marked. It goes into the report for your teacher.</p>';
+  body.querySelectorAll('textarea').forEach(t=>{
+    const upd = ()=>{ const n = (t.value.trim().match(/\S+/g)||[]).length; $('#wc-'+ex.id+'-'+t.dataset.w).textContent = n+' words' + (n>=100 && n<=150 ? ' ✓' : n>150 ? ' (a bit long)' : ' (aim for 100–150)'); };
+    upd(); t.addEventListener('input', ()=>{ S.write[ex.id+'-'+t.dataset.w] = t.value; save(); upd(); });
+  });
+}
+
+/* results */
+function band(p){
+  if(p>=90) return 'Outstanding: you\'ve really got it in you. 🤌';
+  if(p>=75) return 'Very strong work. Just a few things to polish.';
+  if(p>=55) return 'Good effort. Review the mistakes below and have another go.';
+  return 'Worth a second round: reread the Rules tab, then try again.';
+}
+function mistakes(){
+  const out = [];
+  EXERCISES.forEach(ex=>{
+    if(ex.type==='write') return;
+    if(ex.type==='match'){ const m = S.match[ex.id]||{wrong:{}}; Object.keys(m.wrong||{}).forEach(i=>out.push({ex:ex.title, q:ex.pairs[i][0], your:'wrong match ×'+m.wrong[i], right:ex.pairs[i][1]})); return; }
+    if(ex.type==='gap'){ gapAnswers(ex).forEach((a,i)=>{ const st=(S.ex[ex.id]||{})[i]; if(st && st.done && !st.ok) out.push({ex:ex.title, q:'gap '+(i+1), your:st.v, right:a.join(' / ')}); }); return; }
+    ex.items.forEach((it,i)=>{ const st=(S.ex[ex.id]||{})[i]; if(!st || !st.done) return;
+      const q = it.q || 'Choose the correct sentence';
+      const right = it.a || it.model;
+      if(st.self) out.push({ex:ex.title, q, your:st.v+'  [self-marked as correct]', right, self:true});
+      else if(!st.ok) out.push({ex:ex.title, q, your:st.v, right});
+    });
+  });
+  return out;
+}
+function buildReport(){
+  const t = totals(), pct = Math.round(t.got/Math.max(t.total,1)*100), L = [];
+  L.push('HOMEWORK: '+HW_TITLE);
+  L.push('Student: '+(S.name||STUDENT));
+  L.push('Date: '+new Date().toLocaleString('en-GB'));
+  L.push('Score: '+t.got+' / '+t.total+' ('+pct+'%) · answered '+t.ans+' / '+t.total);
+  L.push('Flashcards known: '+C().known.length+' / '+PHRASES.length);
+  L.push('');
+  L.push('— EXERCISES —');
+  EXERCISES.forEach(ex=>{ const s = exScore(ex); if(s) L.push(ex.title+': '+s.got+'/'+s.total+(s.ans<s.total?' (not finished: '+s.ans+'/'+s.total+')':'')); });
+  L.push('');
+  L.push('— WRITING —');
+  EXERCISES.filter(e=>e.type==='write').forEach(ex=>ex.items.forEach((it,i)=>{ const w = (S.write[ex.id+'-'+i]||'').trim(); L.push(w ? w+'\n('+(w.match(/\S+/g)||[]).length+' words)' : '(empty)'); }));
+  L.push('');
+  const mi = mistakes();
+  L.push('— MISTAKES ('+mi.filter(m=>!m.self).length+') + SELF-MARKED ('+mi.filter(m=>m.self).length+') —');
+  mi.forEach(m=>L.push('['+m.ex+'] '+m.q+' | answer: '+m.your+' | model: '+m.right));
+  L.push('');
+  L.push('— ALL ANSWERS —');
+  EXERCISES.forEach(ex=>{
+    if(ex.type==='write' || ex.type==='match') return;
+    if(ex.type==='gap'){ L.push(ex.title+': '+gapAnswers(ex).map((a,i)=>{ const st=(S.ex[ex.id]||{})[i]; return (i+1)+') '+(st&&st.v?st.v:'—')+(st&&st.done?(st.ok?' ✓':' ✗'):''); }).join('  ')); return; }
+    L.push(ex.title+':');
+    ex.items.forEach((it,i)=>{ const st=(S.ex[ex.id]||{})[i]; L.push('  '+(i+1)+'. '+(it.q||'(choose)')+' → '+(st&&st.v?st.v:'—')+(st&&st.done?(st.ok?' ✓':st.self?' (self ✓)':' ✗'):'')); });
+  });
+  return L.join('\n');
+}
+function renderResults(){
+  const t = totals(), pct = Math.round(t.got/Math.max(t.total,1)*100);
+  $('#rScore').textContent = t.got+' / '+t.total;
+  $('#rPct').textContent = pct+'%' + (t.ans<t.total ? ' · '+(t.total-t.ans)+' items still to do' : '');
+  $('#rMsg').textContent = t.ans ? band(pct) : 'Nothing answered yet. Start with the Grammar lab.';
+  $('#rList').innerHTML = EXERCISES.map(ex=>{ const s = exScore(ex);
+    const w = ex.type==='write' ? ((S.write[ex.id+'-0']||'').trim() ? '✍️ written' : '✍️ not yet') : '';
+    return `<li><span>${esc(ex.title)}</span><b>${s ? s.got+' / '+s.total+(s.ans<s.total?' ⏳':'') : w}</b></li>`; }).join('');
+  $('#rCards').textContent = '🃏 Flashcards known: '+C().known.length+' / '+PHRASES.length;
+  const mi = mistakes();
+  $('#rMist').innerHTML = mi.length ? mi.map(m=>`<div><b>${esc(m.q)}</b><br><span class="${m.self?'':'bad'}">${esc(m.your)}</span> → <span class="good">${esc(m.right)}</span></div>`).join('') : '<p>No mistakes so far. 🎉</p>';
+  const rep = buildReport(); $('#rep').textContent = rep;
+  const subj = 'have (round 2) — '+(S.name||STUDENT)+' — '+t.got+'/'+t.total;
+  const short = rep.length>1500 ? rep.slice(0,1500)+'\n…\n(Report shortened. The full version is under "Copy text" in the app.)' : rep;
+  const E = encodeURIComponent; let h = '';
+  if(navigator.share) h += `<button class="sh" id="shBtn">📤 Share</button>`;
+  h += `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${E(TEACHER)}&su=${E(subj)}&body=${E(short)}" target="_blank" rel="noopener">✉️ Send in Gmail</a>`;
+  h += `<a href="https://t.me/share/url?url=${E(subj)}&text=${E(short)}" target="_blank" rel="noopener">✈️ Telegram</a>`;
+  h += `<a href="https://wa.me/?text=${E(subj+'\n'+short)}" target="_blank" rel="noopener">💬 WhatsApp</a>`;
+  h += `<a href="mailto:${TEACHER}?subject=${E(subj)}&body=${E(short)}">📧 Email app</a>`;
+  h += `<button id="cpBtn">📋 Copy text</button>`;
+  $('#send').innerHTML = h; $('#tmail').textContent = TEACHER;
+  const sb = $('#shBtn'); if(sb) sb.addEventListener('click', ()=>{ navigator.share({title:subj, text:rep}).catch(()=>{}); });
+  $('#cpBtn').addEventListener('click', ()=>copy(rep));
+}
+function copy(t){
+  const done = ()=>toast('Copied 📋');
+  const fallback = ()=>{ const ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ toast('Select the report text and copy it manually.'); } ta.remove(); };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+}
+$('#resetBtn').addEventListener('click', ()=>$('#confirm').classList.add('on'));
+$('#resetNo').addEventListener('click', ()=>$('#confirm').classList.remove('on'));
+$('#resetYes').addEventListener('click', ()=>{ store.del(); S = fresh(); $('#confirm').classList.remove('on'); $('#nameIn').value = S.name; setName(); initAll(); showTab('rules'); toast('Fresh start.'); });
+
+function initAll(){ setName(); renderInspector(); renderPhrases(); renderCard(); renderExercises(); }
+initAll();
+showTab(S.tab || 'rules');
+</script>
+</body>
+</html>
